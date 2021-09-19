@@ -43,5 +43,6 @@
 	opacity: 1;
 	height: 44px;
 	color: #fff;
-	padding: 5px 32px;
+	padding-left: 32px;
+	padding-right: 32px;
 }
