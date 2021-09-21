@@ -7,13 +7,13 @@ function Footer() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 
 	return (
-		<div className="footer">
+		<footer className="footer">
 			<div>
 				<img src={shayyek_logo_dark} alt="shayyek_logo_dark" />
 			</div>
 			<div className="divider"></div>
 			<div>&copy; {currentLocal.footer.copyRights}</div>
-		</div>
+		</footer>
 	);
 }
 
