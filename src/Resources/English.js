@@ -31,4 +31,7 @@ export const en = {
 		company: "Company",
 		individual: "Individual",
 	},
+	footer: {
+		copyRights: "2021 Shayyek. All Rights Reserved",
+	},
 };

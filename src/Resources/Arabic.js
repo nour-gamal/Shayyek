@@ -2,7 +2,7 @@ export const ar = {
 	language: "العربيه",
 	registration: {
 		register: "تسجيل ",
-		createAnAccount:'انشاء حساب جديد',
+		createAnAccount: "انشاء حساب جديد",
 		firstName: "الاسم الاول",
 		lastName: "الاسم الاخير",
 		mobileNumber: "رقم الهاتف",
@@ -29,5 +29,8 @@ export const ar = {
 		companyWebsite: "موقع الشركة",
 		company: "شركة",
 		individual: "فرد",
+	},
+	footer: {
+		copyRights: "٢٠٢١ شيك , كل الحقوق محفوظه",
 	},
 };
