@@ -6,11 +6,13 @@ import languages from "../../../../Resources/Assets/languages.svg";
 import "./RegisterationForm.css";
 function RegisterationForm() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  const [id, setId] = useState("buyer")
+  const [id, setId] = useState("buyer");
   const toggleKind = (e) => {
     e.preventDefault();
     alert(e.target.id);
-	setId(e.target.id)
+    setId(e.target.id);
+	alert(id)
+
   };
   const dispatch = useDispatch();
   return (
@@ -160,6 +162,18 @@ function RegisterationForm() {
             </select>
           </Col>
         </Row>
+		{id==="buyer"&&
+        <Row>
+          <Col md={12} xs={24}>
+            <input
+              className="input-field"
+              placeholder={currentLocal.registration.job}
+              type="text"
+            />
+          </Col>
+          <Col md={12} xs={24}></Col>
+        </Row>
+	}
         <Row>
           <Col md={12} xs={24}>
             <input

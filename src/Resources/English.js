@@ -32,7 +32,8 @@ export const en = {
     individual: "Individual",
     buyer: "Buyer",
     Contractor: "Contractor",
-  },	footer: {
-	copyRights: "2021 Shayyek. All Rights Reserved",
-},
+  },
+  footer: {
+    copyRights: "2021 Shayyek. All Rights Reserved",
+  },
 };

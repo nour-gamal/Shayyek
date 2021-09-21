@@ -30,7 +30,8 @@ export const ar = {
     company: "شركة",
     individual: "فرد",
     buyer: "المشتري",
-	Contractor:"البناء"
+	Contractor:"البناء",
+
 	
   },
   footer: {
