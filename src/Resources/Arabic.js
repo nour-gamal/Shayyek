@@ -1,7 +1,7 @@
 export const ar = {
 	language: "العربيه",
 	registration: {
-		register: "سجل ",
+		register: "تسجيل ",
 		createAnAccount:'انشاء حساب جديد',
 		firstName: "الاسم الاول",
 		lastName: "الاسم الاخير",

@@ -1,6 +1,11 @@
 .Registration {
 	padding-bottom: 60px;
 }
+.Registration .languages{
+	margin-right: 24px;
+margin-left: 20px;
+cursor: pointer;
+}
 .Registration .f3 {
 	font-weight: bold;
 	color: #0370ff;
