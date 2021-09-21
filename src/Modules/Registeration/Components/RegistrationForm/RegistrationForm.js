@@ -22,7 +22,7 @@ function RegisterationForm() {
 			<div className="container">
 				<Row>
 					<Col md={12} xs={24}>
-						<div className="f3">
+						<div className="f-27">
 							{currentLocal.registration.createAnAccount}
 						</div>
 					</Col>
