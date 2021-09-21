@@ -2,6 +2,7 @@ export const en = {
 	language: "English",
 	registration: {
 		register: "Register ",
+		createAnAccount: "Create An Account",
 		firstName: "First Name",
 		lastName: "Last Name",
 		mobileNumber: "Mobile Number",

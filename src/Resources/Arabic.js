@@ -2,6 +2,7 @@ export const ar = {
 	language: "العربيه",
 	registration: {
 		register: "سجل ",
+		createAnAccount:'انشاء حساب جديد',
 		firstName: "الاسم الاول",
 		lastName: "الاسم الاخير",
 		mobileNumber: "رقم الهاتف",
