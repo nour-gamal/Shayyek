@@ -20,12 +20,14 @@ export const ar = {
   UploadCompanyLogo: "حمل لوجو الشركة",
   Optional: "اختياري",
   AcceptTermsOfServiceAndPrivacyPolicy:"قبول شروط الخدمة و الخصوصية",
-  AlreadyHaveAnAccount?:"هل لديك حساب ؟",
+  AlreadyHaveAnAccount:"هل لديك حساب ؟",
   SignIn:"تسجيل الدخول",
   Email:"البريد الالكتروني",
   Job:"الوظيفة",
   CompanyMail:"البريد الالكتروني للشركة",
   CompanyWebsite:"موقع الشركة",
   Company:"شركة",
-  Individual:"فرد"
+  Individual:"فرد",
+	language: "العربيه",
+	hello: "اهلا",
 };

@@ -1,4 +1,5 @@
 export const en = {
+	language: "English",
 	hello: "Hello",
 	Register: "Register ",
 	FirstName: "First Name",
@@ -19,7 +20,7 @@ export const en = {
 	UploadCompanyLogo: "Upload Company Logo",
 	Optional: "Optional",
 	AcceptTermsOfServiceAndPrivacyPolicy:"Accept Terms of Service and Privacy Policy",
-	AlreadyHaveAnAccount?:"Already Have An Account?",
+	AlreadyHaveAnAccount:"Already Have An Account?",
 	SignIn:"Sign In",
 	Email:"Email",
 	Job:"Job",
