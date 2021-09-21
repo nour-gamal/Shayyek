@@ -33,4 +33,7 @@ export const ar = {
 	Contractor:"البناء"
 	
   },
+  footer: {
+	copyRights: "٢٠٢١ شيك , كل الحقوق محفوظه",
+},
 };
