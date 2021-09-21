@@ -1,35 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { Checkbox, Col, Radio, Row } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { changeLocal } from "../../../../Redux/Localization";
 import languages from "../../../../Resources/Assets/languages.svg";
 import "./RegisterationForm.css";
-
 function RegisterationForm() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
+  const [id, setId] = useState("buyer")
+  const toggleKind = (e) => {
+    e.preventDefault();
+    alert(e.target.id);
+	setId(e.target.id)
+  };
   const dispatch = useDispatch();
   return (
     <div className="Registration">
       <div className="container">
-        <div className="content">
-          <div className="f3">{currentLocal.registration.createAnAccount}</div>
-          <div className="dropdownmenu">
-            <select name="Kinds" id="Kinds">
-              <option value="volvo">Buyer</option>
-              <option value="saab">Contractor</option>
-            </select>
-            <img
-              src={languages}
-              alt="languages"
-              onClick={() => {
-                dispatch(
-                  changeLocal(currentLocal.language === "English" ? "ar" : "en")
-                );
-              }}
-              className="languages"
-            />
-          </div>
-        </div>
+        <Row>
+          <Col md={12} xs={24}>
+            <div className="f3">
+              {currentLocal.registration.createAnAccount}
+            </div>
+          </Col>
+          <Col md={12} xs={24}>
+            <div className="dropdownmenu">
+              <select name="Kinds" id="Kinds">
+                <option value="buyer" id="buyer" onClick={toggleKind}>
+                  Buyer
+                </option>
+                <option value="Contractor" id="Contractor" onClick={toggleKind}>
+                  Contractor
+                </option>
+              </select>
+              <img
+                src={languages}
+                alt="languages"
+                onClick={() => {
+                  dispatch(
+                    changeLocal(
+                      currentLocal.language === "English" ? "ar" : "en"
+                    )
+                  );
+                }}
+                className="languages"
+              />
+            </div>
+          </Col>
+        </Row>
         <Row>
           <Col xs={24}>
             <Radio.Group
@@ -70,9 +87,9 @@ function RegisterationForm() {
           </Col>
           <Col md={12} xs={24}>
             <input
-              type="text"
+              type="email"
               className="input-field"
-              placeholder={currentLocal.registration.role}
+              placeholder={currentLocal.registration.email}
             />
           </Col>
         </Row>
@@ -117,22 +134,6 @@ function RegisterationForm() {
           </Col>
           <Col md={12} xs={24}>
             <input
-              type="email"
-              className="input-field"
-              placeholder={currentLocal.registration.email}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12}>
-            <input
-              className="input-field"
-              placeholder={currentLocal.registration.companyName}
-              type="text"
-            />
-          </Col>
-          <Col span={12}>
-            <input
               type="password"
               className="input-field"
               placeholder={currentLocal.registration.confirmPassword}
@@ -140,39 +141,65 @@ function RegisterationForm() {
           </Col>
         </Row>
         <Row>
-          <Col span={12}>
+          <Col md={12} xs={24}>
+            <input
+              className="input-field"
+              placeholder={currentLocal.registration.companyName}
+              type="text"
+            />
+          </Col>
+          <Col md={12} xs={24}>
+            {/* <input
+              type="text"
+              className="input-field"
+              placeholder={currentLocal.registration.role}
+            /> */}
+            <select name="Role" id="Role" className="input-field selsect-field">
+              <option value="volvo">Admine</option>
+              <option value="saab">Employee</option>
+            </select>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12} xs={24}>
             <input
               className="input-field"
               placeholder={currentLocal.registration.commercialRecord}
               type="text"
             />
           </Col>
-          <Col span={12}>
+          <Col md={12} xs={24}>
             <input
-              type="password"
+              type="number"
               className="input-field"
               placeholder={currentLocal.registration.companyPhoneNumber}
             />
           </Col>
         </Row>
         <Row>
-          <Col span={12}>
+          <Col md={12} xs={24}>
             <Checkbox className="Checkbox-field ">
-				
-				{currentLocal.registration.acceptTermsOfServiceAndPrivacyPolicy}
+              {currentLocal.registration.acceptTermsOfServiceAndPrivacyPolicy}
             </Checkbox>
           </Col>
-          <Col span={12}>
+          <Col md={12} xs={24}>
             <input
               type="text"
               className="input-field"
-              placeholder={currentLocal.registration.companyWebsite + " (" + currentLocal.registration.optional + ")" }
+              placeholder={
+                currentLocal.registration.companyWebsite +
+                " (" +
+                currentLocal.registration.optional +
+                ")"
+              }
             />
           </Col>
         </Row>
         <div className="button">
           <div>
-            <button className="button-primary">{currentLocal.registration.register }</button>
+            <button className="button-primary">
+              {currentLocal.registration.register}
+            </button>
           </div>
           <div className="checkSignIn">
             {currentLocal.registration.alreadyHaveAnAccount}
