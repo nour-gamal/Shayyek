@@ -21,11 +21,17 @@
 	height: 100%;
 	background: #2985ff;
 	transition: all 1s ease-in-out;
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
 	opacity: 1;
 	border-radius: 8px;
 }
 .suppliersGrid .fadeOutOverlay {
 	opacity: 0;
 	transition: all 1s ease-in-out;
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
 	border-radius: 8px;
 }
