@@ -15,8 +15,13 @@ function Navbarr({ navState }) {
 	const dispatch = useDispatch();
 
 	return (
-		<Navbar expand="md" className={navState ? "light" : "dark"}>
-			<Container>
+		<Navbar
+			expand="md"
+			className={navState ? "light f-14" : "dark f-14"}
+			variant={"dark"}
+			collapseOnSelect={true}
+		>
+			<Container fluid>
 				<Navbar.Brand href="/">
 					<img
 						src={navState ? shayyek_logo_dark : shayyek_logo_light}
@@ -43,7 +48,9 @@ function Navbarr({ navState }) {
 							</div>
 							<div className="endNav">
 								<Nav.Link href="#">{currentLocal.navbar.signin}</Nav.Link>
-								<Nav.Link href="#">{currentLocal.navbar.register}</Nav.Link>
+								<Nav.Link href="/registration">
+									{currentLocal.navbar.register}
+								</Nav.Link>
 
 								<Nav.Link href="#">
 									<img
