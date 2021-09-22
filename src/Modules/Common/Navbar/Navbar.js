@@ -33,9 +33,9 @@ function Navbarr({ navState }) {
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav>
 							<div className="centerNav">
-								<Nav.Link href="#home">
+								<Nav.Link href="/suppliers">
 									<img src={AllSuppliers} alt="AllSuppliers" />
-									{currentLocal.navbar.AllSupplies}
+									{currentLocal.navbar.AllSuppliers}
 								</Nav.Link>
 								<Nav.Link href="#link">
 									<img src={Request_RFQ} alt="Request_RFQ" />

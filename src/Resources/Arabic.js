@@ -42,6 +42,6 @@ export const ar = {
 		register: "تسجيل",
 		requestRFQ: " طلب الاسعار",
 		cart: "العربه",
-		AllSupplies: " كل الطلبات",
+		AllSuppliers: " كل الموردين",
 	},
 };

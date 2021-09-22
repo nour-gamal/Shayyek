@@ -1,7 +1,7 @@
 import React from "react";
-import "./CompaniesGrid.css";
+import "./SuppliersGrid.css";
 function CompaniesGrid() {
-	return <div>Companies Grid</div>;
+	return <div>Suppliers Grid </div>;
 }
 
 export default CompaniesGrid;

@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./Modules/Home/Home";
 import Registration from "./Modules/Registration/Registration";
-import Companies from "./Modules/Companies/Companies";
+import Suppliers from "./Modules/Suppliers/Suppliers";
 function Routes() {
 	return (
 		<Route
@@ -10,7 +10,7 @@ function Routes() {
 				<Switch location={location}>
 					<Route exact path="/" render={() => <Home />} />
 					<Route path="/registration" render={() => <Registration />} />
-					<Route path="/companies" render={() => <Companies />} />
+					<Route path="/suppliers" render={() => <Suppliers />} />
 				</Switch>
 			)}
 		/>
