@@ -1,0 +1,11 @@
+nav {
+	height: 88px;
+	width: 100%;
+	background: #003b6b !important;
+}
+
+nav .navItems {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
