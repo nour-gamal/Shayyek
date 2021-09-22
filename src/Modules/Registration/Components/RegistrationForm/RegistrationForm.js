@@ -3,7 +3,7 @@ import { Form, Checkbox, Col, Radio, Row } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { changeLocal } from "../../../../Redux/Localization";
 import languages from "../../../../Resources/Assets/languages.svg";
-import "./RegisterationForm.css";
+import "./RegistrationForm.css";
 function RegisterationForm() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [checked, toggleChecked] = useState(false);

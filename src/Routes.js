@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./Modules/Home/Home";
-import Registeration from "./Modules/Registeration/Registration";
+import Registration from "./Modules/Registration/Registration";
 
 function Routes() {
 	return (
@@ -9,7 +9,7 @@ function Routes() {
 			render={({ location }) => (
 				<Switch location={location}>
 					<Route exact path="/" render={() => <Home />} />
-					<Route path="/registeration" render={() => <Registeration />} />
+					<Route path="/registration" render={() => <Registration />} />
 				</Switch>
 			)}
 		/>
