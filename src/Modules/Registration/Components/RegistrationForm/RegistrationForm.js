@@ -8,7 +8,7 @@ function RegisterationForm() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [checked, toggleChecked] = useState(false);
   const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
-  // const [individual, setIndividual] = useState("");
+  const [individual, setIndividual] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -30,6 +30,9 @@ function RegisterationForm() {
   const [government, setGovernment] = useState("");
   const [address, setAddress] = useState("");
   const [uploadCompanyLogo, setUploadCompanyLogo] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState("");
+  const [whatsNumber, setWhatsNumber] = useState("");
+
   const toggleKind = (e) => {
     e.preventDefault();
 
@@ -45,50 +48,96 @@ function RegisterationForm() {
   };
   const handleChange = (e) => {
     const id = e.target.id;
-    if (id === "firstName") {
-      setFirstName(e.target.value);
-    } else if (id === "lastName") {
-      setLastName(e.target.value);
-    } else if (id === "mobileNumber") {
-      setMobileNumber(e.target.value);
-    } else if (id === "admin") {
-      setAdmin(e.target.value);
-    } else if (id === "employee") {
-      setEmployee(e.target.value);
-    } else if (id === "email") {
-      setEmail(e.target.value);
-    } else if (id === "password") {
-      setPassword(e.target.value);
-    } else if (id === "confirmPassword") {
-      setConfirmPassword(e.target.value);
-    } else if (id === "companyName") {
-      setCompanyName(e.target.value);
-    } else if (id === "commercialRecord") {
-      setCommercialRecord(e.target.value);
-    } else if (id === "companyPhoneNumber") {
-      setCompanyPhoneNumber(e.target.value);
-    } else if (id === "companyMail") {
-      setCompanyMail(e.target.value);
-    } else if (id === "jop") {
-      setJop(e.target.value);
-    } else if (id === "work") {
-      setWork(e.target.value);
-    } else if (id === "country") {
-      setCountry(e.target.value);
-    } else if (id === "description") {
-      setDescription(e.target.value);
-    } else if (id === "government") {
-      setGovernment(e.target.value);
-    } else if (id === "address") {
-      setAddress(e.target.value);
-    } else if (id === "uploadCompanyLogo") {
-      setUploadCompanyLogo(e.target.value);
-    } else if (id === "companyWebsite") {
-      setCompanyWebsite(e.target.value);
-    }
-  };
 
-	const dispatch = useDispatch();
+    switch (id) {
+      case "firstName": {
+        setFirstName(e.target.value);
+        break;
+      }
+      case "lastName": {
+        setLastName(e.target.value);
+        break;
+      }
+      case "mobileNumber": {
+        setMobileNumber(e.target.value);
+        break;
+      }
+      case "admin": {
+        setAdmin(e.target.value);
+        break;
+      }
+      case "employee": {
+        setEmployee(e.target.value);
+        break;
+      }
+      case "email": {
+        setEmail(e.target.value);
+        break;
+      }
+      case "password": {
+        setPassword(e.target.value);
+        break;
+      }
+      case "confirmPassword": {
+        setConfirmPassword(e.target.value);
+        break;
+      }
+      case "companyName": {
+        setCompanyName(e.target.value);
+        break;
+      }
+      case "commercialRecord": {
+        setCommercialRecord(e.target.value);
+        break;
+      }
+      case "companyPhoneNumber": {
+        setCompanyPhoneNumber(e.target.value);
+        break;
+      }
+      case "companyMail": {
+        setCompanyMail(e.target.value);
+        break;
+      }
+      case "jop": {
+        setJop(e.target.value);
+        break;
+      }
+      case "work": {
+        setWork(e.target.value);
+        break;
+      }
+      case "country": {
+        setCountry(e.target.value);
+        break;
+      }
+      case "description": {
+        setDescription(e.target.value);
+        break;
+      }
+      case "government": {
+        setGovernment(e.target.value);
+        break;
+      }
+      case "address": {
+        setAddress(e.target.value);
+        break;
+      }
+      case "uploadCompanyLogo": {
+        setUploadCompanyLogo(e.target.value);
+        break;
+      }
+      case "companyWebsite": {
+        setCompanyWebsite(e.target.value);
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+
+  };
+  console.log(individual,whatsNumber,acceptTerms);
+  const dispatch = useDispatch();
 
   return (
     <section className="Registration">
@@ -128,19 +177,18 @@ function RegisterationForm() {
           <Col xs={24}>
             <Radio.Group>
               <Radio
-                value={"ahmed"}
-                onClick={(e) => {
-                  alert(e.target.value);
+                value={"456"}
+                onChange={(e) => {
+                  setIndividual(e.target.value);
                 }}
               >
-                {" "}
                 {currentLocal.registration.individual}
               </Radio>
               <Radio
                 className="lastRadio"
-                value={2}
+                value={"123"}
                 onChange={(e) => {
-                  alert(e.target.value);
+                  setIndividual(e.target.value);
                 }}
               >
                 {currentLocal.registration.company}{" "}
@@ -195,9 +243,11 @@ function RegisterationForm() {
           </Row>
           <Row>
             <Checkbox
+              id="whatsNumber"
               className={checkedWhatsApp ? "checked" : "Checkbox-field"}
               onChange={(e) => {
                 toggleCheckedWhatsApp(e.target.checked);
+                setWhatsNumber(e.target.value);
               }}
             >
               {currentLocal.registration.whatsAppNumber}
@@ -299,141 +349,142 @@ function RegisterationForm() {
             </Row>
           )}
 
-					<Row>
-						<Col md={12} xs={24}>
-							<input
-								className="input-field"
-								placeholder={currentLocal.registration.commercialRecord}
-								type="text"
-								id="commercialRecord"
-								value={commercialRecord}
-								onChange={handleChange}
-							/>
-						</Col>
-						<Col md={12} xs={24}>
-							<input
-								type="number"
-								className="input-field"
-								placeholder={currentLocal.registration.companyPhoneNumber}
-								id="companyPhoneNumber"
-								value={companyPhoneNumber}
-								onChange={handleChange}
-							/>
-						</Col>
-					</Row>
-					{buyer === "buyer" ? (
-						<Row>
-							<Col md={12} xs={24}>
-								<Checkbox
-									className={checked ? "checked" : "Checkbox-field "}
-									id="acceptTerms"
-									onChange={(e) => {
-										toggleChecked(e.target.checked);
-									}}
-								>
-									{
-										currentLocal.registration
-											.acceptTermsOfServiceAndPrivacyPolicy
-									}
-								</Checkbox>
-							</Col>
-							<Col md={12} xs={24}>
-								<input
-									type="text"
-									className="input-field"
-									placeholder={
-										currentLocal.registration.companyWebsite +
-										" (" +
-										currentLocal.registration.optional +
-										")"
-									}
-									id="companyWebsite"
-									value={companyWebsite}
-									onChange={handleChange}
-								/>
-							</Col>
-						</Row>
-					) : (
-						<Row>
-							<Col md={12} xs={24}>
-								<input
-									type="text"
-									className="input-field"
-									placeholder={currentLocal.registration.description}
-									id="description"
-									value={description}
-									onChange={handleChange}
-								/>
-							</Col>
-							<Col md={12} xs={24}>
-								<input
-									type="text"
-									className="input-field"
-									placeholder={currentLocal.registration.government}
-									id="government"
-									value={government}
-									onChange={handleChange}
-								/>
-							</Col>
-						</Row>
-					)}
-					{buyer === "Contractor" && (
-						<Row>
-							<Col md={12} xs={24}>
-								<input
-									type="text"
-									className="input-field"
-									placeholder={currentLocal.registration.address}
-									id="address"
-									value={address}
-									onChange={handleChange}
-								/>
-							</Col>
-							<Col md={12} xs={24}>
-								<input
-									type="text"
-									className="input-field"
-									placeholder={currentLocal.registration.uploadCompanyLogo}
-									id="uploadCompanyLogo"
-									value={uploadCompanyLogo}
-									onChange={handleChange}
-								/>
-							</Col>
-						</Row>
-					)}
-					{buyer === "Contractor" && (
-						<Row>
-							<Col md={12} xs={24}>
-								<Checkbox
-									className={checked ? "checked" : "Checkbox-field "}
-									id="acceptTerms"
-									onChange={(e) => {
-										toggleChecked(e.target.checked);
-									}}
-								>
-									{
-										currentLocal.registration
-											.acceptTermsOfServiceAndPrivacyPolicy
-									}
-								</Checkbox>
-							</Col>
-						</Row>
-					)}
-					<div className="button">
-						<div>
-							<button className="button-primary">
-								{currentLocal.registration.register}
-							</button>
-						</div>
-						<div className="checkSignIn">
-							{currentLocal.registration.alreadyHaveAnAccount}
-							<a href="/"> {currentLocal.registration.signIn}</a>
-						</div>
-					</div>
-				</Form>
-			</div>
-		</section>
-	);
+          <Row>
+            <Col md={12} xs={24}>
+              <input
+                className="input-field"
+                placeholder={currentLocal.registration.commercialRecord}
+                type="text"
+                id="commercialRecord"
+                value={commercialRecord}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col md={12} xs={24}>
+              <input
+                type="number"
+                className="input-field"
+                placeholder={currentLocal.registration.companyPhoneNumber}
+                id="companyPhoneNumber"
+                value={companyPhoneNumber}
+                onChange={handleChange}
+              />
+            </Col>
+          </Row>
+          {buyer === "buyer" ? (
+            <Row>
+              <Col md={12} xs={24}>
+                <Checkbox
+                  className={checked ? "checked" : "Checkbox-field "}
+                  id="acceptTerms"
+                  onChange={(e) => {
+                    toggleChecked(e.target.checked);
+                    setAcceptTerms(e.target.value);
+                  }}
+                >
+                  {
+                    currentLocal.registration
+                      .acceptTermsOfServiceAndPrivacyPolicy
+                  }
+                </Checkbox>
+              </Col>
+              <Col md={12} xs={24}>
+                <input
+                  type="text"
+                  className="input-field"
+                  placeholder={
+                    currentLocal.registration.companyWebsite +
+                    " (" +
+                    currentLocal.registration.optional +
+                    ")"
+                  }
+                  id="companyWebsite"
+                  value={companyWebsite}
+                  onChange={handleChange}
+                />
+              </Col>
+            </Row>
+          ) : (
+            <Row>
+              <Col md={12} xs={24}>
+                <input
+                  type="text"
+                  className="input-field"
+                  placeholder={currentLocal.registration.description}
+                  id="description"
+                  value={description}
+                  onChange={handleChange}
+                />
+              </Col>
+              <Col md={12} xs={24}>
+                <input
+                  type="text"
+                  className="input-field"
+                  placeholder={currentLocal.registration.government}
+                  id="government"
+                  value={government}
+                  onChange={handleChange}
+                />
+              </Col>
+            </Row>
+          )}
+          {buyer === "Contractor" && (
+            <Row>
+              <Col md={12} xs={24}>
+                <input
+                  type="text"
+                  className="input-field"
+                  placeholder={currentLocal.registration.address}
+                  id="address"
+                  value={address}
+                  onChange={handleChange}
+                />
+              </Col>
+              <Col md={12} xs={24}>
+                <input
+                  type="text"
+                  className="input-field"
+                  placeholder={currentLocal.registration.uploadCompanyLogo}
+                  id="uploadCompanyLogo"
+                  value={uploadCompanyLogo}
+                  onChange={handleChange}
+                />
+              </Col>
+            </Row>
+          )}
+          {buyer === "Contractor" && (
+            <Row>
+              <Col md={12} xs={24}>
+                <Checkbox
+                  className={checked ? "checked" : "Checkbox-field "}
+                  id="acceptTerms"
+                  onChange={(e) => {
+                    toggleChecked(e.target.checked);
+                  }}
+                >
+                  {
+                    currentLocal.registration
+                      .acceptTermsOfServiceAndPrivacyPolicy
+                  }
+                </Checkbox>
+              </Col>
+            </Row>
+          )}
+          <div className="button">
+            <div>
+              <button className="button-primary">
+                {currentLocal.registration.register}
+              </button>
+            </div>
+            <div className="checkSignIn">
+              {currentLocal.registration.alreadyHaveAnAccount}
+              <a href="/"> {currentLocal.registration.signIn}</a>
+            </div>
+          </div>
+        </Form>
+      </div>
+    </section>
+  );
 }
 
 export default RegisterationForm;
