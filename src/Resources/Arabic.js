@@ -33,6 +33,8 @@ export const ar = {
 		Contractor: "البناء",
 		admin: "المسؤل",
 		employee: "موظف",
+		supplies:"المورد",
+		userType:"نوع المستخدم"
 	},
 	footer: {
 		copyRights: "٢٠٢١ شيك , كل الحقوق محفوظه",
