@@ -46,6 +46,6 @@ export const en = {
 		register: "Register",
 		requestRFQ: "Request RFQ",
 		cart: "Cart",
-		AllSupplies: "All Supplies",
+		AllSuppliers: "All Suppliers",
 	},
 };
