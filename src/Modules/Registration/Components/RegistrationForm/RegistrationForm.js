@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Checkbox, Col, Radio, Row } from "antd";
+import { Dropdown } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { changeLocal } from "../../../../Redux/Localization";
 import languages from "../../../../Resources/Assets/languages.svg";
@@ -20,7 +21,7 @@ function RegisterationForm() {
   const [companyName, setCompanyName] = useState("");
   const [commercialRecord, setCommercialRecord] = useState("");
   const [companyPhoneNumber, setCompanyPhoneNumber] = useState("");
-  const [buyer, setBuyer] = useState("buyer");
+  const [buyer, setBuyer] = useState("");
   const [companyWebsite, setCompanyWebsite] = useState("");
   const [companyMail, setCompanyMail] = useState("");
   const [jop, setJop] = useState("");
@@ -35,7 +36,6 @@ function RegisterationForm() {
 
   const toggleKind = (e) => {
     e.preventDefault();
-
     if (e.target.id === "buyer") {
       setBuyer(e.target.id);
       toggleChecked(false);
@@ -134,9 +134,13 @@ function RegisterationForm() {
         break;
       }
     }
-
   };
-  console.log(individual,whatsNumber,acceptTerms);
+
+  useEffect(() => {
+    setBuyer(currentLocal.registration.userType);
+  }, [currentLocal]);
+
+  console.log(individual, whatsNumber, acceptTerms);
   const dispatch = useDispatch();
 
   return (
@@ -150,14 +154,37 @@ function RegisterationForm() {
           </Col>
           <Col md={12} xs={24}>
             <div className="dropdownmenu">
-              <select name="Kinds" id="Kinds">
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic">{buyer}</Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item value="buyer" id="buyer" onClick={toggleKind}>
+                    {currentLocal.registration.buyer}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    value="Contractor"
+                    id="Contractor"
+                    onClick={toggleKind}
+                  >
+                    {currentLocal.registration.Contractor}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    value="suplies"
+                    id="suplies"
+                    onClick={toggleKind}
+                  >
+                    {currentLocal.registration.supplies}
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              {/* <select name="Kinds" id="Kinds">
                 <option value="buyer" id="buyer" onClick={toggleKind}>
                   {currentLocal.registration.buyer}
                 </option>
                 <option value="Contractor" id="Contractor" onClick={toggleKind}>
                   {currentLocal.registration.Contractor}
                 </option>
-              </select>
+              </select> */}
               <img
                 src={languages}
                 alt="languages"
