@@ -1,23 +1,26 @@
 .navbar {
-	height: 88px;
 	width: 100%;
 	background-color: rgba(0, 59, 107, 0.85);
-	color: #fff !important;
+	padding: 20px !important;
 }
 
 .navbar.light {
 	background-color: #fff;
 }
 
+.dark .navbar-nav {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: row;
+}
+
 .dark .navbar-nav .nav-link {
 	color: #fff !important;
 }
 
-.navbar .navbar-nav {
-	width: 100%;
-}
 .navbar .centerNav {
-	width: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -28,7 +31,6 @@
 }
 
 .navbar .endNav {
-	width: 100%;
 	display: flex;
 	justify-content: flex-end;
 	align-items: flex-end;
@@ -36,4 +38,24 @@
 
 .navbar img.langIcon {
 	filter: brightness(300%);
+}
+
+@media (max-width: 768px) {
+	.navbar {
+		position: relative;
+	}
+
+	.navbar .endNav,
+	.navbar .centerNav {
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+	}
+
+	.navbar .navbar-nav {
+		flex-direction: column-reverse;
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+	}
 }
