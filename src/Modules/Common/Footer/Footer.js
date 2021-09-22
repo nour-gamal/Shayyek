@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import shayyek_logo_dark from "../../../Resources/Assets/shayyek_logo_light.svg";
+import shayyek_logo_light from "../../../Resources/Assets/shayyek_logo_light.svg";
 import "./Footer.css";
 
 function Footer() {
@@ -9,7 +9,7 @@ function Footer() {
 	return (
 		<footer className="footer">
 			<div>
-				<img src={shayyek_logo_dark} alt="shayyek_logo_dark" />
+				<img src={shayyek_logo_light} alt="shayyek_logo_light" />
 			</div>
 			<div className="divider"></div>
 			<div>&copy; {currentLocal.footer.copyRights}</div>
