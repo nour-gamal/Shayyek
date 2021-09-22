@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { Checkbox, Col, Radio, Row } from "antd";
+import { Form,Checkbox, Col, Radio, Row } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { changeLocal } from "../../../../Redux/Localization";
 import languages from "../../../../Resources/Assets/languages.svg";
-import Footer from "../../../Common/Footer/Footer";
 import "./RegisterationForm.css";
 function RegisterationForm() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [checked, toggleChecked] = useState(false);
-	const [id, setId] = useState("buyer");
+	// const [id, setId] = useState("buyer");
 	const toggleKind = (e) => {
 		e.preventDefault();
-		alert(e.target.id);
-		setId(e.target.id);
+		// alert(e.target.id);
+		// setId(e.target.id);
 	};
 
 	const dispatch = useDispatch();
@@ -65,6 +64,7 @@ function RegisterationForm() {
 				</Row>
 				{/* <input type="text" className="input-field" />
               <button className="button-primary">Click</button> */}
+			  <Form>
 				<Row>
 					<Col md={12} xs={24}>
 						<input
@@ -217,8 +217,8 @@ function RegisterationForm() {
 						<a href="/"> {currentLocal.registration.signIn}</a>
 					</div>
 				</div>
+				</Form>
 			</div>
-			<Footer />
 		</section>
 	);
 }
