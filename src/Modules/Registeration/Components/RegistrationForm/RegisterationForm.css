@@ -20,6 +20,8 @@
 
 .Registration .checked {
 	color: #003b6b;
+	margin-bottom: 16px !important;
+
 }
 .Registration .selsect-field:focus {
 	background-color: #fff;

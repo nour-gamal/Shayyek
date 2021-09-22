@@ -32,6 +32,8 @@ export const en = {
     individual: "Individual",
     buyer: "Buyer",
     Contractor: "Contractor",
+    admin:"Admin",
+    employee:"Employee"
   },
   footer: {
     copyRights: "2021 Shayyek. All Rights Reserved",

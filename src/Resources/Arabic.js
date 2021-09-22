@@ -31,6 +31,8 @@ export const ar = {
     individual: "فرد",
     buyer: "المشتري",
 	Contractor:"البناء",
+  admin:"المسؤل",
+  employee:"موظف"
 
 	
   },
