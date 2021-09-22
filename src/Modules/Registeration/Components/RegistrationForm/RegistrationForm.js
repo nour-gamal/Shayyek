@@ -8,7 +8,7 @@ function RegisterationForm() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [checked, toggleChecked] = useState(false);
   const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
-  const [individual, setIndividual] = useState("");
+  //   const [individual, setIndividual] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -85,9 +85,11 @@ function RegisterationForm() {
       setUploadCompanyLogo(e.target.value);
     } else if (id === "companyWebsite") {
       setCompanyWebsite(e.target.value);
-    } else if (id === "individual") {
-      setIndividual(e.target.value);
-    } else if (id === "company") {
+    }
+    // else if (id === "individual") {
+    //   setIndividual(e.target.value);
+    // }
+    else if (id === "company") {
       setCompany(e.target.value);
     }
   };
@@ -131,8 +133,23 @@ function RegisterationForm() {
         <Row>
           <Col xs={24}>
             <Radio.Group>
-              <Radio value={1}> {currentLocal.registration.individual} </Radio>
-              <Radio className="lastRadio" value={2}>
+              <Radio
+                value={1}
+                onClick={(e) => {
+                  console.log(e.target.value);
+                }}
+              >
+                {" "}
+                {currentLocal.registration.individual}{" "}
+              </Radio>
+              <Radio
+                className="lastRadio"
+                value={2}
+                onClick={(e) => {
+                  console.log(e.target.value);
+                }}
+              >
+                sjkl
                 {currentLocal.registration.company}{" "}
               </Radio>
             </Radio.Group>

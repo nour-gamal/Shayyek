@@ -8,8 +8,8 @@ function RegisterationForm() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [checked, toggleChecked] = useState(false);
   const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
-  const [individual, setIndividual] = useState("");
-//   const [firstName, setFirstName] = useState("");
+  // const [individual, setIndividual] = useState("");
+  // const [firstName, setFirstName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -52,14 +52,11 @@ function RegisterationForm() {
       setLastName(e.target.value);
     } else if (id === "mobileNumber") {
       setMobileNumber(e.target.value);
-    } 
-	else if (id === "admin") {
-		setAdmin(e.target.value);
-	  } 
-	  else if (id === "employee") {
-		setEmployee(e.target.value);
-	  } 
-	else if (id === "email") {
+    } else if (id === "admin") {
+      setAdmin(e.target.value);
+    } else if (id === "employee") {
+      setEmployee(e.target.value);
+    } else if (id === "email") {
       setEmail(e.target.value);
     } else if (id === "password") {
       setPassword(e.target.value);
@@ -131,8 +128,22 @@ function RegisterationForm() {
         <Row>
           <Col xs={24}>
             <Radio.Group>
-              <Radio value={1} > {currentLocal.registration.individual} </Radio>
-              <Radio className="lastRadio" value={2}>
+              <Radio
+                value={"ahmed"}
+                onClick={(e) => {
+                  alert(e.target.value);
+                }}
+              >
+                {" "}
+                {currentLocal.registration.individual}
+              </Radio>
+              <Radio
+                className="lastRadio"
+                value={2}
+                onChange={(e) => {
+                  alert(e.target.value);
+                }}
+              >
                 {currentLocal.registration.company}{" "}
               </Radio>
             </Radio.Group>
@@ -235,11 +246,7 @@ function RegisterationForm() {
                 <option id="admin" value={admin} onChange={handleChange}>
                   {currentLocal.registration.admin}
                 </option>
-                <option
-                  id="employee"
-                  value={employee}
-                  onChange={handleChange}
-                >
+                <option id="employee" value={employee} onChange={handleChange}>
                   {currentLocal.registration.employee}
                 </option>
               </select>
