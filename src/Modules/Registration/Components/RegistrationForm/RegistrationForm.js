@@ -9,7 +9,6 @@ function RegisterationForm() {
   const [checked, toggleChecked] = useState(false);
   const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
   // const [individual, setIndividual] = useState("");
-  // const [firstName, setFirstName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -89,7 +88,7 @@ function RegisterationForm() {
     }
   };
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
   return (
     <section className="Registration">
@@ -300,141 +299,141 @@ function RegisterationForm() {
             </Row>
           )}
 
-          <Row>
-            <Col md={12} xs={24}>
-              <input
-                className="input-field"
-                placeholder={currentLocal.registration.commercialRecord}
-                type="text"
-                id="commercialRecord"
-                value={commercialRecord}
-                onChange={handleChange}
-              />
-            </Col>
-            <Col md={12} xs={24}>
-              <input
-                type="number"
-                className="input-field"
-                placeholder={currentLocal.registration.companyPhoneNumber}
-                id="companyPhoneNumber"
-                value={companyPhoneNumber}
-                onChange={handleChange}
-              />
-            </Col>
-          </Row>
-          {buyer === "buyer" ? (
-            <Row>
-              <Col md={12} xs={24}>
-                <Checkbox
-                  className={checked ? "checked" : "Checkbox-field "}
-                  id="acceptTerms"
-                  onChange={(e) => {
-                    toggleChecked(e.target.checked);
-                  }}
-                >
-                  {
-                    currentLocal.registration
-                      .acceptTermsOfServiceAndPrivacyPolicy
-                  }
-                </Checkbox>
-              </Col>
-              <Col md={12} xs={24}>
-                <input
-                  type="text"
-                  className="input-field"
-                  placeholder={
-                    currentLocal.registration.companyWebsite +
-                    " (" +
-                    currentLocal.registration.optional +
-                    ")"
-                  }
-                  id="companyWebsite"
-                  value={companyWebsite}
-                  onChange={handleChange}
-                />
-              </Col>
-            </Row>
-          ) : (
-            <Row>
-              <Col md={12} xs={24}>
-                <input
-                  type="text"
-                  className="input-field"
-                  placeholder={currentLocal.registration.description}
-                  id="description"
-                  value={description}
-                  onChange={handleChange}
-                />
-              </Col>
-              <Col md={12} xs={24}>
-                <input
-                  type="text"
-                  className="input-field"
-                  placeholder={currentLocal.registration.government}
-                  id="government"
-                  value={government}
-                  onChange={handleChange}
-                />
-              </Col>
-            </Row>
-          )}
-          {buyer === "Contractor" && (
-            <Row>
-              <Col md={12} xs={24}>
-                <input
-                  type="text"
-                  className="input-field"
-                  placeholder={currentLocal.registration.address}
-                  id="address"
-                  value={address}
-                  onChange={handleChange}
-                />
-              </Col>
-              <Col md={12} xs={24}>
-                <input
-                  type="text"
-                  className="input-field"
-                  placeholder={currentLocal.registration.uploadCompanyLogo}
-                  id="uploadCompanyLogo"
-                  value={uploadCompanyLogo}
-                  onChange={handleChange}
-                />
-              </Col>
-            </Row>
-          )}
-          {buyer === "Contractor" && (
-            <Row>
-              <Col md={12} xs={24}>
-                <Checkbox
-                  className={checked ? "checked" : "Checkbox-field "}
-                  id="acceptTerms"
-                  onChange={(e) => {
-                    toggleChecked(e.target.checked);
-                  }}
-                >
-                  {
-                    currentLocal.registration
-                      .acceptTermsOfServiceAndPrivacyPolicy
-                  }
-                </Checkbox>
-              </Col>
-            </Row>
-          )}
-          <div className="button">
-            <div>
-              <button className="button-primary">
-                {currentLocal.registration.register}
-              </button>
-            </div>
-            <div className="checkSignIn">
-              {currentLocal.registration.alreadyHaveAnAccount}
-              <a href="/"> {currentLocal.registration.signIn}</a>
-            </div>
-          </div>
-        </Form>
-      </div>
-    </section>
-  );
+					<Row>
+						<Col md={12} xs={24}>
+							<input
+								className="input-field"
+								placeholder={currentLocal.registration.commercialRecord}
+								type="text"
+								id="commercialRecord"
+								value={commercialRecord}
+								onChange={handleChange}
+							/>
+						</Col>
+						<Col md={12} xs={24}>
+							<input
+								type="number"
+								className="input-field"
+								placeholder={currentLocal.registration.companyPhoneNumber}
+								id="companyPhoneNumber"
+								value={companyPhoneNumber}
+								onChange={handleChange}
+							/>
+						</Col>
+					</Row>
+					{buyer === "buyer" ? (
+						<Row>
+							<Col md={12} xs={24}>
+								<Checkbox
+									className={checked ? "checked" : "Checkbox-field "}
+									id="acceptTerms"
+									onChange={(e) => {
+										toggleChecked(e.target.checked);
+									}}
+								>
+									{
+										currentLocal.registration
+											.acceptTermsOfServiceAndPrivacyPolicy
+									}
+								</Checkbox>
+							</Col>
+							<Col md={12} xs={24}>
+								<input
+									type="text"
+									className="input-field"
+									placeholder={
+										currentLocal.registration.companyWebsite +
+										" (" +
+										currentLocal.registration.optional +
+										")"
+									}
+									id="companyWebsite"
+									value={companyWebsite}
+									onChange={handleChange}
+								/>
+							</Col>
+						</Row>
+					) : (
+						<Row>
+							<Col md={12} xs={24}>
+								<input
+									type="text"
+									className="input-field"
+									placeholder={currentLocal.registration.description}
+									id="description"
+									value={description}
+									onChange={handleChange}
+								/>
+							</Col>
+							<Col md={12} xs={24}>
+								<input
+									type="text"
+									className="input-field"
+									placeholder={currentLocal.registration.government}
+									id="government"
+									value={government}
+									onChange={handleChange}
+								/>
+							</Col>
+						</Row>
+					)}
+					{buyer === "Contractor" && (
+						<Row>
+							<Col md={12} xs={24}>
+								<input
+									type="text"
+									className="input-field"
+									placeholder={currentLocal.registration.address}
+									id="address"
+									value={address}
+									onChange={handleChange}
+								/>
+							</Col>
+							<Col md={12} xs={24}>
+								<input
+									type="text"
+									className="input-field"
+									placeholder={currentLocal.registration.uploadCompanyLogo}
+									id="uploadCompanyLogo"
+									value={uploadCompanyLogo}
+									onChange={handleChange}
+								/>
+							</Col>
+						</Row>
+					)}
+					{buyer === "Contractor" && (
+						<Row>
+							<Col md={12} xs={24}>
+								<Checkbox
+									className={checked ? "checked" : "Checkbox-field "}
+									id="acceptTerms"
+									onChange={(e) => {
+										toggleChecked(e.target.checked);
+									}}
+								>
+									{
+										currentLocal.registration
+											.acceptTermsOfServiceAndPrivacyPolicy
+									}
+								</Checkbox>
+							</Col>
+						</Row>
+					)}
+					<div className="button">
+						<div>
+							<button className="button-primary">
+								{currentLocal.registration.register}
+							</button>
+						</div>
+						<div className="checkSignIn">
+							{currentLocal.registration.alreadyHaveAnAccount}
+							<a href="/"> {currentLocal.registration.signIn}</a>
+						</div>
+					</div>
+				</Form>
+			</div>
+		</section>
+	);
 }
 
 export default RegisterationForm;

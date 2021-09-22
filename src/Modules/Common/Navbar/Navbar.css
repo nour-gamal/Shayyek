@@ -23,9 +23,17 @@
 	align-items: center;
 }
 
+.navbar .centerNav img {
+	margin: 0 5px;
+}
+
 .navbar .endNav {
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;
 	align-items: flex-end;
+}
+
+.navbar img.langIcon {
+	filter: brightness(300%);
 }
