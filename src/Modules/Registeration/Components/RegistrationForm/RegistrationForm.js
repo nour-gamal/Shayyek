@@ -8,6 +8,8 @@ function RegisterationForm() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [checked, toggleChecked] = useState(false);
   const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
+  const [individual, setIndividual] = useState("");
+//   const [firstName, setFirstName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -128,18 +130,14 @@ function RegisterationForm() {
         </Row>
         <Row>
           <Col xs={24}>
-            <Radio.Group
-            // onChange={onChange} value={value}
-            >
-              <Radio value={1}> {currentLocal.registration.individual} </Radio>
+            <Radio.Group>
+              <Radio value={1} > {currentLocal.registration.individual} </Radio>
               <Radio className="lastRadio" value={2}>
                 {currentLocal.registration.company}{" "}
               </Radio>
             </Radio.Group>
           </Col>
         </Row>
-        {/* <input type="text" className="input-field" />
-              <button className="button-primary">Click</button> */}
         <Form>
           <Row>
             <Col md={12} xs={24}>
