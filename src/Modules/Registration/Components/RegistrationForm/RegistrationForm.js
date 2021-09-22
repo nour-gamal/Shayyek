@@ -233,6 +233,7 @@ function RegisterationForm() {
                 className="input-field"
                 placeholder={currentLocal.registration.firstName}
                 onChange={handleChange}
+                disabled={buyer === currentLocal.registration.userType}
               />
             </Col>
             <Col md={12} xs={24}>
@@ -243,6 +244,7 @@ function RegisterationForm() {
                 id="lastName"
                 value={lastName}
                 onChange={handleChange}
+                disabled={buyer === currentLocal.registration.userType}
               />
             </Col>
           </Row>
@@ -255,6 +257,7 @@ function RegisterationForm() {
                 id="mobileNumber"
                 value={mobileNumber}
                 onChange={handleChange}
+                disabled={buyer === currentLocal.registration.userType}
               />
             </Col>
             <Col md={12} xs={24}>
@@ -262,6 +265,7 @@ function RegisterationForm() {
                 type="email"
                 className="input-field"
                 placeholder={currentLocal.registration.email}
+                disabled={buyer === currentLocal.registration.userType}
                 id="email"
                 value={email}
                 onChange={handleChange}
@@ -271,6 +275,7 @@ function RegisterationForm() {
           <Row>
             <Checkbox
               id="whatsNumber"
+              disabled={buyer === currentLocal.registration.userType}
               className={checkedWhatsApp ? "checked" : "Checkbox-field"}
               onChange={(e) => {
                 toggleCheckedWhatsApp(e.target.checked);
@@ -285,6 +290,7 @@ function RegisterationForm() {
               <input
                 className="input-field"
                 placeholder={currentLocal.registration.password}
+                disabled={buyer === currentLocal.registration.userType}
                 type="password"
                 id="password"
                 value={password}
@@ -296,6 +302,7 @@ function RegisterationForm() {
                 type="password"
                 className="input-field"
                 placeholder={currentLocal.registration.confirmPassword}
+                disabled={buyer === currentLocal.registration.userType}
                 id="confirmPassword"
                 value={confirmPassword}
                 onChange={handleChange}
@@ -307,6 +314,7 @@ function RegisterationForm() {
               <input
                 className="input-field"
                 placeholder={currentLocal.registration.companyName}
+                disabled={buyer === currentLocal.registration.userType}
                 type="text"
                 id="companyName"
                 value={companyName}
@@ -318,6 +326,7 @@ function RegisterationForm() {
                 name="Role"
                 id="Role"
                 className="input-field selsect-field"
+                disabled={buyer === currentLocal.registration.userType}
               >
                 <option id="admin" value={admin} onChange={handleChange}>
                   {currentLocal.registration.admin}
@@ -332,6 +341,7 @@ function RegisterationForm() {
             <Row>
               <Col md={12} xs={24}>
                 <input
+                  disabled={buyer === currentLocal.registration.userType}
                   className="input-field"
                   placeholder={currentLocal.registration.job}
                   type="text"
@@ -342,6 +352,7 @@ function RegisterationForm() {
               </Col>
               <Col md={12} xs={24}>
                 <input
+                  disabled={buyer === currentLocal.registration.userType}
                   type="email"
                   className="input-field"
                   placeholder={currentLocal.registration.companyMail}
@@ -355,6 +366,7 @@ function RegisterationForm() {
             <Row>
               <Col md={12} xs={24}>
                 <input
+                  disabled={buyer === currentLocal.registration.userType}
                   className="input-field"
                   placeholder={currentLocal.registration.work}
                   type="text"
@@ -365,6 +377,7 @@ function RegisterationForm() {
               </Col>
               <Col md={12} xs={24}>
                 <input
+                  disabled={buyer === currentLocal.registration.userType}
                   type="email"
                   className="input-field"
                   placeholder={currentLocal.registration.country}
@@ -379,6 +392,7 @@ function RegisterationForm() {
           <Row>
             <Col md={12} xs={24}>
               <input
+                disabled={buyer === currentLocal.registration.userType}
                 className="input-field"
                 placeholder={currentLocal.registration.commercialRecord}
                 type="text"
@@ -389,6 +403,7 @@ function RegisterationForm() {
             </Col>
             <Col md={12} xs={24}>
               <input
+                disabled={buyer === currentLocal.registration.userType}
                 type="number"
                 className="input-field"
                 placeholder={currentLocal.registration.companyPhoneNumber}
@@ -402,6 +417,7 @@ function RegisterationForm() {
             <Row>
               <Col md={12} xs={24}>
                 <Checkbox
+                  disabled={buyer === currentLocal.registration.userType}
                   className={checked ? "checked" : "Checkbox-field "}
                   id="acceptTerms"
                   onChange={(e) => {
@@ -417,6 +433,7 @@ function RegisterationForm() {
               </Col>
               <Col md={12} xs={24}>
                 <input
+                  disabled={buyer === currentLocal.registration.userType}
                   type="text"
                   className="input-field"
                   placeholder={
@@ -435,6 +452,7 @@ function RegisterationForm() {
             <Row>
               <Col md={12} xs={24}>
                 <input
+                  disabled={buyer === currentLocal.registration.userType}
                   type="text"
                   className="input-field"
                   placeholder={currentLocal.registration.description}
@@ -445,6 +463,7 @@ function RegisterationForm() {
               </Col>
               <Col md={12} xs={24}>
                 <input
+                  disabled={buyer === currentLocal.registration.userType}
                   type="text"
                   className="input-field"
                   placeholder={currentLocal.registration.government}
@@ -459,6 +478,7 @@ function RegisterationForm() {
             <Row>
               <Col md={12} xs={24}>
                 <input
+                  disabled={buyer === currentLocal.registration.userType}
                   type="text"
                   className="input-field"
                   placeholder={currentLocal.registration.address}
@@ -469,6 +489,7 @@ function RegisterationForm() {
               </Col>
               <Col md={12} xs={24}>
                 <input
+                  disabled={buyer === currentLocal.registration.userType}
                   type="text"
                   className="input-field"
                   placeholder={currentLocal.registration.uploadCompanyLogo}
@@ -483,6 +504,7 @@ function RegisterationForm() {
             <Row>
               <Col md={12} xs={24}>
                 <Checkbox
+                  disabled={buyer === currentLocal.registration.userType}
                   className={checked ? "checked" : "Checkbox-field "}
                   id="acceptTerms"
                   onChange={(e) => {

@@ -31,6 +31,9 @@
 border: none;
 box-shadow: none;
 }
+.Registration .dropdown-menu {
+	width: 100% !important;
+}
 .dropdown-toggle::after {
 margin-left: 99px !important;
 }
