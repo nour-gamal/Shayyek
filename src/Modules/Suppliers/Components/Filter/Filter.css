@@ -34,3 +34,10 @@
 .suppliersFilter .rc-slider-handle.rc-slider-handle-1:active {
 	box-shadow: none;
 }
+
+.suppliersFilter .valuesContainer {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: flex-end;
+	justify-content: space-between;
+}

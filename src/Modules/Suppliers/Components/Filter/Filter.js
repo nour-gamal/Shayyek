@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Checkbox } from "antd";
 import { Range } from "rc-slider";
 import { useSelector } from "react-redux";
@@ -6,8 +6,11 @@ import "rc-slider/assets/index.css";
 import "./Filter.css";
 function Filter() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const firstUpdate = useRef(true);
 	const [minValue, setMinValue] = useState(20);
 	const [maxValue, setMaxValue] = useState(60);
+	const [qualityFilter, setQualityFilter] = useState([]);
+	const [timeFilter, setTimeFilter] = useState([]);
 	const QualityOptions = [
 		{ label: "Quality 1", value: "QualityLabel1" },
 		{ label: "Quality 2", value: "QualityLabel2" },
@@ -20,10 +23,29 @@ function Filter() {
 	];
 
 	const onChange = (checkedValues, type) => {
-		console.log("checked = ", checkedValues);
-		console.log(type);
+		switch (type) {
+			case "Quality": {
+				setQualityFilter(checkedValues);
+				break;
+			}
+			case "Time": {
+				setTimeFilter(checkedValues);
+				break;
+			}
+			default: {
+				break;
+			}
+		}
 	};
 
+	useEffect(() => {
+		if (firstUpdate.current) {
+			firstUpdate.current = false;
+			return;
+		}
+
+		//Calling filter method
+	}, [qualityFilter, timeFilter, minValue, maxValue]);
 	return (
 		<aside className="suppliersFilter">
 			<h5 className="title f-21">
@@ -65,9 +87,13 @@ function Filter() {
 					]}
 					onChange={(range) => {
 						setMinValue(range[0]);
-						setMaxValue(range[0]);
+						setMaxValue(range[1]);
 					}}
 				/>
+				<div className="valuesContainer">
+					<div>{currentLocal.language === "English" ? maxValue : minValue}</div>
+					<div>{currentLocal.language === "English" ? minValue : maxValue}</div>
+				</div>
 			</section>
 		</aside>
 	);
