@@ -44,6 +44,10 @@ function RegisterationForm() {
       setBuyer(e.target.id);
       toggleChecked(false);
       toggleCheckedWhatsApp(false);
+    } else if (e.target.id === "supplies") {
+      setBuyer(e.target.id);
+      toggleChecked(false);
+      toggleCheckedWhatsApp(false);
     }
   };
   const handleChange = (e) => {
@@ -169,8 +173,8 @@ function RegisterationForm() {
                     {currentLocal.registration.Contractor}
                   </Dropdown.Item>
                   <Dropdown.Item
-                    value="suplies"
-                    id="suplies"
+                    value="supplies"
+                    id="supplies"
                     onClick={toggleKind}
                   >
                     {currentLocal.registration.supplies}
@@ -204,19 +208,30 @@ function RegisterationForm() {
           <Col xs={24}>
             <Radio.Group>
               <Radio
+                className={
+                  buyer === currentLocal.registration.userType && "disableRadio"
+                }
                 value={"456"}
                 onChange={(e) => {
                   setIndividual(e.target.value);
                 }}
+                disabled={buyer === currentLocal.registration.userType}
               >
                 {currentLocal.registration.individual}
               </Radio>
               <Radio
-                className="lastRadio"
+                // className="lastRadio"
+                className={
+                  buyer === currentLocal.registration.userType
+                    ? "disableRadio lastRadio"
+                    : "lastRadio"
+                }
+                val
                 value={"123"}
                 onChange={(e) => {
                   setIndividual(e.target.value);
                 }}
+                disabled={buyer === currentLocal.registration.userType}
               >
                 {currentLocal.registration.company}{" "}
               </Radio>
@@ -230,7 +245,11 @@ function RegisterationForm() {
                 id="firstName"
                 value={firstName}
                 type="text"
-                className="input-field"
+                className={
+                  buyer === currentLocal.registration.userType
+                    ? "disableInput input-field"
+                    : "input-field"
+                }
                 placeholder={currentLocal.registration.firstName}
                 onChange={handleChange}
                 disabled={buyer === currentLocal.registration.userType}
@@ -239,7 +258,11 @@ function RegisterationForm() {
             <Col md={12} xs={24}>
               <input
                 type="text"
-                className="input-field "
+                className={
+                  buyer === currentLocal.registration.userType
+                    ? "disableInput input-field"
+                    : "input-field"
+                }
                 placeholder={currentLocal.registration.lastName}
                 id="lastName"
                 value={lastName}
@@ -251,7 +274,11 @@ function RegisterationForm() {
           <Row>
             <Col md={12} xs={24}>
               <input
-                className="input-field"
+                className={
+                  buyer === currentLocal.registration.userType
+                    ? "disableInput input-field"
+                    : "input-field"
+                }
                 placeholder={currentLocal.registration.mobileNumber}
                 type="number"
                 id="mobileNumber"
@@ -260,17 +287,43 @@ function RegisterationForm() {
                 disabled={buyer === currentLocal.registration.userType}
               />
             </Col>
-            <Col md={12} xs={24}>
-              <input
-                type="email"
-                className="input-field"
-                placeholder={currentLocal.registration.email}
-                disabled={buyer === currentLocal.registration.userType}
-                id="email"
-                value={email}
-                onChange={handleChange}
-              />
-            </Col>
+            {buyer !== currentLocal.registration.userType ? (
+              <Col md={12} xs={24}>
+                <select
+                  name="Role"
+                  id="Role"
+                  className="input-field selsect-field"
+                  disabled={buyer === currentLocal.registration.userType}
+                >
+                  <option id="admin" value={admin} onChange={handleChange}>
+                    {currentLocal.registration.admin}
+                  </option>
+                  <option
+                    id="employee"
+                    value={employee}
+                    onChange={handleChange}
+                  >
+                    {currentLocal.registration.employee}
+                  </option>
+                </select>
+              </Col>
+            ) : (
+              <Col md={12} xs={24}>
+                <input
+                  type="email"
+                  className={
+                    buyer === currentLocal.registration.userType
+                      ? "disableInput input-field"
+                      : "input-field"
+                  }
+                  placeholder={currentLocal.registration.email}
+                  disabled={buyer === currentLocal.registration.userType}
+                  id="email"
+                  value={email}
+                  onChange={handleChange}
+                />
+              </Col>
+            )}
           </Row>
           <Row>
             <Checkbox
@@ -288,7 +341,26 @@ function RegisterationForm() {
           <Row>
             <Col md={12} xs={24}>
               <input
-                className="input-field"
+                type="email"
+                className={
+                  buyer === currentLocal.registration.userType
+                    ? "disableInput input-field"
+                    : "input-field"
+                }
+                placeholder={currentLocal.registration.email}
+                disabled={buyer === currentLocal.registration.userType}
+                id="email"
+                value={email}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col md={12} xs={24}>
+              <input
+                className={
+                  buyer === currentLocal.registration.userType
+                    ? "disableInput input-field"
+                    : "input-field"
+                }
                 placeholder={currentLocal.registration.password}
                 disabled={buyer === currentLocal.registration.userType}
                 type="password"
@@ -297,10 +369,16 @@ function RegisterationForm() {
                 onChange={handleChange}
               />
             </Col>
+          </Row>
+          <Row>
             <Col md={12} xs={24}>
               <input
                 type="password"
-                className="input-field"
+                className={
+                  buyer === currentLocal.registration.userType
+                    ? "disableInput input-field"
+                    : "input-field"
+                }
                 placeholder={currentLocal.registration.confirmPassword}
                 disabled={buyer === currentLocal.registration.userType}
                 id="confirmPassword"
@@ -308,11 +386,13 @@ function RegisterationForm() {
                 onChange={handleChange}
               />
             </Col>
-          </Row>
-          <Row>
             <Col md={12} xs={24}>
               <input
-                className="input-field"
+                className={
+                  buyer === currentLocal.registration.userType
+                    ? "disableInput input-field"
+                    : "input-field"
+                }
                 placeholder={currentLocal.registration.companyName}
                 disabled={buyer === currentLocal.registration.userType}
                 type="text"
@@ -321,211 +401,278 @@ function RegisterationForm() {
                 onChange={handleChange}
               />
             </Col>
-            <Col md={12} xs={24}>
-              <select
-                name="Role"
-                id="Role"
-                className="input-field selsect-field"
-                disabled={buyer === currentLocal.registration.userType}
-              >
-                <option id="admin" value={admin} onChange={handleChange}>
-                  {currentLocal.registration.admin}
-                </option>
-                <option id="employee" value={employee} onChange={handleChange}>
-                  {currentLocal.registration.employee}
-                </option>
-              </select>
-            </Col>
           </Row>
-          {buyer === "buyer" ? (
-            <Row>
-              <Col md={12} xs={24}>
-                <input
-                  disabled={buyer === currentLocal.registration.userType}
-                  className="input-field"
-                  placeholder={currentLocal.registration.job}
-                  type="text"
-                  id="jop"
-                  value={jop}
-                  onChange={handleChange}
-                />
-              </Col>
-              <Col md={12} xs={24}>
-                <input
-                  disabled={buyer === currentLocal.registration.userType}
-                  type="email"
-                  className="input-field"
-                  placeholder={currentLocal.registration.companyMail}
-                  id="companyMail"
-                  value={companyMail}
-                  onChange={handleChange}
-                />
-              </Col>
-            </Row>
-          ) : (
-            <Row>
-              <Col md={12} xs={24}>
-                <input
-                  disabled={buyer === currentLocal.registration.userType}
-                  className="input-field"
-                  placeholder={currentLocal.registration.work}
-                  type="text"
-                  id="work"
-                  value={work}
-                  onChange={handleChange}
-                />
-              </Col>
-              <Col md={12} xs={24}>
-                <input
-                  disabled={buyer === currentLocal.registration.userType}
-                  type="email"
-                  className="input-field"
-                  placeholder={currentLocal.registration.country}
-                  id="country"
-                  value={country}
-                  onChange={handleChange}
-                />
-              </Col>
-            </Row>
-          )}
 
-          <Row>
-            <Col md={12} xs={24}>
-              <input
-                disabled={buyer === currentLocal.registration.userType}
-                className="input-field"
-                placeholder={currentLocal.registration.commercialRecord}
-                type="text"
-                id="commercialRecord"
-                value={commercialRecord}
-                onChange={handleChange}
-              />
-            </Col>
-            <Col md={12} xs={24}>
-              <input
-                disabled={buyer === currentLocal.registration.userType}
-                type="number"
-                className="input-field"
-                placeholder={currentLocal.registration.companyPhoneNumber}
-                id="companyPhoneNumber"
-                value={companyPhoneNumber}
-                onChange={handleChange}
-              />
-            </Col>
-          </Row>
-          {buyer === "buyer" ? (
-            <Row>
-              <Col md={12} xs={24}>
-                <Checkbox
-                  disabled={buyer === currentLocal.registration.userType}
-                  className={checked ? "checked" : "Checkbox-field "}
-                  id="acceptTerms"
-                  onChange={(e) => {
-                    toggleChecked(e.target.checked);
-                    setAcceptTerms(e.target.value);
-                  }}
-                >
-                  {
-                    currentLocal.registration
-                      .acceptTermsOfServiceAndPrivacyPolicy
-                  }
-                </Checkbox>
-              </Col>
-              <Col md={12} xs={24}>
-                <input
-                  disabled={buyer === currentLocal.registration.userType}
-                  type="text"
-                  className="input-field"
-                  placeholder={
-                    currentLocal.registration.companyWebsite +
-                    " (" +
-                    currentLocal.registration.optional +
-                    ")"
-                  }
-                  id="companyWebsite"
-                  value={companyWebsite}
-                  onChange={handleChange}
-                />
-              </Col>
-            </Row>
-          ) : (
-            <Row>
-              <Col md={12} xs={24}>
-                <input
-                  disabled={buyer === currentLocal.registration.userType}
-                  type="text"
-                  className="input-field"
-                  placeholder={currentLocal.registration.description}
-                  id="description"
-                  value={description}
-                  onChange={handleChange}
-                />
-              </Col>
-              <Col md={12} xs={24}>
-                <input
-                  disabled={buyer === currentLocal.registration.userType}
-                  type="text"
-                  className="input-field"
-                  placeholder={currentLocal.registration.government}
-                  id="government"
-                  value={government}
-                  onChange={handleChange}
-                />
-              </Col>
-            </Row>
+          {(buyer === currentLocal.registration.userType ||
+            buyer === "buyer") && (
+            <>
+              <Row>
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    className={
+                      buyer === currentLocal.registration.userType
+                        ? "disableInput input-field"
+                        : "input-field"
+                    }
+                    placeholder={currentLocal.registration.job}
+                    type="text"
+                    id="jop"
+                    value={jop}
+                    onChange={handleChange}
+                  />
+                </Col>
+
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    type="email"
+                    className={
+                      buyer === currentLocal.registration.userType
+                        ? "disableInput input-field"
+                        : "input-field"
+                    }
+                    placeholder={currentLocal.registration.companyMail}
+                    id="companyMail"
+                    value={companyMail}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    className={
+                      buyer === currentLocal.registration.userType
+                        ? "disableInput input-field"
+                        : "input-field"
+                    }
+                    placeholder={
+                      currentLocal.registration.commercialRecord +
+                      " (" +
+                      currentLocal.registration.optional +
+                      ")"
+                    }
+                    type="text"
+                    id="commercialRecord"
+                    value={commercialRecord}
+                    onChange={handleChange}
+                  />
+                </Col>
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    type="number"
+                    className={
+                      buyer === currentLocal.registration.userType
+                        ? "disableInput input-field"
+                        : "input-field"
+                    }
+                    placeholder={currentLocal.registration.companyPhoneNumber}
+                    id="companyPhoneNumber"
+                    value={companyPhoneNumber}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    type="text"
+                    className={
+                      buyer === currentLocal.registration.userType
+                        ? "disableInput input-field"
+                        : "input-field"
+                    }
+                    placeholder={
+                      currentLocal.registration.companyWebsite +
+                      " (" +
+                      currentLocal.registration.optional +
+                      ")"
+                    }
+                    id="companyWebsite"
+                    value={companyWebsite}
+                    onChange={handleChange}
+                  />
+                </Col>
+                <Col md={12} xs={24}>
+                  <Checkbox
+                    disabled={buyer === currentLocal.registration.userType}
+                    className={checked ? "checked" : "Checkbox-field "}
+                    id="acceptTerms"
+                    onChange={(e) => {
+                      toggleChecked(e.target.checked);
+                      setAcceptTerms(e.target.value);
+                    }}
+                  >
+                    {
+                      currentLocal.registration
+                        .acceptTermsOfServiceAndPrivacyPolicy
+                    }
+                  </Checkbox>
+                </Col>
+              </Row>
+            </>
           )}
-          {buyer === "Contractor" && (
-            <Row>
-              <Col md={12} xs={24}>
-                <input
-                  disabled={buyer === currentLocal.registration.userType}
-                  type="text"
-                  className="input-field"
-                  placeholder={currentLocal.registration.address}
-                  id="address"
-                  value={address}
-                  onChange={handleChange}
-                />
-              </Col>
-              <Col md={12} xs={24}>
-                <input
-                  disabled={buyer === currentLocal.registration.userType}
-                  type="text"
-                  className="input-field"
-                  placeholder={currentLocal.registration.uploadCompanyLogo}
-                  id="uploadCompanyLogo"
-                  value={uploadCompanyLogo}
-                  onChange={handleChange}
-                />
-              </Col>
-            </Row>
-          )}
-          {buyer === "Contractor" && (
-            <Row>
-              <Col md={12} xs={24}>
-                <Checkbox
-                  disabled={buyer === currentLocal.registration.userType}
-                  className={checked ? "checked" : "Checkbox-field "}
-                  id="acceptTerms"
-                  onChange={(e) => {
-                    toggleChecked(e.target.checked);
-                  }}
-                >
-                  {
-                    currentLocal.registration
-                      .acceptTermsOfServiceAndPrivacyPolicy
-                  }
-                </Checkbox>
-              </Col>
-            </Row>
+          {(buyer === "supplies" || buyer === "Contractor") && (
+            <>
+              <Row>
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    className="input-field"
+                    placeholder={
+                      currentLocal.registration.work +
+                      " / " +
+                      currentLocal.registration.field
+                    }
+                    type="text"
+                    id="work"
+                    value={work}
+                    onChange={handleChange}
+                  />
+                </Col>
+
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    type="text"
+                    className="input-field"
+                    placeholder={currentLocal.registration.description}
+                    id="description"
+                    value={description}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    type="email"
+                    className={
+                      buyer === currentLocal.registration.userType
+                        ? "disableInput input-field"
+                        : "input-field"
+                    }
+                    placeholder={currentLocal.registration.country}
+                    id="country"
+                    value={country}
+                    onChange={handleChange}
+                  />
+                </Col>
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    type="text"
+                    className="input-field"
+                    placeholder={currentLocal.registration.government}
+                    id="government"
+                    value={government}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    type="text"
+                    className="input-field"
+                    placeholder={currentLocal.registration.address}
+                    id="address"
+                    value={address}
+                    onChange={handleChange}
+                  />
+                </Col>
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    type="number"
+                    className="input-field"
+                    placeholder={currentLocal.registration.companyPhoneNumber}
+                    id="companyPhoneNumber"
+                    value={companyPhoneNumber}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    className="input-field"
+                    placeholder={
+                      currentLocal.registration.commercialRecord +
+                      " (" +
+                      currentLocal.registration.optional +
+                      ")"
+                    }
+                    type="text"
+                    id="commercialRecord"
+                    value={commercialRecord}
+                    onChange={handleChange}
+                  />
+                </Col>
+                <Col md={12} xs={24}>
+                  <input
+                    disabled={buyer === currentLocal.registration.userType}
+                    type="text"
+                    className="input-field"
+                    placeholder={
+                      currentLocal.registration.uploadCompanyLogo +
+                      " (" +
+                      currentLocal.registration.optional +
+                      ")"
+                    }
+                    id="uploadCompanyLogo"
+                    value={uploadCompanyLogo}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12} xs={24}>
+                  <Checkbox
+                    disabled={buyer === currentLocal.registration.userType}
+                    className={checked ? "checked" : "Checkbox-field "}
+                    id="acceptTerms"
+                    onChange={(e) => {
+                      toggleChecked(e.target.checked);
+                      setAcceptTerms(e.target.value);
+                    }}
+                  >
+                    {
+                      currentLocal.registration
+                        .acceptTermsOfServiceAndPrivacyPolicy
+                    }
+                  </Checkbox>
+                </Col>
+              </Row>
+            </>
           )}
           <div className="button">
             <div>
-              <button className="button-primary">
+              <button
+                className={
+                  buyer === currentLocal.registration.userType
+                    ? "disable button-primary"
+                    : "button-primary"
+                }
+              >
                 {currentLocal.registration.register}
               </button>
             </div>
-            <div className="checkSignIn">
+            <div
+              className={
+                buyer === currentLocal.registration.userType
+                  ? "disableCheck checkSignIn"
+                  : "checkSignIn"
+              }
+            >
               {currentLocal.registration.alreadyHaveAnAccount}
               <a href="/"> {currentLocal.registration.signIn}</a>
             </div>
