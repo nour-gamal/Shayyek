@@ -53,6 +53,12 @@
 .fw-900 {
 	font-weight: 900;
 }
+.pr-0 {
+	padding-right: 0 !important;
+}
+.pl-0 {
+	padding-left: 0 !important;
+}
 
 .input-field {
 	border-radius: 5px;

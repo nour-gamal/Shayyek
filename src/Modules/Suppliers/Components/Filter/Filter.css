@@ -1,0 +1,36 @@
+.suppliersFilter {
+	box-shadow: 0px 3px 6px #00000029;
+	height: 100%;
+	width: 100%;
+	padding: 20px;
+}
+.suppliersFilter .title {
+	color: rgba(0, 59, 107, 0.52);
+}
+
+.suppliersFilter section {
+	margin: 40px 0;
+}
+
+.suppliersFilter .ant-checkbox-group {
+	display: flex;
+	flex-direction: column;
+}
+.suppliersFilter .ant-checkbox-wrapper.ant-checkbox-group-item {
+	margin-right: 0;
+}
+.suppliersFilter section .sideTitle {
+	color: #003b6b;
+	margin-bottom: 10px;
+}
+.suppliersFilter .rc-slider-handle.rc-slider-handle-1 {
+	border: solid 2px #003b6b;
+}
+.suppliersFilter .rc-slider-handle.rc-slider-handle-2 {
+	background: #003b6b;
+	border: solid 2px #003b6b;
+}
+.suppliersFilter .rc-slider-handle.rc-slider-handle-2:active,
+.suppliersFilter .rc-slider-handle.rc-slider-handle-1:active {
+	box-shadow: none;
+}

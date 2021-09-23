@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import ReactStars from "react-rating-stars-component";
 import "./SuppliersGrid.css";
 function CompaniesGrid() {
 	const [overlay, setOverlay] = useState({
@@ -9,7 +10,21 @@ function CompaniesGrid() {
 	const Suppliers = [
 		{
 			img: "https://via.placeholder.com/300",
-			rate: 5,
+			rate: 4,
+			name: "Company Name",
+			type: "Company Type",
+			address: "Company Address",
+		},
+		{
+			img: "https://via.placeholder.com/300",
+			rate: 2,
+			name: "Company Name",
+			type: "Company Type",
+			address: "Company Address",
+		},
+		{
+			img: "https://via.placeholder.com/300",
+			rate: 4,
 			name: "Company Name",
 			type: "Company Type",
 			address: "Company Address",
@@ -23,21 +38,7 @@ function CompaniesGrid() {
 		},
 		{
 			img: "https://via.placeholder.com/300",
-			rate: 5,
-			name: "Company Name",
-			type: "Company Type",
-			address: "Company Address",
-		},
-		{
-			img: "https://via.placeholder.com/300",
-			rate: 5,
-			name: "Company Name",
-			type: "Company Type",
-			address: "Company Address",
-		},
-		{
-			img: "https://via.placeholder.com/300",
-			rate: 5,
+			rate: 3,
 			name: "Company Name",
 			type: "Company Type",
 			address: "Company Address",
@@ -66,6 +67,7 @@ function CompaniesGrid() {
 										state: false,
 									});
 								}}
+								key={i}
 							>
 								<img
 									src={supplier.img}
@@ -78,7 +80,18 @@ function CompaniesGrid() {
 											? "overlay"
 											: "fadeOutOverlay"
 									}
-								></div>
+								>
+									<ReactStars
+										edit={false}
+										count={5}
+										value={supplier.rate}
+										size={24}
+										activeColor="#ffd700"
+									/>
+									<div className="name f-21">{supplier.name}</div>
+									<div className="f-17">{supplier.type}</div>
+									<div className="f-17">{supplier.address}</div>
+								</div>
 							</Col>
 						);
 					})}
