@@ -2,9 +2,9 @@ import axios from "axios";
 
 const baseUrl = "https://ttask-mmanger.herokuapp.com/";
 const token =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTQ3OTA1NWVkMGE0ZDY2YzliMTc2ZmMiLCJpYXQiOjE2MzI0MDc3NTF9.tSQDwKEE7cNEepaoOKzAn3AgXotcnKxRH3DECq2ZUZc";
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTRjZGQxMDdiZjM1YWM1OGYxMGZmNzkiLCJpYXQiOjE2MzI2NDg3MjN9.fNbFiXODEfYnQrBFn5yzClSYHadCUndxw-n5VcM8XHU";
 
-export const postResource = (path, data, onSuccess, onFail) => {
+export const postResource = (path, data, onSuccess, onFail, reqAuth) => {
 	const requestData = {
 		method: "post",
 		url: baseUrl + path,
@@ -12,7 +12,7 @@ export const postResource = (path, data, onSuccess, onFail) => {
 		data,
 	};
 
-	if (path !== "user/login") {
+	if (reqAuth) {
 		requestData.headers = {
 			Authorization: "Bearer " + token,
 		};
@@ -24,5 +24,26 @@ export const postResource = (path, data, onSuccess, onFail) => {
 		})
 		.catch((err) => {
 			onFail(err.response);
+		});
+};
+
+export const getResource = (path, onSuccess, onFail, reqAuth = true) => {
+	const requestData = {
+		method: "get",
+		url: baseUrl + path,
+	};
+
+	if (reqAuth) {
+		requestData.headers = {
+			Authorization: "Bearer " + token,
+		};
+	}
+
+	axios(requestData)
+		.then((res) => {
+			onSuccess(res.data);
+		})
+		.catch((error) => {
+			onFail(error.response);
 		});
 };
