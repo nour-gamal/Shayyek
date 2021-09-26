@@ -8,8 +8,8 @@ import shayyek_logo_light from "../../../Resources/Assets/shayyek_logo_light.svg
 import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
 import cart from "../../../Resources/Assets/cart.svg";
 import Request_RFQ from "../../../Resources/Assets/Request_RFQ.svg";
-
 import "./Navbar.css";
+
 function Navbarr({ navState }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const dispatch = useDispatch();
