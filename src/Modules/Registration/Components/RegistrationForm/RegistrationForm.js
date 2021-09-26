@@ -14,7 +14,6 @@ function RegisterationForm() {
   const [lastName, setLastName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [admin, setAdmin] = useState("");
-  const [employee, setEmployee] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -24,7 +23,6 @@ function RegisterationForm() {
   const [buyer, setBuyer] = useState("");
   const [companyWebsite, setCompanyWebsite] = useState("");
   const [companyMail, setCompanyMail] = useState("");
-  const [jop, setJop] = useState("");
   const [work, setWork] = useState("");
   const [description, setDescription] = useState("");
   const [country, setCountry] = useState("");
@@ -50,6 +48,17 @@ function RegisterationForm() {
       toggleCheckedWhatsApp(false);
     }
   };
+  const toggleAdmin = (e) => {
+    if (e.target.id === "admin") {
+      setAdmin(e.target.id);
+    }
+    if (e.target.id === "employee") {
+      setAdmin(e.target.id);
+    }
+  };
+  //   const sendData = ()=>{
+  // console.log("hi");
+  //   }
   const handleChange = (e) => {
     const id = e.target.id;
 
@@ -66,14 +75,14 @@ function RegisterationForm() {
         setMobileNumber(e.target.value);
         break;
       }
-      case "admin": {
-        setAdmin(e.target.value);
-        break;
-      }
-      case "employee": {
-        setEmployee(e.target.value);
-        break;
-      }
+      // case "admin": {
+      //   setAdmin(e.target.value);
+      //   break;
+      // }
+      // case "employee": {
+      //   setEmployee(e.target.value);
+      //   break;
+      // }
       case "email": {
         setEmail(e.target.value);
         break;
@@ -100,10 +109,6 @@ function RegisterationForm() {
       }
       case "companyMail": {
         setCompanyMail(e.target.value);
-        break;
-      }
-      case "jop": {
-        setJop(e.target.value);
         break;
       }
       case "work": {
@@ -144,7 +149,6 @@ function RegisterationForm() {
     setBuyer(currentLocal.registration.userType);
   }, [currentLocal]);
 
-  console.log(individual, whatsNumber, acceptTerms);
   const dispatch = useDispatch();
 
   return (
@@ -289,7 +293,29 @@ function RegisterationForm() {
             </Col>
             {buyer !== currentLocal.registration.userType ? (
               <Col md={12} xs={24}>
-                <select
+                <Dropdown>
+                  <Dropdown.Toggle id="dropdown-basic">{admin}</Dropdown.Toggle>
+
+                  <Dropdown.Menu
+                    disabled={buyer === currentLocal.registration.userType}
+                  >
+                    <Dropdown.Item
+                      value="admin"
+                      id="admin"
+                      onClick={toggleAdmin}
+                    >
+                      {currentLocal.registration.admin}
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      value="employee"
+                      id="employee"
+                      onClick={toggleAdmin}
+                    >
+                      {currentLocal.registration.employee}
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                {/* <select
                   name="Role"
                   id="Role"
                   className="input-field selsect-field"
@@ -305,11 +331,34 @@ function RegisterationForm() {
                   >
                     {currentLocal.registration.employee}
                   </option>
-                </select>
+                </select> */}
               </Col>
             ) : (
               <Col md={12} xs={24}>
-                <input
+                <Dropdown>
+                  <Dropdown.Toggle id="dropdown-basic" className="roleDropDown">
+                    {admin ? admin : "role"}
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item
+                      value="admin"
+                      id="admin"
+                      onClick={toggleAdmin}
+                    >
+                      {currentLocal.registration.admin}
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      value="employee"
+                      id="employee"
+                      onClick={toggleAdmin}
+                    >
+                      {currentLocal.registration.employee}
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+
+                {/* <input
                   type="email"
                   className={
                     buyer === currentLocal.registration.userType
@@ -321,7 +370,7 @@ function RegisterationForm() {
                   id="email"
                   value={email}
                   onChange={handleChange}
-                />
+                /> */}
               </Col>
             )}
           </Row>
@@ -408,19 +457,63 @@ function RegisterationForm() {
             <>
               <Row>
                 <Col md={12} xs={24}>
-                  <input
+                  {/* <input
                     disabled={buyer === currentLocal.registration.userType}
                     className={
                       buyer === currentLocal.registration.userType
                         ? "disableInput input-field"
                         : "input-field"
                     }
-                    placeholder={currentLocal.registration.job}
+                    placeholder={
+                      currentLocal.registration.work +
+                      " / " +
+                      currentLocal.registration.field
+                    }
                     type="text"
-                    id="jop"
-                    value={jop}
+                    id="work"
+                    value={work}
                     onChange={handleChange}
-                  />
+                  /> */}
+                  {/* <Dropdown>
+                    <Dropdown.Toggle
+                      disabled={buyer === currentLocal.registration.userType}
+                      id="dropdown-basic"
+                      className={
+                        buyer === currentLocal.registration.userType
+                          ? "disableInput input-dropdown"
+                          : "input-dropdown"
+                      }
+                    >
+                      {currentLocal.registration.work +
+                        " / " +
+                        currentLocal.registration.field}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item
+                        value="buyer"
+                        id="buyer"
+                        onClick={toggleKind}
+                      >
+                        {currentLocal.registration.buyer}
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        value="Contractor"
+                        id="Contractor"
+                        onClick={toggleKind}
+                      >
+                        {currentLocal.registration.Contractor}
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        value="supplies"
+                        id="supplies"
+                        onClick={toggleKind}
+                      >
+                        {currentLocal.registration.supplies}
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown> */}
+                  <div className="workDropDown"></div>
                 </Col>
 
                 <Col md={12} xs={24}>
@@ -521,7 +614,7 @@ function RegisterationForm() {
             <>
               <Row>
                 <Col md={12} xs={24}>
-                  <input
+                  {/* <input
                     disabled={buyer === currentLocal.registration.userType}
                     className="input-field"
                     placeholder={
@@ -533,7 +626,46 @@ function RegisterationForm() {
                     id="work"
                     value={work}
                     onChange={handleChange}
-                  />
+                  /> */}
+                  <Dropdown>
+                    <Dropdown.Toggle
+                      disabled={buyer === currentLocal.registration.userType}
+                      id="dropdown-basic"
+                      className={
+                        buyer === currentLocal.registration.userType
+                          ? "disableInput input-dropdown"
+                          : "input-dropdown"
+                      }
+                    >
+                      {currentLocal.registration.work +
+                        " / " +
+                        currentLocal.registration.field}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item
+                        value="buyer"
+                        id="buyer"
+                        onClick={toggleKind}
+                      >
+                        {currentLocal.registration.buyer}
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        value="Contractor"
+                        id="Contractor"
+                        onClick={toggleKind}
+                      >
+                        {currentLocal.registration.Contractor}
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        value="supplies"
+                        id="supplies"
+                        onClick={toggleKind}
+                      >
+                        {currentLocal.registration.supplies}
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </Col>
 
                 <Col md={12} xs={24}>
@@ -657,6 +789,29 @@ function RegisterationForm() {
           <div className="button">
             <div>
               <button
+                onClick={() => {
+                  console.log(
+                    "hi",
+                    firstName,
+                    lastName,
+                    mobileNumber,
+                    checkedWhatsApp,
+                    email,
+                    password,
+                    confirmPassword,
+                    companyName,
+                    companyMail,
+                    commercialRecord,
+                    companyPhoneNumber,
+                    companyWebsite,
+                    individual,
+                    checkedWhatsApp,
+                    admin,
+                    description,
+                    address
+                  );
+                }}
+                type="submit"
                 className={
                   buyer === currentLocal.registration.userType
                     ? "disable button-primary"
@@ -674,7 +829,14 @@ function RegisterationForm() {
               }
             >
               {currentLocal.registration.alreadyHaveAnAccount}
-              <a href="/"> {currentLocal.registration.signIn}</a>
+              <a
+                href="/"
+                disabled={buyer === currentLocal.registration.userType}
+                // className={buyer=== currentLocal.registration.userType&&"disableLink"}
+              >
+                {" "}
+                {currentLocal.registration.signIn}
+              </a>
             </div>
           </div>
         </Form>

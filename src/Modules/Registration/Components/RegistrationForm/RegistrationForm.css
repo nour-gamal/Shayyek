@@ -36,13 +36,107 @@ box-shadow: none;
 }
 .Registration .disableCheck{
 	color: #707070 !important;
+
+}
+.Registration .disableLink
+{
+	text-decoration: none;
 }
 .Registration .disableInput
+{
+	background-color: transparent !important;
+	color:  #DDDDDD !important;
+	border:1px solid #DDDDDD !important;
+}
+/* .Registration .disableInput:hover
 {
 	background-color: transparent;
 	color:  #DDDDDD ;
 	border:1px solid #DDDDDD !important;
 }
+.Registration .disableInput:focus
+{
+	background-color: transparent;
+	box-shadow: none;
+	color:  #DDDDDD ;
+	border:1px solid #DDDDDD !important;
+}
+.Registration .disableInput:active
+{
+	background-color: transparent;
+	box-shadow: none;
+	color:  #DDDDDD ;
+	border:1px solid #DDDDDD !important;
+}
+
+.Registration .btn-check:active + .btn-primary, .btn-check:checked + .btn-primary, .btn-primary.active, .btn-primary:active, .show > .btn-primary.dropdown-toggle {
+    background-color:transparent !important;
+	color: #DDDDDD !important;
+	box-shadow: none !important;
+	border:1px solid #DDDDDD !important;
+}
+ */
+.Registration .input-dropdown{
+	width: 95%;
+	text-align: left;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background-color: transparent;
+	border-radius: 5px;
+	height: 44px;
+	border: 1px solid #bce0fd;
+	color: #bce0fd;
+	padding-left: 8px;
+	padding-right: 8px;
+	width: 95%;
+	margin-bottom: 16px;
+}
+.Registration .input-dropdown:hover{
+	width: 95%;
+	box-shadow: none !important;
+	text-align: left;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background-color: transparent;
+	border-radius: 5px;
+	height: 44px;
+	border: 1px solid #bce0fd;
+	color: #bce0fd;
+	padding-left: 8px;
+	padding-right: 8px;
+	width: 95%;
+	margin-bottom: 16px;
+}
+.Registration .btn-check:focus{
+	outline: none;
+	border-color: #0370ff;
+	color: #0370ff;
+}
+/* .Registration .btn-check:active + .btn-primary, .btn-check:checked + .btn-primary, .btn-primary.active, .btn-primary:active, .show > .btn-primary.dropdown-toggle {
+	width: 95%;
+	box-shadow: none !important;
+	text-align: left;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background-color: transparent !important;
+	border-radius: 5px;
+	height: 44px;
+	border: 1px solid #bce0fd !important;
+	color: #bce0fd !important;
+	padding-left: 8px;
+	padding-right: 8px;
+	width: 95%;
+	margin-bottom: 16px;
+} */
+/* .Registration .input-dropdown .dropdown-menu {
+    width: 90% !important;
+} */
 .Registration .disableRadio span
 {
 	color: #DDDDDD !important;
@@ -59,6 +153,50 @@ color: #fff;
 }
 .dropdown-toggle::after {
 margin-left: 99px !important;
+}
+.Registration .roleDropDown{
+	width: 95%;
+	text-align: left;
+	background-color: transparent;
+	color: #DDDDDD;
+	border-color: #DDDDDD;
+	display: flex;
+justify-content: space-between;
+
+}
+.Registration .roleDropDown::after{
+margin-top: 10px;
+
+}
+.Registration .roleDropDown{
+	width: 95%;
+	text-align: left;
+	background-color: transparent;
+	color: #DDDDDD;
+	border-color: #DDDDDD;
+	display: flex;
+justify-content: space-between;
+
+}
+.Registration .roleDropDown:hover{
+	width: 95%;
+	text-align: left;
+	background-color: transparent;
+	color: #DDDDDD;
+	border-color: #DDDDDD;
+
+}
+.Registration .roleDropDown.btn-check:active + .btn-primary, .btn-check:checked + .btn-primary, .btn-primary.active, .btn-primary:active, .show > .btn-primary.dropdown-toggle {
+    color: #DDDDDD !important;
+    background-color: transparent !important;
+    border-color: #DDDDDD !important;
+	box-shadow: none !important;
+}
+.Registration .roleDropDown .btn-check:focus + .btn-primary, .btn-primary:focus {
+    color: #DDDDDD !important;
+    background-color: transparent !important;
+    border-color: #DDDDDD !important;
+	box-shadow: none !important;
 }
 .Registration .checked {
 	color: #003b6b;
@@ -232,3 +370,6 @@ margin-left: 99px !important;
 		margin: 16px 0px;
 	}
 }
+/* .Registration .input-dropdown .dropdown-menu {
+    width: 90% !important;
+} */
