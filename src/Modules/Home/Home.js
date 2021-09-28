@@ -15,6 +15,7 @@ function Home() {
 		loginFun(
 			body,
 			(res) => {
+				localStorage.setItem("token", res.token);
 				dispatch(login(res.user));
 			},
 			(e) => {
