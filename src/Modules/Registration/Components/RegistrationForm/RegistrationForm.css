@@ -168,10 +168,19 @@ justify-content: space-between;
 margin-top: 10px;
 
 }
-.Registration .roleDropDown{
+.Registration .diableRole
+{
 	width: 95%;
+	text-align: left !important;
+	background-color: transparent !important;
+	color: #DDDDDD !important;
+	border-color: #DDDDDD !important;
+
+}
+.Registration .roleDropDown{
+	width: 95% !important;
 	text-align: left;
-	background-color: transparent;
+	background-color: transparent !important;
 	color: #DDDDDD;
 	border-color: #DDDDDD;
 	display: flex;

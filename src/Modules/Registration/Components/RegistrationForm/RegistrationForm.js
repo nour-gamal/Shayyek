@@ -291,14 +291,12 @@ function RegisterationForm() {
                 disabled={buyer === currentLocal.registration.userType}
               />
             </Col>
-            {buyer !== currentLocal.registration.userType ? (
+          
               <Col md={12} xs={24}>
-                <Dropdown>
+                {/* <Dropdown>
                   <Dropdown.Toggle id="dropdown-basic">{admin}</Dropdown.Toggle>
 
-                  <Dropdown.Menu
-                    disabled={buyer === currentLocal.registration.userType}
-                  >
+                  <Dropdown.Menu>
                     <Dropdown.Item
                       value="admin"
                       id="admin"
@@ -314,29 +312,14 @@ function RegisterationForm() {
                       {currentLocal.registration.employee}
                     </Dropdown.Item>
                   </Dropdown.Menu>
-                </Dropdown>
-                {/* <select
-                  name="Role"
-                  id="Role"
-                  className="input-field selsect-field"
-                  disabled={buyer === currentLocal.registration.userType}
-                >
-                  <option id="admin" value={admin} onChange={handleChange}>
-                    {currentLocal.registration.admin}
-                  </option>
-                  <option
-                    id="employee"
-                    value={employee}
-                    onChange={handleChange}
+                </Dropdown> */}
+                                <Dropdown>
+                  <Dropdown.Toggle
+                    id="dropdown-basic"
+                   
+                    className={buyer === currentLocal.registration.userType?"diableRole roleDropDown":"roleDropDown"}
+                    disabled={buyer === currentLocal.registration.userType}
                   >
-                    {currentLocal.registration.employee}
-                  </option>
-                </select> */}
-              </Col>
-            ) : (
-              <Col md={12} xs={24}>
-                <Dropdown>
-                  <Dropdown.Toggle id="dropdown-basic" className="roleDropDown">
                     {admin ? admin : "role"}
                   </Dropdown.Toggle>
 
@@ -358,21 +341,39 @@ function RegisterationForm() {
                   </Dropdown.Menu>
                 </Dropdown>
 
-                {/* <input
-                  type="email"
-                  className={
-                    buyer === currentLocal.registration.userType
-                      ? "disableInput input-field"
-                      : "input-field"
-                  }
-                  placeholder={currentLocal.registration.email}
-                  disabled={buyer === currentLocal.registration.userType}
-                  id="email"
-                  value={email}
-                  onChange={handleChange}
-                /> */}
+      
               </Col>
-            )}
+            {/* ) : (
+              <Col md={12} xs={24}>
+                <Dropdown>
+                  <Dropdown.Toggle
+                    id="dropdown-basic"
+                   
+                    className={buyer === currentLocal.registration.userType?"diableRole roleDropDown":"roleDropDown"}
+                    disabled={buyer === currentLocal.registration.userType}
+                  >
+                    {admin ? admin : "role"}
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item
+                      value="admin"
+                      id="admin"
+                      onClick={toggleAdmin}
+                    >
+                      {currentLocal.registration.admin}
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      value="employee"
+                      id="employee"
+                      onClick={toggleAdmin}
+                    >
+                      {currentLocal.registration.employee}
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Col>
+            )} */}
           </Row>
           <Row>
             <Checkbox
@@ -613,20 +614,7 @@ function RegisterationForm() {
           {(buyer === "supplies" || buyer === "Contractor") && (
             <>
               <Row>
-                <Col md={12} xs={24}>
-                  {/* <input
-                    disabled={buyer === currentLocal.registration.userType}
-                    className="input-field"
-                    placeholder={
-                      currentLocal.registration.work +
-                      " / " +
-                      currentLocal.registration.field
-                    }
-                    type="text"
-                    id="work"
-                    value={work}
-                    onChange={handleChange}
-                  /> */}
+                {/* <Col md={12} xs={24}>
                   <Dropdown>
                     <Dropdown.Toggle
                       disabled={buyer === currentLocal.registration.userType}
@@ -666,7 +654,7 @@ function RegisterationForm() {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                </Col>
+                </Col> */}
 
                 <Col md={12} xs={24}>
                   <input
