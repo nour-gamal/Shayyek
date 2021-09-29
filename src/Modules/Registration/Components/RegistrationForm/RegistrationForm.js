@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Col, Radio, Row } from "antd";
-import { Dropdown } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { changeLocal } from "../../../../Redux/Localization";
-import languages from "../../../../Resources/Assets/languages.svg";
+// import { Dropdown } from "react-bootstrap";
+import { useSelector } from "react-redux";
+// import { changeLocal } from "../../../../Redux/Localization";
+// import languages from "../../../../Resources/Assets/languages.svg";
 import "./RegistrationForm.css";
 function RegisterationForm() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const [checked, toggleChecked] = useState(false);
-	const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
+	const [checked] = useState(false);
+	const [checkedWhatsApp] = useState(false);
 	const [individual, setIndividual] = useState("");
 	// const [firstName, setFirstName] = useState("");
 	// const [lastName, setLastName] = useState("");
@@ -42,22 +42,22 @@ function RegisterationForm() {
 			setWhatsNumber
 		);
 	};
-	const toggleKind = (e) => {
-		e.preventDefault();
-		if (e.target.id === "buyer") {
-			setBuyer(e.target.id);
-			toggleChecked(false);
-			toggleCheckedWhatsApp(false);
-		} else if (e.target.id === "Contractor") {
-			setBuyer(e.target.id);
-			toggleChecked(false);
-			toggleCheckedWhatsApp(false);
-		} else if (e.target.id === "supplies") {
-			setBuyer(e.target.id);
-			toggleChecked(false);
-			toggleCheckedWhatsApp(false);
-		}
-	};
+	// const toggleKind = (e) => {
+	// 	e.preventDefault();
+	// 	if (e.target.id === "buyer") {
+	// 		setBuyer(e.target.id);
+	// 		toggleChecked(false);
+	// 		toggleCheckedWhatsApp(false);
+	// 	} else if (e.target.id === "Contractor") {
+	// 		setBuyer(e.target.id);
+	// 		toggleChecked(false);
+	// 		toggleCheckedWhatsApp(false);
+	// 	} else if (e.target.id === "supplies") {
+	// 		setBuyer(e.target.id);
+	// 		toggleChecked(false);
+	// 		toggleCheckedWhatsApp(false);
+	// 	}
+	// };
 	// const toggleAdmin = (e) => {
 	//   if (e.target.id === "admin") {
 	//     setAdmin(e.target.id);
@@ -149,16 +149,14 @@ function RegisterationForm() {
 		setBuyer(currentLocal.registration.userType);
 	}, [currentLocal]);
 
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 	console.log(work, acceptTerms, whatsNumber);
 	return (
 		<div className="Registration">
 			<div className="container">
-				<Row>
+				{/* <Row>
 					<Col md={12} xs={24}>
-						<div className="f-27">
-							{currentLocal.registration.createAnAccount}
-						</div>
+			
 					</Col>
 					<Col md={12} xs={24}>
 						<div className="dropdownmenu">
@@ -200,7 +198,26 @@ function RegisterationForm() {
 							/>
 						</div>
 					</Col>
-				</Row>
+				</Row> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 				<Row style={{ height: "100px" }}>
 					<Col xs={24}>

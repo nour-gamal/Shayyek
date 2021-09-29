@@ -1,0 +1,22 @@
+.AuthHeader
+{
+    margin-top: 42px;
+    margin-bottom: 24px;
+}
+.AuthHeader .title
+{
+    color: #0370FF;
+    font-weight: bold;
+}
+
+.AuthHeader .languages {
+	margin-right: 24px;
+	margin-left: 20px;
+	cursor: pointer;
+}
+.AuthHeader .dropdownmenu {
+	display: flex;
+	justify-content: flex-end;
+    margin-top: 10px ;
+
+}
