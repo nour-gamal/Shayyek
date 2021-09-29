@@ -10,10 +10,10 @@ function Companies() {
 			<NavBar />
 			<Container fluid>
 				<Row>
-					<Col xs={8} sm={9} md={10}>
+					<Col xs={8} sm={9} lg={10}>
 						<SuppliersGrid />
 					</Col>
-					<Col xs={4} sm={3} md={2} className="pr-0 pl-0 ">
+					<Col xs={4} sm={3} lg={2} className="pr-0 pl-0 ">
 						<Filter />
 					</Col>
 				</Row>

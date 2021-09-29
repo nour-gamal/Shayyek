@@ -12,7 +12,7 @@ function CompaniesGrid() {
 	const Suppliers = [
 		{
 			_id: 1,
-			img: "https://via.placeholder.com/300",
+			img: "https://via.placeholder.com/500",
 			rate: 4,
 			name: "Company Name",
 			type: "Company Type",
@@ -60,8 +60,7 @@ function CompaniesGrid() {
 						return (
 							<Col
 								sm={6}
-								md={4}
-								lg={3}
+								lg={4}
 								onMouseEnter={() => {
 									setOverlay({
 										no: i,

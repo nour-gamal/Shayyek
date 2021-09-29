@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Checkbox } from "antd";
 import { Range } from "rc-slider";
 import { useSelector } from "react-redux";
+
 import "rc-slider/assets/index.css";
 import "./Filter.css";
 function Filter() {
