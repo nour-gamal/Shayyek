@@ -51,7 +51,7 @@ function Filter() {
 			<h5 className="title f-21">
 				{currentLocal.suppliers.suppliersFilter.filter}
 			</h5>
-			<section>
+			<div>
 				<h6 className="sideTitle fw-700">
 					{currentLocal.suppliers.suppliersFilter.quality}
 				</h6>
@@ -61,8 +61,8 @@ function Filter() {
 						onChange(checkedValues, "Quality");
 					}}
 				/>
-			</section>
-			<section>
+			</div>
+			<div>
 				<h6 className="sideTitle fw-700">
 					{currentLocal.suppliers.suppliersFilter.time}
 				</h6>
@@ -72,8 +72,8 @@ function Filter() {
 						onChange(checkedValues, "Time");
 					}}
 				/>
-			</section>
-			<section>
+			</div>
+			<div>
 				<h6 className="sideTitle fw-700">
 					{currentLocal.suppliers.suppliersFilter.price}
 				</h6>
@@ -94,7 +94,7 @@ function Filter() {
 					<div>{currentLocal.language === "English" ? maxValue : minValue}</div>
 					<div>{currentLocal.language === "English" ? minValue : maxValue}</div>
 				</div>
-			</section>
+			</div>
 		</aside>
 	);
 }

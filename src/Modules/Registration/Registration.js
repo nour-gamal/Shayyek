@@ -5,11 +5,11 @@ import Navbar from "../Common/Navbar/Navbar";
 
 function Registration() {
 	return (
-		<div>
+		<section>
 			<Navbar navState={"light"} />
 			<RegistrationForm />
 			<Footer />
-		</div>
+		</section>
 	);
 }
 

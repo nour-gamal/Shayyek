@@ -1,11 +1,12 @@
 .productCard {
 	border-radius: 8px 8px 0px 0px;
-	height: 300px;
+	height: 200px;
 	background: #f5f5f5 0% 0% no-repeat padding-box;
 }
 
 .productCard .productImage {
-	height: 70%;
+	border-radius: 8px 8px 0px 0px;
+	height: 50%;
 	width: 100%;
 }
 .productCard .productName {

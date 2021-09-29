@@ -53,7 +53,7 @@ function CompaniesGrid() {
 	];
 
 	return (
-		<section className="suppliersGrid">
+		<div className="suppliersGrid">
 			<Container>
 				<Row>
 					{Suppliers.map((supplier, i) => {
@@ -106,7 +106,7 @@ function CompaniesGrid() {
 					})}
 				</Row>
 			</Container>
-		</section>
+		</div>
 	);
 }
 
