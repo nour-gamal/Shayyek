@@ -5,13 +5,25 @@ import "./LoginForm.css";
 function LoginForm() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [mobileNumber, setMobileNumber] = useState("");
-  const [password, setPassword] = useState("")
+  const [password, setPassword] = useState("");
   const sendData = () => {
     console.log("hi");
   };
-  const handleChange = () => {
-
-};
+  const handleChange = (e) => {
+    const id = e.target.id;
+    switch (id) {
+      case "mobileNumber": {
+        setMobileNumber(e.target.value);
+        break;
+      }
+      case "password": {
+        setPassword(e.target.value);
+        break;
+      }
+      default:
+        break;
+    }
+  };
   return (
     <Container>
       <form onSubmit={sendData}>
@@ -20,8 +32,7 @@ function LoginForm() {
           placeholder={currentLocal.registration.mobileNumber}
           type="number"
           id="mobileNumber"
-        value={mobileNumber}
-
+          value={mobileNumber}
           onChange={handleChange}
         />
         <input
