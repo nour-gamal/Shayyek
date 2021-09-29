@@ -3,6 +3,8 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./Modules/Home/Home";
 import Registration from "./Modules/Registration/Registration";
 import Suppliers from "./Modules/Suppliers/Suppliers";
+import Products from "./Modules/Suppliers/Products";
+
 function Routes() {
 	return (
 		<Route
@@ -11,6 +13,10 @@ function Routes() {
 					<Route exact path="/" render={() => <Home />} />
 					<Route path="/registration" render={() => <Registration />} />
 					<Route path="/suppliers" render={() => <Suppliers />} />
+					<Route
+						path="/supplier/:id"
+						render={(props) => <Products {...props} />}
+					/>
 				</Switch>
 			)}
 		/>
