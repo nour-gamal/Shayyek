@@ -56,7 +56,7 @@ function LoginForm() {
 
           <div className="forgetPassword">
             <Link to="/forgetpassword">
-              {currentLocal.login.forgetPassword} ?</Link>
+              {currentLocal.login.forgetPassword}</Link>
           </div>
         </div>
         <div className="button">
@@ -71,7 +71,7 @@ function LoginForm() {
           </button>
         </div>
         <div className="checkAccount">
-        {currentLocal.login.didntHaveAnAcount} ? <Link to="/registration"> {currentLocal.login.registerNow} !</Link>
+        {currentLocal.login.didHaveAnAcount} <Link to="/registration"> {currentLocal.login.registerNow}</Link>
         </div>
       </form>
     </Container>

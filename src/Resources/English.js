@@ -63,8 +63,8 @@ export const en = {
 		signin: "Sign in",
 		mobileNumber: "Mobile Number",
 		password: "Password",
-		forgetPassword: "Forget Password",
-		didntHaveAnAcount:"Didn’t Have an acount",
-		registerNow:"Register Now",
+		forgetPassword: "Forget Password ?",
+		didHaveAnAcount:"Didn’t Have an acount ?",
+		registerNow:"Register Now !" ,
 	  },
 };

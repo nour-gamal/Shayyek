@@ -60,8 +60,8 @@ export const ar = {
     signin: "تسجيل الدخول",
     mobileNumber: "رقم الهاتف",
     password: "الرقم المرور",
-    forgetPassword: "هل نسيت كلمة المرور",
-  didHaveAnAcount:"هل لديك حساب",
-  registerNow:"سجل الان",
+    forgetPassword: "هل نسيت كلمة المرور ؟",
+  didHaveAnAcount:"هل لديك حساب ؟",
+  registerNow:"سجل الان !",
   },
 };

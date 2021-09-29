@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Col, Radio, Row } from "antd";
 // import { Dropdown } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
+
 // import { changeLocal } from "../../../../Redux/Localization";
 // import languages from "../../../../Resources/Assets/languages.svg";
 import "./RegistrationForm.css";
@@ -31,6 +33,7 @@ function RegisterationForm() {
 	const [work, setWork] = useState("");
 	const [acceptTerms, setAcceptTerms] = useState("");
 	const [whatsNumber, setWhatsNumber] = useState("");
+  const showState = true;
 	const sendData = () => {
 		console.log(
 			"hi",
@@ -153,6 +156,10 @@ function RegisterationForm() {
 	console.log(work, acceptTerms, whatsNumber);
 	return (
 		<div className="Registration">
+            <AuthHeader
+        title={currentLocal.registration.createAnAccount}
+        showState={showState}
+      />
 			<div className="container">
 				{/* <Row>
 					<Col md={12} xs={24}>
