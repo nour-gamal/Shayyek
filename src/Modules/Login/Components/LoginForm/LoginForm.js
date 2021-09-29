@@ -8,7 +8,7 @@ function LoginForm() {
     <section className="LoginForm">
       <form onSubmit={sendData}>
 
-          
+          hi
       </form>
     </section>
   );
