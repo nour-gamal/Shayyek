@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import ReactStars from "react-rating-stars-component";
+import SupplierCard from "../SupplierCard/SupplierCard";
 import { Link } from "react-router-dom";
 import "./SuppliersGrid.css";
 function CompaniesGrid() {
@@ -77,29 +77,7 @@ function CompaniesGrid() {
 								key={i}
 							>
 								<Link to={`supplier/${supplier._id}`}>
-									<img
-										src={supplier.img}
-										alt="supplier"
-										className="supplierImg"
-									/>
-									<div
-										className={
-											overlay.state && overlay.no === i
-												? "overlay"
-												: "fadeOutOverlay"
-										}
-									>
-										<ReactStars
-											edit={false}
-											count={5}
-											value={supplier.rate}
-											size={24}
-											activeColor="#ffd700"
-										/>
-										<div className="name f-21">{supplier.name}</div>
-										<div className="f-17">{supplier.type}</div>
-										<div className="f-17">{supplier.address}</div>
-									</div>
+									<SupplierCard supplier={supplier} i={i} overlay={overlay} />
 								</Link>
 							</Col>
 						);
