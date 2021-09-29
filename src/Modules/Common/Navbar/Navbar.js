@@ -48,7 +48,7 @@ function Navbarr({ navState }) {
 								</Nav.Link>
 							</div>
 							<div className="endNav">
-								<Nav.Link to="/login">{currentLocal.navbar.signin}</Nav.Link>
+								<Link to="/login"  className="nav-link">{currentLocal.navbar.signin}</Link>
 								<Link to="/registration" className="nav-link">
 									{/* <Nav.Link href="/registration"> */}
 									{currentLocal.navbar.register}
