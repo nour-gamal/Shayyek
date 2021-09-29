@@ -12,7 +12,7 @@ function Footer() {
 				<img src={shayyek_logo_light} alt="shayyek_logo_light" />
 			</div>
 			<div className="divider"></div>
-			<div>&copy; {currentLocal.footer.copyRights}</div>
+			<div className="f-14">&copy; {currentLocal.footer.copyRights}</div>
 		</footer>
 	);
 }
