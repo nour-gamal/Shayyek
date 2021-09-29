@@ -10,12 +10,7 @@ function LoginForm() {
     console.log("hi");
   };
   const handleChange = () => {
-switch(id){
-        case "firsName": {
-        setFirstName(e.target.value);
-        break;
-      }
-}
+
 };
   return (
     <Container>
