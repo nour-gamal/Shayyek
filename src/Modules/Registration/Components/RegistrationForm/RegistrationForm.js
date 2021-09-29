@@ -1,238 +1,246 @@
 import React, { useState, useEffect } from "react";
-import {   Col, Radio, Row } from "antd";
+import { Col, Radio, Row } from "antd";
 import { Dropdown } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { changeLocal } from "../../../../Redux/Localization";
 import languages from "../../../../Resources/Assets/languages.svg";
 import "./RegistrationForm.css";
 function RegisterationForm() {
-  const { currentLocal } = useSelector((state) => state.currentLocal);
-  const [checked, toggleChecked] = useState(false);
-  const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
-  const [individual, setIndividual] = useState("");
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [mobileNumber, setMobileNumber] = useState("");
-  // const [admin, setAdmin] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  // const [companyName, setCompanyName] = useState("");
-  // const [commercialRecord, setCommercialRecord] = useState("");
-  // const [companyPhoneNumber, setCompanyPhoneNumber] = useState("");
-  const [buyer, setBuyer] = useState("");
-  // const [companyWebsite, setCompanyWebsite] = useState("");
-  // const [companyMail, setCompanyMail] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [country, setCountry] = useState("");
-  // const [government, setGovernment] = useState("");
-  // const [address, setAddress] = useState("");
-  // const [uploadCompanyLogo, setUploadCompanyLogo] = useState("");
-  const [work, setWork] = useState("");
-  const [acceptTerms, setAcceptTerms] = useState("");
-  const [whatsNumber, setWhatsNumber] = useState("");
-  const sendData = () => {
-    console.log("hi",checked , individual ,checkedWhatsApp , setWork ,setAcceptTerms , setWhatsNumber);
-  };
-  const toggleKind = (e) => {
-    e.preventDefault();
-    if (e.target.id === "buyer") {
-      setBuyer(e.target.id);
-      toggleChecked(false);
-      toggleCheckedWhatsApp(false);
-    } else if (e.target.id === "Contractor") {
-      setBuyer(e.target.id);
-      toggleChecked(false);
-      toggleCheckedWhatsApp(false);
-    } else if (e.target.id === "supplies") {
-      setBuyer(e.target.id);
-      toggleChecked(false);
-      toggleCheckedWhatsApp(false);
-    }
-  };
-  // const toggleAdmin = (e) => {
-  //   if (e.target.id === "admin") {
-  //     setAdmin(e.target.id);
-  //   }
-  //   if (e.target.id === "employee") {
-  //     setAdmin(e.target.id);
-  //   }
-  // };
-  // const handleChange = (e) => {
-  //   const id = e.target.id;
+	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const [checked, toggleChecked] = useState(false);
+	const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
+	const [individual, setIndividual] = useState("");
+	// const [firstName, setFirstName] = useState("");
+	// const [lastName, setLastName] = useState("");
+	// const [mobileNumber, setMobileNumber] = useState("");
+	// const [admin, setAdmin] = useState("");
+	// const [email, setEmail] = useState("");
+	// const [password, setPassword] = useState("");
+	// const [confirmPassword, setConfirmPassword] = useState("");
+	// const [companyName, setCompanyName] = useState("");
+	// const [commercialRecord, setCommercialRecord] = useState("");
+	// const [companyPhoneNumber, setCompanyPhoneNumber] = useState("");
+	const [buyer, setBuyer] = useState("");
+	// const [companyWebsite, setCompanyWebsite] = useState("");
+	// const [companyMail, setCompanyMail] = useState("");
+	// const [description, setDescription] = useState("");
+	// const [country, setCountry] = useState("");
+	// const [government, setGovernment] = useState("");
+	// const [address, setAddress] = useState("");
+	// const [uploadCompanyLogo, setUploadCompanyLogo] = useState("");
+	const [work, setWork] = useState("");
+	const [acceptTerms, setAcceptTerms] = useState("");
+	const [whatsNumber, setWhatsNumber] = useState("");
+	const sendData = () => {
+		console.log(
+			"hi",
+			checked,
+			individual,
+			checkedWhatsApp,
+			setWork,
+			setAcceptTerms,
+			setWhatsNumber
+		);
+	};
+	const toggleKind = (e) => {
+		e.preventDefault();
+		if (e.target.id === "buyer") {
+			setBuyer(e.target.id);
+			toggleChecked(false);
+			toggleCheckedWhatsApp(false);
+		} else if (e.target.id === "Contractor") {
+			setBuyer(e.target.id);
+			toggleChecked(false);
+			toggleCheckedWhatsApp(false);
+		} else if (e.target.id === "supplies") {
+			setBuyer(e.target.id);
+			toggleChecked(false);
+			toggleCheckedWhatsApp(false);
+		}
+	};
+	// const toggleAdmin = (e) => {
+	//   if (e.target.id === "admin") {
+	//     setAdmin(e.target.id);
+	//   }
+	//   if (e.target.id === "employee") {
+	//     setAdmin(e.target.id);
+	//   }
+	// };
+	// const handleChange = (e) => {
+	//   const id = e.target.id;
 
-  //   switch (id) {
-  //     case "firstName": {
-  //       setFirstName(e.target.value);
-  //       break;
-  //     }
-  //     case "lastName": {
-  //       setLastName(e.target.value);
-  //       break;
-  //     }
-  //     case "mobileNumber": {
-  //       setMobileNumber(e.target.value);
-  //       break;
-  //     }
+	//   switch (id) {
+	//     case "firstName": {
+	//       setFirstName(e.target.value);
+	//       break;
+	//     }
+	//     case "lastName": {
+	//       setLastName(e.target.value);
+	//       break;
+	//     }
+	//     case "mobileNumber": {
+	//       setMobileNumber(e.target.value);
+	//       break;
+	//     }
 
-  //     case "email": {
-  //       setEmail(e.target.value);
-  //       break;
-  //     }
-  //     case "password": {
-  //       setPassword(e.target.value);
-  //       break;
-  //     }
-  //     case "confirmPassword": {
-  //       setConfirmPassword(e.target.value);
-  //       break;
-  //     }
-  //     case "companyName": {
-  //       setCompanyName(e.target.value);
-  //       break;
-  //     }
-  //     case "commercialRecord": {
-  //       setCommercialRecord(e.target.value);
-  //       break;
-  //     }
-  //     case "companyPhoneNumber": {
-  //       setCompanyPhoneNumber(e.target.value);
-  //       break;
-  //     }
-  //     case "companyMail": {
-  //       setCompanyMail(e.target.value);
-  //       break;
-  //     }
-  //     case "work": {
-  //       setWork(e.target.value);
-  //       break;
-  //     }
-  //     case "country": {
-  //       setCountry(e.target.value);
-  //       break;
-  //     }
-  //     case "description": {
-  //       setDescription(e.target.value);
-  //       break;
-  //     }
-  //     case "government": {
-  //       setGovernment(e.target.value);
-  //       break;
-  //     }
-  //     case "address": {
-  //       setAddress(e.target.value);
-  //       break;
-  //     }
-  //     case "uploadCompanyLogo": {
-  //       setUploadCompanyLogo(e.target.value);
-  //       break;
-  //     }
-  //     case "companyWebsite": {
-  //       setCompanyWebsite(e.target.value);
-  //       break;
-  //     }
-  //     default: {
-  //       break;
-  //     }
-  //   }
-  // };
+	//     case "email": {
+	//       setEmail(e.target.value);
+	//       break;
+	//     }
+	//     case "password": {
+	//       setPassword(e.target.value);
+	//       break;
+	//     }
+	//     case "confirmPassword": {
+	//       setConfirmPassword(e.target.value);
+	//       break;
+	//     }
+	//     case "companyName": {
+	//       setCompanyName(e.target.value);
+	//       break;
+	//     }
+	//     case "commercialRecord": {
+	//       setCommercialRecord(e.target.value);
+	//       break;
+	//     }
+	//     case "companyPhoneNumber": {
+	//       setCompanyPhoneNumber(e.target.value);
+	//       break;
+	//     }
+	//     case "companyMail": {
+	//       setCompanyMail(e.target.value);
+	//       break;
+	//     }
+	//     case "work": {
+	//       setWork(e.target.value);
+	//       break;
+	//     }
+	//     case "country": {
+	//       setCountry(e.target.value);
+	//       break;
+	//     }
+	//     case "description": {
+	//       setDescription(e.target.value);
+	//       break;
+	//     }
+	//     case "government": {
+	//       setGovernment(e.target.value);
+	//       break;
+	//     }
+	//     case "address": {
+	//       setAddress(e.target.value);
+	//       break;
+	//     }
+	//     case "uploadCompanyLogo": {
+	//       setUploadCompanyLogo(e.target.value);
+	//       break;
+	//     }
+	//     case "companyWebsite": {
+	//       setCompanyWebsite(e.target.value);
+	//       break;
+	//     }
+	//     default: {
+	//       break;
+	//     }
+	//   }
+	// };
 
-  useEffect(() => {
-    setBuyer(currentLocal.registration.userType);
-  }, [currentLocal]);
+	useEffect(() => {
+		setBuyer(currentLocal.registration.userType);
+	}, [currentLocal]);
 
-  const dispatch = useDispatch();
-  console.log(work, acceptTerms, whatsNumber);
-  return (
-    <section className="Registration">
-      <div className="container">
-        <Row>
-          <Col md={12} xs={24}>
-            <div className="f-27">
-              {currentLocal.registration.createAnAccount}
-            </div>
-          </Col>
-          <Col md={12} xs={24}>
-            <div className="dropdownmenu">
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">{buyer}</Dropdown.Toggle>
+	const dispatch = useDispatch();
+	console.log(work, acceptTerms, whatsNumber);
+	return (
+		<div className="Registration">
+			<div className="container">
+				<Row>
+					<Col md={12} xs={24}>
+						<div className="f-27">
+							{currentLocal.registration.createAnAccount}
+						</div>
+					</Col>
+					<Col md={12} xs={24}>
+						<div className="dropdownmenu">
+							<Dropdown>
+								<Dropdown.Toggle id="dropdown-basic">{buyer}</Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item value="buyer" id="buyer" onClick={toggleKind}>
-                    {currentLocal.registration.buyer}
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    value="Contractor"
-                    id="Contractor"
-                    onClick={toggleKind}
-                  >
-                    {currentLocal.registration.Contractor}
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    value="supplies"
-                    id="supplies"
-                    onClick={toggleKind}
-                  >
-                    {currentLocal.registration.supplies}
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+								<Dropdown.Menu>
+									<Dropdown.Item value="buyer" id="buyer" onClick={toggleKind}>
+										{currentLocal.registration.buyer}
+									</Dropdown.Item>
+									<Dropdown.Item
+										value="Contractor"
+										id="Contractor"
+										onClick={toggleKind}
+									>
+										{currentLocal.registration.Contractor}
+									</Dropdown.Item>
+									<Dropdown.Item
+										value="supplies"
+										id="supplies"
+										onClick={toggleKind}
+									>
+										{currentLocal.registration.supplies}
+									</Dropdown.Item>
+								</Dropdown.Menu>
+							</Dropdown>
 
-              <img
-                src={languages}
-                alt="languages"
-                onClick={() => {
-                  dispatch(
-                    changeLocal(
-                      currentLocal.language === "English" ? "ar" : "en"
-                    )
-                  );
-                }}
-                className="languages"
-              />
-            </div>
-          </Col>
-        </Row>
+							<img
+								src={languages}
+								alt="languages"
+								onClick={() => {
+									dispatch(
+										changeLocal(
+											currentLocal.language === "English" ? "ar" : "en"
+										)
+									);
+								}}
+								className="languages"
+							/>
+						</div>
+					</Col>
+				</Row>
 
-        <Row style={{ height: "100px" }}>
-          <Col xs={24}>
-            {buyer !== "supplies" && (
-              <Radio.Group>
-                <Radio
-                  className={
-                    buyer === currentLocal.registration.userType &&
-                    "disableRadio"
-                  }
-                  value={"456"}
-                  onChange={(e) => {
-                    setIndividual(e.target.value);
-                  }}
-                  disabled={buyer === currentLocal.registration.userType}
-                >
-                  {currentLocal.registration.individual}
-                </Radio>
-                <Radio
-                  className={
-                    buyer === currentLocal.registration.userType
-                      ? "disableRadio lastRadio"
-                      : "lastRadio"
-                  }
-                  val
-                  value={"123"}
-                  onChange={(e) => {
-                    setIndividual(e.target.value);
-                  }}
-                  disabled={buyer === currentLocal.registration.userType}
-                >
-                  {currentLocal.registration.company}{" "}
-                </Radio>
-              </Radio.Group>
-            )}
-          </Col>
-        </Row>
+				<Row style={{ height: "100px" }}>
+					<Col xs={24}>
+						{buyer !== "supplies" && (
+							<Radio.Group>
+								<Radio
+									className={
+										buyer === currentLocal.registration.userType &&
+										"disableRadio"
+									}
+									value={"456"}
+									onChange={(e) => {
+										setIndividual(e.target.value);
+									}}
+									disabled={buyer === currentLocal.registration.userType}
+								>
+									{currentLocal.registration.individual}
+								</Radio>
+								<Radio
+									className={
+										buyer === currentLocal.registration.userType
+											? "disableRadio lastRadio"
+											: "lastRadio"
+									}
+									val
+									value={"123"}
+									onChange={(e) => {
+										setIndividual(e.target.value);
+									}}
+									disabled={buyer === currentLocal.registration.userType}
+								>
+									{currentLocal.registration.company}{" "}
+								</Radio>
+							</Radio.Group>
+						)}
+					</Col>
+				</Row>
 
-        <form onSubmit={sendData}>
-          {/* <Row>
+				<form onSubmit={sendData}>
+					{/* <Row>
             <Col md={12} xs={24}>
               <input
                 id="firstName"
@@ -409,8 +417,8 @@ function RegisterationForm() {
               </Dropdown>
             </Col>
           </Row> */}
-        </form>
-        {/* <Form>
+				</form>
+				{/* <Form>
           <Row>
             <Col md={12} xs={24}>
               <input
@@ -1046,9 +1054,9 @@ function RegisterationForm() {
             </div>
           </div>
         </Form> */}
-      </div>
-    </section>
-  );
+			</div>
+		</div>
+	);
 }
 
 export default RegisterationForm;
