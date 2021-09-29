@@ -55,13 +55,13 @@ export const ar = {
       time: "الوقت",
       price: "السعر",
     },
-    login: {
-      signin: "تسجيل الدخول",
-      mobileNumber: "رقم الهاتف",
-      password: "الرقم المرور",
-      forgetPassword: "هل نسيت كلمة المرور",
-	  didHaveAnAcount:"هل لديك حساب",
-	  registerNow:"سجل الان",
-    },
+  },
+  login: {
+    signin: "تسجيل الدخول",
+    mobileNumber: "رقم الهاتف",
+    password: "الرقم المرور",
+    forgetPassword: "هل نسيت كلمة المرور",
+  didHaveAnAcount:"هل لديك حساب",
+  registerNow:"سجل الان",
   },
 };

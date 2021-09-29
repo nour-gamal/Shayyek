@@ -57,13 +57,14 @@ export const en = {
 			time: "Time",
 			price: "Price",
 		},
-		login: {
-			signin: "Sign in",
-			mobileNumber: "Mobile Number",
-			password: "Password",
-			forgetPassword: "Forget Password",
-			didntHaveAnAcount:"Didn’t Have an acount",
-			registerNow:"Register Now",
-		  },
+
 	},
+	login: {
+		signin: "Sign in",
+		mobileNumber: "Mobile Number",
+		password: "Password",
+		forgetPassword: "Forget Password",
+		didntHaveAnAcount:"Didn’t Have an acount",
+		registerNow:"Register Now",
+	  },
 };

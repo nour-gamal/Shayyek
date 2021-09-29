@@ -28,6 +28,7 @@ function LoginForm() {
         break;
     }
   };
+
   return (
     <Container>
       <form onSubmit={sendData} className="LoginForm">
@@ -35,7 +36,7 @@ function LoginForm() {
           <div className="w-50">
             <input
               className="input-field"
-              placeholder={currentLocal.registration.mobileNumber}
+              placeholder={currentLocal.login.mobileNumber}
               type="number"
               id="mobileNumber"
               value={mobileNumber}
@@ -45,17 +46,18 @@ function LoginForm() {
           <div className="w-50">
             <input
               className="input-field"
-              placeholder={currentLocal.registration.password}
+              placeholder={currentLocal.login.password}
               type="password"
               id="password"
               value={password}
               onChange={handleChange}
             />
           </div>
-        
-        <div className="forgetPassword">
-          <Link to="/forgetpassword">Forget Password ?</Link>
-        </div>
+
+          <div className="forgetPassword">
+            <Link to="/forgetpassword">
+              {currentLocal.login.forgetPassword} ?</Link>
+          </div>
         </div>
         <div className="button">
           <button
@@ -65,11 +67,11 @@ function LoginForm() {
             type="submit"
             className="button-primary"
           >
-            {currentLocal.registration.register}
+            {currentLocal.login.signin}
           </button>
         </div>
         <div className="checkAccount">
-          Didn’t Have an account ?<Link to="/registration">Register Now !</Link>
+        {currentLocal.login.didntHaveAnAcount} ? <Link to="/registration"> {currentLocal.login.registerNow} !</Link>
         </div>
       </form>
     </Container>
