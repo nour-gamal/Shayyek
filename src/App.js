@@ -3,6 +3,7 @@ import Routes from "./Routes";
 import { useSelector } from "react-redux";
 import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+//import '@progress/kendo-theme-default/dist/all.css';
 
 function App() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
