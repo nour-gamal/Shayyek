@@ -1,12 +1,16 @@
-import React from 'react'
-import LoginForm from './Components/LoginForm/LoginForm'
+import { Footer } from "antd/lib/layout/layout";
+import React from "react";
+import { Navbar } from "react-bootstrap";
+import LoginForm from "./Components/LoginForm/LoginForm";
 
 function Login() {
-    return (
-        <div>
-<LoginForm />
-        </div>
-    )
+  return (
+    <div>
+      <Navbar navState={"light"} />
+      <LoginForm />
+      <Footer />
+    </div>
+  );
 }
 
-export default Login
+export default Login;
