@@ -1,0 +1,93 @@
+.LoginForm .form
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.LoginForm .f-27 {
+	font-weight: bold;
+	color: #0370ff;
+}
+.LoginForm .input-field
+{
+    width: 100% !important;
+}
+.LoginForm  ::placeholder {
+	color: #bce0fd;
+	opacity: 1;
+}
+
+.LoginForm :-ms-input-placeholder {
+	color: #bce0fd;
+}
+
+.LoginForm ::-ms-input-placeholder {
+	color: #bce0fd;
+}
+.LoginForm input:focus::-webkit-input-placeholder {
+	color: #0370ff;
+}
+.LoginForm .forgetPassword a {
+    color: #0370ff !important;
+    text-decoration: none !important;
+}
+.LoginForm .forgetPassword
+{
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+}
+.LoginForm .checkAccount
+{
+    color: #0370ff;
+    display: flex;
+    justify-content: center;
+}
+.LoginForm .checkAccount a
+{
+    color: #0370ff;
+    text-decoration: none;
+}
+.LoginForm input:focus:-moz-placeholder {
+	color: #0370ff;
+}
+
+.LoginForm input:focus::-moz-placeholder {
+	color: #0370ff;
+}
+.LoginForm input:focus:-ms-input-placeholder {
+	color: #0370ff;
+}
+
+.LoginForm .button-primary {
+	padding-left: 144px;
+	padding-right: 144px;
+}
+.LoginForm .button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+}
+.LoginForm .button button {
+	margin-bottom: 16px;
+}
+.LoginForm .content {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 45px;
+}
+
+.LoginForm .active {
+	color: #0370ff;
+}
+.LoginForm input::-webkit-outer-spin-button,
+.LoginForm input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+.LoginForm input[type="number"] {
+	-moz-appearance: textfield;
+}
