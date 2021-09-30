@@ -59,13 +59,10 @@ function Navbarr({ navState }) {
 								{/* // </Nav.Link> */}
 
 								<Nav.Link href="#">
-									<span>
-										{currentLocal.language === "العربيه" ? "عربي" : "English"}
-									</span>
 									<img
 										src={languages}
 										alt="languages"
-										className="langIcon"
+										className="langIcon mx-2"
 										onClick={() => {
 											dispatch(
 												changeLocal(
@@ -74,6 +71,9 @@ function Navbarr({ navState }) {
 											);
 										}}
 									/>
+									<span className="l-2">
+										{currentLocal.language === "English" ? "En" : "عربي"}
+									</span>
 								</Nav.Link>
 							</div>
 						</Nav>

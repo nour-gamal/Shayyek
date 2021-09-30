@@ -109,6 +109,15 @@ section {
 	padding-left: 15px;
 }
 
+.rtlStars {
+	display: flex;
+	flex-direction: row;
+}
+.ltrStars {
+	display: flex;
+	flex-direction: row-reverse;
+}
+
 @media (min-width: 476px) {
 	.container {
 		padding-right: 15px;
