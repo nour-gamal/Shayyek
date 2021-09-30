@@ -56,9 +56,10 @@ function AuthHeader({ title, showState }) {
                 </Dropdown.Menu>
               </Dropdown>
             )}
-		
+				<span>
+				{currentLocal.language==="العربيه" ? "عربي":"English"} 
+			</span>
 			<span> 
-			{currentLocal.language==="العربيه" ? "ar" :"en"} 
             <img
               src={languages}
               alt="languages"
