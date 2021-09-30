@@ -11,7 +11,6 @@ function App() {
 	document
 		.querySelector("html")
 		.setAttribute("dir", currentLocal.language === "English" ? "ltr" : "rtl");
-
 	return (
 		<div className="App">
 			<Routes />
