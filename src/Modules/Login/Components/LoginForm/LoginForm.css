@@ -1,7 +1,7 @@
 .LoginForm
 {
 	display: flex;
-	height: calc(100vh - 240px) ;
+height: 60vh;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
@@ -117,4 +117,12 @@
 		justify-content: flex-end;
 		width: 76%;
 	}
+	.LoginForm
+{
+	display: flex;
+height: 50vh;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
   }

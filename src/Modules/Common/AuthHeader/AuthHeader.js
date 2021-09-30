@@ -21,7 +21,7 @@ function AuthHeader({ title, showState ,onSelectUserType }) {
     <div className="AuthHeader">
       <Row>
         <Col md={12} xs={12}>
-          <div className="f-27 mx-3 title">{title}</div>
+          <div className="f-21 mx-3 title">{title}</div>
         </Col>
 
         <Col md={12} xs={12}>

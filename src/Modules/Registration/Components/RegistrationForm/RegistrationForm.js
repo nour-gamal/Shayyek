@@ -44,7 +44,7 @@ function RegisterationForm(props) {
 			setAcceptTerms,
 			setWhatsNumber
 		);
-  console.log("buyer",buyer);
+  console.log("buyer",buyer , individual);
 	};
 	// const toggleKind = (e) => {
 	// 	e.preventDefault();
