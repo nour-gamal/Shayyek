@@ -1,10 +1,7 @@
 .navbar {
 	width: 100%;
 	background-color: rgba(0, 59, 107, 0.85);
-	padding: 5px !important;
-	padding-right: 84px !important;
-	padding-left: 84px !important;
-
+	padding: 20px 84px !important;
 }
 
 .navbar.light {
@@ -70,5 +67,4 @@
 		padding-right: 0px !important;
 		padding-left: 0px !important;
 	}
-	
 }
