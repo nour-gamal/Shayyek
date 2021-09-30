@@ -107,3 +107,14 @@
 .LoginForm input[type="number"] {
 	-moz-appearance: textfield;
 }
+@media only screen and (max-width: 768px) {
+    .LoginForm .w-50
+    {
+  width: 80% !important;
+    }
+	.LoginForm .forgetPassword {
+		display: flex;
+		justify-content: flex-end;
+		width: 76%;
+	}
+  }
