@@ -9,7 +9,7 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const sendData = (e) => {
     e.preventDefault();
-    console.log("hi");
+    console.log("hi",password , mobileNumber);
     setMobileNumber("");
     setPassword("");
   };
@@ -61,9 +61,6 @@ function LoginForm() {
         </div>
         <div className="button">
           <button
-            onClick={() => {
-              console.log("hi");
-            }}
             type="submit"
             className="button-primary"
           >
@@ -71,7 +68,7 @@ function LoginForm() {
           </button>
         </div>
         <div className="checkAccount">
-        {currentLocal.login.didHaveAnAcount} <Link to="/registration"> {currentLocal.login.registerNow}</Link>
+    <span>    {currentLocal.login.didHaveAnAcount}</span><span className="mx-2"> <Link to="/registration">   {currentLocal.login.registerNow} </Link></span>
         </div>
       </form>
     </Container>

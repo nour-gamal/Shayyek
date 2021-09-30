@@ -7,7 +7,7 @@ import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
 // import { changeLocal } from "../../../../Redux/Localization";
 // import languages from "../../../../Resources/Assets/languages.svg";
 import "./RegistrationForm.css";
-function RegisterationForm() {
+function RegisterationForm(props) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [checked] = useState(false);
 	const [checkedWhatsApp] = useState(false);
@@ -34,9 +34,9 @@ function RegisterationForm() {
 	const [acceptTerms, setAcceptTerms] = useState("");
 	const [whatsNumber, setWhatsNumber] = useState("");
   const showState = true;
-	const sendData = () => {
+	const sendData = (e) => {
+    e.preventDefault();
 		console.log(
-			"hi",
 			checked,
 			individual,
 			checkedWhatsApp,
@@ -44,6 +44,7 @@ function RegisterationForm() {
 			setAcceptTerms,
 			setWhatsNumber
 		);
+  console.log("buyer",buyer);
 	};
 	// const toggleKind = (e) => {
 	// 	e.preventDefault();
@@ -147,18 +148,22 @@ function RegisterationForm() {
 	//     }
 	//   }
 	// };
-
+const onSelectUserType= (val)=>{
+  setBuyer(val)
+}
 	useEffect(() => {
 		setBuyer(currentLocal.registration.userType);
 	}, [currentLocal]);
 
 	// const dispatch = useDispatch();
+ 
 	console.log(work, acceptTerms, whatsNumber);
 	return (
 		<div className="Registration">
             <AuthHeader
         title={currentLocal.registration.createAnAccount}
         showState={showState}
+        onSelectUserType={onSelectUserType}
       />
 			<div className="container">
 				{/* <Row>
@@ -264,6 +269,7 @@ function RegisterationForm() {
 				</Row>
 
 				<form onSubmit={sendData}>
+          <button type="submit">ok</button>
 					{/* <Row>
             <Col md={12} xs={24}>
               <input

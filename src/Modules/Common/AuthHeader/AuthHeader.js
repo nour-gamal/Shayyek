@@ -5,21 +5,18 @@ import { Col, Row } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { Dropdown } from "react-bootstrap";
 import languages from "../../../Resources/Assets/languages.svg";
-function AuthHeader({ title, showState }) {
+function AuthHeader({ title, showState ,onSelectUserType }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const dispatch = useDispatch();
   const [buyer, setBuyer] = useState("");
 
   const toggleKind = (e) => {
     e.preventDefault();
-    if (e.target.id === "buyer") {
       setBuyer(e.target.id);
-    } else if (e.target.id === "Contractor") {
-      setBuyer(e.target.id);
-    } else if (e.target.id === "supplies") {
-      setBuyer(e.target.id);
-    }
+    
+     onSelectUserType(e.target.id);      
   };
+
   return (
     <div className="AuthHeader">
       <Row>
@@ -56,22 +53,23 @@ function AuthHeader({ title, showState }) {
                 </Dropdown.Menu>
               </Dropdown>
             )}
-				<span>
-				{currentLocal.language==="العربيه" ? "عربي":"English"} 
-			</span>
-			<span> 
-            <img
-              src={languages}
-              alt="languages"
-              onClick={() => {
-                dispatch(
-                  changeLocal(currentLocal.language === "English" ? "ar" : "en")
-                );
-              }}
-              className="languages"
-            />
-			</span>
-		
+            <span>
+              {currentLocal.language === "العربيه" ? "عربي" : "English"}
+            </span>
+            <span>
+              <img
+                src={languages}
+                alt="languages"
+                onClick={() => {
+                  dispatch(
+                    changeLocal(
+                      currentLocal.language === "English" ? "ar" : "en"
+                    )
+                  );
+                }}
+                className="languages"
+              />
+            </span>
           </div>
         </Col>
       </Row>
