@@ -46,6 +46,9 @@ export const ar = {
 		requestRFQ: " طلب الاسعار",
 		cart: "العربه",
 		AllSuppliers: " كل الموردين",
+		admin:"ادمن",
+		logout:"تسجيل الخروج",
+		viewProfile:"صفحتي"
 	},
 	suppliers: {
 		suppliersGrid: {},

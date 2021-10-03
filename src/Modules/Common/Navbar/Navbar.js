@@ -23,10 +23,10 @@ function Navbarr({ navState }) {
   const menu = (
     <Menu>
       <Menu.Item key="0">
-        <a href="https://www.antgroup.com">	View Profile</a>
+        <Link to="/me/name">{currentLocal.navbar.viewProfile}</Link>
       </Menu.Item>
       <Menu.Item key="1">
-        <a href="https://www.antgroup.com">	Logaut</a>
+        <a href="https://www.antgroup.com">	{currentLocal.navbar.logout}</a>
       </Menu.Item>
     </Menu>
   );
@@ -113,7 +113,10 @@ function Navbarr({ navState }) {
                     </a>
                   </Dropdown>
 
-                  <span className="pb-2  userType">Admin</span>
+                  <span className="pb-2  userType">
+
+                    {currentLocal.navbar.admin}
+                  </span>
                   ,
 				  <Link to="/me/name">
                   <Avatar icon={<UserOutlined />} className="mb-1" />{" "}
