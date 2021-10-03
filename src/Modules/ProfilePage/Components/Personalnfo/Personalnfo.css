@@ -1,0 +1,10 @@
+.PersonalInfo {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: flex;
+}
+.PersonalInfo img {
+	width: 102px;
+	height: 102px;
+	border-radius: 50%;
+}

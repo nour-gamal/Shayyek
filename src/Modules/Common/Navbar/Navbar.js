@@ -10,14 +10,23 @@ import cart from "../../../Resources/Assets/cart.svg";
 import Request_RFQ from "../../../Resources/Assets/Request_RFQ.svg";
 import Notification from "../../../Resources/Assets/Notification Icon.svg";
 import Chat from "../../../Resources/Assets/Path 9.svg";
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { Menu, Dropdown } from "antd";
+import arrowDown from "../../../Resources/Assets/small-down.svg";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-
 function Navbarr({ navState }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const loginState = false;
-
   const dispatch = useDispatch();
+  const menu = (
+    <Menu>
+      <Menu.Item key="0">
+        <a href="https://www.antgroup.com">	Logaut</a>
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <Navbar
@@ -91,9 +100,22 @@ function Navbarr({ navState }) {
                   <Link to="/registration" className="nav-link  registration">
                     <img src={Notification} alt="Notification" />
                   </Link>
-                  <span className="pb-2 px-3">Admin</span>
-                  {/* <Avatar size={64} icon={<UserOutlined />} /> */}
-                  <Nav.Link href="#">
+				  <Dropdown overlay={menu} trigger={["click"]} className="mb-2 mx-3">
+                    <a
+                      className="ant-dropdown-link"
+                      onClick={(e) => e.preventDefault()}
+					  href="/"
+                    >
+                      <img src={arrowDown} alt="arrowDown" />
+                    </a>
+                  </Dropdown>
+
+                  <span className="pb-2  userType">Admin</span>
+                  ,
+				  <Link to="/me">
+                  <Avatar icon={<UserOutlined />} className="mb-1" />{" "}
+				  </Link>
+                  <Nav.Link href="#" className="mx-3">
                     <span>
                       {currentLocal.language === "العربيه" ? "عربي" : "English"}
                     </span>

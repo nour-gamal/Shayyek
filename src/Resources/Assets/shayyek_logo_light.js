@@ -8,7 +8,7 @@ function shayyek_logo_light({ width, height }) {
 			xmlns="http://www.w3.org/2000/svg"
 			width={width ? width : "100"}
 			height={height ? height : "20"}
-			viewBox={"0 0 135 28"}
+			viewBox="0 0 135 28"
 		>
 			<defs>
 				<clipPath id="clip-path">

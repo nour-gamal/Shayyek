@@ -6,6 +6,7 @@ import Suppliers from "./Modules/Suppliers/Suppliers";
 import Products from "./Modules/Suppliers/Products";
 import Login from "./Modules/Login/Login";
 import ForgetPassword from "./Modules/ForgetPassword/ForgetPassword";
+import ProfilePage from "./Modules/ProfilePage/ProfilePage";
 
 function Routes() {
 	return (
@@ -21,6 +22,7 @@ function Routes() {
 						path="/supplier/:id"
 						render={(props) => <Products {...props} />}
 					/>
+					<Route path="/me/:name" render={() => <ProfilePage />} />
 				</Switch>
 			)}
 		/>
