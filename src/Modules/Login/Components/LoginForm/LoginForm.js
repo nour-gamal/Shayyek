@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { loginApi } from "../network";
+import { loginApi } from "../../network";
 import { Link } from "react-router-dom";
 import "./LoginForm.css";
 function LoginForm() {
