@@ -1,0 +1,16 @@
+.OfferTable .ant-pagination{
+    display: flex !important;
+    justify-content: center !important;
+} 
+.OfferTable .ant-dropdown-trigger
+{
+
+    border: none;
+    box-shadow: none !important;
+    background-color: transparent;
+}
+.OfferTable .ant-dropdown-trigger:hover
+{
+
+    color:#000;
+}

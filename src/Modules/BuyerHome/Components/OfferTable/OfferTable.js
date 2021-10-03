@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Dropdown, Menu } from "antd";
-
+import "./OfferTable.css"
 function OfferTable() {
   const menu = (
     <Menu>
@@ -100,12 +100,7 @@ function OfferTable() {
 
   return (
     <div className="OfferTable">
-      <Table
-        // pagination={{ position: [center,ceter] }}
-        dataSource={dataSource}
-        columns={columns}
-      />
-      ;
+      <Table dataSource={dataSource} columns={columns} />;
     </div>
   );
 }
