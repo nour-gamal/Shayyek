@@ -98,23 +98,11 @@ function OfferTable() {
 		},
 	];
 
-<<<<<<< HEAD
   return (
     <div className="OfferTable">
       <Table dataSource={dataSource} columns={columns} />;
     </div>
   );
-=======
-	return (
-		<div className="OfferTable">
-			<Table
-				// pagination={{ position: [center,ceter] }}
-				dataSource={dataSource}
-				columns={columns}
-			/>
-		</div>
-	);
->>>>>>> 6733f605b6d9f742fee135b2e2a7d8df2e811231
 }
 
 export default OfferTable;
