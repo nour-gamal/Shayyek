@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../Redux/Authorization";
+import BuyerHome from "../BuyerHome/BuyerHome";
 import Navbar from "../Common/Navbar/Navbar";
 import { loginFun, getAllUsers, userProfile } from "./network";
 function Home() {
@@ -47,6 +48,7 @@ function Home() {
 	return (
 		<div>
 			<Navbar />
+			<BuyerHome />
 		</div>
 	);
 }
