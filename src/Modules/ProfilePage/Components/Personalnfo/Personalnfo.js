@@ -41,8 +41,8 @@ function Personalnfo() {
 				</div>
 			</div>
 			<div className="actions">
-				<button className="button-secondary mx-2">Reject</button>
-				<button className="button-primary mx-2">Accept</button>
+				<button className="popup-button-secondary mx-2">Reject</button>
+				<button className="popup-button-primary mx-2">Accept</button>
 			</div>
 		</div>
 	);

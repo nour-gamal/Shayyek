@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Routes from "./Routes";
-import { useSelector ,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getMessaging, getToken } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
 import { login } from "./Redux/Authorization";
@@ -10,8 +10,8 @@ import "./App.css";
 
 function App() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-	
-	const dispatch=useDispatch()
+
+	const dispatch = useDispatch();
 	const firebaseConfig = {
 		apiKey: "AIzaSyDl8exN4m1F52c8fe9dGlMKKhuWotvzF9U",
 		authDomain: "shayyek-cc93c.firebaseapp.com",
@@ -33,7 +33,7 @@ function App() {
 				if (currentToken) {
 					// Send the token to your server and update the UI if necessary
 					// ...
-					dispatch(login(currentToken));
+					dispatch(login({ deviceToken: currentToken }));
 				} else {
 					// Show permission request UI
 					console.log(

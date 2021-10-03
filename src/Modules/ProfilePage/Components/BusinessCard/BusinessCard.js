@@ -3,7 +3,7 @@ import "./BusinessCard.css";
 function BusinessCard() {
 	return (
 		<div className="businessCard">
-			<ul className="list-unstyled f-17">
+			<ul className="list-unstyled f-14">
 				<li>Name</li>
 				<li>Type: Contractor</li>
 				<li>Work Field</li>

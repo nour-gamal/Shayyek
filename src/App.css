@@ -108,6 +108,24 @@ section {
 	border: 1px solid #f50000;
 	color: #f50000;
 }
+.popup-button-primary,
+.popup-button-secondary {
+	background: #003b6b 0% 0% no-repeat padding-box;
+	border-radius: 5px;
+	opacity: 1;
+	height: 32px;
+	color: #fff;
+	padding-left: 32px;
+	padding-right: 32px;
+	border: none;
+	cursor: pointer;
+	font-size: 14px;
+}
+.popup-button-secondary {
+	background: transparent;
+	border: 1px solid #f50000;
+	color: #f50000;
+}
 .container {
 	position: relative;
 	margin-left: auto;
@@ -123,6 +141,22 @@ section {
 .ltrStars {
 	display: flex;
 	flex-direction: row;
+}
+
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+	padding-left: 0;
+	padding-right: 0;
 }
 
 @media (min-width: 476px) {
