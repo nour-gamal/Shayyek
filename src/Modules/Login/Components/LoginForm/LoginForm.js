@@ -20,7 +20,7 @@ function LoginForm() {
 			body,
 			(success) => console.log(success),
 			(fail) => console.log(fail),
-			fail
+			false
 		);
 
 		setMobileNumber("");
