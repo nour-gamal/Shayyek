@@ -17,7 +17,7 @@ function BuyerPortfolio() {
 	];
 	return (
 		<aside className="buyerPortfolio">
-			<div className="d-flex align-items-center">
+			<div className="d-flex align-items-center profileContainer">
 				<img
 					src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
 					alt="profile"
@@ -27,7 +27,14 @@ function BuyerPortfolio() {
 			</div>
 			<div>
 				{buyerInfo.map((info) => {
-					return <div></div>;
+					return (
+						<div className="buyerInfo">
+							<div>
+								<div className="name f-14  fw-600">{info.name}</div>
+								<div className="description f-14">{info.description}</div>
+							</div>
+						</div>
+					);
 				})}
 			</div>
 		</aside>
