@@ -9,6 +9,9 @@
 	padding-right: 84px !important;
 	padding-left: 84px !important;
 }
+.navbar .userType{
+	color: #F5F5F5;
+}
 
 .dark .navbar-nav {
 	width: 100%;
@@ -17,7 +20,17 @@
 	align-items: center;
 	flex-direction: row;
 }
-
+.dark .loginNavbar
+{
+	display: flex;
+	justify-content: flex-end;
+}
+.dark .loginNavbar .registration
+{
+	border-right: 1px solid #ddd;
+	padding-right: 16px !important;
+	padding-left: 15px !important;
+}
 .dark .navbar-nav .nav-link {
 	color: #fff !important;
 }
