@@ -1,10 +1,9 @@
 .businessCard {
 	box-shadow: 0px 3px 6px #00000029;
-	padding: 20px 20px 15px 20px;
-	width: 95%;
-	margin: 0 auto;
+	padding: 10px 20px 5px;
+	min-height: 100%;
 }
 .businessCard ul li {
 	color: #003b6b;
-	padding: 5px 0;
+	padding-top: 10px;
 }

@@ -14,7 +14,7 @@ function ProfilePage() {
 				<Row>
 					<Col xs={10}>
 						<PersonalInfo />
-						<Container fluid>
+						<Container fluid className="my-2">
 							<Row>
 								<Col xs={6}>
 									<BusinessCard />
