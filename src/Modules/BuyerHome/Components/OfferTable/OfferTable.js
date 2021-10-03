@@ -1,20 +1,12 @@
 import React from "react";
-import { Table, Dropdown, message, Menu } from "antd";
+import { Table, Dropdown, Menu } from "antd";
 
 function OfferTable() {
-  function handleButtonClick(e) {
-    message.info("Click on left button.");
-    console.log("click left button", e);
-  }
-  function handleMenuClick(e) {
-    message.info("Click on menu item.");
-    console.log("click", e);
-  }
-
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1">Accept Offer </Menu.Item>
-      <Menu.Item key="2">Start Conversation </Menu.Item>
+    <Menu>
+      <Menu.Item key="0">Accept Offer</Menu.Item>
+      <Menu.Item key="1">Start Conversation</Menu.Item>
+      <Menu.Divider />
       <Menu.Item key="3">Delete</Menu.Item>
     </Menu>
   );
@@ -32,8 +24,9 @@ function OfferTable() {
       notes: "loremloremloremloremloremloremloremloremlorem",
       v: (
         <Dropdown.Button
-          onClick={handleButtonClick}
           overlay={menu}
+          trigger={["click"]}
+          onClick={(e) => e.preventDefault()}
         ></Dropdown.Button>
       ),
     },
@@ -47,6 +40,13 @@ function OfferTable() {
       rating: "4.5",
       volumeWork: "500.00 L.E",
       notes: "lorem",
+      v: (
+        <Dropdown.Button
+          overlay={menu}
+          trigger={["click"]}
+          onClick={(e) => e.preventDefault()}
+        ></Dropdown.Button>
+      ),
     },
   ];
 
@@ -167,7 +167,12 @@ function OfferTable() {
   // ]
   return (
     <div className="OfferTable">
-      <Table dataSource={dataSource} columns={columns} />;
+      <Table
+        // pagination={{ position: [center,ceter] }}
+        dataSource={dataSource}
+        columns={columns}
+      />
+      ;
     </div>
   );
 }
