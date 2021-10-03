@@ -44,13 +44,12 @@ function Navbarr({ navState }) {
             <ShayyekLogoDark />
           ) : (
             <img src={ShayyekLogoLight} alt="ShayyekLogoLight" />
-            // <ShayyekLogoLight width={"135"} height={"28"} />
           )}
         </Link>
         {!navState && <Navbar.Toggle aria-controls="basic-navbar-nav" />}
         {!navState && (
           <Navbar.Collapse id="basic-navbar-nav">
-            {loginState ? (
+            {!loginState ? (
               <Nav>
                 <div className="centerNav">
                   <Link to="/suppliers" className="nav-link">
@@ -77,9 +76,7 @@ function Navbarr({ navState }) {
                   {/* // </Nav.Link> */}
 
                   <Nav.Link href="#">
-                    <span>
-                      {currentLocal.language === "العربيه" ? "عربي" : "English"}
-                    </span>
+             
                     <img
                       src={languages}
                       alt="languages"
@@ -92,6 +89,9 @@ function Navbarr({ navState }) {
                         );
                       }}
                     />
+                           <span className="px-2">
+                      {currentLocal.language === "العربيه" ? "عربي" : "En"}
+                    </span>
                   </Nav.Link>
                 </div>
               </Nav>
