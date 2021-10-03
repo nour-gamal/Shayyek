@@ -1,13 +1,19 @@
 import React from "react";
 import { Table, Dropdown, Menu } from "antd";
+import acceptOffer from "../../../../Resources/Assets/Group 1447.svg"
+import deletee from "../../../../Resources/Assets/Group 1460.svg"
 import "./OfferTable.css"
 function OfferTable() {
 	const menu = (
 		<Menu>
-			<Menu.Item key="0">Accept Offer</Menu.Item>
+			<Menu.Item key="0">
+                <img src={acceptOffer} alt="acceptOffer" />
+                Accept Offer</Menu.Item>
 			<Menu.Item key="1">Start Conversation</Menu.Item>
 			<Menu.Divider />
-			<Menu.Item key="3">Delete</Menu.Item>
+			<Menu.Item key="3">
+                <img src={deletee} alt="deletee" />
+                Delete</Menu.Item>
 		</Menu>
 	);
 

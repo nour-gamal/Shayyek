@@ -14,3 +14,11 @@
 
     color:#000;
 }
+.OfferTable table .ant-table-row:hover
+{
+    background-color: transparent !important;
+}
+.ant-dropdown-menu-item-divider
+{
+    background-color: transparent !important;
+}
