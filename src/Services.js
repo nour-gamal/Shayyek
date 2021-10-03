@@ -1,12 +1,11 @@
 import axios from "axios";
-const baseUrl = "https://ttask-mmanger.herokuapp.com/";
+const baseUrl = "http://192.175.123.213:9000/";
 // const token =
 // 	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTRjZGQxMDdiZjM1YWM1OGYxMGZmNzkiLCJpYXQiOjE2MzI2NDg3MjN9.fNbFiXODEfYnQrBFn5yzClSYHadCUndxw-n5VcM8XHU";
 const token = localStorage.getItem("token");
 
 export const PostResource = (path, data, onSuccess, onFail, reqAuth) => {
 	//	const { authorization } = useSelector((state) => state.authorization);
-	console.log(token);
 	const requestData = {
 		method: "post",
 		url: baseUrl + path,

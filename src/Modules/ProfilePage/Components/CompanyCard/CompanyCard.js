@@ -10,7 +10,7 @@ function CompanyCard() {
 				alt="companyProfile"
 				className="rounded-circle"
 			/>
-			<ul className="list-unstyled f-17">
+			<ul className="list-unstyled f-14">
 				<li>Company Name : Hazem Hassan</li>
 				<li>Address : Egypt , Giza , Elwahat Desert Road</li>
 				<li>Phone Number : 0123456789</li>
