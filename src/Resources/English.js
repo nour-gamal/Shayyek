@@ -57,14 +57,17 @@ export const en = {
 			time: "Time",
 			price: "Price",
 		},
-
 	},
 	login: {
 		signin: "Sign in",
 		mobileNumber: "Mobile Number",
 		password: "Password",
 		forgetPassword: "Forget Password ?",
-		didHaveAnAcount:"Didn’t Have an acount ?",
-		registerNow:"Register Now !" ,
-	  },
+		didHaveAnAcount: "Didn’t Have an acount ?",
+		registerNow: "Register Now !",
+	},
+	profilePage: {
+		completedPercentage: "40% Completed",
+		addMoreWork: "*Add More Previous Works To Verify Your Account",
+	},
 };

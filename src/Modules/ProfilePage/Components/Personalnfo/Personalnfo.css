@@ -1,10 +1,37 @@
 .PersonalInfo {
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	display: flex;
+}
+.PersonalInfo > div:first-of-type {
 	display: flex;
 }
 .PersonalInfo img {
 	width: 102px;
 	height: 102px;
 	border-radius: 50%;
+}
+.PersonalInfo .info {
+	margin: 10px;
+}
+.PersonalInfo .progress {
+	height: 14px;
+	width: 230px;
+	border-radius: 30px;
+	margin-top: 4px;
+}
+.PersonalInfo .progressContainer span {
+	margin-right: 15px;
+	margin-left: 15px;
+}
+.PersonalInfo .progress .progress-bar {
+	border-radius: 30px !important;
+}
+.PersonalInfo .progressContainer {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.PersonalInfo .progressContainer span {
+	color: #005fb1;
 }
