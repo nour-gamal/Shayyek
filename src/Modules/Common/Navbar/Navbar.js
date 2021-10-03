@@ -23,6 +23,9 @@ function Navbarr({ navState }) {
   const menu = (
     <Menu>
       <Menu.Item key="0">
+        <a href="https://www.antgroup.com">	View Profile</a>
+      </Menu.Item>
+      <Menu.Item key="1">
         <a href="https://www.antgroup.com">	Logaut</a>
       </Menu.Item>
     </Menu>
@@ -112,13 +115,11 @@ function Navbarr({ navState }) {
 
                   <span className="pb-2  userType">Admin</span>
                   ,
-				  <Link to="/me">
+				  <Link to="/me/name">
                   <Avatar icon={<UserOutlined />} className="mb-1" />{" "}
 				  </Link>
                   <Nav.Link href="#" className="mx-3">
-                    <span>
-                      {currentLocal.language === "العربيه" ? "عربي" : "English"}
-                    </span>
+              
                     <img
                       src={languages}
                       alt="languages"
@@ -131,6 +132,9 @@ function Navbarr({ navState }) {
                         );
                       }}
                     />
+                         <span className="mx-2">
+                      {currentLocal.language === "العربيه" ? "عربي" : "En"}
+                    </span>
                   </Nav.Link>
                 </div>
               </Nav>
