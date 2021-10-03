@@ -35,3 +35,6 @@
 .PersonalInfo .progressContainer span {
 	color: #005fb1;
 }
+.PersonalInfo .actions {
+	background-color: red;
+}
