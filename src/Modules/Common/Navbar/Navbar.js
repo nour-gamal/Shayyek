@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import languages from "../../../Resources/Assets/languages.svg";
 import { changeLocal } from "../../../Redux/Localization";
 import ShayyekLogoDark from "../../../Resources/Assets/shayyek_logo_dark";
-import ShayyekLogoLight from "../../../Resources/Assets/shayyek_logo_light";
+import ShayyekLogoLight from "../../../Resources/Assets/Group 3.svg";
 import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
 import cart from "../../../Resources/Assets/cart.svg";
 import Request_RFQ from "../../../Resources/Assets/Request_RFQ.svg";
@@ -43,7 +43,8 @@ function Navbarr({ navState }) {
           {navState ? (
             <ShayyekLogoDark />
           ) : (
-            <ShayyekLogoLight width={"135"} height={"28"} />
+            <img src={ShayyekLogoLight} alt="ShayyekLogoLight" />
+            // <ShayyekLogoLight width={"135"} height={"28"} />
           )}
         </Link>
         {!navState && <Navbar.Toggle aria-controls="basic-navbar-nav" />}
