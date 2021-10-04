@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, Container, Navbar } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import languages from "../../../Resources/Assets/languages.svg";
 import { changeLocal } from "../../../Redux/Localization";
@@ -38,114 +38,112 @@ function Navbarr({ navState }) {
 			variant={"dark"}
 			collapseOnSelect={true}
 		>
-			<Container fluid>
-				<Link to="/">
-					{navState ? (
-						<ShayyekLogoDark />
-					) : (
-						<img src={ShayyekLogoLight} alt="ShayyekLogoLight" />
-					)}
-				</Link>
-				{!navState && <Navbar.Toggle aria-controls="basic-navbar-nav" />}
-				{!navState && (
-					<Navbar.Collapse id="basic-navbar-nav">
-						{!loginState ? (
-							<Nav>
-								<div className="centerNav">
-									<Link to="/suppliers" className="nav-link">
-										<img src={AllSuppliers} alt="AllSuppliers" />
-										{currentLocal.navbar.AllSuppliers}
-									</Link>
-									<Nav.Link href="#link">
-										<img src={Request_RFQ} alt="Request_RFQ" />
-										{currentLocal.navbar.requestRFQ}
-									</Nav.Link>
-									<Nav.Link href="#link">
-										<img src={cart} alt="cart" />
-										{currentLocal.navbar.cart}
-									</Nav.Link>
-								</div>
-								<div className="endNav">
-									<Link to="/login" className="nav-link">
-										{currentLocal.navbar.signin}
-									</Link>
-									<Link to="/registration" className="nav-link">
-										{/* <Nav.Link href="/registration"> */}
-										{currentLocal.navbar.register}
-									</Link>
-									{/* // </Nav.Link> */}
-
-									<Nav.Link href="#">
-										<img
-											src={languages}
-											alt="languages"
-											className="langIcon"
-											onClick={() => {
-												dispatch(
-													changeLocal(
-														currentLocal.language === "English" ? "ar" : "en"
-													)
-												);
-											}}
-										/>
-										<span className="px-2">
-											{currentLocal.language === "العربيه" ? "عربي" : "En"}
-										</span>
-									</Nav.Link>
-								</div>
-							</Nav>
-						) : (
-							<Nav className={!loginState && "loginNavbar"}>
-								<div className="endNav">
-									<Link to="/login" className="nav-link">
-										<img src={Chat} alt="Chat" />
-									</Link>
-									<Link to="/registration" className="nav-link  registration">
-										<img src={Notification} alt="Notification" />
-									</Link>
-									<Dropdown
-										overlay={menu}
-										trigger={["click"]}
-										className="mb-2 mx-3"
-									>
-										<a
-											className="ant-dropdown-link"
-											onClick={(e) => e.preventDefault()}
-											href="/"
-										>
-											<img src={arrowDown} alt="arrowDown" />
-										</a>
-									</Dropdown>
-									<span className="pb-2  userType">
-										{currentLocal.navbar.admin}
-									</span>
-									,
-									<Link to="/me/name">
-										<Avatar icon={<UserOutlined />} className="mb-1" />{" "}
-									</Link>
-									<Nav.Link href="#" className="mx-3">
-										<img
-											src={languages}
-											alt="languages"
-											className="langIcon"
-											onClick={() => {
-												dispatch(
-													changeLocal(
-														currentLocal.language === "English" ? "ar" : "en"
-													)
-												);
-											}}
-										/>
-										<span className="mx-2">
-											{currentLocal.language === "العربيه" ? "عربي" : "En"}
-										</span>
-									</Nav.Link>
-								</div>
-							</Nav>
-						)}
-					</Navbar.Collapse>
+			<Link to="/">
+				{navState ? (
+					<ShayyekLogoDark />
+				) : (
+					<img src={ShayyekLogoLight} alt="ShayyekLogoLight" />
 				)}
-			</Container>
+			</Link>
+			{!navState && <Navbar.Toggle aria-controls="basic-navbar-nav" />}
+			{!navState && (
+				<Navbar.Collapse id="basic-navbar-nav">
+					{!loginState ? (
+						<Nav>
+							<div className="centerNav">
+								<Link to="/suppliers" className="nav-link">
+									<img src={AllSuppliers} alt="AllSuppliers" />
+									{currentLocal.navbar.AllSuppliers}
+								</Link>
+								<Nav.Link href="#link">
+									<img src={Request_RFQ} alt="Request_RFQ" />
+									{currentLocal.navbar.requestRFQ}
+								</Nav.Link>
+								<Nav.Link href="#link">
+									<img src={cart} alt="cart" />
+									{currentLocal.navbar.cart}
+								</Nav.Link>
+							</div>
+							<div className="endNav">
+								<Link to="/login" className="nav-link">
+									{currentLocal.navbar.signin}
+								</Link>
+								<Link to="/registration" className="nav-link">
+									{/* <Nav.Link href="/registration"> */}
+									{currentLocal.navbar.register}
+								</Link>
+								{/* // </Nav.Link> */}
+
+								<Nav.Link href="#">
+									<img
+										src={languages}
+										alt="languages"
+										className="langIcon"
+										onClick={() => {
+											dispatch(
+												changeLocal(
+													currentLocal.language === "English" ? "ar" : "en"
+												)
+											);
+										}}
+									/>
+									<span className="px-2">
+										{currentLocal.language === "العربيه" ? "عربي" : "En"}
+									</span>
+								</Nav.Link>
+							</div>
+						</Nav>
+					) : (
+						<Nav className={!loginState && "loginNavbar"}>
+							<div className="endNav">
+								<Link to="/login" className="nav-link">
+									<img src={Chat} alt="Chat" />
+								</Link>
+								<Link to="/registration" className="nav-link  registration">
+									<img src={Notification} alt="Notification" />
+								</Link>
+								<Dropdown
+									overlay={menu}
+									trigger={["click"]}
+									className="mb-2 mx-3"
+								>
+									<a
+										className="ant-dropdown-link"
+										onClick={(e) => e.preventDefault()}
+										href="/"
+									>
+										<img src={arrowDown} alt="arrowDown" />
+									</a>
+								</Dropdown>
+								<span className="pb-2  userType">
+									{currentLocal.navbar.admin}
+								</span>
+								,
+								<Link to="/me/name">
+									<Avatar icon={<UserOutlined />} className="mb-1" />{" "}
+								</Link>
+								<Nav.Link href="#" className="ml-3">
+									<img
+										src={languages}
+										alt="languages"
+										className="langIcon "
+										onClick={() => {
+											dispatch(
+												changeLocal(
+													currentLocal.language === "English" ? "ar" : "en"
+												)
+											);
+										}}
+									/>
+									<span className="px-2">
+										{currentLocal.language === "العربيه" ? "عربي" : "En"}
+									</span>
+								</Nav.Link>
+							</div>
+						</Nav>
+					)}
+				</Navbar.Collapse>
+			)}
 		</Navbar>
 	);
 }

@@ -54,7 +54,7 @@ function CompaniesGrid() {
 
 	return (
 		<div className="suppliersGrid">
-			<Container>
+			<Container fluid className="pl-0 pr-0">
 				<Row>
 					{Suppliers.map((supplier, i) => {
 						return (

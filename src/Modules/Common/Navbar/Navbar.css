@@ -35,7 +35,8 @@
 
 .navbar .centerNav {
 	display: flex;
-	margin: auto !important;
+	width: 100%;
+	justify-content: flex-end;
 }
 
 .navbar .centerNav img {
@@ -43,8 +44,9 @@
 }
 
 .navbar .endNav {
+	width: 100%;
 	display: flex;
-	margin-left: auto;
+	justify-content: flex-end;
 }
 
 .navbar img.langIcon {

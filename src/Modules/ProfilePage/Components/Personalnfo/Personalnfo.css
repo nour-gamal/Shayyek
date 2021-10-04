@@ -23,6 +23,7 @@
 .PersonalInfo .progressContainer span {
 	margin-right: 15px;
 	margin-left: 15px;
+	width: 100%;
 }
 .PersonalInfo .progress .progress-bar {
 	border-radius: 30px !important;
