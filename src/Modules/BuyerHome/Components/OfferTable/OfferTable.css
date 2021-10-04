@@ -49,3 +49,35 @@
 .OfferTable .ant-table-tbody > tr.ant-table-row:hover > td {
     background: none !important;
 }
+.OfferTable .ant-dropdown-trigger:hover
+{
+ background-color: transparent;
+}
+.OfferTable .ant-dropdown-trigger:active
+{
+ background-color: transparent;
+ border: none;
+ box-shadow: none;
+ outline: none;
+}
+.OfferTable .ant-dropdown-trigger:focus
+{
+ background-color: transparent;
+ border: none;
+ box-shadow: none;
+ outline: none;
+}
+.OfferTable .ant-btn:active
+{
+    color: #707070 !important;
+}
+.ant-btn:hover, .ant-btn:focus {
+    color: #707070 !important;
+}
+ .anticon  .anticon-ellipsis::after
+{
+  display: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}

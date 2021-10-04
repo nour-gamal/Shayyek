@@ -73,4 +73,18 @@ export const en = {
     completedPercentage: "40% Completed",
     addMoreWork: "*Add More Previous Works To Verify Your Account",
   },
+  offerTable:{
+    name:"Name",
+    company:"Company",
+    price:"Price",
+    city:"City",
+    paymentRequired:"Payment Required",
+    rating:"Rating",
+    volumeOfWorkFromShyeek:"Volume of work from Shyeek",
+    note:"Note",
+    actionList:"Action List",
+    delete:"Delete",
+    acceptOffer:"Accept Offer",
+    startConversation:"Start Conversation"
+  }
 };

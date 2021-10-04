@@ -71,4 +71,18 @@ export const ar = {
 		completedPercentage: "٤٠٪ مكتمل",
 		addMoreWork: "*اضف اعمال اخري لتوثيق حسابك",
 	},
+	offerTable:{
+		name:"الاسم",
+		company:"الشركة",
+		price:"السعر",
+		city:"المدينة",
+		paymentRequired:"الدفعه المقدمة المطلوبة ",
+		rating:"التقييم",
+		volumeOfWorkFromShyeek:"حجم العمل في sheyyek",
+		note:"ملاحظات",
+		actionList:"قائمة العمل",
+		delete:"حذف",
+		acceptOffer:"قبول العرض",
+		startConversation:"بدء المحادثة"
+	  }
 };
