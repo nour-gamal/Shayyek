@@ -1,8 +1,4 @@
-import React from "react";
-
-function shayyek_logo_dark({ width, height }) {
-	return (
-		<svg
+	<svg
 			id="Group_3"
 			data-name="Group 3"
 			xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +93,3 @@ function shayyek_logo_dark({ width, height }) {
 				fill="#fff"
 			/>
 		</svg>
-	);
-}
-
-export default shayyek_logo_dark;
