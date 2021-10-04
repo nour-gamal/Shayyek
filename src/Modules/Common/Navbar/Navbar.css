@@ -35,8 +35,7 @@
 
 .navbar .centerNav {
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	margin: auto !important;
 }
 
 .navbar .centerNav img {

@@ -1,16 +1,22 @@
 import React from "react";
 import Navbar from "../Common/Navbar/Navbar";
 import Footer from "../Common/Footer/Footer";
+import { useSelector } from "react-redux";
 import PersonalInfo from "./Components/Personalnfo/Personalnfo";
 import BuyerPortfolio from "./Components/BuyerPortfolio/BuyerPortfolio";
 import BusinessCard from "./Components/BusinessCard/BusinessCard";
 import CompanyCard from "./Components/CompanyCard/CompanyCard";
 import { Col, Container, Row } from "react-bootstrap";
 function ProfilePage() {
+	const { currentLocal } = useSelector((state) => state.currentLocal);
+
 	return (
 		<section>
 			<Navbar />
-			<Container fluid>
+			<Container
+				fluid
+				className={currentLocal.language === "English" ? "ppl" : "ppr"}
+			>
 				<Row>
 					<Col xs={10}>
 						<PersonalInfo />
