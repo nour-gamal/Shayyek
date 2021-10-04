@@ -87,5 +87,7 @@ export const ar = {
 		delete: "حذف",
 		acceptOffer: "قبول العرض",
 		startConversation: "بدء المحادثة",
+		makeOnlineSession:"بدء محادثه اون لاين"
+
 	},
 };

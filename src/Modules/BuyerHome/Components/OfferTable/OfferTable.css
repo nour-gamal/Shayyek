@@ -18,10 +18,7 @@
 {
     background-color: transparent !important;
 }
-.OfferTable .ant-dropdown-menu-item-divider
-{
-    background-color: transparent !important;
-}
+
 .OfferTable .ant-table-thead > tr >th{
     color: #fff !important;
     background: #003B6B !important;
@@ -74,10 +71,14 @@
 .ant-btn:hover, .ant-btn:focus {
     color: #707070 !important;
 }
- .anticon  .anticon-ellipsis::after
+.ant-btn::after
 {
   display: none !important;
-  border: none !important;
+  /* border: none !important;
   box-shadow: none !important;
-  outline: none !important;
+  outline: none !important; */
+}
+.delete
+{
+    text-align:right !important;
 }

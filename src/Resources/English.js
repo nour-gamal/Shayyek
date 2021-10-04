@@ -89,5 +89,6 @@ export const en = {
 		delete: "Delete",
 		acceptOffer: "Accept Offer",
 		startConversation: "Start Conversation",
+    makeOnlineSession:"Make online session"
 	},
 };
