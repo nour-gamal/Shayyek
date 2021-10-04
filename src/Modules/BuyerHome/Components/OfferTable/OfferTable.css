@@ -18,7 +18,34 @@
 {
     background-color: transparent !important;
 }
-.ant-dropdown-menu-item-divider
+.OfferTable .ant-dropdown-menu-item-divider
 {
     background-color: transparent !important;
+}
+.OfferTable .ant-table-thead > tr >th{
+    color: #fff !important;
+    background: #003B6B !important;
+  }
+
+  .OfferTable .ant-table-tbody > tr {
+    background:#F5F5F5 !important;
+    color: #707070;
+    }
+.OfferTable .bordercol
+{
+    border-right: 2px solid #fff;
+}
+.OfferTable .bottomBorderCol{
+    border-bottom: 2px solid #fff;
+
+}
+
+.OfferTable table:hover,
+.OfferTable tr:hover,
+.OfferTable thead:hover {
+    background: #F5F5F5 !important;
+}
+
+.OfferTable .ant-table-tbody > tr.ant-table-row:hover > td {
+    background: none !important;
 }
