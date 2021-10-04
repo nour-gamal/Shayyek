@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "./BuyerPortfolio.css";
 function BuyerPortfolio() {
+	const { currentLocal } = useSelector((state) => state.currentLocal);
+
 	const buyerInfo = [
 		{
 			name: "Nour",
@@ -23,7 +26,9 @@ function BuyerPortfolio() {
 					alt="profile"
 					className="rounded-circle"
 				/>
-				<h6 className="title f-17 fw-600 mx-2">Previous work</h6>
+				<h6 className="title f-17 fw-600 mx-2">
+					{currentLocal.profilePage.prevWork}
+				</h6>
 			</div>
 			<div>
 				{buyerInfo.map((info) => {

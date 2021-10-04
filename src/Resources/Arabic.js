@@ -46,9 +46,9 @@ export const ar = {
 		requestRFQ: " طلب الاسعار",
 		cart: "العربه",
 		AllSuppliers: " كل الموردين",
-		admin:"ادمن",
-		logout:"تسجيل الخروج",
-		viewProfile:"صفحتي"
+		admin: "ادمن",
+		logout: "تسجيل الخروج",
+		viewProfile: "صفحتي",
 	},
 	suppliers: {
 		suppliersGrid: {},
@@ -70,19 +70,22 @@ export const ar = {
 	profilePage: {
 		completedPercentage: "٤٠٪ مكتمل",
 		addMoreWork: "*اضف اعمال اخري لتوثيق حسابك",
+		prevWork: "الاعمال السابقه",
+		reject: "ارفض",
+		accept: "اقبل",
 	},
-	offerTable:{
-		name:"الاسم",
-		company:"الشركة",
-		price:"السعر",
-		city:"المدينة",
-		paymentRequired:"الدفعه المقدمة المطلوبة ",
-		rating:"التقييم",
-		volumeOfWorkFromShyeek:"حجم العمل في sheyyek",
-		note:"ملاحظات",
-		actionList:"قائمة العمل",
-		delete:"حذف",
-		acceptOffer:"قبول العرض",
-		startConversation:"بدء المحادثة"
-	  }
+	offerTable: {
+		name: "الاسم",
+		company: "الشركة",
+		price: "السعر",
+		city: "المدينة",
+		paymentRequired: "الدفعه المقدمة المطلوبة ",
+		rating: "التقييم",
+		volumeOfWorkFromShyeek: "حجم العمل في sheyyek",
+		note: "ملاحظات",
+		actionList: "قائمة العمل",
+		delete: "حذف",
+		acceptOffer: "قبول العرض",
+		startConversation: "بدء المحادثة",
+	},
 };
