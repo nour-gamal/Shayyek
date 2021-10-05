@@ -14,19 +14,21 @@ function GuestNav() {
 	return (
 		<Nav>
 			<div className="centerNav">
-				<Link to="/suppliers" className="nav-link">
-					<img src={AllSuppliers} alt="AllSuppliers" />
-					{currentLocal.navbar.AllSuppliers}
-				</Link>
-				<Nav.Link href="#link">
-					<img src={Request_RFQ} alt="Request_RFQ" />
-					{currentLocal.navbar.requestRFQ}
-				</Nav.Link>
-				<Nav.Link href="#link">
-					<img src={cart} alt="cart" />
-					{currentLocal.navbar.cart}
-				</Nav.Link>
-				<div className={"mx-5 d-flex "}>
+				<div className="d-flex">
+					<Link to="/suppliers" className="nav-link">
+						<img src={AllSuppliers} alt="AllSuppliers" />
+						{currentLocal.navbar.AllSuppliers}
+					</Link>
+					<Nav.Link href="#link">
+						<img src={Request_RFQ} alt="Request_RFQ" />
+						{currentLocal.navbar.requestRFQ}
+					</Nav.Link>
+					<Nav.Link href="#link">
+						<img src={cart} alt="cart" />
+						{currentLocal.navbar.cart}
+					</Nav.Link>
+				</div>
+				<div className="d-flex">
 					<Link to="/login" className="nav-link">
 						{currentLocal.navbar.signin}
 					</Link>
@@ -37,6 +39,7 @@ function GuestNav() {
 				</div>
 			</div>
 			<div className="endNav">
+				<Nav.Link href="#">{currentLocal.navbar.contactUs}</Nav.Link>
 				<Nav.Link href="#">
 					<img
 						src={languages}

@@ -49,6 +49,7 @@ export const ar = {
 		admin: "ادمن",
 		logout: "تسجيل الخروج",
 		viewProfile: "صفحتي",
+		contactUs:'اتصل بنا'
 	},
 	suppliers: {
 		suppliersGrid: {},

@@ -51,6 +51,7 @@ export const en = {
 		admin: "Admin",
 		logout: "Logout",
 		viewProfile: "view Profile",
+		contactUs: "Contact Us",
 	},
 	suppliers: {
 		suppliersGrid: {},
@@ -89,6 +90,6 @@ export const en = {
 		delete: "Delete",
 		acceptOffer: "Accept Offer",
 		startConversation: "Start Conversation",
-    makeOnlineSession:"Make online session"
+		makeOnlineSession: "Make online session",
 	},
 };

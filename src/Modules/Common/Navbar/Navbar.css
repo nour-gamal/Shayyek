@@ -35,8 +35,8 @@
 
 .navbar .centerNav {
 	display: flex;
-	width: 290%;
-	justify-content: flex-end;
+	width: 360%;
+	justify-content: space-around;
 }
 .navbar .centerNav img {
 	margin: 0 5px;
@@ -60,10 +60,14 @@
 	}
 
 	.navbar .endNav,
-	.navbar .centerNav {
+	.navbar .centerNav,
+	.navbar .centerNav > div {
 		flex-direction: column;
 		justify-content: flex-start;
 		align-items: flex-start;
+	}
+	.navbar .centerNav {
+		width: 100%;
 	}
 
 	.navbar .navbar-nav {
