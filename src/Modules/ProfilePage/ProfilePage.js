@@ -18,20 +18,20 @@ function ProfilePage() {
 				className={currentLocal.language === "English" ? "ppl" : "ppr"}
 			>
 				<Row>
-					<Col xs={10}>
+					<Col xs={8} md={10}>
 						<PersonalInfo />
 						<Container fluid className="my-2">
 							<Row>
-								<Col xs={6}>
+								<Col md={6}>
 									<BusinessCard />
 								</Col>
-								<Col xs={6}>
+								<Col md={6}>
 									<CompanyCard />
 								</Col>
 							</Row>
 						</Container>
 					</Col>
-					<Col xs={2} className="px-0">
+					<Col xs={4} md={2} className="px-0">
 						<BuyerPortfolio />
 					</Col>
 				</Row>

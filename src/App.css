@@ -168,26 +168,26 @@ section {
 
 @media (max-width: 480px) {
 	.ppl {
-		padding-left: 15px !important;
+		padding-left: 16px !important;
 	}
 	.ppr {
-		padding-right: 15px !important;
+		padding-right: 16px !important;
 	}
 }
 @media (min-width: 481px) and (max-width: 768px) {
 	.ppl {
-		padding-left: 15px !important;
+		padding-left: 30px !important;
 	}
 	.ppr {
-		padding-right: 15px !important;
+		padding-right: 30px !important;
 	}
 }
 
 @media (min-width: 769px) and (max-width: 1099px) {
 	.ppl {
-		padding-left: 15px !important;
+		padding-left: 60px !important;
 	}
 	.ppr {
-		padding-right: 15px !important;
+		padding-right: 60px !important;
 	}
 }
