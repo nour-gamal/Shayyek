@@ -1,5 +1,7 @@
 import React from "react";
 import { Table, Dropdown, Menu } from "antd";
+// import { PDFExport } from "@progress/kendo-react-pdf";
+import {PDFExport} from "@progress/kendo-react-pdf"
 import acceptOffer from "../../../../Resources/Assets/Group 1447.svg";
 import deletee from "../../../../Resources/Assets/Group 1460.svg";
 import chat from "../../../../Resources/Assets/Group 1597.svg";
@@ -10,9 +12,7 @@ import "./OfferTable.css";
 import { useSelector } from "react-redux";
 function OfferTable() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  const downloadOffer = () => {
-    alert("hiof");
-  };
+
   const shareOffer = () => {
     alert("bye");
   };
@@ -45,11 +45,7 @@ function OfferTable() {
       city: "Giza",
       PaymentConditions: "50-50%",
 
-      rating: (
-        <span>
-          4.5 <img src={star} alt="star" />
-        </span>
-      ),
+      rating: 4,
       volumeWork: "500.00 L.E",
       notes: "loremloremloremloremloremloremloremloremlorem",
       v: (
@@ -67,11 +63,7 @@ function OfferTable() {
       price: "500.00",
       city: "Giza",
       PaymentConditions: "50-50%",
-      rating: (
-        <span>
-          4.5 <img src={star} alt="star" />
-        </span>
-      ),
+      rating: 4,
       volumeWork: "500.00 L.E",
       notes: "lorem",
       v: (
@@ -85,15 +77,11 @@ function OfferTable() {
     {
       key: "2",
       name: "John",
-      company: "employee 2",
+      company: "employee 3",
       price: "500.00",
       city: "Giza",
       PaymentConditions: "50-50%",
-      rating: (
-        <span>
-          4.5 <img src={star} alt="star" />
-        </span>
-      ),
+      rating: 4,
       volumeWork: "500.00 L.E",
       notes: "lorem",
       v: (
@@ -107,15 +95,11 @@ function OfferTable() {
     {
       key: "2",
       name: "John",
-      company: "employee 2",
+      company: "employee 4",
       price: "500.00",
       city: "Giza",
       PaymentConditions: "50-50%",
-      rating: (
-        <span>
-          4.5 <img src={star} alt="star" />
-        </span>
-      ),
+      rating: 4,
       volumeWork: "500.00 L.E",
       notes: "lorem",
       v: (
@@ -129,15 +113,11 @@ function OfferTable() {
     {
       key: "2",
       name: "John",
-      company: "employee 2",
+      company: "employee 5",
       price: "500.00",
       city: "Giza",
       PaymentConditions: "50-50%",
-      rating: (
-        <span>
-          4.5 <img src={star} alt="star" />
-        </span>
-      ),
+      rating: 4,
       volumeWork: "500.00 L.E",
       notes: "lorem",
       v: (
@@ -151,15 +131,11 @@ function OfferTable() {
     {
       key: "2",
       name: "John",
-      company: "employee 2",
+      company: "employee 6",
       price: "500.00",
       city: "Giza",
       PaymentConditions: "50-50%",
-      rating: (
-        <span>
-          4.5 <img src={star} alt="star" />
-        </span>
-      ),
+      rating: 4,
       volumeWork: "500.00 L.E",
       notes: "lorem",
       v: (
@@ -173,15 +149,11 @@ function OfferTable() {
     {
       key: "2",
       name: "John",
-      company: "employee 2",
+      company: "employee 7",
       price: "500.00",
       city: "Giza",
       PaymentConditions: "50-50%",
-      rating: (
-        <span>
-          4.5 <img src={star} alt="star" />
-        </span>
-      ),
+      rating: 4,
       volumeWork: "500.00 L.E",
       notes: "lorem",
       v: (
@@ -231,6 +203,11 @@ function OfferTable() {
       dataIndex: "rating",
       key: "rating",
       className: "bordercol bottomBorderCol",
+      render: (rate) => (
+        <div>
+          <img src={star} alt="star" /> {rate}
+        </div>
+      ),
     },
     {
       title: currentLocal.offerTable.volumeOfWorkFromShyeek,
@@ -251,7 +228,13 @@ function OfferTable() {
       className: "bottomBorderCol",
     },
   ];
+  const pdfExportComponent = React.useRef(null);
 
+  const exportPDFWithComponent = () => {
+    if (pdfExportComponent.current) {
+      pdfExportComponent.current.save();
+    }
+  };
   return (
     <div className="OfferTable ppr ppl">
       <div className="py-4 d-flex justify-content-end mx-4">
@@ -265,17 +248,28 @@ function OfferTable() {
         <img
           src={download}
           alt="download"
-          onClick={downloadOffer}
+          onClick={exportPDFWithComponent}
           className="download"
         />
       </div>
-      <Table
-        className="table-striped-rows"
-        dataSource={dataSource}
-        columns={columns}
-        scroll={{ x: "calc(100wh - 4em)" }}
-        pagination={{ pageSize: 2 }}
-      />
+      <PDFExport
+        ref={pdfExportComponent}
+        paperSize="auto"
+        margin={40}
+        fileName={`RFQ ProjectName Response`}
+        author="shayyek"
+      >
+        <Table
+          className="table-striped-rows"
+          dataSource={dataSource}
+          columns={columns}
+          scroll={{ x: "calc(100wh - 4em)" }}
+          pagination={{
+            pageSize: 3,
+            hideOnSinglePage: true,
+          }}
+        />
+      </PDFExport>
       <div className="text-center">
         <button className="button-primary">
           {currentLocal.offerTable.makeOnlineSession}

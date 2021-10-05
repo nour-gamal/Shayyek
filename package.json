@@ -4,6 +4,7 @@
 	"private": true,
 	"dependencies": {
 		"@progress/kendo-react-layout": "^4.9.0",
+		"@progress/kendo-react-pdf": "^4.9.0",
 		"@progress/kendo-theme-default": "^4.41.2",
 		"@reduxjs/toolkit": "^1.6.1",
 		"@testing-library/jest-dom": "^5.14.1",
