@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Dropdown, Menu } from "antd";
-// import { PDFExport } from "@progress/kendo-react-pdf";
-import {PDFExport} from "@progress/kendo-react-pdf"
+import { PDFExport } from "@progress/kendo-react-pdf";
 import acceptOffer from "../../../../Resources/Assets/Group 1447.svg";
 import deletee from "../../../../Resources/Assets/Group 1460.svg";
 import chat from "../../../../Resources/Assets/Group 1597.svg";
@@ -12,7 +11,8 @@ import "./OfferTable.css";
 import { useSelector } from "react-redux";
 function OfferTable() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
-
+  const [current, setCurrent] = useState(1);
+  const [pageSize, setPageSize] = useState(5)
   const shareOffer = () => {
     alert("bye");
   };
@@ -265,8 +265,12 @@ function OfferTable() {
           columns={columns}
           scroll={{ x: "calc(100wh - 4em)" }}
           pagination={{
-            pageSize: 3,
-            hideOnSinglePage: true,
+            current: current,
+            pageSize:pageSize,
+            onChange: (page, pageSize) => {
+              setPageSize(pageSize)
+              setCurrent(page);
+            },
           }}
         />
       </PDFExport>
