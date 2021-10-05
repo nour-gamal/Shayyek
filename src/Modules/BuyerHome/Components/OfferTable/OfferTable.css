@@ -90,7 +90,7 @@
     cursor: pointer;
 
 }
-.ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title 
+.ant-dropdown-menu-item, .ant-table
 {
     font-size: 12px !important;
 }
@@ -119,5 +119,15 @@
 }
 .OfferTable .nameEmp ,.company , .price , .city ,.PaymentConditions ,.rating ,.valum , .note  {
   text-align: center ;
+}
+@media (max-width: 480px) {
+    .OfferTable .ant-table-cell {
+        padding: 0px 10px !important;
+    }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+    .OfferTable .ant-table-cell {
+        padding: 0px 10px !important;
+    }
 }
 
