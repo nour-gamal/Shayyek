@@ -1,6 +1,6 @@
 .navbar {
 	width: 100%;
-	background-color: rgba(0, 59, 107, 0.85);
+	background-color: rgba(0, 59, 107, 0.75);
 	padding: 20px 0px !important;
 }
 
@@ -51,6 +51,17 @@
 .navbar img.langIcon {
 	filter: brightness(300%);
 }
+.navbar-dark .navbar-toggler:focus {
+	box-shadow: 0 0 0 0.5px;
+}
+.register_btn {
+	background: rgba(38, 88, 129, 1);
+	padding-left: 18px !important;
+	padding-right: 18px !important;
+	border-radius: 5px;
+	margin-left: 18px;
+	margin-right: 18px;
+}
 
 @media (max-width: 991px) {
 	.navbar {
@@ -71,7 +82,7 @@
 	}
 
 	.navbar .navbar-nav {
-		flex-direction: column-reverse;
+		flex-direction: column;
 		display: flex;
 		justify-content: flex-start;
 		align-items: flex-start;
@@ -80,5 +91,15 @@
 		background-color: #fff;
 		padding-right: 0px !important;
 		padding-left: 0px !important;
+	}
+	.pl-28 {
+		padding-left: 28px !important;
+	}
+	.register_btn {
+		background: none;
+		margin-left: unset !important;
+		margin-right: unset !important;
+		padding-right: unset !important;
+		padding-left: unset !important;
 	}
 }

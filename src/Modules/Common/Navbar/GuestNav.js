@@ -28,18 +28,20 @@ function GuestNav() {
 						{currentLocal.navbar.cart}
 					</Nav.Link>
 				</div>
-				<div className="d-flex">
+				<div className="d-flex pl-28">
 					<Link to="/login" className="nav-link">
 						{currentLocal.navbar.signin}
 					</Link>
-					<Link to="/registration" className="nav-link">
+					<Link to="/registration" className="nav-link register_btn">
 						{/* <Nav.Link href="/registration"> */}
 						{currentLocal.navbar.register}
 					</Link>
 				</div>
 			</div>
 			<div className="endNav">
-				<Nav.Link href="#">{currentLocal.navbar.contactUs}</Nav.Link>
+				<Nav.Link href="#" className="pl-28">
+					{currentLocal.navbar.contactUs}
+				</Nav.Link>
 				<Nav.Link href="#">
 					<img
 						src={languages}

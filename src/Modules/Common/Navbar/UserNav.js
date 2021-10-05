@@ -8,6 +8,7 @@ import { Avatar } from "antd";
 import Chat from "../../../Resources/Assets/ChatIcon.svg";
 import { UserOutlined } from "@ant-design/icons";
 import { Menu, Dropdown } from "antd";
+import Notification from "../../../Resources/Assets/Notification Icon.svg";
 import arrowDown from "../../../Resources/Assets/arrowDown.svg";
 
 function UserNav({ loginState }) {
