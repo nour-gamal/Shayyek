@@ -35,10 +35,9 @@
 
 .navbar .centerNav {
 	display: flex;
-	width: 120%;
+	width: 290%;
 	justify-content: flex-end;
 }
-
 .navbar .centerNav img {
 	margin: 0 5px;
 }
@@ -53,7 +52,7 @@
 	filter: brightness(300%);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
 	.navbar {
 		position: relative;
 		padding-left: 0;

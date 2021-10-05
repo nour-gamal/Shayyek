@@ -193,7 +193,7 @@ function OfferTable() {
       title: currentLocal.offerTable.note,
       dataIndex: "notes",
       key: "notes",
-      className: "bordercol bottomBorderCol note",
+      className: "bordercol bottomBorderCol notes",
       render: (notes) => {
         return <div className="shortText" data-tip={notes}>{notes}</div>;
       },

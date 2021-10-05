@@ -8,11 +8,10 @@ import UserNav from "./UserNav";
 import "./Navbar.css";
 
 function Navbarr({ navState }) {
-	const loginState = true;
-
+	const loginState = false;
 	return (
 		<Navbar
-			expand="md"
+			expand="lg"
 			className={navState ? "light f-14 ppl ppr" : "dark f-14 ppl ppr"}
 			variant={"dark"}
 			collapseOnSelect={true}
