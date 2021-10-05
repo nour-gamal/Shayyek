@@ -41,6 +41,7 @@
 
 .PersonalInfo .actions {
 	display: inline-block;
+	margin-left: auto;
 }
 @media (max-width: 480px) {
 	.progressContainer {
@@ -52,6 +53,10 @@
 	.progressContainer > span {
 		margin-right: 0 !important;
 		margin-left: 0 !important;
+	}
+	.PersonalInfo .actions {
+		margin-left: 0;
+		margin-right: auto;
 	}
 	.PersonalInfo .actions .popup-button-secondary,
 	.PersonalInfo .actions .popup-button-primary {

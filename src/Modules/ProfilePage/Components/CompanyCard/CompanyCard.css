@@ -24,3 +24,8 @@
 	border-radius: 17px;
 	display: block;
 }
+@media (max-width: 768px) {
+	.companyCard {
+		margin-top: 10px;
+	}
+}
