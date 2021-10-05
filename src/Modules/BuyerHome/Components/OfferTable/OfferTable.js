@@ -10,7 +10,12 @@ import "./OfferTable.css";
 import { useSelector } from "react-redux";
 function OfferTable() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  console.log(currentLocal);
+const downloadOffer =()=>{
+  alert("hiof")
+}  
+const shareOffer = ()=>{
+  alert("bye");
+}
   const menu = (
     <Menu>
       <Menu.Item key="0">
@@ -250,17 +255,17 @@ function OfferTable() {
   return (
     <div className="OfferTable ppr ppl">
       <div className="py-4 d-flex justify-content-end mx-4">
-        <img src={share} alt="share" className="mx-4" />
+        <img src={share} alt="share" className="mx-4 share"  onClick={shareOffer}/>
 
-        <img src={download} alt="download" />
+        <img src={download} alt="download" onClick={downloadOffer} className="download" />
       </div>
       <Table
         className="table-striped-rows"
         dataSource={dataSource}
         columns={columns}
         scroll={{ x: "calc(100wh - 4em)" }}
-        row={6}
-      />
+        pagination={{ position: 'bottom', current:1, pageSize: 5 }}
+              />
       <div className="text-center">
         <button className="button-primary">
           {currentLocal.offerTable.makeOnlineSession}

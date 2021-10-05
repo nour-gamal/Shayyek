@@ -82,3 +82,7 @@
 {
     text-align:right !important;
 }
+.OfferTable .download , .OfferTable .share
+{
+    cursor: pointer;
+}
