@@ -92,7 +92,7 @@
 }
 .ant-dropdown-menu-item, .ant-table
 {
-    font-size: 12px !important;
+    font-size: 14px !important;
 }
 .OfferTable .shortText{
 	text-overflow: ellipsis;
@@ -123,11 +123,15 @@
 @media (max-width: 480px) {
     .OfferTable .ant-table-cell {
         padding: 0px 10px !important;
+        font-size: 12px !important;
+
     }
 }
 @media (min-width: 481px) and (max-width: 768px) {
     .OfferTable .ant-table-cell {
         padding: 0px 10px !important;
+        font-size: 12px !important;
+
     }
 }
 
