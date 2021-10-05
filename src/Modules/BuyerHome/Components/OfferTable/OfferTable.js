@@ -139,14 +139,14 @@ function OfferTable() {
       title: currentLocal.offerTable.name,
       dataIndex: "name",
       key: "name",
-      className: "bordercol bottomBorderCol",
+      className: "bordercol bottomBorderCol nameEmp",
     },
 
     {
       title: currentLocal.offerTable.company,
       dataIndex: "company",
       key: "company",
-      className: "bordercol bottomBorderCol",
+      className: "bordercol bottomBorderCol company",
       render: (company) => {
         return <div className="shortText" data-tip={company}>{company}</div>;
       },
@@ -155,13 +155,13 @@ function OfferTable() {
       title: currentLocal.offerTable.price,
       dataIndex: "price",
       key: "price",
-      className: "bordercol bottomBorderCol",
+      className: "bordercol bottomBorderCol price",
     },
     {
       title: currentLocal.offerTable.city,
       dataIndex: "city",
       key: "city",
-      className: "bordercol bottomBorderCol",
+      className: "bordercol bottomBorderCol city",
       render: (city) => {
         return <div className="shortText" data-tip={city}>{city}</div>;
       },
@@ -176,7 +176,7 @@ function OfferTable() {
       title: currentLocal.offerTable.rating,
       dataIndex: "rating",
       key: "rating",
-      className: "bordercol bottomBorderCol",
+      className: "bordercol bottomBorderCol rating",
       render: (rate) => (
         <div>
          {rate } {" "}<img src={star} alt="star" /> 
@@ -187,13 +187,13 @@ function OfferTable() {
       title: currentLocal.offerTable.volumeOfWorkFromShyeek,
       dataIndex: "volumeWork",
       key: "volumeWork",
-      className: "bordercol bottomBorderCol",
+      className: "bordercol bottomBorderCol valum",
     },
     {
       title: currentLocal.offerTable.note,
       dataIndex: "notes",
       key: "notes",
-      className: "bordercol bottomBorderCol",
+      className: "bordercol bottomBorderCol note",
       render: (notes) => {
         return <div className="shortText" data-tip={notes}>{notes}</div>;
       },
@@ -209,7 +209,9 @@ function OfferTable() {
             overlay={menu}
             trigger={["click"]}
             onClick={(e) => e.preventDefault()}
-          ></Dropdown.Button>
+          >
+            
+          </Dropdown.Button>
         );
       },
     },

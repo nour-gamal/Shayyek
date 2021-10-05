@@ -48,7 +48,6 @@
 
 .OfferTable .ant-table-tbody > tr.ant-table-row:hover > td {
     background: none !important;
-    text-align: center !important;
 }
 .OfferTable .ant-dropdown-trigger:hover
 {
@@ -104,7 +103,6 @@
 .OfferTable .ant-table-cell 
 {
     padding:16px 10px !important;
-    text-align: center !important;
 }
 .acceptOffer , .chat , .delete
 {
@@ -114,3 +112,12 @@
 {
     justify-content: flex-end !important;
 }
+.OfferTble .ant-table-cell .ant-btn-group .ant-dropdown-button
+{
+    text-align: left !important;
+
+}
+.OfferTable .nameEmp ,.company , .price , .city ,.PaymentConditions ,.rating ,.valum , .note  {
+  text-align: center ;
+}
+
