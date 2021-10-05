@@ -264,6 +264,7 @@ function OfferTable() {
 					columns={columns}
 					scroll={{ x: "calc(100wh - 4em)" }}
 					pagination={{
+						pageSize: 3,
 						hideOnSinglePage: true,
 					}}
 				/>
