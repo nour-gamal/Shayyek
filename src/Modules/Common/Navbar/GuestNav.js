@@ -26,17 +26,17 @@ function GuestNav() {
 					<img src={cart} alt="cart" />
 					{currentLocal.navbar.cart}
 				</Nav.Link>
+				<div className={"mx-5 d-flex "}>
+					<Link to="/login" className="nav-link">
+						{currentLocal.navbar.signin}
+					</Link>
+					<Link to="/registration" className="nav-link">
+						{/* <Nav.Link href="/registration"> */}
+						{currentLocal.navbar.register}
+					</Link>
+				</div>
 			</div>
 			<div className="endNav">
-				<Link to="/login" className="nav-link">
-					{currentLocal.navbar.signin}
-				</Link>
-				<Link to="/registration" className="nav-link">
-					{/* <Nav.Link href="/registration"> */}
-					{currentLocal.navbar.register}
-				</Link>
-				{/* // </Nav.Link> */}
-
 				<Nav.Link href="#">
 					<img
 						src={languages}
