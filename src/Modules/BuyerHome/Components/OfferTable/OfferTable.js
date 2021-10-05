@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Table, Dropdown, Menu } from "antd";
 import { PDFExport } from "@progress/kendo-react-pdf";
-import acceptOffer from "../../../../Resources/Assets/Group 1447.svg";
-import deletee from "../../../../Resources/Assets/Group 1460.svg";
-import chat from "../../../../Resources/Assets/Group 1597.svg";
+import acceptOffer from "../../../../Resources/Assets/acceptOffer.svg";
+import deletee from "../../../../Resources/Assets/deletee.svg";
+import chat from "../../../../Resources/Assets/chat.svg";
 import star from "../../../../Resources/Assets/star (1).svg";
 import download from "../../../../Resources/Assets/direct-download.svg";
 import share from "../../../../Resources/Assets/share (5).svg";

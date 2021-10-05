@@ -5,10 +5,10 @@ import languages from "../../../Resources/Assets/languages.svg";
 import { changeLocal } from "../../../Redux/Localization";
 import { Link } from "react-router-dom";
 import { Avatar } from "antd";
-import Chat from "../../../Resources/Assets/Path 9.svg";
+import Chat from "../../../Resources/Assets/ChatIcon.svg";
 import { UserOutlined } from "@ant-design/icons";
 import { Menu, Dropdown } from "antd";
-import arrowDown from "../../../Resources/Assets/small-down.svg";
+import arrowDown from "../../../Resources/Assets/arrowDown.svg";
 
 function UserNav({ loginState }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
