@@ -3,8 +3,8 @@ import { Nav, Navbar } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import languages from "../../../Resources/Assets/languages.svg";
 import { changeLocal } from "../../../Redux/Localization";
-import ShayyekLogoDark from "../../../Resources/Assets/shayyek_logo_dark.svg";
-import ShayyekLogoLight from "../../../Resources/Assets/Group 3.svg";
+import ShayyekLogoDark from "../../../Resources/Assets/shayyekLogoDark.svg";
+import ShayyekLogoLight from "../../../Resources/Assets/shayyekLogoLight.svg";
 import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
 import cart from "../../../Resources/Assets/cart.svg";
 import Request_RFQ from "../../../Resources/Assets/Request_RFQ.svg";
@@ -40,7 +40,7 @@ function Navbarr({ navState }) {
 		>
 			<Link to="/">
 				{navState ? (
-					<img src={ShayyekLogoDark} alt='ShayyekLogoDark' />
+					<img src={ShayyekLogoDark} alt="ShayyekLogoDark" />
 				) : (
 					<img src={ShayyekLogoLight} alt="ShayyekLogoLight" />
 				)}
