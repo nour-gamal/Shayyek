@@ -1,13 +1,9 @@
-import React from "react";
-
-function shayyek_logo_light({ width, height }) {
-	return (
-		<svg
+	<svg
 			id="Group_3"
 			data-name="Group 3"
 			xmlns="http://www.w3.org/2000/svg"
-			width={width ? width : "100"}
-			height={height ? height : "20"}
+			width= "100"
+			height= "20"
 			viewBox="0 0 135 28"
 		>
 			<defs>
@@ -70,7 +66,7 @@ function shayyek_logo_light({ width, height }) {
 			<text
 				id="Shayyek"
 				transform="translate(22.734 22)"
-				fill="#fff"
+				fill="#003b6b"
 				font-size="23"
 				font-family="Montserrat-Bold, Montserrat"
 				font-weight="700"
@@ -97,7 +93,3 @@ function shayyek_logo_light({ width, height }) {
 				fill="#fff"
 			/>
 		</svg>
-	);
-}
-
-export default shayyek_logo_light;
