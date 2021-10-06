@@ -50,7 +50,7 @@ export const en = {
 		AllSuppliers: "All Suppliers",
 		admin: "Admin",
 		logout: "Logout",
-		viewProfile: "view Profile",
+		viewProfile: "View Profile",
 		contactUs: "Contact Us",
 	},
 	suppliers: {

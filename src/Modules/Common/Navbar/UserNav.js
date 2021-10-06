@@ -4,11 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import languages from "../../../Resources/Assets/languages.svg";
 import { changeLocal } from "../../../Redux/Localization";
 import { Link } from "react-router-dom";
-import { Avatar } from "antd";
-import Chat from "../../../Resources/Assets/ChatIcon.svg";
-import { UserOutlined } from "@ant-design/icons";
 import { Menu, Dropdown } from "antd";
-import Notification from "../../../Resources/Assets/Notification Icon.svg";
 import arrowDown from "../../../Resources/Assets/arrowDown.svg";
 
 function UserNav({ loginState }) {
@@ -28,25 +24,52 @@ function UserNav({ loginState }) {
 	return (
 		<Nav className={!loginState && "loginNavbar"}>
 			<div className="endNav">
-				<Link to="/login" className="nav-link">
-					<img src={Chat} alt="Chat" />
-				</Link>
-				<Link to="/registration" className="nav-link  registration">
-					<img src={Notification} alt="Notification" />
-				</Link>
-				<Dropdown overlay={menu} trigger={["click"]} className="mb-2 mx-3">
-					<a
-						className="ant-dropdown-link"
-						onClick={(e) => e.preventDefault()}
-						href="/"
+				<div className="d-flex personalInfoContainer">
+					<Dropdown
+						overlay={menu}
+						trigger={["click"]}
+						className="mx-3 d-lg-none "
 					>
-						<img src={arrowDown} alt="arrowDown" />
-					</a>
-				</Dropdown>
-				<span className="pb-2  userType">{currentLocal.navbar.admin}</span>,
-				<Link to="/me/name">
-					<Avatar icon={<UserOutlined />} className="mb-1" />{" "}
-				</Link>
+						<a
+							className="ant-dropdown-link d-flex align-item-center "
+							onClick={(e) => e.preventDefault()}
+							href="/"
+						>
+							<img src={arrowDown} alt="arrowDown" />
+						</a>
+					</Dropdown>
+					<span
+						className={
+							currentLocal.language === "English"
+								? "userType d-flex align-item-center leftStyles"
+								: "userType d-flex align-item-center rightStyles"
+						}
+					>
+						{currentLocal.navbar.admin}
+					</span>
+					<Dropdown
+						overlay={menu}
+						trigger={["click"]}
+						className="mx-3 d-none d-lg-block"
+					>
+						<a
+							className="ant-dropdown-link d-flex align-item-center "
+							onClick={(e) => e.preventDefault()}
+							href="/"
+						>
+							<img src={arrowDown} alt="arrowDown" />
+						</a>
+					</Dropdown>
+					<Link to="/me/name">
+						<img
+							className={"avatar rounded-circle d-flex align-items-center mx-4"}
+							src={
+								"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+							}
+							alt="avatar"
+						/>
+					</Link>
+				</div>
 				<Nav.Link href="#" className="ml-3">
 					<img
 						src={languages}
