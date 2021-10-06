@@ -1,0 +1,7 @@
+.actionsContainer {
+	display: flex;
+	justify-content: space-between;
+}
+.actionsContainer > div > div img {
+	cursor: pointer;
+}

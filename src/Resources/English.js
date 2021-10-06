@@ -92,4 +92,16 @@ export const en = {
 		startConversation: "Start Conversation",
 		makeOnlineSession: "Make online session",
 	},
+	buyerHome: {
+		importExcelFile: "Import Excel File",
+		addNewItem: "Add New Item",
+		ccCollugues: "CC Collugues",
+		item: "Item",
+		describtion: "Describtion",
+		quantity: "Quantity",
+		preferredBrands: "Preferred Brands",
+		categories: "Categories",
+		includeInstallation: "Include Installation",
+		notes: "Notes",
+	},
 };

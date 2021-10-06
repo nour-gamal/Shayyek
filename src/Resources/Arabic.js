@@ -49,7 +49,7 @@ export const ar = {
 		admin: "ادمن",
 		logout: "تسجيل الخروج",
 		viewProfile: "صفحتي",
-		contactUs:'اتصل بنا'
+		contactUs: "اتصل بنا",
 	},
 	suppliers: {
 		suppliersGrid: {},
@@ -88,7 +88,18 @@ export const ar = {
 		delete: "حذف",
 		acceptOffer: "قبول العرض",
 		startConversation: "بدء المحادثة",
-		makeOnlineSession:"بدء محادثه اون لاين"
-
+		makeOnlineSession: "بدء محادثه اون لاين",
+	},
+	buyerHome: {
+		importExcelFile: "اضف من ملف اكسيل",
+		addNewItem: "اضف بند جديد",
+		ccCollugues: "شارك زملائك",
+		item: "البند",
+		describtion: "الوصف",
+		quantity: "الكميه",
+		preferredBrands: "العملات التجاريه المفضله",
+		categories: "التصنيف",
+		includeInstallation: "شامل التركيب",
+		notes: "ملحوظات",
 	},
 };
