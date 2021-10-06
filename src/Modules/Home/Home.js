@@ -1,12 +1,23 @@
 import React from "react";
-import BuyerHome from "../BuyerHome/BuyerHome";
 import Navbar from "../Common/Navbar/Navbar";
+import Footer from "../Common/Footer/Footer";
+import BuyerHome from "./BuyerHome/BuyerHome";
+import ContractorHome from "./ContractorHome/ContractorHome";
+import SupplierHome from "./SupplierHome/SupplierHome";
 function Home() {
+	const userType = "buyer";
 	return (
-		<div>
+		<section>
 			<Navbar />
-			<BuyerHome />
-		</div>
+			{userType === "buyer" ? (
+				<BuyerHome />
+			) : userType === "supplier" ? (
+				<SupplierHome />
+			) : (
+				<ContractorHome />
+			)}
+			<Footer />
+		</section>
 	);
 }
 

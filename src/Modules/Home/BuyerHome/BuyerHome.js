@@ -1,10 +1,10 @@
 import React from "react";
-import OfferTable from "./Components/OfferTable/OfferTable";
+import CreateRFQ from "./Components/CreateRFQ/CreateRFQ";
 
 function BuyerHome() {
 	return (
 		<div>
-			<OfferTable />
+			<CreateRFQ />
 		</div>
 	);
 }
