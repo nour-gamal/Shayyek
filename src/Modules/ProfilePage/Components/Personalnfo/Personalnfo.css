@@ -2,6 +2,7 @@
 	padding: 20px 0;
 	display: flex;
 	flex-wrap: wrap;
+	width: 98%;
 }
 
 .PersonalInfo > div:first-of-type {
@@ -41,8 +42,14 @@
 
 .PersonalInfo .actions {
 	display: inline-block;
+}
+.PersonalInfo .actions.left {
 	margin-left: auto;
 }
+.PersonalInfo .actions.right {
+	margin-right: auto;
+}
+
 @media (max-width: 480px) {
 	.progressContainer {
 		flex-direction: column;

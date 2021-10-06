@@ -40,7 +40,11 @@ function Personalnfo() {
 					<div className="f-10">{currentLocal.profilePage.addMoreWork}</div>
 				</div>
 			</div>
-			<div className="actions">
+			<div
+				className={
+					currentLocal.language === "English" ? "actions left" : "actions right"
+				}
+			>
 				<button className="popup-button-secondary mx-2">
 					{currentLocal.profilePage.reject}
 				</button>
