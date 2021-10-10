@@ -8,7 +8,10 @@ import "./CreateRFQ.css";
 function CreateRFQ() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [dataSource, updateDataSource] = useState([]);
-
+	var index = {
+		item: null,
+		notes: null,
+	};
 	const addNewItem = () => {
 		const key = Math.ceil(Math.random() * 999999999);
 
@@ -28,15 +31,33 @@ function CreateRFQ() {
 			if (err) {
 				console.log(err);
 			} else {
+				//Loop to indicate the index of each row
+				resp.rows[0].forEach((item, itemIndex) => {
+					switch (item.toLowerCase()) {
+						case "item": {
+							index.item = itemIndex;
+							break;
+						}
+						case "notes": {
+							index.notes = itemIndex;
+							break;
+						}
+						default: {
+							break;
+						}
+					}
+				});
+
 				resp.rows[0].forEach((item) => {
-					columns.forEach((col) => {
-						if (item === col.title) {
+					columns.forEach((col, colIndex) => {
+						if (item.toLowerCase() === col.dataIndex) {
 							resp.rows.forEach((name) => {
-								updateDataSource((oldDataSource, i) => [
+								updateDataSource((oldDataSource) => [
 									...oldDataSource,
 									{
-										key: i,
-										item: name[0],
+										key: Math.ceil(Math.random() * 111111111),
+										item: name[index.item],
+										notes: name[index.notes],
 									},
 								]);
 							});
@@ -64,7 +85,7 @@ function CreateRFQ() {
 			key: "quantity",
 		},
 		{
-			title: currentLocal.buyerHome.preferedBrands,
+			title: currentLocal.buyerHome.preferredBrands,
 			dataIndex: "preferredBrands",
 			key: "preferredBrands",
 		},
@@ -117,7 +138,12 @@ function CreateRFQ() {
 					<label>{currentLocal.buyerHome.ccCollugues}</label>
 				</div>
 			</div>
-			<Table columns={columns} dataSource={dataSource} className="my-4" />
+			<Table
+				columns={columns}
+				dataSource={dataSource}
+				// loading={true}
+				className="my-4"
+			/>
 		</div>
 	);
 }
