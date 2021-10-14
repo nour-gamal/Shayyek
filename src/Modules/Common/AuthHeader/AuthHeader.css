@@ -2,8 +2,8 @@
 {
     margin-top: 13px;
     margin-bottom: 24px;
-    padding-left: 84px;
-padding-right:84px ;
+    /* padding-left: 84px;
+padding-right:84px ; */
 }
 .AuthHeader .title
 {
@@ -15,6 +15,11 @@ padding-right:84px ;
 	margin-right: 24px;
 	margin-left: 16px;
 	cursor: pointer;
+    margin-top: 15px !important;
+}
+.AuthHeader .languageWord
+{
+    margin-top: 14px;
 }
 .AuthHeader .dropdownmenu {
 	display: flex;
@@ -22,12 +27,27 @@ padding-right:84px ;
     margin-top: 10px ;
 
 }
-@media only screen and (max-width: 768px) {
+.AuthHeader .dropdownmenu .ant-dropdown-trigger {
+	display: flex;
+	justify-content: space-between;
+    width: 50%;
+    margin-right: 25px;
+    background-color: #f5f5f5;
+    color: #000;
+    text-decoration: none;
+    padding: 15px 25px;
+
+align-items: center;
+}
+@media (max-width: 768px) {
     .AuthHeader
     {
         margin-top: 42px;
         margin-bottom: 24px;
-        padding-left: 0px;
-    padding-right:0px ;
     }
+    .AuthHeader .dropdownmenu
+{
+    display:flex !important;
+    justify-content: flex-end !important;
+}
   }

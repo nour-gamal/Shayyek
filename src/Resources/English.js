@@ -37,6 +37,7 @@ export const en = {
 		employee: "Employee",
 		supplies: "Supplies",
 		userType: "user Type",
+		organisationLegalStructure:"Organisation Legal Structure",
 	},
 	footer: {
 		copyRights: "2021 Shayyek. All Rights Reserved",

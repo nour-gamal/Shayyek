@@ -36,6 +36,7 @@ export const ar = {
 		employee: "موظف",
 		supplies: "المورد",
 		userType: "نوع المستخدم",
+		organisationLegalStructure:"الهيكل القانوني للشركة",
 	},
 	footer: {
 		copyRights: "٢٠٢١ شيك , كل الحقوق محفوظه",

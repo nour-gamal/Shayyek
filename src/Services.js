@@ -5,46 +5,46 @@ const baseUrl = "http://192.175.123.213:9000/";
 const token = localStorage.getItem("token");
 
 export const PostResource = (path, data, onSuccess, onFail, reqAuth) => {
-	//	const { authorization } = useSelector((state) => state.authorization);
-	const requestData = {
-		method: "post",
-		url: baseUrl + path,
-		headers: {},
-		data,
-	};
+  //	const { authorization } = useSelector((state) => state.authorization);
+  const requestData = {
+    method: "post",
+    url: baseUrl + path,
+    headers: {},
+    data,
+  };
 
-	if (reqAuth) {
-		requestData.headers = {
-			Authorization: "Bearer " + token,
-		};
-	}
+  if (reqAuth) {
+    requestData.headers = {
+      Authorization: "Bearer " + token,
+    };
+  }
 
-	axios(requestData)
-		.then((res) => {
-			onSuccess(res.data);
-		})
-		.catch((err) => {
-			onFail(err.response);
-		});
+  axios(requestData)
+    .then((res) => {
+      onSuccess(res.data);
+    })
+    .catch((err) => {
+      onFail(err.response);
+    });
 };
 
 export const GetResource = (path, onSuccess, onFail, reqAuth = true) => {
-	const requestData = {
-		method: "get",
-		url: baseUrl + path,
-	};
+  const requestData = {
+    method: "get",
+    url: baseUrl + path,
+  };
 
-	if (reqAuth) {
-		requestData.headers = {
-			Authorization: "Bearer " + token,
-		};
-	}
+  if (reqAuth) {
+    requestData.headers = {
+      Authorization: "Bearer " + token,
+    };
+  }
 
-	axios(requestData)
-		.then((res) => {
-			onSuccess(res.data);
-		})
-		.catch((error) => {
-			onFail(error.response);
-		});
+  axios(requestData)
+    .then((res) => {
+      onSuccess(res.data);
+    })
+    .catch((error) => {
+      onFail(error.response);
+    });
 };
