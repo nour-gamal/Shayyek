@@ -36,7 +36,7 @@ export const ar = {
 		employee: "موظف",
 		supplies: "المورد",
 		userType: "نوع المستخدم",
-		organisationLegalStructure:"الهيكل القانوني للشركة",
+		organisationLegalStructure: "الهيكل القانوني للشركة",
 	},
 	footer: {
 		copyRights: "٢٠٢١ شيك , كل الحقوق محفوظه",
@@ -96,7 +96,7 @@ export const ar = {
 		addNewItem: "اضف بند جديد",
 		ccCollugues: "شارك زملائك",
 		item: "البند",
-		describtion: "الوصف",
+		description: "الوصف",
 		quantity: "الكميه",
 		preferredBrands: "العملات التجاريه المفضله",
 		categories: "التصنيف",
