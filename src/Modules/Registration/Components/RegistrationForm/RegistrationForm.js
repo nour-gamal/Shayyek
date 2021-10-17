@@ -8,6 +8,7 @@ import disableArrow from "../../../../Resources/Assets/disableArrow.svg";
 import Arrow from "../../../../Resources/Assets/Arrow.svg";
 import uploadImg from "../../../../Resources/Assets/uploadImg.svg";
 import disapleUploadImg from "../../../../Resources/Assets/disapleUploadImg.svg";
+import { Cascader } from "antd";
 function RegistrationForm() {
   const [buyer, setBuyer] = useState("user Type");
   const [individual, setIndividual] = useState("");
@@ -39,6 +40,44 @@ function RegistrationForm() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
   const showState = true;
+  const options = [
+    {
+      value: "zhejiang",
+      label: "Zhejiang",
+      children: [
+        {
+          value: "hangzhou",
+          label: "Hangzhou",
+          children: [
+            {
+              value: "xihu",
+              label: "West Lake",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      value: "jiangsu",
+      label: "Jiangsu",
+      children: [
+        {
+          value: "nanjing",
+          label: "Nanjing",
+          children: [
+            {
+              value: "zhonghuamen",
+              label: "Zhong Hua Men",
+            },
+          ],
+        },
+      ],
+    },
+  ];
+  function onChange(value) {
+    console.log(value);
+  }
+
   const onSelectUserType = (val) => {
     setTimeout(() => {
       setBuyer(val);
@@ -83,6 +122,54 @@ function RegistrationForm() {
       })}
     </Menu>
   );
+  const countryMenu = (
+    <Menu>
+      {companyName.map((company) => {
+        return (
+          <Menu.Item
+            key="0"
+            onClick={(e) => {
+              //call api to know if company has admin or not (admin>res.data)
+              // CompanyHasAdmin(
+              //   company.id,
+              //   (success) => {
+              //     setAdmin(success.success);
+              //   },
+              //   (fail) => {},
+              //   false
+              // );
+            }}
+          >
+            hu
+          </Menu.Item>
+        );
+      })}
+    </Menu>
+  );
+  const governmentMenu = (
+    <Menu>
+      {companyName.map((company) => {
+        return (
+          <Menu.Item
+            key="0"
+            onClick={(e) => {
+              //call api to know if company has admin or not (admin>res.data)
+              // CompanyHasAdmin(
+              //   company.id,
+              //   (success) => {
+              //     setAdmin(success.success);
+              //   },
+              //   (fail) => {},
+              //   false
+              // );
+            }}
+          >
+            bbb
+          </Menu.Item>
+        );
+      })}
+    </Menu>
+  );
   const handleChange = (e) => {
     const id = e.target.id;
     switch (id) {
@@ -103,9 +190,6 @@ function RegistrationForm() {
   const sendData = (e) => {
     e.preventDefault();
     setIndividual(" ");
-    console.log(
-      !(buyer === currentLocal.registration.buyer && individual === "456")
-    );
   };
   console.log(companyName);
 
@@ -208,7 +292,7 @@ function RegistrationForm() {
           )}
           {!(individual === "456" || admin === true) && (
             <Col md={12} xs={24}>
-              <input
+              {/* <input
                 type="text"
                 className={
                   !individual ? "disableInput input-field" : "input-field"
@@ -218,7 +302,16 @@ function RegistrationForm() {
                 value={work}
                 onChange={handleChange}
                 disabled={!individual}
-              />{" "}
+              />{" "} */}
+              <Cascader
+                className={
+                  !individual ? "disableInput input-field" : "input-field"
+                }
+                options={options}
+                onChange={onChange}
+                placeholder="Please select"
+              />
+              ,
             </Col>
           )}
           <Col md={12} xs={24} className="mb-2">
@@ -359,6 +452,7 @@ function RegistrationForm() {
               <input
                 disabled={!individual}
                 type="text"
+                name="myfile"
                 className={
                   !individual ? "disableInput input-field" : "input-field"
                 }
@@ -373,23 +467,39 @@ function RegistrationForm() {
             <Col md={12} xs={24}>
               <div
                 className={
-                  !individual ? "disableInput input-field d-flex justify-content-between" : "input-field d-flex justify-content-between"
+                  !individual
+                    ? "disableInput input-field d-flex justify-content-between align-items-center"
+                    : "input-field d-flex justify-content-between align-items-center"
                 }
               >
                 <input
                   disabled={!individual}
                   type="file"
                   id="files"
-                  placeholder={currentLocal.registration.uploadCompanyLogo}
                   // id="uploadCompanyLogo"
                   value={uploadCompanyLogo}
                   onChange={handleChange}
+                  style={{ display: "none" }}
                 />
-                <label htmlFor="files">
+                <label htmlFor="files" className="w-100">
                   {!individual ? (
-                    <img src={disapleUploadImg} alt="disapleUploadImg" />
+                    <>
+                      <div className="d-flex justify-content-between ">
+                        <div>{currentLocal.registration.uploadCompanyLogo}</div>
+                        <div>
+                          <img src={disapleUploadImg} alt="disapleUploadImg" />
+                        </div>
+                      </div>
+                    </>
                   ) : (
-                    <img src={uploadImg} alt="uploadImg" />
+                    <>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div>{currentLocal.registration.uploadCompanyLogo}</div>
+                        <div>
+                          <img src={uploadImg} alt="uploadImg" />
+                        </div>
+                      </div>
+                    </>
                   )}
                 </label>
               </div>
@@ -399,19 +509,8 @@ function RegistrationForm() {
             buyer === currentLocal.registration.supplies) && (
             <>
               <Col md={12} xs={24} className="country">
-                {/* <input
-                  disabled={!individual}
-                  type="text"
-                  className={
-                    !individual ? "disableInput input-field" : "input-field"
-                  }
-                  placeholder={currentLocal.registration.country}
-                  id="country"
-                  value={country}
-                  onChange={handleChange}
-                /> */}
                 <Dropdown
-                  overlay={menu}
+                  overlay={countryMenu}
                   trigger={["click"]}
                   className={
                     !individual ? "disableInput input-field" : "input-field"
@@ -432,8 +531,8 @@ function RegistrationForm() {
                   </a>
                 </Dropdown>
               </Col>
-              <Col md={12} xs={24}>
-                <input
+              <Col md={12} xs={24} className="government">
+                {/* <input
                   disabled={!individual}
                   type="text"
                   className={
@@ -443,7 +542,28 @@ function RegistrationForm() {
                   id="government"
                   value={government}
                   onChange={handleChange}
-                />
+                /> */}
+                <Dropdown
+                  overlay={governmentMenu}
+                  trigger={["click"]}
+                  className={
+                    !individual ? "disableInput input-field" : "input-field"
+                  }
+                  disabled={!individual}
+                >
+                  <a
+                    href="/"
+                    className="ant-dropdown-link"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    {currentLocal.registration.government}
+                    {!individual ? (
+                      <img src={disableArrow} alt="disableArrow" />
+                    ) : (
+                      <img src={Arrow} alt="Arrow" />
+                    )}
+                  </a>
+                </Dropdown>
               </Col>
 
               <Col md={12}>
@@ -463,7 +583,7 @@ function RegistrationForm() {
           )}
           {admin !== true && (
             <Col md={12} xs={24}>
-              <input
+              {/* <input
                 disabled={!individual}
                 type="text"
                 className={
@@ -473,7 +593,45 @@ function RegistrationForm() {
                 id="commercialRecord"
                 value={commercialRecord}
                 onChange={handleChange}
-              />
+              /> */}
+              <div
+                className={
+                  !individual
+                    ? "disableInput input-field d-flex justify-content-between align-items-center"
+                    : "input-field d-flex justify-content-between align-items-center"
+                }
+              >
+                <input
+                  disabled={!individual}
+                  type="file"
+                  id="files"
+                  // id="uploadCompanyLogo"
+                  value={commercialRecord}
+                  onChange={handleChange}
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="files" className="w-100">
+                  {!individual ? (
+                    <>
+                      <div className="d-flex justify-content-between ">
+                        <div>{currentLocal.registration.commercialRecord}</div>
+                        <div>
+                          <img src={disapleUploadImg} alt="disapleUploadImg" />
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div>{currentLocal.registration.commercialRecord}</div>
+                        <div>
+                          <img src={uploadImg} alt="uploadImg" />
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </label>
+              </div>
             </Col>
           )}
           <Col md={12} xs={24}>

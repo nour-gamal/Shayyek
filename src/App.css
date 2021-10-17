@@ -87,8 +87,8 @@ section {
 
 .input-field:focus {
 	outline: none;
-	border-color: #0370ff;
-	color: #0370ff;
+	border-color: #0370ff !important;
+	color: #0370ff !important;
 }
 
 .button-primary,

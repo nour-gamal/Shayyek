@@ -264,6 +264,27 @@ justify-content: space-between;
 .RegistrationForm :-ms-input-placeholder {
 	color: #bce0fd;
 }
+::-webkit-file-upload-button {
+	display: none !important;
+ }
+.RegistrationForm .ant-input  
+ {
+ border: none !important;
+ padding-top: 12px !important;
+ outline: none;
+ }
+ .RegistrationForm .ant-input:focus
+ {
+ border: none !important;
+ padding-top: 12px !important;
+ outline: none !important;
+ box-shadow: none !important;
+ }
+ .RegistrationForm .ant-cascader-picker-label:focus
+ {
+	 outline: none !important;
+	 color: inherit !important;
+ }
 
 .RegistrationForm ::-ms-input-placeholder {
 	color: #bce0fd;
@@ -384,6 +405,15 @@ text-decoration: none;
 
 }
 .RegistrationForm .country .ant-dropdown-trigger
+{
+	width: 95% !important;
+display: flex !important;
+justify-content: space-between !important;
+align-items: center;
+text-decoration: none;
+
+}
+.RegistrationForm .government .ant-dropdown-trigger
 {
 	width: 95% !important;
 display: flex !important;
