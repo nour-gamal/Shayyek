@@ -11,6 +11,7 @@ function CreateRFQ() {
 	var index = {
 		item: null,
 		notes: null,
+		description: null,
 	};
 	const addNewItem = () => {
 		const key = Math.ceil(Math.random() * 999999999);
@@ -42,6 +43,10 @@ function CreateRFQ() {
 							index.notes = itemIndex;
 							break;
 						}
+						case "description": {
+							index.description = itemIndex;
+							break;
+						}
 						default: {
 							break;
 						}
@@ -49,17 +54,20 @@ function CreateRFQ() {
 				});
 
 				resp.rows[0].forEach((item) => {
-					columns.forEach((col, colIndex) => {
+					columns.forEach((col) => {
 						if (item.toLowerCase() === col.dataIndex) {
-							resp.rows.forEach((name) => {
-								updateDataSource((oldDataSource) => [
-									...oldDataSource,
-									{
-										key: Math.ceil(Math.random() * 111111111),
-										item: name[index.item],
-										notes: name[index.notes],
-									},
-								]);
+							resp.rows.forEach((name, rowIndex) => {
+								if (rowIndex !== 0) {
+									updateDataSource((oldDataSource) => [
+										...oldDataSource,
+										{
+											key: Math.ceil(Math.random() * 111111111),
+											item: name[index.item],
+											notes: name[index.notes],
+											description: name[index.description],
+										},
+									]);
+								}
 							});
 						}
 					});
@@ -75,9 +83,9 @@ function CreateRFQ() {
 			key: "item",
 		},
 		{
-			title: currentLocal.buyerHome.describtion,
-			dataIndex: "describtion",
-			key: "describtion",
+			title: currentLocal.buyerHome.description,
+			dataIndex: "description",
+			key: "description",
 		},
 		{
 			title: currentLocal.buyerHome.quantity,
