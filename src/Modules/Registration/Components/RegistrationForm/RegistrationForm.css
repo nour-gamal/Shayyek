@@ -3,6 +3,34 @@
 {
 	font-size: 12px !important;
 }
+.RegistrationForm .input-dropdown{
+	width: 98%;
+	text-align: left;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background-color: transparent;
+	border-radius: 5px;
+	height: 44px;
+	border: 1px solid #bce0fd !important;
+	color: #bce0fd;
+	padding-left: 8px;
+	padding-right: 8px;
+	width: 95%;
+	margin-bottom: 16px;
+	font-size: 12px;
+}
+.RegistrationForm .ant-cascader-picker{
+	border: 1px solid #bce0fd;
+}
+.RegistrationForm .ant-cascader-picker a:hover{
+text-decoration: none !important;
+}
+.RegistrationForm .ant-dropdown-trigger
+{
+	text-decoration: none !important;
+}
 .RegistrationForm  .ant-checkbox 
 {
 	font-size: 12px !important;
@@ -56,12 +84,49 @@ box-shadow: none;
 	background-color: transparent !important;
 	color:  #DDDDDD !important;
 	border:1px solid #DDDDDD !important;
+	font-size: 12px !important;
 }
 .RegistrationForm .disableFiled
 {
 	color: #707070 !important;
 
 
+}
+.RegistrationForm .ant-checkbox + span
+{
+	font-size: 12px !important;
+}
+.RegistrationForm .work .anticon-down{
+	display: none !important;
+}
+.RegistrationForm .work .dropDownicon
+{
+	position: relative;
+	right: 25px;
+}
+.RegistrationForm .work .input-field
+{
+	border: 1px solid #bce0fd;
+	color: #bce0fd !important;
+}
+/* .RegistrationForm .work .input-field:focus
+{
+	color: #0370ff !important;
+} */
+
+.RegistrationForm .ant-cascader-picker{
+	outline: none !important;
+	box-shadow: none !important;
+	
+}
+.RegistrationForm .input
+{
+	font-size: 12px !important;
+}
+.RegistrationForm .ant-cascader-picker-focused:focus
+{
+	outline: none !important;
+	box-shadow: none !important;
 }
 .RegistrationForm .check-field
 {
@@ -73,23 +138,14 @@ box-shadow: none;
 	width: 95%;
 	margin-bottom: 16px;
 }
-.RegistrationForm .input-dropdown{
-	width: 95%;
-	text-align: left;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	background-color: transparent;
-	border-radius: 5px;
-	height: 44px;
-	border: 1px solid #bce0fd;
-	color: #bce0fd;
-	padding-left: 8px;
-	padding-right: 8px;
-	width: 95%;
-	margin-bottom: 16px;
+
+.RegistrationForm .ant-cascader-picker {
+width: 95%;
+padding: 4px;
+border-radius: 4px;
+color: #bce0fd !important;
 }
+
 .RegistrationForm .input-dropdown:hover{
 	width: 95%;
 	box-shadow: none !important;
@@ -141,6 +197,7 @@ box-shadow: none;
 .RegistrationForm .disableInput::placeholder {
 	color: #DDDDDD ;
 	opacity: 1;
+	font-size: 12px !important;
 }
 .RegistrationForm .disable{
 	background: #707070 0% 0% no-repeat padding-box;
@@ -382,6 +439,7 @@ justify-content: space-between;
 .RegistrationForm .checkSignIn {
 	color: #bce0fd;
 	margin-top: 16px;
+	font-size: 14px;
 }
 .RegistrationForm .disableCheck a
 {
@@ -389,12 +447,14 @@ justify-content: space-between;
 	text-decoration: none;
 
 }
+
 .RegistrationForm .checkSignIn a {
 	color: #bce0fd;
 }
 .RegistrationForm .checkSignIn{
 	margin-bottom: 40px;
 }
+
 .RegistrationForm .companyName .ant-dropdown-trigger
 {
 	width: 95% !important;
@@ -402,16 +462,29 @@ display: flex !important;
 justify-content: space-between !important;
 align-items: center;
 text-decoration: none;
+border: 1px solid #bce0fd;
+font-size: 12px !important;
 
 }
-.RegistrationForm .country .ant-dropdown-trigger
+.RegistrationForm .companyType .ant-dropdown-trigger
 {
 	width: 95% !important;
 display: flex !important;
 justify-content: space-between !important;
 align-items: center;
 text-decoration: none;
+border: 1px solid #bce0fd;
+font-size: 12px !important;
 
+}
+.RegistrationForm .country .ant-dropdown-trigger
+{
+width: 95% !important;
+display: flex !important;
+justify-content: space-between !important;
+align-items: center;
+text-decoration: none;
+font-size: 12px !important;
 }
 .RegistrationForm .government .ant-dropdown-trigger
 {
@@ -420,6 +493,7 @@ display: flex !important;
 justify-content: space-between !important;
 align-items: center;
 text-decoration: none;
+font-size: 12px !important;
 
 }
 .RegistrationForm .input-field
@@ -428,6 +502,22 @@ text-decoration: none;
 	border-radius: 5px !important;
 	border: 1px solid #bce0fd ;
 	color: #bce0fd ;
+	font-size: 12px !important;
+
+}
+.RegistrationForm .input-field label
+{
+
+	cursor: pointer !important;
+
+
+}
+.RegistrationForm .disableInput label
+{
+
+	cursor:auto !important;
+
+
 }
 .RegistrationForm .input-field:hover
 {
@@ -436,6 +526,31 @@ text-decoration: none;
 	border: 1px solid #bce0fd ;
 	color: #bce0fd ;
 }
+ .cascaderFiled
+{
+	border-radius: 5px;
+	height: 44px;
+	border: 1px solid #bce0fd !important;
+	color: #bce0fd !important;
+	padding-left: 8px;
+	padding-right: 8px;
+	width: 95%;
+	margin-bottom: 16px;
+}
+ .cascaderFiled:focus
+{
+	outline: none;
+	border-color: #0370ff ;
+	color: #0370ff ;
+}
+
+.RegistrationForm  .ant-cascader-input::placeholder{
+	border: 1px solid #bce0fd;
+	color: #bce0fd ;
+} 
+.RegistrationForm .ant-cascader-input::placeholder:disabled{
+	color: #DDDDDD  ;
+} 
 @media screen and (max-width: 765px) {
 	.RegistrationForm .dropdownmenu {
 		display: flex;

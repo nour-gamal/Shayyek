@@ -51,7 +51,6 @@ function App() {
 
     GetLanguages(
       (success) => {
-        
         localStorage.setItem("englishId", success.data[0].id);
         localStorage.setItem("arabicId", success.data[1].id);
       },

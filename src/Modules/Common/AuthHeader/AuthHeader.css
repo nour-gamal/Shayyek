@@ -39,6 +39,17 @@ padding-right:84px ; */
 
 align-items: center;
 }
+.AuthHeader .ant-alert 
+{
+width: 100%;
+margin: 25px;
+border: none;
+}
+.AuthHeader .ant-alert-message
+{
+    color: red !important;
+
+}
 @media (max-width: 768px) {
     .AuthHeader
     {
@@ -50,4 +61,23 @@ align-items: center;
     display:flex !important;
     justify-content: flex-end !important;
 }
+.AuthHeader .dropdownmenu .ant-dropdown-trigger {
+
+    padding: 10px 25px;
+    font-size: 14px;
+}
+.AuthHeader .languages {
+
+    margin-top: 6px !important;
+}
+.AuthHeader .languageWord
+{
+    margin-top: 7px;
+    font-size: 14px;
+}
+.AuthHeader .title
+{
+ font-size: 17.5px;
+}
+
   }
