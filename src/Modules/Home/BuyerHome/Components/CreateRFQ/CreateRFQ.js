@@ -12,6 +12,7 @@ function CreateRFQ() {
 		item: null,
 		notes: null,
 		description: null,
+		quantity: null,
 	};
 	const addNewItem = () => {
 		const key = Math.ceil(Math.random() * 999999999);
@@ -34,17 +35,48 @@ function CreateRFQ() {
 			} else {
 				//Loop to indicate the index of each row
 				resp.rows[0].forEach((item, itemIndex) => {
-					switch (item.toLowerCase()) {
-						case "item": {
+					switch (item.toLowerCase().trim()) {
+						case "item":
+						case "Item No.":
+						case "code":
+						case "code No.":
+						case "section":
+						case "section No.":
+						case "رقم":
+						case "الرقم":
+						case "البند":
+						case "بند":
+						case "رقم البند": {
 							index.item = itemIndex;
 							break;
 						}
-						case "notes": {
-							index.notes = itemIndex;
+						case "description":
+						case "specifications":
+						case "specs":
+						case "specs.":
+						case "وصف الاعمال":
+						case "المواصفة":
+						case "الوصف":
+						case "وصف الأعمال":
+						case "المواصفه":
+						case "الأعمال":
+						case "الاعمال": {
+							index.description = itemIndex;
 							break;
 						}
-						case "description": {
-							index.description = itemIndex;
+						case "qty":
+						case "quantity":
+						case "qty.":
+						case "العدد":
+						case "الكمية": {
+							index.quantity = itemIndex;
+							break;
+						}
+
+						case "notes":
+						case "الملاحظات":
+						case "ملاحظات": {
+							index.notes = itemIndex;
 							break;
 						}
 						default: {
@@ -65,6 +97,7 @@ function CreateRFQ() {
 											item: name[index.item],
 											notes: name[index.notes],
 											description: name[index.description],
+											quantity: name[index.quantity],
 										},
 									]);
 								}
@@ -81,6 +114,18 @@ function CreateRFQ() {
 			title: currentLocal.buyerHome.item,
 			dataIndex: "item",
 			key: "item",
+			onCell: (record, rowIndex) => {
+				return {
+					onClick: (event) => {
+						console.log(record, rowIndex, event);
+					},
+				};
+			},
+		},
+		{
+			title: currentLocal.buyerHome.description,
+			dataIndex: "description",
+			key: "description",
 		},
 		{
 			title: currentLocal.buyerHome.description,
@@ -115,7 +160,7 @@ function CreateRFQ() {
 	];
 
 	return (
-		<div className="ppl ppr f-14 my-4">
+		<div className="ppl ppr f-14 my-4 createRFQ">
 			<div className="actionsContainer">
 				<div>
 					<div className="mb-3">
@@ -151,6 +196,7 @@ function CreateRFQ() {
 				dataSource={dataSource}
 				// loading={true}
 				className="my-4"
+				scroll={{ x: true }}
 			/>
 		</div>
 	);

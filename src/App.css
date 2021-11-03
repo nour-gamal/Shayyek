@@ -95,7 +95,7 @@ section {
 
 .button-primary,
 .button-secondary {
-	background: #003B6B 0% 0% no-repeat padding-box;
+	background: #003b6b 0% 0% no-repeat padding-box;
 	border-radius: 5px;
 	opacity: 1;
 	height: 44px;
@@ -112,7 +112,7 @@ section {
 }
 .popup-button-primary,
 .popup-button-secondary {
-	background: #003B6B 0% 0% no-repeat padding-box;
+	background: #003b6b 0% 0% no-repeat padding-box;
 	border-radius: 5px;
 	opacity: 1;
 	height: 32px;
@@ -168,48 +168,54 @@ section {
 	padding-right: 84px !important;
 }
 
- .ant-pagination {
+.ant-pagination {
 	display: flex !important;
 	justify-content: center !important;
 }
- .ant-dropdown-trigger {
+.ant-dropdown-trigger {
 	border: none;
 	box-shadow: none !important;
 	background-color: transparent;
 }
 
- .ant-dropdown-trigger:hover {
+.ant-dropdown-trigger:hover {
 	color: #000;
 }
- table .ant-table-row:hover {
+table .ant-table-row:hover {
 	background-color: transparent !important;
 }
 
- .ant-table-thead > tr > th {
+.ant-table-thead > tr > th {
 	color: #fff !important;
-	background: #8e8e8e !important;
+	background: #003b6b !important;
 	text-align: center !important;
 	font-weight: 400 !important;
+	border-right: 2px solid #fff !important;
+}
+.ant-table-tbody td {
+	border-right: 2px solid #fff !important;
+	border-bottom: 2px solid #fff !important;
+	text-align: center;
 }
 
- .ant-table-tbody > tr {
+.ant-table-tbody > tr {
 	background: #f5f5f5 !important;
 	color: #707070;
 }
- .bordercol {
+.bordercol {
 	border-right: 2px solid #fff;
 }
- .bottomBorderCol {
+.bottomBorderCol {
 	border-bottom: 2px solid #fff;
 }
 
- table:hover,
- tr:hover,
- thead:hover {
+table:hover,
+tr:hover,
+thead:hover {
 	background: #f5f5f5 !important;
 }
 
- .ant-table-tbody > tr.ant-table-row:hover > td {
+.ant-table-tbody > tr.ant-table-row:hover > td {
 	background: none !important;
 }
 .ant-dropdown-trigger:hover {
@@ -221,6 +227,7 @@ section {
 	box-shadow: none;
 	outline: none;
 }
+
 .ant-dropdown-trigger:focus {
 	background-color: transparent;
 	/* border: none; */
