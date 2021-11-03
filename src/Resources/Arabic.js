@@ -28,7 +28,8 @@ export const ar = {
 		email: "البريد الالكتروني",
 		job: "الوظيفة",
 		companyMail: "البريد الالكتروني للشركة (اختياري)",
-		companyWebsite: "موقع الشركة",
+		companyWebsite: "موقع  الالكتروني الشركة",
+		companyWebsiteOptional: "موقع الالكتروني للشركة (اختياري)",
 		company: "شركة",
 		individual: "فرد",
 		buyer: "مشترى",
@@ -38,6 +39,8 @@ export const ar = {
 		Supplier: "مورد",
 		userType: "نوع المستخدم",
 		organisationLegalStructure:"نوع الشركة القنوني",
+		pleaseChooseCountryFirst:"برجاء اختيار البلد اولا",
+		PleaseFillAllRequiredFields:"برجاء املئ جميع الخانات *"
 	},
 	footer: {
 		copyRights: "٢٠٢١ شيك , كل الحقوق محفوظه",

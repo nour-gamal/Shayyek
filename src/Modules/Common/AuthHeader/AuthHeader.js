@@ -7,15 +7,17 @@ import { Menu, Dropdown } from "antd";
 import  dropDownArrow  from "../../../Resources/Assets/dropDownArrow.svg";
 import { GetUserTypes } from "../Network";
 import languages from "../../../Resources/Assets/languages.svg";
-function AuthHeader({ title, showState, onSelectUserType,sendDataToParent ,alert}) {
+function AuthHeader({ title, showState, onSelectUserType,sendDataToParent,toggleValue,alert,firstName}) {
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  const [item, setItem] = useState(currentLocal.registration.userType);
+  const [item, setItem] = useState("");
+  const [toggleState, setToggleState] = useState(false)
   const [userType, setUserType] = useState([]);
   // const [emptyCampanyName, setEmptyCampanyName] = useState(false)
   const dispatch = useDispatch();
   // const [buyer, setBuyer] = useState("");
   // console.log(emptyCampanyName);
+  console.log(currentLocal.registration.userType);
   const menu = (
     <Menu>
       {userType.map((user) => {
@@ -23,6 +25,11 @@ function AuthHeader({ title, showState, onSelectUserType,sendDataToParent ,alert
           <Menu.Item
             key={user.id}
             onClick={(e) => {
+              if(user.name==="Supplier"){
+                setToggleState(true)
+              }else{
+                setToggleState(false)
+              }
               onSelectUserType(user.name);
               setItem(user.name);
               sendDataToParent(user.id);
@@ -38,25 +45,31 @@ function AuthHeader({ title, showState, onSelectUserType,sendDataToParent ,alert
 
 
   useEffect(() => {
+    setItem(currentLocal.registration.userType)
     GetUserTypes(
       currentLanguageId,
       (success) => {
-    
+    console.log(success.data);
         setUserType(success.data);
       },
       (fail) => console.log(fail),
       false
     );
   }, [currentLanguageId]);
-
+  setTimeout(() => {
+    toggleValue(toggleState)
+  
+  }, 100);
+  console.log(alert);
   return (
     <div className="AuthHeader">
-      
+        {alert&&!firstName&&
       <Row>
-        {alert&&
-      <Alert w-10 message="* Please fill all required fields" type="error" />
-        }
+      
+      <Alert w-10 message={currentLocal.registration.PleaseFillAllRequiredFields} type="error" />
+       
       </Row>
+       }
     
       <Row>
         <Col md={12} xs={24}>

@@ -1,0 +1,90 @@
+
+.verifyByEmail .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 52px;
+    padding-bottom: 52px;
+    height: 74vh;
+
+    text-align: center;
+}
+.verifyByEmail .content img{
+    padding-bottom: 33px;
+
+}
+.verifyByEmail .content h3{
+    color: #003B6B;
+    margin-bottom: 32px;
+}
+.verifyByEmail .content p{
+    color: red;
+}
+.verifyByEmail .button {
+    margin-top: 20px;
+}
+
+
+.ant-modal {
+ width: 80vw !important;
+ position: static !important;
+ margin-top: 50px !important;
+  }
+  .ant-modal-content
+  {
+    border-radius: 20px !important; 
+
+  }
+  .ant-modal-body{
+      height: 85vh;
+      padding: 0;
+      padding-bottom: 44px;
+      padding-top: 54px;
+  }
+  .ant-modal-body .modalBody img
+  {
+      padding-top: 30px;
+      padding-bottom: 33px;
+  }
+  .ant-modal-body .modalBody .checkMobile
+  {
+      margin-bottom: 50px;
+      color: red;
+  }
+  .ant-modal-body .modalBody .resendCodev
+  {
+color: #0370FF;
+cursor: pointer;
+font-weight: bold;
+  }
+  .ant-modal-body .modalBody .code
+  {
+      display: flex;
+      justify-content: center;
+margin-bottom: 32px;
+  }
+  .ant-modal-body .modalBody .mobileNumber
+  {
+   color: #707070  }
+  .ant-modal-body .modalBody .button
+  {
+margin-bottom: 30px;
+  }
+  .ant-modal-centered::before {
+    content: unset;
+  }
+  .ant-modal-close{
+      display: none;
+  }
+  .ant-modal-footer
+  {
+      display: none;
+  }
+
+@media only screen and (max-width: 768px) {
+    .verifyByEmail .content img{
+        padding-bottom: 25px;
+    
+    }
+  }

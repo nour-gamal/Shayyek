@@ -70,16 +70,18 @@ section {
 .input-field {
 	border-radius: 5px;
 	height: 44px;
-	border: 1px solid #bce0fd;
-	color: #bce0fd;
+	border: 1px solid #8e8e8e;
+	color: #8e8e8e;
 	padding-left: 8px;
 	padding-right: 8px;
 	width: 95%;
-	margin-bottom: 16px;
+	/* margin-bottom: 24px; */
 }
 .Checkbox-field {
-	color: #bce0fd !important;
-	margin-bottom: 16px !important;
+	color: #8e8e8e !important;
+}
+.Checkbox-field:focus-within {
+	color: #0370ff !important;
 }
 /* .ant-checkbox-inner{
 	border: #0370ff !important;
@@ -87,13 +89,13 @@ section {
 
 .input-field:focus {
 	outline: none;
-	border-color: #0370ff ;
-	color: #0370ff ;
+	border-color: #0370ff !important;
+	color: #0370ff !important;
 }
 
 .button-primary,
 .button-secondary {
-	background: #003b6b 0% 0% no-repeat padding-box;
+	background: #003B6B 0% 0% no-repeat padding-box;
 	border-radius: 5px;
 	opacity: 1;
 	height: 44px;
@@ -110,7 +112,7 @@ section {
 }
 .popup-button-primary,
 .popup-button-secondary {
-	background: #003b6b 0% 0% no-repeat padding-box;
+	background: #003B6B 0% 0% no-repeat padding-box;
 	border-radius: 5px;
 	opacity: 1;
 	height: 32px;
@@ -185,7 +187,7 @@ section {
 
  .ant-table-thead > tr > th {
 	color: #fff !important;
-	background: #003b6b !important;
+	background: #8e8e8e !important;
 	text-align: center !important;
 	font-weight: 400 !important;
 }
@@ -221,7 +223,7 @@ section {
 }
 .ant-dropdown-trigger:focus {
 	background-color: transparent;
-	border: none;
+	/* border: none; */
 	box-shadow: none;
 	outline: none;
 }
@@ -244,7 +246,7 @@ section {
 }
 
 .ant-dropdown-menu-item:hover span {
-	color: #003b6b !important;
+	color: #8e8e8e !important;
 	background-color: transparent !important;
 }
 

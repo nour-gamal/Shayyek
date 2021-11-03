@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
 import { useSelector } from "react-redux";
 import "./RegistrationForm.css";
-import { Col, Radio, Row, Checkbox, Menu, Dropdown } from "antd";
+import DropdownTreeSelect from "react-dropdown-tree-select";
+import "react-dropdown-tree-select/dist/styles.css";
+import { Col, Radio, Row, Checkbox, Menu, Dropdown, Alert } from "antd";
 import {
   CompanyList,
   CompanyHasAdmin,
@@ -15,10 +17,10 @@ import {
   register,
 } from "../../Network";
 import disableArrow from "../../../../Resources/Assets/disableArrow.svg";
-import Arrow from "../../../../Resources/Assets/Arrow.svg";
-import uploadImg from "../../../../Resources/Assets/uploadImg.svg";
+import Arrow from "../../../../Resources/Assets/dropdown arrow icn.svg";
+import foucesArrow from "../../../../Resources/Assets/blue dropdown arrow.svg";
+import uploadImg from "../../../../Resources/Assets/Attach icn.svg";
 import disapleUploadImg from "../../../../Resources/Assets/disapleUploadImg.svg";
-import { Cascader } from "antd";
 function RegistrationForm() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
@@ -26,6 +28,7 @@ function RegistrationForm() {
   const [buyer, setBuyer] = useState(currentLocal.registration.userType);
   const [individual, setIndividual] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [focusIcon, setFocusIcon] = useState(false);
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
@@ -42,8 +45,8 @@ function RegistrationForm() {
   const [companyMail, setCompanyMail] = useState("");
   const [acceptTerms, setAcceptTerms] = useState("");
   const [checked, toggleChecked] = useState("");
-  // const [commercialRecord, setCommercialRecord] = useState("");
-  // const [uploadCompanyLogo, setUploadCompanyLogo] = useState("");
+  const [countryAlertte, setCountryAlert] = useState(false);
+  const [confirmationState, setConfirmationState] = useState("");
   const [companyWebsite, setcompanyWebsite] = useState("");
   const [companyId, setCompanyId] = useState("");
   const [governmentId, setGovernmentId] = useState("");
@@ -56,12 +59,13 @@ function RegistrationForm() {
   const [roleName, setRoleName] = useState("");
   const [accountList, setAccountList] = useState([[]]);
   const [accountId, setAccountId] = useState("");
+  const [toggleAccountType, setToggleAccountType] = useState("");
   const [roleId, setRoleId] = useState("");
   const [userTypeId, setUserTypeId] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [subCategoryId, setSubCategoryId] = useState("");
   const [subSubCategoryId, setSubSubCategoryId] = useState("");
-  // const [alert, setAlert] = useState(false);
+  const [alert, setAlert] = useState(false);
   const [logoName, setlogoName] = useState("");
   const [fileName, setFileName] = useState("");
   const [logoData, setLogoData] = useState("");
@@ -70,25 +74,60 @@ function RegistrationForm() {
   const showState = true;
   const uploadCompanyLogo = "";
   const commercialRecord = "";
-
-  //function userTypeName
   const onSelectUserType = (val) => {
     setTimeout(() => {
       setBuyer(val);
     }, 100);
   };
-  //when press on any level in three level it will get id
-  const handleCascaderChange = (e) => {
-    console.log(e);
-    console.log(e[0]);
-    setCategoryId(e[0]);
-    setSubCategoryId(e[1]);
-    setSubSubCategoryId(e[2]);
+
+  const toggleValue = (val) => {
+    setToggleAccountType(val);
   };
+
+  // function checkAge(age) {
+  //   return age ==="label";
+  // }
+  // const x=options.find(checkAge)
+  // console.log(x);
+
+  // options.forEach((x)=>{
+  //   console.log(x);
+  //   if(x.value==="0e76f8f4-8dea-497e-b757-61e2158e992b")
+  //   {
+  //     console.log("hi");
+  //   }
+  // })
+
+  // var x = options.find(function(post, index) {
+  // 	if(post.value == '222eb101-0645-45f0-bdaa-2f4d52536c66')
+  //   console.log(index);
+  // 		return true;
+  // });
+  // console.log("x",x);
+  // const y=[]
+  // let cat1=[]
+  // let cat2=[]
+  // let cat3=[]
+  // const x=options.forEach((option,i)=>{
+  //   y.push(option)
+  //   cat1.push(y[0])
+  // y[0].children.forEach((w,j)=>{
+  // cat1.push(w)
+  // w.children.forEach((t)=>{
+  //   cat1.push(t)
+  // })
+  // })
+  // cat2.push(y[1])
+
+  // })
+  // console.log("cat1",cat1);
+  // console.log("cat2",cat2);
+  // // console.log("cat3",cat3);
+  // console.log("y",y);
+
   //function userTypeId
 
   const sendDataToParent = (val) => {
-    console.log(val);
     setTimeout(() => {
       setUserTypeId(val);
     }, 100);
@@ -111,9 +150,7 @@ function RegistrationForm() {
       (success) => {
         setCountriesName(success.data);
       },
-      (fail) => {
-        console.log(fail);
-      },
+      (fail) => {},
       false
     );
     getRole(
@@ -121,9 +158,7 @@ function RegistrationForm() {
       (success) => {
         setRoleList(success.data);
       },
-      (fail) => {
-        console.log(fail);
-      },
+      (fail) => {},
       false
     );
     getAccountType(
@@ -131,9 +166,7 @@ function RegistrationForm() {
       (success) => {
         setAccountList(success.data);
       },
-      (fail) => {
-        console.log(fail);
-      },
+      (fail) => {},
       false
     );
 
@@ -142,43 +175,42 @@ function RegistrationForm() {
       (success) => {
         setCompanyTypes(success.data);
       },
-      (fail) => {
-        console.log(fail);
-      }
+      (fail) => {}
     );
 
     getWork(
       currentLanguageId,
       (success) => {
-        let options = [];
+        console.log(success.data);
+        const data = [];
         success.data.forEach((category, i) => {
-          options.push({
+          console.log(category);
+          data.push({
             value: category.category.id,
             label: category.category.name,
             children: [],
           });
           category.subCategories.forEach((subCategories, j) => {
-            options[i].children.push({
-              value: subCategories.subCategory.id,
+            data[i].children.push({
+              subvalue: subCategories.subCategory.id,
               label: subCategories.subCategory.name,
               children: [],
             });
             subCategories.subSubCategories.forEach((subSubCategories) => {
-              options[i].children[j].children.push({
-                value: subSubCategories.id,
+              data[i].children[j].children.push({
+                subsubvalue: subSubCategories.id,
                 label: subSubCategories.name,
               });
             });
           });
         });
-        updateOptions(options);
+
+        updateOptions(data);
       },
-      (fail) => {
-        console.log(fail);
-      },
+      (fail) => {},
       false
     );
-  }, [currentLanguageId]);
+  }, [currentLanguageId, updateOptions]);
   //dropdown of company
   const menu = (
     <Menu>
@@ -193,7 +225,7 @@ function RegistrationForm() {
               CompanyHasAdmin(
                 company.id,
                 (success) => {
-                  setAdmin(success.success);
+                  setAdmin(success.data);
                 },
                 (fail) => {},
                 false
@@ -215,6 +247,7 @@ function RegistrationForm() {
             key="0"
             onClick={(e) => {
               setCountryName(country.name);
+              setCountryAlert(false);
               //call api to know if company has admin or not (admin>res.data)
               governmentList(
                 currentLanguageId,
@@ -222,9 +255,7 @@ function RegistrationForm() {
                 (success) => {
                   setGovernmentsName(success.data);
                 },
-                (fail) => {
-                  console.log(fail);
-                },
+                (fail) => {},
                 false
               );
             }}
@@ -270,6 +301,7 @@ function RegistrationForm() {
           <Menu.Item
             key="0"
             onClick={(e) => {
+              console.log(role.id);
               setRoleName(role.name);
               setRoleId(role.id);
             }}
@@ -304,57 +336,80 @@ function RegistrationForm() {
     if (
       !firstName ||
       !lastName ||
+      !companyId ||
       !mobileNumber ||
       !email ||
       !password ||
       !confirmPassword ||
-      companyWebsite ||
-      !companyMail ||
+      !companyTypeId ||
       !companyPhoneNumber ||
-      !companyName ||
-      !companyWebsite ||
-      countryName ||
-      governmentName ||
-      !address ||
-      !checked ||
-      !acceptTerms
+      fileName === false ||
+      !checked
     ) {
-      const body = new FormData();
-      body.append("FirstName", firstName);
-      body.append("LastName", lastName);
-      body.append("MailUser", email);
-      body.append("Password", password);
-      body.append("MobileUser", mobileNumber);
-      body.append("IsWhatsAppNumber", checkedWhatsApp);
-      body.append("FirebaseToken", authorization.deviceToken);
-      body.append("Logo", logoData);
-      body.append("CommercialRecord", fileData);
-      body.append("MailCompany", companyMail);
-      body.append("MobileCompany", companyPhoneNumber);
-      body.append("Website", companyWebsite);
-      body.append("Address", address);
-      body.append("CompanyId", companyId);
-      body.append("RoleId", roleId);
-      body.append("UserTypeId", userTypeId);
-      body.append("AccountTypeId", accountId);
-      body.append("CompanyHasData", admin ? false : true);
-      body.append("GovernmentId", governmentId);
-      body.append("CategoryId", categoryId);
-      body.append("SubCategoryId", subCategoryId);
-      body.append("SubSubCategoryId", subSubCategoryId);
-      body.append("CompanyTypeId", companyTypeId);
-
-      register(
-        body,
-        (success) => console.log(success),
-        (fail) => console.log(fail),
-        false
-      );
+      setAlert(true);
     }
-    console.log(governmentId);
-    // console.log(countryId);
-    setIndividual(" ");
+    const body = new FormData();
+    body.append("FirstName", firstName);
+    body.append("LastName", lastName);
+    body.append("MailUser", email);
+    body.append("Password", password);
+    body.append("MobileUser", mobileNumber);
+    body.append("IsWhatsAppNumber", checkedWhatsApp);
+    body.append("FirebaseToken", authorization.deviceToken);
+    body.append("Logo", logoData);
+    body.append("CommercialRecord", fileData);
+    body.append("MailCompany", companyMail);
+    body.append("MobileCompany", companyPhoneNumber);
+    body.append("Website", companyWebsite);
+    body.append("Address", address);
+    body.append("CompanyId", companyId);
+
+    body.append(roleId && "RoleId", roleId);
+
+    body.append("UserTypeId", userTypeId);
+
+    body.append(
+      "AccountTypeId",
+      accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
+    );
+
+    body.append("CompanyHasData", admin ? true : false);
+    body.append("GovernmentId", governmentId);
+    body.append("CategoryId", categoryId);
+    body.append("SubCategoryId", subCategoryId);
+    body.append("SubSubCategoryId", subSubCategoryId);
+    body.append("CompanyTypeId", companyTypeId);
+    body.append("CategoriesRequest", companyTypeId);
+    register(
+      body,
+      (success) => {
+        console.log(success);
+      },
+      (fail) => console.log(fail),
+      false
+    );
   };
+  const onChangeOption = (e, i) => {
+    console.log("hi", e.value);
+    console.log("suphi", e);
+  };
+  const onAction = (node, action) => {
+    // console.log("onAction::", action, node);
+    console.log("bye");
+  };
+  function searchPredicate(node, searchTerm) {
+    console.log(
+      node.customData && node.customData.toLower().indexOf(searchTerm)
+    );
+    return (
+      node.customData && node.customData.toLower().indexOf(searchTerm) >= 0
+    );
+  }
+  const onNodeToggle = (currentNode) => {
+    // console.log("onNodeToggle::", currentNode);
+    console.log("hello");
+  };
+
   return (
     <div className="RegistrationForm ppl ppr">
       <AuthHeader
@@ -362,7 +417,10 @@ function RegistrationForm() {
         showState={showState}
         onSelectUserType={onSelectUserType}
         sendDataToParent={sendDataToParent}
+        toggleValue={toggleValue}
         alert={alert}
+        fistName={firstName}
+        lastName={lastName}
       />
       <Row style={{ height: "100px" }}>
         <Col xs={24}>
@@ -397,6 +455,9 @@ function RegistrationForm() {
       <form onSubmit={sendData}>
         <Row>
           <Col md={12} xs={24}>
+            <p className="alertMsg">
+              {alert && !firstName && <>* Please fill firstName</>}
+            </p>
             <input
               id="firstName"
               value={firstName}
@@ -416,6 +477,9 @@ function RegistrationForm() {
             />
           </Col>
           <Col md={12} xs={24}>
+            <p className="alertMsg">
+              {alert && !lastName && <>* Please fill LastName</>}
+            </p>
             <input
               type="text"
               className={
@@ -437,7 +501,9 @@ function RegistrationForm() {
 
           {!(individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") && (
             <Col md={12} xs={24} className="companyName">
-              {/* {alert && <label>* Please Choose Company Name</label>} */}
+              <p className="alertMsg">
+                {alert && !companyName && <>* Please Choose CompanyName</>}
+              </p>
               <Dropdown
                 overlay={menu}
                 trigger={["click"]}
@@ -449,6 +515,8 @@ function RegistrationForm() {
                 disabled={
                   !individual && buyer !== currentLocal.registration.Supplier
                 }
+                onClick={() => setFocusIcon(true)}
+                onBlur={() => setFocusIcon(false)}
               >
                 <a
                   href="/"
@@ -462,7 +530,7 @@ function RegistrationForm() {
                   buyer !== currentLocal.registration.Supplier ? (
                     <img src={disableArrow} alt="disableArrow" />
                   ) : (
-                    <img src={Arrow} alt="Arrow" />
+                    <img src={focusIcon ? foucesArrow : Arrow} alt="Arrow" />
                   )}
                 </a>
               </Dropdown>
@@ -470,26 +538,28 @@ function RegistrationForm() {
           )}
           {!(
             individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-            admin === true
+            admin === false
           ) && (
-            <Col md={12} xs={24} className="work mb-3">
-              {/* {alert && <label>* Please choose Work</label>} */}
-              <Cascader
+            <Col md={12} xs={24} className="work">
+              <p className="alertMsg">{alert && <>* Please Choose Work</>}</p>
+              <DropdownTreeSelect
+                data={options}
+                searchPredicate={searchPredicate}
+                onChange={onChangeOption}
+                onAction={onAction}
+                onNodeToggle={onNodeToggle}
                 className={
                   !individual && buyer !== currentLocal.registration.Supplier
                     ? "disableInput cascaderFiled"
                     : "cascaderFiled"
                 }
-                options={options}
-                onChange={handleCascaderChange}
-                placeholder={currentLocal.registration.work}
+                texts={{ placeholder: currentLocal.registration.work }}
                 disabled={
                   !individual && buyer !== currentLocal.registration.Supplier
                 }
-                bordered={false}
-                style={{ color: "red" }}
+                onClick={() => setFocusIcon(true)}
+                onBlur={() => setFocusIcon(false)}
               />
-
               {!individual && buyer !== currentLocal.registration.Supplier ? (
                 <img
                   src={disableArrow}
@@ -497,17 +567,23 @@ function RegistrationForm() {
                   className="dropDownicon"
                 />
               ) : (
-                <img src={Arrow} alt="Arrow" className="dropDownicon" />
+                <img
+                  src={focusIcon ? foucesArrow : Arrow}
+                  alt="Arrow"
+                  className="dropDownicon"
+                />
               )}
             </Col>
           )}
-          <Col md={12} xs={24} className="mb-2">
-            {/* {alert && <label>* Please fill mobileNumber</label>} */}
+          <Col md={12} xs={24}>
+            <p className="alertMsg">
+              {alert && !mobileNumber && <>* Please Choose mobileNumber</>}
+            </p>
             <input
               className={
                 !individual && buyer !== currentLocal.registration.Supplier
-                  ? "disableInput input-field mb-0"
-                  : "input-field mb-0"
+                  ? "disableInput input-field mb-2"
+                  : "input-field mb-3"
               }
               placeholder={currentLocal.registration.mobileNumber}
               type="number"
@@ -522,8 +598,12 @@ function RegistrationForm() {
             />
             <Checkbox
               id="whatsNumber"
-              disabled={!individual}
-              className={checkedWhatsApp ? "checked" : "Checkbox-field"}
+              disabled={
+                !individual && buyer !== currentLocal.registration.Supplier
+              }
+              className={
+                checkedWhatsApp ? "disableFiled check-field" : "check-field"
+              }
               onChange={(e) => {
                 toggleCheckedWhatsApp(e.target.checked);
               }}
@@ -532,7 +612,9 @@ function RegistrationForm() {
             </Checkbox>
           </Col>
           <Col md={12} xs={24}>
-            {/* {alert && <label>* Please fill email</label>} */}
+            <p className="alertMsg">
+              {alert && !email && <>* Please Choose email</>}
+            </p>
             <input
               type="email"
               className={
@@ -553,7 +635,9 @@ function RegistrationForm() {
           </Col>
 
           <Col md={12} xs={24}>
-            {/* {alert && <label>* Please fill password</label>} */}
+            <p className="alertMsg">
+              {alert && !password && <>* Please Choose password</>}
+            </p>
             <input
               className={
                 !individual && buyer !== currentLocal.registration.Supplier
@@ -574,8 +658,17 @@ function RegistrationForm() {
           </Col>
 
           <Col md={12} xs={24}>
-            {/* {alert && <label>* Please fill confirmPassword</label>} */}
+            <p className="alertMsg">
+              {alert && !confirmPassword && <>* Please ConfirmPassword</>}
+              {confirmationState && <> * password confirmation doesn't match</>}
+            </p>
+
             <input
+              onBlur={() => {
+                password !== confirmPassword
+                  ? setConfirmationState(true)
+                  : setConfirmationState(false);
+              }}
               type="password"
               className={
                 !individual && buyer !== currentLocal.registration.Supplier
@@ -595,10 +688,13 @@ function RegistrationForm() {
           </Col>
           {!(
             individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-            admin === true
+            admin === false
           ) && (
             <>
               <Col md={12} xs={24}>
+                <p className="alertMsg">
+                  {alert && !roleName && <>* Please Choose Your Role</>}
+                </p>
                 <Dropdown
                   overlay={roleMenu}
                   trigger={["click"]}
@@ -610,6 +706,8 @@ function RegistrationForm() {
                   disabled={
                     !individual && buyer !== currentLocal.registration.Supplier
                   }
+                  onClick={() => setFocusIcon(true)}
+                  onBlur={() => setFocusIcon(false)}
                 >
                   <a
                     href="/"
@@ -621,15 +719,17 @@ function RegistrationForm() {
                     buyer !== currentLocal.registration.Supplier ? (
                       <img src={disableArrow} alt="disableArrow" />
                     ) : (
-                      <img src={Arrow} alt="Arrow" />
+                      <img src={focusIcon ? foucesArrow : Arrow} alt="Arrow" />
                     )}
                   </a>
                 </Dropdown>
               </Col>
               <Col md={12} xs={24} className="companyType">
-                {/* {alert && (
-                  <label>* Please fill organisationLegalStructure</label>
-                )} */}
+                <p className="alertMsg">
+                  {alert && !companyTypeName && (
+                    <>* Please Choose CompanyType</>
+                  )}
+                </p>
                 <Dropdown
                   overlay={companyTypeMenu}
                   trigger={["click"]}
@@ -641,10 +741,17 @@ function RegistrationForm() {
                   disabled={
                     !individual && buyer !== currentLocal.registration.Supplier
                   }
+                  onClick={() => setFocusIcon(true)}
+                  onBlur={() => setFocusIcon(false)}
                 >
                   <a
                     href="/"
-                    className="ant-dropdown-link"
+                    className={
+                      !individual &&
+                      buyer !== currentLocal.registration.Supplier
+                        ? "disableInput ant-dropdown-link"
+                        : "ant-dropdown-link"
+                    }
                     onClick={(e) => e.preventDefault()}
                   >
                     {companyTypeName
@@ -654,14 +761,18 @@ function RegistrationForm() {
                     buyer !== currentLocal.registration.Supplier ? (
                       <img src={disableArrow} alt="disableArrow" />
                     ) : (
-                      <img src={Arrow} alt="Arrow" />
+                      <img src={focusIcon?foucesArrow: Arrow} alt="Arrow" />
                     )}
                   </a>
                 </Dropdown>
               </Col>
 
               <Col md={12} xs={24}>
-                {/* {alert && <label>* Please fill companyPhoneNumber</label>} */}
+                <p className="alertMsg">
+                  {alert && !companyPhoneNumber && (
+                    <>* Please fill companyPhoneNumber</>
+                  )}
+                </p>
                 <input
                   disabled={
                     !individual && buyer !== currentLocal.registration.Supplier
@@ -682,7 +793,7 @@ function RegistrationForm() {
               </Col>
 
               <Col md={12} xs={24}>
-                {/* {alert && <label>* Please fill companyMail</label>} */}
+                <p className="alertMsg"></p>
                 <input
                   disabled={
                     !individual && buyer !== currentLocal.registration.Supplier
@@ -707,10 +818,16 @@ function RegistrationForm() {
             buyer === currentLocal.registration.Contractor ||
             buyer === currentLocal.registration.Supplier ||
             individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-            admin === true
+            admin === false
           ) && (
             <Col md={12} xs={24}>
-              {/* {alert && <label>* Please fill companyWebsite</label>} */}
+              <p className="alertMsg">
+                {(alert && !companyWebsite && !individual) ||
+                  buyer === currentLocal.registration.buyer ||
+                  (buyer !== currentLocal.registration.userType && (
+                    <>* Please fill companyWebsite</>
+                  ))}
+              </p>
               <input
                 disabled={
                   !individual && buyer !== currentLocal.registration.Supplier
@@ -722,7 +839,11 @@ function RegistrationForm() {
                     ? "disableInput input-field"
                     : "input-field"
                 }
-                placeholder={currentLocal.registration.companyWebsite}
+                placeholder={
+                  !individual || buyer === currentLocal.registration.buyer
+                    ? currentLocal.registration.companyWebsiteOptional
+                    : currentLocal.registration.companyWebsite
+                }
                 id="companyWebsite"
                 value={companyWebsite}
                 onChange={(e) => {
@@ -733,15 +854,19 @@ function RegistrationForm() {
           )}
           {!(
             individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-            admin === true
+            admin === false
           ) && (
             <Col md={12} xs={24}>
+              <p className="alertMsg"></p>
               <div
                 className={
                   !individual && buyer !== currentLocal.registration.Supplier
                     ? "disableInput input-field d-flex justify-content-between align-items-center"
-                    : "input-field d-flex justify-content-between align-items-center"
+                    : "input-field d-flex justify-content-between align-items-center "
                 }
+                onClick={() => {
+                  // setChangeBorder(true)
+                }}
               >
                 <input
                   disabled={
@@ -794,7 +919,9 @@ function RegistrationForm() {
             buyer === currentLocal.registration.Supplier) && (
             <>
               <Col md={12} xs={24} className="country">
-                {/* {alert && <label>* Please fill country</label>} */}
+                <p className="alertMsg">
+                  {alert && !countryName && <>* Please fill country</>}
+                </p>
                 <Dropdown
                   overlay={countryMenu}
                   trigger={["click"]}
@@ -806,6 +933,8 @@ function RegistrationForm() {
                   disabled={
                     !individual && buyer !== currentLocal.registration.Supplier
                   }
+                  onClick={() => setFocusIcon(true)}
+                  onBlur={() => setFocusIcon(false)}
                 >
                   <a
                     href="/"
@@ -825,9 +954,17 @@ function RegistrationForm() {
                 </Dropdown>
               </Col>
               <Col md={12} xs={24} className="government">
-                {/* {alert && <label>* Please fill government</label>} */}
-
+                <p className="alertMsg">
+                  {alert && !governmentName && (
+                    <>* Please fill governmentName</>
+                  )}
+                </p>
                 <Dropdown
+                  onClick={() => {
+                    if (!countryName) {
+                      setCountryAlert(true);
+                    }
+                  }}
                   overlay={governmentMenu}
                   trigger={["click"]}
                   className={
@@ -858,7 +995,9 @@ function RegistrationForm() {
               </Col>
 
               <Col md={12} xs={24}>
-                {/* {alert && <label>* Please fill address</label>} */}
+                <p className="alertMsg">
+                  {alert && !address && <>* Please fill address</>}
+                </p>{" "}
                 <input
                   disabled={
                     !individual && buyer !== currentLocal.registration.Supplier
@@ -879,8 +1018,24 @@ function RegistrationForm() {
               </Col>
             </>
           )}
-          {admin !== true && (
+          {admin !== false && (
             <Col md={12} xs={24}>
+              {/* <p className="alertMsg">
+                {(alert &&
+                  !fileName &&
+                  individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") ||
+                  buyer !== currentLocal.registration.Supplier ||
+                  (buyer !== currentLocal.registration.userType && (
+                    <>* Please fill commercialRecord </>
+                  ))}
+              </p> */}
+              <p className="alertMsg">
+                {alert &&
+                  !fileName &&
+                  individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && (
+                    <>please upload commer</>
+                  )}
+              </p>
               <div
                 className={
                   !individual && buyer !== currentLocal.registration.Supplier
@@ -896,7 +1051,6 @@ function RegistrationForm() {
                   id="file"
                   value={commercialRecord}
                   onChange={(e) => {
-                    console.log(e.target.files[0]);
                     setFileName(e.target.files[0].name);
                     setFileData(e.target.files[0]);
                     // setFileName(e.target.files[0]);
@@ -904,20 +1058,15 @@ function RegistrationForm() {
                   style={{ display: "none" }}
                 />
                 <label htmlFor="file" className="w-100">
-                  {!individual &&
-                  buyer !== currentLocal.registration.Supplier ? (
+                  {buyer !== currentLocal.registration.Supplier &&
+                  individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ? (
                     <>
                       <div className="d-flex justify-content-between ">
                         <div>
-                          {buyer !== currentLocal.registration.Supplier &&
-                          individual === "0c3c7c93-b4ed-4980-b088-45d095b58830"
+                          {fileName
                             ? fileName
-                              ? fileName
-                              : currentLocal.registration
-                                  .commercialRecordOptional
-                            : fileName
-                            ? fileName
-                            : currentLocal.registration.commercialRecord}
+                            : currentLocal.registration
+                                .commercialRecordOptional}
                         </div>
                         <div>
                           <img src={disapleUploadImg} alt="disapleUploadImg" />
@@ -933,7 +1082,7 @@ function RegistrationForm() {
                             : currentLocal.registration.commercialRecord}
                         </div>
                         <div>
-                          <img src={uploadImg} alt="uploadImg" />
+                          <img src={uploadImg} alt="uploadImg" />{" "}
                         </div>
                       </div>
                     </>
@@ -942,7 +1091,8 @@ function RegistrationForm() {
               </div>
             </Col>
           )}
-          <Col md={12} xs={24}>
+          <Col md={12} xs={24} className={alert && !checked && "requird"}>
+            <p className="alertMsg"></p>
             <Checkbox
               disabled={
                 !individual && buyer !== currentLocal.registration.Supplier
@@ -964,6 +1114,9 @@ function RegistrationForm() {
           <div className="button my-3">
             <div>
               <button
+                disabled={
+                  !individual && buyer !== currentLocal.registration.Supplier
+                }
                 type="submit"
                 className={
                   !individual && buyer !== currentLocal.registration.Supplier

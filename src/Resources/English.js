@@ -29,6 +29,7 @@ export const en = {
     job: "Job",
     companyMail: "Company Mail ( Optional )",
     companyWebsite: "Company Website",
+	companyWebsiteOptional:"Company Website (Optional)",
     company: "Company",
     individual: "Individual",
     buyer: "Buyer",
@@ -39,6 +40,9 @@ export const en = {
     userType: "user Type",
     commercialRecordOptional:"commercialRecord (Optional)",
     organisationLegalStructure: "Organisation Legal Structure",
+	pleaseChooseCountryFirst:"please Choose Country First",
+	PleaseFillAllRequiredFields:"please Fill All Required Fields *"
+
   },
   footer: {
     copyRights: "2021 Shayyek. All Rights Reserved",

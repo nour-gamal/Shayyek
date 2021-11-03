@@ -9,6 +9,7 @@ export const localizationSlice = createSlice({
   },
   reducers: {
     changeLocal: (state, action) => {
+      
       state.currentLocal = action.payload === "en" ? en : ar;
       state.currentLanguageId =
         action.payload === "en"
@@ -17,7 +18,6 @@ export const localizationSlice = createSlice({
     },
   },
 });
-
 export const { changeLocal } = localizationSlice.actions;
 
 export default localizationSlice.reducer;

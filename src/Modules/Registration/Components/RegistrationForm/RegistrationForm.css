@@ -3,6 +3,7 @@
 {
 	font-size: 12px !important;
 }
+
 .RegistrationForm .input-dropdown{
 	width: 98%;
 	text-align: left;
@@ -13,20 +14,26 @@
 	background-color: transparent;
 	border-radius: 5px;
 	height: 44px;
-	border: 1px solid #bce0fd !important;
-	color: #bce0fd;
+	border: 1px solid #8e8e8e !important;
+	color: #8e8e8e !important;
 	padding-left: 8px;
 	padding-right: 8px;
 	width: 95%;
 	margin-bottom: 16px;
 	font-size: 12px;
 }
-.RegistrationForm .ant-cascader-picker{
-	border: 1px solid #bce0fd;
+.RegistrationForm .cascaderFiled:focus
+{
+	outline: none;
+	border-color: #0370ff  !important;
+	color: #0370ff !important;
 }
-.RegistrationForm .ant-cascader-picker a:hover{
-text-decoration: none !important;
-}
+
+.RegistrationForm .ant-checkbox-inner {
+	width: 12px;
+	height: 12px;
+	margin-bottom: 1px;
+ }
 .RegistrationForm .ant-dropdown-trigger
 {
 	text-decoration: none !important;
@@ -49,8 +56,8 @@ text-decoration: none !important;
 	background-color: #fff;
 	border-radius: 5px !important;
 	height: 44px !important;
-	border: 1px solid #bce0fd !important;
-	color: #bce0fd !important;
+	border: 1px solid #8e8e8e !important;
+	color: #8e8e8e !important;
 	width: 95% !important;
 	margin-bottom: 16px !important;
 }
@@ -101,50 +108,40 @@ box-shadow: none;
 }
 .RegistrationForm .work .dropDownicon
 {
-	position: relative;
-	right: 25px;
+	position: absolute;
+	left: 90%;
+	bottom: 40%;
 }
+
 .RegistrationForm .work .input-field
 {
-	border: 1px solid #bce0fd;
-	color: #bce0fd !important;
+	border: 1px solid #8e8e8e;
+	color: #8e8e8e !important;
 }
-/* .RegistrationForm .work .input-field:focus
-{
-	color: #0370ff !important;
-} */
 
-.RegistrationForm .ant-cascader-picker{
-	outline: none !important;
-	box-shadow: none !important;
-	
-}
 .RegistrationForm .input
 {
 	font-size: 12px !important;
 }
-.RegistrationForm .ant-cascader-picker-focused:focus
-{
-	outline: none !important;
-	box-shadow: none !important;
-}
+
 .RegistrationForm .check-field
 {
 	border-radius: 5px;
-	height: 44px;
-	color: #bce0fd;
+	color: #8e8e8e;
+	padding-left: 8px;
+	padding-right: 8px;
+	width: 95%;
+}
+.RegistrationForm .check-field:focus-within
+{
+	border-radius: 5px;
+	color: #0370ff !important;
 	padding-left: 8px;
 	padding-right: 8px;
 	width: 95%;
 	margin-bottom: 16px;
 }
 
-.RegistrationForm .ant-cascader-picker {
-width: 95%;
-padding: 4px;
-border-radius: 4px;
-color: #bce0fd !important;
-}
 
 .RegistrationForm .input-dropdown:hover{
 	width: 95%;
@@ -157,19 +154,14 @@ color: #bce0fd !important;
 	background-color: transparent;
 	border-radius: 5px;
 	height: 44px;
-	border: 1px solid #bce0fd;
-	color: #bce0fd;
+	border: 1px solid #8e8e8e;
+	color: #8e8e8e;
 	padding-left: 8px;
 	padding-right: 8px;
 	width: 95%;
 	margin-bottom: 16px;
 }
-.RegistrationForm .btn-check:focus{
-	outline: none;
-	border-color: #0370ff;
-	color: #0370ff;
-}
-/* .RegistrationForm .btn-check:active + .btn-primary, .btn-check:checked + .btn-primary, .btn-primary.active, .btn-primary:active, .show > .btn-primary.dropdown-toggle {
+.RegistrationForm .input-dropdown:focus{
 	width: 95%;
 	box-shadow: none !important;
 	text-align: left;
@@ -177,19 +169,22 @@ color: #bce0fd !important;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	background-color: transparent !important;
+	background-color: transparent;
 	border-radius: 5px;
 	height: 44px;
-	border: 1px solid #bce0fd !important;
-	color: #bce0fd !important;
+	border-color: #0370ff !important;
+	color: #0370ff !important;
 	padding-left: 8px;
 	padding-right: 8px;
 	width: 95%;
 	margin-bottom: 16px;
-} */
-/* .RegistrationForm .input-dropdown .dropdown-menu {
-    width: 90% !important;
-} */
+}
+.RegistrationForm .btn-check:focus{
+	outline: none;
+	border-color: #0370ff !important;
+	color: #0370ff !important;
+}
+
 .RegistrationForm .disableRadio span
 {
 	color: #DDDDDD !important;
@@ -218,9 +213,40 @@ margin-left: 99px !important;
 justify-content: space-between;
 
 }
+.RegistrationForm .disableInput {
+	width: 95%;
+	/* text-align: left; */
+	background-color: transparent;
+	color: #DDDDDD;
+	border-color: #DDDDDD;
+	display: flex;
+justify-content: space-between;
+border-radius: 5px;
+
+}
+
+.RegistrationForm .disableInput ::placeholder {
+color: #DDDDDD;
+
+}
+.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-trigger.arrow.bottom::after {
+	display: none;
+}
+.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-trigger.arrow.top::after {
+	display: none;
+}
+.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-trigger.arrow {
+	border: none;
+}
 .RegistrationForm .roleDropDown::after{
 margin-top: 10px;
 
+}
+.RegistrationForm .tag-item .search {
+	background-color: transparent;
+}
+.RegistrationForm .tag-item .search {
+	border-bottom: 0;
 }
 .RegistrationForm .diableRole
 {
@@ -262,10 +288,19 @@ justify-content: space-between;
 	box-shadow: none !important;
 }
 .RegistrationForm .checked {
-	color: #003b6b;
+	color: #8e8e8e;
 	margin-bottom: 16px !important;
 
 }
+.RegistrationForm .dropdown-content  
+{
+	width: 100% !important;
+}
+.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-content  {
+
+	padding: 0px 16px;
+}
+
 .RegistrationForm .selsect-field:focus {
 	background-color: #fff;
 	border: 1px solid #0370ff !important;
@@ -280,8 +315,8 @@ justify-content: space-between;
 	background-repeat: no-repeat;
 }
 .RegistrationForm .selsect-field {
-	background: linear-gradient(45deg, transparent 50%, #bce0fd 50%),
-		linear-gradient(135deg, #bce0fd 50%, transparent 50%);
+	background: linear-gradient(45deg, transparent 50%, #8e8e8e 50%),
+		linear-gradient(135deg, #8e8e8e 50%, transparent 50%);
 
 	background-position: calc(100% - 21px) calc(1em + 10px),
 		calc(100% - 16px) calc(1em + 10px), 100% 0;
@@ -292,7 +327,6 @@ justify-content: space-between;
 	font: 300 1em/100% "Helvetica Neue", Arial, sans-serif;
 	line-height: 1.5em;
 
-	/* reset */
 
 	border-radius: 0;
 	margin: 0;
@@ -314,12 +348,12 @@ justify-content: space-between;
 	color: #0370ff;
 }
 .RegistrationForm  ::placeholder {
-	color: #bce0fd;
+	color: #8e8e8e;
 	opacity: 1;
 }
 
 .RegistrationForm :-ms-input-placeholder {
-	color: #bce0fd;
+	color: #8e8e8e;
 }
 ::-webkit-file-upload-button {
 	display: none !important;
@@ -337,31 +371,27 @@ justify-content: space-between;
  outline: none !important;
  box-shadow: none !important;
  }
- .RegistrationForm .ant-cascader-picker-label:focus
- {
-	 outline: none !important;
-	 color: inherit !important;
- }
 
 .RegistrationForm ::-ms-input-placeholder {
-	color: #bce0fd;
+	color: #8e8e8e;
+	
 }
 .RegistrationForm input:focus::-webkit-input-placeholder {
-	color: #0370ff;
+	color: #0370ff !important;
 }
 
 .RegistrationForm input:focus:-moz-placeholder {
-	color: #0370ff;
+	color: #0370ff !important;
 }
 
 .RegistrationForm input:focus::-moz-placeholder {
-	color: #0370ff;
+	color: #0370ff !important;
 }
 .RegistrationForm input:focus:-ms-input-placeholder {
-	color: #0370ff;
+	color: #0370ff !important;
 }
 
-.RegistrationForm button {
+.RegistrationForm .button button {
 	padding-left: 144px !important;
 	padding-right: 144px;
 }
@@ -391,7 +421,6 @@ justify-content: space-between;
 		calc(100% - 16px) calc(1em + 10px), 100% 0;
 	background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
 	background-repeat: no-repeat;
-	border: none;
 	background-color: #f5f5f5;
 	font: 300 1em/100% "Helvetica Neue", Arial, sans-serif;
 	line-height: 1.5em;
@@ -406,16 +435,12 @@ justify-content: space-between;
 	-moz-appearance: none;
 }
 .RegistrationForm .ant-radio-inner {
-	border-color: #bce0fd;
+	border-color: #8e8e8e;
 }
 .RegistrationForm .ant-radio:hover .ant-radio-inner {
-	border-color: #bce0fd !important;
+	border-color: #8e8e8e !important;
 }
-.RegistrationForm .ant-checkbox-wrapper:hover .ant-checkbox-inner,
-.RegistrationForm .ant-checkbox:hover .ant-checkbox-inner,
-.RegistrationForm .ant-checkbox-input:focus + .RegistrationForm .ant-checkbox-inner {
-	border-color: #bce0fd !important;
-}
+
 .RegistrationForm .active {
 	color: #0370ff;
 }
@@ -423,7 +448,7 @@ justify-content: space-between;
 	color: #0370ff !important;
 }
 .RegistrationForm .ant-radio-wrapper span {
-	color: #bce0fd;
+	color: #8e8e8e;
 }
 .RegistrationForm input::-webkit-outer-spin-button,
 .RegistrationForm input::-webkit-inner-spin-button {
@@ -433,14 +458,34 @@ justify-content: space-between;
 .RegistrationForm input[type="number"] {
 	-moz-appearance: textfield;
 }
+.RegistrationForm input[type="file"]:focus {
+color: #0370ff;
+border-color:#0370ff ;
+}
 .RegistrationForm .ant-checkbox-inner {
-	border-color: #bce0fd;
+	border-color: #8e8e8e;
 }
 .RegistrationForm .checkSignIn {
-	color: #bce0fd;
+	color: #8e8e8e;
 	margin-top: 16px;
 	font-size: 14px;
 }
+.RegistrationForm .alertMsg,.countryAlert
+{
+	color: red;
+	font-size: 12px;
+}
+.RegistrationForm p{
+	height: 24px;
+	margin-bottom: 0px;
+}
+ .RegistrationForm .requird .ant-checkbox-inner {
+	border-color: red !important;
+  }
+ .RegistrationForm .requird .ant-checkbox-inner:hover {
+	border-color: red !important;
+  }
+
 .RegistrationForm .disableCheck a
 {
 	color: #707070 !important;
@@ -449,7 +494,7 @@ justify-content: space-between;
 }
 
 .RegistrationForm .checkSignIn a {
-	color: #bce0fd;
+	text-decoration: none;
 }
 .RegistrationForm .checkSignIn{
 	margin-bottom: 40px;
@@ -462,7 +507,7 @@ display: flex !important;
 justify-content: space-between !important;
 align-items: center;
 text-decoration: none;
-border: 1px solid #bce0fd;
+border: 1px solid #8e8e8e;
 font-size: 12px !important;
 
 }
@@ -473,7 +518,7 @@ display: flex !important;
 justify-content: space-between !important;
 align-items: center;
 text-decoration: none;
-border: 1px solid #bce0fd;
+border: 1px solid #8e8e8e;
 font-size: 12px !important;
 
 }
@@ -500,12 +545,12 @@ font-size: 12px !important;
 {
 	background-color: #fff;
 	border-radius: 5px !important;
-	border: 1px solid #bce0fd ;
-	color: #bce0fd ;
+	border: 1px solid #8e8e8e ;
+	color: #8e8e8e ;
 	font-size: 12px !important;
 
 }
-.RegistrationForm .input-field label
+.RegistrationForm label
 {
 
 	cursor: pointer !important;
@@ -523,34 +568,54 @@ font-size: 12px !important;
 {
 	background-color: #fff;
 	border-radius: 5px !important;
-	border: 1px solid #bce0fd ;
-	color: #bce0fd ;
+	border: 1px solid #8e8e8e ;
+	color: #8e8e8e ;
 }
  .cascaderFiled
 {
 	border-radius: 5px;
-	height: 44px;
-	border: 1px solid #bce0fd !important;
-	color: #bce0fd !important;
+	height: auto;
+	border: 1px solid #8e8e8e !important;
+	color: #8e8e8e !important;
 	padding-left: 8px;
 	padding-right: 8px;
 	width: 95%;
 	margin-bottom: 16px;
 }
- .cascaderFiled:focus
+
+.RegistrationForm .dropdown
 {
-	outline: none;
-	border-color: #0370ff ;
-	color: #0370ff ;
+	width: 100%;
+}
+.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-trigger.arrow { 
+
+	width: 100% !important;
+}
+.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-trigger.arrow .tag-list{ 
+
+	width: 100% !important;
+}
+.RegistrationForm .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.RegistrationForm .ant-checkbox:hover .ant-checkbox-inner,
+.RegistrationForm .ant-checkbox-input:focus + .RegistrationForm .ant-checkbox-inner {
+	border-color: #8e8e8e !important;
+}
+.RegistrationForm .requird .ant-checkbox-wrapper:hover .ant-checkbox-inner, .RegistrationForm .requird .ant-checkbox:hover .ant-checkbox-inner, .RegistrationForm .requird .ant-checkbox-input:focus + .RegistrationForm .requird .ant-checkbox-inner
+{
+	border-color: red !important;
+}
+.RegistrationForm .disableInput:focus {
+	width: 95%;
+		background-color: transparent;
+	color: #DDDDDD !important;
+	border-color: #DDDDDD !important;
+	display: flex;
+justify-content: space-between;
+border-radius: 5px;
+
 }
 
-.RegistrationForm  .ant-cascader-input::placeholder{
-	border: 1px solid #bce0fd;
-	color: #bce0fd ;
-} 
-.RegistrationForm .ant-cascader-input::placeholder:disabled{
-	color: #DDDDDD  ;
-} 
+
 @media screen and (max-width: 765px) {
 	.RegistrationForm .dropdownmenu {
 		display: flex;
@@ -558,6 +623,3 @@ font-size: 12px !important;
 		margin: 16px 0px;
 	}
 }
-/* .RegistrationForm .input-dropdown .dropdown-menu {
-    width: 90% !important;
-} */

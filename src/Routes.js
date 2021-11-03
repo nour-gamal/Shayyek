@@ -7,6 +7,7 @@ import Products from "./Modules/Suppliers/Products";
 import Login from "./Modules/Login/Login";
 import ForgetPassword from "./Modules/ForgetPassword/ForgetPassword";
 import ProfilePage from "./Modules/ProfilePage/ProfilePage";
+import VerifyByEmail from "./Modules/Registration/Components/VerifyByEmail/VerifyByEmail";
 
 function Routes() {
 	return (
@@ -23,6 +24,7 @@ function Routes() {
 						render={(props) => <Products {...props} />}
 					/>
 					<Route path="/me/:name" render={() => <ProfilePage />} />
+					<Route path="/verifyByEmail" render={() => <VerifyByEmail />} />
 				</Switch>
 			)}
 		/>
