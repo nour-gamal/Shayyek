@@ -101,6 +101,7 @@ export const ar = {
 		ccCollugues: "شارك زملائك",
 		item: "البند",
 		description: "الوصف",
+		unit:'الوحده',
 		quantity: "الكميه",
 		preferredBrands: "العملات التجاريه المفضله",
 		categories: "التصنيف",

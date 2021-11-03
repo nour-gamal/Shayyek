@@ -4,7 +4,9 @@ import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import { useSelector } from "react-redux";
 import { ExcelRenderer } from "react-excel-renderer";
+import { Select } from "antd";
 import "./CreateRFQ.css";
+
 function CreateRFQ() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [dataSource, updateDataSource] = useState([]);
@@ -13,7 +15,18 @@ function CreateRFQ() {
 		notes: null,
 		description: null,
 		quantity: null,
+		unit: null,
+		categories: null,
 	};
+
+	const { Option } = Select;
+
+	function handleCategoriesChange(optionId, rowIndex) {
+		let data = [...dataSource];
+		data[rowIndex].categories = optionId;
+		updateDataSource(data);
+	}
+
 	const addNewItem = () => {
 		const key = Math.ceil(Math.random() * 999999999);
 
@@ -21,6 +34,11 @@ function CreateRFQ() {
 			...dataSource,
 			{
 				key,
+				item: "",
+				notes: "",
+				description: "",
+				quantity: "",
+				unit: "",
 			},
 		]);
 	};
@@ -64,6 +82,12 @@ function CreateRFQ() {
 							index.description = itemIndex;
 							break;
 						}
+						case "unit":
+						case "الوحده":
+						case "الوحد": {
+							index.unit = itemIndex;
+							break;
+						}
 						case "qty":
 						case "quantity":
 						case "qty.":
@@ -97,6 +121,7 @@ function CreateRFQ() {
 											item: name[index.item],
 											notes: name[index.notes],
 											description: name[index.description],
+											unit: name[index.unit],
 											quantity: name[index.quantity],
 										},
 									]);
@@ -117,7 +142,7 @@ function CreateRFQ() {
 			onCell: (record, rowIndex) => {
 				return {
 					onClick: (event) => {
-						console.log(record, rowIndex, event);
+						console.log(rowIndex);
 					},
 				};
 			},
@@ -128,9 +153,9 @@ function CreateRFQ() {
 			key: "description",
 		},
 		{
-			title: currentLocal.buyerHome.description,
-			dataIndex: "description",
-			key: "description",
+			title: currentLocal.buyerHome.unit,
+			dataIndex: "unit",
+			key: "unit",
 		},
 		{
 			title: currentLocal.buyerHome.quantity,
@@ -146,6 +171,20 @@ function CreateRFQ() {
 			title: currentLocal.buyerHome.categories,
 			dataIndex: "categories",
 			key: "categories",
+			render: (row, record, rowIndex) => {
+				return (
+					<Select
+						defaultValue="lucy"
+						style={{ width: 120 }}
+						onChange={(optionId) => {
+							handleCategoriesChange(optionId, rowIndex);
+						}}
+					>
+						<Option value="jackId">Jack</Option>
+						<Option value="lucyId">Lucy</Option>
+					</Select>
+				);
+			},
 		},
 		{
 			title: currentLocal.buyerHome.includeInstallation,
