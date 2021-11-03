@@ -4,7 +4,9 @@ import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import { useSelector } from "react-redux";
 import { ExcelRenderer } from "react-excel-renderer";
+import { Select } from "antd";
 import "./CreateRFQ.css";
+
 function CreateRFQ() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [dataSource, updateDataSource] = useState([]);
@@ -12,7 +14,19 @@ function CreateRFQ() {
 		item: null,
 		notes: null,
 		description: null,
+		quantity: null,
+		unit: null,
+		categories: null,
 	};
+
+	const { Option } = Select;
+
+	function handleCategoriesChange(optionId, rowIndex) {
+		let data = [...dataSource];
+		data[rowIndex].categories = optionId;
+		updateDataSource(data);
+	}
+
 	const addNewItem = () => {
 		const key = Math.ceil(Math.random() * 999999999);
 
@@ -20,6 +34,11 @@ function CreateRFQ() {
 			...dataSource,
 			{
 				key,
+				item: "",
+				notes: "",
+				description: "",
+				quantity: "",
+				unit: "",
 			},
 		]);
 	};
@@ -34,17 +53,54 @@ function CreateRFQ() {
 			} else {
 				//Loop to indicate the index of each row
 				resp.rows[0].forEach((item, itemIndex) => {
-					switch (item.toLowerCase()) {
-						case "item": {
+					switch (item.toLowerCase().trim()) {
+						case "item":
+						case "Item No.":
+						case "code":
+						case "code No.":
+						case "section":
+						case "section No.":
+						case "رقم":
+						case "الرقم":
+						case "البند":
+						case "بند":
+						case "رقم البند": {
 							index.item = itemIndex;
 							break;
 						}
-						case "notes": {
-							index.notes = itemIndex;
+						case "description":
+						case "specifications":
+						case "specs":
+						case "specs.":
+						case "وصف الاعمال":
+						case "المواصفة":
+						case "الوصف":
+						case "وصف الأعمال":
+						case "المواصفه":
+						case "الأعمال":
+						case "الاعمال": {
+							index.description = itemIndex;
 							break;
 						}
-						case "description": {
-							index.description = itemIndex;
+						case "unit":
+						case "الوحده":
+						case "الوحد": {
+							index.unit = itemIndex;
+							break;
+						}
+						case "qty":
+						case "quantity":
+						case "qty.":
+						case "العدد":
+						case "الكمية": {
+							index.quantity = itemIndex;
+							break;
+						}
+
+						case "notes":
+						case "الملاحظات":
+						case "ملاحظات": {
+							index.notes = itemIndex;
 							break;
 						}
 						default: {
@@ -65,6 +121,8 @@ function CreateRFQ() {
 											item: name[index.item],
 											notes: name[index.notes],
 											description: name[index.description],
+											unit: name[index.unit],
+											quantity: name[index.quantity],
 										},
 									]);
 								}
@@ -81,11 +139,23 @@ function CreateRFQ() {
 			title: currentLocal.buyerHome.item,
 			dataIndex: "item",
 			key: "item",
+			onCell: (record, rowIndex) => {
+				return {
+					onClick: (event) => {
+						console.log(rowIndex);
+					},
+				};
+			},
 		},
 		{
 			title: currentLocal.buyerHome.description,
 			dataIndex: "description",
 			key: "description",
+		},
+		{
+			title: currentLocal.buyerHome.unit,
+			dataIndex: "unit",
+			key: "unit",
 		},
 		{
 			title: currentLocal.buyerHome.quantity,
@@ -101,6 +171,20 @@ function CreateRFQ() {
 			title: currentLocal.buyerHome.categories,
 			dataIndex: "categories",
 			key: "categories",
+			render: (row, record, rowIndex) => {
+				return (
+					<Select
+						defaultValue="lucy"
+						style={{ width: 120 }}
+						onChange={(optionId) => {
+							handleCategoriesChange(optionId, rowIndex);
+						}}
+					>
+						<Option value="jackId">Jack</Option>
+						<Option value="lucyId">Lucy</Option>
+					</Select>
+				);
+			},
 		},
 		{
 			title: currentLocal.buyerHome.includeInstallation,
@@ -115,7 +199,7 @@ function CreateRFQ() {
 	];
 
 	return (
-		<div className="ppl ppr f-14 my-4">
+		<div className="ppl ppr f-14 my-4 createRFQ">
 			<div className="actionsContainer">
 				<div>
 					<div className="mb-3">
@@ -151,6 +235,7 @@ function CreateRFQ() {
 				dataSource={dataSource}
 				// loading={true}
 				className="my-4"
+				scroll={{ x: true }}
 			/>
 		</div>
 	);
