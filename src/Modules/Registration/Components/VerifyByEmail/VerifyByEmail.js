@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./VerifyByEmail.css";
 import send from "../../../../Resources/Assets/sent.svg";
 import smallsend from "../../../../Resources/Assets/smallSend.svg";
@@ -7,7 +7,7 @@ import Footer from "../../../Common/Footer/Footer";
 import Navbar from "../../../Common/Navbar/Navbar";
 // import ReactInputVerificationCode from 'react-input-verification-code';
 import ReactCodeInput from 'react-verification-code-input';
-import { Modal, Button } from "antd";
+import { Modal } from "antd";
 function VerifyByEmail() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => {
@@ -18,9 +18,9 @@ function VerifyByEmail() {
     setIsModalVisible(false);
   };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+  // const handleCancel = () => {
+  //   setIsModalVisible(false);
+  // };
 
   return (
     <div className="verifyByEmail">

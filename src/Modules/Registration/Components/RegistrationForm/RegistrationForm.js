@@ -83,6 +83,7 @@ function RegistrationForm() {
   const toggleValue = (val) => {
     setToggleAccountType(val);
   };
+  console.log(countryAlertte,acceptTerms,Alert,toggleAccountType,setSubCategoryId,setSubSubCategoryId,setCategoryId);
 
   // function checkAge(age) {
   //   return age ==="label";

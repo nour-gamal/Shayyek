@@ -55,7 +55,7 @@ function AuthHeader({ title, showState, onSelectUserType,sendDataToParent,toggle
       (fail) => console.log(fail),
       false
     );
-  }, [currentLanguageId]);
+  }, [currentLanguageId,currentLocal.registration.userType]);
   setTimeout(() => {
     toggleValue(toggleState)
   
