@@ -21,6 +21,7 @@ import Arrow from "../../../../Resources/Assets/dropdown arrow icn.svg";
 import foucesArrow from "../../../../Resources/Assets/blue dropdown arrow.svg";
 import uploadImg from "../../../../Resources/Assets/Attach icn.svg";
 import disapleUploadImg from "../../../../Resources/Assets/disapleUploadImg.svg";
+import { Redirect } from "react-router";
 function RegistrationForm() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
@@ -66,6 +67,7 @@ function RegistrationForm() {
   const [subCategoryId, setSubCategoryId] = useState("");
   const [subSubCategoryId, setSubSubCategoryId] = useState("");
   const [alert, setAlert] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const [logoName, setlogoName] = useState("");
   const [fileName, setFileName] = useState("");
   const [logoData, setLogoData] = useState("");
@@ -83,7 +85,15 @@ function RegistrationForm() {
   const toggleValue = (val) => {
     setToggleAccountType(val);
   };
-  console.log(countryAlertte,acceptTerms,Alert,toggleAccountType,setSubCategoryId,setSubSubCategoryId,setCategoryId);
+  console.log(
+    countryAlertte,
+    acceptTerms,
+    Alert,
+    toggleAccountType,
+    setSubCategoryId,
+    setSubSubCategoryId,
+    setCategoryId
+  );
 
   // function checkAge(age) {
   //   return age ==="label";
@@ -332,23 +342,7 @@ function RegistrationForm() {
     </Menu>
   );
   //when press on submit button this function will be call
-  const sendData = (e) => {
-    e.preventDefault();
-    if (
-      !firstName ||
-      !lastName ||
-      !companyId ||
-      !mobileNumber ||
-      !email ||
-      !password ||
-      !confirmPassword ||
-      !companyTypeId ||
-      !companyPhoneNumber ||
-      fileName === false ||
-      !checked
-    ) {
-      setAlert(true);
-    }
+  const axioFun = () => {
     const body = new FormData();
     body.append("FirstName", firstName);
     body.append("LastName", lastName);
@@ -384,12 +378,273 @@ function RegistrationForm() {
     register(
       body,
       (success) => {
-        console.log(success);
+        console.log(success.data);
+        if (success.data === true) {
+          localStorage.setItem("mobileNumber", mobileNumber);
+          setRedirect(true);
+        }
       },
       (fail) => console.log(fail),
       false
     );
   };
+  const sendData = (e) => {
+    e.preventDefault();
+    if (
+      buyer === currentLocal.registration.buyer &&
+      individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
+      !admin
+    ) {
+      console.log("employee");
+      if (
+        !firstName ||
+        !lastName ||
+        !mobileNumber ||
+        !email ||
+        !password ||
+        !confirmPassword ||
+        !companyId ||
+        !checked
+      ) {
+        console.log("empty");
+        setAlert(true);
+      } else {
+        setAlert(false);
+        axioFun();
+      }
+    } else if (
+      buyer === currentLocal.registration.buyer &&
+      individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
+      admin
+    ) {
+      console.log("admin");
+      if (
+        !firstName ||
+        !lastName ||
+        !mobileNumber ||
+        !email ||
+        !password ||
+        !confirmPassword ||
+        !companyId ||
+        !checked ||
+        !fileName ||
+        !companyPhoneNumber ||
+        !companyTypeId ||
+        !roleName
+      ) {
+        console.log("empty");
+        setAlert(true);
+      } else {
+        setAlert(false);
+        axioFun();
+      }
+    } else if (
+      buyer === currentLocal.registration.buyer &&
+      individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d"
+    ) {
+      console.log("indeven");
+      if (
+        !firstName ||
+        !lastName ||
+        !mobileNumber ||
+        !email ||
+        !password ||
+        !confirmPassword ||
+        !checked
+      ) {
+        console.log("empty");
+        setAlert(true);
+      } else {
+        setAlert(false);
+        axioFun();
+      }
+    } else if (buyer === currentLocal.registration.Contractor &&individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&!admin) {
+      console.log("con employee");
+      if (
+        !firstName ||
+        !lastName ||
+        !mobileNumber ||
+        !email ||
+        !password ||
+        !confirmPassword ||
+        !companyId ||
+        !checked ||
+        !countryName ||
+        !governmentName ||
+        !address
+      ) {
+        console.log("empty");
+        setAlert(true);
+      } else {
+        setAlert(false);
+        axioFun();
+      }
+    } else if (
+      buyer === currentLocal.registration.Contractor &&
+      individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
+      admin
+    ) {
+      console.log("con admin");
+      if (
+        !firstName ||
+        !lastName ||
+        !mobileNumber ||
+        !email ||
+        !password ||
+        !confirmPassword ||
+        !companyId ||
+        !companyPhoneNumber ||
+        !companyTypeId ||
+        !roleName||
+        !fileName ||
+        !countryName||
+        !governmentName||
+        !address||
+        !checked
+      ) {
+        console.log("empty");
+        setAlert(true);
+      } else {
+        setAlert(false);
+        axioFun();
+      }
+    }
+     else if (buyer === currentLocal.registration.Contractor &&individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") {
+      console.log("con ind");
+      if (
+        !firstName ||
+        !lastName ||
+        !mobileNumber ||
+        !email ||
+        !password ||
+        !confirmPassword ||
+        !address ||
+        !countryName ||
+        !governmentName||
+        !checked 
+
+      ) {
+        console.log("empty");
+        setAlert(true);
+      } else {
+        setAlert(false);
+        axioFun();
+      }
+    } else if (buyer === currentLocal.registration.Supplier && !admin) {
+      console.log("sup employee");
+      if (
+        !firstName ||
+        !lastName ||
+        !mobileNumber ||
+        !companyId||
+        !email ||
+        !password ||
+        !confirmPassword ||
+        !address ||
+        !countryName ||
+        !governmentName||
+        !checked 
+
+      ) {
+        console.log("empty");
+        setAlert(true);
+      } else {
+        setAlert(false);
+        axioFun();
+      }
+    } else if (buyer === currentLocal.registration.Supplier && admin) {
+      console.log("sup admin");
+      if (
+        !firstName ||
+        !lastName ||
+        !mobileNumber ||
+        !email ||
+        !password ||
+        !confirmPassword ||
+        !address ||
+        !countryName ||
+        !governmentName||
+        !checked ||
+        !fileName||
+        !companyPhoneNumber||
+        !companyTypeName||
+        !companyId||
+        !roleName
+
+
+      ) {
+        console.log("empty");
+        setAlert(true);
+      } else {
+        setAlert(false);
+        axioFun();
+      }
+
+    }
+
+    // if (
+    //   !firstName ||
+    //   !lastName ||
+    //   !companyId ||
+    //   !mobileNumber ||
+    //   !email ||
+    //   !password ||
+    //   !confirmPassword ||
+    //   // !companyTypeId ||
+    //   // !companyPhoneNumber ||
+    //   // fileName === false ||
+    //   !checked
+    // ) {
+    //   setAlert(true);
+    // }else{
+    //   setAlert(false);
+    //   const body = new FormData();
+    //   body.append("FirstName", firstName);
+    //   body.append("LastName", lastName);
+    //   body.append("MailUser", email);
+    //   body.append("Password", password);
+    //   body.append("MobileUser", mobileNumber);
+    //   body.append("IsWhatsAppNumber", checkedWhatsApp);
+    //   body.append("FirebaseToken", authorization.deviceToken);
+    //   body.append("Logo", logoData);
+    //   body.append("CommercialRecord", fileData);
+    //   body.append("MailCompany", companyMail);
+    //   body.append("MobileCompany", companyPhoneNumber);
+    //   body.append("Website", companyWebsite);
+    //   body.append("Address", address);
+    //   body.append("CompanyId", companyId);
+
+    //   body.append(roleId && "RoleId", roleId);
+
+    //   body.append("UserTypeId", userTypeId);
+
+    //   body.append(
+    //     "AccountTypeId",
+    //     accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
+    //   );
+
+    //   body.append("CompanyHasData", admin ? true : false);
+    //   body.append("GovernmentId", governmentId);
+    //   body.append("CategoryId", categoryId);
+    //   body.append("SubCategoryId", subCategoryId);
+    //   body.append("SubSubCategoryId", subSubCategoryId);
+    //   body.append("CompanyTypeId", companyTypeId);
+    //   body.append("CategoriesRequest", companyTypeId);
+    //   register(
+    //     body,
+    //     (success) => {
+    //       console.log(success.data);
+    //       if(success.data===true){
+    //         localStorage.setItem("mobileNumber",mobileNumber)
+    //         setRedirect(true)
+    //       }
+    //     },
+    //     (fail) => console.log(fail),
+    //     false
+    //   );
+    // };
+  };
+
   const onChangeOption = (e, i) => {
     console.log("hi", e.value);
     console.log("suphi", e);
@@ -410,6 +665,9 @@ function RegistrationForm() {
     // console.log("onNodeToggle::", currentNode);
     console.log("hello");
   };
+  if (redirect) {
+    return <Redirect to="/verifyByEmail" />;
+  }
 
   return (
     <div className="RegistrationForm ppl ppr">
@@ -762,7 +1020,7 @@ function RegistrationForm() {
                     buyer !== currentLocal.registration.Supplier ? (
                       <img src={disableArrow} alt="disableArrow" />
                     ) : (
-                      <img src={focusIcon?foucesArrow: Arrow} alt="Arrow" />
+                      <img src={focusIcon ? foucesArrow : Arrow} alt="Arrow" />
                     )}
                   </a>
                 </Dropdown>

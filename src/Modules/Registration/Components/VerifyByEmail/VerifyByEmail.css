@@ -1,90 +1,119 @@
+.verifyByEmail .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 52px;
+  padding-bottom: 52px;
+  height: 74vh;
 
-.verifyByEmail .content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 52px;
-    padding-bottom: 52px;
-    height: 74vh;
-
-    text-align: center;
+  text-align: center;
 }
-.verifyByEmail .content img{
-    padding-bottom: 33px;
-
+.verifyByEmail .content img {
+  padding-bottom: 33px;
+  width: 140px;
 }
-.verifyByEmail .content h3{
-    color: #003B6B;
-    margin-bottom: 32px;
+.verifyByEmail .content h3 {
+  color: #003b6b;
+  margin-bottom: 32px;
 }
-.verifyByEmail .content p{
-    color: red;
+.verifyByEmail .content p {
+  color: red;
 }
 .verifyByEmail .button {
-    margin-top: 20px;
+  margin-top: 20px;
+}
+.verifyByEmail .button button {
+  margin-top: 20px;
+  font-size: 14px;
 }
 
-
 .ant-modal {
- width: 80vw !important;
- position: static !important;
- margin-top: 50px !important;
-  }
-  .ant-modal-content
-  {
-    border-radius: 20px !important; 
+  width: 80vw !important;
+  position: static !important;
+  margin-top: 50px !important;
+}
+.ant-modal-content {
+  border-radius: 20px !important;
+}
+.ant-modal-body {
+  height: 85vh;
+  padding: 0;
+  padding-bottom: 44px;
+  padding-top: 54px;
+}
+.ant-modal-body .modalBody .msgImg {
+  padding-top: 45px;
+  padding-bottom: 33px;
+}
+.ant-modal-body .modalBody .checkMobile {
+  margin-bottom: 50px;
+  color: red;
+}
+.ant-modal-body .closIcon {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  opacity: 80%;
+  cursor: pointer;
+}
+.ant-modal-body .modalBody .resendCodev {
+  color: #0370ff;
+  cursor: pointer;
+  font-weight: bold;
+}
+.ant-modal-body .modalBody .code {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+.ant-modal-body .modalBody .mobileNumber {
+  color: #707070;
+}
+.ant-modal-body .modalBody .button {
+  margin-bottom: 30px;
+}
+.ant-modal-body .modalBody .button button {
+  padding: 0 120px;
+}
+.ant-modal-centered::before {
+  content: unset;
+}
+.ant-modal-close {
+  display: none;
+}
+.ant-modal-footer {
+  display: none;
+}
 
-  }
-  .ant-modal-body{
-      height: 85vh;
-      padding: 0;
-      padding-bottom: 44px;
-      padding-top: 54px;
-  }
-  .ant-modal-body .modalBody img
-  {
-      padding-top: 30px;
-      padding-bottom: 33px;
-  }
-  .ant-modal-body .modalBody .checkMobile
-  {
-      margin-bottom: 50px;
-      color: red;
-  }
-  .ant-modal-body .modalBody .resendCodev
-  {
-color: #0370FF;
-cursor: pointer;
-font-weight: bold;
-  }
-  .ant-modal-body .modalBody .code
-  {
-      display: flex;
-      justify-content: center;
-margin-bottom: 32px;
-  }
-  .ant-modal-body .modalBody .mobileNumber
-  {
-   color: #707070  }
-  .ant-modal-body .modalBody .button
-  {
-margin-bottom: 30px;
-  }
-  .ant-modal-centered::before {
-    content: unset;
-  }
-  .ant-modal-close{
-      display: none;
-  }
-  .ant-modal-footer
-  {
-      display: none;
-  }
+.vi__character {
+  /* line-height: 50px; */
+  font-size: 24px !important;
+  color: #707070 !important;
+  background-color: #fff !important;
+  border: 1px solid #e7e7e7 !important;
+  border-radius: 8px;
+  margin-left: 8px;
+}
+
+.vi__character:first-child {
+  margin-left: 0;
+}
+
+.vi__character--inactive {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.vi__character--selected {
+  border: 1px solid white;
+}
+.vi__character--selected--default {
+  color: #003b6b !important;
+  outline: 1px solid #003b6b !important;
+}
 
 @media only screen and (max-width: 768px) {
-    .verifyByEmail .content img{
-        padding-bottom: 25px;
-    
-    }
+  .verifyByEmail .content img {
+    padding-bottom: 25px;
   }
+}
