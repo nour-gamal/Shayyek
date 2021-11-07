@@ -37,6 +37,7 @@
   border-radius: 20px !important;
 }
 .ant-modal-body {
+
   height: 85vh;
   padding: 0;
   padding-bottom: 44px;
@@ -46,8 +47,7 @@
   padding-top: 45px;
   padding-bottom: 33px;
 }
-.ant-modal-body .modalBody .checkMobile {
-  margin-bottom: 50px;
+ .ant-modal-body .modalBody .checkMobile {
   color: red;
 }
 .ant-modal-body .closIcon {
@@ -56,6 +56,7 @@
   left: 24px;
   opacity: 80%;
   cursor: pointer;
+  width: 24px;
 }
 .ant-modal-body .modalBody .resendCodev {
   color: #0370ff;
@@ -115,5 +116,9 @@
 @media only screen and (max-width: 768px) {
   .verifyByEmail .content img {
     padding-bottom: 25px;
+  }
+  .ant-modal-body .closIcon {
+width: 24px ;
+    cursor: pointer;
   }
 }

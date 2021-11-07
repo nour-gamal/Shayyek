@@ -1,0 +1,61 @@
+.getInTouch 
+{
+    padding-top: 107px;
+}
+.getInTouch h1
+{
+    color:#003B6B;
+    padding-bottom: 42px;
+}
+.getInTouch .msgContainer{
+    padding-bottom: 41px;
+    padding-top: 41px;
+    background-color: #FAFAFA;
+}
+.getInTouch .input-field::placeholder
+{
+    font-size: 14px;
+
+}
+.getInTouch .input-field
+{
+    padding-right: 16px;
+    padding-left: 16px;
+    width: 90%;
+}
+.getInTouch .msgContainer .msgData
+{
+    padding-left: 52px;
+    padding-right: 52px;
+}
+.getInTouch h5{
+    color:#003B6B;
+}
+.getInTouch form{
+    padding-top: 42px;
+}
+.getInTouch textarea
+{
+    width: 98.5%;
+    margin-top: 24px;
+    border-radius: 5px;
+    border: 1px solid #8e8e8e;
+    color: #8e8e8e;
+    padding-left: 8px;
+    padding-right: 8px;
+margin-bottom: 32px;
+}
+.getInTouch textarea:focus
+{
+    outline: none;
+    border-color: #0370ff !important;
+    color: #0370ff !important;
+
+}
+.getInTouch .button{
+text-align: center;
+}
+.getInTouch .button button{
+padding-right: 50px;
+padding-left: 50px;
+}

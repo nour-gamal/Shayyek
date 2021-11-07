@@ -70,10 +70,25 @@ export const en = {
 	login: {
 		signin: "Sign in",
 		mobileNumber: "Mobile Number",
+		email: "Email",
 		password: "Password",
 		forgetPassword: "Forget Password ?",
 		didHaveAnAcount: "Didn’t Have an acount ?",
 		registerNow: "Register Now !",
+		signInWithMobileNumber:"Sign in With Mobile Number ?",
+		signInWithMobileEmail:"Sign in With E-mail ?",
+		confirmPassword: "Confirm Password",
+		save:"Save",
+		forgetPasswordTitle:"forget Password ",
+		RememberYourPassword:"Remember Your Password?",
+		send:"Send",
+		emailIsRequired:"Email is required",
+		passwordIsRequired:"password is required",
+		confirmPasswordIsRequired:"confirm Password is required",
+		ResetPassword:"Reset Password",
+		passwordConfirmationDoesnotMatch:"password confirmation doesn't match",
+		mobileNumberIsRequired:"mobileNumber is required"
+
 	},
 	profilePage: {
 		completedPercentage: "40% Completed",

@@ -1,0 +1,170 @@
+
+  .loginByEmail .LoginForm
+{
+	display: flex;
+height: 59vh;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+@-moz-document url-prefix() {
+	.loginByEmail .LoginForm
+	{
+		display: flex;
+	height: 60vh;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+  }
+.loginByEmail .LoginForm .form
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.loginByEmail .LoginForm .w-50
+{
+	width: 40% !important;
+}
+.loginByEmail .LoginForm .f-27 {
+	font-weight: bold;
+	color: #0370ff;
+}
+.loginByEmail .LoginForm .input-field
+{
+    width: 100% !important;
+}
+ /* .LoginForm  ::placeholder {
+	color: #bce0fd;
+	opacity: 1;
+} */
+
+.loginByEmail .LoginForm :-ms-input-placeholder {
+	color: #bce0fd;
+}
+
+.loginByEmail .LoginForm ::-ms-input-placeholder {
+	color: #bce0fd;
+}
+.loginByEmail .LoginForm input:focus::-webkit-input-placeholder {
+	color: #0370ff;
+}
+.loginByEmail .LoginForm .forgetPassword a {
+    color: #0370ff !important;
+    text-decoration: none !important;
+
+}
+.loginByEmail .LoginForm .forgetPassword
+{
+    display: flex;
+    justify-content: flex-end;
+    width: 40%;
+}
+.loginByEmail .LoginForm .checkAccount
+{
+    color: #0370ff;
+    display: flex;
+    justify-content: center;
+	font-size: 14px;
+
+}
+.loginByEmail .LoginForm .checkAccount a
+{
+    color: #0370ff;
+    text-decoration: none;
+}
+.loginByEmail .LoginForm input:focus:-moz-placeholder {
+	color: #0370ff;
+}
+
+.loginByEmail .LoginForm input:focus::-moz-placeholder {
+	color: #0370ff;
+}
+.loginByEmail .LoginForm input:focus:-ms-input-placeholder {
+	color: #0370ff;
+}
+
+.loginByEmail .LoginForm .button-primary {
+	padding-left: 144px;
+	padding-right: 144px;
+}
+.loginByEmail .LoginForm .button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+}
+.loginByEmail .LoginForm .button button {
+	margin-bottom: 16px;
+}
+.loginByEmail .LoginForm .content {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 45px;
+}
+.loginByEmail .LoginForm .error::placeholder
+{
+	color: red !important;
+}
+.loginByEmail .LoginForm .error
+{
+	border-color: red !important;
+}
+.loginByEmail p{
+	margin-bottom: 0;
+	height: 24px;
+}
+.loginByEmail .LoginForm .errorMsg,.loginByEmail .LoginForm .passerrorMsg
+{
+	color: red !important;
+	
+}
+
+.loginByEmail .LoginForm .active {
+	color: #0370ff;
+}
+ .loginByEmail .LoginForm input::-webkit-outer-spin-button,
+.loginByEmail .loginByEmail .LoginForm input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+.loginByEmail .LoginForm input[type="number"] {
+	-moz-appearance: textfield;
+}
+.loginByEmail .LoginForm .loginByMobileLink  a
+{
+    text-decoration: none;
+	color: #003b6b;
+}
+@media only screen and (max-width: 768px) {
+	.loginByEmail  .LoginForm .w-50
+    {
+  width: 80% !important;
+    }
+	.loginByEmail .LoginForm .forgetPassword {
+		display: flex;
+		justify-content: flex-end;
+		width: 76%;
+	}
+	.loginByEmail .LoginForm
+{
+	display: flex;
+  height: 55vh;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+@-moz-document url-prefix() {
+	.loginByEmail .LoginForm
+	{
+		display: flex;
+	height: 56vh;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+  }
+  }

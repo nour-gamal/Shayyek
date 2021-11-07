@@ -28,7 +28,7 @@ function VerifyByEmail() {
   const mobileNumber=mobileNuumberState.slice(8,11)
   return (
     <div className="verifyByEmail">
-      <Navbar navState={"light"} />
+      <Navbar navState={"light"} verifayState={"true"} />
       <div className="content">
         <div className="ContentContainer">
           <img src={send} alt="send" />
@@ -37,7 +37,6 @@ function VerifyByEmail() {
           <p className="f-14">or</p>
           <div className="button">
             <button className="button-primary" onClick={showModal}>
-              {" "}
               Verify your Mobile Number
             </button>
           </div>
@@ -49,10 +48,10 @@ function VerifyByEmail() {
               <img src={closIcon} alt="closIcon" className="closIcon" onClick={handleCancel} />
               <img src={smallsend} alt="send" className="msgImg" />
               <p className="f-17 mobileNumber">Code Sent to *******{mobileNumber}</p>
-              <p className="checkMobile f-14">Check Your Mobile to Verify Your Acount</p>
+              <p className="checkMobile f-14 pb-4">Check Your Mobile to Verify Your Acount</p>
               <div className="code">
               {/* <ReactCodeInput />; */}
-              <VerificationInput placeholder={""}/>
+              <VerificationInput placeholder={""} value={""}/>
               </div>
               <div className="button">
                 <button onClick={handleOk}  className="button-primary">

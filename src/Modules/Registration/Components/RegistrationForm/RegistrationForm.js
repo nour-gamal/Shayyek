@@ -36,6 +36,7 @@ function RegistrationForm() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [workValue, setWorkValue] = useState("");
   const [admin, setAdmin] = useState("");
   const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
   const [companyTypes, setCompanyTypes] = useState([]);
@@ -92,52 +93,9 @@ function RegistrationForm() {
     toggleAccountType,
     setSubCategoryId,
     setSubSubCategoryId,
-    setCategoryId
+    setCategoryId,
+    setWorkValue
   );
-
-  // function checkAge(age) {
-  //   return age ==="label";
-  // }
-  // const x=options.find(checkAge)
-  // console.log(x);
-
-  // options.forEach((x)=>{
-  //   console.log(x);
-  //   if(x.value==="0e76f8f4-8dea-497e-b757-61e2158e992b")
-  //   {
-  //     console.log("hi");
-  //   }
-  // })
-
-  // var x = options.find(function(post, index) {
-  // 	if(post.value == '222eb101-0645-45f0-bdaa-2f4d52536c66')
-  //   console.log(index);
-  // 		return true;
-  // });
-  // console.log("x",x);
-  // const y=[]
-  // let cat1=[]
-  // let cat2=[]
-  // let cat3=[]
-  // const x=options.forEach((option,i)=>{
-  //   y.push(option)
-  //   cat1.push(y[0])
-  // y[0].children.forEach((w,j)=>{
-  // cat1.push(w)
-  // w.children.forEach((t)=>{
-  //   cat1.push(t)
-  // })
-  // })
-  // cat2.push(y[1])
-
-  // })
-  // console.log("cat1",cat1);
-  // console.log("cat2",cat2);
-  // // console.log("cat3",cat3);
-  // console.log("y",y);
-
-  //function userTypeId
-
   const sendDataToParent = (val) => {
     setTimeout(() => {
       setUserTypeId(val);
@@ -192,10 +150,10 @@ function RegistrationForm() {
     getWork(
       currentLanguageId,
       (success) => {
-        console.log(success.data);
+        console.log(success.data[0]);
         const data = [];
         success.data.forEach((category, i) => {
-          console.log(category);
+          // console.log(category);
           data.push({
             value: category.category.id,
             label: category.category.name,
@@ -430,7 +388,8 @@ function RegistrationForm() {
         !fileName ||
         !companyPhoneNumber ||
         !companyTypeId ||
-        !roleName
+        !roleName||
+        !workValue
       ) {
         console.log("empty");
         setAlert(true);
@@ -500,7 +459,8 @@ function RegistrationForm() {
         !countryName||
         !governmentName||
         !address||
-        !checked
+        !checked ||
+        !workValue
       ) {
         console.log("empty");
         setAlert(true);
@@ -569,7 +529,8 @@ function RegistrationForm() {
         !companyPhoneNumber||
         !companyTypeName||
         !companyId||
-        !roleName
+        !roleName||
+        !workValue
 
 
       ) {
@@ -582,73 +543,79 @@ function RegistrationForm() {
 
     }
 
-    // if (
-    //   !firstName ||
-    //   !lastName ||
-    //   !companyId ||
-    //   !mobileNumber ||
-    //   !email ||
-    //   !password ||
-    //   !confirmPassword ||
-    //   // !companyTypeId ||
-    //   // !companyPhoneNumber ||
-    //   // fileName === false ||
-    //   !checked
-    // ) {
-    //   setAlert(true);
-    // }else{
-    //   setAlert(false);
-    //   const body = new FormData();
-    //   body.append("FirstName", firstName);
-    //   body.append("LastName", lastName);
-    //   body.append("MailUser", email);
-    //   body.append("Password", password);
-    //   body.append("MobileUser", mobileNumber);
-    //   body.append("IsWhatsAppNumber", checkedWhatsApp);
-    //   body.append("FirebaseToken", authorization.deviceToken);
-    //   body.append("Logo", logoData);
-    //   body.append("CommercialRecord", fileData);
-    //   body.append("MailCompany", companyMail);
-    //   body.append("MobileCompany", companyPhoneNumber);
-    //   body.append("Website", companyWebsite);
-    //   body.append("Address", address);
-    //   body.append("CompanyId", companyId);
+    if (
+      !firstName ||
+      !lastName ||
+      !companyId ||
+      !mobileNumber ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      // !companyTypeId ||
+      // !companyPhoneNumber ||
+      // fileName === false ||
+      !checked
+    ) {
+      setAlert(true);
+    }else{
+      setAlert(false);
+      const body = new FormData();
+      body.append("FirstName", firstName);
+      body.append("LastName", lastName);
+      body.append("MailUser", email);
+      body.append("Password", password);
+      body.append("MobileUser", mobileNumber);
+      body.append("IsWhatsAppNumber", checkedWhatsApp);
+      body.append("FirebaseToken", authorization.deviceToken);
+      body.append("Logo", logoData);
+      body.append("CommercialRecord", fileData);
+      body.append("MailCompany", companyMail);
+      body.append("MobileCompany", companyPhoneNumber);
+      body.append("Website", companyWebsite);
+      body.append("Address", address);
+      body.append("CompanyId", companyId);
 
-    //   body.append(roleId && "RoleId", roleId);
+      body.append(roleId && "RoleId", roleId);
 
-    //   body.append("UserTypeId", userTypeId);
+      body.append("UserTypeId", userTypeId);
 
-    //   body.append(
-    //     "AccountTypeId",
-    //     accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
-    //   );
+      body.append(
+        "AccountTypeId",
+        accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
+      );
 
-    //   body.append("CompanyHasData", admin ? true : false);
-    //   body.append("GovernmentId", governmentId);
-    //   body.append("CategoryId", categoryId);
-    //   body.append("SubCategoryId", subCategoryId);
-    //   body.append("SubSubCategoryId", subSubCategoryId);
-    //   body.append("CompanyTypeId", companyTypeId);
-    //   body.append("CategoriesRequest", companyTypeId);
-    //   register(
-    //     body,
-    //     (success) => {
-    //       console.log(success.data);
-    //       if(success.data===true){
-    //         localStorage.setItem("mobileNumber",mobileNumber)
-    //         setRedirect(true)
-    //       }
-    //     },
-    //     (fail) => console.log(fail),
-    //     false
-    //   );
-    // };
+      body.append("CompanyHasData", admin ? true : false);
+      body.append("GovernmentId", governmentId);
+      body.append("CategoryId", categoryId);
+      body.append("SubCategoryId", subCategoryId);
+      body.append("SubSubCategoryId", subSubCategoryId);
+      body.append("CompanyTypeId", companyTypeId);
+      body.append("CategoriesRequest", companyTypeId);
+      register(
+        body,
+        (success) => {
+          console.log(success.data);
+          if(success.data===true){
+            localStorage.setItem("mobileNumber",mobileNumber)
+            setRedirect(true)
+          }
+        },
+        (fail) => console.log(fail),
+        false
+      );
+    };
   };
 
-  const onChangeOption = (e, i) => {
-    console.log("hi", e.value);
-    console.log("suphi", e);
-  };
+  // const onChangeOption = (e, i) => {
+  //   setWorkValue(e.value)
+  //   console.log("suphi", e);
+  // };
+  function onChangeOption(currentNode, selectedNodes) {
+    console.log(currentNode);
+    console.log(selectedNodes);
+    // currentNode: { label, value, children, expanded, checked, className, ...extraProps }
+    // selectedNodes: [{ label, value, children, expanded, checked, className, ...extraProps }]
+  }
   const onAction = (node, action) => {
     // console.log("onAction::", action, node);
     console.log("bye");
@@ -823,13 +790,13 @@ function RegistrationForm() {
                 <img
                   src={disableArrow}
                   alt="disableArrow"
-                  className="dropDownicon"
+                  className={currentLanguageId==="46f4621f-9f96-46c7-a2d4-94b4c3393914"?"rightIcon ":"dropDownicon"}
                 />
               ) : (
                 <img
                   src={focusIcon ? foucesArrow : Arrow}
                   alt="Arrow"
-                  className="dropDownicon"
+                  className={currentLanguageId==="46f4621f-9f96-46c7-a2d4-94b4c3393914"?"rightIcon ":"dropDownicon"}
                 />
               )}
             </Col>

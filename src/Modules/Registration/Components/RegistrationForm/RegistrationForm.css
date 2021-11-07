@@ -34,6 +34,15 @@
 	height: 12px;
 	margin-bottom: 1px;
  }
+ .RegistrationForm .check-field:focus-within {
+	 margin-bottom: 0 !important;
+ }
+ .RegistrationForm .work .rightIcon
+ {
+	position: absolute;
+	right: 90% !important;
+	bottom: 40% !important;
+ }
 .RegistrationForm .ant-dropdown-trigger
 {
 	text-decoration: none !important;
@@ -479,6 +488,7 @@ border-color:#0370ff ;
 	height: 24px;
 	margin-bottom: 0px;
 }
+
  .RegistrationForm .requird .ant-checkbox-inner {
 	border-color: red !important;
   }
@@ -582,7 +592,13 @@ font-size: 12px !important;
 	width: 95%;
 	margin-bottom: 16px;
 }
-
+.cascaderFiled .search
+{
+	cursor: pointer !important;
+}
+.disableInput .search{
+	cursor: default !important;
+}
 .RegistrationForm .dropdown
 {
 	width: 100%;

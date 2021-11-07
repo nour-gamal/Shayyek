@@ -1,0 +1,169 @@
+.LoginByMobile .LoginForm
+{
+	display: flex;
+height: 60vh;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+@-moz-document url-prefix() {
+	.LoginByMobile .LoginForm
+	{
+		display: flex;
+	height: 60vh;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+  }
+.LoginByMobile .LoginForm .form
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.LoginByMobile .LoginForm .w-50
+{
+	width: 40% !important;
+}
+.LoginByMobile .LoginForm .f-27 {
+	font-weight: bold;
+	color: #0370ff;
+}
+.LoginByMobile .LoginForm .input-field
+{
+    width: 100% !important;
+}
+ /* .LoginForm  ::placeholder {
+	color: #bce0fd;
+	opacity: 1;
+} */
+
+.LoginByMobile .LoginForm :-ms-input-placeholder {
+	color: #bce0fd;
+}
+
+.LoginByMobile .LoginForm ::-ms-input-placeholder {
+	color: #bce0fd;
+}
+.LoginByMobile .LoginForm input:focus::-webkit-input-placeholder {
+	color: #0370ff;
+}
+.LoginByMobile .LoginForm .forgetPassword a {
+    color: #0370ff !important;
+    text-decoration: none !important;
+
+}
+.LoginByMobile .LoginForm .forgetPassword
+{
+    display: flex;
+    justify-content: flex-end;
+    width: 40%;
+}
+.LoginByMobile .LoginForm .checkAccount
+{
+    color: #0370ff;
+    display: flex;
+    justify-content: center;
+	font-size: 14px;
+
+}
+.LoginByMobile .LoginForm .checkAccount a
+{
+    color: #0370ff;
+    text-decoration: none;
+}
+.LoginByMobile .LoginForm input:focus:-moz-placeholder {
+	color: #0370ff;
+}
+
+.LoginByMobile .LoginForm input:focus::-moz-placeholder {
+	color: #0370ff;
+}
+.LoginByMobile .LoginForm input:focus:-ms-input-placeholder {
+	color: #0370ff;
+}
+
+.LoginByMobile .LoginForm .button-primary {
+	padding-left: 144px;
+	padding-right: 144px;
+}
+.LoginByMobile .LoginForm .button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+}
+.LoginByMobile .LoginForm .button button {
+	margin-bottom: 16px;
+}
+.LoginByMobile .LoginForm .content {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 45px;
+}
+.LoginByMobile .LoginForm .error::placeholder
+{
+	color: red !important;
+}
+.LoginByMobile .LoginForm .error
+{
+	border-color: red !important;
+}
+.LoginByMobile p{
+	margin-bottom: 0;
+	height: 24px;
+}
+.LoginByMobile .LoginForm .errorMsg,.LoginByMobile .LoginForm .passerrorMsg
+{
+	color: red !important;
+	
+}
+
+.LoginByMobile .LoginForm .active {
+	color: #0370ff;
+}
+ .LoginByMobile .LoginForm input::-webkit-outer-spin-button,
+.LoginByMobile .LoginByMobile .LoginForm input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+.LoginByMobile .LoginForm input[type="number"] {
+	-moz-appearance: textfield;
+}
+.LoginByMobile .LoginForm .loginByMobileLink a
+{
+    text-decoration: none;
+	color: #003b6b;
+}
+@media only screen and (max-width: 768px) {
+	.LoginByMobile  .LoginForm .w-50
+    {
+  width: 80% !important;
+    }
+	.LoginByMobile .LoginForm .forgetPassword {
+		display: flex;
+		justify-content: flex-end;
+		width: 76%;
+	}
+	.LoginByMobile .LoginForm
+{
+	display: flex;
+height: 55vh;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+@-moz-document url-prefix() {
+	.LoginByMobile .LoginForm
+	{
+		display: flex;
+	height: 56vh;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+  }
+  }
