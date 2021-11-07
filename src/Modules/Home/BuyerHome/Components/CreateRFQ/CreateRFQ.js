@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import { useSelector } from "react-redux";
 import { ExcelRenderer } from "react-excel-renderer";
 import { Select } from "antd";
+import { getCategories } from "../../../Network";
 import "./CreateRFQ.css";
 
 function CreateRFQ() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const { currentLanguageId } = useSelector((state) => state.currentLocal);
+	const [categoriesOption, setCategoriesOption] = useState([]);
 	const [dataSource, updateDataSource] = useState([]);
 	var index = {
 		item: null,
@@ -134,6 +137,17 @@ function CreateRFQ() {
 		});
 	};
 
+	useEffect(() => {
+		getCategories(
+			currentLanguageId,
+			(success) => {
+				setCategoriesOption(success.data);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	}, [currentLanguageId]);
 	const columns = [
 		{
 			title: currentLocal.buyerHome.item,
@@ -180,8 +194,9 @@ function CreateRFQ() {
 							handleCategoriesChange(optionId, rowIndex);
 						}}
 					>
-						<Option value="jackId">Jack</Option>
-						<Option value="lucyId">Lucy</Option>
+						{categoriesOption.map((category, key) => (
+							<Option value={category.id}>{category.name}</Option>
+						))}
 					</Select>
 				);
 			},
