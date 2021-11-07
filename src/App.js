@@ -56,7 +56,9 @@ function App() {
 				localStorage.setItem("englishId", success.data[0].id);
 				localStorage.setItem("arabicId", success.data[1].id);
 
-				dispatch(changeLocal("en"));
+				dispatch(
+					changeLocal(currentLocal.language === "English" ? "en" : "ar")
+				);
 			},
 			(fail) => console.log(fail),
 			false

@@ -121,5 +121,6 @@ export const ar = {
 		categories: "التصنيف",
 		includeInstallation: "شامل التركيب",
 		notes: "ملحوظات",
+		selectCategory:'اختر نوع المنتج'
 	},
 };
