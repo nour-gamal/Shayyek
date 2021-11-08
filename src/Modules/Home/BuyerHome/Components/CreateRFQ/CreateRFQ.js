@@ -4,7 +4,7 @@ import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import { useSelector } from "react-redux";
 import { ExcelRenderer } from "react-excel-renderer";
-import { Select } from "antd";
+import { Select, Checkbox } from "antd";
 import { getCategories } from "../../../Network";
 import "./CreateRFQ.css";
 
@@ -27,6 +27,20 @@ function CreateRFQ() {
 	function handleCategoriesChange(optionId, rowIndex) {
 		let data = [...dataSource];
 		data[rowIndex].categories = optionId;
+		updateDataSource(data);
+	}
+
+	function changeCategoryForAll(optionId) {
+		let data = [...dataSource];
+		data.forEach((row) => {
+			row.categories = optionId;
+		});
+
+		updateDataSource(data);
+	}
+	function onRadioBtnChange(e, rowIndex) {
+		let data = [...dataSource];
+		data[rowIndex].includeInstallation = e.target.checked;
 		updateDataSource(data);
 	}
 
@@ -188,8 +202,8 @@ function CreateRFQ() {
 			render: (row, record, rowIndex) => {
 				return (
 					<Select
-						defaultValue="lucy"
-						style={{ width: 120 }}
+						defaultValue={currentLocal.buyerHome.selectCategory}
+						style={{ width: "100%" }}
 						onChange={(optionId) => {
 							handleCategoriesChange(optionId, rowIndex);
 						}}
@@ -205,6 +219,15 @@ function CreateRFQ() {
 			title: currentLocal.buyerHome.includeInstallation,
 			dataIndex: "includeInstallation",
 			key: "includeInstallation",
+			render: (row, record, rowIndex) => {
+				return (
+					<Checkbox
+						onChange={(checkVal) => {
+							onRadioBtnChange(checkVal, rowIndex);
+						}}
+					/>
+				);
+			},
 		},
 		{
 			title: currentLocal.buyerHome.notes,
@@ -240,10 +263,26 @@ function CreateRFQ() {
 						<label>{currentLocal.buyerHome.addNewItem}</label>
 					</div>
 				</div>
-				<div className="mb-3">
+				{/* <div className="mb-3">
 					<img src={addIcon} alt="addIcon" className="mx-3" />
 					<label>{currentLocal.buyerHome.ccCollugues}</label>
-				</div>
+				</div> */}
+
+				<Select
+					defaultValue={currentLocal.buyerHome.selectCategory}
+					style={{ width: 130 }}
+					onChange={(optionId) => {
+						changeCategoryForAll(optionId);
+					}}
+				>
+					{categoriesOption.map((category, key) => {
+						return (
+							<Option value={category.id} key={key}>
+								{category.name}
+							</Option>
+						);
+					})}
+				</Select>
 			</div>
 			<Table
 				columns={columns}
