@@ -126,7 +126,7 @@ export const en = {
 		selectCategory: "Select Category",
 		category: "Category",
 		installAll: "Install all",
-		DeliveredTo: "Delivered To",
+		deliveredTo: "Delivered To",
 		companyWarehouse: "Company warehouse",
 		projectLocation: "Project location",
 		address: "Address",

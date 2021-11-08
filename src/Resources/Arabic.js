@@ -124,7 +124,7 @@ export const ar = {
 		selectCategory: "اختر نوع المنتج",
 		category: "المنتج",
 		installAll: "تركيب الكل",
-		DeliveredTo: "توصيل الي",
+		deliveredTo: "توصيل الي",
 		companyWarehouse: "مستودع الشركه",
 		projectLocation: "مكان المشروع",
 		address: "العنوان",

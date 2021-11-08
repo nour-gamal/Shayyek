@@ -14,6 +14,8 @@ function CreateRFQ() {
 	const [categoriesOption, setCategoriesOption] = useState([]);
 	const [dataSource, updateDataSource] = useState([]);
 	const [allCategoryName, setAllCategoryName] = useState(null);
+	const [deliveredTo, updateDeliveredTo] = useState([]);
+	const [address, updateAddress] = useState("");
 	var index = {
 		item: null,
 		notes: null,
@@ -24,6 +26,14 @@ function CreateRFQ() {
 	};
 
 	const { Option } = Select;
+
+	const options = [
+		{
+			label: currentLocal.buyerHome.companyWarehouse,
+			value: "companyWarehouse",
+		},
+		{ label: currentLocal.buyerHome.projectLocation, value: "projectLocation" },
+	];
 
 	function handleCategoriesChange(optionId, rowIndex) {
 		let data = [...dataSource];
@@ -52,6 +62,9 @@ function CreateRFQ() {
 			handleIncludeInstallation(e, rowIndex);
 		});
 		updateDataSource(data);
+	}
+	function handleDeliveredTo(checkedValues) {
+		updateDeliveredTo(checkedValues);
 	}
 	const addNewItem = () => {
 		const key = Math.ceil(Math.random() * 999999999);
@@ -312,7 +325,21 @@ function CreateRFQ() {
 			/>
 			<div>
 				<div>
-					<label></label>
+					<label className="mx-5 my-2">
+						{currentLocal.buyerHome.deliveredTo}
+					</label>
+					<Checkbox.Group options={options} onChange={handleDeliveredTo} />
+				</div>
+				<div className="d-flex align-items-center">
+					<label className="mr-5 my-2">{currentLocal.buyerHome.address}</label>
+					<input
+						type="text"
+						className="form-control"
+						onChange={(e) => {
+							updateAddress(e.target.value);
+						}}
+						value={address}
+					/>
 				</div>
 			</div>
 		</div>
