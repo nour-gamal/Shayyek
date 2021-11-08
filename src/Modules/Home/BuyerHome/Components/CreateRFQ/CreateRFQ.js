@@ -13,6 +13,7 @@ function CreateRFQ() {
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [categoriesOption, setCategoriesOption] = useState([]);
 	const [dataSource, updateDataSource] = useState([]);
+	const [allCategoryName, setAllCategoryName] = useState(null);
 	var index = {
 		item: null,
 		notes: null,
@@ -30,20 +31,28 @@ function CreateRFQ() {
 		updateDataSource(data);
 	}
 
-	function changeCategoryForAll(optionId) {
+	function changeCategoryForAll(optionId, optionName) {
 		let data = [...dataSource];
 		data.forEach((row) => {
 			row.categories = optionId;
 		});
 
 		updateDataSource(data);
+		setAllCategoryName(optionName);
 	}
-	function onRadioBtnChange(e, rowIndex) {
+
+	function handleIncludeInstallation(e, rowIndex) {
 		let data = [...dataSource];
 		data[rowIndex].includeInstallation = e.target.checked;
 		updateDataSource(data);
 	}
-
+	function handleInstallAll(e) {
+		let data = [...dataSource];
+		data.forEach((row, rowIndex) => {
+			handleIncludeInstallation(e, rowIndex);
+		});
+		updateDataSource(data);
+	}
 	const addNewItem = () => {
 		const key = Math.ceil(Math.random() * 999999999);
 
@@ -199,9 +208,10 @@ function CreateRFQ() {
 			title: currentLocal.buyerHome.categories,
 			dataIndex: "categories",
 			key: "categories",
-			render: (row, record, rowIndex) => {
+			render: (categoryId, record, rowIndex) => {
 				return (
 					<Select
+						value={allCategoryName}
 						defaultValue={currentLocal.buyerHome.selectCategory}
 						style={{ width: "100%" }}
 						onChange={(optionId) => {
@@ -209,7 +219,9 @@ function CreateRFQ() {
 						}}
 					>
 						{categoriesOption.map((category, key) => (
-							<Option value={category.id}>{category.name}</Option>
+							<Option value={category.id} key={key}>
+								{category.name}
+							</Option>
 						))}
 					</Select>
 				);
@@ -219,12 +231,13 @@ function CreateRFQ() {
 			title: currentLocal.buyerHome.includeInstallation,
 			dataIndex: "includeInstallation",
 			key: "includeInstallation",
-			render: (row, record, rowIndex) => {
+			render: (includeInstallation, record, rowIndex) => {
 				return (
 					<Checkbox
 						onChange={(checkVal) => {
-							onRadioBtnChange(checkVal, rowIndex);
+							handleIncludeInstallation(checkVal, rowIndex);
 						}}
+						checked={includeInstallation}
 					/>
 				);
 			},
@@ -267,22 +280,26 @@ function CreateRFQ() {
 					<img src={addIcon} alt="addIcon" className="mx-3" />
 					<label>{currentLocal.buyerHome.ccCollugues}</label>
 				</div> */}
-
-				<Select
-					defaultValue={currentLocal.buyerHome.selectCategory}
-					style={{ width: 130 }}
-					onChange={(optionId) => {
-						changeCategoryForAll(optionId);
-					}}
-				>
-					{categoriesOption.map((category, key) => {
-						return (
-							<Option value={category.id} key={key}>
-								{category.name}
-							</Option>
-						);
-					})}
-				</Select>
+				<div className="mb-2">
+					<Select
+						defaultValue={currentLocal.buyerHome.selectCategory}
+						onChange={(optionId, record) => {
+							changeCategoryForAll(optionId, record.children);
+						}}
+					>
+						{categoriesOption.map((category, key) => {
+							return (
+								<Option value={category.id} key={key}>
+									{category.name}
+								</Option>
+							);
+						})}
+					</Select>
+				</div>
+				<div>
+					includeInstallation
+					<Checkbox onChange={handleInstallAll} />
+				</div>
 			</div>
 			<Table
 				columns={columns}
