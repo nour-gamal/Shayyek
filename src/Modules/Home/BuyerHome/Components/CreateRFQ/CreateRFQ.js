@@ -14,6 +14,8 @@ function CreateRFQ() {
 	const [categoriesOption, setCategoriesOption] = useState([]);
 	const [dataSource, updateDataSource] = useState([]);
 	const [allCategoryName, setAllCategoryName] = useState(null);
+	const [deliveredTo, updateDeliveredTo] = useState([]);
+	const [address, updateAddress] = useState("");
 	var index = {
 		item: null,
 		notes: null,
@@ -24,6 +26,14 @@ function CreateRFQ() {
 	};
 
 	const { Option } = Select;
+
+	const options = [
+		{
+			label: currentLocal.buyerHome.companyWarehouse,
+			value: "companyWarehouse",
+		},
+		{ label: currentLocal.buyerHome.projectLocation, value: "projectLocation" },
+	];
 
 	function handleCategoriesChange(optionId, rowIndex) {
 		let data = [...dataSource];
@@ -52,6 +62,9 @@ function CreateRFQ() {
 			handleIncludeInstallation(e, rowIndex);
 		});
 		updateDataSource(data);
+	}
+	function handleDeliveredTo(checkedValues) {
+		updateDeliveredTo(checkedValues);
 	}
 	const addNewItem = () => {
 		const key = Math.ceil(Math.random() * 999999999);
@@ -211,7 +224,6 @@ function CreateRFQ() {
 			render: (categoryId, record, rowIndex) => {
 				return (
 					<Select
-						value={allCategoryName}
 						defaultValue={currentLocal.buyerHome.selectCategory}
 						style={{ width: "100%" }}
 						onChange={(optionId) => {
@@ -280,25 +292,28 @@ function CreateRFQ() {
 					<img src={addIcon} alt="addIcon" className="mx-3" />
 					<label>{currentLocal.buyerHome.ccCollugues}</label>
 				</div> */}
-				<div className="mb-2">
-					<Select
-						defaultValue={currentLocal.buyerHome.selectCategory}
-						onChange={(optionId, record) => {
-							changeCategoryForAll(optionId, record.children);
-						}}
-					>
-						{categoriesOption.map((category, key) => {
-							return (
-								<Option value={category.id} key={key}>
-									{category.name}
-								</Option>
-							);
-						})}
-					</Select>
-				</div>
 				<div>
-					includeInstallation
-					<Checkbox onChange={handleInstallAll} />
+					<div className="mb-2">
+						<label className="mx-2">{currentLocal.buyerHome.category}</label>
+						<Select
+							defaultValue={currentLocal.buyerHome.selectCategory}
+							onChange={(optionId, record) => {
+								changeCategoryForAll(optionId, record.children);
+							}}
+						>
+							{categoriesOption.map((category, key) => {
+								return (
+									<Option value={category.id} key={key}>
+										{category.name}
+									</Option>
+								);
+							})}
+						</Select>
+					</div>
+					<div>
+						<label className="mx-2">{currentLocal.buyerHome.installAll}</label>
+						<Checkbox onChange={handleInstallAll} />
+					</div>
 				</div>
 			</div>
 			<Table
@@ -308,6 +323,25 @@ function CreateRFQ() {
 				className="my-4"
 				scroll={{ x: true }}
 			/>
+			<div>
+				<div>
+					<label className="mx-5 my-2">
+						{currentLocal.buyerHome.deliveredTo}
+					</label>
+					<Checkbox.Group options={options} onChange={handleDeliveredTo} />
+				</div>
+				<div className="d-flex align-items-center">
+					<label className="mr-5 my-2">{currentLocal.buyerHome.address}</label>
+					<input
+						type="text"
+						className="form-control"
+						onChange={(e) => {
+							updateAddress(e.target.value);
+						}}
+						value={address}
+					/>
+				</div>
+			</div>
 		</div>
 	);
 }
