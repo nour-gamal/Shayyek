@@ -1,0 +1,36 @@
+.landingPage
+{
+    height: 81vh;
+    background-color: red;
+}
+.landingPage .container
+{
+    height: 100%;
+}
+.landingPage .content
+{
+    height: 77%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
+}
+.landingPage .button button{
+    background-color: #FC6B5E;
+    border-radius: 12px;
+opacity: 0.75;
+padding: 12px 68px ;
+
+}
+.landingPage .liveBox
+{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items:center;
+}
+.landingPage .liveBox p{
+    margin-top: 25px;
+    margin-left: 52px;
+    
+}

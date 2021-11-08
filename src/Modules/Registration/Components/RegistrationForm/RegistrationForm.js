@@ -106,6 +106,9 @@ function RegistrationForm() {
   };
 
   useEffect(() => {
+    if(localStorage.getItem("redirectToRegistration")){
+      setBuyer(localStorage.getItem("redirectToRegistration"))
+    }
     CompanyList(
       currentLanguageId,
       (success) => {

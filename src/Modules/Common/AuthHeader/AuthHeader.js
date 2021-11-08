@@ -45,7 +45,11 @@ function AuthHeader({ title, showState, onSelectUserType,sendDataToParent,alert,
 
 
   useEffect(() => {
-    setItem(currentLocal.registration.userType)
+    if(localStorage.getItem("redirectToRegistration")){
+      setItem(localStorage.getItem("redirectToRegistration"))
+    }else{
+      setItem(currentLocal.registration.userType)
+    }
     GetUserTypes(
       currentLanguageId,
       (success) => {

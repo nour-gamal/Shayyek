@@ -33,7 +33,6 @@ function ValueProposition() {
         <h1 className="f-27">{currentLocal.home.valueProposition}</h1>
         <Row>
           {cards.map((card) => {
-            console.log(card);
             return (
               <Col md={4} xs={12} key={card.id}>
                 <div className="cardContainer">

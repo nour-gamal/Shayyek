@@ -6,10 +6,12 @@ import ContractorHome from "./ContractorHome/ContractorHome";
 import SupplierHome from "./SupplierHome/SupplierHome";
 import GuestHome from "./GuestHome/GuestHome";
 function Home() {
-	const userType = "buyer";
+	const userType = "0";
 	return (
 		<section>
+			{!localStorage.getItem("landingPage")&&
 			<Navbar />
+		}
 			{userType === "buyer" ? (
 				<BuyerHome />
 			) : userType === "supplier" ? (
