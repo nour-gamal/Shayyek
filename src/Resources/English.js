@@ -124,6 +124,15 @@ export const en = {
 		includeInstallation: "Include Installation",
 		notes: "Notes",
 		selectCategory: "Select Category",
+		category: "Category",
+		installAll: "Install all",
+		DeliveredTo: "Delivered To",
+		companyWarehouse: "Company warehouse",
+		projectLocation: "Project location",
+		address: "Address",
+		deadlineRecievingOffers: "Deadline recieving offers",
+		deliveryDate: "Delivery date",
+		confirm: "Confirm",
 	},
 	home: {
 		email: "E-mail",
@@ -138,12 +147,15 @@ export const en = {
 		sendMessage: "Send Message",
 		getInTouch: "Get in touch",
 		dropUsANoteBelow: "Drop us a note below",
-    valueProposition:"Value Proposition",
-    transparency:"Transparency",
-    contentOfTransparency:"There’s always a risk factor involved with evaluating and reference checking new vendors. A bird’s eye view of similar prices in the market and supplier metrics makes the decision-making process as informed as ever.",
-    accountability:"Accountability",
-    contentOfAcountability:"It’s a large market with no real central depository for contractor or supplier performance. We’re committed to delivering the best possible procurement experience to you by constantly enhancing our verified network of suppliers and intelligent dashboard tools.",
-    optimizedProcess:"Optimized Process",
-    contentOfoptimizedProcess:"The process of sourcing - evaluating - negotiating - deciding is a tedious time consuming task which often needs to be repeated several times with little supporting market intelligence. Connecting all parties through an automated platform increases reliability of the outcome while streamlining time and cost savings."
-  },
+		valueProposition: "Value Proposition",
+		transparency: "Transparency",
+		contentOfTransparency:
+			"There’s always a risk factor involved with evaluating and reference checking new vendors. A bird’s eye view of similar prices in the market and supplier metrics makes the decision-making process as informed as ever.",
+		accountability: "Accountability",
+		contentOfAcountability:
+			"It’s a large market with no real central depository for contractor or supplier performance. We’re committed to delivering the best possible procurement experience to you by constantly enhancing our verified network of suppliers and intelligent dashboard tools.",
+		optimizedProcess: "Optimized Process",
+		contentOfoptimizedProcess:
+			"The process of sourcing - evaluating - negotiating - deciding is a tedious time consuming task which often needs to be repeated several times with little supporting market intelligence. Connecting all parties through an automated platform increases reliability of the outcome while streamlining time and cost savings.",
+	},
 };

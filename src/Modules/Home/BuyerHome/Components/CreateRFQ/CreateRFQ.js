@@ -211,7 +211,6 @@ function CreateRFQ() {
 			render: (categoryId, record, rowIndex) => {
 				return (
 					<Select
-						value={allCategoryName}
 						defaultValue={currentLocal.buyerHome.selectCategory}
 						style={{ width: "100%" }}
 						onChange={(optionId) => {
@@ -280,25 +279,28 @@ function CreateRFQ() {
 					<img src={addIcon} alt="addIcon" className="mx-3" />
 					<label>{currentLocal.buyerHome.ccCollugues}</label>
 				</div> */}
-				<div className="mb-2">
-					<Select
-						defaultValue={currentLocal.buyerHome.selectCategory}
-						onChange={(optionId, record) => {
-							changeCategoryForAll(optionId, record.children);
-						}}
-					>
-						{categoriesOption.map((category, key) => {
-							return (
-								<Option value={category.id} key={key}>
-									{category.name}
-								</Option>
-							);
-						})}
-					</Select>
-				</div>
 				<div>
-					includeInstallation
-					<Checkbox onChange={handleInstallAll} />
+					<div className="mb-2">
+						<label className="mx-2">{currentLocal.buyerHome.category}</label>
+						<Select
+							defaultValue={currentLocal.buyerHome.selectCategory}
+							onChange={(optionId, record) => {
+								changeCategoryForAll(optionId, record.children);
+							}}
+						>
+							{categoriesOption.map((category, key) => {
+								return (
+									<Option value={category.id} key={key}>
+										{category.name}
+									</Option>
+								);
+							})}
+						</Select>
+					</div>
+					<div>
+						<label className="mx-2">{currentLocal.buyerHome.installAll}</label>
+						<Checkbox onChange={handleInstallAll} />
+					</div>
 				</div>
 			</div>
 			<Table
@@ -308,6 +310,11 @@ function CreateRFQ() {
 				className="my-4"
 				scroll={{ x: true }}
 			/>
+			<div>
+				<div>
+					<label></label>
+				</div>
+			</div>
 		</div>
 	);
 }
