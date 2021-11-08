@@ -6,7 +6,7 @@ import ContractorHome from "./ContractorHome/ContractorHome";
 import SupplierHome from "./SupplierHome/SupplierHome";
 import GuestHome from "./GuestHome/GuestHome";
 function Home() {
-	const userType = "supplier";
+	const userType = "a";
 	return (
 		<section>
 			<Navbar />

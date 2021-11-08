@@ -9,7 +9,7 @@
 }
 .getInTouch .msgContainer{
     padding-bottom: 41px;
-    padding-top: 41px;
+    padding-top: 25px;
     background-color: #FAFAFA;
 }
 .getInTouch .input-field::placeholder
@@ -32,18 +32,19 @@
     color:#003B6B;
 }
 .getInTouch form{
-    padding-top: 42px;
+    padding-top: 34px;
 }
 .getInTouch textarea
 {
-    width: 98.5%;
-    margin-top: 24px;
+    resize: none;
     border-radius: 5px;
     border: 1px solid #8e8e8e;
     color: #8e8e8e;
-    padding-left: 8px;
-    padding-right: 8px;
 margin-bottom: 32px;
+padding-right: 16px;
+padding-left: 16px;
+padding-top: 16px;
+width: 97%;
 }
 .getInTouch textarea:focus
 {
@@ -58,4 +59,47 @@ text-align: center;
 .getInTouch .button button{
 padding-right: 50px;
 padding-left: 50px;
+}
+.getInTouch .error::placeholder
+{
+	color: red !important;
+}
+.getInTouch .error
+{
+	border-color: red !important;
+}
+
+.getInTouch  .errorMsg,.getInTouch  .passerrorMsg
+{
+	color: red !important;
+	
+}
+.getInTouch .alert
+{
+    height: 25px;
+}
+.getInTouch p{
+	margin-bottom: 0;
+	height: 24px;
+}
+.getInTouch input[type=number]::-webkit-outer-spin-button,
+.getInTouch input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.getInTouch input[type=number] {
+    -moz-appearance:textfield;
+}
+@media only screen and (max-width: 768px) {
+    .getInTouch textarea
+{
+
+width: 100%;
+}
+.getInTouch .input-field
+{
+    width: 100%;
+    margin-top: 16px;
+}
 }

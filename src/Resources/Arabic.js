@@ -122,4 +122,20 @@ export const ar = {
 		includeInstallation: "شامل التركيب",
 		notes: "ملحوظات",
 	},
+	home: {
+		email: "البريد الالكتروني",
+		name: "الاسم",
+		mobile: "رقم الهاتف",
+		msg:"رسالة",
+		nameIsRequired: "الاسم مطلوب",
+		mobileNumberIsRequired: "رقم الهاتف مطلوب",
+		messageIsRequire: "الرسالة مطلوبه",
+		yourMessageSentSuccessfully:"رسالتك ارسلت بنجاح",
+		yourMessageSentnotSuccessfully:"رسالتك لم ترسل بنجاح",
+        sendMessage:"ارسل الرسالة",
+		getInTouch:"تواصل معانا",
+        dropUsANoteBelow:"اترك لنا ملاحظه",
+		
+
+	},
 };
