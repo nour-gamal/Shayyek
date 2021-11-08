@@ -11,4 +11,27 @@
 .valueProposition .cardContainer
 {
     background-color: #003B6B;
+    padding:34px 28px;
+    margin-left: 73px;
 }
+.valueProposition .cardContainer p{
+    margin-top: 21px;
+    min-height: 151px;
+}
+.valueProposition .cardContainer h2{
+    margin-top: 32px;
+}
+.valueProposition .cardContainer img{
+    width: 110px;
+}
+@media only screen and (max-width: 768px) {
+    .valueProposition .cardContainer
+    {
+        margin-left: 25px;
+        margin-bottom: 20px;
+        width: 85%;
+    }
+    .valueProposition h1{
+        margin-left: 12px;
+    }
+  }

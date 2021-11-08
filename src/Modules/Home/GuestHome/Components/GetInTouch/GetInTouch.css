@@ -92,6 +92,10 @@ padding-left: 50px;
     -moz-appearance:textfield;
 }
 @media only screen and (max-width: 768px) {
+    .getInTouch 
+{
+    padding-top: 70px;
+}
     .getInTouch textarea
 {
 
@@ -101,5 +105,8 @@ width: 100%;
 {
     width: 100%;
     margin-top: 16px;
+}
+.getInTouch h1{
+    margin-left: 12px;
 }
 }

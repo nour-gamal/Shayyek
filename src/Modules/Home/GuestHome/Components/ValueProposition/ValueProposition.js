@@ -2,24 +2,27 @@ import React from "react";
 import "./ValueProposition.css";
 import { useSelector } from "react-redux";
 import { Col, Container, Row } from "react-bootstrap";
+import optimization from "../../../../../Resources/Assets/optimization (2)@2x.png";
+import transparency from "../../../../../Resources/Assets/transparency (1)@2x.png";
+import accountability from "../../../../../Resources/Assets/accountability (2)@2x.png";
 function ValueProposition() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const cards = [
     {
       id: "1",
-      img: "hello",
+      img:transparency,
       title: currentLocal.home.transparency,
       content: currentLocal.home.contentOfTransparency,
     },
     {
       id: "2",
-      img: "hello",
+      img:accountability,
       title: currentLocal.home.accountability,
       content: currentLocal.home.contentOfAcountability,
     },
     {
       id: "3",
-      img: "hello",
+      img: optimization,
       title: currentLocal.home.optimizedProcess,
       content: currentLocal.home.contentOfoptimizedProcess,
     },
@@ -34,7 +37,12 @@ function ValueProposition() {
             return (
               <Col md={4} xs={12} key={card.id}>
                 <div className="cardContainer">
-                  <h2 className="f-21 text-white text-bold">{card.title}</h2>
+                  <div className="img text-center">
+                    <img src={card.img} alt="optimization" />
+                  </div>
+                  <h2 className="f-21 text-white text-bold text-center">
+                    {card.title}
+                  </h2>
                   <p className="f-12 text-white">{card.content}</p>
                 </div>
               </Col>
