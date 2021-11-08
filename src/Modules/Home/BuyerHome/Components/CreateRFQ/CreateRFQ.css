@@ -5,3 +5,15 @@
 .actionsContainer > div > div img {
 	cursor: pointer;
 }
+.createRFQ textarea {
+	background: #f5f5f5 !important;
+	resize: none !important;
+	border: none !important;
+}
+.createRFQ .addressBar {
+	width: 50%;
+}
+.createRFQ .button-primary {
+	width: 270px;
+	margin: auto !important;
+}

@@ -4,7 +4,7 @@ import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import { useSelector } from "react-redux";
 import { ExcelRenderer } from "react-excel-renderer";
-import { Select, Checkbox } from "antd";
+import { Select, Checkbox, DatePicker } from "antd";
 import { getCategories } from "../../../network";
 import "./CreateRFQ.css";
 
@@ -15,7 +15,10 @@ function CreateRFQ() {
 	const [dataSource, updateDataSource] = useState([]);
 	const [allCategoryName, setAllCategoryName] = useState(null);
 	const [deliveredTo, updateDeliveredTo] = useState([]);
+	const [selectedRow, updateSelectedRow] = useState(null);
 	const [address, updateAddress] = useState("");
+	const [recievingOffersDate, setOffersDate] = useState(null);
+	const [deliveryDate, setDeliveryDate] = useState();
 	var index = {
 		item: null,
 		notes: null,
@@ -81,6 +84,10 @@ function CreateRFQ() {
 			},
 		]);
 	};
+
+	function disabledDate(current) {
+		return current && current.valueOf() < Date.now();
+	}
 
 	const fileHandler = (event) => {
 		let fileObj = event.target.files[0];
@@ -189,33 +196,96 @@ function CreateRFQ() {
 			title: currentLocal.buyerHome.item,
 			dataIndex: "item",
 			key: "item",
-			onCell: (record, rowIndex) => {
-				return {
-					onClick: (event) => {
-						console.log(rowIndex);
-					},
-				};
+			render: (item, record) => {
+				return (
+					<textarea
+						type="text"
+						onChange={(e) => {
+							let data = [...dataSource];
+							data[selectedRow].item = e.target.value;
+							updateDataSource(data);
+						}}
+						className="form-control"
+						value={item}
+					/>
+				);
 			},
 		},
 		{
 			title: currentLocal.buyerHome.description,
 			dataIndex: "description",
 			key: "description",
+			render: (description, record) => {
+				return (
+					<textarea
+						type="text"
+						onChange={(e) => {
+							let data = [...dataSource];
+							data[selectedRow].description = e.target.value;
+							updateDataSource(data);
+						}}
+						className="form-control"
+						value={description}
+					/>
+				);
+			},
 		},
 		{
 			title: currentLocal.buyerHome.unit,
 			dataIndex: "unit",
 			key: "unit",
+			render: (unit, record) => {
+				return (
+					<textarea
+						type="text"
+						onChange={(e) => {
+							let data = [...dataSource];
+							data[selectedRow].unit = e.target.value;
+							updateDataSource(data);
+						}}
+						className="form-control"
+						value={unit}
+					/>
+				);
+			},
 		},
 		{
 			title: currentLocal.buyerHome.quantity,
 			dataIndex: "quantity",
 			key: "quantity",
+			render: (quantity, record) => {
+				return (
+					<textarea
+						type="text"
+						onChange={(e) => {
+							let data = [...dataSource];
+							data[selectedRow].quantity = e.target.value;
+							updateDataSource(data);
+						}}
+						className="form-control"
+						value={quantity}
+					/>
+				);
+			},
 		},
 		{
 			title: currentLocal.buyerHome.preferredBrands,
 			dataIndex: "preferredBrands",
 			key: "preferredBrands",
+			render: (preferredBrands, record) => {
+				return (
+					<textarea
+						type="text"
+						onChange={(e) => {
+							let data = [...dataSource];
+							data[selectedRow].preferredBrands = e.target.value;
+							updateDataSource(data);
+						}}
+						className="form-control"
+						value={preferredBrands}
+					/>
+				);
+			},
 		},
 		{
 			title: currentLocal.buyerHome.categories,
@@ -224,9 +294,13 @@ function CreateRFQ() {
 			render: (categoryId, record, rowIndex) => {
 				return (
 					<Select
-						defaultValue={currentLocal.buyerHome.selectCategory}
 						style={{ width: "100%" }}
-						onChange={(optionId) => {
+						placeholder={
+							allCategoryName
+								? allCategoryName
+								: currentLocal.buyerHome.selectCategory
+						}
+						onChange={(optionId, x) => {
 							handleCategoriesChange(optionId, rowIndex);
 						}}
 					>
@@ -258,6 +332,20 @@ function CreateRFQ() {
 			title: currentLocal.buyerHome.notes,
 			dataIndex: "notes",
 			key: "notes",
+			render: (notes, record) => {
+				return (
+					<textarea
+						type="text"
+						onChange={(e) => {
+							let data = [...dataSource];
+							data[selectedRow].notes = e.target.value;
+							updateDataSource(data);
+						}}
+						className="form-control"
+						value={notes}
+					/>
+				);
+			},
 		},
 	];
 
@@ -288,10 +376,7 @@ function CreateRFQ() {
 						<label>{currentLocal.buyerHome.addNewItem}</label>
 					</div>
 				</div>
-				{/* <div className="mb-3">
-					<img src={addIcon} alt="addIcon" className="mx-3" />
-					<label>{currentLocal.buyerHome.ccCollugues}</label>
-				</div> */}
+
 				<div>
 					<div className="mb-2">
 						<label className="mx-2">{currentLocal.buyerHome.category}</label>
@@ -321,25 +406,65 @@ function CreateRFQ() {
 				dataSource={dataSource}
 				// loading={true}
 				className="my-4"
+				onRow={(record, rowIndex) => {
+					return {
+						onClick: (event) => {
+							updateSelectedRow(rowIndex);
+						},
+					};
+				}}
 				scroll={{ x: true }}
 			/>
-			<div>
-				<div>
-					<label className="mx-5 my-2">
-						{currentLocal.buyerHome.deliveredTo}
-					</label>
-					<Checkbox.Group options={options} onChange={handleDeliveredTo} />
-				</div>
-				<div className="d-flex align-items-center">
-					<label className="mr-5 my-2">{currentLocal.buyerHome.address}</label>
-					<input
-						type="text"
-						className="form-control"
-						onChange={(e) => {
-							updateAddress(e.target.value);
-						}}
-						value={address}
-					/>
+			<div className="container">
+				<div className="row">
+					<div className="col-md-8 col-12">
+						<div>
+							<label className="mx-2 my-3">
+								{currentLocal.buyerHome.deliveredTo}
+							</label>
+							<Checkbox.Group options={options} onChange={handleDeliveredTo} />
+						</div>
+						<div className="d-flex align-items-center">
+							<label className="mx-2 my-3">
+								{currentLocal.buyerHome.address}
+							</label>
+							<input
+								type="text"
+								className="form-control addressBar"
+								onChange={(e) => {
+									updateAddress(e.target.value);
+								}}
+								value={address}
+							/>
+						</div>
+						<div className="my-3">
+							<img src={addIcon} alt="addIcon" className="mx-3" />
+							<label>{currentLocal.buyerHome.ccCollugues}</label>
+						</div>
+					</div>
+					<div className="col-md-4 col-12 ">
+						<div className="my-3">
+							<label className="mx-2">
+								{currentLocal.buyerHome.deadlineRecievingOffers}
+							</label>
+							<DatePicker
+								onChange={(date, dateString) => setOffersDate(dateString)}
+								disabledDate={disabledDate}
+							/>
+						</div>
+						<div className="my-3">
+							<label className="mx-2">
+								{currentLocal.buyerHome.deliveryDate}
+							</label>
+							<DatePicker
+								onChange={(date, dateString) => setDeliveryDate(dateString)}
+								disabledDate={disabledDate}
+							/>
+						</div>
+					</div>
+					<button className="button-primary">
+						{currentLocal.buyerHome.confirm}
+					</button>
 				</div>
 			</div>
 		</div>
