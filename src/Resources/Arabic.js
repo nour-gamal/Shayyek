@@ -136,7 +136,5 @@ export const ar = {
         sendMessage:"ارسل الرسالة",
 		getInTouch:"تواصل معانا",
         dropUsANoteBelow:"اترك لنا ملاحظه",
-		
-
 	},
 };
