@@ -5,7 +5,7 @@ import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import { useSelector } from "react-redux";
 import { ExcelRenderer } from "react-excel-renderer";
 import { Select, Checkbox } from "antd";
-import { getCategories } from "../../../Network";
+import { getCategories } from "../../../network";
 import "./CreateRFQ.css";
 
 function CreateRFQ() {
