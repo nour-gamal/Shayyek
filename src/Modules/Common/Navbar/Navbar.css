@@ -9,8 +9,12 @@
 	padding-right: 84px !important;
 	padding-left: 84px !important;
 }
-
-
+.transparent
+{
+	width: 100%;
+	background-color: transparent;
+	padding: 20px 0px !important;
+}
 .navbar .userType {
 	color: #f5f5f5;
 	display: flex;
@@ -62,6 +66,7 @@
 	display: flex;
 	justify-content: flex-end;
 }
+
 .dark .loginNavbar .registration {
 	border-right: 1px solid #ddd;
 	padding-right: 16px !important;

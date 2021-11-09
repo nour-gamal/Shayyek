@@ -1,20 +1,21 @@
 .landingPage
 {
     height: 81vh;
-    background-color: red;
+background-image: url("../../../../../Resources/Assets/AdobeStock_63818065_Preview.png");
+background-attachment:bottom;
+background-repeat: no-repeat;
+background-size:100% 100%;
+/* background: url("../../../../../Resources/Assets/AdobeStock_63818065_Preview.png") no-repeat center center; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover; */
 }
 .landingPage .container
 {
     height: 100%;
 }
-.landingPage .content
-{
-    height: 77%;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-    align-items: center;
-}
+
 .landingPage .button button{
     background-color: #FC6B5E;
     border-radius: 12px;
@@ -25,10 +26,13 @@ padding: 12px 68px ;
 .landingPage .liveBox
 {
     display: flex;
-    width: 100%;
-    justify-content: flex-start;
-    align-items:center;
+    align-items: flex-end;
+    height: 100%;
+padding-bottom: 37px;
+width: 100%;
+margin-top: 20px;
 }
+
 .landingPage .liveBox p{
     margin-top: 25px;
     margin-left: 60px;
@@ -37,6 +41,7 @@ padding: 12px 68px ;
 .landingPage .search
 {
     position: relative;
+    margin-bottom: 25px;
 }
 .landingPage img
 {
@@ -45,6 +50,10 @@ padding: 12px 68px ;
     left: 10px;
 
 }
-.landingPage .content .companyInfo h3{
+.landingPage  h3{
     color:#FC6B5E;
+}
+.landingPage .lastUpdatStock
+{
+width: 100%;
 }

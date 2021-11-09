@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row,Col } from "react-bootstrap";
 import Navbar from "../../../../Common/Navbar/Navbar";
-import SearchShayyek from "../../../../../Resources/Assets/Search Shayyek.svg"
+import SearchShayyek from "../../../../../Resources/Assets/Search Shayyek.svg";
 import "./LandingPage.css";
 function LandingPage() {
   const [searchWord, setSearchWord] = useState("");
   useEffect(() => {
     localStorage.setItem("landingPage", LandingPage);
   }, []);
-  const handleSearch=(e)=>{
+  const handleSearch = (e) => {
     console.log(e.target.value);
     setSearchWord(e.target.value);
     console.log(searchWord);
-  }
+  };
   return (
     <div className="landingPage">
-      <Navbar />
+      <Navbar transparent={true}/>
       <Container>
-        <div className="content">
+        {/* <div className="content">
           <div className="companyInfo">
             <div>
               <h2 className="text-white my-0">Shayyek</h2>
@@ -48,7 +48,47 @@ function LandingPage() {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
+        <Row>
+          <Col md={6} xs={12}>
+          <h2 className="text-white my-0">Shayyek</h2>
+              <p className="text-white f-17 mb-5 fw-light"> Optimizing Procurement.</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6} xs={12}>
+          <h3 className="f-17 my-0">Verified, Connected, Streamlined</h3>
+              <p className="text-white f-17 mb-5 fw-light">Procurement Management.</p>
+                        </Col>
+        </Row>
+        <Row>
+          <Col md={6} xs={12}>
+          <div className="search">
+              <input
+                type="search"
+                className="input-field form-control px-5 py-4"
+                placeholder="Search by Field, Company name"
+                onChange={handleSearch}
+              />
+              <img src={SearchShayyek} alt="SearchShayyek" className="SearchShayyek" />
+            </div>
+                        </Col>
+        </Row>
+        <Row className="liveBoxContainer">
+          <Col md={6} xs={12}>
+          <div className="liveBox">
+            <div className="button">
+              <button className="button-primary  text-bold"> Live</button>
+            </div>
+            <div className="lastUpdatStock">
+              <p className="text-white f-14">
+                Stock Availability Last Updated
+                <span className="mx-4">{"Today"}</span>
+              </p>
+            </div>
+          </div>
+                        </Col>
+        </Row>
       </Container>
     </div>
   );

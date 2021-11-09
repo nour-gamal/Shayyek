@@ -12,7 +12,7 @@ import Notification from "../../../Resources/Assets/Notification Icon.svg";
 import UserNav from "./UserNav";
 import "./Navbar.css";
 
-function Navbarr({ navState, verifayState }) {
+function Navbarr({ navState, verifayState ,transparent}) {
   const dispatch = useDispatch();
   const { currentLocal } = useSelector((state) => state.currentLocal);
 
@@ -20,7 +20,7 @@ function Navbarr({ navState, verifayState }) {
   return (
     <Navbar
       expand="lg"
-      className={navState ? "light f-14 ppl ppr" : "dark f-14 ppl ppr"}
+      className={transparent?"transparent f-14 ppl ppr":navState ? "light f-14 ppl ppr" : "dark f-14 ppl ppr"}
       variant={"dark"}
       collapseOnSelect={true}
     >
