@@ -100,9 +100,9 @@ section {
 	border: 1px solid red;
 }
 
-
-
-
+.cursorPointer {
+	cursor: pointer;
+}
 
 .ant-modal,
 .modal-lg .ant-modal-content {
