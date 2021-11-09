@@ -132,6 +132,11 @@ export const ar = {
 		deliveryDate: "تاريخ التوصيل",
 		confirm: "تأكيد",
 		selectDate: "اختر التاريخ",
+		invitedByEmail: "مدعوين عن طريق البريد الالكتروني",
+		addNewEmail: "اضف بريد الكتروني جدير",
+		publishToNetwork: "انشر علي شبكه موردي شيك ذات الصله",
+		revealPrices: "اظهار الاسعار للمنافسين",
+		postRFQ: "ارسل طلب السعر",
 	},
 	home: {
 		email: "البريد الالكتروني",

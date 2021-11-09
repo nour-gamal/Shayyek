@@ -3,9 +3,10 @@ import { Table } from "antd";
 import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import { useSelector } from "react-redux";
+import PostRFQModal from "../PostRFQModal/PostRFQModal";
 import { ExcelRenderer } from "react-excel-renderer";
 import { Select, Checkbox, DatePicker, Radio } from "antd";
-import { getCategories } from "../../../network";
+import { getCategories, getDeliverdOptions } from "../../../network";
 import "./CreateRFQ.css";
 
 function CreateRFQ() {
@@ -14,12 +15,23 @@ function CreateRFQ() {
 	const [categoriesOption, setCategoriesOption] = useState([]);
 	const [dataSource, updateDataSource] = useState([]);
 	const [allCategoryName, setAllCategoryName] = useState(null);
-	const [deliveredTo, updateDeliveredTo] = useState([]);
+	const [deliveredTo, updateDeliveredTo] = useState("");
+	const [alert, setAlert] = useState(false);
 	const [selectedRow, updateSelectedRow] = useState(null);
 	const [address, updateAddress] = useState("");
 	const [recievingOffersDate, setOffersDate] = useState(null);
-	const [deliveryDate, setDeliveryDate] = useState();
+	const [deliveryDate, setDeliveryDate] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [isModalVisible, toggleModal] = useState(true);
+
+	useEffect(() => {
+		getDeliverdOptions(
+			currentLanguageId,
+			(success) => {},
+			(fail) => {}
+		);
+	});
+
 	var index = {
 		item: null,
 		notes: null,
@@ -86,8 +98,24 @@ function CreateRFQ() {
 		]);
 	};
 
-	function disabledDate(current) {
+	function disabledOffersDate(current) {
 		return current && current.valueOf() < Date.now();
+	}
+	function disabledDeliveryDate(current) {
+		return (
+			current && current.valueOf() < new Date(recievingOffersDate).valueOf()
+		);
+	}
+	function handleConfirm() {
+		if (
+			address.length === 0 ||
+			recievingOffersDate === null ||
+			deliveryDate === null
+		) {
+			setAlert(true);
+		} else {
+			toggleModal(true);
+		}
 	}
 
 	const fileHandler = (event) => {
@@ -439,7 +467,11 @@ function CreateRFQ() {
 							</label>
 							<input
 								type="text"
-								className="form-control addressBar"
+								className={
+									alert && address.length === 0
+										? "form-control addressBar alertSign"
+										: "form-control addressBar"
+								}
 								onChange={(e) => {
 									updateAddress(e.target.value);
 								}}
@@ -457,9 +489,13 @@ function CreateRFQ() {
 								{currentLocal.buyerHome.deadlineRecievingOffers}
 							</label>
 							<DatePicker
-								onChange={(date, dateString) => setOffersDate(dateString)}
-								disabledDate={disabledDate}
+								onChange={(date, dateString) => {
+									setOffersDate(dateString);
+								}}
+								disabledDate={disabledOffersDate}
 								placeholder={currentLocal.buyerHome.selectDate}
+								className={alert && recievingOffersDate === null && "alertSign"}
+								allowClear={false}
 							/>
 						</div>
 						<div className="my-3">
@@ -468,14 +504,21 @@ function CreateRFQ() {
 							</label>
 							<DatePicker
 								onChange={(date, dateString) => setDeliveryDate(dateString)}
-								disabledDate={disabledDate}
+								disabledDate={disabledDeliveryDate}
 								placeholder={currentLocal.buyerHome.selectDate}
+								disabled={recievingOffersDate ? false : true}
+								className={alert && deliveryDate === null && "alertSign"}
+								allowClear={false}
 							/>
 						</div>
 					</div>
-					<button className="button-primary">
+					<button className="button-primary" onClick={handleConfirm}>
 						{currentLocal.buyerHome.confirm}
 					</button>
+					<PostRFQModal
+						isModalVisible={isModalVisible}
+						onCancel={() => toggleModal(!isModalVisible)}
+					/>
 				</div>
 			</div>
 		</div>

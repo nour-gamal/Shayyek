@@ -25,6 +25,13 @@
 .createRFQ table {
 	width: max-content !important;
 }
+.createRFQ .primary-color {
+	color: #003b6b;
+}
+.createRFQ .secondary-color {
+	color: #666666;
+}
+
 @media (max-width: 768px) {
 	.createRFQ .ant-table-cell {
 		font-size: 13px !important;

@@ -134,6 +134,11 @@ export const en = {
 		deliveryDate: "Delivery date",
 		confirm: "Confirm",
 		selectDate: "Select Date",
+		invitedByEmail: "Invited by E-mail",
+		addNewEmail: "Add new email",
+		publishToNetwork: "Publish to relevant Shayyek suppliers network",
+		revealPrices: "Reveal prices to bidders",
+		postRFQ: "Post RFQ",
 	},
 	home: {
 		email: "E-mail",
