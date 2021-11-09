@@ -133,6 +133,7 @@ export const en = {
 		deadlineRecievingOffers: "Deadline recieving offers",
 		deliveryDate: "Delivery date",
 		confirm: "Confirm",
+		selectDate: "Select Date",
 	},
 	home: {
 		email: "E-mail",

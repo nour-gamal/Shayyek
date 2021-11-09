@@ -19,6 +19,7 @@ function CreateRFQ() {
 	const [address, updateAddress] = useState("");
 	const [recievingOffersDate, setOffersDate] = useState(null);
 	const [deliveryDate, setDeliveryDate] = useState();
+	const [loading, setLoading] = useState(false);
 	var index = {
 		item: null,
 		notes: null,
@@ -91,7 +92,7 @@ function CreateRFQ() {
 
 	const fileHandler = (event) => {
 		let fileObj = event.target.files[0];
-
+		setLoading(true);
 		//just pass the fileObj as parameter
 		ExcelRenderer(fileObj, (err, resp) => {
 			if (err) {
@@ -152,6 +153,9 @@ function CreateRFQ() {
 						default: {
 							break;
 						}
+					}
+					if (resp.rows[0].length - 1 === itemIndex) {
+						setLoading(false);
 					}
 				});
 
@@ -402,9 +406,10 @@ function CreateRFQ() {
 				</div>
 			</div>
 			<Table
+				indentSize={300}
 				columns={columns}
 				dataSource={dataSource}
-				// loading={true}
+				loading={loading}
 				className="my-4"
 				onRow={(record, rowIndex) => {
 					return {
@@ -450,6 +455,7 @@ function CreateRFQ() {
 							<DatePicker
 								onChange={(date, dateString) => setOffersDate(dateString)}
 								disabledDate={disabledDate}
+								placeholder={currentLocal.buyerHome.selectDate}
 							/>
 						</div>
 						<div className="my-3">
@@ -459,6 +465,7 @@ function CreateRFQ() {
 							<DatePicker
 								onChange={(date, dateString) => setDeliveryDate(dateString)}
 								disabledDate={disabledDate}
+								placeholder={currentLocal.buyerHome.selectDate}
 							/>
 						</div>
 					</div>

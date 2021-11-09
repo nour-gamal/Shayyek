@@ -131,6 +131,7 @@ export const ar = {
 		deadlineRecievingOffers: "تاريخ انتهاء تلقي العروض",
 		deliveryDate: "تاريخ التوصيل",
 		confirm: "تأكيد",
+		selectDate: "اختر التاريخ",
 	},
 	home: {
 		email: "البريد الالكتروني",
