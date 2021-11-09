@@ -1,0 +1,9 @@
+.postRFQModal #searchValue {
+	width: 60%;
+	height: 35px;
+	padding: 5px 20px;
+	border: 1px solid #bce0fd;
+}
+.postRFQModal #searchValue::placeholder {
+	color: #bce0fd;
+}
