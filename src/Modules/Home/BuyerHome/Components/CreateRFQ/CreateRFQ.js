@@ -4,7 +4,7 @@ import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import { useSelector } from "react-redux";
 import { ExcelRenderer } from "react-excel-renderer";
-import { Select, Checkbox, DatePicker } from "antd";
+import { Select, Checkbox, DatePicker, Radio } from "antd";
 import { getCategories } from "../../../network";
 import "./CreateRFQ.css";
 
@@ -67,8 +67,8 @@ function CreateRFQ() {
 		});
 		updateDataSource(data);
 	}
-	function handleDeliveredTo(checkedValues) {
-		updateDeliveredTo(checkedValues);
+	function handleDeliveredTo(e) {
+		updateDeliveredTo(e.target.value);
 	}
 	const addNewItem = () => {
 		const key = Math.ceil(Math.random() * 999999999);
@@ -427,7 +427,11 @@ function CreateRFQ() {
 							<label className="mx-2 my-3">
 								{currentLocal.buyerHome.deliveredTo}
 							</label>
-							<Checkbox.Group options={options} onChange={handleDeliveredTo} />
+							<Radio.Group
+								options={options}
+								onChange={handleDeliveredTo}
+								defaultValue={"companyWarehouse"}
+							/>
 						</div>
 						<div className="d-flex align-items-center">
 							<label className="mx-2 my-3">
