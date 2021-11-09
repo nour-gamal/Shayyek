@@ -137,6 +137,7 @@ export const ar = {
 		publishToNetwork: "انشر علي شبكه موردي شيك ذات الصله",
 		revealPrices: "اظهار الاسعار للمنافسين",
 		postRFQ: "ارسل طلب السعر",
+		selectSupplierEmail: "اختر البريد الالكتروني للمورد",
 	},
 	home: {
 		email: "البريد الالكتروني",

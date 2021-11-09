@@ -139,6 +139,7 @@ export const en = {
 		publishToNetwork: "Publish to relevant Shayyek suppliers network",
 		revealPrices: "Reveal prices to bidders",
 		postRFQ: "Post RFQ",
+		selectSupplierEmail: "Select supplier E-mail",
 	},
 	home: {
 		email: "E-mail",
