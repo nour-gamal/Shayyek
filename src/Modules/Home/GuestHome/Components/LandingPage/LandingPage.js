@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import Navbar from "../../../../Common/Navbar/Navbar";
+import SearchShayyek from "../../../../../Resources/Assets/Search Shayyek.svg"
 import "./LandingPage.css";
 function LandingPage() {
   const [searchWord, setSearchWord] = useState("");
@@ -19,20 +20,21 @@ function LandingPage() {
         <div className="content">
           <div className="companyInfo">
             <div>
-              <h2 className="text-white">Shayyek</h2>
-              <p className="text-white"> Optimizing Procurement.</p>
+              <h2 className="text-white my-0">Shayyek</h2>
+              <p className="text-white f-17 mb-5 fw-light"> Optimizing Procurement.</p>
             </div>
             <div>
-              <h3 className="text-white">Verified, Connected, Streamlined</h3>
-              <p className="text-white">Procurement Management.</p>
+              <h3 className="f-17 my-0">Verified, Connected, Streamlined</h3>
+              <p className="text-white f-17 mb-5 fw-light">Procurement Management.</p>
             </div>
             <div className="search">
               <input
                 type="search"
-                className="input-field form-control"
+                className="input-field form-control px-5 py-4"
                 placeholder="Search by Field, Company name"
                 onChange={handleSearch}
               />
+              <img src={SearchShayyek} alt="SearchShayyek" className="SearchShayyek" />
             </div>
           </div>
           <div className="liveBox">

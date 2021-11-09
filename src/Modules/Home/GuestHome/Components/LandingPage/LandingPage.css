@@ -31,6 +31,20 @@ padding: 12px 68px ;
 }
 .landingPage .liveBox p{
     margin-top: 25px;
-    margin-left: 52px;
+    margin-left: 60px;
     
+}
+.landingPage .search
+{
+    position: relative;
+}
+.landingPage img
+{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+}
+.landingPage .content .companyInfo h3{
+    color:#FC6B5E;
 }
