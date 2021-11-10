@@ -9,8 +9,7 @@ import "./PostRFQModal.css";
 
 function PostRFQModal({ isModalVisible, onCancel }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const [searchValue, updateSearchValue] = useState("");
-
+	const [selectedOptions, updateSelectedOptions] = useState([]);
 	const [options, updateOptions] = useState([
 		{ name: "Swedish", value: "sv" },
 		{ name: "English", value: "en" },
@@ -37,21 +36,24 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 			title="Basic Modal"
 			visible={isModalVisible}
 			onCancel={onCancel}
-			className="modal-lg postRFQModal text-center"
+			className="modal-lg postRFQModal"
 		>
 			<div className="d-flex align-items-center">
 				<label>{currentLocal.buyerHome.invitedByEmail}</label>
 				<SelectSearch
 					options={options}
-					value={searchValue}
 					onChange={(optionId, selectedOption) => {
-						updateSearchValue(optionId);
 						let filteredOptions = options;
+						let optionSelected = selectedOptions;
+
 						filteredOptions = options.filter(
 							(option) => option.value !== optionId
 						);
 
 						updateOptions(filteredOptions);
+
+						optionSelected.push(selectedOption);
+						updateSelectedOptions(optionSelected);
 					}}
 					filterOptions={fuzzySearch}
 					closeOnSelect={true}
@@ -64,11 +66,13 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 				<label>{currentLocal.buyerHome.addNewEmail}</label>
 			</div>
 
-			<div className="capsulesContainer my-4">
-				<span className="orangeCapsule">
-					<span className="mx-2">hello</span>
-					<img src={WhiteCross} alt="WhiteCross" />
-				</span>
+			<div className="capsulesContainer my-4 ">
+				{selectedOptions.map((selectedOption) => (
+					<span className="orangeCapsule">
+						<span className="mx-2">{selectedOption.name}</span>
+						<img src={WhiteCross} alt="WhiteCross" />
+					</span>
+				))}
 			</div>
 		</Modal>
 	);
