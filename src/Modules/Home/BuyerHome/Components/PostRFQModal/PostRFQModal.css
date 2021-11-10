@@ -60,7 +60,7 @@
 	content: "";
 	display: inline-block;
 	position: absolute;
-	top: calc(50%);
+	top: calc(30%);
 	right: 19px;
 	width: 11px;
 	height: 11px;
@@ -249,3 +249,7 @@
 	color: #888;
 }
 /*End Select Styles*/
+
+
+
+/* FAFAFA */

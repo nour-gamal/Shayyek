@@ -140,6 +140,7 @@ export const en = {
 		revealPrices: "Reveal prices to bidders",
 		postRFQ: "Post RFQ",
 		selectSupplierEmail: "Select supplier E-mail",
+		newItemAdded: "New item added",
 	},
 	home: {
 		email: "E-mail",

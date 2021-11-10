@@ -17,6 +17,8 @@
 }
 .createRFQ .addressBar {
 	width: 50%;
+}
+.createRFQ .addressBar.border {
 	border: 1px solid #99cffd;
 }
 .createRFQ .button-primary.native {
@@ -37,8 +39,15 @@
 	border: 1px solid #99cffd;
 }
 
+.createRFQ .ant-picker.datePicker {
+	justify-content: space-between;
+}
 @media (max-width: 768px) {
 	.createRFQ .ant-table-cell {
 		font-size: 13px !important;
 	}
+}
+.datePickerContainer {
+	display: flex;
+	justify-content: space-between;
 }

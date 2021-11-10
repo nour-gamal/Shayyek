@@ -4,7 +4,9 @@ import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import { useSelector } from "react-redux";
 import PostRFQModal from "../PostRFQModal/PostRFQModal";
+import datePickerSuffix from "../../../../../Resources/Assets/datePickerSuffix.svg";
 import { ExcelRenderer } from "react-excel-renderer";
+import { Alert } from "react-bootstrap";
 import { Select, Checkbox, DatePicker, Radio } from "antd";
 import { getCategories, getDeliverdOptions } from "../../../network";
 import "./CreateRFQ.css";
@@ -22,6 +24,7 @@ function CreateRFQ() {
 	const [recievingOffersDate, setOffersDate] = useState(null);
 	const [deliveryDate, setDeliveryDate] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [newItemAdded, updateItemAdded] = useState(false);
 	const [isModalVisible, toggleModal] = useState(false);
 
 	useEffect(() => {
@@ -96,6 +99,10 @@ function CreateRFQ() {
 				unit: "",
 			},
 		]);
+		updateItemAdded(true);
+		setTimeout(() => {
+			updateItemAdded(false);
+		}, 3000);
 	};
 
 	function disabledOffersDate(current) {
@@ -355,7 +362,6 @@ function CreateRFQ() {
 						onChange={(checkVal) => {
 							handleIncludeInstallation(checkVal, rowIndex);
 						}}
-						checked={includeInstallation}
 					/>
 				);
 			},
@@ -439,6 +445,11 @@ function CreateRFQ() {
 					</div>
 				</div>
 			</div>
+			{newItemAdded && (
+				<Alert className="text-center">
+					{currentLocal.buyerHome.newItemAdded}
+				</Alert>
+			)}
 			<Table
 				indentSize={300}
 				columns={columns}
@@ -476,8 +487,8 @@ function CreateRFQ() {
 								type="text"
 								className={
 									alert && address.length === 0
-										? "form-control addressBar alertSign"
-										: "form-control addressBar"
+										? "form-control addressBar  alertSign"
+										: "form-control addressBar border"
 								}
 								onChange={(e) => {
 									updateAddress(e.target.value);
@@ -487,15 +498,18 @@ function CreateRFQ() {
 						</div>
 						<div className="my-3">
 							<img src={addIcon} alt="addIcon" className="mx-3" />
-							<label>{currentLocal.buyerHome.ccCollugues}</label>
+							<label className="cursorPointer">
+								{currentLocal.buyerHome.ccCollugues}
+							</label>
 						</div>
 					</div>
 					<div className="col-md-4 col-12 ">
-						<div className="my-3">
-							<label className="mx-2 primary-color">
+						<div className="my-3 datePickerContainer">
+							<label className="primary-color">
 								{currentLocal.buyerHome.deadlineRecievingOffers}
 							</label>
 							<DatePicker
+								suffixIcon={<img src={datePickerSuffix} alt="suffixIcon" />}
 								onChange={(date, dateString) => {
 									setOffersDate(dateString);
 								}}
@@ -503,25 +517,24 @@ function CreateRFQ() {
 								placeholder={currentLocal.buyerHome.selectDate}
 								className={
 									alert && recievingOffersDate === null
-										? "datePicker alertSign"
+										? "alertSign "
 										: "datePicker"
 								}
 								allowClear={false}
 							/>
 						</div>
-						<div className="my-3">
-							<label className="mx-2 primary-color">
+						<div className="my-3 datePickerContainer">
+							<label className=" primary-color">
 								{currentLocal.buyerHome.deliveryDate}
 							</label>
 							<DatePicker
+								suffixIcon={<img src={datePickerSuffix} alt="suffixIcon" />}
 								onChange={(date, dateString) => setDeliveryDate(dateString)}
 								disabledDate={disabledDeliveryDate}
 								placeholder={currentLocal.buyerHome.selectDate}
 								disabled={recievingOffersDate ? false : true}
 								className={
-									alert && deliveryDate === null
-										? "datePicker alertSign"
-										: "datePicker"
+									alert && deliveryDate === null ? "alertSign" : "datePicker"
 								}
 								allowClear={false}
 							/>
