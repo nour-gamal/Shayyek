@@ -109,8 +109,7 @@ section {
 	width: 95% !important;
 	margin: 0 auto;
 	border-radius: 20px;
-	height: max-content !important;
-	padding: 20px 50px;
+	padding: 10px 50px;
 }
 .modal-lg .ant-modal-header {
 	display: none;

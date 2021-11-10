@@ -18,7 +18,7 @@
 .createRFQ .addressBar {
 	width: 50%;
 }
-.createRFQ .button-primary {
+.createRFQ .button-primary.native {
 	width: 270px;
 	margin: auto !important;
 }
