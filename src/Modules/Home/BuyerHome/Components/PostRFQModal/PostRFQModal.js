@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "antd";
 import SelectSearch from "react-select-search";
 import { useSelector } from "react-redux";
+import Fuse from "fuse.js";
 import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import WhiteCross from "../../../../../Resources/Assets/whiteCross.svg";
 import "./PostRFQModal.css";
@@ -10,11 +11,26 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [searchValue, updateSearchValue] = useState("");
 
-	const options = [
+	const [options, updateOptions] = useState([
 		{ name: "Swedish", value: "sv" },
 		{ name: "English", value: "en" },
 		{ name: "French", value: "fr" },
-	];
+	]);
+
+	function fuzzySearch(options) {
+		const fuse = new Fuse(options, {
+			keys: ["name", "groupName", "items.name"],
+			threshold: 0.3,
+		});
+
+		return (value) => {
+			if (!value.length) {
+				return options;
+			}
+
+			return fuse.search(value);
+		};
+	}
 
 	return (
 		<Modal
@@ -30,10 +46,14 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 					value={searchValue}
 					onChange={(optionId, selectedOption) => {
 						updateSearchValue(optionId);
+						let filteredOptions = options;
+						filteredOptions = options.filter(
+							(option) => option.value !== optionId
+						);
+
+						updateOptions(filteredOptions);
 					}}
-					// filterOptions={(e) => {
-					// 	console.log(e);
-					// }}
+					filterOptions={fuzzySearch}
 					closeOnSelect={true}
 					autoComplete={true}
 					name="language"
