@@ -78,7 +78,7 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 							onChange={onSelectChange}
 							filterOptions={fuzzySearch}
 							closeOnSelect={true}
-							name="language"
+							name="emails"
 							search={true}
 							placeholder={currentLocal.buyerHome.selectSupplierEmail}
 						/>
