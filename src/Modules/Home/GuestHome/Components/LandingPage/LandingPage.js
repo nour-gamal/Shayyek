@@ -66,17 +66,17 @@ function LandingPage() {
             </div> */}
             <Row>
               <Col md={6} xs={12}>
-              <div className="button">
-                <div className="button-primary f-21  fw-bold"> Live</div>
-              </div>
+                <div className="button">
+                  <div className="button-primary f-21  fw-bold"> Live</div>
+                </div>
               </Col>
               <Col md={6} xs={12}>
-              <div className="lastUpdatStock">
-                <p className="text-white f-14">
-                  Stock Availability Last Updated
-                  <span className="mx-4">{"Today"}</span>
-                </p>
-              </div>
+                <div className="lastUpdatStock">
+                  <p className="text-white f-14">
+                    Stock Availability Last Updated
+                    <span className="mx-4">{"Today"}</span>
+                  </p>
+                </div>
               </Col>
             </Row>
           </Col>

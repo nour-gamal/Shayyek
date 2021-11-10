@@ -13,29 +13,29 @@ import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
 import ResetPassword from "./Modules/ResetPassword/ResetPassword";
 
 function Routes() {
-	return (
-		<Route
-			render={({ location }) => (
-				<Switch location={location}>
-					<Route exact path="/" render={() => <Home />} />
-				<Route path="/registration" render={() => <Registration />} />
-					<Route path="/suppliers" render={() => <Suppliers />} />
-					{/* <Route path="/login" render={() => <Login />} /> */}
-					{/* <Route path="/forgetpassword" render={() => <ForgetPassword />} /> */}
-					<Route
-						path="/supplier/:id"
-						render={(props) => <Products {...props} />}
-					/>
-					<Route path="/me/:name" render={() => <ProfilePage />} />
-					<Route path="/verifyByEmail" render={() => <VerifyByEmail />} />
-					<Route path="/loginByMobile" render={() => <LoginByMobile />} />
-					<Route path="/forgetpassword" render={() => <ForgetPassword />} />
-					<Route path="/loginByEmail" render={() => <LoginByEmail />} />
-					<Route path="/resetpassword" render={() => <ResetPassword />} />
-				</Switch>
-			)}
-		/>
-	);
+  return (
+    <Route
+      render={({ location }) => (
+        <Switch location={location}>
+          <Route exact path="/" render={() => <Home />} />
+          <Route path="/registration" render={() => <Registration />} />
+          <Route path="/suppliers" render={() => <Suppliers />} />
+          {/* <Route path="/login" render={() => <Login />} /> */}
+          {/* <Route path="/forgetpassword" render={() => <ForgetPassword />} /> */}
+          <Route
+            path="/supplier/:id"
+            render={(props) => <Products {...props} />}
+          />
+          <Route path="/me/:name" render={() => <ProfilePage />} />
+          <Route path="/verifyByEmail" render={() => <VerifyByEmail />} />
+          <Route path="/loginByMobile" render={() => <LoginByMobile />} />
+          <Route path="/forgetpassword" render={() => <ForgetPassword />} />
+          <Route path="/loginByEmail" render={() => <LoginByEmail />} />
+          <Route path="/resetpassword" render={() => <ResetPassword />} />
+        </Switch>
+      )}
+    />
+  );
 }
 
 export default Routes;
