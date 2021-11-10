@@ -1,3 +1,9 @@
+.postRFQModal .modal-container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: space-between;
+}
 .postRFQModal #searchValue {
 	width: 60%;
 	height: 35px;
@@ -10,10 +16,22 @@
 
 .postRFQModal .orangeCapsule {
 	background: #fd978e;
-	padding: 5px 20px;
+	padding: 10px;
 	border-radius: 60px;
 	color: #fff;
 }
+
+.checkbox-area > div:first-of-type {
+	display: flex;
+	justify-content: space-between;
+}
+
+.postRFQModal .button-primary {
+	display: block;
+	margin: auto;
+	margin-top: 20px;
+}
+/*Start Select Styles*/
 
 .select-search {
 	width: 300px;
@@ -136,12 +154,12 @@
 
 .select-search__option.is-highlighted,
 .select-search__option:not(.is-selected):hover {
-	background: #BCE0FD;
+	background: #bce0fd;
 }
 
 .select-search__option.is-highlighted.is-selected,
 .select-search__option.is-selected:hover {
-	background: #BCE0FD;
+	background: #bce0fd;
 	color: #fff;
 }
 
@@ -200,15 +218,16 @@
 }
 
 .select-search:not(.select-search--multiple) .select-search__input:hover {
-	border-color: #BCE0FD;
+	border-color: #bce0fd;
 }
 
 .select-search:not(.select-search--multiple) .select-search__select {
 	position: absolute;
 	z-index: 2;
 	top: 44px;
+	width: 90%;
 	right: 0;
-	left: 0;
+	left: 40px;
 	border-radius: 3px;
 	overflow: auto;
 	max-height: 360px;
@@ -228,3 +247,4 @@
 	text-align: center;
 	color: #888;
 }
+/*End Select Styles*/

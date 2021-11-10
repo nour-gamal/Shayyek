@@ -380,7 +380,7 @@ function CreateRFQ() {
 			},
 		},
 	];
-
+	console.log(deliveredTo);
 	return (
 		<div className="ppl ppr f-14 my-4 createRFQ">
 			<div className="actionsContainer">
@@ -512,7 +512,7 @@ function CreateRFQ() {
 							/>
 						</div>
 					</div>
-					<button className="button-primary" onClick={handleConfirm}>
+					<button className="button-primary native" onClick={handleConfirm}>
 						{currentLocal.buyerHome.confirm}
 					</button>
 					<PostRFQModal
