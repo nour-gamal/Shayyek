@@ -1,73 +1,143 @@
-.landingPage
-{
-    height: 81vh;
-background-image: url("../../../../../Resources/Assets/AdobeStock_63818065_Preview.png");
-background-attachment:bottom;
-background-repeat: no-repeat;
-background-size:100% 100%;
-/* background: url("../../../../../Resources/Assets/AdobeStock_63818065_Preview.png") no-repeat center center; 
+.landingPage {
+  height: 81vh;
+  background-image: url("../../../../../Resources/Assets/AdobeStock_63818065_Preview.png");
+  background-attachment: bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  /* background: url("../../../../../Resources/Assets/AdobeStock_63818065_Preview.png") no-repeat center center; 
 -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;
 background-size: cover; */
 }
-.landingPage .container
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #003b6b;
+  opacity: 0.53;
+  height: 100%;
+  height: 81vh;
+}
+/* .landingPage .container
 {
     height: 100%;
+} */
+
+.landingPage .button button {
+  background-color: #fc6b5e;
+  margin-left: 20px;
+  padding-right: 68px;
+  padding-left: 68px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  /* padding: 12px 68px ; */
+  height: 55px;
+  border-radius: 12px;
+  opacity: 0.75;
+  cursor: default;
+}
+.landingPage .button::after {
+  content: ".";
+  color: #fff;
+font-size: 52px;
+position: absolute;
+top: 66%;
+}
+.landingPage .liveBox {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  padding-bottom: 37px;
+  width: 100%;
+  margin-top: 20px;
 }
 
-/* .landingPage .button div{
-    background-color: #FC6B5E;
+.landingPage .liveBox p {
+  margin-top: 25px;
+  /* margin-left: 60px; */
+}
+.landingPage .search {
+  position: relative;
+  margin-bottom: 25px;
+}
+.landingPage img {
+  position: absolute;
+  top: 15px;
+  left: 24px;
+  margin-right: 16px;
+}
+.landingPage input {
+  padding-top: 1.75rem !important;
+  padding-bottom: 1.75rem;
+  border-radius: 15px;
+  background-color: rgba(250, 250, 250, 0.86);
+}
+.landingPage h3 {
+  color: #fc6b5e;
+}
+.landingPage .lastUpdatStock {
+  width: 100%;
+}
+@media only screen and (max-width: 768px) {
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #003b6b;
+        opacity: 0.53;
+        height: 100%;
+        height: 47vh;
+      }
+  .landingPage {
+    height: 47vh;
+  }
+  .landingPage .container {
+    margin-left: 20px;
+  }
+  .landingPage h3 {
+    font-size: 17px !important;
+  }
+  .landingPage .f-27 {
+    font-size: 17px !important;
+  }
+  .landingPage input {
+    width: 85%;
+    padding-bottom: 1.2rem !important;
+    padding-top: 1.2rem !important;
+    font-size: 0.75rem;
+  }
+  .landingPage .search img {
+    width: 18px;
+    top: 12px;
+  }
+
+  .landingPage p {
+    font-size: 17px !important;
+    margin-bottom: 1rem !important;
+  }
+  .landingPage .button button {
+    background-color: #fc6b5e;
+    font-size: 14px !important;
+    margin-left: 20px;
+    padding-right: 52px;
+    padding-left: 52px;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    height: 32px;
     border-radius: 12px;
-opacity: 0.75;
-padding: 12px 68px ;
-height: 52px;
-width: 50%;
-
-} */
-/* .landingPage .liveBox
-{
-    display: flex;
-    align-items: flex-end;
-    height: 100%;
-padding-bottom: 37px;
-width: 100%;
-margin-top: 20px;
-} */
-
-/* .landingPage .liveBox p{
-    margin-top: 25px;
-    margin-left: 60px;
-    
-} */
-.button-primary
-{
-    width: 50%;
-}
-.landingPage .search
-{
-    position: relative;
-    margin-bottom: 25px;
-}
-.landingPage img
-{
-    position: absolute;
-    top:15px;
-    left: 24px;
-    margin-right: 16px;
-
-}
-.landingPage input
-{
-    padding-top: 1.75rem !important;
-    padding-bottom: 1.75rem;
-    border-radius: 15px;
-    background-color: rgba(250, 250, 250, 0.86);
-}
-.landingPage  h3{
-    color:#FC6B5E;
-}
-.landingPage .lastUpdatStock
-{
-width: 100%;
+    opacity: 0.75;
+    cursor: default;
+  }
+  .landingPage .lastUpdatStock {
+    margin-top: 18px;
+    margin-left: 20px;
+  }
+  .landingPage .lastUpdatStock p {
+    font-size: 14px !important;
+  }
 }
