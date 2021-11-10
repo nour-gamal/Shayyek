@@ -111,6 +111,10 @@ top: 66%;
     padding-top: 1.2rem !important;
     font-size: 0.75rem;
   }
+  .landingPage .select-search
+  {
+      width: 100% !important;
+  }
   .landingPage .search img {
     width: 18px;
     top: 12px;

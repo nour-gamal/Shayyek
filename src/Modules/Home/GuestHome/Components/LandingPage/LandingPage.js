@@ -6,24 +6,39 @@ import Fuse from "fuse.js";
 import "./LandingPage.css";
 import SelectSearch from "react-select-search";
 function LandingPage() {
+  const [selectedOptions, updateSelectedOptions] = useState([]);
+  const [options, updateOptions] = useState([
+    { name: "Swedish", value: "sv" },
+    { name: "English", value: "en" },
+    { name: "French", value: "fr" },
+  ]);
+
   function fuzzySearch(options) {
-		const fuse = new Fuse(options, {
-			keys: ["name", "groupName", "items.name"],
-			threshold: 0.3,
-		});
+    const fuse = new Fuse(options, {
+      keys: ["name", "groupName", "items.name"],
+      threshold: 0.3,
+    });
 
-		return (value) => {
-			if (!value.length) {
-				return options;
-			}
+    return (value) => {
+      if (!value.length) {
+        return options;
+      }
 
-			return fuse.search(value);
-		};
-	}
-    const countries = [
-      {name: 'Swedish', value: 'sv'},
-      {name: 'English', value: 'en'},
-  ];
+      return fuse.search(value);
+    };
+  }
+
+  function onSelectChange(optionId, selectedOption) {
+    let filteredOptions = options;
+    let optionSelected = selectedOptions;
+
+    filteredOptions = options.filter((option) => option.value !== optionId);
+
+    updateOptions(filteredOptions);
+
+    optionSelected.push(selectedOption);
+    updateSelectedOptions(optionSelected);
+  }
   const [searchWord, setSearchWord] = useState("");
   useEffect(() => {
     localStorage.setItem("landingPage", LandingPage);
@@ -57,19 +72,18 @@ function LandingPage() {
           </Row>
           <Row>
             <Col md={6} xs={12}>
-              <div className="search">
-                <input
-                  type="search"
-                  className="input-field form-control px-5 py-4"
-                  placeholder="Search by Field, Company name"
-                  onChange={handleSearch}
-                />
-                <SelectSearch
-                  options={countries}
-                  search={true}
-                  filterOptions={fuzzySearch}
-                  placeholder="Select your country"
-                />
+              <div className="search w-100">
+                <div className="d-flex align-items-center">
+                  <SelectSearch
+                    options={options}
+                    onChange={onSelectChange}
+                    filterOptions={fuzzySearch}
+                    closeOnSelect={true}
+                    name="emails"
+                    search={true}
+                    placeholder="hi"
+                  />
+                </div>
                 <img
                   src={SearchShayyek}
                   alt="SearchShayyek"
