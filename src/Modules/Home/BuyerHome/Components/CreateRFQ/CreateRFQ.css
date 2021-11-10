@@ -17,6 +17,7 @@
 }
 .createRFQ .addressBar {
 	width: 50%;
+	border: 1px solid #99cffd;
 }
 .createRFQ .button-primary.native {
 	width: 270px;
@@ -28,8 +29,12 @@
 .createRFQ .primary-color {
 	color: #003b6b;
 }
-.createRFQ .secondary-color {
-	color: #666666;
+
+.createRFQ .ant-radio-wrapper span {
+	color: #99cffd !important;
+}
+.createRFQ .datePicker {
+	border: 1px solid #99cffd;
 }
 
 @media (max-width: 768px) {

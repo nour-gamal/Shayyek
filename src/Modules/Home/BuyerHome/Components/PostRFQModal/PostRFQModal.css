@@ -71,9 +71,10 @@
  */
 .select-search {
 	display: inline;
+}
+.postRFQModal .select-search {
 	width: 70%;
 }
-
 .select-search__input {
 	display: inline;
 	height: 36px;
