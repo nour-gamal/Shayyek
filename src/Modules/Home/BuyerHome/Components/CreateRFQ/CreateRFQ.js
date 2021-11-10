@@ -22,7 +22,7 @@ function CreateRFQ() {
 	const [recievingOffersDate, setOffersDate] = useState(null);
 	const [deliveryDate, setDeliveryDate] = useState(null);
 	const [loading, setLoading] = useState(false);
-	const [isModalVisible, toggleModal] = useState(true);
+	const [isModalVisible, toggleModal] = useState(false);
 
 	useEffect(() => {
 		getDeliverdOptions(
@@ -393,7 +393,7 @@ function CreateRFQ() {
 							className="d-none"
 						/>
 
-						<label htmlFor="actual-btn">
+						<label htmlFor="actual-btn" className="primary-color">
 							<img src={importIcon} alt="importIcon" className="mx-3" />
 						</label>
 						<label>{currentLocal.buyerHome.importExcelFile}</label>
@@ -405,13 +405,17 @@ function CreateRFQ() {
 							className="mx-3"
 							onClick={addNewItem}
 						/>
-						<label>{currentLocal.buyerHome.addNewItem}</label>
+						<label className="primary-color">
+							{currentLocal.buyerHome.addNewItem}
+						</label>
 					</div>
 				</div>
 
 				<div>
 					<div className="mb-2">
-						<label className="mx-2">{currentLocal.buyerHome.category}</label>
+						<label className="mx-2 primary-color">
+							{currentLocal.buyerHome.category}
+						</label>
 						<Select
 							defaultValue={currentLocal.buyerHome.selectCategory}
 							onChange={(optionId, record) => {
@@ -428,7 +432,9 @@ function CreateRFQ() {
 						</Select>
 					</div>
 					<div>
-						<label className="mx-2">{currentLocal.buyerHome.installAll}</label>
+						<label className="mx-2 primary-color">
+							{currentLocal.buyerHome.installAll}
+						</label>
 						<Checkbox onChange={handleInstallAll} />
 					</div>
 				</div>
@@ -452,17 +458,18 @@ function CreateRFQ() {
 				<div className="row">
 					<div className="col-md-8 col-12">
 						<div>
-							<label className="mx-2 my-3">
+							<label className="mx-2 my-3 primary-color">
 								{currentLocal.buyerHome.deliveredTo}
 							</label>
 							<Radio.Group
 								options={options}
 								onChange={handleDeliveredTo}
 								defaultValue={"companyWarehouse"}
+								className={"secondary-color"}
 							/>
 						</div>
 						<div className="d-flex align-items-center">
-							<label className="mx-2 my-3">
+							<label className="mx-2 my-3 primary-color">
 								{currentLocal.buyerHome.address}
 							</label>
 							<input
@@ -485,7 +492,7 @@ function CreateRFQ() {
 					</div>
 					<div className="col-md-4 col-12 ">
 						<div className="my-3">
-							<label className="mx-2">
+							<label className="mx-2 primary-color">
 								{currentLocal.buyerHome.deadlineRecievingOffers}
 							</label>
 							<DatePicker
@@ -494,12 +501,16 @@ function CreateRFQ() {
 								}}
 								disabledDate={disabledOffersDate}
 								placeholder={currentLocal.buyerHome.selectDate}
-								className={alert && recievingOffersDate === null && "alertSign"}
+								className={
+									alert && recievingOffersDate === null
+										? "datePicker alertSign"
+										: "datePicker"
+								}
 								allowClear={false}
 							/>
 						</div>
 						<div className="my-3">
-							<label className="mx-2">
+							<label className="mx-2 primary-color">
 								{currentLocal.buyerHome.deliveryDate}
 							</label>
 							<DatePicker
@@ -507,7 +518,11 @@ function CreateRFQ() {
 								disabledDate={disabledDeliveryDate}
 								placeholder={currentLocal.buyerHome.selectDate}
 								disabled={recievingOffersDate ? false : true}
-								className={alert && deliveryDate === null && "alertSign"}
+								className={
+									alert && deliveryDate === null
+										? "datePicker alertSign"
+										: "datePicker"
+								}
 								allowClear={false}
 							/>
 						</div>
