@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row,Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Navbar from "../../../../Common/Navbar/Navbar";
 import SearchShayyek from "../../../../../Resources/Assets/Search Shayyek.svg";
 import "./LandingPage.css";
@@ -15,18 +15,27 @@ function LandingPage() {
   };
   return (
     <div className="landingPage">
-      <Navbar transparent={true}/>
+      <Navbar transparent={true} />
       <Container>
-        {/* <div className="content">
-          <div className="companyInfo">
-            <div>
-              <h2 className="text-white my-0">Shayyek</h2>
-              <p className="text-white f-17 mb-5 fw-light"> Optimizing Procurement.</p>
-            </div>
-            <div>
-              <h3 className="f-17 my-0">Verified, Connected, Streamlined</h3>
-              <p className="text-white f-17 mb-5 fw-light">Procurement Management.</p>
-            </div>
+        <Row>
+          <Col md={6} xs={12}>
+            <h2 className="text-white my-0 f-27">Shayyek</h2>
+            <p className="text-white f-21 mb-4 fw-light">
+              {" "}
+              Optimizing Procurement.
+            </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6} xs={12}>
+            <h3 className="f-27 my-0">Verified, Connected, Streamlined</h3>
+            <p className="text-white f-21 mb-5 fw-light">
+              Procurement Management.
+            </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6} xs={12}>
             <div className="search">
               <input
                 type="search"
@@ -34,60 +43,43 @@ function LandingPage() {
                 placeholder="Search by Field, Company name"
                 onChange={handleSearch}
               />
-              <img src={SearchShayyek} alt="SearchShayyek" className="SearchShayyek" />
-            </div>
-          </div>
-          <div className="liveBox">
-            <div className="button">
-              <button className="button-primary  text-bold"> Live</button>
-            </div>
-            <div className="lastUpdatStock">
-              <p className="text-white f-14">
-                Stock Availability Last Updated
-                <span className="mx-4">{"Today"}</span>
-              </p>
-            </div>
-          </div>
-        </div> */}
-        <Row>
-          <Col md={6} xs={12}>
-          <h2 className="text-white my-0">Shayyek</h2>
-              <p className="text-white f-17 mb-5 fw-light"> Optimizing Procurement.</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6} xs={12}>
-          <h3 className="f-17 my-0">Verified, Connected, Streamlined</h3>
-              <p className="text-white f-17 mb-5 fw-light">Procurement Management.</p>
-                        </Col>
-        </Row>
-        <Row>
-          <Col md={6} xs={12}>
-          <div className="search">
-              <input
-                type="search"
-                className="input-field form-control px-5 py-4"
-                placeholder="Search by Field, Company name"
-                onChange={handleSearch}
+              <img
+                src={SearchShayyek}
+                alt="SearchShayyek"
+                className="SearchShayyek"
               />
-              <img src={SearchShayyek} alt="SearchShayyek" className="SearchShayyek" />
             </div>
-                        </Col>
+          </Col>
         </Row>
         <Row className="liveBoxContainer">
           <Col md={6} xs={12}>
-          <div className="liveBox">
-            <div className="button">
-              <button className="button-primary  text-bold"> Live</button>
-            </div>
-            <div className="lastUpdatStock">
-              <p className="text-white f-14">
-                Stock Availability Last Updated
-                <span className="mx-4">{"Today"}</span>
-              </p>
-            </div>
-          </div>
-                        </Col>
+            {/* <div className="liveBox">
+              <div className="button">
+                <div className="button-primary f-21  fw-bold"> Live</div>
+              </div>
+              <div className="lastUpdatStock">
+                <p className="text-white f-14">
+                  Stock Availability Last Updated
+                  <span className="mx-4">{"Today"}</span>
+                </p>
+              </div>
+            </div> */}
+            <Row>
+              <Col md={6} xs={12}>
+              <div className="button">
+                <div className="button-primary f-21  fw-bold"> Live</div>
+              </div>
+              </Col>
+              <Col md={6} xs={12}>
+              <div className="lastUpdatStock">
+                <p className="text-white f-14">
+                  Stock Availability Last Updated
+                  <span className="mx-4">{"Today"}</span>
+                </p>
+              </div>
+              </Col>
+            </Row>
+          </Col>
         </Row>
       </Container>
     </div>

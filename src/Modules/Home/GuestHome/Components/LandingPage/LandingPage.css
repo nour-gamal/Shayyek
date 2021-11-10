@@ -16,14 +16,16 @@ background-size: cover; */
     height: 100%;
 }
 
-.landingPage .button button{
+/* .landingPage .button div{
     background-color: #FC6B5E;
     border-radius: 12px;
 opacity: 0.75;
 padding: 12px 68px ;
+height: 52px;
+width: 50%;
 
-}
-.landingPage .liveBox
+} */
+/* .landingPage .liveBox
 {
     display: flex;
     align-items: flex-end;
@@ -31,12 +33,16 @@ padding: 12px 68px ;
 padding-bottom: 37px;
 width: 100%;
 margin-top: 20px;
-}
+} */
 
-.landingPage .liveBox p{
+/* .landingPage .liveBox p{
     margin-top: 25px;
     margin-left: 60px;
     
+} */
+.button-primary
+{
+    width: 50%;
 }
 .landingPage .search
 {
@@ -46,9 +52,17 @@ margin-top: 20px;
 .landingPage img
 {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top:15px;
+    left: 24px;
+    margin-right: 16px;
 
+}
+.landingPage input
+{
+    padding-top: 1.75rem !important;
+    padding-bottom: 1.75rem;
+    border-radius: 15px;
+    background-color: rgba(250, 250, 250, 0.86);
 }
 .landingPage  h3{
     color:#FC6B5E;
