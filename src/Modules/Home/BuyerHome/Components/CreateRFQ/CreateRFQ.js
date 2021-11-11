@@ -25,7 +25,7 @@ function CreateRFQ() {
 	const [deliveryDate, setDeliveryDate] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [newItemAdded, updateItemAdded] = useState(false);
-	const [isModalVisible, toggleModal] = useState(true);
+	const [isModalVisible, toggleModal] = useState(false);
 
 	useEffect(() => {
 		getDeliverdOptions(
