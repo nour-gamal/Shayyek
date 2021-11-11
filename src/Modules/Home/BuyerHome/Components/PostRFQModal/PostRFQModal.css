@@ -262,4 +262,11 @@
 		flex-direction: column;
 		padding: 20px;
 	}
+	.emailContainer {
+		flex-direction: column;
+	}
+	.select-search__value {
+		width: 100%;
+		margin: 10px 0;
+	}
 }

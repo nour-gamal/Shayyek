@@ -133,7 +133,7 @@ export const ar = {
 		confirm: "تأكيد",
 		selectDate: "اختر التاريخ",
 		invitedByEmail: "مدعوين عن طريق البريد الالكتروني",
-		addNewEmail: "اضف بريد الكتروني جدير",
+		addNewEmail: "اضف بريد الكتروني جديد",
 		publishToNetwork: "انشر علي شبكه موردي شيك ذات الصله",
 		revealPrices: "اظهار الاسعار للمنافسين",
 		postRFQ: "ارسل طلب السعر",

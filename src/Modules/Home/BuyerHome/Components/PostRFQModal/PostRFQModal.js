@@ -73,8 +73,8 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 		>
 			<div className="modal-container">
 				<div>
-					<div className="d-flex ">
-						<label className="primary-color">
+					<div className="d-flex emailContainer">
+						<label className="primary-color mx-2">
 							{currentLocal.buyerHome.invitedByEmail}
 						</label>
 
@@ -112,7 +112,7 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 				</div>
 				<div className="checkbox-area">
 					<div>
-						<div className="d-flex">
+						<div className="d-flex my-1">
 							<Checkbox
 								onChange={(checkVal) => {
 									updatePublishToRelevant(checkVal.target.checked);
@@ -123,7 +123,7 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 								{currentLocal.buyerHome.publishToNetwork}
 							</label>
 						</div>
-						<div className="d-flex">
+						<div className="d-flex my-1">
 							<Checkbox
 								onChange={(checkVal) => {
 									updateRevealPrice(checkVal.target.checked);
