@@ -7,7 +7,7 @@ import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import WhiteCross from "../../../../../Resources/Assets/whiteCross.svg";
 import "./PostRFQModal.css";
 
-function PostRFQModal({ isModalVisible, onCancel }) {
+function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [selectedOptions, updateSelectedOptions] = useState([]);
 	const [publishToRelevent, updatePublishToRelevant] = useState(false);
@@ -64,6 +64,11 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 
 		updateSelectedOptions(optionSelected);
 	}
+	function handleSubmit() {
+		if (modalType === "post") {
+		} else {
+		}
+	}
 	return (
 		<Modal
 			title="Basic Modal"
@@ -73,6 +78,14 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 		>
 			<div className="modal-container">
 				<div>
+					{modalType === "post" && (
+						<div className="my-2 d-flex projectNameContainer">
+							<label className="primary-color mx-2">
+								{currentLocal.buyerHome.projectName}
+							</label>
+							<input type="text" className="form-control" />
+						</div>
+					)}
 					<div className="d-flex emailContainer">
 						<label className="primary-color mx-2">
 							{currentLocal.buyerHome.invitedByEmail}
@@ -111,32 +124,36 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 					</div>
 				</div>
 				<div className="checkbox-area">
-					<div>
-						<div className="d-flex my-1">
-							<Checkbox
-								onChange={(checkVal) => {
-									updatePublishToRelevant(checkVal.target.checked);
-								}}
-								checked={publishToRelevent}
-							/>
-							<label className="mx-2 primary-color">
-								{currentLocal.buyerHome.publishToNetwork}
-							</label>
+					{modalType === "post" && (
+						<div>
+							<div className="d-flex my-1">
+								<Checkbox
+									onChange={(checkVal) => {
+										updatePublishToRelevant(checkVal.target.checked);
+									}}
+									checked={publishToRelevent}
+								/>
+								<label className="mx-2 primary-color">
+									{currentLocal.buyerHome.publishToNetwork}
+								</label>
+							</div>
+							<div className="d-flex my-1">
+								<Checkbox
+									onChange={(checkVal) => {
+										updateRevealPrice(checkVal.target.checked);
+									}}
+									checked={revealPrice}
+								/>
+								<label className="mx-2 primary-color">
+									{currentLocal.buyerHome.revealPrices}
+								</label>
+							</div>
 						</div>
-						<div className="d-flex my-1">
-							<Checkbox
-								onChange={(checkVal) => {
-									updateRevealPrice(checkVal.target.checked);
-								}}
-								checked={revealPrice}
-							/>
-							<label className="mx-2 primary-color">
-								{currentLocal.buyerHome.revealPrices}
-							</label>
-						</div>
-					</div>
-					<button className="button-primary">
-						{currentLocal.buyerHome.postRFQ}
+					)}
+					<button className="button-primary" onClick={handleSubmit}>
+						{modalType === "post"
+							? currentLocal.buyerHome.postRFQ
+							: currentLocal.buyerHome.invite}
 					</button>
 				</div>
 			</div>

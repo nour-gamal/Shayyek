@@ -37,6 +37,10 @@
 	margin: auto;
 	margin-top: 20px;
 }
+.postRFQModal .projectNameContainer input {
+	width: 64%;
+	margin: 0 49px;
+}
 /*Start Select Styles*/
 
 .select-search {
@@ -88,7 +92,7 @@
 	padding: 0 40px 0 16px;
 	background: #fff;
 	border: 1px solid transparent;
-	box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.15);
+	border: 1px solid #ced4da;
 	border-radius: 3px;
 	outline: none;
 	font-family: "Noto Sans", sans-serif;
@@ -262,11 +266,16 @@
 		flex-direction: column;
 		padding: 20px;
 	}
-	.emailContainer {
+	.postRFQModal .projectNameContainer,
+	.postRFQModal .emailContainer {
 		flex-direction: column;
 	}
 	.select-search__value {
 		width: 100%;
 		margin: 10px 0;
+	}
+	.postRFQModal .projectNameContainer input {
+		width: 70%;
+		margin: 0;
 	}
 }

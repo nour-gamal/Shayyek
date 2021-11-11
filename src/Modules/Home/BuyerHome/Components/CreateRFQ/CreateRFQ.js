@@ -26,7 +26,7 @@ function CreateRFQ() {
 	const [loading, setLoading] = useState(false);
 	const [newItemAdded, updateItemAdded] = useState(false);
 	const [isModalVisible, toggleModal] = useState(false);
-
+	const [modalType, updateModalType] = useState("post");
 	useEffect(() => {
 		getDeliverdOptions(
 			currentLanguageId,
@@ -123,6 +123,10 @@ function CreateRFQ() {
 		} else {
 			toggleModal(true);
 		}
+	}
+	function openCCModal() {
+		updateModalType("cc");
+		toggleModal(true);
 	}
 
 	const fileHandler = (event) => {
@@ -496,11 +500,9 @@ function CreateRFQ() {
 								value={address}
 							/>
 						</div>
-						<div className="my-3">
+						<div className="my-3 cursorPointer" onClick={openCCModal}>
 							<img src={addIcon} alt="addIcon" className="mx-3" />
-							<label className="cursorPointer">
-								{currentLocal.buyerHome.ccCollugues}
-							</label>
+							<label>{currentLocal.buyerHome.ccCollugues}</label>
 						</div>
 					</div>
 					<div className="col-md-4 col-12 ">
@@ -546,6 +548,7 @@ function CreateRFQ() {
 					<PostRFQModal
 						isModalVisible={isModalVisible}
 						onCancel={() => toggleModal(!isModalVisible)}
+						modalType={modalType}
 					/>
 				</div>
 			</div>

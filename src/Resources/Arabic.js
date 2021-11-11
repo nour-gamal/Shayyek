@@ -138,7 +138,9 @@ export const ar = {
 		revealPrices: "اظهار الاسعار للمنافسين",
 		postRFQ: "ارسل طلب السعر",
 		selectSupplierEmail: "اختر البريد الالكتروني للمورد",
-		newItemAdded:'تم اضافه بند جديد'
+		newItemAdded: "تم اضافه بند جديد",
+		projectName: "اسم المشروع",
+		invite: "ارسل دعوه",
 	},
 	home: {
 		email: "البريد الالكتروني",

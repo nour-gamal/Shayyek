@@ -141,6 +141,8 @@ export const en = {
 		postRFQ: "Post RFQ",
 		selectSupplierEmail: "Select supplier E-mail",
 		newItemAdded: "New item added",
+		projectName: "Project name",
+		invite: "Invite",
 	},
 	home: {
 		email: "E-mail",
