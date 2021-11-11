@@ -111,6 +111,13 @@ section {
 	border-radius: 20px;
 	padding: 10px 50px;
 }
+.modal-lg .ant-modal-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 .modal-lg .ant-modal-header {
 	display: none;
 }
@@ -317,5 +324,15 @@ thead:hover {
 	}
 	.ppr {
 		padding-right: 60px !important;
+	}
+}
+
+@media (max-width: 768px) {
+	.ant-modal,
+	.modal-lg .ant-modal-content {
+		padding: 10px;
+	}
+	.ant-modal-body {
+		height: max-content;
 	}
 }

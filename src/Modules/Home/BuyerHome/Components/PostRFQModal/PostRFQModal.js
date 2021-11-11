@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Modal } from "antd";
+import { Modal, Checkbox } from "antd";
 import SelectSearch from "react-select-search";
 import { useSelector } from "react-redux";
-import { Checkbox } from "antd";
 import Fuse from "fuse.js";
 import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import WhiteCross from "../../../../../Resources/Assets/whiteCross.svg";
@@ -16,7 +15,12 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 	const [options, updateOptions] = useState([
 		{ name: "Swedish", value: "sv" },
 		{ name: "English", value: "en" },
-		{ name: "French", value: "fr" },
+		{ name: "French", value: "fr2" },
+		{ name: "French", value: "fr3" },
+		{ name: "French", value: "f4r" },
+		{ name: "French", value: "f5r" },
+		{ name: "French", value: "fr6" },
+		{ name: "French", value: "f2r" },
 	]);
 
 	function fuzzySearch(options) {
@@ -69,10 +73,11 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 		>
 			<div className="modal-container">
 				<div>
-					<div className="d-flex align-items-center">
+					<div className="d-flex ">
 						<label className="primary-color">
 							{currentLocal.buyerHome.invitedByEmail}
 						</label>
+
 						<SelectSearch
 							options={options}
 							onChange={onSelectChange}
@@ -82,15 +87,17 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 							search={true}
 							placeholder={currentLocal.buyerHome.selectSupplierEmail}
 						/>
-						<img src={PlusCircle} alt="PlusCircle" className="mx-2" />
-						<label className="primary-color">
-							{currentLocal.buyerHome.addNewEmail}
-						</label>
+						<span className="cursorPointer">
+							<img src={PlusCircle} alt="PlusCircle" className="mx-2" />
+							<label className="primary-color ">
+								{currentLocal.buyerHome.addNewEmail}
+							</label>
+						</span>
 					</div>
 
 					<div className="capsulesContainer my-4 ">
 						{selectedOptions.map((selectedOption, selectedIndex) => (
-							<span className="orangeCapsule mx-2 f-14" key={selectedIndex}>
+							<span className="orangeCapsule m-2 f-14" key={selectedIndex}>
 								<span className="mx-2">{selectedOption.name}</span>
 								<img
 									id={selectedOption.value}
@@ -105,7 +112,7 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 				</div>
 				<div className="checkbox-area">
 					<div>
-						<div>
+						<div className="d-flex">
 							<Checkbox
 								onChange={(checkVal) => {
 									updatePublishToRelevant(checkVal.target.checked);
@@ -116,7 +123,7 @@ function PostRFQModal({ isModalVisible, onCancel }) {
 								{currentLocal.buyerHome.publishToNetwork}
 							</label>
 						</div>
-						<div>
+						<div className="d-flex">
 							<Checkbox
 								onChange={(checkVal) => {
 									updateRevealPrice(checkVal.target.checked);
