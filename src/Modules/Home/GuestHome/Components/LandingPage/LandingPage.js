@@ -39,15 +39,15 @@ function LandingPage() {
     optionSelected.push(selectedOption);
     updateSelectedOptions(optionSelected);
   }
-  const [searchWord, setSearchWord] = useState("");
+  // const [searchWord, setSearchWord] = useState("");
   useEffect(() => {
     localStorage.setItem("landingPage", LandingPage);
   }, []);
-  const handleSearch = (e) => {
-    console.log(e.target.value);
-    setSearchWord(e.target.value);
-    console.log(searchWord);
-  };
+  // const handleSearch = (e) => {
+  //   console.log(e.target.value);
+  //   setSearchWord(e.target.value);
+  //   console.log(searchWord);
+  // };
   return (
     <>
       <div className="overlay"></div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { forgetPasswordApi } from "../../network";
 // import { loginApi } from "../../network";
 import { Link } from "react-router-dom";
 import Navbar from "../../../Common/Navbar/Navbar";
@@ -8,12 +9,12 @@ import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
 import "./ForgetPassword.css"
 import Footer from "../../../Common/Footer/Footer"
 import { Modal } from "antd";
-
 import smallsend from "../../../../Resources/Assets/smallSend.svg";
 import closIcon from "../../../../Resources/Assets/closeIcon.svg";
 function ForgetPassword() {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [alert, setAlert] = useState(false);
+
 
     const showModal = () => {
 		if(email){
@@ -37,16 +38,15 @@ function ForgetPassword() {
 	const [email, setEmail] = useState("");
 	const sendData = (e) => {
 		e.preventDefault();
-		// const body = {
-		// 	mobile: email,
-		// 	fireBaseToken: authorization.deviceToken,
-		// };
-		// loginApi(
-		// 	body,
-		// 	(success) => console.log(success),
-		// 	(fail) => console.log(fail),
-		// 	false
-		// );
+		const body = {
+			mobile: email
+		};
+		forgetPasswordApi(
+			body,
+			(success) => console.log(success),
+			(fail) => console.log(fail),
+			false
+		);
 
 	};
 	const handleChange = (e) => {
