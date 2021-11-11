@@ -1,27 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Checkbox } from "antd";
 import SelectSearch from "react-select-search";
 import { useSelector } from "react-redux";
 import Fuse from "fuse.js";
+import { getCCEmails, getShayeekEmails } from "../../../network";
 import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import WhiteCross from "../../../../../Resources/Assets/whiteCross.svg";
 import "./PostRFQModal.css";
 
 function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const { authorization } = useSelector((state) => state.authorization);
+	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [selectedOptions, updateSelectedOptions] = useState([]);
 	const [publishToRelevent, updatePublishToRelevant] = useState(false);
 	const [revealPrice, updateRevealPrice] = useState(false);
-	const [options, updateOptions] = useState([
-		{ name: "Swedish", value: "sv" },
-		{ name: "English", value: "en" },
-		{ name: "French", value: "fr2" },
-		{ name: "French", value: "fr3" },
-		{ name: "French", value: "f4r" },
-		{ name: "French", value: "f5r" },
-		{ name: "French", value: "fr6" },
-		{ name: "French", value: "f2r" },
-	]);
+	const [options, updateOptions] = useState([]);
+
+	const [ccCollugues, updateCcCollugues] = useState([]);
+	console.log(ccCollugues);
+	useEffect(() => {
+		if (modalType === "post") {
+			getShayeekEmails(
+				(success) => {
+					console.log(success);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		} else {
+			getCCEmails(
+				currentLanguageId,
+				authorization.companyId,
+				(success) => {
+					let options = [];
+					success.data.forEach((data) => {
+						options.push({ name: data.name, value: data.id });
+					});
+					updateOptions(options);
+					console.log(options);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
+	}, [modalType, currentLanguageId, authorization]);
 
 	function fuzzySearch(options) {
 		const fuse = new Fuse(options, {
@@ -67,6 +92,9 @@ function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 	function handleSubmit() {
 		if (modalType === "post") {
 		} else {
+			updateCcCollugues(selectedOptions);
+			updateSelectedOptions([]);
+			onCancel();
 		}
 	}
 	return (

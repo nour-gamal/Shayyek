@@ -4,8 +4,10 @@ import Footer from "../Common/Footer/Footer";
 import BuyerHome from "./BuyerHome/BuyerHome";
 import ContractorHome from "./ContractorHome/ContractorHome";
 import SupplierHome from "./SupplierHome/SupplierHome";
+import { useSelector } from "react-redux";
 import GuestHome from "./GuestHome/GuestHome";
 function Home() {
+	const { authorization } = useSelector((state) => state.authorization);
 	const userType = "buyer";
 	return (
 		<section>

@@ -30,8 +30,12 @@ function CreateRFQ() {
 	useEffect(() => {
 		getDeliverdOptions(
 			currentLanguageId,
-			(success) => {},
-			(fail) => {}
+			(success) => {
+				console.log(success.data);
+			},
+			(fail) => {
+				console.log(fail);
+			}
 		);
 	});
 
