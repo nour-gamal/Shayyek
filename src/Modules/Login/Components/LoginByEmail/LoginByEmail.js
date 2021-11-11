@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { loginApi } from "../../network";
+import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import Navbar from "../../../Common/Navbar/Navbar";
 import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
@@ -16,6 +17,7 @@ function LoginByEmail() {
   const [email, setEmail] = useState("");
   const [alert, setAlert] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
   const sendData = (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -30,8 +32,10 @@ function LoginByEmail() {
       loginApi(
         body,
         (success) => {
-          // dispatch(login(success.data ));
-          console.log({user:success.data});
+          dispatch(login({user:success.data}));
+          if(success){
+            setRedirect(true)
+          }
         },
         (fail) => console.log(fail),
         false
@@ -55,6 +59,9 @@ function LoginByEmail() {
   };
   console.log(authorization);
   // console.log(authorization.user.token);
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
   return (
     <div className="loginByEmail">
       <Navbar navState={"light"} />

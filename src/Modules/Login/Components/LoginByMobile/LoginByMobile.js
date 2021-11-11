@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Navbar from "../../../Common/Navbar/Navbar";
 import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
 import { loginApi } from "../../network";
@@ -9,7 +9,7 @@ import Footer from "../../../Common/Footer/Footer";
 import { Link } from "react-router-dom";
 import "./LoginByMobile.css";
 function LoginByMobile() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { authorization } = useSelector((state) => state.authorization);
