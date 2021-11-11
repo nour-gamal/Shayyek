@@ -114,6 +114,8 @@ function CreateRFQ() {
 		);
 	}
 	function handleConfirm() {
+		updateModalType("post");
+
 		if (
 			address.length === 0 ||
 			recievingOffersDate === null ||
