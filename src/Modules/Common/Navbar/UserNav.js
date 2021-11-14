@@ -6,6 +6,7 @@ import { changeLocal } from "../../../Redux/Localization";
 import { Link } from "react-router-dom";
 import { Menu, Dropdown } from "antd";
 import arrowDown from "../../../Resources/Assets/arrowDown.svg";
+import { logout } from "../../../Redux/Authorization";
 
 function UserNav({ loginState }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -15,8 +16,13 @@ function UserNav({ loginState }) {
 			<Menu.Item key="0">
 				<Link to="/me/name">{currentLocal.navbar.viewProfile}</Link>
 			</Menu.Item>
-			<Menu.Item key="1">
-				<a href="https://www.antgroup.com"> {currentLocal.navbar.logout}</a>
+			<Menu.Item
+				key="1"
+				onClick={() => {
+					dispatch(logout({}));
+				}}
+			>
+				{currentLocal.navbar.logout}
 			</Menu.Item>
 		</Menu>
 	);

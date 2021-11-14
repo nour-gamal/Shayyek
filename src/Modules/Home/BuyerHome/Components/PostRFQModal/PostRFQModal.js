@@ -3,7 +3,7 @@ import { Modal, Checkbox } from "antd";
 import SelectSearch from "react-select-search";
 import { useSelector } from "react-redux";
 import Fuse from "fuse.js";
-import { getCCEmails, getShayeekEmails } from "../../../network";
+import { getCCEmails, GetSupplierAndContractorEmails } from "../../../network";
 import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import WhiteCross from "../../../../../Resources/Assets/whiteCross.svg";
 import "./PostRFQModal.css";
@@ -21,7 +21,7 @@ function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 	console.log(ccCollugues);
 	useEffect(() => {
 		if (modalType === "post") {
-			getShayeekEmails(
+			GetSupplierAndContractorEmails(
 				(success) => {
 					console.log(success);
 				},

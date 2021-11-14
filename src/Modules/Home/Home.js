@@ -8,15 +8,17 @@ import { useSelector } from "react-redux";
 import GuestHome from "./GuestHome/GuestHome";
 function Home() {
 	const { authorization } = useSelector((state) => state.authorization);
-	const userType = "buyer";
+
 	return (
 		<section>
-			{userType !== "landingPage" && <Navbar />}
-			{userType === "buyer" ? (
+			{authorization.userTypeId && <Navbar />}
+			{authorization.userTypeId === "4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
 				<BuyerHome />
-			) : userType === "supplier" ? (
+			) : authorization.userTypeId ===
+			  "2a9e1d5f-722e-404e-8041-a6a665149e03" ? (
 				<SupplierHome />
-			) : userType === "contractor" ? (
+			) : authorization.userTypeId ===
+			  "fcb9fde8-4ae5-4f6c-88e2-62e412847b2e" ? (
 				<ContractorHome />
 			) : (
 				<GuestHome />

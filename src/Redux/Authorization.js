@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Redirect } from "react-router-dom";
 
 export const authorizationSlice = createSlice({
 	name: "authorization",
@@ -21,5 +22,6 @@ export const authorizationSlice = createSlice({
 });
 
 export const { login } = authorizationSlice.actions;
+export const { logout } = authorizationSlice.actions;
 
 export default authorizationSlice.reducer;

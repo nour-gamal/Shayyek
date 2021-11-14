@@ -1,4 +1,4 @@
-import { GetResource } from "../../Services";
+import { PostResource, GetResource } from "../../Services";
 
 export const getCategories = (
 	languageId,
@@ -35,7 +35,16 @@ export const getCCEmails = (
 	const path = `api/RFQ/GetEmailsOfTheSameBuyerCompany?companyId=${companyId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
-export const getShayeekEmails = (onSuccess, onFail, reqAuth = true) => {
-	const path = `api/Account/GetRFQCategories`;
+
+export const GetSupplierAndContractorEmails = (
+	onSuccess,
+	onFail,
+	reqAuth = true
+) => {
+	const path = `/api/RFQ/GetSupplierAndContractorEmails`;
 	GetResource(path, onSuccess, onFail, reqAuth);
+};
+export const postRFQ = (onSuccess, onFail, reqAuth = true) => {
+	const path = `/api/RFQ/GetSupplierAndContractorEmails`;
+	PostResource(path, onSuccess, onFail, reqAuth);
 };
