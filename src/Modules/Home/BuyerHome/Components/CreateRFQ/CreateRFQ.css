@@ -5,7 +5,8 @@
 .actionsContainer > div > div img {
 	cursor: pointer;
 }
-.createRFQ textarea {
+.createRFQ textarea,
+.createRFQ input[type="number"] {
 	background: #f5f5f5 !important;
 	resize: none !important;
 	border: none !important;
@@ -27,9 +28,6 @@
 }
 .createRFQ table {
 	width: max-content !important;
-}
-.createRFQ .primary-color {
-	color: #003b6b;
 }
 
 .createRFQ .ant-radio-wrapper span {

@@ -21,7 +21,7 @@ export const getDeliverdOptions = (
 	onFail,
 	reqAuth = true
 ) => {
-	const path = `api/RFQ/GetDeliveryTo?language=${languageId}`;
+	const path = `api/RFQ/GetDeliveryTo?languageId=${languageId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
 
@@ -41,10 +41,11 @@ export const GetSupplierAndContractorEmails = (
 	onFail,
 	reqAuth = true
 ) => {
-	const path = `/api/RFQ/GetSupplierAndContractorEmails`;
+	const path = `api/RFQ/GetSupplierAndContractorEmails`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
-export const postRFQ = (onSuccess, onFail, reqAuth = true) => {
-	const path = `/api/RFQ/GetSupplierAndContractorEmails`;
-	PostResource(path, onSuccess, onFail, reqAuth);
+
+export const postRFQ = (data, onSuccess, onFail, reqAuth = true) => {
+	const path = `api/RFQ/GetSupplierAndContractorEmails`;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
 };

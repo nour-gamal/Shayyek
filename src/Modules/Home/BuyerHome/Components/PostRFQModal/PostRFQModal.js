@@ -2,13 +2,26 @@ import React, { useState, useEffect } from "react";
 import { Modal, Checkbox } from "antd";
 import SelectSearch from "react-select-search";
 import { useSelector } from "react-redux";
+import AddEmailModal from "../AddEmailModal/AddEmailModal";
 import Fuse from "fuse.js";
-import { getCCEmails, GetSupplierAndContractorEmails } from "../../../network";
+import {
+	getCCEmails,
+	GetSupplierAndContractorEmails,
+	postRFQ,
+} from "../../../network";
 import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import WhiteCross from "../../../../../Resources/Assets/whiteCross.svg";
 import "./PostRFQModal.css";
 
-function PostRFQModal({ isModalVisible, onCancel, modalType }) {
+function PostRFQModal({
+	isModalVisible,
+	onCancel,
+	modalType,
+	deliveryDate,
+	deadlineDate,
+	deliveredTo,
+	rfqDetails,
+}) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
@@ -16,9 +29,8 @@ function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 	const [publishToRelevent, updatePublishToRelevant] = useState(false);
 	const [revealPrice, updateRevealPrice] = useState(false);
 	const [options, updateOptions] = useState([]);
-
 	const [ccCollugues, updateCcCollugues] = useState([]);
-	console.log(ccCollugues);
+	const [isEmailModVisible, toggleEmailModal] = useState(false);
 	useEffect(() => {
 		if (modalType === "post") {
 			GetSupplierAndContractorEmails(
@@ -39,7 +51,6 @@ function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 						options.push({ name: data.name, value: data.id });
 					});
 					updateOptions(options);
-					console.log(options);
 				},
 				(fail) => {
 					console.log(fail);
@@ -62,6 +73,7 @@ function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 			return fuse.search(value);
 		};
 	}
+
 	function onSelectChange(optionId, selectedOption) {
 		let filteredOptions = options;
 		let optionSelected = selectedOptions;
@@ -78,10 +90,10 @@ function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 		let filteredOptions = options;
 
 		let removedOption = optionSelected.filter(
-			(option) => option.value === e.target.id
+			(option) => option.name === e.target.id
 		);
 		optionSelected = optionSelected.filter(
-			(option) => option.value !== e.target.id
+			(option) => option.name !== e.target.id
 		);
 
 		filteredOptions.push(removedOption[0]);
@@ -91,12 +103,45 @@ function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 	}
 	function handleSubmit() {
 		if (modalType === "post") {
+			const data = {
+				isPublishToSuppliersNetwork: publishToRelevent,
+				isRevealPricesToBidders: true,
+				address: revealPrice,
+				deadlineDate,
+				deliveryDate,
+				deliveryToId: deliveredTo,
+				rfqDetails: [
+					{
+						itemProductName: rfqDetails.item,
+						description: rfqDetails.description,
+						quantity: rfqDetails.quantity,
+						unit: rfqDetails.unit,
+						preferredBrands: rfqDetails.preferredBrands,
+						isInstallSupplierAndContructor: rfqDetails.includeInstallation,
+						notes: rfqDetails.notes,
+						categoryId: rfqDetails.categories,
+					},
+				],
+				invitedEmails: selectedOptions,
+				ccCollugues: ccCollugues,
+			};
+
+			postRFQ(
+				data,
+				(success) => {
+					console.log(success);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
 		} else {
 			updateCcCollugues(selectedOptions);
 			updateSelectedOptions([]);
 			onCancel();
 		}
 	}
+
 	return (
 		<Modal
 			title="Basic Modal"
@@ -128,9 +173,14 @@ function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 							search={true}
 							placeholder={currentLocal.buyerHome.selectSupplierEmail}
 						/>
-						<span className="cursorPointer">
+						<span
+							className="cursorPointer"
+							onClick={() => {
+								toggleEmailModal(!isEmailModVisible);
+							}}
+						>
 							<img src={PlusCircle} alt="PlusCircle" className="mx-2" />
-							<label className="primary-color ">
+							<label className="primary-color cursorPointer">
 								{currentLocal.buyerHome.addNewEmail}
 							</label>
 						</span>
@@ -141,7 +191,7 @@ function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 							<span className="orangeCapsule m-2 f-14" key={selectedIndex}>
 								<span className="mx-2">{selectedOption.name}</span>
 								<img
-									id={selectedOption.value}
+									id={selectedOption.name}
 									src={WhiteCross}
 									alt="WhiteCross"
 									className="cursorPointer"
@@ -185,6 +235,15 @@ function PostRFQModal({ isModalVisible, onCancel, modalType }) {
 					</button>
 				</div>
 			</div>
+			<AddEmailModal
+				isModalVisible={isEmailModVisible}
+				onCancel={() => toggleEmailModal(!isEmailModVisible)}
+				getEmail={(email) => {
+					let typedOptions = selectedOptions;
+					typedOptions.push({ name: email, value: 0 });
+					updateSelectedOptions(typedOptions);
+				}}
+			/>
 		</Modal>
 	);
 }

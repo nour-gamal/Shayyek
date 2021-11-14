@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Redirect } from "react-router-dom";
 
 export const authorizationSlice = createSlice({
 	name: "authorization",

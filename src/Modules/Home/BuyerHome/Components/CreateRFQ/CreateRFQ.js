@@ -26,18 +26,29 @@ function CreateRFQ() {
 	const [loading, setLoading] = useState(false);
 	const [newItemAdded, updateItemAdded] = useState(false);
 	const [isModalVisible, toggleModal] = useState(false);
+	const [installAll, updateInstallAll] = useState(false);
+	const [deliveredToOptions, updateDeliveryOptions] = useState([]);
 	const [modalType, updateModalType] = useState("post");
+
 	useEffect(() => {
+		let options = [];
+
 		getDeliverdOptions(
 			currentLanguageId,
 			(success) => {
-				console.log(success.data);
+				success.data.forEach((data) => {
+					options.push({
+						label: data.name,
+						value: data.id,
+					});
+				});
+				updateDeliveryOptions(options);
 			},
 			(fail) => {
 				console.log(fail);
 			}
 		);
-	});
+	}, [currentLanguageId]);
 
 	var index = {
 		item: null,
@@ -49,14 +60,6 @@ function CreateRFQ() {
 	};
 
 	const { Option } = Select;
-
-	const options = [
-		{
-			label: currentLocal.buyerHome.companyWarehouse,
-			value: "companyWarehouse",
-		},
-		{ label: currentLocal.buyerHome.projectLocation, value: "projectLocation" },
-	];
 
 	function handleCategoriesChange(optionId, rowIndex) {
 		let data = [...dataSource];
@@ -76,13 +79,20 @@ function CreateRFQ() {
 
 	function handleIncludeInstallation(e, rowIndex) {
 		let data = [...dataSource];
+		if (installAll && !e.target.checked) {
+			updateInstallAll(false);
+		}
+
 		data[rowIndex].includeInstallation = e.target.checked;
 		updateDataSource(data);
 	}
 	function handleInstallAll(e) {
+		updateInstallAll(!installAll);
+
 		let data = [...dataSource];
 		data.forEach((row, rowIndex) => {
-			handleIncludeInstallation(e, rowIndex);
+			data[rowIndex].includeInstallation = e.target.checked;
+			updateDataSource(data);
 		});
 		updateDataSource(data);
 	}
@@ -99,8 +109,11 @@ function CreateRFQ() {
 				item: "",
 				notes: "",
 				description: "",
-				quantity: "",
+				quantity: null,
 				unit: "",
+				preferredBrands: null,
+				includeInstallation: false,
+				categories: null,
 			},
 		]);
 		updateItemAdded(true);
@@ -217,7 +230,10 @@ function CreateRFQ() {
 											notes: name[index.notes],
 											description: name[index.description],
 											unit: name[index.unit],
-											quantity: name[index.quantity],
+											quantity:
+												typeof name[index.quantity] === "string"
+													? 1
+													: name[index.quantity],
 										},
 									]);
 								}
@@ -304,14 +320,15 @@ function CreateRFQ() {
 			key: "quantity",
 			render: (quantity, record) => {
 				return (
-					<textarea
-						type="text"
+					<input
+						type="number"
+						alt="quantity"
 						onChange={(e) => {
 							let data = [...dataSource];
 							data[selectedRow].quantity = e.target.value;
 							updateDataSource(data);
 						}}
-						className="form-control"
+						className={"form-control"}
 						value={quantity}
 					/>
 				);
@@ -372,6 +389,7 @@ function CreateRFQ() {
 						onChange={(checkVal) => {
 							handleIncludeInstallation(checkVal, rowIndex);
 						}}
+						checked={includeInstallation}
 					/>
 				);
 			},
@@ -396,7 +414,6 @@ function CreateRFQ() {
 			},
 		},
 	];
-	console.log(deliveredTo);
 	return (
 		<div className="ppl ppr f-14 my-4 createRFQ">
 			<div className="actionsContainer">
@@ -451,7 +468,7 @@ function CreateRFQ() {
 						<label className="mx-2 primary-color">
 							{currentLocal.buyerHome.installAll}
 						</label>
-						<Checkbox onChange={handleInstallAll} />
+						<Checkbox onChange={handleInstallAll} checked={installAll} />
 					</div>
 				</div>
 			</div>
@@ -483,9 +500,9 @@ function CreateRFQ() {
 								{currentLocal.buyerHome.deliveredTo}
 							</label>
 							<Radio.Group
-								options={options}
+								options={deliveredToOptions}
 								onChange={handleDeliveredTo}
-								defaultValue={"companyWarehouse"}
+								defaultValue={"a9c83c89-4aeb-46b8-b245-a144276d927f"}
 								className={"secondary-color"}
 							/>
 						</div>
@@ -555,6 +572,10 @@ function CreateRFQ() {
 						isModalVisible={isModalVisible}
 						onCancel={() => toggleModal(!isModalVisible)}
 						modalType={modalType}
+						deadlineDate={recievingOffersDate}
+						deliveryDate={deliveryDate}
+						deliveredTo={deliveredTo}
+						rfqDetails={dataSource}
 					/>
 				</div>
 			</div>

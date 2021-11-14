@@ -1,0 +1,26 @@
+.addEmail .ant-modal-content {
+	height: 380px;
+}
+.addEmail .close {
+	width: 25px;
+}
+.addEmail .content {
+	padding: 20px;
+	flex-direction: column;
+	height: 300px;
+	justify-content: space-between;
+	display: flex;
+}
+
+.addEmail input[type="text"] {
+	max-width: 300px;
+	margin: auto;
+	height: 52px;
+	border: 1px solid #bce0fd !important;
+}
+.addEmail input[type="text"]::placeholder {
+	color: #003b6b;
+}
+.addEmail button {
+	margin: 0 auto;
+}

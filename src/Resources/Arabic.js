@@ -141,6 +141,8 @@ export const ar = {
 		newItemAdded: "تم اضافه بند جديد",
 		projectName: "اسم المشروع",
 		invite: "ارسل دعوه",
+		addValidEmail: "من فضلك اضف بريد الكرتوني صحيح",
+		addEmail: "اضف",
 	},
 	home: {
 		email: "البريد الالكتروني",

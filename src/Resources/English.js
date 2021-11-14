@@ -143,6 +143,8 @@ export const en = {
 		newItemAdded: "New item added",
 		projectName: "Project name",
 		invite: "Invite",
+		addValidEmail: "Please add a valid email",
+		addEmail: "Add email",
 	},
 	home: {
 		email: "E-mail",

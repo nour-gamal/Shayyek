@@ -97,29 +97,40 @@ section {
 }
 
 .alertSign {
-	border: 1px solid red;
+	border: 1px solid red !important;
 }
 
 .cursorPointer {
 	cursor: pointer;
 }
 
-.ant-modal,
 .modal-lg .ant-modal-content {
 	width: 95% !important;
 	margin: 0 auto;
 	border-radius: 20px;
 	padding: 10px 50px;
 }
-.modal-lg .ant-modal-content {
+.modal-sm .ant-modal-content {
+	width: 45% !important;
+	margin: 0 auto;
+	border-radius: 20px;
+	padding: 10px;
+}
+
+.modal-lg .ant-modal-content,
+.modal-sm .ant-modal-content {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
 
-.modal-lg .ant-modal-header {
+.modal-lg .ant-modal-header,
+.modal-sm .ant-modal-header {
 	display: none;
+}
+.primary-color {
+	color: #003b6b;
 }
 
 .button-primary,
@@ -334,5 +345,8 @@ thead:hover {
 	}
 	.ant-modal-body {
 		height: max-content;
+	}
+	.modal-sm .ant-modal-content {
+		width: 80% !important;
 	}
 }
