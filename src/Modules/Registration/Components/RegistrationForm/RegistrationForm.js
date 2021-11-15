@@ -106,8 +106,8 @@ function RegistrationForm() {
   };
 
   useEffect(() => {
-    if(localStorage.getItem("redirectToRegistration")){
-      setBuyer(localStorage.getItem("redirectToRegistration"))
+    if (localStorage.getItem("redirectToRegistration")) {
+      setBuyer(localStorage.getItem("redirectToRegistration"));
     }
     CompanyList(
       currentLanguageId,
@@ -128,6 +128,7 @@ function RegistrationForm() {
     getRole(
       currentLanguageId,
       (success) => {
+        // console.log(success.data);
         setRoleList(success.data);
       },
       (fail) => {},
@@ -153,7 +154,7 @@ function RegistrationForm() {
     getWork(
       currentLanguageId,
       (success) => {
-        console.log(success.data[0]);
+        // console.log(success.data[0]);
         const data = [];
         success.data.forEach((category, i) => {
           // console.log(category);
@@ -193,15 +194,20 @@ function RegistrationForm() {
             onClick={(e) => {
               setCompanyId(company.id);
               setCompanyName(company.name);
-              //call api to know if company has admin or not (admin>res.data)
-              CompanyHasAdmin(
-                company.id,
-                (success) => {
-                  setAdmin(success.data);
-                },
-                (fail) => {},
-                false
-              );
+              setTimeout(() => {
+                CompanyHasAdmin(
+                  company.id,
+                  (success) => {
+                    console.log(success);
+                  },
+                  (fail) => {
+                    console.log(fail);
+                    // console.log("bye");
+                    // setAdmin(success.data);
+                  },
+                  false
+                );
+              }, 2000);
             }}
           >
             {company.name}
@@ -273,7 +279,6 @@ function RegistrationForm() {
           <Menu.Item
             key="0"
             onClick={(e) => {
-              console.log(role.id);
               setRoleName(role.name);
               setRoleId(role.id);
             }}
@@ -391,10 +396,9 @@ function RegistrationForm() {
         !fileName ||
         !companyPhoneNumber ||
         !companyTypeId ||
-        !roleName||
+        !roleName ||
         !workValue
       ) {
-        console.log("empty");
         setAlert(true);
       } else {
         setAlert(false);
@@ -420,7 +424,11 @@ function RegistrationForm() {
         setAlert(false);
         axioFun();
       }
-    } else if (buyer === currentLocal.registration.Contractor &&individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&!admin) {
+    } else if (
+      buyer === currentLocal.registration.Contractor &&
+      individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
+      !admin
+    ) {
       console.log("con employee");
       if (
         !firstName ||
@@ -457,11 +465,11 @@ function RegistrationForm() {
         !companyId ||
         !companyPhoneNumber ||
         !companyTypeId ||
-        !roleName||
+        !roleName ||
         !fileName ||
-        !countryName||
-        !governmentName||
-        !address||
+        !countryName ||
+        !governmentName ||
+        !address ||
         !checked ||
         !workValue
       ) {
@@ -471,8 +479,10 @@ function RegistrationForm() {
         setAlert(false);
         axioFun();
       }
-    }
-     else if (buyer === currentLocal.registration.Contractor &&individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") {
+    } else if (
+      buyer === currentLocal.registration.Contractor &&
+      individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d"
+    ) {
       console.log("con ind");
       if (
         !firstName ||
@@ -483,9 +493,8 @@ function RegistrationForm() {
         !confirmPassword ||
         !address ||
         !countryName ||
-        !governmentName||
-        !checked 
-
+        !governmentName ||
+        !checked
       ) {
         console.log("empty");
         setAlert(true);
@@ -499,15 +508,14 @@ function RegistrationForm() {
         !firstName ||
         !lastName ||
         !mobileNumber ||
-        !companyId||
+        !companyId ||
         !email ||
         !password ||
         !confirmPassword ||
         !address ||
         !countryName ||
-        !governmentName||
-        !checked 
-
+        !governmentName ||
+        !checked
       ) {
         console.log("empty");
         setAlert(true);
@@ -526,16 +534,14 @@ function RegistrationForm() {
         !confirmPassword ||
         !address ||
         !countryName ||
-        !governmentName||
+        !governmentName ||
         !checked ||
-        !fileName||
-        !companyPhoneNumber||
-        !companyTypeName||
-        !companyId||
-        !roleName||
+        !fileName ||
+        !companyPhoneNumber ||
+        !companyTypeName ||
+        !companyId ||
+        !roleName ||
         !workValue
-
-
       ) {
         console.log("empty");
         setAlert(true);
@@ -543,7 +549,6 @@ function RegistrationForm() {
         setAlert(false);
         axioFun();
       }
-
     }
 
     if (
@@ -560,7 +565,7 @@ function RegistrationForm() {
       !checked
     ) {
       setAlert(true);
-    }else{
+    } else {
       setAlert(false);
       const body = new FormData();
       body.append("FirstName", firstName);
@@ -598,15 +603,15 @@ function RegistrationForm() {
         body,
         (success) => {
           console.log(success.data);
-          if(success.data===true){
-            localStorage.setItem("mobileNumber",mobileNumber)
-            setRedirect(true)
+          if (success.data === true) {
+            localStorage.setItem("mobileNumber", mobileNumber);
+            setRedirect(true);
           }
         },
         (fail) => console.log(fail),
         false
       );
-    };
+    }
   };
 
   // const onChangeOption = (e, i) => {
@@ -638,6 +643,12 @@ function RegistrationForm() {
   if (redirect) {
     return <Redirect to="/verifyByEmail" />;
   }
+  // console.log(individual === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f" && admin);
+  // console.log(individual);
+  // console.log(admin);
+  // console.log(!(
+  //   individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && admin
+  // ) );
 
   return (
     <div className="RegistrationForm ppl ppr">
@@ -793,13 +804,21 @@ function RegistrationForm() {
                 <img
                   src={disableArrow}
                   alt="disableArrow"
-                  className={currentLanguageId==="46f4621f-9f96-46c7-a2d4-94b4c3393914"?"rightIcon ":"dropDownicon"}
+                  className={
+                    currentLanguageId === "46f4621f-9f96-46c7-a2d4-94b4c3393914"
+                      ? "rightIcon "
+                      : "dropDownicon"
+                  }
                 />
               ) : (
                 <img
                   src={focusIcon ? foucesArrow : Arrow}
                   alt="Arrow"
-                  className={currentLanguageId==="46f4621f-9f96-46c7-a2d4-94b4c3393914"?"rightIcon ":"dropDownicon"}
+                  className={
+                    currentLanguageId === "46f4621f-9f96-46c7-a2d4-94b4c3393914"
+                      ? "rightIcon "
+                      : "dropDownicon"
+                  }
                 />
               )}
             </Col>
@@ -916,8 +935,7 @@ function RegistrationForm() {
             />
           </Col>
           {!(
-            individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-            admin === false
+            individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin
           ) && (
             <>
               <Col md={12} xs={24}>

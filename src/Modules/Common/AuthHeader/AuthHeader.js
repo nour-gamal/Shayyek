@@ -8,7 +8,6 @@ import  dropDownArrow  from "../../../Resources/Assets/dropDownArrow.svg";
 import { GetUserTypes } from "../Network";
 import languages from "../../../Resources/Assets/languages.svg";
 function AuthHeader({ title, showState, onSelectUserType,sendDataToParent,alert,login,firstName}) {
-  console.log(login);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [item, setItem] = useState("");
