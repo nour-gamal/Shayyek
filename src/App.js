@@ -5,6 +5,7 @@ import { getMessaging, getToken } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
 import { login } from "./Redux/Authorization";
 import { GetLanguages } from "./Network";
+//import { logout } from "./Redux/Authorization";
 import { changeLocal } from "./Redux/Localization";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
@@ -13,8 +14,16 @@ import "./App.css";
 
 function App() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-
 	const dispatch = useDispatch();
+
+	//Check whether user is not authorized then force logout
+
+	// const logoutState = localStorage.getItem("logout");
+	// if (logoutState) {
+	// 	dispatch(logout({}));
+	// 	 localStorage.setItem("logout", false);
+	// }
+
 	const firebaseConfig = {
 		apiKey: "AIzaSyDl8exN4m1F52c8fe9dGlMKKhuWotvzF9U",
 		authDomain: "shayyek-cc93c.firebaseapp.com",

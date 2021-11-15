@@ -16,6 +16,20 @@
 .createRFQ textarea::-webkit-scrollbar {
 	display: none;
 }
+
+.createRFQ input::-webkit-outer-spin-button,
+.createRFQ input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+.createRFQ input[type="number"] {
+	-moz-appearance: textfield;
+}
+.createRFQ .ant-select-selection-placeholder {
+	color: #000;
+}
 .createRFQ .addressBar {
 	width: 50%;
 }
