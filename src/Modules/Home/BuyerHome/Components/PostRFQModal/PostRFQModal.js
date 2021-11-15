@@ -29,6 +29,7 @@ function PostRFQModal({
 	const [publishToRelevent, updatePublishToRelevant] = useState(false);
 	const [revealPrice, updateRevealPrice] = useState(false);
 	const [options, updateOptions] = useState([]);
+	const [projectName, changeProjectName] = useState("");
 	const [ccCollugues, updateCcCollugues] = useState([]);
 	const [isEmailModVisible, toggleEmailModal] = useState(false);
 	useEffect(() => {
@@ -156,7 +157,8 @@ function PostRFQModal({
 					},
 				],
 				invitedEmails: invitedEmails,
-				ccCollugues: ccEmails,
+				cC_Colleagues: ccEmails,
+				projectName,
 			};
 
 			postRFQ(
@@ -185,7 +187,12 @@ function PostRFQModal({
 							<label className="primary-color mx-2">
 								{currentLocal.buyerHome.projectName}
 							</label>
-							<input type="text" className="form-control" />
+							<input
+								type="text"
+								className="form-control"
+								value={projectName}
+								onChange={(e) => changeProjectName(e.target.value)}
+							/>
 						</div>
 					)}
 					<div className="d-flex emailContainer">

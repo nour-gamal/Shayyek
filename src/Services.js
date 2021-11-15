@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const baseUrl = "http://192.175.123.213:9000/";
 
 const token =
@@ -26,6 +27,10 @@ export const PostResource = (path, data, onSuccess, onFail, reqAuth) => {
 		})
 		.catch((err) => {
 			onFail(err.response);
+			// console.log(err);
+			// if (err.response.status === 401) {
+			// 	localStorage.setItem("logout", true);
+			// }
 		});
 };
 
@@ -48,5 +53,8 @@ export const GetResource = (path, onSuccess, onFail, reqAuth = true) => {
 		})
 		.catch((error) => {
 			onFail(error.response);
+			if (error.response.status === 401) {
+				localStorage.setItem("logout", true);
+			}
 		});
 };
