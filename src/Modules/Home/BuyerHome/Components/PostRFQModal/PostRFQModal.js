@@ -25,7 +25,7 @@ function PostRFQModal({
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
-	const [selectedOptions, updateSelectedOptions] = useState([]);
+	const [invited, updateInvited] = useState([]);
 	const [publishToRelevent, updatePublishToRelevant] = useState(false);
 	const [revealPrice, updateRevealPrice] = useState(false);
 	const [options, updateOptions] = useState([]);
@@ -35,7 +35,11 @@ function PostRFQModal({
 		if (modalType === "post") {
 			GetSupplierAndContractorEmails(
 				(success) => {
-					console.log(success);
+					let options = [];
+					success.data.forEach((data) => {
+						options.push({ name: data.name, value: data.id });
+					});
+					updateOptions(options);
 				},
 				(fail) => {
 					console.log(fail);
@@ -76,33 +80,62 @@ function PostRFQModal({
 
 	function onSelectChange(optionId, selectedOption) {
 		let filteredOptions = options;
-		let optionSelected = selectedOptions;
 
 		filteredOptions = options.filter((option) => option.value !== optionId);
 
 		updateOptions(filteredOptions);
-
-		optionSelected.push(selectedOption);
-		updateSelectedOptions(optionSelected);
+		if (modalType === "post") {
+			let invitedArr = invited;
+			invitedArr.push(selectedOption);
+			updateInvited(invitedArr);
+		} else {
+			let ccArr = ccCollugues;
+			ccArr.push(selectedOption);
+			updateCcCollugues(ccArr);
+		}
 	}
 	function onRemoveSelected(e) {
-		let optionSelected = selectedOptions;
-		let filteredOptions = options;
+		let optionsList = options;
 
-		let removedOption = optionSelected.filter(
-			(option) => option.name === e.target.id
-		);
-		optionSelected = optionSelected.filter(
-			(option) => option.name !== e.target.id
-		);
+		if (modalType === "post") {
+			let invitedList = invited;
 
-		filteredOptions.push(removedOption[0]);
-		updateOptions(filteredOptions);
+			let removedOption = invitedList.filter(
+				(option) => option.name !== e.target.id
+			);
+			if (removedOption.typed === false) {
+				optionsList.push(removedOption[0]);
+				updateOptions(optionsList);
+			}
 
-		updateSelectedOptions(optionSelected);
+			invitedList = invitedList.filter((option) => option.name !== e.target.id);
+
+			updateInvited(invitedList);
+		} else {
+			let ccList = ccCollugues;
+
+			let removedOption = ccList.filter(
+				(option) => option.name === e.target.id
+			);
+			if (removedOption.typed === false) {
+				optionsList.push(removedOption[0]);
+				updateOptions(optionsList);
+			}
+			ccList = ccList.filter((option) => option.name !== e.target.id);
+
+			updateCcCollugues(ccList);
+		}
 	}
 	function handleSubmit() {
 		if (modalType === "post") {
+			const invitedEmails = [];
+			const ccEmails = [];
+			invited.forEach((email) => {
+				invitedEmails.push(email.name);
+			});
+			ccCollugues.forEach((email) => {
+				ccEmails.push(email.name);
+			});
 			const data = {
 				isPublishToSuppliersNetwork: publishToRelevent,
 				isRevealPricesToBidders: true,
@@ -122,8 +155,8 @@ function PostRFQModal({
 						categoryId: rfqDetails.categories,
 					},
 				],
-				invitedEmails: selectedOptions,
-				ccCollugues: ccCollugues,
+				invitedEmails: invitedEmails,
+				ccCollugues: ccEmails,
 			};
 
 			postRFQ(
@@ -135,13 +168,9 @@ function PostRFQModal({
 					console.log(fail);
 				}
 			);
-		} else {
-			updateCcCollugues(selectedOptions);
-			updateSelectedOptions([]);
-			onCancel();
 		}
+		onCancel();
 	}
-
 	return (
 		<Modal
 			title="Basic Modal"
@@ -187,18 +216,31 @@ function PostRFQModal({
 					</div>
 
 					<div className="capsulesContainer my-4 ">
-						{selectedOptions.map((selectedOption, selectedIndex) => (
-							<span className="orangeCapsule m-2 f-14" key={selectedIndex}>
-								<span className="mx-2">{selectedOption.name}</span>
-								<img
-									id={selectedOption.name}
-									src={WhiteCross}
-									alt="WhiteCross"
-									className="cursorPointer"
-									onClick={onRemoveSelected}
-								/>
-							</span>
-						))}
+						{modalType === "post"
+							? invited.map((invitedOption, selectedIndex) => (
+									<span className="orangeCapsule m-2 f-14" key={selectedIndex}>
+										<span className="mx-2">{invitedOption.name}</span>
+										<img
+											id={invitedOption.name}
+											src={WhiteCross}
+											alt="WhiteCross"
+											className="cursorPointer"
+											onClick={onRemoveSelected}
+										/>
+									</span>
+							  ))
+							: ccCollugues.map((ccOptions, selectedIndex) => (
+									<span className="orangeCapsule m-2 f-14" key={selectedIndex}>
+										<span className="mx-2">{ccOptions.name}</span>
+										<img
+											id={ccOptions.name}
+											src={WhiteCross}
+											alt="WhiteCross"
+											className="cursorPointer"
+											onClick={onRemoveSelected}
+										/>
+									</span>
+							  ))}
 					</div>
 				</div>
 				<div className="checkbox-area">
@@ -239,9 +281,15 @@ function PostRFQModal({
 				isModalVisible={isEmailModVisible}
 				onCancel={() => toggleEmailModal(!isEmailModVisible)}
 				getEmail={(email) => {
-					let typedOptions = selectedOptions;
-					typedOptions.push({ name: email, value: 0 });
-					updateSelectedOptions(typedOptions);
+					if (modalType === "post") {
+						let invitedOptions = invited;
+						invitedOptions.push({ name: email, value: 0, typed: true });
+						updateInvited(invitedOptions);
+					} else {
+						let ccOptions = ccCollugues;
+						ccOptions.push({ name: email, value: 0, typed: true });
+						updateCcCollugues(ccOptions);
+					}
 				}}
 			/>
 		</Modal>

@@ -369,6 +369,7 @@ function CreateRFQ() {
 						onChange={(optionId, x) => {
 							handleCategoriesChange(optionId, rowIndex);
 						}}
+						className="selectCategory"
 					>
 						{categoriesOption.map((category, key) => (
 							<Option value={category.id} key={key}>
@@ -450,7 +451,7 @@ function CreateRFQ() {
 							{currentLocal.buyerHome.category}
 						</label>
 						<Select
-							defaultValue={currentLocal.buyerHome.selectCategory}
+							placeholder={currentLocal.buyerHome.selectCategory}
 							onChange={(optionId, record) => {
 								changeCategoryForAll(optionId, record.children);
 							}}
@@ -523,8 +524,13 @@ function CreateRFQ() {
 								value={address}
 							/>
 						</div>
-						<div className="my-3 cursorPointer" onClick={openCCModal}>
-							<img src={addIcon} alt="addIcon" className="mx-3" />
+						<div className="my-3 cursorPointer">
+							<img
+								src={addIcon}
+								alt="addIcon"
+								className="mx-3"
+								onClick={openCCModal}
+							/>
 							<label>{currentLocal.buyerHome.ccCollugues}</label>
 						</div>
 					</div>
