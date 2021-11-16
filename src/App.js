@@ -47,6 +47,7 @@ function App() {
 					// Send the token to your server and update the UI if necessary
 					// ...
 					dispatch(login({ deviceToken: currentToken }));
+					console.log(currentToken)
 				} else {
 					// Show permission request UI
 					console.log(
