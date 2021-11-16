@@ -29,6 +29,7 @@ function PostRFQModal({
 	const [publishToRelevent, updatePublishToRelevant] = useState(false);
 	const [revealPrice, updateRevealPrice] = useState(false);
 	const [options, updateOptions] = useState([]);
+	const [alert, setAlert] = useState(false);
 	const [projectName, changeProjectName] = useState("");
 	const [ccCollugues, updateCcCollugues] = useState([]);
 	const [isEmailModVisible, toggleEmailModal] = useState(false);
@@ -37,8 +38,8 @@ function PostRFQModal({
 			GetSupplierAndContractorEmails(
 				(success) => {
 					let options = [];
-					success.data.forEach((data) => {
-						options.push({ name: data.name, value: data.id });
+					success.data.forEach((data, dataIndex) => {
+						options.push({ name: data, value: dataIndex });
 					});
 					updateOptions(options);
 				},
@@ -52,8 +53,8 @@ function PostRFQModal({
 				authorization.companyId,
 				(success) => {
 					let options = [];
-					success.data.forEach((data) => {
-						options.push({ name: data.name, value: data.id });
+					success.data.forEach((data, dataIndex) => {
+						options.push({ name: data, value: dataIndex });
 					});
 					updateOptions(options);
 				},
@@ -102,9 +103,9 @@ function PostRFQModal({
 			let invitedList = invited;
 
 			let removedOption = invitedList.filter(
-				(option) => option.name !== e.target.id
+				(option) => option.name === e.target.id
 			);
-			if (removedOption.typed === false) {
+			if (removedOption[0].typed !== true) {
 				optionsList.push(removedOption[0]);
 				updateOptions(optionsList);
 			}
@@ -118,7 +119,8 @@ function PostRFQModal({
 			let removedOption = ccList.filter(
 				(option) => option.name === e.target.id
 			);
-			if (removedOption.typed === false) {
+
+			if (removedOption[0].typed !== true) {
 				optionsList.push(removedOption[0]);
 				updateOptions(optionsList);
 			}
@@ -129,49 +131,44 @@ function PostRFQModal({
 	}
 	function handleSubmit() {
 		if (modalType === "post") {
-			const invitedEmails = [];
-			const ccEmails = [];
-			invited.forEach((email) => {
-				invitedEmails.push(email.name);
-			});
-			ccCollugues.forEach((email) => {
-				ccEmails.push(email.name);
-			});
-			const data = {
-				isPublishToSuppliersNetwork: publishToRelevent,
-				isRevealPricesToBidders: true,
-				address: revealPrice,
-				deadlineDate,
-				deliveryDate,
-				deliveryToId: deliveredTo,
-				rfqDetails: [
-					{
-						itemProductName: rfqDetails.item,
-						description: rfqDetails.description,
-						quantity: rfqDetails.quantity,
-						unit: rfqDetails.unit,
-						preferredBrands: rfqDetails.preferredBrands,
-						isInstallSupplierAndContructor: rfqDetails.includeInstallation,
-						notes: rfqDetails.notes,
-						categoryId: rfqDetails.categories,
-					},
-				],
-				invitedEmails: invitedEmails,
-				cC_Colleagues: ccEmails,
-				projectName,
-			};
+			if (projectName.length > 0) {
+				const invitedEmails = [];
+				const ccEmails = [];
+				invited.forEach((email) => {
+					invitedEmails.push(email.name);
+				});
+				ccCollugues.forEach((email) => {
+					ccEmails.push(email.name);
+				});
+				const data = {
+					isPublishToSuppliersNetwork: publishToRelevent,
+					isRevealPricesToBidders: revealPrice,
+					address: revealPrice,
+					deadlineDate,
+					deliveryDate,
+					deliveryToId: deliveredTo,
+					rfqDetails,
+					invitedEmails: invitedEmails,
+					cC_Colleagues: ccEmails,
+					projectName,
+				};
 
-			postRFQ(
-				data,
-				(success) => {
-					console.log(success);
-				},
-				(fail) => {
-					console.log(fail);
-				}
-			);
+				postRFQ(
+					data,
+					(success) => {
+						console.log(success);
+					},
+					(fail) => {
+						console.log(fail);
+					}
+				);
+				onCancel();
+			} else {
+				setAlert(true);
+			}
+		} else {
+			onCancel();
 		}
-		onCancel();
 	}
 	return (
 		<Modal
@@ -189,7 +186,11 @@ function PostRFQModal({
 							</label>
 							<input
 								type="text"
-								className="form-control"
+								className={
+									alert && projectName.length === 0
+										? "form-control alertSign"
+										: "form-control"
+								}
 								value={projectName}
 								onChange={(e) => changeProjectName(e.target.value)}
 							/>
