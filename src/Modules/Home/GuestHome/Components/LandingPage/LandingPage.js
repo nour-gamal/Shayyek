@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Navbar from "../../../../Common/Navbar/Navbar";
 import { searchCompany } from "../../../network";
-import { Rate } from 'rsuite';
+import { Rate } from "rsuite";
 import SearchShayyek from "../../../../../Resources/Assets/Search Shayyek.svg";
 import "./LandingPage.css";
 function LandingPage() {
@@ -66,15 +66,16 @@ function LandingPage() {
               {searshResult && (
                 <div className="searchResult">
                   {searchList.map((search) => {
-                    console.log(search);
                     return (
                       <div style={{ background: "red" }} key={search.id}>
                         <Row>
-                          <Col md={8} xs={8}>
+                          <Col md={6} xs={12}>
                             <p className="mx-3"> {search.name}</p>
                           </Col>
+
                           <Col md={4} xs={4}>
-                          <Rate readOnly defaultValue={2.5} allowHalf />                          </Col>
+                            <Rate readOnly defaultValue={2.5} allowHalf />{" "}
+                          </Col>
                         </Row>
                       </div>
                     );
@@ -88,10 +89,11 @@ function LandingPage() {
               <Row>
                 <Col md={6} xs={12}>
                   <div className="button">
-                    <button className="button-primary f-21  fw-bold">
-                      {" "}
+                  <button className="button-primary f-21  fw-bold">
+         
                       Live
                     </button>
+
                   </div>
                 </Col>
                 <Col md={6} xs={12}>
@@ -101,6 +103,7 @@ function LandingPage() {
                     </p>
                   </div>
                 </Col>
+
               </Row>
             </Col>
           </Row>
