@@ -26,6 +26,7 @@ function CreateRFQ() {
 	const [loading, setLoading] = useState(false);
 	const [newItemAdded, updateItemAdded] = useState(false);
 	const [isModalVisible, toggleModal] = useState(false);
+	const [containAnyCategory, updateContainCategory] = useState(false);
 	const [installAll, updateInstallAll] = useState(false);
 	const [deliveredToOptions, updateDeliveryOptions] = useState([]);
 	const [modalType, updateModalType] = useState("post");
@@ -109,11 +110,10 @@ function CreateRFQ() {
 				item: "",
 				notes: "",
 				description: "",
-				quantity: null,
+				quantity: 0,
 				unit: "",
-				preferredBrands: null,
+				preferredBrands: "",
 				includeInstallation: false,
-				categories: null,
 			},
 		]);
 		updateItemAdded(true);
@@ -133,10 +133,17 @@ function CreateRFQ() {
 	function handleConfirm() {
 		updateModalType("post");
 
+		dataSource.forEach((data) => {
+			if (data.categories !== undefined) {
+				updateContainCategory(true);
+			}
+		});
+
 		if (
 			address.length === 0 ||
 			recievingOffersDate === null ||
-			deliveryDate === null
+			deliveryDate === null ||
+			!containAnyCategory
 		) {
 			setAlert(true);
 		} else {
@@ -234,6 +241,8 @@ function CreateRFQ() {
 												typeof name[index.quantity] === "string"
 													? 1
 													: name[index.quantity],
+											includeInstallation: false,
+											preferredBrands: null,
 										},
 									]);
 								}
@@ -455,6 +464,7 @@ function CreateRFQ() {
 							onChange={(optionId, record) => {
 								changeCategoryForAll(optionId, record.children);
 							}}
+							className={!containAnyCategory ? "alertSign" : ""}
 						>
 							{categoriesOption.map((category, key) => {
 								return (
