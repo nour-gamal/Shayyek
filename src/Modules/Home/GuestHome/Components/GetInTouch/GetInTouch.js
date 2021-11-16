@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Alert } from "antd";
 import "./GetInTouch.css";
+import { ContactUs } from "../../../network";
 function GetInTouch() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [email, setEmail] = useState("");
@@ -17,15 +18,36 @@ function GetInTouch() {
     if (!name || !mobile || !msg) {
       setAlert(true);
       setFailAlert(true);
-      setTimeout(() => {
-        setFailAlert(false);
-      }, 3000);
+      // setTimeout(() => {
+      //   setFailAlert(false);
+      // }, 3000);
     } else {
+      setFailAlert(false);
       setSuccesAlert(true);
+      setAlert(false)
       setTimeout(() => {
         setSuccesAlert(false);
-      }, 3000);
-      console.log(email, name, msg, mobile);
+      }, 5000);
+      const body = {
+        name: name,
+        mobile:mobile,
+        message:msg,
+        email:email
+      };
+      ContactUs(
+        body,
+        (success) =>{
+          console.log(success.data)
+          if(success.data){
+            setName("")
+            setEmail("")
+            setMobile("")
+            setMsg("")
+          }
+        },
+        (fail) => console.log(fail),
+        false
+      );
     }
   };
 
@@ -45,7 +67,7 @@ function GetInTouch() {
                 />{" "}
               </>
             )}
-            {failAlert && (
+            {failAlert &&(!name||!mobile||!msg)&& (
               <Alert
                 message={currentLocal.home.yourMessageSentnotSuccessfully}
                 type="error"

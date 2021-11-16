@@ -54,3 +54,7 @@ export const postRFQ = (data, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/RFQ/GetSupplierAndContractorEmails`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
+export const ContactUs = (data, onSuccess, onFail, reqAuth = true) => {
+	const path = `api/Account/ContactUs`;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};

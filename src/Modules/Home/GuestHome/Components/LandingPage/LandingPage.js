@@ -2,46 +2,35 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Navbar from "../../../../Common/Navbar/Navbar";
-import {searchCompany} from "../../../network"
+import { searchCompany } from "../../../network";
+import { Rate } from 'rsuite';
 import SearchShayyek from "../../../../../Resources/Assets/Search Shayyek.svg";
 import "./LandingPage.css";
 function LandingPage() {
   const [searchWord, setSearchWord] = useState("");
+  const [searchList, setSearchList] = useState([]);
+  const [searshResult, setSearshResult] = useState(false);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
 
   const SearchFun = (e) => {
     setSearchWord(e.target.value);
-     searchCompany(
+    searchCompany(
       currentLanguageId,
       searchWord,
       (success) => {
+        setSearshResult(true);
         console.log(success.data);
-        // setCompaniesName(success.data);
+        setSearchList(success.data);
       },
       (fail) => {},
       false
     );
-  }
-  // function onSelectChange(optionId, selectedOption) {
-  //   let filteredOptions = options;
-  //   let optionSelected = selectedOptions;
+  };
 
-  //   filteredOptions = options.filter((option) => option.value !== optionId);
-
-  //   updateOptions(filteredOptions);
-
-  //   optionSelected.push(selectedOption);
-  //   updateSelectedOptions(optionSelected);
-  // }
-  // const [searchWord, setSearchWord] = useState("");
   useEffect(() => {
     localStorage.setItem("landingPage", LandingPage);
   }, []);
-  // const handleSearch = (e) => {
-  //   console.log(e.target.value);
-  //   setSearchWord(e.target.value);
-  //   console.log(searchWord);
-  // };
+
   return (
     <>
       <div className="overlay"></div>
@@ -65,27 +54,34 @@ function LandingPage() {
             </Col>
           </Row>
           <Row>
-            <Col md={6} xs={12}>
-              <div className="search w-100">
-                <div className="d-flex align-items-center">
-                  <input
-                    type="search"
-                    value={searchWord}
-                    onChange={SearchFun}
-                  />
-         
-
-
-
-         
-                </div>
-                <img
-                  src={SearchShayyek}
-                  alt="SearchShayyek"
-                  className="SearchShayyek"
-                />
+            <div className="search w-100">
+              <div className="">
+                <input type="search" value={searchWord} onChange={SearchFun} />
               </div>
-            </Col>
+              <img
+                src={SearchShayyek}
+                alt="SearchShayyek"
+                className="SearchShayyek"
+              />
+              {searshResult && (
+                <div className="searchResult">
+                  {searchList.map((search) => {
+                    console.log(search);
+                    return (
+                      <div style={{ background: "red" }} key={search.id}>
+                        <Row>
+                          <Col md={8} xs={8}>
+                            <p className="mx-3"> {search.name}</p>
+                          </Col>
+                          <Col md={4} xs={4}>
+                          <Rate readOnly defaultValue={2.5} allowHalf />                          </Col>
+                        </Row>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </Row>
           <Row className="liveBoxContainer">
             <Col md={6} xs={12}>
