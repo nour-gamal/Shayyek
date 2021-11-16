@@ -17,7 +17,7 @@ function CreateRFQ() {
 	const [categoriesOption, setCategoriesOption] = useState([]);
 	const [dataSource, updateDataSource] = useState([]);
 	const [allCategoryName, setAllCategoryName] = useState(null);
-	const [deliveredTo, updateDeliveredTo] = useState("");
+	const [deliveredTo, updateDeliveredTo] = useState("a9c83c89-4aeb-46b8-b245-a144276d927f");
 	const [alert, setAlert] = useState(false);
 	const [selectedRow, updateSelectedRow] = useState(null);
 	const [address, updateAddress] = useState("");
@@ -26,7 +26,7 @@ function CreateRFQ() {
 	const [loading, setLoading] = useState(false);
 	const [newItemAdded, updateItemAdded] = useState(false);
 	const [isModalVisible, toggleModal] = useState(false);
-	const [containAnyCategory, updateContainCategory] = useState(false);
+	const [notContainCategory, updateNotContainCategory] = useState(false);
 	const [installAll, updateInstallAll] = useState(false);
 	const [deliveredToOptions, updateDeliveryOptions] = useState([]);
 	const [modalType, updateModalType] = useState("post");
@@ -134,8 +134,10 @@ function CreateRFQ() {
 		updateModalType("post");
 
 		dataSource.forEach((data) => {
-			if (data.categories !== undefined) {
-				updateContainCategory(true);
+			if (data.categories === undefined) {
+				updateNotContainCategory(true);
+			} else {
+				updateNotContainCategory(false);
 			}
 		});
 
@@ -143,7 +145,7 @@ function CreateRFQ() {
 			address.length === 0 ||
 			recievingOffersDate === null ||
 			deliveryDate === null ||
-			!containAnyCategory
+			notContainCategory
 		) {
 			setAlert(true);
 		} else {
@@ -464,7 +466,7 @@ function CreateRFQ() {
 							onChange={(optionId, record) => {
 								changeCategoryForAll(optionId, record.children);
 							}}
-							className={!containAnyCategory ? "alertSign" : ""}
+							className={notContainCategory ? "alertSign" : ""}
 						>
 							{categoriesOption.map((category, key) => {
 								return (
