@@ -4,11 +4,7 @@
   background-attachment: bottom;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  /* background: url("../../../../../Resources/Assets/AdobeStock_63818065_Preview.png") no-repeat center center; 
--webkit-background-size: cover;
--moz-background-size: cover;
--o-background-size: cover;
-background-size: cover; */
+
 }
 .overlay {
   position: absolute;
