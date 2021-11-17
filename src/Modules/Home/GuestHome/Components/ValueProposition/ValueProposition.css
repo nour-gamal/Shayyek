@@ -8,6 +8,7 @@
     padding-bottom: 42px;
     
 }
+
 .valueProposition .cardContainer
 {
     background-color: #003B6B;
@@ -34,4 +35,24 @@
     .valueProposition h1{
         margin-left: 12px;
     }
+
   }
+  @media  (min-width: 768px) and (max-width: 991px) {
+
+    .valueProposition .cardContainer
+    {
+        margin-left: 29px;
+        margin-bottom: 20px;
+        width: 90%;
+        min-height: 550px;
+    }
+
+/* .valueProposition .cardSection
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+} */
+  } 

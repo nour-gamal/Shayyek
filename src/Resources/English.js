@@ -147,6 +147,14 @@ export const en = {
 		addEmail: "Add email",
 	},
 	home: {
+		shayek:"Shayyek",
+		live:"Live",
+		today:"Today",
+		Updated:"Stock Availability Last Updated" ,
+		optimizingProcurement:"Optimizing Procurement . ",
+		verifiedConnectedStreamlined:"Verified, Connected, Streamlined",
+		procurementManagement:"Procurement Management .",
+
 		email: "E-mail",
 		name: "Name",
 		mobile: "Mobile Number",

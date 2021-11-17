@@ -23,10 +23,10 @@ function Navbarr({ navState, verifayState, transparent }) {
 			expand="lg"
 			className={
 				transparent
-					? "transparent f-14 ppl ppr"
+					? "transparent f-14 ppl ppr "
 					: navState
-					? "light f-14 ppl ppr"
-					: "dark f-14 ppl ppr"
+					? "light f-14 ppl ppr "
+					: "dark f-14 ppl ppr "
 			}
 			variant={"dark"}
 			collapseOnSelect={true}
