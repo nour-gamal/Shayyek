@@ -19,8 +19,14 @@ function LandingPage() {
       currentLanguageId,
       e.target.value,
       (success) => {
+
+        if(success.data.length === 0){
+        setSearshResult(false);
+      }else{
         setSearshResult(true);
-        console.log(success.data);
+
+      }
+        console.log(success.data.length===0);
         setSearchList(success.data);
       },
       (fail) => {},
@@ -65,8 +71,10 @@ function LandingPage() {
             </Col>
           </Row>
           <Row>
-            <div className="search w-100">
-              <div className="">
+            <div  
+            className="search w-100"
+            >
+              <div >
                 <input type="search" value={searchWord} onChange={SearchFun} />
               </div>
               <img
@@ -80,7 +88,7 @@ function LandingPage() {
             <Col md={6} xs={12}>
               <Row>
                 <Col md={6} xs={12}>
-                  <div className="button">
+                  <div className={currentLocal.language === "العربيه" ? "btnArb button":"button"}>
                     <button className="button-primary f-21  fw-bold">
                       {currentLocal.home.live}
                     </button>
