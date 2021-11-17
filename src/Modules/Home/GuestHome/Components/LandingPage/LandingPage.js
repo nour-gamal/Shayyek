@@ -11,7 +11,6 @@ function LandingPage() {
   const [searchWord, setSearchWord] = useState("");
   const [searchList, setSearchList] = useState([]);
   const [searshResult, setSearshResult] = useState(false);
-  const [name, setName] = useState("");
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
 
   const SearchFun = (e) => {
