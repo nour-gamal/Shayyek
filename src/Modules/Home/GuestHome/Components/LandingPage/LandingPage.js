@@ -11,13 +11,14 @@ function LandingPage() {
   const [searchWord, setSearchWord] = useState("");
   const [searchList, setSearchList] = useState([]);
   const [searshResult, setSearshResult] = useState(false);
+  const [name, setName] = useState("");
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
 
   const SearchFun = (e) => {
     setSearchWord(e.target.value);
     searchCompany(
       currentLanguageId,
-      searchWord,
+      e.target.value,
       (success) => {
         setSearshResult(true);
         console.log(success.data);
@@ -117,6 +118,7 @@ function LandingPage() {
               })}
             </div>
           )}
+
         </Container>
       </div>
     </>
