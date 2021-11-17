@@ -102,9 +102,9 @@ function LandingPage() {
             <div className="searchResult">
               {searchList.map((search) => {
                 return (
-                  <div style={{ background: "red" }} key={search.id}>
+                  <div  key={search.id} className="searchResultBox">
                     <Row>
-                      <Col md={6} xs={12}>
+                      <Col md={8} xs={8}>
                         <p className="mx-3"> {search.name}</p>
                       </Col>
 
