@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Navbar from "../../../../Common/Navbar/Navbar";
+import logo from "../../../../../Resources/Assets/no-profile-img-240x300.gif"
 import { searchCompany } from "../../../network";
+import StarsRating from "stars-rating";
 // import { Rate } from "rsuite";
 import SearchShayyek from "../../../../../Resources/Assets/Search Shayyek.svg";
 import "./LandingPage.css";
@@ -19,14 +21,12 @@ function LandingPage() {
       currentLanguageId,
       e.target.value,
       (success) => {
-
-        if(success.data.length === 0){
-        setSearshResult(false);
-      }else{
-        setSearshResult(true);
-
-      }
-        console.log(success.data.length===0);
+        if (success.data.length === 0) {
+          setSearshResult(false);
+        } else {
+          setSearshResult(true);
+        }
+        console.log(success.data.length === 0);
         setSearchList(success.data);
       },
       (fail) => {},
@@ -71,11 +71,9 @@ function LandingPage() {
             </Col>
           </Row>
           <Row>
-            <div  
-            className="search w-100"
-            >
-              <div >
-                <input type="search" value={searchWord} onChange={SearchFun} />
+            <div className="search w-100">
+              <div>
+                <input type="search" value={searchWord} onChange={SearchFun}  className={searshResult&&"selectInput"}/>
               </div>
               <img
                 src={SearchShayyek}
@@ -88,7 +86,13 @@ function LandingPage() {
             <Col md={6} xs={12}>
               <Row>
                 <Col md={6} xs={12}>
-                  <div className={currentLocal.language === "العربيه" ? "btnArb button":"button"}>
+                  <div
+                    className={
+                      currentLocal.language === "العربيه"
+                        ? "btnArb button"
+                        : "button"
+                    }
+                  >
                     <button className="button-primary f-21  fw-bold">
                       {currentLocal.home.live}
                     </button>
@@ -109,15 +113,24 @@ function LandingPage() {
           {searshResult && (
             <div className="searchResult">
               {searchList.map((search) => {
+   
                 return (
-                  <div  key={search.id} className="searchResultBox">
+                  <div key={search.id} className="searchResultBox mb-3">
                     <Row>
-                      <Col md={8} xs={8}>
-                        <p className="mx-3"> {search.name}</p>
+                      <Col md={8} xs={8} className="companyInfo">
+                        <img  src={logo} alt={logo}className="rounded-circle" />
+                        <p className="searchName"> {search.name}</p>
                       </Col>
 
                       <Col md={4} xs={4}>
-                        {/* <Rate readOnly defaultValue={2.5} allowHalf />{" "} */}
+                        <StarsRating
+                          count={5}
+                          value={search.rate}
+                          size={24}
+                          color2={"#ffd700"}
+                          edit={false}
+                          className="stars"
+                        />
                       </Col>
                     </Row>
                   </div>
@@ -125,7 +138,6 @@ function LandingPage() {
               })}
             </div>
           )}
-
         </Container>
       </div>
     </>
