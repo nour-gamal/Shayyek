@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Checkbox } from "antd";
 import SelectSearch from "react-select-search";
 import { useSelector } from "react-redux";
+import { Alert } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import AddEmailModal from "../AddEmailModal/AddEmailModal";
 import Fuse from "fuse.js";
@@ -134,7 +135,7 @@ function PostRFQModal({
 	}
 	function handleSubmit() {
 		if (modalType === "post") {
-			if (projectName.length > 0) {
+			if (projectName.length > 0 && (publishToRelevent || invited.length > 0)) {
 				const invitedEmails = [];
 				const ccEmails = [];
 				invited.forEach((email) => {
@@ -186,10 +187,18 @@ function PostRFQModal({
 		>
 			<div className="modal-container">
 				<div>
+					{alert && !publishToRelevent && invited.length === 0 && (
+						<Alert variant={"danger"} className="ext-center">
+							* {currentLocal.buyerHome.postRFQAlert}
+						</Alert>
+					)}
 					{modalType === "post" && (
 						<div className="my-2 d-flex projectNameContainer">
 							<label className="primary-color mx-2">
-								{currentLocal.buyerHome.projectName}
+								{currentLocal.buyerHome.projectName}{" "}
+								{alert && projectName.length === 0 && (
+									<span className="text-red">*</span>
+								)}
 							</label>
 							<input
 								type="text"

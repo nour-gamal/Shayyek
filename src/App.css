@@ -99,6 +99,9 @@ section {
 .alertSign {
 	border: 1px solid red !important;
 }
+.text-red {
+	color: red;
+}
 
 .cursorPointer {
 	cursor: pointer;
