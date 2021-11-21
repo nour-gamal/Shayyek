@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import Routes from "./Routes";
 import { useSelector, useDispatch } from "react-redux";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { getMessaging, getToken } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
 import { login } from "./Redux/Authorization";
 import { GetLanguages } from "./Network";
-//import { logout } from "./Redux/Authorization";
 import { changeLocal } from "./Redux/Localization";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
@@ -36,10 +35,6 @@ function App() {
 
 	initializeApp(firebaseConfig);
 
-	const messaging = getMessaging();
-	onMessage(messaging, (payload) => {
-		console.log("Message received. ", payload);
-	});
 	useEffect(() => {
 		const messaging = getMessaging();
 
@@ -49,10 +44,7 @@ function App() {
 		})
 			.then((currentToken) => {
 				if (currentToken) {
-					// Send the token to your server and update the UI if necessary
-					// ...
-					dispatch(login(currentToken));
-					console.log(currentToken);
+					dispatch(login({ deviceToken: currentToken }));
 				} else {
 					// Show permission request UI
 					console.log(

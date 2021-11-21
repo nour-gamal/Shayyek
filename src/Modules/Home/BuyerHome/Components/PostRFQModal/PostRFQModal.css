@@ -38,9 +38,10 @@
 	margin-top: 20px;
 }
 .postRFQModal .projectNameContainer input {
-	width: 64%;
-	margin: 0 49px;
+	width: 63%;
+	margin-left: 5%;
 }
+
 /*Start Select Styles*/
 
 .select-search {
@@ -261,7 +262,7 @@
 /*End Select Styles*/
 
 /* FAFAFA */
-@media (max-width: 768px) {
+@media (max-width: 991px) {
 	.checkbox-area > div:first-of-type {
 		flex-direction: column;
 		padding: 20px;

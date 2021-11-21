@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Checkbox } from "antd";
 import SelectSearch from "react-select-search";
 import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import AddEmailModal from "../AddEmailModal/AddEmailModal";
 import Fuse from "fuse.js";
 import {
@@ -21,6 +22,7 @@ function PostRFQModal({
 	deadlineDate,
 	deliveredTo,
 	rfqDetails,
+	address,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
@@ -30,6 +32,7 @@ function PostRFQModal({
 	const [revealPrice, updateRevealPrice] = useState(false);
 	const [options, updateOptions] = useState([]);
 	const [alert, setAlert] = useState(false);
+	const [redirect, setRedirect] = useState(false);
 	const [projectName, changeProjectName] = useState("");
 	const [ccCollugues, updateCcCollugues] = useState([]);
 	const [isEmailModVisible, toggleEmailModal] = useState(false);
@@ -143,7 +146,7 @@ function PostRFQModal({
 				const data = {
 					isPublishToSuppliersNetwork: publishToRelevent,
 					isRevealPricesToBidders: revealPrice,
-					address: revealPrice,
+					address: address,
 					deadlineDate,
 					deliveryDate,
 					deliveryToId: deliveredTo,
@@ -162,13 +165,17 @@ function PostRFQModal({
 						console.log(fail);
 					}
 				);
-				onCancel();
+				setRedirect(true);
+				// onCancel();
 			} else {
 				setAlert(true);
 			}
 		} else {
 			onCancel();
 		}
+	}
+	if (redirect) {
+		return <Redirect to="/hom" />;
 	}
 	return (
 		<Modal

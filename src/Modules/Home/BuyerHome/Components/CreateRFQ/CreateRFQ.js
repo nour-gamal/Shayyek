@@ -17,7 +17,9 @@ function CreateRFQ() {
 	const [categoriesOption, setCategoriesOption] = useState([]);
 	const [dataSource, updateDataSource] = useState([]);
 	const [allCategoryName, setAllCategoryName] = useState(null);
-	const [deliveredTo, updateDeliveredTo] = useState("a9c83c89-4aeb-46b8-b245-a144276d927f");
+	const [deliveredTo, updateDeliveredTo] = useState(
+		"a9c83c89-4aeb-46b8-b245-a144276d927f"
+	);
 	const [alert, setAlert] = useState(false);
 	const [selectedRow, updateSelectedRow] = useState(null);
 	const [address, updateAddress] = useState("");
@@ -110,7 +112,7 @@ function CreateRFQ() {
 				item: "",
 				notes: "",
 				description: "",
-				quantity: 0,
+				quantity: 1,
 				unit: "",
 				preferredBrands: "",
 				includeInstallation: false,
@@ -240,7 +242,8 @@ function CreateRFQ() {
 											description: name[index.description],
 											unit: name[index.unit],
 											quantity:
-												typeof name[index.quantity] === "string"
+												typeof name[index.quantity] === "string" ||
+												name[index.quantity] === undefined
 													? 1
 													: name[index.quantity],
 											includeInstallation: false,
@@ -257,6 +260,22 @@ function CreateRFQ() {
 	};
 
 	useEffect(() => {
+		const key = Math.ceil(Math.random() * 999999999);
+		let data = [];
+		for (let index = 0; index <= 4; index++) {
+			data.push({
+				key,
+				item: "",
+				notes: "",
+				description: "",
+				quantity: 1,
+				unit: "",
+				preferredBrands: "",
+				includeInstallation: false,
+			});
+		}
+		updateDataSource(data);
+
 		getCategories(
 			currentLanguageId,
 			(success) => {
@@ -594,6 +613,7 @@ function CreateRFQ() {
 						deliveryDate={deliveryDate}
 						deliveredTo={deliveredTo}
 						rfqDetails={dataSource}
+						address={address}
 					/>
 				</div>
 			</div>
