@@ -14,3 +14,18 @@
 .homeByer .btn-danger{
     width: 188px;
 }
+.homeByer .invitations
+{
+    display: flex;
+flex-direction: row;
+justify-content: space-between;
+margin-right: 40px;
+}
+.homeByer img{
+    width: 15.23px;
+}
+.homeByer .RFQinvitations
+{
+    display: flex;
+    flex-direction: row;
+}
