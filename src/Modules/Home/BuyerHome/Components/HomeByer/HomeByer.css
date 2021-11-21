@@ -20,12 +20,44 @@
 flex-direction: row;
 justify-content: space-between;
 margin-right: 40px;
+margin-top: 29px;
+margin-bottom: 29px;
 }
 .homeByer img{
     width: 15.23px;
+    height: 20px;
+    margin-right: 20px;
 }
 .homeByer .RFQinvitations
 {
     display: flex;
     flex-direction: row;
+margin-top: 25px;
+}
+.homeByer .RFQinvitations p
+{
+    color:#707070;
+}
+.homeByer .number p{
+    background-color: red;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10px;
+}
+.homeByer .projects
+{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.homeByer .company .logo
+{
+margin: auto;
+text-align: center;
+border-bottom: 1px gainsboro solid;
+width: 100%;
+
+}
+.homeByer .companyCard
+{
+    padding: 0;
 }
