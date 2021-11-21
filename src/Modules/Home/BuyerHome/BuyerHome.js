@@ -5,6 +5,7 @@ function BuyerHome() {
 	return (
 		<div>
 			<CreateRFQ />
+
 		</div>
 	);
 }

@@ -1,0 +1,16 @@
+.homeByer
+{
+    display: flex;
+    flex-direction: row;
+}
+.homeByer .CompanyContainer
+{
+    width: 75%;
+}
+.homeByer .projectContainer
+{
+    width: 25%;
+}
+.homeByer .btn-danger{
+    width: 188px;
+}
