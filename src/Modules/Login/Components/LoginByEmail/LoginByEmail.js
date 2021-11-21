@@ -18,6 +18,7 @@ function LoginByEmail() {
 	const [alert, setAlert] = useState("");
 	const [password, setPassword] = useState("");
 	const [redirect, setRedirect] = useState(false);
+	console.log(deviceToken);
 	const sendData = (e) => {
 		e.preventDefault();
 		if (!email || !password) {

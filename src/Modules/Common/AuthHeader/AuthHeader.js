@@ -11,12 +11,9 @@ function AuthHeader({ title, showState, onSelectUserType,sendDataToParent,alert,
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [item, setItem] = useState("");
-  // const [toggleState, setToggleState] = useState(false)
   const [userType, setUserType] = useState([]);
-  // const [emptyCampanyName, setEmptyCampanyName] = useState(false)
   const dispatch = useDispatch();
-  // const [buyer, setBuyer] = useState("");
-  // console.log(emptyCampanyName);
+console.log(currentLanguageId);
   const menu = (
     <Menu>
       {userType.map((user) => {
@@ -52,6 +49,7 @@ function AuthHeader({ title, showState, onSelectUserType,sendDataToParent,alert,
     GetUserTypes(
       currentLanguageId,
       (success) => {
+        console.log(success);
         setUserType(success.data);
       },
       (fail) => {},

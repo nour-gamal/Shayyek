@@ -29,8 +29,7 @@ function Routes() {
 						}}
 					/>
 					<Route path="/suppliers" render={() => <Suppliers />} />
-					{/* <Route path="/login" render={() => <Login />} /> */}
-					{/* <Route path="/forgetpassword" render={() => <ForgetPassword />} /> */}
+			
 					<Route
 						path="/supplier/:id"
 						render={(props) => <Products {...props} />}

@@ -21,7 +21,7 @@ function LandingPage() {
       currentLanguageId,
       e.target.value,
       (success) => {
-        if (success.data.length === 0) {
+        if (success.data===null) {
           setSearshResult(false);
         } else {
           setSearshResult(true);

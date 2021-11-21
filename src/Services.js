@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://192.175.123.213:9000/";
+const baseUrl = "http://ec2-54-194-113-34.eu-west-1.compute.amazonaws.com:8080/";
 
 const token =
 	localStorage.getItem("persist:root") &&
@@ -53,8 +53,7 @@ export const GetResource = (path, onSuccess, onFail, reqAuth = true) => {
 		})
 		.catch((error) => {
 			onFail(error.response);
-			if (error.response.status === 401) {
-				localStorage.setItem("logout", true);
-			}
+			console.log(error);
+	
 		});
 };
