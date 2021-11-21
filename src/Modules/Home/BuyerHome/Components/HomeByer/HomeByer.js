@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import StarsRating from "stars-rating";
+import { Dropdown, Menu } from "antd";
+import view from "../../../../../Resources/Assets/View.svg";
+import hoveringView from "../../../../../Resources/Assets/hoveringView.svg";
 import research from "../../../../../Resources/Assets/research@2x.png";
+import HoveringRegectEmp from "../../../../../Resources/Assets/HoveringRegectEmp.svg";
+import RejectEmp from "../../../../../Resources/Assets/RejectEmp.svg";
 import "./HomeByer.css";
 function HomeByer() {
+  const [hoverState, setHover] = useState(false);
+  const [hoverId, setHoverId] = useState();
+
   const companies = [
     {
       img: "",
@@ -84,6 +92,60 @@ function HomeByer() {
       comanyddress: "fff",
     },
   ];
+  const menu = (
+    <Menu>
+      <Menu.Item key="0" className="View">
+        <img
+          src={hoverState && hoverId === "1" ? hoveringView : view}
+          alt="View"
+        />
+        <span
+          id="1"
+          className="acceptOffer"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onMouseMove={(e) => setHoverId(e.target.id)}
+        >
+          View Offers
+        </span>
+      </Menu.Item>
+      ,
+      <Menu.Item key="0" className="View">
+        <img
+          src={hoverState && hoverId === "1" ? HoveringRegectEmp : RejectEmp}
+          alt="View"
+        />
+        <span
+          id="1"
+          className="acceptOffer"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onMouseMove={(e) => setHoverId(e.target.id)}
+        >
+          View Offers
+        </span>
+      </Menu.Item>
+      ,
+      <Menu.Item
+        key="2"
+        // className={currentLocal.language !== "English" && "delete"}
+      >
+        <img
+          src={hoverState && hoverId === "3" ? HoveringRegectEmp : RejectEmp}
+          alt="RejectEmp"
+        />
+        <span
+          className="delete"
+          id="3"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onMouseMove={(e) => setHoverId(e.target.id)}
+        >
+          delete
+        </span>
+      </Menu.Item>
+    </Menu>
+  );
   return (
     <div className="homeByer">
       <div className="CompanyContainer">
@@ -103,7 +165,7 @@ function HomeByer() {
                       <div className="logo">
                         <img src={company.img} alt="logo" />
                       </div>
-                  
+
                       <StarsRating
                         count={5}
                         // value={search.rate}
@@ -134,8 +196,14 @@ function HomeByer() {
           </div>
         </div>
         <div className="projects">
-
-          <h5>Projects</h5>
+          <h5>
+            Projects
+            <Dropdown.Button
+              overlay={menu}
+              trigger={["click"]}
+              onClick={(e) => e.preventDefault()}
+            ></Dropdown.Button>
+          </h5>
         </div>
       </div>
     </div>
