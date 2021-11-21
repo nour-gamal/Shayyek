@@ -68,7 +68,18 @@
 	align-items: center;
 	flex-direction: row;
 }
+.transparent .navbar-nav {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: row;
+}
 .dark .loginNavbar {
+	display: flex;
+	justify-content: flex-end;
+}
+.transparent .loginNavbar {
 	display: flex;
 	justify-content: flex-end;
 }
@@ -78,7 +89,15 @@
 	padding-right: 16px !important;
 	padding-left: 15px !important;
 }
+.transparent .loginNavbar .registration {
+	border-right: 1px solid #ddd;
+	padding-right: 16px !important;
+	padding-left: 15px !important;
+}
 .dark .navbar-nav .nav-link {
+	color: #fff !important;
+}
+.transparent .navbar-nav .nav-link {
 	color: #fff !important;
 }
 
@@ -98,6 +117,9 @@
 }
 
 .navbar img.langIcon {
+	filter: brightness(300%);
+}
+.transparent img.langIcon {
 	filter: brightness(300%);
 }
 .navbar-dark .navbar-toggler {

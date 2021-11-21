@@ -37,7 +37,8 @@ function LandingPage() {
   useEffect(() => {
     localStorage.setItem("landingPage", LandingPage);
   }, []);
-
+console.log(searchWord&&!searshResult);
+console.log(setSearchWord);
   return (
     <>
       <div className="overlay"></div>
