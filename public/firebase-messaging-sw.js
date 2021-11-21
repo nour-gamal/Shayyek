@@ -1,10 +1,25 @@
-if ("serviceWorker" in navigator) {
-	navigator.serviceWorker
-		.register("../firebase-messaging-sw.js")
-		.then(function (registration) {
-			console.log("Registration successful, scope is:", registration.scope);
-		})
-		.catch(function (err) {
-			console.log("Service worker registration failed, error:", err);
-		});
-}
+import { getMessaging, getToken } from "firebase/messaging";
+
+// Get registration token. Initially this makes a network call, once retrieved
+// subsequent calls to getToken will return from cache.
+const messaging = getMessaging();
+getToken(messaging, {
+	vapidKey:
+		"BHH-6zNNTm-rC6X7rfazhJlDc4HnCYhoEjN-A4qCuoDwiNUkoORYqd25nBMPm4WMMdfW7GTlk6o5eaRROAbn_NQ",
+})
+	.then((currentToken) => {
+		if (currentToken) {
+			// Send the token to your server and update the UI if necessary
+			// ...
+		} else {
+			// Show permission request UI
+			console.log(
+				"No registration token available. Request permission to generate one."
+			);
+			// ...
+		}
+	})
+	.catch((err) => {
+		console.log("An error occurred while retrieving token. ", err);
+		// ...
+	});
