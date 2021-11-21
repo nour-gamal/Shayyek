@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Routes from "./Routes";
 import { useSelector, useDispatch } from "react-redux";
-import { getMessaging, getToken } from "firebase/messaging";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
 import { login } from "./Redux/Authorization";
 import { GetLanguages } from "./Network";
@@ -36,18 +36,23 @@ function App() {
 
 	initializeApp(firebaseConfig);
 
+	const messaging = getMessaging();
+	onMessage(messaging, (payload) => {
+		console.log("Message received. ", payload);
+	});
 	useEffect(() => {
 		const messaging = getMessaging();
+
 		getToken(messaging, {
 			vapidKey:
-				"BHH-6zNNTm-rC6X7rfazhJlDc4HnCYhoEjN-A4qCuoDwiNUkoORYqd25nBMPm4WMMdfW7GTlk6o5eaRROAbn_NQ",
+				"BJ9PKzvyRs-YIlF_A_uL-kYeAUUn2woHVUUtGKKULdqRKaLQHkp2rhh4ybOlP7D9hF_dB9cMrq3Hg5gZrYnLO94",
 		})
 			.then((currentToken) => {
 				if (currentToken) {
 					// Send the token to your server and update the UI if necessary
 					// ...
-					dispatch(login({ deviceToken: currentToken }));
-					console.log(currentToken)
+					dispatch(login(currentToken));
+					console.log(currentToken);
 				} else {
 					// Show permission request UI
 					console.log(
@@ -57,7 +62,7 @@ function App() {
 				}
 			})
 			.catch((err) => {
-				// console.log("An error occurred while retrieving token. ", err);
+				console.log("An error occurred while retrieving token. ", err);
 				// ...
 			});
 
