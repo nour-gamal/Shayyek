@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import StarsRating from "stars-rating";
 import { Dropdown, Menu } from "antd";
@@ -8,11 +8,22 @@ import hoveringView from "../../../../../Resources/Assets/hoveringView.svg";
 import research from "../../../../../Resources/Assets/research@2x.png";
 import HoveringRegectEmp from "../../../../../Resources/Assets/HoveringRegectEmp.svg";
 import RejectEmp from "../../../../../Resources/Assets/RejectEmp.svg";
+import {BuyerRFQ} from "../../../network"
 import "./BuyerHomeComponent.css";
 function BuyerHomeComponent() {
 	const [hoverState, setHover] = useState(false);
 	const [hoverId, setHoverId] = useState();
-
+useEffect(() => {
+	BuyerRFQ(
+		(success) => {
+		console.log(success);
+		
+		},
+		(fail) => {
+			console.log(fail);
+		}
+	);
+}, [])
 	const companies = [
 		{
 			img: "",
