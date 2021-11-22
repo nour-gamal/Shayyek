@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const baseUrl =
 	"http://ec2-54-194-113-34.eu-west-1.compute.amazonaws.com:8080/";
 
@@ -8,26 +7,19 @@ const token =
 	JSON.parse(JSON.parse(localStorage.getItem("persist:root")).authorization)
 		.authorization.token;
 
-export const PostResource = (
-	path,
-	data,
-	onSuccess,
-	onFail,
-	reqAuth = true,
-	formData = false
-) => {
+export function PostResource(path, data, onSuccess, onFail, reqAuth) {
 	const requestData = {
 		method: "post",
 		url: baseUrl + path,
 		headers: {},
 		data,
 	};
-	console.log(formData);
-	if (formData) {
-		requestData.headers = {
-			"content-type": "multipart/form-data",
-		};
-	}
+
+	// if (formData) {
+	// 	requestData.headers = {
+	// 		"content-type": "multipart/form-data",
+	// 	};
+	// }
 
 	if (reqAuth && token) {
 		requestData.headers = {
@@ -46,9 +38,9 @@ export const PostResource = (
 			// 	localStorage.setItem("logout", true);
 			// }
 		});
-};
+}
 
-export const GetResource = (path, onSuccess, onFail, reqAuth = true) => {
+export function GetResource(path, onSuccess, onFail, reqAuth) {
 	const requestData = {
 		method: "get",
 		url: baseUrl + path,
@@ -67,6 +59,11 @@ export const GetResource = (path, onSuccess, onFail, reqAuth = true) => {
 		})
 		.catch((error) => {
 			onFail(error.response);
-			console.log(error);
+			if (error.response.status === 401) {
+				if (localStorage.getItem("persist:root")) {
+					localStorage.removeItem("persist:root");
+					window.location.reload();
+				}
+			}
 		});
-};
+}
