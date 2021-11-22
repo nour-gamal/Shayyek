@@ -33,10 +33,6 @@ export function PostResource(path, data, onSuccess, onFail, reqAuth) {
 		})
 		.catch((err) => {
 			onFail(err.response);
-			// console.log(err);
-			// if (err.response.status === 401) {
-			// 	localStorage.setItem("logout", true);
-			// }
 		});
 }
 

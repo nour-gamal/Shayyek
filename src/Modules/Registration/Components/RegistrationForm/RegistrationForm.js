@@ -505,7 +505,6 @@ function RegistrationForm() {
 				!governmentName ||
 				!checked
 			) {
-        
 				setAlert(true);
 			} else {
 				setAlert(false);
@@ -763,8 +762,11 @@ function RegistrationForm() {
 							<p className="alertMsg">{alert && <>* Please Choose Work</>}</p>
 							<DropdownTreeSelect
 								data={options}
+								onChange={(currentNode, selectedNodes) => {
+									console.log("onChange::", currentNode, selectedNodes);
+								}}
 								searchPredicate={searchPredicate}
-								onChange={onChangeOption}
+								// onChange={onChangeOption}
 								onAction={onAction}
 								onNodeToggle={onNodeToggle}
 								className={

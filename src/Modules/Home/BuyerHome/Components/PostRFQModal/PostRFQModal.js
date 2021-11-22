@@ -175,7 +175,7 @@ function PostRFQModal({
 		}
 	}
 	if (redirect) {
-		return <Redirect to="/hom" />;
+		return <Redirect to="/home" />;
 	}
 	return (
 		<Modal
