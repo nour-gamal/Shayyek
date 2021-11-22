@@ -56,7 +56,7 @@ export const ContactUs = (data, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/Account/ContactUs`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
-export const BuyerRFQ = (data, onSuccess, onFail, reqAuth = true) => {
+export const BuyerRFQ = (onSuccess, onFail, reqAuth = true) => {
 	const path = `api/RFQ/GetBuyerRFQ`;
-	GetResource(path, onSuccess, onFail, (reqAuth = true));
+	GetResource(path, onSuccess, onFail, reqAuth);
 };
