@@ -1,19 +1,33 @@
 import axios from "axios";
 
-const baseUrl = "http://ec2-54-194-113-34.eu-west-1.compute.amazonaws.com:8080/";
+const baseUrl =
+	"http://ec2-54-194-113-34.eu-west-1.compute.amazonaws.com:8080/";
 
 const token =
 	localStorage.getItem("persist:root") &&
 	JSON.parse(JSON.parse(localStorage.getItem("persist:root")).authorization)
 		.authorization.token;
 
-export const PostResource = (path, data, onSuccess, onFail, reqAuth) => {
+export const PostResource = (
+	path,
+	data,
+	onSuccess,
+	onFail,
+	reqAuth = true,
+	formData = false
+) => {
 	const requestData = {
 		method: "post",
 		url: baseUrl + path,
 		headers: {},
 		data,
 	};
+	console.log(formData);
+	if (formData) {
+		requestData.headers = {
+			"content-type": "multipart/form-data",
+		};
+	}
 
 	if (reqAuth && token) {
 		requestData.headers = {
@@ -54,6 +68,5 @@ export const GetResource = (path, onSuccess, onFail, reqAuth = true) => {
 		.catch((error) => {
 			onFail(error.response);
 			console.log(error);
-	
 		});
 };
