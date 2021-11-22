@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { getCompanies } from "../../Network";
 import SupplierCard from "../SupplierCard/SupplierCard";
 import { Link } from "react-router-dom";
 import "./SuppliersGrid.css";
@@ -51,6 +52,17 @@ function CompaniesGrid() {
 			address: "Company Address",
 		},
 	];
+
+	useEffect(() => {
+		getCompanies(
+			(success) => {
+				console.log(success);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	}, []);
 
 	return (
 		<div className="suppliersGrid">
