@@ -13,7 +13,7 @@ import VerifyByEmail from "./Modules/Registration/Components/VerifyByEmail/Verif
 import LoginByMobile from "./Modules/Login/Components/LoginByMobile/LoginByMobile";
 import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
 import ResetPassword from "./Modules/ResetPassword/ResetPassword";
-import HomeByer from "./Modules/Home/BuyerHome/Components/HomeByer/HomeByer";
+import CreateRFQ from "./Modules/Home/BuyerHome/Components/CreateRFQ/CreateRFQ";
 
 function Routes() {
 	const { authorization } = useSelector((state) => state.authorization);
@@ -23,7 +23,6 @@ function Routes() {
 			render={({ location }) => (
 				<Switch location={location}>
 					<Route exact path="/" render={() => <Home />} />
-					<Route  path="/homebuyer" render={() => <HomeByer />} />
 					<Route
 						path="/registration"
 						render={() => {
@@ -31,7 +30,7 @@ function Routes() {
 						}}
 					/>
 					<Route path="/suppliers" render={() => <Suppliers />} />
-			
+
 					<Route
 						path="/supplier/:id"
 						render={(props) => <Products {...props} />}
@@ -70,6 +69,13 @@ function Routes() {
 						path="/resetpassword"
 						render={() => {
 							return isAuth ? <Redirect to="/" /> : <ResetPassword />;
+						}}
+					/>
+
+					<Route
+						path="/createrfq"
+						render={() => {
+							return isAuth ? <CreateRFQ /> : <Redirect to="/" />;
 						}}
 					/>
 				</Switch>

@@ -1,11 +1,9 @@
 import React from "react";
-import CreateRFQ from "./Components/CreateRFQ/CreateRFQ";
-
+import BuyerHomeComponent from "./Components/BuyerHomeComponent/BuyerHomeComponent";
 function BuyerHome() {
 	return (
 		<div>
-			<CreateRFQ />
-
+			<BuyerHomeComponent />
 		</div>
 	);
 }
