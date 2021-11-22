@@ -56,4 +56,17 @@
 }
 .homeByer .companyCard {
 	padding: 0;
+	margin-right:20px ;
+	box-shadow: 0px 1px 3px #00000029 !important;
+}
+@media only screen and (max-width: 768px) {
+	/* .homeByer .CompanyContainer {
+		width: 60%;
+	}
+	.homeByer .projectContainer {
+		width: 40%;
+	} */
+
+}
+@media  (min-width: 768px) and (max-width: 991px) {
 }

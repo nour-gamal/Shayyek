@@ -14,15 +14,16 @@ function BuyerHomeComponent() {
   const [hoverState, setHover] = useState(false);
   const [hoverId, setHoverId] = useState();
   useEffect(() => {
-    // BuyerRFQ(
-    // 	(success) => {
-    // 	console.log(success);
-    // 	},
-    // 	(error) => {
-    // 		console.log(error);
-    // 	},
-    // 	true
-    // );
+    BuyerRFQ(
+	
+    	(success) => {
+    	console.log(success);
+    	},
+    	(error) => {
+    		console.log(error);
+    	},
+    	true
+    );
   }, []);
   const companies = [
     {
@@ -174,7 +175,7 @@ function BuyerHomeComponent() {
             <Row>
               {companies.map((company, i) => {
                 return (
-                  <Col md="3" xs="12" key={i}>
+                  <Col md="3" xs="12" key={i} className="mb-4">
                     <div className="companyCard">
                       <div className="logo py-3">
                         <img src={company.img} alt="logo" />
