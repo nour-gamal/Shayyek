@@ -505,6 +505,7 @@ function RegistrationForm() {
 				!governmentName ||
 				!checked
 			) {
+        
 				setAlert(true);
 			} else {
 				setAlert(false);
