@@ -53,7 +53,6 @@ function PostRFQModal({
 			);
 		} else {
 			getCCEmails(
-				currentLanguageId,
 				authorization.companyId,
 				(success) => {
 					let options = [];

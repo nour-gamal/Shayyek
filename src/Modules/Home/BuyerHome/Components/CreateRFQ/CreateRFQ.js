@@ -262,11 +262,10 @@ function CreateRFQ() {
 	};
 
 	useEffect(() => {
-		const key = Math.ceil(Math.random() * 999999999);
 		let data = [];
 		for (let index = 0; index <= 4; index++) {
 			data.push({
-				key,
+				key: index,
 				item: "",
 				notes: "",
 				description: "",
