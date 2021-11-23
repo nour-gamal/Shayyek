@@ -145,6 +145,15 @@ export const ar = {
 		addEmail: "اضف",
 		postRFQAlert:
 			"من فضلك حدد اسماء الموردين و المقاولين اللي عايز تدعوهم لملء طلب السعر",
+			RFQs:"طلبات الاسعار ",
+			NoOfQuotations:"عدد الاقتباسات",
+			deadline:"معاد التسليم",
+			minPrice:"الحد الادني للسعر",
+			maxPrice:"الحد الاقصي للسعر",
+			edite:"تعديل",
+			viewProfile:"عرض الملف الشخصي",
+			delete:"حذف",
+			addRfq:"اضف عرض سعر جديد"
 	},
 	home: {
 		shayek: "شيّك",

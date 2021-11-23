@@ -1,72 +1,202 @@
 .homeByer {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 .homeByer .CompanyContainer {
-	width: 75%;
+  width: 75%;
 }
 .homeByer .projectContainer {
-	width: 25%;
+  width: 25%;
 }
 .homeByer .btn-danger {
-	width: 188px;
+  width: 188px;
 }
 .homeByer .invitations {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin-right: 40px;
-	margin-top: 29px;
-	margin-bottom: 29px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 40px;
+  margin-top: 29px;
+  margin-bottom: 29px;
+border-bottom: 1px solid #00000029;
+}
+.homeByer .projectContainer{
+	box-shadow: 0px 3px 6px #00000029;
+	opacity: 1;
+	/* padding-left:22px; */
 }
 .homeByer img {
-	width: 15.23px;
-	height: 20px;
-	margin-right: 20px;
+  width: 15.23px;
+  height: 20px;
+  margin-right: 20px;
 }
 .homeByer .RFQinvitations {
-	display: flex;
-	flex-direction: row;
-	margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
 }
-.homeByer .companyInfo
-{
-	padding-left: 28px;
-	padding-top: 17px;
-	padding-bottom: 15px;
+.homeByer .companyInfo {
+  padding-left: 28px;
+  padding-top: 17px;
+  padding-bottom: 15px;
 }
 .homeByer .RFQinvitations p {
-	color: #707070;
+  color: #707070;
+  opacity: 75%;
 }
 .homeByer .number p {
-	background-color: red;
-	padding-left: 15px;
-	padding-right: 15px;
-	border-radius: 10px;
+  background-color: red;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 10px;
 }
 .homeByer .projects {
-	padding-top: 20px;
-	padding-bottom: 20px;
-}
-.homeByer .company .logo {
-	margin: auto;
-	text-align: center;
-	border-bottom: 1px gainsboro solid;
-	width: 100%;
-}
-.homeByer .companyCard {
-	padding: 0;
-	margin-right:20px ;
-	box-shadow: 0px 1px 3px #00000029 !important;
-}
-@media only screen and (max-width: 768px) {
-	/* .homeByer .CompanyContainer {
-		width: 60%;
-	}
-	.homeByer .projectContainer {
-		width: 40%;
-	} */
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 24px;
+  padding-left: 22px;
+  border-bottom: 1px gainsboro solid;
 
 }
-@media  (min-width: 768px) and (max-width: 991px) {
+.homeByer button a
+{
+	color: #fff;
+	opacity: 75%;
+	background-color: #E15A4E;
+	padding: 8px 38px 8px 1px;
+	box-shadow: 0px 3px 6px #00000029;
+border-radius: 5px;
+}
+.homeByer button img
+{
+	margin-left: 38px;
+	margin-right: 12.5px;
+}
+.homeByer .company .logo {
+  margin: auto;
+  text-align: center;
+  border-bottom: 1px gainsboro solid;
+  width: 100%;
+}
+.homeByer .companyCard {
+  padding: 0;
+  margin-right: 20px;
+  box-shadow: 0px 1px 3px #00000029 !important;
+}
+.homeByer .rfqInfo {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+.homeByer .projectName {
+  color: red;
+  display: flex;
+  justify-content: space-between;
+}
+.homeByer .numberOfQuotations,
+.homeByer .deadline {
+  color: #707070;
+}
+
+.homeByer .noOfQuotations,
+.homeByer .deadlineTime {
+  color: #092a44;
+}
+
+.homeByer .maxPrice .redDote {
+  background-color: red;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.homeByer .maxPrice,
+.homeByer .minPrice {
+  color: #092a44;
+  opacity: 75%;
+}
+.homeByer .max-price,
+.homeByer .min-price {
+  color: #092a44;
+  opacity: 100%;
+}
+.homeByer .maxPrice .redDote::before {
+  content: "|";
+  display: inline-block;
+  margin-left: 3px;
+  margin-top: 2px;
+}
+.homeByer .minPrice .blueDote {
+  background-color: #44e501;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.homeByer .ant-btn .anticon {
+  font-size: 25px;
+}
+.homeByer .ant-dropdown-trigger {
+  color: #707070;
+  border: none;
+  box-shadow: none !important;
+  background-color: transparent;
+}
+/* .homeByer .ant-dropdown-trigger
+{
+
+    border: none;
+    box-shadow: none !important;
+    background-color: transparent;
+}
+
+.homeByer .ant-dropdown-trigger:hover
+{
+
+    color:#000;
+}
+.homeByer table .ant-table-row:hover
+{
+    background-color: transparent !important;
+} */
+.homeByer .ant-dropdown-trigger:hover {
+  background-color: transparent;
+}
+.homeByer .ant-dropdown-trigger:active {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+.homeByer .ant-dropdown-trigger:focus {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+.homeByer .ant-btn:active {
+  color: #707070 !important;
+}
+.ant-btn:hover,
+.ant-btn:focus {
+  color: #707070 !important;
+}
+.ant-btn::after {
+  display: none !important;
+  /* border: none !important;
+  box-shadow: none !important;
+  outline: none !important; */
+}
+
+@media only screen and (max-width: 768px) {
+  .homeByer .CompanyContainer {
+    width: 50%;
+  }
+  .homeByer .projectContainer {
+    width: 30%;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
 }

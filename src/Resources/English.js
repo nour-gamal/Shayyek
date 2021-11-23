@@ -147,6 +147,16 @@ export const en = {
 		addEmail: "Add email",
 		postRFQAlert:
 			"Please choose suppliers & contractors you want to share RFQ with.",
+			RFQs:"RFQs",
+			NoOfQuotations:"No. of quotations",
+			deadline:"Deadline",
+			minPrice:"Min Price",
+			maxPrice:"Max Price",
+			edite:"Edite",
+			viewProfile:"View Profile",
+			delete:"Delete",
+			addRfq:"Add New RFQ"
+
 	},
 	home: {
 		shayek: "Shayyek",

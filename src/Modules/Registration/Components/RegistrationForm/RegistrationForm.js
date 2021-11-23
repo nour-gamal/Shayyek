@@ -198,8 +198,8 @@ function RegistrationForm() {
 								CompanyHasAdmin(
 									company.id,
 									(success) => {
-										//console.log(success);
-									},
+										setAdmin(success.data);
+																		},
 									(fail) => {
 										//console.log(fail);
 										// console.log("bye");
@@ -532,7 +532,7 @@ function RegistrationForm() {
 				setAlert(true);
 			} else {
 				setAlert(false);
-				axioFun();
+			
 			}
 		}
 
