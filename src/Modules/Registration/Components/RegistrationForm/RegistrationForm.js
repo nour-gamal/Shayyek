@@ -349,9 +349,7 @@ function RegistrationForm() {
 					setRedirect(true);
 				}
 			},
-			(fail) => console.log(fail),
-			false,
-			true
+			(fail) => console.log(fail)
 		);
 	};
 	const sendData = (e) => {
@@ -536,66 +534,66 @@ function RegistrationForm() {
 			}
 		}
 
-		if (
-			!firstName ||
-			!lastName ||
-			!companyId ||
-			!mobileNumber ||
-			!email ||
-			!password ||
-			!confirmPassword ||
-			// !companyTypeId ||
-			// !companyPhoneNumber ||
-			// fileName === false ||
-			!checked
-		) {
-			setAlert(true);
-		} else {
-			setAlert(false);
-			const body = new FormData();
-			body.append("FirstName", firstName);
-			body.append("LastName", lastName);
-			body.append("MailUser", email);
-			body.append("Password", password);
-			body.append("MobileUser", mobileNumber);
-			body.append("IsWhatsAppNumber", checkedWhatsApp);
-			body.append("FirebaseToken", authorization.deviceToken);
-			body.append("Logo", logoData);
-			body.append("CommercialRecord", fileData);
-			body.append("MailCompany", companyMail);
-			body.append("MobileCompany", companyPhoneNumber);
-			body.append("Website", companyWebsite);
-			body.append("Address", address);
-			body.append("CompanyId", companyId);
+		// if (
+		// 	!firstName ||
+		// 	!lastName ||
+		// 	!companyId ||
+		// 	!mobileNumber ||
+		// 	!email ||
+		// 	!password ||
+		// 	!confirmPassword ||
+		// 	// !companyTypeId ||
+		// 	// !companyPhoneNumber ||
+		// 	// fileName === false ||
+		// 	!checked
+		// ) {
+		// 	setAlert(true);
+		// } else {
+		// 	setAlert(false);
+		// 	const body = new FormData();
+		// 	body.append("FirstName", firstName);
+		// 	body.append("LastName", lastName);
+		// 	body.append("MailUser", email);
+		// 	body.append("Password", password);
+		// 	body.append("MobileUser", mobileNumber);
+		// 	body.append("IsWhatsAppNumber", checkedWhatsApp);
+		// 	body.append("FirebaseToken", authorization.deviceToken);
+		// 	body.append("Logo", logoData);
+		// 	body.append("CommercialRecord", fileData);
+		// 	body.append("MailCompany", companyMail);
+		// 	body.append("MobileCompany", companyPhoneNumber);
+		// 	body.append("Website", companyWebsite);
+		// 	body.append("Address", address);
+		// 	body.append("CompanyId", companyId);
 
-			body.append(roleId && "RoleId", roleId);
+		// 	body.append(roleId && "RoleId", roleId);
 
-			body.append("UserTypeId", userTypeId);
+		// 	body.append("UserTypeId", userTypeId);
 
-			body.append(
-				"AccountTypeId",
-				accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
-			);
+		// 	body.append(
+		// 		"AccountTypeId",
+		// 		accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
+		// 	);
 
-			body.append("CompanyHasData", admin ? true : false);
-			body.append("GovernmentId", governmentId);
-			body.append("CategoryId", categoryId);
-			body.append("SubCategoryId", subCategoryId);
-			body.append("SubSubCategoryId", subSubCategoryId);
-			body.append("CompanyTypeId", companyTypeId);
-			body.append("CategoriesRequest", companyTypeId);
-			register(
-				body,
-				(success) => {
-					if (success.data === true) {
-						localStorage.setItem("mobileNumber", mobileNumber);
-						setRedirect(true);
-					}
-				},
-				(fail) => console.log(fail),
-				false
-			);
-		}
+		// 	body.append("CompanyHasData", admin ? true : false);
+		// 	body.append("GovernmentId", governmentId);
+		// 	body.append("CategoryId", categoryId);
+		// 	body.append("SubCategoryId", subCategoryId);
+		// 	body.append("SubSubCategoryId", subSubCategoryId);
+		// 	body.append("CompanyTypeId", companyTypeId);
+		// 	body.append("CategoriesRequest", companyTypeId);
+		// 	register(
+		// 		body,
+		// 		(success) => {
+		// 			if (success.data === true) {
+		// 				localStorage.setItem("mobileNumber", mobileNumber);
+		// 				setRedirect(true);
+		// 			}
+		// 		},
+		// 		(fail) => console.log(fail),
+		// 		false
+		// 	);
+		// }
 	};
 
 	// const onChangeOption = (e, i) => {

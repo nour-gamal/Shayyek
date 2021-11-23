@@ -53,8 +53,8 @@ export const register = (
 	body,
 	onSuccess,
 	onFail,
-	reqAuth = true,
-	formData = false
+	reqAuth = false,
+	formData = true
 ) => {
 	const path = `api/Account/Register`;
 	PostResource(path, body, onSuccess, onFail, reqAuth, formData);
