@@ -199,7 +199,7 @@ function RegistrationForm() {
 									company.id,
 									(success) => {
 										setAdmin(success.data);
-																		},
+									},
 									(fail) => {
 										//console.log(fail);
 										// console.log("bye");
@@ -530,7 +530,6 @@ function RegistrationForm() {
 				setAlert(true);
 			} else {
 				setAlert(false);
-			
 			}
 		}
 
@@ -914,7 +913,7 @@ function RegistrationForm() {
 						/>
 					</Col>
 					{!(
-						individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin
+						individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && admin
 					) && (
 						<>
 							<Col md={12} xs={24}>
