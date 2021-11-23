@@ -1,100 +1,72 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
+import { Accordion } from "react-bootstrap";
 import { Checkbox } from "antd";
-import { Range } from "rc-slider";
+import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
-
-import "rc-slider/assets/index.css";
 import "./Filter.css";
 function Filter() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const firstUpdate = useRef(true);
-	const [minValue, setMinValue] = useState(20);
-	const [maxValue, setMaxValue] = useState(60);
-	const [qualityFilter, setQualityFilter] = useState([]);
-	const [timeFilter, setTimeFilter] = useState([]);
-	const QualityOptions = [
-		{ label: "Quality 1", value: "QualityLabel1" },
-		{ label: "Quality 2", value: "QualityLabel2" },
-		{ label: "Quality 3", value: "QualityLabel3" },
-	];
-	const timeOptions = [
-		{ label: "Time 1", value: "TimeLabel1" },
-		{ label: "Time 2", value: "TimeLabel2" },
-		{ label: "Time 3", value: "TimeLabel3" },
-	];
-
-	const onChange = (checkedValues, type) => {
-		switch (type) {
-			case "Quality": {
-				setQualityFilter(checkedValues);
-				break;
-			}
-			case "Time": {
-				setTimeFilter(checkedValues);
-				break;
-			}
-			default: {
-				break;
-			}
-		}
+	const [allProducts, toggleAllProducts] = useState(false);
+	const [inStock, toggleInStock] = useState(false);
+	const [count, updateCount] = useState(0);
+	const checkAllProducts = () => {
+		toggleInStock(false);
+		toggleAllProducts(!allProducts);
 	};
 
-	useEffect(() => {
-		if (firstUpdate.current) {
-			firstUpdate.current = false;
-			return;
-		}
+	const checkInStock = () => {
+		toggleAllProducts(false);
+		toggleInStock(!inStock);
+	};
 
-		//Calling filter method
-	}, [qualityFilter, timeFilter, minValue, maxValue]);
 	return (
 		<aside className="suppliersFilter">
-			<h5 className="title f-21">
+			<h5 className="title f-17">
 				{currentLocal.suppliers.suppliersFilter.filter}
 			</h5>
-			<div>
-				<h6 className="sideTitle fw-700">
-					{currentLocal.suppliers.suppliersFilter.quality}
-				</h6>
-				<Checkbox.Group
-					options={QualityOptions}
-					onChange={(checkedValues) => {
-						onChange(checkedValues, "Quality");
-					}}
-				/>
-			</div>
-			<div>
-				<h6 className="sideTitle fw-700">
-					{currentLocal.suppliers.suppliersFilter.time}
-				</h6>
-				<Checkbox.Group
-					options={timeOptions}
-					onChange={(checkedValues) => {
-						onChange(checkedValues, "Time");
-					}}
-				/>
-			</div>
-			<div>
-				<h6 className="sideTitle fw-700">
-					{currentLocal.suppliers.suppliersFilter.price}
-				</h6>
-				<Range
-					defaultValue={[minValue, maxValue]}
-					allowCross={false}
-					trackStyle={[
-						{
-							backgroundColor: "#003B6B",
-						},
-					]}
-					onChange={(range) => {
-						setMinValue(range[0]);
-						setMaxValue(range[1]);
-					}}
-				/>
-				<div className="valuesContainer">
-					<div>{currentLocal.language === "English" ? maxValue : minValue}</div>
-					<div>{currentLocal.language === "English" ? minValue : maxValue}</div>
+
+			<Accordion defaultActiveKey="0">
+				<Accordion.Item eventKey="0">
+					<Accordion.Header>Category</Accordion.Header>
+					<Accordion.Body>
+						<ul className="list-unstyled">
+							<li>option 1</li>
+							<li>option 2</li>
+							<li>option 3</li>
+							<li>option 4</li>
+							<li>option 5</li>
+						</ul>
+					</Accordion.Body>
+				</Accordion.Item>
+			</Accordion>
+			<div className="my-2">
+				<h5 className="f-14">Products</h5>
+				<div className="my-2">
+					<Checkbox onChange={checkAllProducts} checked={allProducts}>
+						All
+					</Checkbox>
 				</div>
+				<div className="my-2">
+					<Checkbox onChange={checkInStock} checked={inStock}>
+						In Stock
+					</Checkbox>
+				</div>
+			</div>
+			<div className="my-2">
+				<h5 className="f-14">Rate</h5>
+
+				<ReactStars
+					count={5}
+					value={count}
+					size={24}
+					activeColor="#ffd700"
+					onChange={(count) => {
+						updateCount(count);
+					}}
+					classNames={
+						currentLocal.language === "English" ? "ltrStars" : "rtlStars"
+					}
+				/>
 			</div>
 		</aside>
 	);
