@@ -55,7 +55,6 @@ function AuthHeader({
 		GetUserTypes(
 			currentLanguageId,
 			(success) => {
-				console.log(success);
 				setUserType(success.data);
 			},
 			(fail) => {},
