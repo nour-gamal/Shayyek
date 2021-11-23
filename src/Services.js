@@ -7,19 +7,18 @@ const token =
 	JSON.parse(JSON.parse(localStorage.getItem("persist:root")).authorization)
 		.authorization.token;
 
-export function PostResource(path, data, onSuccess, onFail, reqAuth) {
+export function PostResource(path, data, onSuccess, onFail, reqAuth, formData) {
 	const requestData = {
 		method: "post",
 		url: baseUrl + path,
 		headers: {},
 		data,
 	};
-
-	// if (formData) {
-	// 	requestData.headers = {
-	// 		"content-type": "multipart/form-data",
-	// 	};
-	// }
+	if (formData) {
+		requestData.headers = {
+			"content-type": "multipart/form-data",
+		};
+	}
 
 	if (reqAuth && token) {
 		requestData.headers = {

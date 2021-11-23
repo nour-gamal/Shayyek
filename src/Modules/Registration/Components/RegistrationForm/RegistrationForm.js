@@ -349,9 +349,7 @@ function RegistrationForm() {
 					setRedirect(true);
 				}
 			},
-			(fail) => console.log(fail),
-			false,
-			true
+			(fail) => console.log(fail)
 		);
 	};
 	const sendData = (e) => {
