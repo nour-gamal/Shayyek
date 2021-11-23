@@ -334,7 +334,7 @@ function RegistrationForm() {
       accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
     );
 
-    body.append("CompanyHasData", admin ? true : false);
+    body.append("CompanyHasData", !admin );
     body.append("GovernmentId", governmentId);
     // body.append("CategoryId", categoryId);
     // body.append("SubCategoryId", subCategoryId);
