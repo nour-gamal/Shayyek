@@ -14,7 +14,7 @@ export function PostResource(path, data, onSuccess, onFail, reqAuth, formData) {
 		headers: {},
 		data,
 	};
-	if (formData) {
+	if (formData && false) {
 		requestData.headers = {
 			"content-type": "multipart/form-data",
 		};
