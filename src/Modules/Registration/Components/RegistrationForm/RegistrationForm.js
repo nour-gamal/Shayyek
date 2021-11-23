@@ -195,6 +195,7 @@ function RegistrationForm() {
                 CompanyHasAdmin(
                   company.id,
                   (success) => {
+					  console.log(success.data);
                     setAdmin(success.data);
                   },
                   (fail) => {
@@ -279,7 +280,7 @@ function RegistrationForm() {
               setRoleName(role.name);
               setRoleId(role.id);
               if (role.name === "Employee") {
-                setAdmin(false);
+                setAdmin(true);
               }
             }}
           >
@@ -746,7 +747,7 @@ function RegistrationForm() {
               </Dropdown>
             </Col>
           )}
-          {individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && admin && (
+          {individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin && (
             <>
               <Col md={12} xs={24}>
                 <p className="alertMsg">
@@ -785,7 +786,7 @@ function RegistrationForm() {
           )}
           {!(
             individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-            admin === false
+            admin === true
           ) && (
             <Col md={12} xs={24} className="work">
               <p className="alertMsg">{alert && <>* Please Choose Work</>}</p>
@@ -944,7 +945,7 @@ function RegistrationForm() {
               }}
             />
           </Col>
-          {individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && admin && (
+          {individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin && (
             <>
               <Col md={12} xs={24} className="companyType">
                 <p className="alertMsg">
@@ -1040,7 +1041,7 @@ function RegistrationForm() {
             buyer === currentLocal.registration.Contractor ||
             buyer === currentLocal.registration.Supplier ||
             individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-            admin === false
+            admin === true 
           ) && (
             <Col md={12} xs={24}>
               <p className="alertMsg">
@@ -1076,7 +1077,7 @@ function RegistrationForm() {
           )}
           {!(
             individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-            admin === false
+            admin === true
           ) && (
             <Col md={12} xs={24}>
               <p className="alertMsg"></p>
@@ -1240,7 +1241,7 @@ function RegistrationForm() {
               </Col>
             </>
           )}
-          {admin !== false && (
+          {admin === false && (
             <Col md={12} xs={24}>
               {/* <p className="alertMsg">
                 {(alert &&
