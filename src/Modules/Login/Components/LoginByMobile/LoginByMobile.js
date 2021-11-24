@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import Navbar from "../../../Common/Navbar/Navbar";
-import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
+// import Navbar from "../../../Common/Navbar/Navbar";
+// import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
 import { loginApi } from "../../network";
-import Footer from "../../../Common/Footer/Footer";
+// import Footer from "../../../Common/Footer/Footer";
 
 import { Link } from "react-router-dom";
 import "./LoginByMobile.css";
-function LoginByMobile() {
+function LoginByMobile({ setSigninByEmail }) {
   // const dispatch = useDispatch();
 
   const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -53,15 +53,14 @@ function LoginByMobile() {
   };
 
   return (
-    <div className="LoginByMobile">
-      <Navbar navState={"light"} />
-      <Container>
-        <AuthHeader title={currentLocal.login.signin} login="login" />
+    <div className="LoginByMobile ppl ppr">
+      {/* <Navbar navState={"light"} /> */}
+      <Container fluid>
+        {/* <AuthHeader title={currentLocal.login.signin} login="login" /> */}
         <form onSubmit={sendData} className="LoginForm">
           <div className="form">
             <div className="w-50">
-    
-                             <p className="errorMsg">
+              <p className="errorMsg">
                 {alert && !mobileNumber && (
                   <>* {currentLocal.login.mobileNumberIsRequired}</>
                 )}
@@ -80,7 +79,7 @@ function LoginByMobile() {
               />
             </div>
             <div className="w-50">
-            <p className="errorMsg">
+              <p className="errorMsg">
                 {alert && !password && (
                   <>* {currentLocal.login.passwordIsRequired}</>
                 )}
@@ -104,10 +103,15 @@ function LoginByMobile() {
                 {currentLocal.login.forgetPassword}
               </Link>
             </div>
-            <div className="loginByMobileLink">
-              <Link to="/loginByEmail" className="f-12">
-                {currentLocal.login.signInWithMobileEmail}
-              </Link>
+            <div
+              className="loginByMobileLink"
+              onClick={() => {
+                setSigninByEmail("signinEmail");
+              }}
+            >
+              {/* <Link to="/loginByEmail" className="f-12"> */}
+              {currentLocal.login.signInWithMobileEmail}
+              {/* </Link> */}
             </div>
           </div>
           <div className="button">
@@ -119,12 +123,12 @@ function LoginByMobile() {
             <span> {currentLocal.login.didHaveAnAcount}</span>
             <span className="mx-2">
               {" "}
-              <Link to="/registration"> {currentLocal.login.registerNow} </Link>
+              <Link to="/registration">{currentLocal.login.registerNow}</Link>
             </span>
           </div>
         </form>
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

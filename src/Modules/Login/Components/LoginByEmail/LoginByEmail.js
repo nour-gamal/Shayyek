@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { login } from "../../../../Redux/Authorization";
 import "./LoginByEmail.css";
 
-function LoginByEmail() {
+function LoginByEmail({signinByEmail}) {
 	const dispatch = useDispatch();
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
@@ -107,10 +107,12 @@ function LoginByEmail() {
 								{currentLocal.login.forgetPassword}
 							</Link>
 						</div>
-						<div className="loginByMobileLink">
-							<Link to="/loginByMobile" className="f-12">
+						<div className="loginByMobileLink" onClick={()=>{
+							signinByEmail("signinMobile")
+						}}>
+							{/* <Link to="/loginByMobile" className="f-12"> */}
 								{currentLocal.login.signInWithMobileNumber}
-							</Link>
+							{/* </Link> */}
 						</div>
 					</div>
 					<div className="button">

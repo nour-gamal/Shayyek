@@ -169,12 +169,28 @@ function BuyerHomeComponent() {
   );
   return (
     <div className="homeByer">
-      <div className="CompanyContainer">
+      <div
+        className={
+          currentLocal.language === "العربيه"
+            ? "arCompanyContainer"
+            : "CompanyContainer"
+        }
+      >
         <Container>
           <button className="btn btn mt-4 mx-4 f-14">
             <Link to="createrfq">
-              <img src={plus} alt="Request_RFQ" />
-              {currentLocal.buyerHome.addRfq}
+              {currentLocal.language === "العربيه" ? (
+                <>
+                  {currentLocal.buyerHome.addRfq}
+
+                  <img src={plus} alt="Request_RFQ" />
+                </>
+              ) : (
+                <>
+                  <img src={plus} alt="Request_RFQ" />
+                  {currentLocal.buyerHome.addRfq}
+                </>
+              )}
             </Link>
           </button>
 
@@ -210,57 +226,77 @@ function BuyerHomeComponent() {
         </Container>
       </div>
       <div className="projectContainer">
-        <div className="invitations px-3">
-          <div className="RFQinvitations">
-            <img src={research} alt="research" />
-            <p className="ml-2 f-17 RFQ">{currentLocal.buyerHome.RFQs}</p>
+        <div className="invitationsContainer">
+          <div
+            className={
+              currentLocal.language === "العربيه"
+                ? "arInvitations px-3"
+                : "invitations px-3"
+            }
+          >
+            <div className="RFQinvitations">
+              <img src={research} alt="research" />
+              <p
+                className={
+                  currentLocal.language === "العربيه"
+                    ? "ml-2 f-17 arRFQ"
+                    : "ml-2 f-17 RFQ"
+                }
+              >
+                {currentLocal.buyerHome.RFQs}
+              </p>
+            </div>
+            <div className="mt-4 number">
+              <p className="text-white">{rfqCount}</p>
+            </div>
           </div>
-          <div className="mt-4 number">
-            <p className="text-white">{rfqCount}</p>
-          </div>
-        </div>
-        {rfqDetails.map((project) => {
-          console.log(project);
-          return (
-            <div className="projects" key={project.rfqHeaderId}>
-              <h5 className="projectName f-14">
-                {project.projectName}
-                <Dropdown.Button
-                  overlay={menu}
-                  trigger={["click"]}
-                  onClick={(e) => e.preventDefault()}
-                ></Dropdown.Button>
-              </h5>
-              <div className="rfqInfo">
-                <div>
-                  <p className="m-0 numberOfQuotations f-12">
-                    {currentLocal.buyerHome.NoOfQuotations}
-                  </p>
-                  <p className="m-0 noOfQuotations f-12">
-                    {project.noOfQuotations}
-                  </p>
-                  <p className="m-0 deadline f-12">
-                    {currentLocal.buyerHome.deadline}
-                  </p>
-                  <p className="m-0 deadlineTime f-12">{project.deadline}</p>
-                </div>
-                <div>
-                  <p className="m-0 maxPrice f-12">
-                    {" "}
-                    <div className="d-inline-block redDote"></div>
-                    {currentLocal.buyerHome.maxPrice}
-                  </p>
-                  <p className="m-0 px-3 max-price f-12">{project.maxPrice}</p>
-                  <p className="m-0 minPrice f-12">
-                    <div className="d-inline-block blueDote"></div>
-                    {currentLocal.buyerHome.minPrice}{" "}
-                  </p>
-                  <p className="m-0 px-3 min-price f-12">{project.minPrice}</p>
+          {rfqDetails.map((project) => {
+            console.log(project);
+            return (
+              <div className="projects" key={project.rfqHeaderId}>
+                <h5 className="projectName f-14">
+                  {project.projectName}
+                  <Dropdown.Button
+                    overlay={menu}
+                    trigger={["click"]}
+                    onClick={(e) => e.preventDefault()}
+                  ></Dropdown.Button>
+                </h5>
+                <div className="rfqInfo">
+                  <div>
+                    <p className="m-0 numberOfQuotations f-12">
+                      {currentLocal.buyerHome.NoOfQuotations}
+                    </p>
+                    <p className="m-0 noOfQuotations f-12 pb-3">
+                      {project.noOfQuotations}
+                    </p>
+                    <p className="m-0 deadline f-12">
+                      {currentLocal.buyerHome.deadline}
+                    </p>
+                    <p className="m-0 deadlineTime f-12">{project.deadline}</p>
+                  </div>
+                  <div>
+                    <p className="m-0 maxPrice f-12">
+                      {" "}
+                      <div className={currentLocal.language==="العربيه"?"d-inline-block arRedDote":"d-inline-block redDote"}></div>
+                      {currentLocal.buyerHome.maxPrice}
+                    </p>
+                    <p className="m-0 px-3 max-price f-12 pb-3">
+                      {project.maxPrice}
+                    </p>
+                    <p className="m-0 minPrice f-12">
+                      <div className={currentLocal.language==="العربيه"?"d-inline-block arBlueDote":"d-inline-block blueDote"}></div>
+                      {currentLocal.buyerHome.minPrice}{" "}
+                    </p>
+                    <p className="m-0 px-3 min-price f-12">
+                      {project.minPrice}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

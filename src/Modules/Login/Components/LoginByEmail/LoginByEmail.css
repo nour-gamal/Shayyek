@@ -139,6 +139,10 @@ height: 59vh;
     text-decoration: none;
 	color: #003b6b;
 }
+.loginByEmail .LoginForm .loginByMobileLink 
+{
+	cursor: pointer;
+}
 @media only screen and (max-width: 768px) {
 	.loginByEmail  .LoginForm .w-50
     {
