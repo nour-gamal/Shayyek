@@ -62,9 +62,12 @@ export const en = {
 		suppliersGrid: {},
 		suppliersFilter: {
 			filter: "Filter",
-			quality: "Quality",
-			time: "Time",
-			price: "Price",
+			category: "Category",
+			location: "Location",
+			products: "Products",
+			all: "All",
+			inStock: "In Stock",
+			rate: "Rate",
 		},
 	},
 	login: {
@@ -147,16 +150,15 @@ export const en = {
 		addEmail: "Add email",
 		postRFQAlert:
 			"Please choose suppliers & contractors you want to share RFQ with.",
-			RFQs:"RFQs",
-			NoOfQuotations:"No. of quotations",
-			deadline:"Deadline",
-			minPrice:"Min Price",
-			maxPrice:"Max Price",
-			edite:"Edite",
-			viewProfile:"View Profile",
-			delete:"Delete",
-			addRfq:"Add New RFQ"
-
+		RFQs: "RFQs",
+		NoOfQuotations: "No. of quotations",
+		deadline: "Deadline",
+		minPrice: "Min Price",
+		maxPrice: "Max Price",
+		edite: "Edite",
+		viewProfile: "View Profile",
+		delete: "Delete",
+		addRfq: "Add New RFQ",
 	},
 	home: {
 		shayek: "Shayyek",

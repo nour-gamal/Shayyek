@@ -18,6 +18,19 @@ function Filter() {
 	const [government, setGovernment] = useState("");
 	const { Option } = Select;
 
+	var treeIcon = document.querySelectorAll(".anticon");
+	if (treeIcon.length > 0) {
+		if (currentLocal.language === "English") {
+			treeIcon.forEach((icon) => {
+				icon.classList.remove("arabicIcon");
+			});
+		} else {
+			treeIcon.forEach((icon) => {
+				icon.classList.add("arabicIcon");
+			});
+		}
+	}
+
 	useEffect(() => {
 		countryList(
 			currentLanguageId,
@@ -153,7 +166,9 @@ function Filter() {
 
 			<Accordion>
 				<Accordion.Item eventKey="0">
-					<Accordion.Header>Category</Accordion.Header>
+					<Accordion.Header>
+						{currentLocal.suppliers.suppliersFilter.category}
+					</Accordion.Header>
 					<Accordion.Body>
 						<Tree
 							checkable
@@ -167,11 +182,13 @@ function Filter() {
 			</Accordion>
 			<Accordion>
 				<Accordion.Item eventKey="0">
-					<Accordion.Header>Location</Accordion.Header>
+					<Accordion.Header>
+						{currentLocal.suppliers.suppliersFilter.location}
+					</Accordion.Header>
 					<Accordion.Body>
 						<Select
 							className="form-control"
-							placeholder={"Location"}
+							placeholder={currentLocal.suppliers.suppliersFilter.location}
 							onChange={(value) => {
 								setGovernment(value);
 							}}
@@ -188,22 +205,27 @@ function Filter() {
 				</Accordion.Item>
 			</Accordion>
 			<div className="my-2 paddingSection">
-				<h5 className="f-14">Products</h5>
+				<h5 className="f-14">
+					{currentLocal.suppliers.suppliersFilter.products}
+				</h5>
 				<div className="my-2">
 					<Checkbox onChange={checkAllProducts} checked={allProducts}>
-						All
+						{currentLocal.suppliers.suppliersFilter.all}
 					</Checkbox>
 				</div>
 				<div className="my-2">
 					<Checkbox onChange={checkInStock} checked={inStock}>
-						In Stock
+						{currentLocal.suppliers.suppliersFilter.inStock}
 					</Checkbox>
 				</div>
 			</div>
 			<div className="my-2 paddingSection">
-				<h5 className="f-14">Rate</h5>
+				<h5 className="f-14">{currentLocal.suppliers.suppliersFilter.rate}</h5>
 
 				<ReactStars
+					classNames={
+						currentLocal.language === "English" ? "ltrStars" : "ltrStars"
+					}
 					count={5}
 					value={count}
 					size={24}
@@ -211,9 +233,6 @@ function Filter() {
 					onChange={(count) => {
 						updateCount(count);
 					}}
-					classNames={
-						currentLocal.language === "English" ? "ltrStars" : "rtlStars"
-					}
 				/>
 			</div>
 		</aside>
