@@ -61,8 +61,8 @@ function LoginByEmail() {
 		return <Redirect to="/" />;
 	}
 	return (
-		<div className="loginByEmail">
-			<Container>
+		<div className="loginByEmail ppl ppr">
+			<Container fluid>
 				<form onSubmit={sendData} className="LoginForm">
 					<div className="form">
 						<div className="w-50">

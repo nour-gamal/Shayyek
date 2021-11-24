@@ -66,7 +66,7 @@ function AuthHeader({
 
 	// }, 100);
 	return (
-		<div className="AuthHeader">
+		<div className="AuthHeader ppl ppr">
 			{alert && !firstName && (
 				<Row>
 					<Alert
