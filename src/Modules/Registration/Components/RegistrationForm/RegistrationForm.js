@@ -36,7 +36,7 @@ function RegistrationForm() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-//   const [workValue, setWorkValue] = useState("");
+  //   const [workValue, setWorkValue] = useState("");
   const [admin, setAdmin] = useState("");
   const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
   const [companyTypes, setCompanyTypes] = useState([]);
@@ -45,9 +45,9 @@ function RegistrationForm() {
   const [companyPhoneNumber, setCompanyPhoneNumber] = useState("");
   const [companiesName, setCompaniesName] = useState([]);
   const [companyMail, setCompanyMail] = useState("");
-//   const [acceptTerms, setAcceptTerms] = useState("");
+  //   const [acceptTerms, setAcceptTerms] = useState("");
   const [checked, toggleChecked] = useState("");
-//   const [countryAlertte, setCountryAlert] = useState(false);
+  //   const [countryAlertte, setCountryAlert] = useState(false);
   const [confirmationState, setConfirmationState] = useState("");
   const [companyWebsite, setcompanyWebsite] = useState("");
   const [companyId, setCompanyId] = useState("");
@@ -61,12 +61,12 @@ function RegistrationForm() {
   const [roleName, setRoleName] = useState("");
   const [accountList, setAccountList] = useState([[]]);
   const [accountId, setAccountId] = useState("");
-//   const [toggleAccountType, setToggleAccountType] = useState("");
+  //   const [toggleAccountType, setToggleAccountType] = useState("");
   const [roleId, setRoleId] = useState("");
   const [userTypeId, setUserTypeId] = useState("");
-//   const [categoryId, setCategoryId] = useState("");
-//   const [subCategoryId, setSubCategoryId] = useState("");
-//   const [subSubCategoryId, setSubSubCategoryId] = useState("");
+  //   const [categoryId, setCategoryId] = useState("");
+  //   const [subCategoryId, setSubCategoryId] = useState("");
+  //   const [subSubCategoryId, setSubSubCategoryId] = useState("");
   const [alert, setAlert] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [logoName, setlogoName] = useState("");
@@ -74,6 +74,8 @@ function RegistrationForm() {
   const [logoData, setLogoData] = useState("");
   const [fileData, setFileData] = useState("");
   const [options, updateOptions] = useState([]);
+  const [foucesItem, setFoucesItem] = useState("");
+
   const showState = true;
   const uploadCompanyLogo = "";
   const commercialRecord = "";
@@ -86,13 +88,13 @@ function RegistrationForm() {
   const toggleValue = (val) => {
     // setToggleAccountType(val);
   };
-//   console.log(
-    
-//     toggleAccountType,
-//     setSubCategoryId,
-//     setSubSubCategoryId,
-//     setCategoryId,
-//   );
+  //   console.log(
+
+  //     toggleAccountType,
+  //     setSubCategoryId,
+  //     setSubSubCategoryId,
+  //     setCategoryId,
+  //   );
   const sendDataToParent = (val) => {
     setTimeout(() => {
       setUserTypeId(val);
@@ -195,7 +197,7 @@ function RegistrationForm() {
                 CompanyHasAdmin(
                   company.id,
                   (success) => {
-					  console.log(success.data);
+                    console.log(success.data);
                     setAdmin(success.data);
                   },
                   (fail) => {
@@ -223,7 +225,7 @@ function RegistrationForm() {
             key={countryIndex}
             onClick={(e) => {
               setCountryName(country.name);
-            //   setCountryAlert(false);
+              //   setCountryAlert(false);
               //call api to know if company has admin or not (admin>res.data)
               governmentList(
                 currentLanguageId,
@@ -334,7 +336,7 @@ function RegistrationForm() {
       accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
     );
 
-    body.append("CompanyHasData", !admin );
+    body.append("CompanyHasData", !admin);
     body.append("GovernmentId", governmentId);
     // body.append("CategoryId", categoryId);
     // body.append("SubCategoryId", subCategoryId);
@@ -344,6 +346,7 @@ function RegistrationForm() {
     register(
       body,
       (success) => {
+        console.log(success.data.data);
         if (success.data === true) {
           localStorage.setItem("mobileNumber", mobileNumber);
           setRedirect(true);
@@ -357,7 +360,7 @@ function RegistrationForm() {
     if (
       buyer === currentLocal.registration.buyer &&
       individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-      !admin
+      admin
     ) {
       if (
         !firstName ||
@@ -377,7 +380,7 @@ function RegistrationForm() {
     } else if (
       buyer === currentLocal.registration.buyer &&
       individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-      admin
+      !admin
     ) {
       if (
         !firstName ||
@@ -391,7 +394,7 @@ function RegistrationForm() {
         !fileName ||
         !companyPhoneNumber ||
         !companyTypeId ||
-        !roleName 
+        !roleName
         // !workValue
       ) {
         setAlert(true);
@@ -417,10 +420,11 @@ function RegistrationForm() {
         setAlert(false);
         axioFun();
       }
-    } else if (
+    } 
+    else if (
       buyer === currentLocal.registration.Contractor &&
       individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-      !admin
+      admin
     ) {
       if (
         !firstName ||
@@ -443,7 +447,7 @@ function RegistrationForm() {
     } else if (
       buyer === currentLocal.registration.Contractor &&
       individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-      admin
+      !admin
     ) {
       if (
         !firstName ||
@@ -460,7 +464,7 @@ function RegistrationForm() {
         !countryName ||
         !governmentName ||
         !address ||
-        !checked 
+        !checked
         // !workValue
       ) {
         setAlert(true);
@@ -489,7 +493,8 @@ function RegistrationForm() {
         setAlert(false);
         axioFun();
       }
-    } else if (buyer === currentLocal.registration.Supplier && !admin) {
+    } 
+    else if (buyer === currentLocal.registration.Supplier && admin) {
       if (
         !firstName ||
         !lastName ||
@@ -508,29 +513,46 @@ function RegistrationForm() {
         setAlert(false);
         axioFun();
       }
-    } else if (buyer === currentLocal.registration.Supplier && admin) {
+    } 
+    else if (buyer === currentLocal.registration.Supplier && !admin) {
       if (
+        // !firstName ||
+        // !lastName ||
+        // !mobileNumber ||
+        // !email ||
+        // !password ||
+        // !confirmPassword ||
+        // !address ||
+        // !countryName ||
+        // !governmentName ||
+        // !checked ||
+        // !fileName ||
+        // !companyPhoneNumber ||
+        // !companyTypeName ||
+        // !companyId ||
+        // !roleName
         !firstName ||
         !lastName ||
+        !companyId ||
+        !roleName ||
         !mobileNumber ||
         !email ||
         !password ||
         !confirmPassword ||
-        !address ||
+        !companyTypeId ||
+
+        !companyPhoneNumber ||
         !countryName ||
         !governmentName ||
-        !checked ||
+        !address ||
         !fileName ||
-        !companyPhoneNumber ||
-        !companyTypeName ||
-        !companyId ||
-        !roleName 
+        !checked
         // !workValue
       ) {
         setAlert(true);
       } else {
         setAlert(false);
-      }
+        axioFun();      }
     }
 
     // if (
@@ -599,10 +621,10 @@ function RegistrationForm() {
   //   setWorkValue(e.value)
   //   console.log("suphi", e);
   // };
-  // function onChangeOption(currentNode, selectedNodes) {
-  //   // currentNode: { label, value, children, expanded, checked, className, ...extraProps }
-  //   // selectedNodes: [{ label, value, children, expanded, checked, className, ...extraProps }]
-  // }
+  function onChangeOption(currentNode, selectedNodes) {
+    // currentNode: { label, value, children, expanded, checked, className, ...extraProps }
+    // selectedNodes: [{ label, value, children, expanded, checked, className, ...extraProps }]
+  }
   const onAction = (node, action) => {
     // console.log("onAction::", action, node);
   };
@@ -617,8 +639,7 @@ function RegistrationForm() {
   if (redirect) {
     return <Redirect to="/verifyByEmail" />;
   }
-
-
+  console.log(buyer === currentLocal.registration.Supplier && !admin);
   return (
     <div className="RegistrationForm ppl ppr">
       <AuthHeader
@@ -726,11 +747,15 @@ function RegistrationForm() {
                 disabled={
                   !individual && buyer !== currentLocal.registration.Supplier
                 }
-                onClick={() => setFocusIcon(true)}
+                onClick={(e) => {
+                  setFoucesItem(e.target.id);
+                  setFocusIcon(true);
+                }}
                 onBlur={() => setFocusIcon(false)}
               >
                 <a
                   href="/"
+                  id="companyName"
                   className="ant-dropdown-link"
                   onClick={(e) => e.preventDefault()}
                 >
@@ -741,7 +766,7 @@ function RegistrationForm() {
                   buyer !== currentLocal.registration.Supplier ? (
                     <img src={disableArrow} alt="disableArrow" />
                   ) : (
-                    <img src={focusIcon ? foucesArrow : Arrow} alt="Arrow" />
+                    <img src={focusIcon&&foucesItem==="companyName" ? foucesArrow : Arrow} alt="Arrow" />
                   )}
                 </a>
               </Dropdown>
@@ -764,20 +789,31 @@ function RegistrationForm() {
                   disabled={
                     !individual && buyer !== currentLocal.registration.Supplier
                   }
-                  onClick={() => setFocusIcon(true)}
+                  onClick={(e) => {
+                    setFoucesItem(e.target.id);
+                    setFocusIcon(true);
+                  }}
                   onBlur={() => setFocusIcon(false)}
                 >
                   <a
                     href="/"
                     className="ant-dropdown-link"
                     onClick={(e) => e.preventDefault()}
+                    id="role"
                   >
                     {roleName ? roleName : currentLocal.registration.role}
                     {!individual &&
                     buyer !== currentLocal.registration.Supplier ? (
                       <img src={disableArrow} alt="disableArrow" />
                     ) : (
-                      <img src={focusIcon ? foucesArrow : Arrow} alt="Arrow" />
+                      <img
+                        src={
+                          focusIcon && foucesItem === "role"
+                            ? foucesArrow
+                            : Arrow
+                        }
+                        alt="Arrow"
+                      />
                     )}
                   </a>
                 </Dropdown>
@@ -964,11 +1000,14 @@ function RegistrationForm() {
                   disabled={
                     !individual && buyer !== currentLocal.registration.Supplier
                   }
-                  onClick={() => setFocusIcon(true)}
+                  onClick={(e) => {
+                    setFoucesItem(e.target.id)
+                    setFocusIcon(true)}}
                   onBlur={() => setFocusIcon(false)}
                 >
                   <a
                     href="/"
+                    id="organisationLegalStructure"
                     className={
                       !individual &&
                       buyer !== currentLocal.registration.Supplier
@@ -984,7 +1023,7 @@ function RegistrationForm() {
                     buyer !== currentLocal.registration.Supplier ? (
                       <img src={disableArrow} alt="disableArrow" />
                     ) : (
-                      <img src={focusIcon ? foucesArrow : Arrow} alt="Arrow" />
+                      <img src={focusIcon&&foucesItem==="organisationLegalStructure" ? foucesArrow : Arrow} alt="Arrow" />
                     )}
                   </a>
                 </Dropdown>
@@ -1041,7 +1080,7 @@ function RegistrationForm() {
             buyer === currentLocal.registration.Contractor ||
             buyer === currentLocal.registration.Supplier ||
             individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-            admin === true 
+            admin === true
           ) && (
             <Col md={12} xs={24}>
               <p className="alertMsg">
@@ -1156,10 +1195,14 @@ function RegistrationForm() {
                   disabled={
                     !individual && buyer !== currentLocal.registration.Supplier
                   }
-                  onClick={() => setFocusIcon(true)}
+                  onClick={(e) =>{
+                    setFoucesItem(e.target.id)
+                    setFocusIcon(true)
+                  }}
                   onBlur={() => setFocusIcon(false)}
                 >
                   <a
+                  id="country"
                     href="/"
                     className="ant-dropdown-link"
                     onClick={(e) => e.preventDefault()}
@@ -1171,7 +1214,7 @@ function RegistrationForm() {
                     buyer !== currentLocal.registration.Supplier ? (
                       <img src={disableArrow} alt="disableArrow" />
                     ) : (
-                      <img src={Arrow} alt="Arrow" />
+                      <img src={focusIcon&&foucesItem==="country" ? foucesArrow : Arrow} alt="Arrow" />
                     )}
                   </a>
                 </Dropdown>
@@ -1183,11 +1226,6 @@ function RegistrationForm() {
                   )}
                 </p>
                 <Dropdown
-                  onClick={() => {
-                    if (!countryName) {
-                    //   setCountryAlert(true);
-                    }
-                  }}
                   overlay={governmentMenu}
                   trigger={["click"]}
                   className={
@@ -1198,8 +1236,14 @@ function RegistrationForm() {
                   disabled={
                     !individual && buyer !== currentLocal.registration.Supplier
                   }
+                  onClick={(e) => {
+                    setFoucesItem(e.target.id);
+                    setFocusIcon(true);
+                  }}
+                  onBlur={() => setFocusIcon(false)}
                 >
                   <a
+                  id="government"
                     href="/"
                     className="ant-dropdown-link"
                     onClick={(e) => e.preventDefault()}
@@ -1211,7 +1255,9 @@ function RegistrationForm() {
                     buyer !== currentLocal.registration.Supplier ? (
                       <img src={disableArrow} alt="disableArrow" />
                     ) : (
-                      <img src={Arrow} alt="Arrow" />
+                      // <img src={Arrow} alt="Arrow" />
+                      <img src={focusIcon&&foucesItem==="government" ? foucesArrow : Arrow} alt="Arrow" />
+
                     )}
                   </a>
                 </Dropdown>
@@ -1276,7 +1322,6 @@ function RegistrationForm() {
                   onChange={(e) => {
                     setFileName(e.target.files[0].name);
                     setFileData(e.target.files[0]);
-                    // setFileName(e.target.files[0]);
                   }}
                   style={{ display: "none" }}
                 />
