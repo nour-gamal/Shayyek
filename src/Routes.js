@@ -11,7 +11,8 @@ import ForgetPassword from "./Modules/Login/Components/ForgetPassword/ForgetPass
 import ProfilePage from "./Modules/ProfilePage/ProfilePage";
 import VerifyByEmail from "./Modules/Registration/Components/VerifyByEmail/VerifyByEmail";
 import LoginByMobile from "./Modules/Login/Components/LoginByMobile/LoginByMobile";
-import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
+//import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
+import Login from "./Modules/Login/Login";
 import ResetPassword from "./Modules/ResetPassword/ResetPassword";
 import CreateRFQ from "./Modules/Home/BuyerHome/Components/CreateRFQ/CreateRFQ";
 
@@ -62,7 +63,7 @@ function Routes() {
 					<Route
 						path="/loginByEmail"
 						render={() => {
-							return isAuth ? <Redirect to="/" /> : <LoginByEmail />;
+							return isAuth ? <Redirect to="/" /> : <Login />;
 						}}
 					/>
 					<Route

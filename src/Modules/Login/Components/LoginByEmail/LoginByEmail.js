@@ -4,9 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginApi } from "../../network";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
-import Navbar from "../../../Common/Navbar/Navbar";
 import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
-import Footer from "../../../Common/Footer/Footer";
 import "./LoginByEmail.css";
 import { login } from "../../../../Redux/Authorization";
 function LoginByEmail() {
@@ -64,9 +62,7 @@ function LoginByEmail() {
 	}
 	return (
 		<div className="loginByEmail">
-			<Navbar navState={"light"} />
 			<Container>
-				<AuthHeader title={currentLocal.login.signin} login="login" />
 				<form onSubmit={sendData} className="LoginForm">
 					<div className="form">
 						<div className="w-50">
@@ -131,7 +127,6 @@ function LoginByEmail() {
 					</div>
 				</form>
 			</Container>
-			<Footer />
 		</div>
 	);
 }
