@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Accordion } from "react-bootstrap";
-import { Checkbox } from "antd";
+import { Checkbox, Tree, Select } from "antd";
 import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
 import filterIcon from "../../../../Resources/Assets/filterIcon.svg";
-import { getCategories } from "../../Network";
+import { getCategories, getGovernmentList, countryList } from "../../Network";
 import "./Filter.css";
 function Filter() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -12,18 +12,98 @@ function Filter() {
 	const [allProducts, toggleAllProducts] = useState(false);
 	const [inStock, toggleInStock] = useState(false);
 	const [count, updateCount] = useState(0);
-	const [categories, updateCategories] = useState([]);
+	const [selectedCategories, updateSelectedCategories] = useState([]);
+	const [treeData, updateTreeData] = useState([]);
+	const [governmentList, setGovernmentList] = useState([]);
+	const [government, setGovernment] = useState("");
+	const { Option } = Select;
+
+	useEffect(() => {
+		countryList(
+			currentLanguageId,
+			(success) => {
+				success.data.forEach((country) => {
+					if (country.name.toLowerCase() === "egypt") {
+						getGovernmentList(
+							currentLanguageId,
+							country.id,
+							(success) => {
+								setGovernmentList(success.data);
+							},
+							(fail) => {
+								console.log(fail);
+							},
+							false
+						);
+					}
+				});
+			},
+			(fail) => {
+				console.log(fail);
+			},
+			false
+		);
+	}, [currentLanguageId]);
+
 	useEffect(() => {
 		getCategories(
 			currentLanguageId,
 			(success) => {
-				updateCategories(success.data);
+				let treeData = [];
+				success.data.forEach((category, categoryIndex) => {
+					treeData.push({
+						title: category.category.name,
+						key: category.category.id,
+						type: "category",
+						children: [],
+					});
+
+					category.subCategories.forEach((subCategory, subCategoryIndex) => {
+						treeData[categoryIndex].children = [
+							...treeData[categoryIndex].children,
+							{
+								title: subCategory.subCategory.name,
+								key: subCategory.subCategory.id,
+								type: "subCategory",
+								parentId: treeData[categoryIndex].key,
+								children: [],
+							},
+						];
+
+						subCategory.subSubCategories.forEach((subSubCategory) => {
+							treeData[categoryIndex].children[subCategoryIndex].children = [
+								...treeData[categoryIndex].children[subCategoryIndex].children,
+								{
+									title: subSubCategory.name,
+									key: subSubCategory.id,
+									grandParentId: treeData[categoryIndex].key,
+									parentId:
+										treeData[categoryIndex].children[subCategoryIndex].key,
+									type: "subSubcategory",
+								},
+							];
+						});
+					});
+				});
+
+				updateTreeData(treeData);
 			},
 			(fail) => {
 				console.log(fail);
 			}
 		);
-	}, [currentLanguageId]);
+	}, [currentLanguageId, governmentList]);
+
+	useEffect(() => {
+		// Call Filter API
+	}, [
+		currentLanguageId,
+		selectedCategories,
+		inStock,
+		allProducts,
+		count,
+		government,
+	]);
 
 	const checkAllProducts = () => {
 		toggleInStock(false);
@@ -35,8 +115,33 @@ function Filter() {
 		toggleInStock(!inStock);
 	};
 
-	const categoryChecked = (levelNumber, index, state) => {
-		console.log(levelNumber, index, state);
+	const onSelect = (selectedKeys, info) => {
+		console.log("selected", selectedKeys, info);
+	};
+
+	const onCheck = (checkedKeys, info) => {
+		let selected = [];
+
+		info.checkedNodes.forEach((checked) => {
+			if (checked.parentId && checked.grandParentId) {
+				selected.push({
+					category: { id: checked.grandParentId },
+					subCategory: { id: checked.parentId },
+					subSubCategory: { id: checked.key },
+				});
+			} else if (checked.parentId) {
+				selected.push({
+					category: { id: checked.parentId },
+					subCategory: { id: checked.key },
+				});
+			} else {
+				selected.push({
+					category: { id: checked.key },
+				});
+			}
+		});
+
+		updateSelectedCategories(selected);
 	};
 
 	return (
@@ -46,45 +151,39 @@ function Filter() {
 				{currentLocal.suppliers.suppliersFilter.filter}
 			</h5>
 
-			<Accordion defaultActiveKey="0">
+			<Accordion>
 				<Accordion.Item eventKey="0">
 					<Accordion.Header>Category</Accordion.Header>
 					<Accordion.Body>
-						{categories.map((category, categoryIndex) => {
-							return (
-								<div className="my-2" key={categoryIndex}>
-									<Checkbox
-										onChange={(e) => {
-											categoryChecked(0, e.target.id, e.target.checked);
-										}}
-										id={categoryIndex}
-									>
-										{category.category.name}
-										{category.subCategories.map(
-											(subcategory, subCategoryIndex) => {
-												console.log(subcategory);
-												return (
-													<div key={subCategoryIndex} className="my-2">
-														<Checkbox
-															onChange={(e) => {
-																categoryChecked(
-																	1,
-																	e.target.id,
-																	e.target.checked
-																);
-															}}
-															id={categoryIndex + "-" + subCategoryIndex}
-														>
-															{subcategory.subCategory.name}
-														</Checkbox>
-													</div>
-												);
-											}
-										)}
-									</Checkbox>
-								</div>
-							);
-						})}
+						<Tree
+							checkable
+							defaultExpandedKeys={["0-0-0"]}
+							onSelect={onSelect}
+							onCheck={onCheck}
+							treeData={treeData}
+						/>
+					</Accordion.Body>
+				</Accordion.Item>
+			</Accordion>
+			<Accordion>
+				<Accordion.Item eventKey="0">
+					<Accordion.Header>Location</Accordion.Header>
+					<Accordion.Body>
+						<Select
+							className="form-control"
+							placeholder={"Location"}
+							onChange={(value) => {
+								setGovernment(value);
+							}}
+						>
+							{governmentList.map((gov) => {
+								return (
+									<Option value={gov.id} key={gov.id}>
+										{gov.name}
+									</Option>
+								);
+							})}
+						</Select>
 					</Accordion.Body>
 				</Accordion.Item>
 			</Accordion>
