@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginApi } from "../../network";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
-import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
-import "./LoginByEmail.css";
 import { login } from "../../../../Redux/Authorization";
+import "./LoginByEmail.css";
+
 function LoginByEmail() {
 	const dispatch = useDispatch();
 	const { currentLocal } = useSelector((state) => state.currentLocal);
