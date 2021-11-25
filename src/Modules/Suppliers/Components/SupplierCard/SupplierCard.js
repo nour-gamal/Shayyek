@@ -36,8 +36,8 @@ function SupplierCard({ supplier, i, overlay }) {
 								}
 							/>
 							<div className="name f-21">{supplier.name}</div>
-							<div className="f-17">{supplier.type}</div>
-							<div className="f-17">{supplier.address}</div>
+							<div className="f-17 font-white">{supplier.typeName}</div>
+							<div className="f-17 font-white">{supplier.address}</div>
 						</div>
 					</Link>
 					<img

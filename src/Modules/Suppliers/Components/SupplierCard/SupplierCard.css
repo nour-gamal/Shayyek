@@ -38,6 +38,9 @@
 .supplierCard .infoIcon {
 	width: 25px;
 }
+.supplierCard .font-white {
+	color: #fff;
+}
 .supplierCard .fadeOutOverlay {
 	position: absolute;
 	top: 0;
