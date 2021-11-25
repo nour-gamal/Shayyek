@@ -10,11 +10,13 @@ import "./LoginByEmail.css";
 function LoginByEmail({signinByEmail}) {
 	const dispatch = useDispatch();
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const { authorization } = useSelector((state) => state.authorization);
+	// const { authorization } = useSelector((state) => state.authorization);
 	const { deviceToken } = useSelector((state) => state.authorization);
 	const [email, setEmail] = useState("");
 	const [alert, setAlert] = useState("");
 	const [password, setPassword] = useState("");
+	const [verrifayState, setVerrifayState] = useState(false);
+
 	const [redirect, setRedirect] = useState(false);
 	const sendData = (e) => {
 		e.preventDefault();
@@ -31,7 +33,11 @@ function LoginByEmail({signinByEmail}) {
 				body,
 				(success) => {
 					dispatch(login(success.data));
+					if(success.ErrorStatus===1){  //EmailVerrifay
+						setVerrifayState(true)
+					}
 					if (success) {
+						console.log(success);
 						setRedirect(true);
 					}
 				},
@@ -55,8 +61,6 @@ function LoginByEmail({signinByEmail}) {
 				break;
 		}
 	};
-	console.log(authorization);
-	// console.log(authorization.user.token);
 	if (redirect) {
 		return <Redirect to="/" />;
 	}
@@ -117,7 +121,7 @@ function LoginByEmail({signinByEmail}) {
 					</div>
 					<div className="button">
 						<button type="submit" className="button-primary" onClick={sendData}>
-							{currentLocal.login.signin}
+							{verrifayState?currentLocal.login.verifyYourMailNow:currentLocal.login.signin}
 						</button>
 					</div>
 					<div className="checkAccount">

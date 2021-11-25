@@ -86,6 +86,7 @@ export const ar = {
 		ResetPassword: " اعادة تعيين كلمة المرور",
 		passwordConfirmationDoesnotMatch: "كلمة المرور غير متطابقه",
 		mobileNumberIsRequired: "رقم الهاتف مطلوب",
+		verifyYourMailNow:" تحقق من البريد الالكترونى"
 	},
 	profilePage: {
 		completedPercentage: "٤٠٪ مكتمل",

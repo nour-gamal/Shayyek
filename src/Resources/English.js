@@ -88,6 +88,8 @@ export const en = {
 		ResetPassword: "Reset Password",
 		passwordConfirmationDoesnotMatch: "password confirmation doesn't match",
 		mobileNumberIsRequired: "mobileNumber is required",
+		verifyYourMailNow:"Verify your mail Now"
+
 	},
 	profilePage: {
 		completedPercentage: "40% Completed",
