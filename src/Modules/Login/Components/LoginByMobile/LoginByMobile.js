@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import { useSelector } from "react-redux";
-// import Navbar from "../../../Common/Navbar/Navbar";
-// import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
-import { loginApi } from "../../network";
-// import Footer from "../../../Common/Footer/Footer";
-
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../../../Redux/Authorization";
+import { Link, Redirect } from "react-router-dom";
 import "./LoginByMobile.css";
 function LoginByMobile({ setSigninByEmail }) {
-  // const dispatch = useDispatch();
-
+  const dispatch = useDispatch();
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { authorization } = useSelector((state) => state.authorization);
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState("");
-
+  const [verrifayState, setVerrifayState] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const sendData = (e) => {
     e.preventDefault();
     if (!mobileNumber || !password) {
@@ -28,9 +24,18 @@ function LoginByMobile({ setSigninByEmail }) {
         password: password,
         fireBaseToken: authorization.deviceToken,
       };
-      loginApi(
+      login(
         body,
-        (success) => console.log(success),
+        (success) => {
+          if (success.success) {
+            dispatch(login(success.data));
+            setRedirect(true);
+          } else if (!success.success && success.data.errorStatus === 1) {
+            //email Not verrify
+            console.log("hi");
+            setVerrifayState(success.message);
+          }
+        },
         (fail) => console.log(fail),
         false
       );
@@ -51,7 +56,9 @@ function LoginByMobile({ setSigninByEmail }) {
         break;
     }
   };
-
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
   return (
     <div className="LoginByMobile ppl ppr">
       {/* <Navbar navState={"light"} /> */}
@@ -64,10 +71,11 @@ function LoginByMobile({ setSigninByEmail }) {
                 {alert && !mobileNumber && (
                   <>* {currentLocal.login.mobileNumberIsRequired}</>
                 )}
+                {verrifayState && verrifayState}
               </p>
               <input
                 className={
-                  alert && !mobileNumber
+                  (alert && !mobileNumber) || verrifayState
                     ? "error input-field form-control my-1"
                     : "input-field form-control my-1"
                 }

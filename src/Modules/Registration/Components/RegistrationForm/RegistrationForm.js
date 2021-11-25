@@ -735,7 +735,7 @@ function RegistrationForm() {
           {!(individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") && (
             <Col md={12} xs={24} className="companyName">
               <p className="alertMsg">
-                {alert && !companyName && <>* Please Choose CompanyName</>}
+                {alert && !companyName && <>{currentLocal.registration.pleaseChooseCompanyName}</>}
               </p>
               <Dropdown
                 overlay={menu}
@@ -833,7 +833,7 @@ function RegistrationForm() {
     (individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin)) &&
                 <Col md={12} xs={24} className="work">
                   <p className="alertMsg">
-                    {alert && <>* Please Choose Work</>}
+                    {alert && <>{currentLocal.registration.PleaseChooseWork}</>}
                   </p>
                   <DropdownTreeSelect
                     data={options}
@@ -886,7 +886,7 @@ function RegistrationForm() {
               }
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !mobileNumber && <>* Please Choose mobileNumber</>}
+              {alert && !mobileNumber && <>{currentLocal.registration.pleaseFillmobileNumber}</>}
             </p>
             <input
               className={
@@ -922,7 +922,7 @@ function RegistrationForm() {
           </Col>
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !email && <>* Please Choose email</>}
+              {alert && !email && <>{currentLocal.registration.pleaseFillEmail}</>}
             </p>
             <input
               type="email"
@@ -945,7 +945,7 @@ function RegistrationForm() {
 
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !password && <>* Please Choose password</>}
+              {alert && !password && <>{currentLocal.registration.pleaseFillPassword}</>}
             </p>
             <input
               className={
@@ -968,7 +968,7 @@ function RegistrationForm() {
 
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !confirmPassword && <>* Please ConfirmPassword</>}
+              {alert && !confirmPassword && <>{currentLocal.registration.pleaseFillConfirmPassword}</>}
               {confirmationState && <> * password confirmation doesn't match</>}
             </p>
 
@@ -1000,7 +1000,7 @@ function RegistrationForm() {
               <Col md={12} xs={24} className="companyType">
                 <p className="alertMsg">
                   {alert && !companyTypeName && (
-                    <>* Please Choose CompanyType</>
+                    <>{currentLocal.registration.pleaseChooseCompanyType}</>
                   )}
                 </p>
                 <Dropdown
@@ -1110,7 +1110,7 @@ function RegistrationForm() {
                 {(alert && !companyWebsite && !individual) ||
                   buyer === currentLocal.registration.buyer ||
                   (buyer !== currentLocal.registration.userType && (
-                    <>* Please fill companyWebsite</>
+                    <>{currentLocal.registration.pleaseFillCompanyWebsite}</>
                   ))}
               </p>
               <input
@@ -1205,7 +1205,7 @@ function RegistrationForm() {
             <>
               <Col md={12} xs={24} className="country">
                 <p className="alertMsg">
-                  {alert && !countryName && <>* Please fill country</>}
+                  {alert && !countryName && <>{currentLocal.registration.pleaseFillCountry}</>}
                 </p>
                 <Dropdown
                   overlay={countryMenu}
@@ -1252,7 +1252,7 @@ function RegistrationForm() {
               <Col md={12} xs={24} className="government">
                 <p className="alertMsg">
                   {alert && !governmentName && (
-                    <>* Please fill governmentName</>
+                    <>{currentLocal.registration.pleaseChooseGovernorate}</>
                   )}
                 </p>
                 <Dropdown
@@ -1280,7 +1280,7 @@ function RegistrationForm() {
                   >
                     {governmentName
                       ? governmentName
-                      : currentLocal.registration.government}
+                      : currentLocal.registration.governorate}
                     {!individual &&
                     buyer !== currentLocal.registration.Supplier ? (
                       <img src={disableArrow} alt="disableArrow" />
@@ -1338,7 +1338,7 @@ function RegistrationForm() {
                 {alert &&
                   !fileName &&
                   individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && (
-                    <>please upload commer</>
+                    <>{currentLocal.registration.pleaseUploadCommercialRecord}</>
                   )}
               </p>
               <div

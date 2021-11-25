@@ -15,7 +15,7 @@ export const en = {
 		field: "Field",
 		description: "Description",
 		country: "Country",
-		government: "Government",
+		governorate: "Government",
 		address: "Address",
 		companyPhoneNumber: "Company Phone Number",
 		commercialRecord: "Commercial Record ",
@@ -44,8 +44,18 @@ export const en = {
 		PleaseFillAllRequiredFields: "please Fill All Required Fields *",
 		pleaseFillFirstName:"* Please fill firstName",
 		pleaseFillLastName:"* Please fill lastName",
-		pleaseChooseCompanyName:"* please Choose CompanyName"
-
+		pleaseChooseCompanyName:"* please Choose CompanyName",
+		PleaseChooseWork:"* Please Choose Work",
+		pleaseFillmobileNumber:"* please Fill mobileNumber",
+		pleaseFillEmail:"* please Fill Email",
+		pleaseFillPassword:"* please Fill Password",
+		pleaseFillConfirmPassword:"* please Fill Confirm Password",
+		pleaseChooseCompanyType:"* Please Choose Company Type",
+		pleaseFillCompanyWebsite:"* please Fill CompanyWebsite",
+		pleaseFillCountry:"* please Fill Country",
+		pleaseChooseGovernorate:"* Please Choose Governorate",
+		pleaseFillAddress:"* please Fill Address",
+		pleaseUploadCommercialRecord:"* please Upload CommercialRecord"
 	},
 	footer: {
 		copyRights: "2021 Shayyek. All Rights Reserved",
