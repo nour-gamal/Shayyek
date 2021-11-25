@@ -2,17 +2,27 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../../../Redux/Authorization";
+import { loginApi, IsUserAdmin } from "../../network";
 import { Link, Redirect } from "react-router-dom";
 import "./LoginByMobile.css";
 function LoginByMobile({ setSigninByEmail }) {
   const dispatch = useDispatch();
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  const { authorization } = useSelector((state) => state.authorization);
+  const { deviceToken } = useSelector((state) => state.authorization);
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState("");
   const [verrifayState, setVerrifayState] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [adminState, setAdminState] = useState(true);
+  const [wrongPassState, setWrongPassState] = useState(false);
+  const [wrongEmailState, setWrongEmailState] = useState(false);
+
+  const resendData = (e) => {
+    e.preventDefault();
+    setAlert(false);
+    setVerrifayState(false);
+  };
   const sendData = (e) => {
     e.preventDefault();
     if (!mobileNumber || !password) {
@@ -22,18 +32,22 @@ function LoginByMobile({ setSigninByEmail }) {
       const body = {
         mobile: mobileNumber,
         password: password,
-        fireBaseToken: authorization.deviceToken,
+        fireBaseToken: deviceToken.deviceToken,
       };
-      login(
+      loginApi(
         body,
         (success) => {
+          console.log(success.data.errorStatus);
           if (success.success) {
             dispatch(login(success.data));
             setRedirect(true);
-          } else if (!success.success && success.data.errorStatus === 1) {
+          } else if (!success.success && success.data.errorStatus === 2) {
             //email Not verrify
-            console.log("hi");
             setVerrifayState(success.message);
+          } else if (!success.success && success.data.errorStatus === 3) {
+            setWrongPassState(success.message);
+          } else if (!success.success && success.data.errorStatus === 6) {
+            setWrongEmailState(success.message);
           }
         },
         (fail) => console.log(fail),
@@ -46,6 +60,7 @@ function LoginByMobile({ setSigninByEmail }) {
     switch (id) {
       case "mobileNumber": {
         setMobileNumber(e.target.value);
+
         break;
       }
       case "password": {
@@ -56,6 +71,18 @@ function LoginByMobile({ setSigninByEmail }) {
         break;
     }
   };
+  const isUserAdmin = () => {
+    IsUserAdmin(
+      mobileNumber,
+      (success) => {
+        if (!success.data) {
+          setAdminState(success.data);
+        }
+      },
+      (fail) => console.log(fail),
+      false
+    );
+  };
   if (redirect) {
     return <Redirect to="/" />;
   }
@@ -64,18 +91,22 @@ function LoginByMobile({ setSigninByEmail }) {
       {/* <Navbar navState={"light"} /> */}
       <Container fluid>
         {/* <AuthHeader title={currentLocal.login.signin} login="login" /> */}
-        <form onSubmit={sendData} className="LoginForm">
+        <form
+          onSubmit={verrifayState ? resendData : sendData}
+          className="LoginForm"
+        >
           <div className="form">
             <div className="w-50">
               <p className="errorMsg">
                 {alert && !mobileNumber && (
                   <>* {currentLocal.login.mobileNumberIsRequired}</>
                 )}
+                {wrongEmailState && wrongEmailState}
                 {verrifayState && verrifayState}
               </p>
               <input
                 className={
-                  (alert && !mobileNumber) || verrifayState
+                  (alert && !mobileNumber) || verrifayState||wrongEmailState
                     ? "error input-field form-control my-1"
                     : "input-field form-control my-1"
                 }
@@ -84,6 +115,7 @@ function LoginByMobile({ setSigninByEmail }) {
                 id="mobileNumber"
                 value={mobileNumber}
                 onChange={handleChange}
+                onBlur={isUserAdmin}
               />
             </div>
             <div className="w-50">
@@ -91,10 +123,11 @@ function LoginByMobile({ setSigninByEmail }) {
                 {alert && !password && (
                   <>* {currentLocal.login.passwordIsRequired}</>
                 )}
+                {wrongPassState && wrongPassState}
               </p>
               <input
                 className={
-                  alert && !password
+                  (alert && !password) || wrongPassState
                     ? "error input-field form-control "
                     : "input-field form-control"
                 }
@@ -108,7 +141,8 @@ function LoginByMobile({ setSigninByEmail }) {
 
             <div className="forgetPassword py-2">
               <Link to="/forgetpassword" className="f-12">
-                {currentLocal.login.forgetPassword}
+                {!adminState ||
+                  (!verrifayState && currentLocal.login.forgetPassword)}
               </Link>
             </div>
             <div
@@ -124,7 +158,9 @@ function LoginByMobile({ setSigninByEmail }) {
           </div>
           <div className="button">
             <button type="submit" className="button-primary">
-              {currentLocal.login.signin}
+              {verrifayState
+                ? currentLocal.login.verifyYourMailNow
+                : currentLocal.login.signin}{" "}
             </button>
           </div>
           <div className="checkAccount">

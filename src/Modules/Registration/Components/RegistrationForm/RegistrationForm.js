@@ -75,6 +75,8 @@ function RegistrationForm() {
   const [fileData, setFileData] = useState("");
   const [options, updateOptions] = useState([]);
   const [foucesItem, setFoucesItem] = useState("");
+  const [mobileState, setMobileState] = useState("");
+  const [emailState, setEmailState] = useState("");
 
   const showState = true;
   const uploadCompanyLogo = "";
@@ -347,9 +349,13 @@ function RegistrationForm() {
       body,
       (success) => {
         console.log(success.data.data);
-        if (success.data === true) {
+        if (success.success === true) {
           localStorage.setItem("mobileNumber", mobileNumber);
           setRedirect(true);
+        }else if(!success.success && success.data.errorStatus === 2){    //Mobile usedBefore
+          setMobileState(success.message)
+        }else if(!success.success && success.data.errorStatus === 1){    //Mobile usedBefore
+          setEmailState(success.message)
         }
       },
       (fail) => console.log(fail)
@@ -887,6 +893,7 @@ function RegistrationForm() {
           <Col md={12} xs={24}>
             <p className="alertMsg">
               {alert && !mobileNumber && <>{currentLocal.registration.pleaseFillmobileNumber}</>}
+              {mobileState&&mobileState}
             </p>
             <input
               className={
@@ -903,6 +910,7 @@ function RegistrationForm() {
               }
               onChange={(e) => {
                 setMobileNumber(e.target.value);
+                setMobileState("")
               }}
             />
             <Checkbox
@@ -923,6 +931,7 @@ function RegistrationForm() {
           <Col md={12} xs={24}>
             <p className="alertMsg">
               {alert && !email && <>{currentLocal.registration.pleaseFillEmail}</>}
+              {emailState&&emailState}
             </p>
             <input
               type="email"
@@ -939,6 +948,7 @@ function RegistrationForm() {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
+                setEmailState("")
               }}
             />
           </Col>
