@@ -1,0 +1,8 @@
+.rateDetailsModal .supplierImage {
+	width: 38px;
+	border-radius: 50%;
+}
+
+.rateDetailsModal .questions > li {
+	padding: 20px 0;
+}

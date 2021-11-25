@@ -25,7 +25,7 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(3, 112, 255, 0.85);
+	background: #003b6b;
 	opacity: 1;
 	border-radius: 8px;
 	box-shadow: 0px 3px 6px #00000029;
@@ -34,6 +34,9 @@
 	justify-content: flex-end;
 	padding: 10px;
 	transition: all 0.4s ease-in-out;
+}
+.supplierCard .infoIcon {
+	width: 25px;
 }
 .supplierCard .fadeOutOverlay {
 	position: absolute;

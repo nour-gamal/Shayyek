@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductCard from "./Components/ProductCard/ProductCard";
 import NavBar from "../Common/Navbar/Navbar";
+import { getProducts } from "./Network";
+import { useSelector } from "react-redux";
 import { Container, Col, Row } from "react-bootstrap";
 import Footer from "../Common/Footer/Footer";
 function Products(props) {
-	const id = props.match.params.id;
-	console.log(id);
+	const { currentLanguageId } = useSelector((state) => state.currentLocal);
+
+	useEffect(() => {
+		const companyId = props.match.params.id;
+		getProducts(
+			currentLanguageId,
+			companyId,
+			(success) => {
+				console.log(success);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	});
 
 	const products = [
 		{
