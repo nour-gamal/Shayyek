@@ -42,20 +42,20 @@ export const en = {
 		organisationLegalStructure: "Organisation Legal Structure",
 		pleaseChooseCountryFirst: "please Choose Country First",
 		PleaseFillAllRequiredFields: "please Fill All Required Fields *",
-		pleaseFillFirstName:"* Please fill firstName",
-		pleaseFillLastName:"* Please fill lastName",
-		pleaseChooseCompanyName:"* please Choose CompanyName",
-		PleaseChooseWork:"* Please Choose Work",
-		pleaseFillmobileNumber:"* please Fill mobileNumber",
-		pleaseFillEmail:"* please Fill Email",
-		pleaseFillPassword:"* please Fill Password",
-		pleaseFillConfirmPassword:"* please Fill Confirm Password",
-		pleaseChooseCompanyType:"* Please Choose Company Type",
-		pleaseFillCompanyWebsite:"* please Fill CompanyWebsite",
-		pleaseFillCountry:"* please Fill Country",
-		pleaseChooseGovernorate:"* Please Choose Governorate",
-		pleaseFillAddress:"* please Fill Address",
-		pleaseUploadCommercialRecord:"* please Upload CommercialRecord"
+		pleaseFillFirstName: "* Please fill firstName",
+		pleaseFillLastName: "* Please fill lastName",
+		pleaseChooseCompanyName: "* please Choose CompanyName",
+		PleaseChooseWork: "* Please Choose Work",
+		pleaseFillmobileNumber: "* please Fill mobileNumber",
+		pleaseFillEmail: "* please Fill Email",
+		pleaseFillPassword: "* please Fill Password",
+		pleaseFillConfirmPassword: "* please Fill Confirm Password",
+		pleaseChooseCompanyType: "* Please Choose Company Type",
+		pleaseFillCompanyWebsite: "* please Fill CompanyWebsite",
+		pleaseFillCountry: "* please Fill Country",
+		pleaseChooseGovernorate: "* Please Choose Governorate",
+		pleaseFillAddress: "* please Fill Address",
+		pleaseUploadCommercialRecord: "* please Upload CommercialRecord",
 	},
 	footer: {
 		copyRights: "2021 Shayyek. All Rights Reserved",
@@ -83,6 +83,16 @@ export const en = {
 			inStock: "In Stock",
 			rate: "Rate",
 		},
+		rateDetails: {
+			amountOfWorkOpinion: "Volume of work ?",
+			paymentFacilitiesOpinion:
+				"Payment terms compared to others? Do they need many payments in between?",
+			relativePricesOpinion: "Prices compared to others?",
+			handlingWayOpinion:
+				"How was your experience? How was their service? Did they make many change-orders? ",
+			timingOpinion: "Finished the job on time? Response time to requests?",
+			workQualityOpinion: "Quality of work? Safety? Cleanliness? etc... ",
+		},
 	},
 	login: {
 		signin: "Sign in",
@@ -105,8 +115,7 @@ export const en = {
 		ResetPassword: "Reset Password",
 		passwordConfirmationDoesnotMatch: "password confirmation doesn't match",
 		mobileNumberIsRequired: "mobileNumber is required",
-		verifyYourMailNow:"Verify your mail Now"
-
+		verifyYourMailNow: "Verify your mail Now",
 	},
 	profilePage: {
 		completedPercentage: "40% Completed",

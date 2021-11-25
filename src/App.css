@@ -135,6 +135,9 @@ section {
 .primary-color {
 	color: #003b6b;
 }
+.primary-color-light {
+	color: #bce0fd;
+}
 
 .button-primary,
 .button-secondary {

@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl =
+export const baseUrl =
 	"http://ec2-54-194-113-34.eu-west-1.compute.amazonaws.com:8080/";
 
 const token =
@@ -54,13 +54,13 @@ export function GetResource(path, onSuccess, onFail, reqAuth) {
 		})
 		.catch((error) => {
 			onFail(error.response);
-		// 	if(error.response){
-		// 	if (error.response.status === 401) {
-		// 		if (localStorage.getItem("persist:root")) {
-		// 			localStorage.removeItem("persist:root");
-		// 			window.location.reload();
-		// 		}
-		// 	}
-		// }
+			// 	if(error.response){
+			// 	if (error.response.status === 401) {
+			// 		if (localStorage.getItem("persist:root")) {
+			// 			localStorage.removeItem("persist:root");
+			// 			window.location.reload();
+			// 		}
+			// 	}
+			// }
 		});
 }
