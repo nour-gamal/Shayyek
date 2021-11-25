@@ -42,6 +42,10 @@ export const en = {
 		organisationLegalStructure: "Organisation Legal Structure",
 		pleaseChooseCountryFirst: "please Choose Country First",
 		PleaseFillAllRequiredFields: "please Fill All Required Fields *",
+		pleaseFillFirstName:"* Please fill firstName",
+		pleaseFillLastName:"* Please fill lastName",
+		pleaseChooseCompanyName:"* please Choose CompanyName"
+
 	},
 	footer: {
 		copyRights: "2021 Shayyek. All Rights Reserved",

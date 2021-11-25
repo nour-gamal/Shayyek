@@ -41,6 +41,9 @@ export const ar = {
 		organisationLegalStructure: "نوع الشركة القنوني",
 		pleaseChooseCountryFirst: "برجاء اختيار البلد اولا",
 		PleaseFillAllRequiredFields: "برجاء املئ جميع الخانات *",
+		pleaseFillFirstName:"برجاء املئ الاسم الاول * ",
+		pleaseFillLastName:"برجاء املئ الاسم الاخير *",
+		pleaseChooseCompanyName:"برجاء اختار اسم الشركة * "
 	},
 	footer: {
 		copyRights: "٢٠٢١ شيك , كل الحقوق محفوظه",

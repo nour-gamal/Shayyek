@@ -420,8 +420,7 @@ function RegistrationForm() {
         setAlert(false);
         axioFun();
       }
-    } 
-    else if (
+    } else if (
       buyer === currentLocal.registration.Contractor &&
       individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
       admin
@@ -493,8 +492,7 @@ function RegistrationForm() {
         setAlert(false);
         axioFun();
       }
-    } 
-    else if (buyer === currentLocal.registration.Supplier && admin) {
+    } else if (buyer === currentLocal.registration.Supplier && admin) {
       if (
         !firstName ||
         !lastName ||
@@ -513,8 +511,7 @@ function RegistrationForm() {
         setAlert(false);
         axioFun();
       }
-    } 
-    else if (buyer === currentLocal.registration.Supplier && !admin) {
+    } else if (buyer === currentLocal.registration.Supplier && !admin) {
       if (
         // !firstName ||
         // !lastName ||
@@ -540,7 +537,6 @@ function RegistrationForm() {
         !password ||
         !confirmPassword ||
         !companyTypeId ||
-
         !companyPhoneNumber ||
         !countryName ||
         !governmentName ||
@@ -552,7 +548,8 @@ function RegistrationForm() {
         setAlert(true);
       } else {
         setAlert(false);
-        axioFun();      }
+        axioFun();
+      }
     }
 
     // if (
@@ -639,7 +636,12 @@ function RegistrationForm() {
   if (redirect) {
     return <Redirect to="/verifyByEmail" />;
   }
-  console.log(buyer === currentLocal.registration.Supplier && !admin);
+
+  ((individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
+    buyer === currentLocal.registration.Contractor) ||
+    (individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin)) &&
+    console.log(true);
+
   return (
     <div className="RegistrationForm ppl ppr">
       <AuthHeader
@@ -665,7 +667,6 @@ function RegistrationForm() {
                       "disableRadio"
                     }
                     onChange={(e) => {
-                      console.log(e.target.value);
                       setAccountId(account.id);
                       setIndividual(e.target.value);
                       if (companyName) {
@@ -688,7 +689,7 @@ function RegistrationForm() {
         <Row>
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !firstName && <>* Please fill firstName</>}
+              {alert && !firstName && <>{currentLocal.registration.pleaseFillFirstName}</>}
             </p>
             <input
               id="firstName"
@@ -710,7 +711,7 @@ function RegistrationForm() {
           </Col>
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !lastName && <>* Please fill LastName</>}
+              {alert && !lastName && <>{currentLocal.registration.pleaseFillLastName}</>}
             </p>
             <input
               type="text"
@@ -766,7 +767,14 @@ function RegistrationForm() {
                   buyer !== currentLocal.registration.Supplier ? (
                     <img src={disableArrow} alt="disableArrow" />
                   ) : (
-                    <img src={focusIcon&&foucesItem==="companyName" ? foucesArrow : Arrow} alt="Arrow" />
+                    <img
+                      src={
+                        focusIcon && foucesItem === "companyName"
+                          ? foucesArrow
+                          : Arrow
+                      }
+                      alt="Arrow"
+                    />
                   )}
                 </a>
               </Dropdown>
@@ -820,56 +828,62 @@ function RegistrationForm() {
               </Col>
             </>
           )}
-          {!(
-            individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-            admin === true
-          ) && (
-            <Col md={12} xs={24} className="work">
-              <p className="alertMsg">{alert && <>* Please Choose Work</>}</p>
-              <DropdownTreeSelect
-                data={options}
-                onChange={(currentNode, selectedNodes) => {
-                  console.log("onChange::", currentNode, selectedNodes);
-                }}
-                searchPredicate={searchPredicate}
-                // onChange={onChangeOption}
-                onAction={onAction}
-                onNodeToggle={onNodeToggle}
-                className={
-                  !individual && buyer !== currentLocal.registration.Supplier
-                    ? "disableInput cascaderFiled"
-                    : "cascaderFiled"
-                }
-                texts={{ placeholder: currentLocal.registration.work }}
-                disabled={
-                  !individual && buyer !== currentLocal.registration.Supplier
-                }
-                onClick={() => setFocusIcon(true)}
-                onBlur={() => setFocusIcon(false)}
-              />
-              {!individual && buyer !== currentLocal.registration.Supplier ? (
-                <img
-                  src={disableArrow}
-                  alt="disableArrow"
-                  className={
-                    currentLanguageId === "46f4621f-9f96-46c7-a2d4-94b4c3393914"
-                      ? "rightIcon "
-                      : "dropDownicon"
-                  }
-                />
-              ) : (
-                <img
-                  src={focusIcon ? foucesArrow : Arrow}
-                  alt="Arrow"
-                  className={
-                    currentLanguageId === "46f4621f-9f96-46c7-a2d4-94b4c3393914"
-                      ? "rightIcon "
-                      : "dropDownicon"
-                  }
-                />
-              )}
-            </Col>
-          )}
+          {  ((individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
+    buyer === currentLocal.registration.Contractor) ||
+    (individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin)) &&
+                <Col md={12} xs={24} className="work">
+                  <p className="alertMsg">
+                    {alert && <>* Please Choose Work</>}
+                  </p>
+                  <DropdownTreeSelect
+                    data={options}
+                    onChange={(currentNode, selectedNodes) => {
+                      console.log("onChange::", currentNode, selectedNodes);
+                    }}
+                    searchPredicate={searchPredicate}
+                    // onChange={onChangeOption}
+                    onAction={onAction}
+                    onNodeToggle={onNodeToggle}
+                    className={
+                      !individual &&
+                      buyer !== currentLocal.registration.Supplier
+                        ? "disableInput cascaderFiled"
+                        : "cascaderFiled"
+                    }
+                    texts={{ placeholder: currentLocal.registration.work }}
+                    disabled={
+                      !individual &&
+                      buyer !== currentLocal.registration.Supplier
+                    }
+                    onClick={() => setFocusIcon(true)}
+                    onBlur={() => setFocusIcon(false)}
+                  />
+                  {!individual &&
+                  buyer !== currentLocal.registration.Supplier ? (
+                    <img
+                      src={disableArrow}
+                      alt="disableArrow"
+                      className={
+                        currentLanguageId ===
+                        "46f4621f-9f96-46c7-a2d4-94b4c3393914"
+                          ? "rightIcon "
+                          : "dropDownicon"
+                      }
+                    />
+                  ) : (
+                    <img
+                      src={focusIcon ? foucesArrow : Arrow}
+                      alt="Arrow"
+                      className={
+                        currentLanguageId ===
+                        "46f4621f-9f96-46c7-a2d4-94b4c3393914"
+                          ? "rightIcon "
+                          : "dropDownicon"
+                      }
+                    />
+                  )}
+                </Col>
+              }
           <Col md={12} xs={24}>
             <p className="alertMsg">
               {alert && !mobileNumber && <>* Please Choose mobileNumber</>}
@@ -1001,8 +1015,9 @@ function RegistrationForm() {
                     !individual && buyer !== currentLocal.registration.Supplier
                   }
                   onClick={(e) => {
-                    setFoucesItem(e.target.id)
-                    setFocusIcon(true)}}
+                    setFoucesItem(e.target.id);
+                    setFocusIcon(true);
+                  }}
                   onBlur={() => setFocusIcon(false)}
                 >
                   <a
@@ -1023,7 +1038,15 @@ function RegistrationForm() {
                     buyer !== currentLocal.registration.Supplier ? (
                       <img src={disableArrow} alt="disableArrow" />
                     ) : (
-                      <img src={focusIcon&&foucesItem==="organisationLegalStructure" ? foucesArrow : Arrow} alt="Arrow" />
+                      <img
+                        src={
+                          focusIcon &&
+                          foucesItem === "organisationLegalStructure"
+                            ? foucesArrow
+                            : Arrow
+                        }
+                        alt="Arrow"
+                      />
                     )}
                   </a>
                 </Dropdown>
@@ -1195,14 +1218,14 @@ function RegistrationForm() {
                   disabled={
                     !individual && buyer !== currentLocal.registration.Supplier
                   }
-                  onClick={(e) =>{
-                    setFoucesItem(e.target.id)
-                    setFocusIcon(true)
+                  onClick={(e) => {
+                    setFoucesItem(e.target.id);
+                    setFocusIcon(true);
                   }}
                   onBlur={() => setFocusIcon(false)}
                 >
                   <a
-                  id="country"
+                    id="country"
                     href="/"
                     className="ant-dropdown-link"
                     onClick={(e) => e.preventDefault()}
@@ -1214,7 +1237,14 @@ function RegistrationForm() {
                     buyer !== currentLocal.registration.Supplier ? (
                       <img src={disableArrow} alt="disableArrow" />
                     ) : (
-                      <img src={focusIcon&&foucesItem==="country" ? foucesArrow : Arrow} alt="Arrow" />
+                      <img
+                        src={
+                          focusIcon && foucesItem === "country"
+                            ? foucesArrow
+                            : Arrow
+                        }
+                        alt="Arrow"
+                      />
                     )}
                   </a>
                 </Dropdown>
@@ -1243,7 +1273,7 @@ function RegistrationForm() {
                   onBlur={() => setFocusIcon(false)}
                 >
                   <a
-                  id="government"
+                    id="government"
                     href="/"
                     className="ant-dropdown-link"
                     onClick={(e) => e.preventDefault()}
@@ -1256,8 +1286,14 @@ function RegistrationForm() {
                       <img src={disableArrow} alt="disableArrow" />
                     ) : (
                       // <img src={Arrow} alt="Arrow" />
-                      <img src={focusIcon&&foucesItem==="government" ? foucesArrow : Arrow} alt="Arrow" />
-
+                      <img
+                        src={
+                          focusIcon && foucesItem === "government"
+                            ? foucesArrow
+                            : Arrow
+                        }
+                        alt="Arrow"
+                      />
                     )}
                   </a>
                 </Dropdown>
