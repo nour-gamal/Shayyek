@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar } from "react-bootstrap";
-import ShayyekLogoDark from "../../../Resources/Assets/shayyekLogoDark.svg";
-import ShayyekLogoLight from "../../../Resources/Assets/shayyekLogoLight.svg";
+import ShayyekLogoDark from "../../../Resources/Assets/shayyekLogoDark.png";
+import ShayyekLogoLight from "../../../Resources/Assets/shayyekLogoLight.png";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import languages from "../../../Resources/Assets/languages.svg";

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import ShayyekLogoLight from "../../../Resources/Assets/shayyekLogoLight.svg";
+import ShayyekLogoLight from "../../../Resources/Assets/shayyekLogoLight.png";
 import "./Footer.css";
 
 function Footer() {

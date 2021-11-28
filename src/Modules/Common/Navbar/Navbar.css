@@ -86,6 +86,7 @@
 .transparent .loginNavbar {
 	display: flex;
 	justify-content: flex-end;
+	background: red;
 }
 
 .dark .loginNavbar .registration {
