@@ -220,11 +220,11 @@
 		padding-left: unset !important;
 	}
 }
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
 	.navbar .ml-300 {
 		margin-left: 300px;
 	}
 	.navbar .mr-300 {
 		margin-right: 300px;
 	}
-}
+} */
