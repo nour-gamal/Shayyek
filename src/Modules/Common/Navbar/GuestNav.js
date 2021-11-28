@@ -12,7 +12,7 @@ function GuestNav() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const dispatch = useDispatch();
 	return (
-		<Nav>
+		<Nav className={currentLocal.language === "English" ? "ml-300" : "mr-300"}>
 			<div className="centerNav">
 				<div className="d-flex">
 					<Link to="/suppliers" className="nav-link">
@@ -28,7 +28,7 @@ function GuestNav() {
 						{currentLocal.navbar.cart}
 					</Nav.Link>
 				</div>
-				<div className="d-flex pl-28">
+				<div className="d-flex pl-28 pr-28">
 					<Link to="/loginByEmail" className="nav-link">
 						{currentLocal.navbar.signin}
 					</Link>
@@ -39,7 +39,7 @@ function GuestNav() {
 				</div>
 			</div>
 			<div className="endNav">
-				<Nav.Link href="#" className="pl-28">
+				<Nav.Link href="#" className="pl-28 pr-28">
 					{currentLocal.navbar.contactUs}
 				</Nav.Link>
 				<Nav.Link href="#">

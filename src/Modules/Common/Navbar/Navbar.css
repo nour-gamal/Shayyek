@@ -1,6 +1,6 @@
 .navbar {
 	width: 100%;
-	background-color: rgba(0, 59, 107, 0.75);
+	background-color: rgba(0, 59, 107, 0.85);
 	padding: 20px 0px !important;
 }
 
@@ -9,8 +9,12 @@
 	padding-right: 84px !important;
 	padding-left: 84px !important;
 }
-.transparent
-{
+.navbar .dropDownIcon {
+	display: flex;
+	align-content: center;
+	align-items: center;
+}
+.transparent {
 	width: 100%;
 	background-color: transparent;
 	padding: 20px 0px !important;
@@ -136,10 +140,18 @@
 	margin-left: 18px;
 	margin-right: 18px;
 }
-.navbar .verfy{
+.navbar .verfy {
 	background-color: #fff !important;
 	padding-right: 84px !important;
 	padding-left: 84px !important;
+}
+.navbar .nameContainer,
+.navbar .nameContainer:hover {
+	color: #fff;
+	text-overflow: ellipsis;
+	width: 70px;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 @media (max-width: 991px) {
@@ -153,7 +165,7 @@
 	.navbar .centerNav,
 	.navbar .centerNav > div {
 		flex-direction: column;
-		justify-content: flex-start;
+		justify-content: center;
 		align-items: flex-start;
 	}
 	.navbar .centerNav {
@@ -196,11 +208,22 @@
 	.pl-28 {
 		padding-left: 28px !important;
 	}
+	.pr-28 {
+		padding-right: 28px !important;
+	}
 	.register_btn {
 		background: none;
 		margin-left: unset !important;
 		margin-right: unset !important;
 		padding-right: unset !important;
 		padding-left: unset !important;
+	}
+}
+@media (min-width: 992px) {
+	.navbar .ml-300 {
+		margin-left: 300px;
+	}
+	.navbar .mr-300 {
+		margin-right: 300px;
 	}
 }

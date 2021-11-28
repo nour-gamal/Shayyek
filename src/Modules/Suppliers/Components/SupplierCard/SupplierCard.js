@@ -3,6 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import RateDetailsModal from "../RateDetailsModal/RateDetailsModal";
 import infoIcon from "../../../../Resources/Assets/infoIcon.svg";
+import defaultCompImg from "../../../../Resources/Assets/infoIcon.svg";
 import { useSelector } from "react-redux";
 import { baseUrl } from "../../../../Services";
 import "./SupplierCard.css";
@@ -13,7 +14,9 @@ function SupplierCard({ supplier, i, overlay }) {
 	return (
 		<div className="supplierCard">
 			<img
-				src={baseUrl + supplier.image}
+				src={
+					supplier.image === null ? defaultCompImg : baseUrl + supplier.image
+				}
 				alt="supplier"
 				className="supplierImg"
 			/>

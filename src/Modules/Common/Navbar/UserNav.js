@@ -10,6 +10,7 @@ import { logout } from "../../../Redux/Authorization";
 
 function UserNav({ loginState }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const { authorization } = useSelector((state) => state.authorization);
 	const dispatch = useDispatch();
 	const menu = (
 		<Menu>
@@ -51,12 +52,20 @@ function UserNav({ loginState }) {
 								: "userType d-flex align-item-center rightStyles"
 						}
 					>
-						{currentLocal.navbar.admin}
+						<a
+							href="/"
+							data-toggle="tooltip"
+							title={authorization.fullName}
+							className="nameContainer"
+						>
+							{authorization.fullName}
+						</a>
 					</span>
+
 					<Dropdown
 						overlay={menu}
 						trigger={["click"]}
-						className="mx-3 d-none d-lg-block"
+						className="mx-3 d-none d-lg-flex dropDownIcon"
 					>
 						<a
 							className="ant-dropdown-link d-flex align-item-center "
