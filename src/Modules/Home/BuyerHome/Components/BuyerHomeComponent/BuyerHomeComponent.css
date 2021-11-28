@@ -7,6 +7,14 @@
 }
 .homeByer .projectContainer {
   width: 25%;
+
+}
+@-moz-document url-prefix() {
+  .homeByer .projectContainer {
+
+    height: 71.75vh !important;
+    background-color: #F5F5F5;
+  }
 }
 .homeByer .btn-danger {
   width: 188px;
@@ -20,7 +28,6 @@
   flex-direction: row;
   justify-content: space-between;
   margin-right: 40px;
-  padding-top: 29px;
   /* margin-bottom: 29px; */
 /* border-bottom: 1px solid #00000029; */
 margin-top: 1px;
@@ -44,10 +51,43 @@ background-color: #fff;
 {
   box-shadow: 0px 3px 6px #00000029;
 	opacity: 1;
+  height: 100%;
+}
+.homeByer .noRFQ
+{
+  color: #8E8E8E;
+}
+.homeByer .noRFQContainer
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+.homeByer .noCompaniesContainer
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 37.75vh;
+  color: #707070;
+}
+.homeByer .noCompaniesContainer img
+{
+width: 96px;
+height: 118.95px;
+margin-bottom: 16px;
+}
+.homeByer .noRFQContainer img
+{
+  width: 68.5px;
+height: 84.8px;
 }
 .homeByer .projectContainer{
 	/* box-shadow: 0px 3px 6px #00000029;
 	opacity: 1; */
+  height: 70.75vh;
   background-color: #F5F5F5;
 }
 .homeByer img {
@@ -97,6 +137,10 @@ border-radius: 5px;
 {
 	margin-left: 38px;
 	margin-right: 12.5px;
+}
+.homeByer .arCompanyContainer
+{
+  width:75% ;
 }
 .homeByer .arCompanyContainer button a{
   color: #fff;

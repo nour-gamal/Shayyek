@@ -56,6 +56,8 @@ export const en = {
 		pleaseChooseGovernorate: "* Please Choose Governorate",
 		pleaseFillAddress: "* please Fill Address",
 		pleaseUploadCommercialRecord: "* please Upload CommercialRecord",
+		pleaseChooseYourRole: "* please Choose Your Role  ",
+
 	},
 	footer: {
 		copyRights: "2021 Shayyek. All Rights Reserved",
@@ -184,6 +186,10 @@ export const en = {
 		viewProfile: "View Profile",
 		delete: "Delete",
 		addRfq: "Add New RFQ",
+		noRFQs:"No RFQs",
+		noCompanies:"No companies match your interests",
+		toSeeCompanies:"you can edit your work/field to see related companies",
+		relatedMarketPlace:"Related MarketPlace"
 	},
 	home: {
 		shayek: "Shayyek",

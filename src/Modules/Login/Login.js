@@ -9,6 +9,7 @@ import RejectionState from "./Components/RejectionState/RejectionState";
 function Login() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [loginType, setLoginType] = useState("");
+  const [holdingState, setHoldingState] = useState(false);
   const setSigninByEmail = (value) => {
     setLoginType(value); //signinMobile
   };
@@ -16,9 +17,15 @@ function Login() {
     setLoginType(value); //signinEmail
   };
   const rejection = (value) => {
+    console.log(value);
     setLoginType(value); //rejection
   };
-  console.log(loginType);
+  const holding = (value) => {
+    // console.log(value);
+    setHoldingState(value)
+   //rejection
+  };
+  console.log();
 
   return (
     <section className="logins">
@@ -27,9 +34,9 @@ function Login() {
       {loginType === "signinMobile" ? (
         <LoginByMobile setSigninByEmail={setSigninByEmail} />
       ): loginType==="rejection"?
-      <RejectionState rejection={rejection} />
+      <RejectionState  holdingState={holdingState} />
 	  : (
-        <LoginByEmail signinByEmail={signinByEmail} />
+        <LoginByEmail signinByEmail={signinByEmail}  rejection={rejection} holding={holding}  />
       )}
       <Footer />
     </section>

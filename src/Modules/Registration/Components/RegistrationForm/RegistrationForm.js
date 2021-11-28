@@ -790,7 +790,7 @@ function RegistrationForm() {
             <>
               <Col md={12} xs={24}>
                 <p className="alertMsg">
-                  {alert && !roleName && <>* Please Choose Your Role</>}
+                  {alert && !roleName && <>{currentLocal.registration.pleaseChooseYourRole}</>}
                 </p>
                 <Dropdown
                   overlay={roleMenu}
@@ -1065,7 +1065,7 @@ function RegistrationForm() {
               <Col md={12} xs={24}>
                 <p className="alertMsg">
                   {alert && !companyPhoneNumber && (
-                    <>* Please fill companyPhoneNumber</>
+                    <>{currentLocal.registration.pleaseFillCompanyPhoneNumber}</>
                   )}
                 </p>
                 <input
@@ -1311,7 +1311,7 @@ function RegistrationForm() {
 
               <Col md={12} xs={24}>
                 <p className="alertMsg">
-                  {alert && !address && <>* Please fill address</>}
+                  {alert && !address && <>{currentLocal.registration.pleaseFillAddress}</>}
                 </p>{" "}
                 <input
                   disabled={

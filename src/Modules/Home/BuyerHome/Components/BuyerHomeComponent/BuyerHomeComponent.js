@@ -5,114 +5,60 @@ import { Dropdown, Menu } from "antd";
 import view from "../../../../../Resources/Assets/View.svg";
 import { Link } from "react-router-dom";
 import hoveringView from "../../../../../Resources/Assets/hoveringView.svg";
+import noRFQs from "../../../../../Resources/Assets/noRFQs.svg";
 import research from "../../../../../Resources/Assets/research@2x.png";
-// import HoveringRegectEmp from "../../../../../Resources/Assets/HoveringRegectEmp.svg";
 import plus from "../../../../../Resources/Assets/plus (2).svg";
+import defaultCompImg from "../../../../../Resources/Assets/defaultCompImg.png";
 import deletee from "../../../../../Resources/Assets/deletee.svg";
 import HoveringDeletee from "../../../../../Resources/Assets/HoveringDeletee.svg";
 
-import { BuyerRFQ } from "../../../network";
+import { BuyerRFQ, getBuyerCompany } from "../../../network";
 import "./BuyerHomeComponent.css";
 import { useSelector } from "react-redux";
 function BuyerHomeComponent() {
   const [hoverState, setHover] = useState(false);
   const [rfqCount, setRfqCount] = useState(null);
   const [rfqDetails, setRfqDetails] = useState([]);
+  const [companies, setCompanies] = useState([]);
+  const [noCompany, setNoCompany] = useState(false);
+  const [noRFQ, setNoRFQ] = useState(false);
   const [hoverId, setHoverId] = useState();
   const { currentLocal } = useSelector((state) => state.currentLocal);
+  const { currentLanguageId } = useSelector((state) => state.currentLocal);
+  console.log(currentLanguageId);
 
   useEffect(() => {
     BuyerRFQ(
       (success) => {
-        setRfqCount(success.data.rfqCount);
-        setRfqDetails(success.data.rfqInvitationDetails);
+        if (success.data.rfqCount === 0) {
+          setNoRFQ(true);
+        } else {
+          setRfqCount(success.data.rfqCount);
+          setRfqDetails(success.data.rfqInvitationDetails);
+        }
       },
       (error) => {
         console.log(error);
       },
       true
     );
-  }, []);
-  const companies = [
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-    {
-      img: "",
-      companyName: "hhh",
-      companyType: "tyyy",
-      comanyddress: "fff",
-    },
-  ];
+    getBuyerCompany(
+      currentLanguageId,
+      (success) => {
+        console.log(success);
+        if (success.success === true && success.data !== null) {
+          setCompanies(success.data);
+        } else {
+          setNoCompany(true);
+        }
+      },
+      (error) => {
+        console.log(error);
+      },
+      true
+    );
+  }, [currentLanguageId]);
+
   const menu = (
     <Menu>
       <Menu.Item key="0" className="View">
@@ -194,33 +140,50 @@ function BuyerHomeComponent() {
             </Link>
           </button>
 
-          <h3 className="f-17 mx-4  mt-5 mb-2">Related MarketPlace</h3>
+          <h3 className="f-17 mx-4  mt-5 mb-2">{currentLocal.buyerHome.relatedMarketPlace}</h3>
           <div className="company mx-3">
             <Row>
-              {companies.map((company, i) => {
-                return (
-                  <Col md="6" lg="3" xs="12" key={i} className="mb-4">
-                    <div className="companyCard">
-                      <div className="logo py-3">
-                        <img src={company.img} alt="logo" />
-                      </div>
-                      <div className="companyInfo">
-                        <StarsRating
-                          count={5}
-                          // value={search.rate}
-                          size={24}
-                          color2={"#ffd700"}
-                          edit={false}
-                          className="stars"
-                        />
-                        <h4 className="mb-3 mt-3">{company.companyName}</h4>
-                        <h5 className="mb-3">{company.companyType}</h5>
-                        <h6>{company.comanyddress}</h6>
-                      </div>
-                    </div>
-                  </Col>
-                );
-              })}
+              {noCompany ? (
+                <div className="noCompaniesContainer">
+                  <div className="image text-center">
+                    <img src={noRFQs} alt="noRFQs" />
+                  </div>
+                  <p className="f-17 noCompanies mt-3 text-center">
+                    {currentLocal.buyerHome.noCompanies}
+                  </p>
+                  <p className="f-14 toSeeCompanies  text-center">
+                    {currentLocal.buyerHome.toSeeCompanies}
+                  </p>
+                </div>
+              ) : (
+                <>
+                  {companies.map((company, i) => {
+                    console.log(company);
+                    return (
+                      <Col md="6" lg="3" xs="12" key={i} className="mb-4">
+                        <div className="companyCard">
+                          <div className="logo py-3">
+                            <img src={company.image?company.image:defaultCompImg} alt="logo" />
+                          </div>
+                          <div className="companyInfo">
+                            <StarsRating
+                              count={5}
+                              // value={search.rate}
+                              size={24}
+                              color2={"#ffd700"}
+                              edit={false}
+                              className="stars"
+                            />
+                            <p className="mb-3 mt-3 f-17">{company.name}</p>
+                            <h5 className="mb-3">{company.typeName}</h5>
+                            <h6>{company.address&&company.address}</h6>
+                          </div>
+                        </div>
+                      </Col>
+                    );
+                  })}
+                </>
+              )}
             </Row>
           </div>
         </Container>
@@ -250,52 +213,75 @@ function BuyerHomeComponent() {
               <p className="text-white">{rfqCount}</p>
             </div>
           </div>
-          {rfqDetails.map((project) => {
-            console.log(project);
-            return (
-              <div className="projects" key={project.rfqHeaderId}>
-                <h5 className="projectName f-14">
-                  {project.projectName}
-                  <Dropdown.Button
-                    overlay={menu}
-                    trigger={["click"]}
-                    onClick={(e) => e.preventDefault()}
-                  ></Dropdown.Button>
-                </h5>
-                <div className="rfqInfo">
-                  <div>
-                    <p className="m-0 numberOfQuotations f-12">
-                      {currentLocal.buyerHome.NoOfQuotations}
-                    </p>
-                    <p className="m-0 noOfQuotations f-12 pb-3">
-                      {project.noOfQuotations}
-                    </p>
-                    <p className="m-0 deadline f-12">
-                      {currentLocal.buyerHome.deadline}
-                    </p>
-                    <p className="m-0 deadlineTime f-12">{project.deadline}</p>
+          {noRFQ ? (
+            <div className="noRFQContainer">
+              <img src={noRFQs} alt="noRFQs" />
+              <p className="f-17 noRFQ mt-3">{currentLocal.buyerHome.noRFQs}</p>
+            </div>
+          ) : (
+            <>
+              {rfqDetails.map((project) => {
+                console.log(project);
+                return (
+                  <div className="projects" key={project.rfqHeaderId}>
+                    <h5 className="projectName f-14">
+                      {project.projectName}
+                      <Dropdown.Button
+                        overlay={menu}
+                        trigger={["click"]}
+                        onClick={(e) => e.preventDefault()}
+                      ></Dropdown.Button>
+                    </h5>
+                    <div className="rfqInfo">
+                      <div>
+                        <p className="m-0 numberOfQuotations f-12">
+                          {currentLocal.buyerHome.NoOfQuotations}
+                        </p>
+                        <p className="m-0 noOfQuotations f-12 pb-3">
+                          {project.noOfQuotations}
+                        </p>
+                        <p className="m-0 deadline f-12">
+                          {currentLocal.buyerHome.deadline}
+                        </p>
+                        <p className="m-0 deadlineTime f-12">
+                          {project.deadline}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="m-0 maxPrice f-12">
+                          {" "}
+                          <div
+                            className={
+                              currentLocal.language === "العربيه"
+                                ? "d-inline-block arRedDote"
+                                : "d-inline-block redDote"
+                            }
+                          ></div>
+                          {currentLocal.buyerHome.maxPrice}
+                        </p>
+                        <p className="m-0 px-3 max-price f-12 pb-3">
+                          {project.maxPrice}
+                        </p>
+                        <p className="m-0 minPrice f-12">
+                          <div
+                            className={
+                              currentLocal.language === "العربيه"
+                                ? "d-inline-block arBlueDote"
+                                : "d-inline-block blueDote"
+                            }
+                          ></div>
+                          {currentLocal.buyerHome.minPrice}{" "}
+                        </p>
+                        <p className="m-0 px-3 min-price f-12">
+                          {project.minPrice}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p className="m-0 maxPrice f-12">
-                      {" "}
-                      <div className={currentLocal.language==="العربيه"?"d-inline-block arRedDote":"d-inline-block redDote"}></div>
-                      {currentLocal.buyerHome.maxPrice}
-                    </p>
-                    <p className="m-0 px-3 max-price f-12 pb-3">
-                      {project.maxPrice}
-                    </p>
-                    <p className="m-0 minPrice f-12">
-                      <div className={currentLocal.language==="العربيه"?"d-inline-block arBlueDote":"d-inline-block blueDote"}></div>
-                      {currentLocal.buyerHome.minPrice}{" "}
-                    </p>
-                    <p className="m-0 px-3 min-price f-12">
-                      {project.minPrice}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { login } from "../../../../Redux/Authorization";
 import "./LoginByEmail.css";
 
-function LoginByEmail({ signinByEmail,rejection }) {
+function LoginByEmail({ signinByEmail,rejection,holding }) {
   const dispatch = useDispatch();
   const { currentLocal } = useSelector((state) => state.currentLocal);
   // const { authorization } = useSelector((state) => state.authorization);
@@ -18,7 +18,7 @@ function LoginByEmail({ signinByEmail,rejection }) {
   const [verrifayState, setVerrifayState] = useState(false);
   const [wrongPassState, setWrongPassState] = useState(false);
   const [wrongEmailState, setWrongEmailState] = useState(false);
-  const [holdingState, setHoldingState] = useState(false);
+  // const [holdingState, setHoldingState] = useState(false);
   const [adminState, setAdminState] = useState(true);
   const [redirect, setRedirect] = useState(false);
   const resendData = (e) => {
@@ -26,7 +26,7 @@ function LoginByEmail({ signinByEmail,rejection }) {
     setAlert(false);
     setVerrifayState(false);
   };
-  console.log(holdingState);
+  // console.log(holdingState);
   const sendData = (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -53,8 +53,8 @@ function LoginByEmail({ signinByEmail,rejection }) {
           } else if (!success.success && success.data.errorStatus === 6) {
             setWrongEmailState(success.message);
           } else if (!success.success && success.data.errorStatus === 4) {
-            setHoldingState(success.message);
             rejection("rejection");
+            holding(success.message)
           }
         },
         (fail) => console.log(fail),

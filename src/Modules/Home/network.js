@@ -60,3 +60,7 @@ export const BuyerRFQ = (onSuccess, onFail, reqAuth = true) => {
 	const path = `api/RFQ/GetBuyerRFQs`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
+export const getBuyerCompany = (languageId,onSuccess, onFail, reqAuth = true) => {
+	const path = `api/Company/GetRelatedCompaniesForBuyer?languageId=${languageId}`;
+	GetResource(path, onSuccess, onFail, reqAuth);
+};

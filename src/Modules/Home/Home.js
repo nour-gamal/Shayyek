@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import GuestHome from "./GuestHome/GuestHome";
 function Home() {
 	const { authorization } = useSelector((state) => state.authorization);
-console.log(authorization.userTypeId);
 	return (
 		<section>
 			{authorization.userTypeId && <Navbar />}
