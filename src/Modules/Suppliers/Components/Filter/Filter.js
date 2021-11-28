@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Accordion } from "react-bootstrap";
-import { Checkbox, Tree, Select } from "antd";
+import { Checkbox, Tree } from "antd";
 import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
 import filterIcon from "../../../../Resources/Assets/filterIcon.svg";
@@ -16,7 +16,6 @@ function Filter() {
 	const [treeData, updateTreeData] = useState([]);
 	const [governmentList, setGovernmentList] = useState([]);
 	const [government, setGovernment] = useState("");
-	const { Option } = Select;
 
 	var treeIcon = document.querySelectorAll(".anticon");
 	if (treeIcon.length > 0) {
@@ -41,7 +40,11 @@ function Filter() {
 							currentLanguageId,
 							country.id,
 							(success) => {
-								setGovernmentList(success.data);
+								let govList = [];
+								success.data.forEach((gov) => {
+									govList.push({ label: gov.name, value: gov.id });
+								});
+								setGovernmentList(govList);
 							},
 							(fail) => {
 								console.log(fail);
@@ -128,6 +131,9 @@ function Filter() {
 		toggleInStock(!inStock);
 	};
 
+	const onGovSelect = (checkedValues) => {
+		setGovernment(checkedValues);
+	};
 	const onSelect = (selectedKeys, info) => {
 		console.log("selected", selectedKeys, info);
 	};
@@ -186,21 +192,7 @@ function Filter() {
 						{currentLocal.suppliers.suppliersFilter.location}
 					</Accordion.Header>
 					<Accordion.Body>
-						<Select
-							className="form-control"
-							placeholder={currentLocal.suppliers.suppliersFilter.location}
-							onChange={(value) => {
-								setGovernment(value);
-							}}
-						>
-							{governmentList.map((gov) => {
-								return (
-									<Option value={gov.id} key={gov.id}>
-										{gov.name}
-									</Option>
-								);
-							})}
-						</Select>
+						<Checkbox.Group options={governmentList} onChange={onGovSelect} />
 					</Accordion.Body>
 				</Accordion.Item>
 			</Accordion>
