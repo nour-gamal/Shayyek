@@ -109,8 +109,9 @@
 .navbar .centerNav {
 	display: flex;
 	width: 360%;
-	justify-content: space-around;
+	justify-content: flex-end;
 }
+
 .navbar .centerNav img {
 	margin: 0 5px;
 }
@@ -220,11 +221,9 @@
 		padding-left: unset !important;
 	}
 }
-/* @media (min-width: 992px) {
-	.navbar .ml-300 {
-		margin-left: 300px;
+@media (min-width: 992px) {
+	.navbar .actionNav {
+		width: 250px;
+		justify-content: flex-end !important;
 	}
-	.navbar .mr-300 {
-		margin-right: 300px;
-	}
-} */
+}
