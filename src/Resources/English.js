@@ -37,7 +37,7 @@ export const en = {
 		admin: "Admin",
 		employee: "Employee",
 		Supplier: "Supplier",
-		userType: "user Type",
+		userType: "User type",
 		commercialRecordOptional: "commercialRecord (Optional)",
 		organisationLegalStructure: "Organisation Legal Structure",
 		pleaseChooseCountryFirst: "please Choose Country First",
