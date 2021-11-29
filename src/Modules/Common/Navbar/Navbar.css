@@ -154,6 +154,7 @@
 	width: 70px;
 	white-space: nowrap;
 	overflow: hidden;
+	direction: ltr;
 }
 
 @media (max-width: 991px) {
