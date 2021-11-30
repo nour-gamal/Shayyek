@@ -4,10 +4,16 @@
 	padding: 2px;
 }
 
-.RFQInvitations .title {
+.RFQInvitations .section {
 	color: #b8b8b8;
 	padding: 20px;
 	background: #fff;
+	margin: 2px;
+}
+.RFQInvitations .section:first-of-type {
+	margin-top: 0px;
+}
+.RFQInvitations .title {
 	display: flex;
 	justify-content: space-between;
 }
@@ -16,8 +22,12 @@
 	width: 20px;
 }
 .invitations_number {
-	border-radius: 40%;
+	border-radius: 50%;
 	background: red;
 	color: #fff;
-	padding: 3px 5px;
+	width: 35px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	font-size: 12px;
 }

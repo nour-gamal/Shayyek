@@ -309,6 +309,21 @@ thead:hover {
 .ant-table-cell .ant-btn-group .ant-dropdown-button {
 	text-align: left !important;
 }
+.orange_btn {
+	background-color: #e15a4e;
+	color: #fff;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	padding: 5px 20px;
+	display: flex;
+	align-items: center;
+}
+.orange_btn a,
+.orange_btn a:hover {
+	color: #fff;
+	text-decoration: none;
+}
 
 @media (max-width: 480px) {
 	.ant-table-cell {
