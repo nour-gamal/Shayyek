@@ -141,7 +141,7 @@ export const en = {
 		makeOnlineSession: "Make online session",
 	},
 	supplierHome: {
-		addNewProduct: "Add new product",
+		addNewProduct: "Add New Product",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",

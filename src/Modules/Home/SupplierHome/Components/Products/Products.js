@@ -8,7 +8,8 @@ function Products() {
 	return (
 		<div>
 			<button className="orange_btn m-2 ">
-				<img src={Plus} alt="Plus" /> {currentLocal.supplierHome.addNewProduct}
+				<img src={Plus} alt="Plus" className="mx-1" />
+				{currentLocal.supplierHome.addNewProduct}
 			</button>
 		</div>
 	);
