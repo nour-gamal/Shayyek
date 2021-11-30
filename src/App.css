@@ -356,3 +356,14 @@ thead:hover {
 		width: 80% !important;
 	}
 }
+
+.orange_btn {
+	background-color: #e15a4e;
+	color: #fff;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	padding: 2px 20px;
+	display: flex;
+	align-items: center;
+}
