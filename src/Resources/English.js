@@ -142,6 +142,7 @@ export const en = {
 	},
 	supplierHome: {
 		addNewProduct: "Add New Product",
+		drafts: "Drafts",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",

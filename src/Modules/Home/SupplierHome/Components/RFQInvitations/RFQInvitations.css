@@ -22,11 +22,12 @@
 	width: 20px;
 }
 .invitations_number {
-	border-radius: 45%;
+	border-radius: 50%;
 	background: red;
 	color: #fff;
-	width: 30px;
-	height: 27px;
-	line-height: 27px;
+	width: 35px;
+	height: 25px;
+	line-height: 25px;
 	text-align: center;
+	font-size: 12px;
 }

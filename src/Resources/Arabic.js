@@ -188,6 +188,7 @@ export const ar = {
 	},
 	supplierHome: {
 		addNewProduct: "أضف منتج جديد",
+		drafts: "مسودات",
 	},
 	home: {
 		shayek: "شيّك",
