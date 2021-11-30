@@ -1,0 +1,23 @@
+.RFQInvitations {
+	background: #efefef;
+	height: max-content;
+	padding: 2px;
+}
+
+.RFQInvitations .title {
+	color: #b8b8b8;
+	padding: 20px;
+	background: #fff;
+	display: flex;
+	justify-content: space-between;
+}
+
+.RFQInvitations .RFQIcon {
+	width: 20px;
+}
+.invitations_number {
+	border-radius: 40%;
+	background: red;
+	color: #fff;
+	padding: 3px 5px;
+}

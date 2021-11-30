@@ -28,7 +28,7 @@ function GuestNav() {
 						{currentLocal.navbar.cart}
 					</Nav.Link>
 				</div>
-				<div className="d-flex pl-28 pr-28">
+				<div className="d-flex  actionNav">
 					<Link to="/loginByEmail" className="nav-link">
 						{currentLocal.navbar.signin}
 					</Link>

@@ -109,8 +109,9 @@
 .navbar .centerNav {
 	display: flex;
 	width: 360%;
-	justify-content: space-around;
+	justify-content: flex-end;
 }
+
 .navbar .centerNav img {
 	margin: 0 5px;
 }
@@ -153,6 +154,7 @@
 	width: 70px;
 	white-space: nowrap;
 	overflow: hidden;
+	direction: ltr;
 }
 
 @media (max-width: 991px) {
@@ -221,10 +223,8 @@
 	}
 }
 @media (min-width: 992px) {
-	.navbar .ml-300 {
-		margin-left: 300px;
-	}
-	.navbar .mr-300 {
-		margin-right: 300px;
+	.navbar .actionNav {
+		width: 250px;
+		justify-content: flex-end !important;
 	}
 }
