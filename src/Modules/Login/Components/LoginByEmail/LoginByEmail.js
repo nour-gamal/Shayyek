@@ -41,7 +41,6 @@ function LoginByEmail({ signinByEmail,rejection,holding }) {
       loginApi(
         body,
         (success) => {
-          console.log(success);
           if (success.success) {
             dispatch(login(success.data));
             setRedirect(true);

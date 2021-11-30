@@ -37,7 +37,6 @@ function LoginByMobile({ setSigninByEmail }) {
       loginApi(
         body,
         (success) => {
-          console.log(success.data.errorStatus);
           if (success.success) {
             dispatch(login(success.data));
             setRedirect(true);

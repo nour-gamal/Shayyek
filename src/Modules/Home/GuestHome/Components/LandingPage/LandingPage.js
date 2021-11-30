@@ -26,7 +26,6 @@ function LandingPage() {
 				} else {
 					setSearshResult(true);
 				}
-				console.log(success.data.length === 0);
 				setSearchList(success.data);
 			},
 			(fail) => {},

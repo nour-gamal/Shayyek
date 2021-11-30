@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./RejectionState.css";
 function RejectionState({ holdingState }) {
-  console.log(holdingState);
   const { currentLocal } = useSelector((state) => state.currentLocal);
   return (
     <div className="RejectionState">

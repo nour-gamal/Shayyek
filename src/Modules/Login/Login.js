@@ -17,15 +17,12 @@ function Login() {
     setLoginType(value); //signinEmail
   };
   const rejection = (value) => {
-    console.log(value);
     setLoginType(value); //rejection
   };
   const holding = (value) => {
-    // console.log(value);
     setHoldingState(value)
    //rejection
   };
-  console.log();
 
   return (
     <section className="logins">
