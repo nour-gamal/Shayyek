@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 import "./RegistrationForm.css";
 import DropdownTreeSelect from "react-dropdown-tree-select";
 import "react-dropdown-tree-select/dist/styles.css";
-import { Col, Radio, Row, Checkbox, Menu, Dropdown } from "antd";
+import { Col, Radio, Row, Checkbox, Menu, Dropdown,Tree  } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 import {
   CompanyList,
   CompanyHasAdmin,
@@ -77,10 +78,28 @@ function RegistrationForm() {
   const [foucesItem, setFoucesItem] = useState("");
   const [mobileState, setMobileState] = useState("");
   const [emailState, setEmailState] = useState("");
-
-  const showState = true;
+  const [expandedKeys, setExpandedKeys] = useState(['0-0-0', '0-0-1']);
+  const [checkedKeys, setCheckedKeys] = useState(['0-0-0']);
+  const [selectedKeys, setSelectedKeys] = useState([]);
+  const [autoExpandParent, setAutoExpandParent] = useState(true);  const showState = true;
   const uploadCompanyLogo = "";
   const commercialRecord = "";
+  const onExpand = (expandedKeysValue) => {
+    console.log('onExpand', expandedKeysValue); // if not set autoExpandParent to false, if children expanded, parent can not collapse.
+    // or, you can remove all expanded children keys.
+
+    setExpandedKeys(expandedKeysValue);
+    setAutoExpandParent(false);
+  };
+    const onCheck = (checkedKeysValue) => {
+    console.log('onCheck', checkedKeysValue);
+    setCheckedKeys(checkedKeysValue);
+  };
+
+  const onSelect = (selectedKeysValue, info) => {
+    console.log('onSelect', info);
+    setSelectedKeys(selectedKeysValue);
+  };
   const onSelectUserType = (val) => {
     setTimeout(() => {
       setBuyer(val);
@@ -90,13 +109,7 @@ function RegistrationForm() {
   const toggleValue = (val) => {
     // setToggleAccountType(val);
   };
-  //   console.log(
-
-  //     toggleAccountType,
-  //     setSubCategoryId,
-  //     setSubSubCategoryId,
-  //     setCategoryId,
-  //   );
+  
   const sendDataToParent = (val) => {
     setTimeout(() => {
       setUserTypeId(val);
@@ -185,6 +198,52 @@ function RegistrationForm() {
       false
     );
   }, [currentLanguageId, updateOptions]);
+
+
+  const treeData = [
+    {
+      title: '0-0',
+      key: '0-0',
+      children: [
+        {
+          title: '0-0-0',
+          key: '0-0-0',
+          children: [
+            { title: '0-0-0-0', key: '0-0-0-0' },
+            { title: '0-0-0-1', key: '0-0-0-1' },
+            { title: '0-0-0-2', key: '0-0-0-2' },
+          ],
+        },
+        {
+          title: '0-0-1',
+          key: '0-0-1',
+          children: [
+            { title: '0-0-1-0', key: '0-0-1-0' },
+            { title: '0-0-1-1', key: '0-0-1-1' },
+            { title: '0-0-1-2', key: '0-0-1-2' },
+          ],
+        },
+        {
+          title: '0-0-2',
+          key: '0-0-2',
+        },
+      ],
+    },
+    {
+      title: '0-1',
+      key: '0-1',
+      children: [
+        { title: '0-1-0-0', key: '0-1-0-0' },
+        { title: '0-1-0-1', key: '0-1-0-1' },
+        { title: '0-1-0-2', key: '0-1-0-2' },
+      ],
+    },
+    {
+      title: '0-2',
+      key: '0-2',
+    },
+  ];
+
   //dropdown of company
   const menu = (
     <Menu>
@@ -199,7 +258,6 @@ function RegistrationForm() {
                 CompanyHasAdmin(
                   company.id,
                   (success) => {
-                    console.log(success.data);
                     setAdmin(success.data);
                   },
                   (fail) => {
@@ -312,6 +370,22 @@ function RegistrationForm() {
       })}
     </Menu>
   );
+
+  const Worksmenu = (
+    <Menu>
+      <Menu.Item key="0">
+        ho
+        {/* <a to="https://www.antgroup.com">1st menu item</a> */}
+      </Menu.Item>
+      <Menu.Item key="1">
+        hy
+        {/* <a to="https://www.aliyun.com">2nd menu item</a> */}
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="3">3rd menu item</Menu.Item>
+    </Menu>
+  );
+
   const axioFun = () => {
     const body = new FormData();
     body.append("FirstName", firstName);
@@ -352,10 +426,12 @@ function RegistrationForm() {
         if (success.success === true) {
           localStorage.setItem("mobileNumber", mobileNumber);
           setRedirect(true);
-        }else if(!success.success && success.data.errorStatus === 2){    //Mobile usedBefore
-          setMobileState(success.message)
-        }else if(!success.success && success.data.errorStatus === 1){    //Mobile usedBefore
-          setEmailState(success.message)
+        } else if (!success.success && success.data.errorStatus === 2) {
+          //Mobile usedBefore
+          setMobileState(success.message);
+        } else if (!success.success && success.data.errorStatus === 1) {
+          //Mobile usedBefore
+          setEmailState(success.message);
         }
       },
       (fail) => console.log(fail)
@@ -519,21 +595,6 @@ function RegistrationForm() {
       }
     } else if (buyer === currentLocal.registration.Supplier && !admin) {
       if (
-        // !firstName ||
-        // !lastName ||
-        // !mobileNumber ||
-        // !email ||
-        // !password ||
-        // !confirmPassword ||
-        // !address ||
-        // !countryName ||
-        // !governmentName ||
-        // !checked ||
-        // !fileName ||
-        // !companyPhoneNumber ||
-        // !companyTypeName ||
-        // !companyId ||
-        // !roleName
         !firstName ||
         !lastName ||
         !companyId ||
@@ -557,77 +618,8 @@ function RegistrationForm() {
         axioFun();
       }
     }
-
-    // if (
-    // 	!firstName ||
-    // 	!lastName ||
-    // 	!companyId ||
-    // 	!mobileNumber ||
-    // 	!email ||
-    // 	!password ||
-    // 	!confirmPassword ||
-    // 	// !companyTypeId ||
-    // 	// !companyPhoneNumber ||
-    // 	// fileName === false ||
-    // 	!checked
-    // ) {
-    // 	setAlert(true);
-    // } else {
-    // 	setAlert(false);
-    // 	const body = new FormData();
-    // 	body.append("FirstName", firstName);
-    // 	body.append("LastName", lastName);
-    // 	body.append("MailUser", email);
-    // 	body.append("Password", password);
-    // 	body.append("MobileUser", mobileNumber);
-    // 	body.append("IsWhatsAppNumber", checkedWhatsApp);
-    // 	body.append("FirebaseToken", authorization.deviceToken);
-    // 	body.append("Logo", logoData);
-    // 	body.append("CommercialRecord", fileData);
-    // 	body.append("MailCompany", companyMail);
-    // 	body.append("MobileCompany", companyPhoneNumber);
-    // 	body.append("Website", companyWebsite);
-    // 	body.append("Address", address);
-    // 	body.append("CompanyId", companyId);
-
-    // 	body.append(roleId && "RoleId", roleId);
-
-    // 	body.append("UserTypeId", userTypeId);
-
-    // 	body.append(
-    // 		"AccountTypeId",
-    // 		accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
-    // 	);
-
-    // 	body.append("CompanyHasData", admin ? true : false);
-    // 	body.append("GovernmentId", governmentId);
-    // 	body.append("CategoryId", categoryId);
-    // 	body.append("SubCategoryId", subCategoryId);
-    // 	body.append("SubSubCategoryId", subSubCategoryId);
-    // 	body.append("CompanyTypeId", companyTypeId);
-    // 	body.append("CategoriesRequest", companyTypeId);
-    // 	register(
-    // 		body,
-    // 		(success) => {
-    // 			if (success.data === true) {
-    // 				localStorage.setItem("mobileNumber", mobileNumber);
-    // 				setRedirect(true);
-    // 			}
-    // 		},
-    // 		(fail) => console.log(fail),
-    // 		false
-    // 	);
-    // }
   };
 
-  // const onChangeOption = (e, i) => {
-  //   setWorkValue(e.value)
-  //   console.log("suphi", e);
-  // };
-  // function onChangeOption(currentNode, selectedNodes) {
-  //   currentNode: { label, value, children, expanded, checked, className, ...extraProps }
-  //   selectedNodes: [{ label, value, children, expanded, checked, className, ...extraProps }]
-  // }
   const onAction = (node, action) => {
     // console.log("onAction::", action, node);
   };
@@ -643,11 +635,25 @@ function RegistrationForm() {
     return <Redirect to="/verifyByEmail" />;
   }
 
-  ((individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-    buyer === currentLocal.registration.Contractor) ||
-    (individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin)) &&
-    console.log(true);
+  if (
+    (admin === false &&
+      individual === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f") ||
+    (admin === "" && individual === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f") ||
+    buyer === currentLocal.registration.userType ||
+    (individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
+      buyer === currentLocal.registration.Contractor) ||
+    (individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
+      buyer === currentLocal.registration.Supplier)
+  ) {
+    console.log("done");
+  }
 
+  console.log(
+    (individual === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f" &&
+      admin === false) ||
+      (individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
+        buyer === currentLocal.registration.Contractor)
+  );
   return (
     <div className="RegistrationForm ppl ppr">
       <AuthHeader
@@ -695,7 +701,9 @@ function RegistrationForm() {
         <Row>
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !firstName && <>{currentLocal.registration.pleaseFillFirstName}</>}
+              {alert && !firstName && (
+                <>{currentLocal.registration.pleaseFillFirstName}</>
+              )}
             </p>
             <input
               id="firstName"
@@ -717,7 +725,9 @@ function RegistrationForm() {
           </Col>
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !lastName && <>{currentLocal.registration.pleaseFillLastName}</>}
+              {alert && !lastName && (
+                <>{currentLocal.registration.pleaseFillLastName}</>
+              )}
             </p>
             <input
               type="text"
@@ -741,7 +751,9 @@ function RegistrationForm() {
           {!(individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") && (
             <Col md={12} xs={24} className="companyName">
               <p className="alertMsg">
-                {alert && !companyName && <>{currentLocal.registration.pleaseChooseCompanyName}</>}
+                {alert && !companyName && (
+                  <>{currentLocal.registration.pleaseChooseCompanyName}</>
+                )}
               </p>
               <Dropdown
                 overlay={menu}
@@ -790,7 +802,9 @@ function RegistrationForm() {
             <>
               <Col md={12} xs={24}>
                 <p className="alertMsg">
-                  {alert && !roleName && <>{currentLocal.registration.pleaseChooseYourRole}</>}
+                  {alert && !roleName && (
+                    <>{currentLocal.registration.pleaseChooseYourRole}</>
+                  )}
                 </p>
                 <Dropdown
                   overlay={roleMenu}
@@ -834,66 +848,64 @@ function RegistrationForm() {
               </Col>
             </>
           )}
-          {  ((individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-    buyer === currentLocal.registration.Contractor) ||
-    (individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin)) &&
-                <Col md={12} xs={24} className="work">
-                  <p className="alertMsg">
-                    {alert && <>{currentLocal.registration.PleaseChooseWork}</>}
-                  </p>
-                  <DropdownTreeSelect
-                    data={options}
-                    onChange={(currentNode, selectedNodes) => {
-                      console.log("onChange::", currentNode, selectedNodes);
-                    }}
-                    searchPredicate={searchPredicate}
-                    // onChange={onChangeOption}
-                    onAction={onAction}
-                    onNodeToggle={onNodeToggle}
-                    className={
-                      !individual &&
-                      buyer !== currentLocal.registration.Supplier
-                        ? "disableInput cascaderFiled"
-                        : "cascaderFiled"
-                    }
-                    texts={{ placeholder: currentLocal.registration.work }}
-                    disabled={
-                      !individual &&
-                      buyer !== currentLocal.registration.Supplier
-                    }
-                    onClick={() => setFocusIcon(true)}
-                    onBlur={() => setFocusIcon(false)}
-                  />
-                  {!individual &&
-                  buyer !== currentLocal.registration.Supplier ? (
-                    <img
-                      src={disableArrow}
-                      alt="disableArrow"
-                      className={
-                        currentLanguageId ===
-                        "46f4621f-9f96-46c7-a2d4-94b4c3393914"
-                          ? "rightIcon "
-                          : "dropDownicon"
-                      }
-                    />
-                  ) : (
-                    <img
-                      src={focusIcon ? foucesArrow : Arrow}
-                      alt="Arrow"
-                      className={
-                        currentLanguageId ===
-                        "46f4621f-9f96-46c7-a2d4-94b4c3393914"
-                          ? "rightIcon "
-                          : "dropDownicon"
-                      }
-                    />
-                  )}
-                </Col>
-              }
+          {((individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
+            buyer === currentLocal.registration.Contractor) ||
+            (individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
+              !admin)) && (
+            <Col md={12} xs={24} className="work">
+              <p className="alertMsg">
+                {alert && <>{currentLocal.registration.PleaseChooseWork}</>}
+              </p>
+              <DropdownTreeSelect
+                data={options}
+                onChange={(currentNode, selectedNodes) => {
+                  console.log("onChange::", currentNode, selectedNodes);
+                }}
+                searchPredicate={searchPredicate}
+                // onChange={onChangeOption}
+                onAction={onAction}
+                onNodeToggle={onNodeToggle}
+                className={
+                  !individual && buyer !== currentLocal.registration.Supplier
+                    ? "disableInput cascaderFiled"
+                    : "cascaderFiled"
+                }
+                texts={{ placeholder: currentLocal.registration.work }}
+                disabled={
+                  !individual && buyer !== currentLocal.registration.Supplier
+                }
+                onClick={() => setFocusIcon(true)}
+                onBlur={() => setFocusIcon(false)}
+              />
+              {!individual && buyer !== currentLocal.registration.Supplier ? (
+                <img
+                  src={disableArrow}
+                  alt="disableArrow"
+                  className={
+                    currentLanguageId === "46f4621f-9f96-46c7-a2d4-94b4c3393914"
+                      ? "rightIcon "
+                      : "dropDownicon"
+                  }
+                />
+              ) : (
+                <img
+                  src={focusIcon ? foucesArrow : Arrow}
+                  alt="Arrow"
+                  className={
+                    currentLanguageId === "46f4621f-9f96-46c7-a2d4-94b4c3393914"
+                      ? "rightIcon "
+                      : "dropDownicon"
+                  }
+                />
+              )}
+            </Col>
+          )}
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !mobileNumber && <>{currentLocal.registration.pleaseFillmobileNumber}</>}
-              {mobileState&&mobileState}
+              {alert && !mobileNumber && (
+                <>{currentLocal.registration.pleaseFillmobileNumber}</>
+              )}
+              {mobileState && mobileState}
             </p>
             <input
               className={
@@ -910,7 +922,7 @@ function RegistrationForm() {
               }
               onChange={(e) => {
                 setMobileNumber(e.target.value);
-                setMobileState("")
+                setMobileState("");
               }}
             />
             <Checkbox
@@ -930,8 +942,10 @@ function RegistrationForm() {
           </Col>
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !email && <>{currentLocal.registration.pleaseFillEmail}</>}
-              {emailState&&emailState}
+              {alert && !email && (
+                <>{currentLocal.registration.pleaseFillEmail}</>
+              )}
+              {emailState && emailState}
             </p>
             <input
               type="email"
@@ -948,14 +962,16 @@ function RegistrationForm() {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                setEmailState("")
+                setEmailState("");
               }}
             />
           </Col>
 
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !password && <>{currentLocal.registration.pleaseFillPassword}</>}
+              {alert && !password && (
+                <>{currentLocal.registration.pleaseFillPassword}</>
+              )}
             </p>
             <input
               className={
@@ -978,7 +994,9 @@ function RegistrationForm() {
 
           <Col md={12} xs={24}>
             <p className="alertMsg">
-              {alert && !confirmPassword && <>{currentLocal.registration.pleaseFillConfirmPassword}</>}
+              {alert && !confirmPassword && (
+                <>{currentLocal.registration.pleaseFillConfirmPassword}</>
+              )}
               {confirmationState && <> * password confirmation doesn't match</>}
             </p>
 
@@ -1065,7 +1083,9 @@ function RegistrationForm() {
               <Col md={12} xs={24}>
                 <p className="alertMsg">
                   {alert && !companyPhoneNumber && (
-                    <>{currentLocal.registration.pleaseFillCompanyPhoneNumber}</>
+                    <>
+                      {currentLocal.registration.pleaseFillCompanyPhoneNumber}
+                    </>
                   )}
                 </p>
                 <input
@@ -1210,12 +1230,18 @@ function RegistrationForm() {
               </div>
             </Col>
           )}
-          {(buyer === currentLocal.registration.Contractor ||
-            buyer === currentLocal.registration.Supplier) && (
+          {((admin === false &&
+            individual === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f") ||
+            individual === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f" ||
+            (buyer === currentLocal.registration.Contractor &&
+              individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") ||
+            buyer === currentLocal.registration.userType) && (
             <>
               <Col md={12} xs={24} className="country">
                 <p className="alertMsg">
-                  {alert && !countryName && <>{currentLocal.registration.pleaseFillCountry}</>}
+                  {alert && !countryName && (
+                    <>{currentLocal.registration.pleaseFillCountry}</>
+                  )}
                 </p>
                 <Dropdown
                   overlay={countryMenu}
@@ -1311,7 +1337,9 @@ function RegistrationForm() {
 
               <Col md={12} xs={24}>
                 <p className="alertMsg">
-                  {alert && !address && <>{currentLocal.registration.pleaseFillAddress}</>}
+                  {alert && !address && (
+                    <>{currentLocal.registration.pleaseFillAddress}</>
+                  )}
                 </p>{" "}
                 <input
                   disabled={
@@ -1348,7 +1376,9 @@ function RegistrationForm() {
                 {alert &&
                   !fileName &&
                   individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && (
-                    <>{currentLocal.registration.pleaseUploadCommercialRecord}</>
+                    <>
+                      {currentLocal.registration.pleaseUploadCommercialRecord}
+                    </>
                   )}
               </p>
               <div
@@ -1425,6 +1455,7 @@ function RegistrationForm() {
               {currentLocal.registration.acceptTermsOfServiceAndPrivacyPolicy}
             </Checkbox>
           </Col>
+
           <div className="button my-3">
             <div>
               <button
@@ -1460,6 +1491,34 @@ function RegistrationForm() {
               </a>
             </div>
           </div>
+          <Col>
+            {/* <input onBlur={()=>{
+           console.log("hi");
+         }} /> */}
+            <Dropdown overlay={Worksmenu} trigger={["click"]}>
+              <a
+                className="ant-dropdown-link"
+                onClick={(e) => e.preventDefault()}
+                href="/"
+              >
+    <input />
+
+                
+                <DownOutlined />
+              </a>
+            </Dropdown>
+            <Tree
+      checkable
+      onExpand={onExpand}
+      expandedKeys={expandedKeys}
+      autoExpandParent={autoExpandParent}
+      onCheck={onCheck}
+      checkedKeys={checkedKeys}
+      onSelect={onSelect}
+      selectedKeys={selectedKeys}
+      treeData={treeData}
+    />
+          </Col>
         </Row>
       </form>
     </div>

@@ -46,10 +46,10 @@ function LandingPage() {
 				<Container>
 					<Row>
 						<Col md={6} xs={12}>
-							<h2 className="text-white my-0 f-27">
+							<h1 className="text-white pt-5 f-34 text-bold">
 								{currentLocal.home.shayek}
-							</h2>
-							<p className="text-white f-21 mb-4 fw-light">
+							</h1>
+							<p className="text-white f-21  fw-light">
 								{currentLocal.home.optimizingProcurement}
 							</p>
 						</Col>
@@ -65,7 +65,7 @@ function LandingPage() {
 							<h3 className="f-27 my-0">
 								{currentLocal.home.verifiedConnectedStreamlined}
 							</h3>
-							<p className="text-white f-21 mb-5 fw-light">
+							<p className="text-white f-21 mb-0 fw-light">
 								{currentLocal.home.procurementManagement}
 							</p>
 						</Col>

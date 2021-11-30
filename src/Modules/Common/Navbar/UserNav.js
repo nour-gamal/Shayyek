@@ -52,14 +52,14 @@ function UserNav({ loginState }) {
 								: "userType d-flex align-item-center rightStyles"
 						}
 					>
-						<a
-							href="/"
+						<Link
+							to="/me/name"
 							data-toggle="tooltip"
 							title={authorization.fullName}
 							className="nameContainer"
 						>
 							{authorization.fullName}
-						</a>
+						</Link>
 					</span>
 
 					<Dropdown

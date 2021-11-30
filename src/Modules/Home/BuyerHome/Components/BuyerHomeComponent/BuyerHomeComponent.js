@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import StarsRating from "stars-rating";
 import { Dropdown, Menu } from "antd";
 import view from "../../../../../Resources/Assets/View.svg";
 import { Link } from "react-router-dom";
@@ -8,10 +7,12 @@ import hoveringView from "../../../../../Resources/Assets/hoveringView.svg";
 import noRFQs from "../../../../../Resources/Assets/noRFQs.svg";
 import research from "../../../../../Resources/Assets/research@2x.png";
 import plus from "../../../../../Resources/Assets/plus (2).svg";
-import defaultCompImg from "../../../../../Resources/Assets/defaultCompImg.png";
+import ReactTooltip from "react-tooltip";
 import deletee from "../../../../../Resources/Assets/deletee.svg";
 import HoveringDeletee from "../../../../../Resources/Assets/HoveringDeletee.svg";
-
+import { baseUrl } from "../../../../../Services";
+import defaultCompImg from "../../../../../Resources/Assets/defaultCompImg.png";
+import ReactStars from "react-rating-stars-component";
 import { BuyerRFQ, getBuyerCompany } from "../../../network";
 import "./BuyerHomeComponent.css";
 import { useSelector } from "react-redux";
@@ -26,7 +27,10 @@ function BuyerHomeComponent() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
   console.log(currentLanguageId);
-
+  const [overlay, setOverlay] = useState({
+    no: 0,
+    state: false,
+  });
   useEffect(() => {
     BuyerRFQ(
       (success) => {
@@ -140,7 +144,9 @@ function BuyerHomeComponent() {
             </Link>
           </button>
 
-          <h3 className="f-17 mx-4  mt-5 mb-2">{currentLocal.buyerHome.relatedMarketPlace}</h3>
+          <h3 className="f-17 mx-4  mt-5 mb-2">
+            {currentLocal.buyerHome.relatedMarketPlace}
+          </h3>
           <div className="company mx-3">
             <Row>
               {noCompany ? (
@@ -161,23 +167,73 @@ function BuyerHomeComponent() {
                     console.log(company);
                     return (
                       <Col md="6" lg="3" xs="12" key={i} className="mb-4">
-                        <div className="companyCard">
-                          <div className="logo py-3">
-                            <img src={company.image?company.image:defaultCompImg} alt="logo" />
+                        <div
+                          className="companyCard"
+                          onMouseEnter={() => {
+                            setOverlay({
+                              no: i,
+                              state: true,
+                            });
+                          }}
+                          onMouseLeave={() => {
+                            setOverlay({
+                              no: i,
+                              state: false,
+                            });
+                          }}
+                        >
+                          <img
+                            src={
+                              company.image
+                                ? baseUrl + company.image
+                                : defaultCompImg
+                            }
+                            alt="company"
+                            className="companyImg"
+                          />
+                          <div
+                            className={
+                              overlay.state && overlay.no === i
+                                ? "overlay"
+                                : "fadeOutOverlay"
+                            }
+                          >
+                            <div className="d-flex align-items-end justify-content-between">
+                              <Link to={`supplier/${company.id}`}>
+                                <div>
+                                  <ReactStars
+                                    edit={false}
+                                    count={5}
+                                    value={company.rate}
+                                    size={24}
+                                    activeColor="#ffd700"
+                                    classNames={
+                                      currentLocal.language === "English"
+                                        ? "ltrStars"
+                                        : "rtlStars"
+                                    }
+                                  />
+                                  <div className="infoContainer">
+                                    <div
+                                      className="name f-21"
+                                      data-tip="hello world"
+                                    >
+                                      {company.name}
+                                    </div>
+                                    {/* <p data-tip="hello world">Tooltip</p> */}
+                                    <ReactTooltip />
+                                    <div className="f-17 font-white">
+                                      {company.typeName}
+                                    </div>
+                                    <div className="f-17 font-white">
+                                      {company.address}
+                                    </div>
+                                  </div>
+                                </div>
+                              </Link>
+                            </div>
                           </div>
-                          <div className="companyInfo">
-                            <StarsRating
-                              count={5}
-                              // value={search.rate}
-                              size={24}
-                              color2={"#ffd700"}
-                              edit={false}
-                              className="stars"
-                            />
-                            <p className="mb-3 mt-3 f-17">{company.name}</p>
-                            <h5 className="mb-3">{company.typeName}</h5>
-                            <h6>{company.address&&company.address}</h6>
-                          </div>
+                    
                         </div>
                       </Col>
                     );
