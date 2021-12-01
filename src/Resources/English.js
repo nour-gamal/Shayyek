@@ -143,6 +143,9 @@ export const en = {
 	supplierHome: {
 		addNewProduct: "Add New Product",
 		drafts: "Drafts",
+		addPriceList: "Add Price List",
+		save: "Save",
+		cancel: "Cancel",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",

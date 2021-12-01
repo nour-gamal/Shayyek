@@ -1,9 +1,6 @@
 .addEmail .ant-modal-content {
 	height: 380px;
 }
-.addEmail .close {
-	width: 25px;
-}
 .addEmail .content {
 	padding: 20px;
 	flex-direction: column;
