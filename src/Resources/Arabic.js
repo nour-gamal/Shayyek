@@ -189,6 +189,9 @@ export const ar = {
 	supplierHome: {
 		addNewProduct: "أضف منتج جديد",
 		drafts: "مسودات",
+		addPriceList: "أضف قائمه اسعار",
+		save: "حفظ",
+		cancel: "الغاء",
 	},
 	home: {
 		shayek: "شيّك",

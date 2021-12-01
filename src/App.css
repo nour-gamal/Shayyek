@@ -319,10 +319,14 @@ thead:hover {
 	display: flex;
 	align-items: center;
 }
+
 .orange_btn a,
 .orange_btn a:hover {
 	color: #fff;
 	text-decoration: none;
+}
+.close {
+	width: 25px;
 }
 
 @media (max-width: 480px) {
