@@ -2,15 +2,15 @@
   display: flex;
   flex-direction: row;
 }
-.homeByer .CompanyContainer {
+/* .homeByer .CompanyContainer {
   width: 75%;
 }
 .homeByer .projectContainer {
   width: 25%;
 
-}
+} */
 .homeByer {
-	width: 100%;
+	/* width: 100%; */
 	position: relative;
 }
 .homeByer .companyImg {
@@ -87,7 +87,7 @@
 @-moz-document url-prefix() {
   .homeByer .projectContainer {
 
-    height: 71.75vh !important;
+    height: 99.5% !important;
     background-color: #F5F5F5;
   }
 }
@@ -374,12 +374,12 @@ border-radius: 5px;
 }
 
 @media only screen and (max-width: 768px) {
-  .homeByer .CompanyContainer {
+  /* .homeByer .CompanyContainer {
     width: 50%;
   }
   .homeByer .projectContainer {
-    width: 30%;
-  }
+    width: 50%;
+  } */
 }
 @media (min-width: 768px) and (max-width: 991px) {
 }
