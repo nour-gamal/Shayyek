@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Modal } from "antd";
 import { useSelector } from "react-redux";
+import { Alert } from "react-bootstrap";
+import { ImportProductsAsExcelSheet } from "../../../network";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
 import plusIcon from "../../../../../Resources/Assets/add (3).svg";
 import importIcon from "../../../../../Resources/Assets/import.svg";
@@ -10,19 +12,49 @@ function AddProductModal({ isModalVisible, onCancel }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [rows, updateRows] = useState([]);
 	const [cols, updateCols] = useState([]);
+	const [validation, setValidation] = useState(false);
 	const [excelFile, updateExcelFile] = useState(null);
 	const fileHandler = (event) => {
-		let fileObj = event.target.files[0];
-		updateExcelFile(event.target.files[0]);
-		//just pass the fileObj as parameter
-		ExcelRenderer(fileObj, (err, resp) => {
-			if (err) {
-				console.log(err);
-			} else {
-				updateRows(resp.rows);
-				updateCols(resp.cols);
-			}
-		});
+		if (
+			event.target.files[0] &&
+			event.target.files[0].type ===
+				"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+		) {
+			setValidation(false);
+			let fileObj = event.target.files[0];
+			updateExcelFile(event.target.files[0]);
+			//just pass the fileObj as parameter
+			ExcelRenderer(fileObj, (err, resp) => {
+				if (err) {
+					console.log(err);
+				} else {
+					updateRows(resp.rows);
+					updateCols(resp.cols);
+				}
+			});
+		} else {
+			setValidation(true);
+		}
+	};
+	const handleUploadFile = () => {
+		if (excelFile) {
+			const productsSheet = new FormData();
+			productsSheet.append("productsSheet", excelFile);
+			ImportProductsAsExcelSheet(
+				productsSheet,
+				(success) => {
+					if (success.success) {
+						updateExcelFile(null);
+						updateRows([]);
+						updateCols([]);
+						onCancel();
+					}
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
 	};
 	return (
 		<Modal
@@ -58,7 +90,13 @@ function AddProductModal({ isModalVisible, onCancel }) {
 					</label>
 				</div>
 			</div>
+
 			<div className="uploadingArea">
+				{validation && (
+					<Alert variant={"danger"} className="text-center">
+						{currentLocal.supplierHome.pleaseUploadExcel}
+					</Alert>
+				)}
 				<OutTable
 					data={rows}
 					columns={cols}
@@ -70,7 +108,14 @@ function AddProductModal({ isModalVisible, onCancel }) {
 				<button className="button-secondary mx-2">
 					{currentLocal.supplierHome.cancel}
 				</button>
-				<button className="button-primary mx-2">
+				<button
+					className={
+						excelFile
+							? "button-primary mx-2"
+							: "button-primary disabledBtn mx-2"
+					}
+					onClick={handleUploadFile}
+				>
 					{currentLocal.supplierHome.save}
 				</button>
 			</div>

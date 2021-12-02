@@ -21,7 +21,9 @@
 	padding: 0px 80px !important;
 }
 
-@media (max-width: 768px) {
+.addProductModal .disabledBtn {
+	background: #76c1ff;
+	cursor: not-allowed;
 }
 @media (max-width: 491px) {
 	.addProductModal .actionsContainer,

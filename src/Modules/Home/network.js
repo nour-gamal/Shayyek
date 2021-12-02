@@ -73,3 +73,14 @@ export const getRFQ = (isDrafted, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/RFQ/GetSupplierContractorRFQInvitations?isDrafted=${isDrafted}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
+
+export const ImportProductsAsExcelSheet = (
+	data,
+	onSuccess,
+	onFail,
+	reqAuth = true,
+	formData = true
+) => {
+	const path = "api/Product/ImportProductsAsExcelSheet";
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};

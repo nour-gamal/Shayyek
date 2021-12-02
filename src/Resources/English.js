@@ -146,6 +146,7 @@ export const en = {
 		addPriceList: "Add Price List",
 		save: "Save",
 		cancel: "Cancel",
+		pleaseUploadExcel: "Please upload an Excel sheet",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",
