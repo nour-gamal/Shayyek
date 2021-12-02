@@ -4,11 +4,17 @@
 	width: 100%;
 	overflow: scroll;
 	margin-top: 20px;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
+.addProductModal .uploadingArea::-webkit-scrollbar {
+	display: none;
 }
 
 .addProductModal .button-secondary {
-	border-color: #003b6b;
-	color: #003b6b;
+	border-color: #003b6b !important;
+	color: #003b6b !important;
 }
 .addProductModal .button-secondary,
 .addProductModal .button-primary {

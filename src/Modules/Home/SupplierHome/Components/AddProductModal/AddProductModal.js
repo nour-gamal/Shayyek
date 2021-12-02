@@ -10,10 +10,10 @@ function AddProductModal({ isModalVisible, onCancel }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [rows, updateRows] = useState([]);
 	const [cols, updateCols] = useState([]);
-
+	const [excelFile, updateExcelFile] = useState(null);
 	const fileHandler = (event) => {
 		let fileObj = event.target.files[0];
-
+		updateExcelFile(event.target.files[0]);
 		//just pass the fileObj as parameter
 		ExcelRenderer(fileObj, (err, resp) => {
 			if (err) {
