@@ -192,6 +192,7 @@ export const ar = {
 		addPriceList: "أضف قائمه اسعار",
 		save: "حفظ",
 		cancel: "الغاء",
+		pleaseUploadExcel: "من فضلك ارفع ملف اكسيل",
 	},
 	home: {
 		shayek: "شيّك",
