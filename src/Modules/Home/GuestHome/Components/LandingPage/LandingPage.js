@@ -7,12 +7,14 @@ import { searchCompany } from "../../../network";
 import StarsRating from "stars-rating";
 // import { Rate } from "rsuite";
 import SearchShayyek from "../../../../../Resources/Assets/Search Shayyek.svg";
+import emptyIcon from "../../../../../Resources/Assets/emptyIcon.svg";
 import "./LandingPage.css";
 function LandingPage() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [searchWord, setSearchWord] = useState("");
   const [searchList, setSearchList] = useState([]);
   const [searshResult, setSearshResult] = useState(false);
+  const [emptyState,setEmptyState]=useState(false)
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
 
   const SearchFun = (e) => {
@@ -26,6 +28,12 @@ function LandingPage() {
           success.data !== null ||
           (success.data === null && e.target.value)
         ) {
+          if(success.data === null && e.target.value){
+            setEmptyState(true)
+          }else{
+            setEmptyState(false)
+
+          }
 			setSearshResult(true);       
 		 }else{
 			setSearshResult(false);
@@ -126,6 +134,22 @@ function LandingPage() {
           </Row>
           {searshResult && (
             <div className="searchResult">
+{emptyState?
+
+<>
+  <div className="d-flex">
+    <div>
+      <img src={emptyIcon} alt="emptyIcon" />
+    </div>
+    <div className="empty-text mx-4">
+      <p className="f-17 fw-bold">No Result Found</p>
+      <p className="f-17">Try another Keyword</p>
+      </div>
+  </div>
+</>
+
+:
+<>
               {searchList &&
                 searchList.map((search) => {
                   return (
@@ -154,6 +178,8 @@ function LandingPage() {
                     </div>
                   );
                 })}
+                </>
+                }
             </div>
           )}
         </Container>
