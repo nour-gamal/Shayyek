@@ -1,0 +1,47 @@
+.importOrAdd .uploadingArea {
+	background: #f5f5f5;
+	height: calc(100vh - 300px);
+	width: 100%;
+	overflow: scroll;
+	margin-top: 20px;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
+.importOrAdd .uploadingArea::-webkit-scrollbar {
+	display: none;
+}
+
+.importOrAdd .button-secondary {
+	border-color: #003b6b !important;
+	color: #003b6b !important;
+}
+.importOrAdd .button-secondary,
+.importOrAdd .button-primary {
+	padding: 0px 80px !important;
+}
+
+.importOrAdd .disabledBtn {
+	background: #8e8e8e;
+	cursor: not-allowed;
+}
+@media (max-width: 491px) {
+	.importOrAdd .actionsContainer,
+	.importOrAdd .toolsSection {
+		flex-direction: column;
+	}
+
+	.importOrAdd .toolsSection > div {
+		margin: 10px 0;
+	}
+	.importOrAdd .actionsContainer > button {
+		margin-top: 10px;
+		padding: 0 50px !important;
+	}
+}
+
+@media (min-width: 769px) {
+	.importOrAdd .toolsSection > div {
+		margin: 10px;
+	}
+}

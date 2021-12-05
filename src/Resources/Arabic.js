@@ -193,6 +193,8 @@ export const ar = {
 		save: "حفظ",
 		cancel: "الغاء",
 		pleaseUploadExcel: "من فضلك ارفع ملف اكسيل",
+		addProductSuccess: "طلب اضافه المنتجات الخاص بك قيد التنفيذ",
+		ok: "تم",
 	},
 	home: {
 		shayek: "شيّك",

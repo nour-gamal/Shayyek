@@ -23,12 +23,14 @@ function Products({ draftsCount }) {
 					<img src={Plus} alt="Plus" className="mx-1" />
 					<span>{currentLocal.supplierHome.addNewProduct}</span>
 				</button>
-				<AddProductModal
-					isModalVisible={isModalVisible}
-					onCancel={() => {
-						toggleProductModal(!isModalVisible);
-					}}
-				/>
+				{isModalVisible && (
+					<AddProductModal
+						isModalVisible={isModalVisible}
+						onCancel={() => {
+							toggleProductModal(!isModalVisible);
+						}}
+					/>
+				)}
 				<div className="d-flex align-items-center">
 					<img src={Drafts} alt="Drafts" className="mx-2" />
 					<span>{currentLocal.supplierHome.drafts}</span>

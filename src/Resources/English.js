@@ -147,6 +147,8 @@ export const en = {
 		save: "Save",
 		cancel: "Cancel",
 		pleaseUploadExcel: "Please upload an Excel sheet",
+		addProductSuccess: "Your request to add product is being processed",
+		ok: "Ok",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",
