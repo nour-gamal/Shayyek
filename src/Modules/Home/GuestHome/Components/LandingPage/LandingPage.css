@@ -126,6 +126,8 @@
 }
 .landingPage .companyInfo {
 	cursor: pointer;
+	display: flex;
+	flex-direction: row;
 }
 .landingPage .procurementManagement {
 	display: flex;
@@ -143,6 +145,7 @@
 	top: 66.5%;
 	padding: 30px;
 	background-color: #fff;
+	margin-top: 25px;
 	position: absolute;
 	z-index: 555555;
 	border-bottom-right-radius: 15px;
@@ -155,6 +158,8 @@
 }
 .landingPage .searchName {
 	padding-left: 65px;
+	padding-top: 10px;
+
 }
 .landingPage .stars {
 	display: flex;
@@ -174,8 +179,23 @@
 @media only screen and (max-width: 768px) {
 	.landingPage .search {
 		position: relative;
-		margin-bottom: 40px;
+		margin-bottom: 23px;
 		padding-left: 0;
+	}
+	.landingPage .stars {
+		display: flex;
+		justify-content: flex-end;
+		margin-right: 0px;
+	}
+	.landingPage .companyInfo {
+		cursor: pointer;
+		display: flex;
+		flex-direction: row;
+		font-size: 12px;
+	}
+	.landingPage .searchName {
+		padding-left: 16px;
+		padding-top: 10px;
 	}
 	.overlay {
 		position: absolute;
@@ -186,17 +206,17 @@
 		background-color: #003b6b;
 		opacity: 0.53;
 		height: 100%;
-		height: 70vh;
+		height: 60vh;
 	}
 	.landingPage {
-		height: 70vh;
+		height: 60vh;
 	}
 	.landingPage .button::after {
 		content: ".";
 		color: #fff;
 		font-size: 52px;
 		position: absolute;
-		top: 45%;
+		top: 55%;
 		left: 140px;
 	}
 	.landingPage .container {
@@ -210,6 +230,11 @@
 		font-size: 17px !important;
 	}
 	.landingPage input {
+		width: 95.2% !important;
+
+		font-size: 0.75rem;
+	}
+	.landingPage input:focus {
 		width: 95.2% !important;
 
 		font-size: 0.75rem;
@@ -258,10 +283,35 @@
 	.landingPage .lastUpdatStock p {
 		font-size: 14px !important;
 	}
+	.landingPage .searchResult  {
+		width: 90.3%;
+		position: absolute;
+		top: 59.5%;
+		left: 3px;
+		padding: 30px;
+		background-color: #fff;
+		position: absolute;
+		z-index: 555555;
+		border-bottom-right-radius: 15px;
+		border-bottom-left-radius: 15px;
+		box-shadow: 0 3px 6px #00000029;
+	margin-top: 6px;
+	}
+		.landingPage .SearchShayyek {
+			position: absolute;
+			top: 48px !important;
+			left: 16px;
+			margin-right: 16px;
+		}
 }
 @media (min-width: 768px) and (max-width: 991px) {
 	.landingPage .f-27 {
 		font-size: 21px !important;
+	}
+	.landingPage input:focus {
+		width: 95.2% !important;
+
+		font-size: 0.75rem;
 	}
 	.landingPage .f-21 {
 		font-size: 17.5px !important;
@@ -287,6 +337,11 @@
 		position: relative;
 		margin-bottom: 60px;
 		padding-left: 0;
+	}
+	.landingPage input {
+		width: 95.2% !important;
+
+		font-size: 0.75rem;
 	}
 	.overlay {
 		position: absolute;
