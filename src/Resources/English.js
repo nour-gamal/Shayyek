@@ -149,6 +149,13 @@ export const en = {
 		pleaseUploadExcel: "Please upload an Excel sheet",
 		addProductSuccess: "Your request to add product is being processed",
 		ok: "Ok",
+		specs: "Specs",
+		saveAndAdd: "Save & Add Another",
+		productName: "Product name",
+		price: "Price",
+		addDifferentSizes: "Add different Sizes",
+		addDifferentModels: "Add different Models",
+		availableQuantity: "Available Quantity in stock",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",

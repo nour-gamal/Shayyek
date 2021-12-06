@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Modal } from "antd";
 import ImportOrAdd from "./ImportOrAdd/ImportOrAdd";
-import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
-import "./AddProductModal.css";
+import AddProductDetails from "./AddProductDetails/AddProductDetails";
 import AddProductSuccess from "./AddProductSuccess/AddProductSuccess";
+import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
 function AddProductModal({ isModalVisible, onCancel }) {
-	const [currentPage, updateCurrentPage] = useState("importOrAdd");
+	const [currentPage, updateCurrentPage] = useState("AddProductDetails");
 	return (
 		<Modal
 			title="Basic Modal"
@@ -28,6 +28,8 @@ function AddProductModal({ isModalVisible, onCancel }) {
 				/>
 			) : currentPage === "addProductSuccess" ? (
 				<AddProductSuccess onCancel={onCancel} />
+			) : currentPage === "AddProductDetails" ? (
+				<AddProductDetails />
 			) : (
 				<></>
 			)}

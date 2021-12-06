@@ -195,6 +195,13 @@ export const ar = {
 		pleaseUploadExcel: "من فضلك ارفع ملف اكسيل",
 		addProductSuccess: "طلب اضافه المنتجات الخاص بك قيد التنفيذ",
 		ok: "تم",
+		specs: "المواصفات",
+		saveAndAdd: "احفظ و اضف اخر",
+		productName: "اسم المنتج",
+		price: "السعر",
+		addDifferentSizes: "اضف احجام مختلفه",
+		addDifferentModels: "اضف انواع مختلفه",
+		availableQuantity: "الكميه المتوفره في المخازن",
 	},
 	home: {
 		shayek: "شيّك",

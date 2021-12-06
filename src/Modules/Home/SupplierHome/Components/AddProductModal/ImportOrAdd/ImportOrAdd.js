@@ -60,7 +60,12 @@ function ImportOrAdd({ onCancel, onCurrentPageChange }) {
 	return (
 		<div className="importOrAdd">
 			<div className="d-flex mx-5  toolsSection">
-				<div>
+				<div
+					onClick={() => {
+						onCurrentPageChange("AddProductDetails");
+					}}
+					className="cursorPointer"
+				>
 					<img src={plusIcon} alt="Plus" className="mx-2" />
 					<span>{currentLocal.supplierHome.addPriceList}</span>
 				</div>

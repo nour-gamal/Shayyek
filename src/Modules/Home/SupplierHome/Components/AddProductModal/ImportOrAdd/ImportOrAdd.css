@@ -12,12 +12,12 @@
 	display: none;
 }
 
-.importOrAdd .button-secondary {
+.addProductModal .button-secondary {
 	border-color: #003b6b !important;
 	color: #003b6b !important;
 }
-.importOrAdd .button-secondary,
-.importOrAdd .button-primary {
+.addProductModal .button-secondary,
+.addProductModal .button-primary {
 	padding: 0px 80px !important;
 }
 
