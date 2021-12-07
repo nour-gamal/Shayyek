@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Select } from "antd";
 import languages from "../../../../../../Resources/Assets/languages.svg";
+import add from "../../../../../../Resources/Assets/plusCircle.svg";
+import positive from "../../../../../../Resources/Assets/postive.svg";
+import negative from "../../../../../../Resources/Assets/negative.svg";
+import darkCross from "../../../../../../Resources/Assets/DarkCross.svg";
 import AddProductPhoto from "../../../../../../Resources/Assets/AddProductPhoto.svg";
 import { GetLanguages } from "../../../../../../Network";
 import { useSelector } from "react-redux";
 import "./AddProductDetails.css";
-function AddProductDetails() {
+function AddProductDetails({ onCurrentPageChange, sizes, getSizes }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [image, setImage] = useState(null);
 	const [specs, updateSpecs] = useState("");
+	const [sizess, updateSizess] = useState(sizes);
 	const [langList, updateLangList] = useState([]);
 	const [langValue, updateLangValue] = useState("");
+	const [quantityCount, updateQuantityCount] = useState(0);
 	const [productName, updateProductName] = useState("");
 	const [price, updatePrice] = useState(null);
 	const { Option } = Select;
@@ -51,6 +57,7 @@ function AddProductDetails() {
 			}
 		}
 	};
+	console.log(langValue);
 	return (
 		<div className="d-flex justify-content-between addProdContainer">
 			<div className="d-flex detailsSection mx-5 my-2">
@@ -104,7 +111,7 @@ function AddProductDetails() {
 					<input
 						type="text"
 						value={productName}
-						id="productName"
+						id="productName withBorder"
 						placeholder={currentLocal.supplierHome.productName}
 						onChange={handleChangeField}
 						className="form-control"
@@ -113,14 +120,81 @@ function AddProductDetails() {
 						type="number"
 						value={price}
 						id="price"
-						className="form-control"
+						className="form-control withBorder"
 						placeholder={currentLocal.supplierHome.price}
 						onChange={handleChangeField}
 						min={0}
 						step={1}
 					/>
-					<div className="inputField">
-						{currentLocal.supplierHome.addDifferentSizes}
+					<div className="inputField form-control d-flex justify-content-between withBorder">
+						<div>{currentLocal.supplierHome.addDifferentSizes}</div>
+						<img
+							src={add}
+							alt="add"
+							className="cursorPointer"
+							onClick={() => {
+								onCurrentPageChange("addSizes");
+								getSizes(sizess);
+							}}
+						/>
+					</div>
+					<div>
+						{sizess.map((size, sizeIndex) => (
+							<div className="capsules">
+								{size}{" "}
+								<img
+									src={darkCross}
+									className="mx-1 cursorPointer"
+									alt="darkCross"
+									id={size}
+									onClick={(e) => {
+										let filteredSizes = sizess.filter(
+											(size) => size !== e.target.id
+										);
+										updateSizess(filteredSizes);
+									}}
+								/>
+							</div>
+						))}
+					</div>
+					<div className="inputField form-control d-flex justify-content-between withBorder">
+						<div>{currentLocal.supplierHome.addDifferentModels}</div>
+						<img
+							src={add}
+							alt="add"
+							className="cursorPointer"
+							onClick={() => {
+								onCurrentPageChange("addModels");
+							}}
+						/>
+					</div>
+					<div className="mt-2 d-flex px-2 justify-content-between inputField">
+						<div>{currentLocal.supplierHome.availableQuantity}</div>
+						<div className="d-flex align-items-center">
+							<div>
+								<img
+									src={negative}
+									alt="negative"
+									onClick={() => {
+										if (quantityCount !== 0) {
+											updateQuantityCount(quantityCount - 1);
+										}
+									}}
+									className="cursorPointer"
+								/>
+							</div>
+							<div className="quantityCount mx-2">{quantityCount}</div>
+							<div>
+								<img
+									src={positive}
+									alt="positive"
+									onClick={() => {
+										updateQuantityCount(quantityCount + 1);
+									}}
+									className="cursorPointer"
+								/>
+							</div>
+						</div>
 					</div>
 				</Col>
 			</Row>

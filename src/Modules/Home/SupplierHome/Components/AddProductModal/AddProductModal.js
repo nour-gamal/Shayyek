@@ -3,9 +3,11 @@ import { Modal } from "antd";
 import ImportOrAdd from "./ImportOrAdd/ImportOrAdd";
 import AddProductDetails from "./AddProductDetails/AddProductDetails";
 import AddProductSuccess from "./AddProductSuccess/AddProductSuccess";
+import AddSizes from "./AddSizes/AddSizes";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
 function AddProductModal({ isModalVisible, onCancel }) {
 	const [currentPage, updateCurrentPage] = useState("AddProductDetails");
+	const [sizes, updateSizes] = useState([]);
 	return (
 		<Modal
 			title="Basic Modal"
@@ -29,7 +31,25 @@ function AddProductModal({ isModalVisible, onCancel }) {
 			) : currentPage === "addProductSuccess" ? (
 				<AddProductSuccess onCancel={onCancel} />
 			) : currentPage === "AddProductDetails" ? (
-				<AddProductDetails />
+				<AddProductDetails
+					onCurrentPageChange={(pageName) => {
+						updateCurrentPage(pageName);
+					}}
+					getSizes={(sizes) => {
+						updateSizes(sizes);
+					}}
+					sizes={sizes}
+				/>
+			) : currentPage === "addSizes" ? (
+				<AddSizes
+					onCurrentPageChange={(pageName) => {
+						updateCurrentPage(pageName);
+					}}
+					getSizes={(sizes) => {
+						updateSizes(sizes);
+					}}
+					sizes={sizes}
+				/>
 			) : (
 				<></>
 			)}

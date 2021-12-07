@@ -157,6 +157,7 @@ export const en = {
 		addDifferentSizes: "Add different Sizes",
 		addDifferentModels: "Add different Models",
 		availableQuantity: "Available Quantity in stock",
+		add: "Add",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",
@@ -210,8 +211,8 @@ export const en = {
 	},
 	home: {
 		shayek: "Shayyek",
-		noResultFound:"No Result Found",
-		tryAnotherKeyword:"try another Keyword",
+		noResultFound: "No Result Found",
+		tryAnotherKeyword: "try another Keyword",
 		live: "Live",
 		today: "Today",
 		Updated: "Stock Availability Last Updated",
