@@ -9,11 +9,18 @@ import AddProductPhoto from "../../../../../../Resources/Assets/AddProductPhoto.
 import { GetLanguages } from "../../../../../../Network";
 import { useSelector } from "react-redux";
 import "./AddProductDetails.css";
-function AddProductDetails({ onCurrentPageChange, sizes, getSizes }) {
+function AddProductDetails({
+	onCurrentPageChange,
+	sizes,
+	getSizes,
+	getModels,
+	models,
+}) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [image, setImage] = useState(null);
 	const [specs, updateSpecs] = useState("");
 	const [sizess, updateSizess] = useState(sizes);
+	const [modelss, updateModelss] = useState(models);
 	const [langList, updateLangList] = useState([]);
 	const [langValue, updateLangValue] = useState("");
 	const [quantityCount, updateQuantityCount] = useState(0);
@@ -167,6 +174,25 @@ function AddProductDetails({ onCurrentPageChange, sizes, getSizes }) {
 								onCurrentPageChange("addModels");
 							}}
 						/>
+					</div>
+					<div>
+						{modelss.map((model) => (
+							<div className="capsules">
+								{model}
+								<img
+									src={darkCross}
+									className="mx-1 cursorPointer"
+									alt="darkCross"
+									id={model}
+									onClick={(e) => {
+										let filteredModels = modelss.filter(
+											(model) => model !== e.target.id
+										);
+										updateModelss(filteredModels);
+									}}
+								/>
+							</div>
+						))}
 					</div>
 					<div className="mt-2 d-flex px-2 justify-content-between inputField">
 						<div>{currentLocal.supplierHome.availableQuantity}</div>

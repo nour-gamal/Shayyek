@@ -4,10 +4,12 @@ import ImportOrAdd from "./ImportOrAdd/ImportOrAdd";
 import AddProductDetails from "./AddProductDetails/AddProductDetails";
 import AddProductSuccess from "./AddProductSuccess/AddProductSuccess";
 import AddSizes from "./AddSizes/AddSizes";
+import AddModels from "./AddModels/AddModels";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
 function AddProductModal({ isModalVisible, onCancel }) {
 	const [currentPage, updateCurrentPage] = useState("AddProductDetails");
 	const [sizes, updateSizes] = useState([]);
+	const [models, updateModels] = useState([]);
 	return (
 		<Modal
 			title="Basic Modal"
@@ -39,6 +41,7 @@ function AddProductModal({ isModalVisible, onCancel }) {
 						updateSizes(sizes);
 					}}
 					sizes={sizes}
+					models={models}
 				/>
 			) : currentPage === "addSizes" ? (
 				<AddSizes
@@ -49,6 +52,16 @@ function AddProductModal({ isModalVisible, onCancel }) {
 						updateSizes(sizes);
 					}}
 					sizes={sizes}
+				/>
+			) : currentPage === "addModels" ? (
+				<AddModels
+					onCurrentPageChange={(pageName) => {
+						updateCurrentPage(pageName);
+					}}
+					getModels={(models) => {
+						updateModels(models);
+					}}
+					models={models}
 				/>
 			) : (
 				<></>
