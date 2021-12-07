@@ -309,31 +309,37 @@ function BuyerHomeComponent() {
                               {project.deadline}
                             </p>
                           </div>
+                          <div className="line" style={{height:"51px",width:"1px",backgroundColor:"red",display:"inline-block",marginTop:"12px",marginRight:"-50px"}}></div>
+
                           <div>
                             <p className="m-0 maxPrice f-12">
                               {" "}
-                              <div
+                              {/* <div
                                 className={
                                   currentLocal.language === "العربيه"
                                     ? "d-inline-block arRedDote"
                                     : "d-inline-block redDote"
                                 }
-                              ></div>
+                              ></div> */}
+
                               {currentLocal.buyerHome.maxPrice}
                             </p>
+
                             <p className="m-0 px-3 max-price f-12 pb-3">
                               {project.maxPrice}
                             </p>
                             <p className="m-0 minPrice f-12">
-                              <div
+
+                              {/* <div
                                 className={
                                   currentLocal.language === "العربيه"
                                     ? "d-inline-block arBlueDote"
                                     : "d-inline-block blueDote"
                                 }
-                              ></div>
+                              ></div> */}
                               {currentLocal.buyerHome.minPrice}{" "}
                             </p>
+
                             <p className="m-0 px-3 min-price f-12">
                               {project.minPrice}
                             </p>
@@ -344,6 +350,7 @@ function BuyerHomeComponent() {
                   })}
                 </>
               )}
+              
             </div>
           </div>
         </Col>

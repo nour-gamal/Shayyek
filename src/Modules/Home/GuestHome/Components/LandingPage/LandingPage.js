@@ -142,8 +142,8 @@ function LandingPage() {
       <img src={emptyIcon} alt="emptyIcon" />
     </div>
     <div className="empty-text mx-4">
-      <p className="f-17 fw-bold">No Result Found</p>
-      <p className="f-17">Try another Keyword</p>
+      <p className="f-17 fw-bold">{currentLocal.home.noResultFound}</p>
+      <p className="f-17">{currentLocal.home.tryAnotherKeyword}</p>
       </div>
   </div>
 </>

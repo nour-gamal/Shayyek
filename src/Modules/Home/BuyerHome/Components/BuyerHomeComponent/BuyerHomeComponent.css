@@ -75,7 +75,17 @@
 	flex-direction: column;
 	justify-content: flex-end;
 }
-
+.homeByer .line::after
+{
+ display: inline;
+ content: "";
+ margin-bottom: 70px;
+ position: relative;
+ bottom: 20px;
+ width: 20px;
+ height: 20px;
+ border-radius: 50%;
+}
 
 
 

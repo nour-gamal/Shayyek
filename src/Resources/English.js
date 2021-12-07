@@ -34,6 +34,7 @@ export const en = {
 		individual: "Individual",
 		buyer: "Buyer",
 		Contractor: "Contractor",
+
 		admin: "Admin",
 		employee: "Employee",
 		Supplier: "Supplier",
@@ -200,6 +201,8 @@ export const en = {
 	},
 	home: {
 		shayek: "Shayyek",
+		noResultFound:"No Result Found",
+		tryAnotherKeyword:"try another Keyword",
 		live: "Live",
 		today: "Today",
 		Updated: "Stock Availability Last Updated",

@@ -197,6 +197,8 @@ export const ar = {
 	home: {
 		shayek: "شيّك",
 		live: "مباشر",
+		noResultFound:"لا توجد نتيجة",
+		tryAnotherKeyword:"حاول كلمة اخري",
 		today: "اليوم",
 		Updated: "اخر تحديث لبضاعة المخزن",
 		optimizingProcurement: "تحسين عملية المشتريات. ",
