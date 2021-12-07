@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import plusCircle from "../../../../../../Resources/Assets/plusCircle.svg";
 import "./AddSizes.css";
-function AddSizes({ getSizes, onCurrentPageChange, sizes }) {
+function AddSizes({ getSizes, onCurrentPageChange, sizes, lang }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [inputCount, updateInputCount] = useState(
-		sizes.length === 0 ? ["", ""] : sizes
+		sizes.length === 0
+			? [
+					{ en: "", ar: "" },
+					{ en: "", ar: "" },
+			  ]
+			: sizes
 	);
 	const handleAddSizes = () => {
-		const filteredInputs = inputCount.filter((input) => input.length !== 0);
+		const filteredInputs = inputCount.filter(
+			(input) => input[lang].length !== 0
+		);
 		getSizes(filteredInputs);
 		onCurrentPageChange("AddProductDetails");
 	};
@@ -23,10 +30,10 @@ function AddSizes({ getSizes, onCurrentPageChange, sizes }) {
 								key={Index}
 								placeholder={`Size ${Index + 1}`}
 								className="form-control"
-								value={inputCount[Index]}
+								value={inputCount[Index][lang]}
 								onChange={(e) => {
 									let inputData = inputCount;
-									inputData[Index] = e.target.value;
+									inputData[Index][lang] = e.target.value;
 									updateInputCount([...inputData]);
 								}}
 							/>
@@ -39,7 +46,7 @@ function AddSizes({ getSizes, onCurrentPageChange, sizes }) {
 						src={plusCircle}
 						alt="plusCircle"
 						onClick={() => {
-							updateInputCount([...inputCount, ""]);
+							updateInputCount([...inputCount, { en: "", ar: "" }]);
 						}}
 					/>
 					<div className="mx-2 ">

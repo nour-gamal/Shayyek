@@ -12,22 +12,25 @@ import "./AddProductDetails.css";
 function AddProductDetails({
 	onCurrentPageChange,
 	sizes,
+	models,
 	getSizes,
 	getModels,
-	models,
+	getCurrentLang,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [image, setImage] = useState(null);
-	const [specs, updateSpecs] = useState("");
+	const [specs, updateSpecs] = useState({ ar: "", en: "" });
+	const [productName, updateProductName] = useState({ ar: "", en: "" });
+	const [price, updatePrice] = useState({ ar: "", en: "" });
 	const [sizess, updateSizess] = useState(sizes);
 	const [modelss, updateModelss] = useState(models);
 	const [langList, updateLangList] = useState([]);
 	const [langValue, updateLangValue] = useState("");
 	const [quantityCount, updateQuantityCount] = useState(0);
-	const [productName, updateProductName] = useState("");
-	const [price, updatePrice] = useState(null);
 	const { Option } = Select;
-
+	let langName =
+		langValue === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar";
+	getCurrentLang(langName);
 	useEffect(() => {
 		GetLanguages(
 			(success) => {
@@ -52,11 +55,11 @@ function AddProductDetails({
 	const handleChangeField = (e) => {
 		switch (e.target.id) {
 			case "productName": {
-				updateProductName(e.target.value);
+				updateProductName({ ...productName, [langName]: e.target.value });
 				break;
 			}
 			case "price": {
-				updatePrice(e.target.value);
+				updatePrice({ ...price, [langName]: e.target.value });
 				break;
 			}
 			default: {
@@ -64,7 +67,6 @@ function AddProductDetails({
 			}
 		}
 	};
-	console.log(langValue);
 	return (
 		<div className="d-flex justify-content-between addProdContainer">
 			<div className="d-flex detailsSection mx-5 my-2">
@@ -108,24 +110,24 @@ function AddProductDetails({
 					)}
 					<textarea
 						placeholder={currentLocal.supplierHome.specs}
-						value={specs}
+						value={specs[langName]}
 						onChange={(e) => {
-							updateSpecs(e.target.value);
+							updateSpecs({ ...specs, [langName]: e.target.value });
 						}}
 					/>
 				</Col>
 				<Col xs={24} md={12} className="dataSection">
 					<input
 						type="text"
-						value={productName}
-						id="productName withBorder"
+						value={productName[langName]}
+						id="productName"
 						placeholder={currentLocal.supplierHome.productName}
 						onChange={handleChangeField}
-						className="form-control"
+						className="form-control withBorder"
 					/>
 					<input
 						type="number"
-						value={price}
+						value={price[langName]}
 						id="price"
 						className="form-control withBorder"
 						placeholder={currentLocal.supplierHome.price}
@@ -146,23 +148,25 @@ function AddProductDetails({
 						/>
 					</div>
 					<div>
-						{sizess.map((size, sizeIndex) => (
-							<div className="capsules">
-								{size}{" "}
-								<img
-									src={darkCross}
-									className="mx-1 cursorPointer"
-									alt="darkCross"
-									id={size}
-									onClick={(e) => {
-										let filteredSizes = sizess.filter(
-											(size) => size !== e.target.id
-										);
-										updateSizess(filteredSizes);
-									}}
-								/>
-							</div>
-						))}
+						{sizess.map((size, sizeIndex) => {
+							return (
+								<div className="capsules">
+									{size[langName]}{" "}
+									<img
+										src={darkCross}
+										className="mx-1 cursorPointer"
+										alt="darkCross"
+										id={size}
+										onClick={(e) => {
+											let filteredSizes = sizess.filter(
+												(size) => size[langName] !== e.target.id
+											);
+											updateSizess(filteredSizes);
+										}}
+									/>
+								</div>
+							);
+						})}
 					</div>
 					<div className="inputField form-control d-flex justify-content-between withBorder">
 						<div>{currentLocal.supplierHome.addDifferentModels}</div>
@@ -172,6 +176,7 @@ function AddProductDetails({
 							className="cursorPointer"
 							onClick={() => {
 								onCurrentPageChange("addModels");
+								getModels(modelss);
 							}}
 						/>
 					</div>
