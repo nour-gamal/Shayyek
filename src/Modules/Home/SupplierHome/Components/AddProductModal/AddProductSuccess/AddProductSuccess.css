@@ -1,0 +1,11 @@
+.addProductSuccess {
+	flex-direction: column;
+	height: 100%;
+}
+.addProductSuccess .title {
+	color: #003b6b;
+}
+
+.addProductSuccess .button-primary {
+	padding: 2px 100px;
+}

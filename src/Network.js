@@ -1,6 +1,6 @@
 import { GetResource } from "./Services";
 
-export const  GetLanguages= (body, onSuccess, onFail, reqAuth = true) => {
+export const GetLanguages = (onSuccess, onFail, reqAuth = false) => {
 	const path = "api/Account/GetLanguages";
-	GetResource(path, body, onSuccess, onFail, reqAuth);
+	GetResource(path, onSuccess, onFail, reqAuth);
 };
