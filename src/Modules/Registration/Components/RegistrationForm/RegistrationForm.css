@@ -121,6 +121,9 @@ box-shadow: none;
 	left: 90%;
 	bottom: 50%;
 }
+.RegistrationForm #rdts1-0,.RegistrationForm #rdts1-1,.RegistrationForm #rdts1-2{
+	display: none !important;
+}
 
 .RegistrationForm .work .input-field
 {
