@@ -106,6 +106,7 @@ function RegistrationForm() {
   const onChange = (currentNode, selectedNodes) => {
     console.log(currentNode,selectedNodes);
     // setWorkName(currentNode.label);
+    // setWorkName(currentNode.label);
     // const categoriesRequest = [];
     // categoriesRequest.push({
     //   categoryId: currentNode.value,
