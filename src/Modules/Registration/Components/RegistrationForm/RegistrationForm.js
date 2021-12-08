@@ -67,7 +67,7 @@ function RegistrationForm() {
   //   const [toggleAccountType, setToggleAccountType] = useState("");
   const [roleId, setRoleId] = useState("");
   const [userTypeId, setUserTypeId] = useState("");
-  const [work,setWork]=useState([])
+  const [work, setWork] = useState([]);
   //   const [categoryId, setCategoryId] = useState("");
   //   const [subCategoryId, setSubCategoryId] = useState("");
   //   const [subSubCategoryId, setSubSubCategoryId] = useState("");
@@ -103,64 +103,67 @@ function RegistrationForm() {
     }
   };
 
-
-
   const onChange = (currentNode, selectedNodes) => {
-    setWorkName(currentNode.label)
-    const categoriesRequest = [];
-    categoriesRequest.push({ "categoryId": currentNode.value,subCategories : [] });
-    if (currentNode.firstchildren) {
-   
-      currentNode.firstchildren.forEach((supChild) => {
-        categoriesRequest.forEach((z)=>{
-          z.subCategories.push({"subCategoryId":supChild.subCategory.id,subSubCategoryIds:[]})
-          z.subCategories.forEach((q)=>{
-q.subSubCategoryIds.push(
-  supChild.subSubCategories
-)
-          })
-        })
-        console.log(supChild.subSubCategories); //levelthree
-        console.log(supChild.subCategory.id); //levelTwo //id
-        supChild.subSubCategories.forEach((y) => {
-          console.log(y.id); //level three //id
-        });
-      });
-    }else if(currentNode.grandParend){
-      categoriesRequest.length=0
-      categoriesRequest.push({
-        "categoryId":  currentNode.grandParend,
-        subCategories:[]
-      })
-      categoriesRequest.forEach((n)=>{
-n.subCategories.push({subCategoryId:currentNode.subvalue,subSubCategoryIds:[]})
-currentNode.secondChild.forEach((t)=>{
-  n.subCategories.forEach((o)=>{
-    o.subSubCategoryIds.push(t.id)
-  })
-})
-      })
-    }else if(currentNode.subGrandParent){
-      categoriesRequest.length=0
-      categoriesRequest.push({
-        categoryId:currentNode.subGrandParent,
-        subCategories:[]
-      })
-      categoriesRequest.forEach((b)=>{
-        b.subCategories.push({
-          subCategoryId:currentNode.parent,
-          subSubCategoryIds:[]
-        })
-        b.subCategories.forEach((l)=>{
-          l.subSubCategoryIds.push(currentNode.subsubvalue)
-        })
-        
+    console.log(currentNode,selectedNodes);
+    // setWorkName(currentNode.label);
+    // const categoriesRequest = [];
+    // categoriesRequest.push({
+    //   categoryId: currentNode.value,
+    //   subCategories: [],
+    // });
+    // if (currentNode.firstchildren) {
+    //   currentNode.firstchildren.forEach((supChild) => {
+    //     categoriesRequest.forEach((z) => {
+    //       z.subCategories.push({
+    //         subCategoryId: supChild.subCategory.id,
+    //         subSubCategoryIds: [],
+    //       });
+    //       z.subCategories.forEach((q) => {
+    //         q.subSubCategoryIds.push(supChild.subSubCategories);
+    //       });
+    //     });
+    //     console.log(supChild.subSubCategories); //levelthree
+    //     console.log(supChild.subCategory.id); //levelTwo //id
+    //     supChild.subSubCategories.forEach((y) => {
+    //       console.log(y.id); //level three //id
+    //     });
+    //   });
+    // } else if (currentNode.grandParend) {
+    //   categoriesRequest.length = 0;
+    //   categoriesRequest.push({
+    //     categoryId: currentNode.grandParend,
+    //     subCategories: [],
+    //   });
+    //   categoriesRequest.forEach((n) => {
+    //     n.subCategories.push({
+    //       subCategoryId: currentNode.subvalue,
+    //       subSubCategoryIds: [],
+    //     });
+    //     currentNode.secondChild.forEach((t) => {
+    //       n.subCategories.forEach((o) => {
+    //         o.subSubCategoryIds.push(t.id);
+    //       });
+    //     });
+    //   });
+    // } else if (currentNode.subGrandParent) {
+    //   categoriesRequest.length = 0;
+    //   categoriesRequest.push({
+    //     categoryId: currentNode.subGrandParent,
+    //     subCategories: [],
+    //   });
+    //   categoriesRequest.forEach((b) => {
+    //     b.subCategories.push({
+    //       subCategoryId: currentNode.parent,
+    //       subSubCategoryIds: [],
+    //     });
+    //     b.subCategories.forEach((l) => {
+    //       l.subSubCategoryIds.push(currentNode.subsubvalue);
+    //     });
+    //   });
+    // }
 
-      })
-    }
-    setWork(categoriesRequest)
+    // setWork(categoriesRequest);
     // console.log(categoriesRequest);
-
   };
   const assignObjectPaths = (obj, stack) => {
     Object.keys(obj).forEach((k) => {
@@ -231,6 +234,7 @@ currentNode.secondChild.forEach((t)=>{
             label: category.category.name,
             firstchildren: category.subCategories,
             children: [],
+            disabled:"disabled"
           });
           category.subCategories.forEach((subCategories, j) => {
             data[i].children.push({
@@ -239,6 +243,8 @@ currentNode.secondChild.forEach((t)=>{
               grandParend: category.category.id,
               secondChild: subCategories.subSubCategories,
               children: [],
+              disabled:""
+
             });
             subCategories.subSubCategories.forEach((subSubCategories) => {
               data[i].children[j].children.push({
@@ -246,6 +252,8 @@ currentNode.secondChild.forEach((t)=>{
                 label: subSubCategories.name,
                 parent: subCategories.subCategory.id,
                 subGrandParent: category.category.id,
+                disabled:""
+
               });
             });
           });
@@ -463,9 +471,9 @@ currentNode.secondChild.forEach((t)=>{
         !fileName ||
         !companyPhoneNumber ||
         !companyTypeId ||
-        !roleName||
+        !roleName ||
         !work
-        
+
         // !workValue
       ) {
         setAlert(true);
@@ -507,7 +515,7 @@ currentNode.secondChild.forEach((t)=>{
         !checked ||
         !countryName ||
         !governmentName ||
-        !address||
+        !address ||
         !work
       ) {
         setAlert(true);
@@ -535,7 +543,7 @@ currentNode.secondChild.forEach((t)=>{
         !countryName ||
         !governmentName ||
         !address ||
-        !checked||
+        !checked ||
         !work
       ) {
         setAlert(true);
@@ -599,7 +607,7 @@ currentNode.secondChild.forEach((t)=>{
         !governmentName ||
         !address ||
         !fileName ||
-        !checked||
+        !checked ||
         !work
       ) {
         setAlert(true);
@@ -609,8 +617,6 @@ currentNode.secondChild.forEach((t)=>{
       }
     }
   };
-
-
 
   if (redirect) {
     return <Redirect to="/verifyByEmail" />;
@@ -819,19 +825,27 @@ currentNode.secondChild.forEach((t)=>{
                 {alert && <>{currentLocal.registration.PleaseChooseWork}</>}
               </p>
               <DropdownTreeSelect
-              data={options}
-              className={
-                !individual && buyer !== currentLocal.registration.Supplier
-                  ? "bootstrap-demo disableInput input-dropdown"
-                  : "bootstrap-demo input-dropdown"
-              }
-              onChange={onChange}
-              texts={{ placeholder:workName?workName: currentLocal.registration.work }}
-              disabled={
-                !individual && buyer !== currentLocal.registration.Supplier
-              }
-
-            />
+      data={options}
+      onChange={onChange}
+      className="bootstrap-demo"
+    />
+              {/* <DropdownTreeSelect
+                data={options}
+                className={
+                  !individual && buyer !== currentLocal.registration.Supplier
+                    ? "bootstrap-demo disableInput input-dropdown"
+                    : "bootstrap-demo input-dropdown"
+                }
+                onChange={onChange}
+                texts={{
+                  placeholder: workName
+                    ? workName
+                    : currentLocal.registration.work,
+                }}
+                disabled={
+                  !individual && buyer !== currentLocal.registration.Supplier
+                }
+              /> */}
               {/* <DropdownTreeSelect
                 data={options}
                 onChange={(currentNode, selectedNodes) => {
@@ -1208,7 +1222,6 @@ currentNode.secondChild.forEach((t)=>{
           )}
           {((admin === false &&
             individual === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f") ||
-            
             (buyer === currentLocal.registration.Contractor &&
               individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") ||
             buyer === currentLocal.registration.userType) && (
@@ -1466,7 +1479,6 @@ currentNode.secondChild.forEach((t)=>{
               </a>
             </div>
           </div>
-         
         </Row>
       </form>
     </div>
