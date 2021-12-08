@@ -30,12 +30,43 @@
 	flex-direction: column;
 }
 .addProdContainer .dataSection > input,
-.addProdContainer .dataSection > div {
+.addProdContainer .dataSection > div.inputField {
 	height: 42px;
 	width: 80%;
+	margin: 10px 0;
+}
+.addProdContainer .dataSection > input.withBorder,
+.addProdContainer .dataSection > div.inputField.withBorder {
 	border: 1px solid #bce0fd;
 }
+.addProdContainer .dataSection .quantityCount {
+	width: 71px;
+	height: 32px;
+	line-height: 32px;
+	display: inline-block;
+	text-align: center;
+	border: 1px solid #bce0fd;
+	border-radius: 15px;
+	background-color: #fff;
+}
 
+.addProdContainer input::-webkit-outer-spin-button,
+.addProdContainer input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+.addProdContainer input[type="number"] {
+	-moz-appearance: textfield;
+}
+.addProdContainer .capsules {
+	display: inline-block;
+	background: #dceefd;
+	padding: 1px 10px;
+	border-radius: 118px;
+	margin: 10px;
+}
 @media (min-width: 769px) {
 	.addProdContainer .detailsSection {
 		justify-content: flex-end;
