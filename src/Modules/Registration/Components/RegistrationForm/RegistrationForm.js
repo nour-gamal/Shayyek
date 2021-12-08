@@ -234,7 +234,8 @@ function RegistrationForm() {
             label: category.category.name,
             firstchildren: category.subCategories,
             children: [],
-            disabled:"disabled"
+            disabled:"disabled",
+            mode:"simpleSelect"
           });
           category.subCategories.forEach((subCategories, j) => {
             data[i].children.push({
@@ -827,8 +828,20 @@ function RegistrationForm() {
               <DropdownTreeSelect
       data={options}
       onChange={onChange}
-      className="bootstrap-demo"
-    />
+      className={
+        !individual && buyer !== currentLocal.registration.Supplier
+          ? "bootstrap-demo disableInput input-dropdown"
+          : "bootstrap-demo input-dropdown"
+      }   
+      texts={{
+        placeholder: workName
+          ? workName
+          : currentLocal.registration.work,
+      }}
+      disabled={
+        !individual && buyer !== currentLocal.registration.Supplier
+      }
+      />
               {/* <DropdownTreeSelect
                 data={options}
                 className={
