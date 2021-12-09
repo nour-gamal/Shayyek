@@ -163,6 +163,11 @@ export const en = {
 		pleaseAddPrice: "Please add price",
 		pleaseAddName: "Please add a name",
 		pleaseAddQty: "Please add quantity",
+		rfqInvitations: "RFQ invitations",
+		noOfQuotations: "No. of quotations",
+		deadline: "deadline",
+		maxPrice: "Max price",
+		minPrice: "Min price",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",

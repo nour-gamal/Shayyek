@@ -207,7 +207,12 @@ export const ar = {
 		pleaseAddSpecs: "من فضلك اضف المواصفات",
 		pleaseAddName: "من فضلك اضف الاسم",
 		pleaseAddPrice: "من فضلك اضف السعر",
+		rfqInvitations: "دعوات طلبات السعر",
 		pleaseAddQty: "من فضلك اضف الكميه",
+		noOfQuotations: "عدد العروض",
+		deadline: "تاريخ انتهاء استقبال الطلبات",
+		maxPrice: "السعر الاعلي",
+		minPrice: "السعر الادني",
 	},
 	home: {
 		shayek: "شيّك",
