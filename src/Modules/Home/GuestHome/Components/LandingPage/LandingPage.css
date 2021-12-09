@@ -1,9 +1,9 @@
-.landingPage {
-	height: 81vh;
+.landingPage {height: fit-content;
 	background-image: url("../../../../../Resources/Assets/AdobeStock_63818065_Preview.png");
 	background-attachment: bottom;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+	position: relative;
 }
 .overlay {
 	position: absolute;
@@ -13,8 +13,10 @@
 	bottom: 0;
 	background-color: #003b6b;
 	opacity: 0.53;
-	height: 100%;
 }
+.landingPage .liveBoxContainer {
+	padding-bottom: 20px;
+	}
 .landingPage .button{
 	padding-top: 20px;
 }
