@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import "./RFQInvitation.css";
-function RFQInvitation({ revealPrices }) {
+function RFQInvitation({ revealPrices, data }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	return (
 		<div className="d-flex justify-content-between">
