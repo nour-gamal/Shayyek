@@ -282,9 +282,7 @@ function RegistrationForm() {
                     setAdmin(success.data);
                   },
                   (fail) => {
-                    //console.log(fail);
-                    // console.log("bye");
-                    // setAdmin(success.data);
+                
                   },
                   false
                 );
