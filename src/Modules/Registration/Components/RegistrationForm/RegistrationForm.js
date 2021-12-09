@@ -38,7 +38,7 @@ function RegistrationForm() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [workName, setWorkName] = useState("");
+  // const [workName, setWorkName] = useState("");
   //   const [workValue, setWorkValue] = useState("");
   const [admin, setAdmin] = useState("");
   const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
@@ -67,7 +67,7 @@ function RegistrationForm() {
   //   const [toggleAccountType, setToggleAccountType] = useState("");
   const [roleId, setRoleId] = useState("");
   const [userTypeId, setUserTypeId] = useState("");
-  const [work, setWork] = useState([]);
+  // const [work, setWork] = useState([]);
   //   const [categoryId, setCategoryId] = useState("");
   //   const [subCategoryId, setSubCategoryId] = useState("");
   //   const [subSubCategoryId, setSubSubCategoryId] = useState("");
@@ -102,70 +102,67 @@ function RegistrationForm() {
       setAccountId("d23f2c1e-1ed3-4066-96d6-66a970e39a7f");
     }
   };
-
+  const categoriesRequest = [];
   const onChange = (currentNode, selectedNodes) => {
-    console.log(currentNode,selectedNodes);
-    // setWorkName(currentNode.label);
-    // setWorkName(currentNode.label);
-    // const categoriesRequest = [];
-    // categoriesRequest.push({
-    //   categoryId: currentNode.value,
-    //   subCategories: [],
-    // });
-    // if (currentNode.firstchildren) {
-    //   currentNode.firstchildren.forEach((supChild) => {
-    //     categoriesRequest.forEach((z) => {
-    //       z.subCategories.push({
-    //         subCategoryId: supChild.subCategory.id,
-    //         subSubCategoryIds: [],
-    //       });
-    //       z.subCategories.forEach((q) => {
-    //         q.subSubCategoryIds.push(supChild.subSubCategories);
-    //       });
-    //     });
-    //     console.log(supChild.subSubCategories); //levelthree
-    //     console.log(supChild.subCategory.id); //levelTwo //id
-    //     supChild.subSubCategories.forEach((y) => {
-    //       console.log(y.id); //level three //id
-    //     });
-    //   });
-    // } else if (currentNode.grandParend) {
-    //   categoriesRequest.length = 0;
-    //   categoriesRequest.push({
-    //     categoryId: currentNode.grandParend,
-    //     subCategories: [],
-    //   });
-    //   categoriesRequest.forEach((n) => {
-    //     n.subCategories.push({
-    //       subCategoryId: currentNode.subvalue,
-    //       subSubCategoryIds: [],
-    //     });
-    //     currentNode.secondChild.forEach((t) => {
-    //       n.subCategories.forEach((o) => {
-    //         o.subSubCategoryIds.push(t.id);
-    //       });
-    //     });
-    //   });
-    // } else if (currentNode.subGrandParent) {
-    //   categoriesRequest.length = 0;
-    //   categoriesRequest.push({
-    //     categoryId: currentNode.subGrandParent,
-    //     subCategories: [],
-    //   });
-    //   categoriesRequest.forEach((b) => {
-    //     b.subCategories.push({
-    //       subCategoryId: currentNode.parent,
-    //       subSubCategoryIds: [],
-    //     });
-    //     b.subCategories.forEach((l) => {
-    //       l.subSubCategoryIds.push(currentNode.subsubvalue);
-    //     });
-    //   });
-    // }
+    categoriesRequest.push({
+      categoryId: currentNode.value,
+      subCategories: [],
+    });
+        if (currentNode.firstchildren) {
+      currentNode.firstchildren.forEach((supChild) => {
+        categoriesRequest.forEach((z) => {
+          z.subCategories.push({
+            subCategoryId: supChild.subCategory.id,
+            subSubCategoryIds: [],
+          });
+          z.subCategories.forEach((q) => {
+            q.subSubCategoryIds.push(supChild.subSubCategories);
+          });
+        });
+        console.log(supChild.subSubCategories); //levelthree
+        console.log(supChild.subCategory.id); //levelTwo //id
+        supChild.subSubCategories.forEach((y) => {
+          console.log(y.id); //level three //id
+        });
+      })}
+      else if (currentNode.grandParend) {
+          categoriesRequest.push({
+            categoryId: currentNode.grandParend,
+            subCategories: [],
+          });
+          categoriesRequest.forEach((n) => {
+            n.subCategories.push({
+              subCategoryId: currentNode.subvalue,
+              subSubCategoryIds: [],
+            });
+            currentNode.secondChild.forEach((t) => {
+              n.subCategories.forEach((o) => {
+                o.subSubCategoryIds.push(t.id);
+              });
+            });
+          });
+        }
+        else if (currentNode.subGrandParent) {
+            categoriesRequest.push({
+              categoryId: currentNode.subGrandParent,
+              subCategories: [],
+            });
+            categoriesRequest.forEach((b) => {
+              b.subCategories.push({
+                subCategoryId: currentNode.parent,
+                subSubCategoryIds: [],
+              });
+              b.subCategories.forEach((l) => {
+                l.subSubCategoryIds.push(currentNode.subsubvalue);
+              });
+            });
+          }
+          console.log(categoriesRequest);
+          // setWork(categoriesRequest)
 
-    // setWork(categoriesRequest);
-    // console.log(categoriesRequest);
   };
+  console.log(categoriesRequest);
+
   const assignObjectPaths = (obj, stack) => {
     Object.keys(obj).forEach((k) => {
       const node = obj[k];
@@ -401,22 +398,17 @@ function RegistrationForm() {
     body.append("MobileCompany", companyPhoneNumber);
     body.append("Website", companyWebsite);
     body.append("Address", address);
-    body.append("CompanyId", companyId);
-
-    body.append(roleId && "RoleId", roleId);
-    body.append(work && "RoleId", work);
-
-    body.append("UserTypeId", userTypeId);
-
+    body.append("CompanyHasData", !admin);
+    body.append("CompanyTypeId", companyTypeId);
     body.append(
       "AccountTypeId",
       accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
     );
-
-    body.append("CompanyHasData", !admin);
+    body.append("UserTypeId", userTypeId);
+    body.append("CompanyId", companyId);
+    body.append(roleId && "RoleId", roleId);
     body.append("GovernmentId", governmentId);
-    body.append("CompanyTypeId", companyTypeId);
-    body.append("CategoriesRequest", companyTypeId);
+    body.append("CategoriesRequest", categoriesRequest);
     register(
       body,
       (success) => {
@@ -474,8 +466,7 @@ function RegistrationForm() {
         !companyPhoneNumber ||
         !companyTypeId ||
         !roleName ||
-        !work
-
+        !categoriesRequest
         // !workValue
       ) {
         setAlert(true);
@@ -517,8 +508,8 @@ function RegistrationForm() {
         !checked ||
         !countryName ||
         !governmentName ||
-        !address ||
-        !work
+        !address 
+        // !work
       ) {
         setAlert(true);
       } else {
@@ -546,7 +537,8 @@ function RegistrationForm() {
         !governmentName ||
         !address ||
         !checked ||
-        !work
+        !categoriesRequest
+        // !work
       ) {
         setAlert(true);
       } else {
@@ -610,7 +602,9 @@ function RegistrationForm() {
         !address ||
         !fileName ||
         !checked ||
-        !work
+        !categoriesRequest
+
+        // !work
       ) {
         setAlert(true);
       } else {
@@ -835,52 +829,14 @@ function RegistrationForm() {
           : "bootstrap-demo input-dropdown"
       }   
       texts={{
-        placeholder: workName
-          ? workName
-          : currentLocal.registration.work,
+        placeholder: 
+           currentLocal.registration.work,
       }}
       disabled={
         !individual && buyer !== currentLocal.registration.Supplier
       }
       />
-              {/* <DropdownTreeSelect
-                data={options}
-                className={
-                  !individual && buyer !== currentLocal.registration.Supplier
-                    ? "bootstrap-demo disableInput input-dropdown"
-                    : "bootstrap-demo input-dropdown"
-                }
-                onChange={onChange}
-                texts={{
-                  placeholder: workName
-                    ? workName
-                    : currentLocal.registration.work,
-                }}
-                disabled={
-                  !individual && buyer !== currentLocal.registration.Supplier
-                }
-              /> */}
-              {/* <DropdownTreeSelect
-                data={options}
-                onChange={(currentNode, selectedNodes) => {
-                  console.log("onChange::", currentNode, selectedNodes);
-                }}
-                // searchPredicate={searchPredicate}
-                // onChange={onChangeOption}
-                onAction={onAction}
-                onNodeToggle={onNodeToggle}
-                className={
-                  !individual && buyer !== currentLocal.registration.Supplier
-                    ? "disableInput cascaderFiled"
-                    : "cascaderFiled"
-                }
-                texts={{ placeholder: currentLocal.registration.work }}
-                disabled={
-                  !individual && buyer !== currentLocal.registration.Supplier
-                }
-                onClick={() => setFocusIcon(true)}
-                onBlur={() => setFocusIcon(false)}
-              /> */}
+
               {!individual && buyer !== currentLocal.registration.Supplier ? (
                 <img
                   src={disableArrow}

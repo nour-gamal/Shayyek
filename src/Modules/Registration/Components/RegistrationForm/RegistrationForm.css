@@ -124,6 +124,10 @@ box-shadow: none;
 .RegistrationForm #rdts1-0,.RegistrationForm #rdts1-1,.RegistrationForm #rdts1-2{
 	display: none !important;
 }
+.RegistrationForm .tag-item #rdts1-0-0_li
+{
+	display: none;
+}
 
 .RegistrationForm .work .input-field
 {
