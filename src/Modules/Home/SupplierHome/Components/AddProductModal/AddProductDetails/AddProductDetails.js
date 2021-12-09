@@ -72,16 +72,16 @@ function AddProductDetails({
 
 			langList.forEach((lang) => {
 				product.push({
-					id: lang.id,
-					name:
+					LanguageId: lang.id,
+					ProductName:
 						productName[
 							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
 						],
-					specs:
+					Specs:
 						specs[
 							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
 						],
-					price:
+					Price:
 						price[
 							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
 						],
@@ -91,13 +91,13 @@ function AddProductDetails({
 			sizes.forEach((size, sizeIndex) => {
 				sizesList.push([
 					{
-						sizesLocalization: [],
+						SizesLocalizations: [],
 					},
 				]);
 				langList.forEach((lang) => {
-					sizesList[sizeIndex][0].sizesLocalization.push({
-						id: lang.id,
-						name:
+					sizesList[sizeIndex][0].SizesLocalizations.push({
+						Id: lang.id,
+						Name:
 							size[
 								lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
 							],
@@ -107,26 +107,35 @@ function AddProductDetails({
 			models.forEach((model, modelIndex) => {
 				modelsList.push([
 					{
-						modelsLocalization: [],
+						ModelsLocalizations: [],
 					},
 				]);
 				langList.forEach((lang) => {
-					modelsList[modelIndex][0].modelsLocalization.push({
-						id: lang.id,
-						name:
+					modelsList[modelIndex][0].ModelsLocalizations.push({
+						Id: lang.id,
+						Name:
 							model[
 								lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
 							],
 					});
 				});
 			});
-			data.append("Image", image);
-			data.append("productLocalization", product);
-			data.append("AvailabilityInStock", quantityCount);
-			data.append("models", modelsList);
-			data.append("sizes", sizesList);
 
-			let dataList = [data];
+			// data.append("Image", image);
+			// data.append("ProductLocalizations", product);
+			// data.append("AvailabilityInStock", quantityCount);
+			// data.append("Models", modelsList);
+			// data.append("Sizes", sizesList);
+
+			let x = {
+				Image: image,
+				ProductLocalizations: product,
+				AvailabilityInStock: quantityCount,
+				Models: modelsList,
+				Sizes: sizesList,
+			};
+			data.append("product", x);
+			console.log("product", x);
 			addProduct(
 				data,
 				(success) => {

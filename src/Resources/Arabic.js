@@ -209,10 +209,11 @@ export const ar = {
 		pleaseAddPrice: "من فضلك اضف السعر",
 		rfqInvitations: "دعوات طلبات السعر",
 		pleaseAddQty: "من فضلك اضف الكميه",
-		noOfQuotations: "عدد العروض",
+		noOfQuotations: "عدد العروض المنافسه",
 		deadline: "تاريخ انتهاء استقبال الطلبات",
 		maxPrice: "السعر الاعلي",
 		minPrice: "السعر الادني",
+		fillSheet: "قم بتقديم سعرك ",
 	},
 	home: {
 		shayek: "شيّك",

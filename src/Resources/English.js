@@ -168,6 +168,7 @@ export const en = {
 		deadline: "deadline",
 		maxPrice: "Max price",
 		minPrice: "Min price",
+		fillSheet: "Fill Sheet",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",
