@@ -216,8 +216,9 @@ color: #707070;
 	}
 	.landingPage {
 		height: fit-content;
+	position: relative;
 	}
-	@-moz-document url-prefix() {
+	/* @-moz-document url-prefix() {
 		.landingPage {
 			height: 55vh;
 		}
@@ -232,7 +233,7 @@ color: #707070;
 			height: 100%;
 			height: 55vh;
 		}
-	  }
+	  } */
 	.landingPage .button::after {
 		content: ".";
 		color: #fff;
