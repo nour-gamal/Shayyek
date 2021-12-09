@@ -11,6 +11,7 @@ function AddProductModal({ isModalVisible, onCancel }) {
 	const [sizes, updateSizes] = useState([]);
 	const [models, updateModels] = useState([]);
 	const [lang, updateLang] = useState(null);
+	const [data, updateData] = useState(null);
 	return (
 		<Modal
 			title="Basic Modal"
@@ -47,8 +48,13 @@ function AddProductModal({ isModalVisible, onCancel }) {
 					getCurrentLang={(lang) => {
 						updateLang(lang);
 					}}
+					getData={(data) => {
+						updateData(data);
+					}}
+					data={data}
 					sizes={sizes}
 					models={models}
+					lang={lang}
 				/>
 			) : currentPage === "addSizes" ? (
 				<AddSizes
@@ -70,6 +76,7 @@ function AddProductModal({ isModalVisible, onCancel }) {
 						updateModels(models);
 					}}
 					models={models}
+					lang={lang}
 				/>
 			) : (
 				<></>

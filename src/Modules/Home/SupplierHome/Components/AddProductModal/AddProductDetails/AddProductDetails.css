@@ -14,7 +14,6 @@
 .addProductDetails textarea {
 	resize: none;
 	border: 1px solid #bce0fd;
-	margin-top: 40px;
 	width: 80%;
 	height: 150px;
 }
@@ -29,11 +28,10 @@
 	display: flex;
 	flex-direction: column;
 }
-.addProdContainer .dataSection > input,
+.addProdContainer .dataSection .form-control,
 .addProdContainer .dataSection > div.inputField {
 	height: 42px;
 	width: 80%;
-	margin: 10px 0;
 }
 .addProdContainer .dataSection > input.withBorder,
 .addProdContainer .dataSection > div.inputField.withBorder {
@@ -67,6 +65,13 @@
 	border-radius: 118px;
 	margin: 10px;
 }
+.addProductDetails .danger-border {
+	border: 1px solid red;
+}
+.addProductDetails .danger-font {
+	color: red;
+}
+
 @media (min-width: 769px) {
 	.addProdContainer .detailsSection {
 		justify-content: flex-end;
@@ -84,5 +89,22 @@
 	.addProdContainer .actionsContainer > button {
 		margin-top: 10px;
 		padding: 0 50px !important;
+	}
+	.addProductDetails {
+		padding: 10px;
+	}
+	.addProductModal .ant-modal-body {
+		padding: 24px 0 !important;
+	}
+	.addProductDetails textarea,
+	.addProdContainer .dataSection > input,
+	.addProdContainer .dataSection > div.inputField {
+		width: 100%;
+	}
+	.addProductDetails .label {
+		font-size: 12px;
+	}
+	.addProductDetails .inputField.avQty {
+		flex-direction: column;
 	}
 }

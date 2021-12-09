@@ -158,6 +158,11 @@ export const en = {
 		addDifferentModels: "Add different Models",
 		availableQuantity: "Available Quantity in stock",
 		add: "Add",
+		pleaseAddPhoto: "Please add a photo",
+		pleaseAddSpecs: "Please add specs",
+		pleaseAddPrice: "Please add price",
+		pleaseAddName: "Please add a name",
+		pleaseAddQty: "Please add quantity",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",

@@ -82,5 +82,16 @@ export const ImportProductsAsExcelSheet = (
 	formData = true
 ) => {
 	const path = "api/Product/ImportProductsAsExcelSheet";
-	PostResource(path, data, onSuccess, onFail, reqAuth);
+	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
+};
+
+export const addProduct = (
+	data,
+	onSuccess,
+	onFail,
+	reqAuth = true,
+	formData = true
+) => {
+	const path = "api/Product/AddProduts";
+	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
 };
