@@ -7,6 +7,7 @@ import negative from "../../../../../../Resources/Assets/negative.svg";
 import darkCross from "../../../../../../Resources/Assets/DarkCross.svg";
 import AddProductPhoto from "../../../../../../Resources/Assets/AddProductPhoto.svg";
 import { GetLanguages } from "../../../../../../Network";
+import { addProduct } from "../../../../network";
 import { useSelector } from "react-redux";
 import "./AddProductDetails.css";
 function AddProductDetails({
@@ -16,17 +17,28 @@ function AddProductDetails({
 	getSizes,
 	getModels,
 	getCurrentLang,
+	getData,
+	data,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const [image, setImage] = useState(null);
-	const [specs, updateSpecs] = useState({ ar: "", en: "" });
-	const [productName, updateProductName] = useState({ ar: "", en: "" });
-	const [price, updatePrice] = useState({ ar: "", en: "" });
+	const [image, setImage] = useState(data && data.image ? data.image : null);
+	const [specs, updateSpecs] = useState(
+		data && data.specs ? data.specs : { ar: "", en: "" }
+	);
+	const [productName, updateProductName] = useState(
+		data && data.productName ? data.productName : { ar: "", en: "" }
+	);
+	const [price, updatePrice] = useState(
+		data && data.price ? data.price : { ar: "", en: "" }
+	);
 	const [sizess, updateSizess] = useState(sizes);
 	const [modelss, updateModelss] = useState(models);
 	const [langList, updateLangList] = useState([]);
 	const [langValue, updateLangValue] = useState("");
-	const [quantityCount, updateQuantityCount] = useState(0);
+	const [quantityCount, updateQuantityCount] = useState(
+		data && data.quantityCount ? data.quantityCount : null
+	);
+	const [errSign, updateErrSign] = useState(false);
 	const { Option } = Select;
 	let langName =
 		langValue === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar";
@@ -43,9 +55,97 @@ function AddProductDetails({
 		);
 	}, []);
 
+	const handleSave = (saveAndAdd) => {
+		if (
+			image === null ||
+			specs[langName].length === 0 ||
+			productName[langName].length === 0 ||
+			price[langName].length === 0 ||
+			quantityCount === null
+		) {
+			updateErrSign(true);
+		} else {
+			let data = new FormData();
+			let product = [];
+			let sizesList = [];
+			let modelsList = [];
+
+			langList.forEach((lang) => {
+				product.push({
+					id: lang.id,
+					name:
+						productName[
+							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
+						],
+					specs:
+						specs[
+							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
+						],
+					price:
+						price[
+							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
+						],
+				});
+			});
+
+			sizes.forEach((size, sizeIndex) => {
+				sizesList.push([
+					{
+						sizesLocalization: [],
+					},
+				]);
+				langList.forEach((lang) => {
+					sizesList[sizeIndex][0].sizesLocalization.push({
+						id: lang.id,
+						name:
+							size[
+								lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
+							],
+					});
+				});
+			});
+			models.forEach((model, modelIndex) => {
+				modelsList.push([
+					{
+						modelsLocalization: [],
+					},
+				]);
+				langList.forEach((lang) => {
+					modelsList[modelIndex][0].modelsLocalization.push({
+						id: lang.id,
+						name:
+							model[
+								lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
+							],
+					});
+				});
+			});
+			data.append("Image", image);
+			data.append("productLocalization", product);
+			data.append("AvailabilityInStock", quantityCount);
+			data.append("models", modelsList);
+			data.append("sizes", sizesList);
+
+			let dataList = [data];
+			addProduct(
+				dataList,
+				(success) => {
+					console.log(success);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
+	};
+
 	const uploadImgHandler = (event) => {
 		if (event.target.files && event.target.files[0]) {
-			setImage(URL.createObjectURL(event.target.files[0]));
+			if (event.target.files[0].type.includes("image")) {
+				setImage(event.target.files[0]);
+			} else {
+				updateErrSign(true);
+			}
 		}
 	};
 	const changeLangHandler = (selected) => {
@@ -67,6 +167,7 @@ function AddProductDetails({
 			}
 		}
 	};
+
 	return (
 		<div className="d-flex justify-content-between addProdContainer">
 			<div className="d-flex detailsSection mx-5 my-2">
@@ -86,7 +187,11 @@ function AddProductDetails({
 			<Row className="addProductDetails">
 				<Col xs={24} md={12}>
 					{image ? (
-						<img src={image} alt="uploadedImg" className="uploadedImg" />
+						<img
+							src={URL.createObjectURL(image)}
+							alt="uploadedImg"
+							className="uploadedImg"
+						/>
 					) : (
 						<div>
 							<input
@@ -95,6 +200,11 @@ function AddProductDetails({
 								onChange={uploadImgHandler}
 								className="d-none"
 							/>
+							{errSign && image === null && (
+								<div className="danger-font">
+									* {currentLocal.supplierHome.pleaseAddPhoto}
+								</div>
+							)}
 
 							<label
 								htmlFor="actual-btn"
@@ -103,104 +213,165 @@ function AddProductDetails({
 								<img
 									src={AddProductPhoto}
 									alt="AddProductPhoto"
-									className="mx-2"
+									className={
+										errSign && image === null ? "mx-2 danger-border" : "mx-2"
+									}
 								/>
 							</label>
 						</div>
 					)}
-					<textarea
-						placeholder={currentLocal.supplierHome.specs}
-						value={specs[langName]}
-						onChange={(e) => {
-							updateSpecs({ ...specs, [langName]: e.target.value });
-						}}
-					/>
+					<div className="mt-5">
+						{errSign && specs[langName].length === 0 && (
+							<div className="danger-font">
+								* {currentLocal.supplierHome.pleaseAddSpecs}
+							</div>
+						)}
+						<textarea
+							placeholder={currentLocal.supplierHome.specs}
+							value={specs[langName]}
+							onChange={(e) => {
+								updateSpecs({ ...specs, [langName]: e.target.value });
+							}}
+							className={
+								errSign && specs[langName].length === 0 && "danger-border"
+							}
+						/>
+					</div>
 				</Col>
 				<Col xs={24} md={12} className="dataSection">
-					<input
-						type="text"
-						value={productName[langName]}
-						id="productName"
-						placeholder={currentLocal.supplierHome.productName}
-						onChange={handleChangeField}
-						className="form-control withBorder"
-					/>
-					<input
-						type="number"
-						value={price[langName]}
-						id="price"
-						className="form-control withBorder"
-						placeholder={currentLocal.supplierHome.price}
-						onChange={handleChangeField}
-						min={0}
-						step={1}
-					/>
-					<div className="inputField form-control d-flex justify-content-between withBorder">
-						<div>{currentLocal.supplierHome.addDifferentSizes}</div>
+					<div className="mb-2">
+						{errSign && productName[langName].length === 0 && (
+							<div className="danger-font">
+								* {currentLocal.supplierHome.pleaseAddName}
+							</div>
+						)}
+						<input
+							type="text"
+							value={productName[langName]}
+							id="productName"
+							placeholder={currentLocal.supplierHome.productName}
+							onChange={handleChangeField}
+							className={
+								errSign && productName[langName].length === 0
+									? "form-control danger-border"
+									: "form-control withBorder"
+							}
+						/>
+					</div>
+					<div className="mb-2">
+						{errSign && price[langName].length === 0 && (
+							<div className="danger-font">
+								* {currentLocal.supplierHome.pleaseAddPrice}
+							</div>
+						)}
+
+						<input
+							type="number"
+							value={price[langName]}
+							id="price"
+							className={
+								errSign && price[langName].length === 0
+									? "form-control danger-border"
+									: "form-control withBorder"
+							}
+							placeholder={currentLocal.supplierHome.price}
+							onChange={handleChangeField}
+							min={0}
+							step={1}
+						/>
+					</div>
+					<div className="inputField form-control d-flex justify-content-between withBorder mb-2">
+						<div className="label">
+							{currentLocal.supplierHome.addDifferentSizes}
+						</div>
 						<img
 							src={add}
 							alt="add"
 							className="cursorPointer"
 							onClick={() => {
+								getData({ image, productName, specs, price, quantityCount });
 								onCurrentPageChange("addSizes");
 								getSizes(sizess);
 							}}
 						/>
 					</div>
 					<div>
-						{sizess.map((size, sizeIndex) => {
+						{sizess.map((size) => {
 							return (
-								<div className="capsules">
-									{size[langName]}{" "}
-									<img
-										src={darkCross}
-										className="mx-1 cursorPointer"
-										alt="darkCross"
-										id={size}
-										onClick={(e) => {
-											let filteredSizes = sizess.filter(
-												(size) => size[langName] !== e.target.id
-											);
-											updateSizess(filteredSizes);
-										}}
-									/>
-								</div>
+								<span>
+									{size[langName].length === 0 ? (
+										<></>
+									) : (
+										<div className="capsules">
+											{size[langName]}
+											<img
+												src={darkCross}
+												className="mx-1 cursorPointer"
+												alt="darkCross"
+												id={size[langName]}
+												onClick={(e) => {
+													let filteredSizes = sizess.filter(
+														(size) => size[langName] !== e.target.id
+													);
+
+													updateSizess(filteredSizes);
+												}}
+											/>
+										</div>
+									)}
+								</span>
 							);
 						})}
 					</div>
-					<div className="inputField form-control d-flex justify-content-between withBorder">
-						<div>{currentLocal.supplierHome.addDifferentModels}</div>
+					<div className="inputField form-control d-flex justify-content-between withBorder mb-2">
+						<div className="label">
+							{currentLocal.supplierHome.addDifferentModels}
+						</div>
 						<img
 							src={add}
 							alt="add"
 							className="cursorPointer"
 							onClick={() => {
 								onCurrentPageChange("addModels");
+								getData({ image, productName, specs, price, quantityCount });
 								getModels(modelss);
 							}}
 						/>
 					</div>
 					<div>
 						{modelss.map((model) => (
-							<div className="capsules">
-								{model}
-								<img
-									src={darkCross}
-									className="mx-1 cursorPointer"
-									alt="darkCross"
-									id={model}
-									onClick={(e) => {
-										let filteredModels = modelss.filter(
-											(model) => model !== e.target.id
-										);
-										updateModelss(filteredModels);
-									}}
-								/>
-							</div>
+							<span>
+								{model[langName].length === 0 ? (
+									<></>
+								) : (
+									<div className="capsules">
+										{model[langName]}
+										<img
+											src={darkCross}
+											className="mx-1 cursorPointer"
+											alt="darkCross"
+											id={model[langName]}
+											onClick={(e) => {
+												let filteredModels = modelss.filter(
+													(model) => model[langName] !== e.target.id
+												);
+												updateModelss(filteredModels);
+											}}
+										/>
+									</div>
+								)}
+							</span>
 						))}
 					</div>
-					<div className="mt-2 d-flex px-2 justify-content-between inputField">
-						<div>{currentLocal.supplierHome.availableQuantity}</div>
+					{errSign && quantityCount === null && (
+						<div className="danger-font">
+							* {currentLocal.supplierHome.pleaseAddQty}
+						</div>
+					)}
+					<div className="d-flex px-2 justify-content-between inputField avQty align-items-center">
+						<div className="label">
+							{currentLocal.supplierHome.availableQuantity}
+						</div>
 						<div className="d-flex align-items-center">
 							<div>
 								<img
@@ -230,10 +401,20 @@ function AddProductDetails({
 				</Col>
 			</Row>
 			<div className="d-flex justify-content-center   actionsContainer">
-				<button className="button-secondary mx-2">
+				<button
+					className="button-secondary mx-2"
+					onClick={() => {
+						handleSave(true);
+					}}
+				>
 					{currentLocal.supplierHome.saveAndAdd}
 				</button>
-				<button className={"button-primary mx-2"}>
+				<button
+					className={"button-primary mx-2"}
+					onClick={() => {
+						handleSave(false);
+					}}
+				>
 					{currentLocal.supplierHome.save}
 				</button>
 			</div>

@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import plusCircle from "../../../../../../Resources/Assets/plusCircle.svg";
 import "./AddModels.css";
-function AddModels({ getModels, onCurrentPageChange, models }) {
+function AddModels({ getModels, onCurrentPageChange, models, lang }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [inputCount, updateInputCount] = useState(
-		models.length === 0 ? ["", ""] : models
+		models.length === 0
+			? [
+					{ en: "", ar: "" },
+					{ en: "", ar: "" },
+			  ]
+			: models
 	);
 	const handleAddModels = () => {
 		const filteredInputs = inputCount.filter((input) => input.length !== 0);
@@ -23,10 +28,10 @@ function AddModels({ getModels, onCurrentPageChange, models }) {
 								key={Index}
 								placeholder={`Models ${Index + 1}`}
 								className="form-control"
-								value={inputCount[Index]}
+								value={inputCount[Index][lang]}
 								onChange={(e) => {
 									let inputData = inputCount;
-									inputData[Index] = e.target.value;
+									inputData[Index][lang] = e.target.value;
 									updateInputCount([...inputData]);
 								}}
 							/>
@@ -39,7 +44,7 @@ function AddModels({ getModels, onCurrentPageChange, models }) {
 						src={plusCircle}
 						alt="plusCircle"
 						onClick={() => {
-							updateInputCount([...inputCount, ""]);
+							updateInputCount([...inputCount, { en: "", ar: "" }]);
 						}}
 					/>
 					<div className="mx-2 ">
