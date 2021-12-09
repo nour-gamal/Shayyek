@@ -146,9 +146,10 @@ color: #707070;
 	margin-bottom: 48px !important;
 }
 .landingPage .searchResult {
-	width: 53.7%;
+	width: 54.5%;
 	position: absolute;
-	top: 66.5%;
+	top: 62%;
+	left: 2px;
 	padding: 30px;
 	background-color: #fff;
 	margin-top: 25px;
@@ -314,7 +315,7 @@ color: #707070;
 	.landingPage .searchResult  {
 		width: 90.7%;
 		position: absolute;
-		top: 60.5%;
+		top:56%;
 		left: 3px;
 		padding: 30px;
 		background-color: #fff;
