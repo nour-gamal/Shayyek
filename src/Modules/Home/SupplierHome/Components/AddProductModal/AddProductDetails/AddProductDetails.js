@@ -7,7 +7,7 @@ import negative from "../../../../../../Resources/Assets/negative.svg";
 import darkCross from "../../../../../../Resources/Assets/DarkCross.svg";
 import AddProductPhoto from "../../../../../../Resources/Assets/AddProductPhoto.svg";
 import { GetLanguages } from "../../../../../../Network";
-import { addProduct } from "../../../../network";
+import { addProduct, addProductImg } from "../../../../network";
 import { useSelector } from "react-redux";
 import "./AddProductDetails.css";
 function AddProductDetails({
@@ -65,7 +65,7 @@ function AddProductDetails({
 		) {
 			updateErrSign(true);
 		} else {
-			let data = new FormData();
+			let imageData = new FormData();
 			let product = [];
 			let sizesList = [];
 			let modelsList = [];
@@ -76,15 +76,34 @@ function AddProductDetails({
 					ProductName:
 						productName[
 							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
-						],
+						].length > 0
+							? productName[
+									lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+										? "en"
+										: "ar"
+							  ]
+							: productName[langName],
 					Specs:
 						specs[
 							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
-						],
-					Price:
+						].length > 0
+							? specs[
+									lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+										? "en"
+										: "ar"
+							  ]
+							: specs[langName],
+					Price: parseInt(
 						price[
 							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
-						],
+						].length > 0
+							? price[
+									lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+										? "en"
+										: "ar"
+							  ]
+							: price[langName]
+					),
 				});
 			});
 
@@ -121,36 +140,43 @@ function AddProductDetails({
 				});
 			});
 
-			// data.append("Image", image);
 			// data.append("ProductLocalizations", product);
 			// data.append("AvailabilityInStock", quantityCount);
 			// data.append("Models", modelsList);
 			// data.append("Sizes", sizesList);
 
-			let x = {
-				Image: image,
+			imageData.append("Image", image);
+
+			let data = {
 				ProductLocalizations: product,
 				AvailabilityInStock: quantityCount,
 				Models: modelsList,
 				Sizes: sizesList,
 			};
-			data.append("product", x);
-			console.log("product", x);
-			addProduct(
-				data,
+			addProductImg(
+				image,
 				(success) => {
-					if (success.success) {
-						if (saveAndAdd) {
-							onCurrentPageChange("importOrAdd");
-						} else {
-							onCurrentPageChange("addProductSuccess");
-						}
-					}
+					console.log(success);
 				},
 				(fail) => {
 					console.log(fail);
 				}
 			);
+			// addProduct(
+			// 	data,
+			// 	(success) => {
+			// 		if (success.success) {
+			// 			if (saveAndAdd) {
+			// 				onCurrentPageChange("importOrAdd");
+			// 			} else {
+			// 				onCurrentPageChange("addProductSuccess");
+			// 			}
+			// 		}
+			// 	},
+			// 	(fail) => {
+			// 		console.log(fail);
+			// 	}
+			// );
 		}
 	};
 

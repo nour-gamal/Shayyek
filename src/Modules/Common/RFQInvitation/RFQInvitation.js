@@ -29,8 +29,8 @@ function RFQInvitation({ revealPrices, data, location }) {
 				)}
 			</div>
 			{location === "supplier" && (
-				<div className="text-center">
-					<button className="button-primary">
+				<div className="text-center my-2">
+					<button className="popup-button-primary">
 						{currentLocal.supplierHome.fillSheet}
 					</button>
 				</div>

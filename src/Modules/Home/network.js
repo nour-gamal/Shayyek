@@ -90,8 +90,19 @@ export const addProduct = (
 	onSuccess,
 	onFail,
 	reqAuth = true,
-	formData = true
+	formData = false
 ) => {
 	const path = "api/Product/AddProduts";
+	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
+};
+
+export const addProductImg = (
+	data,
+	onSuccess,
+	onFail,
+	reqAuth = true,
+	formData = true
+) => {
+	const path = "api/Product/GetImagePath";
 	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
 };

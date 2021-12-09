@@ -9,7 +9,7 @@ function RFQInvitations({ invitationCount, rfqDetails }) {
 	return (
 		<div className="RFQInvitations">
 			<div className="title section">
-				<div>
+				<div className="d-flex">
 					<img src={RFQIcon} alt="RFQIcon" className="RFQIcon mx-2" />
 					<span>{currentLocal.supplierHome.rfqInvitations}</span>
 				</div>
