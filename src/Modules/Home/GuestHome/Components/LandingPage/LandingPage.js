@@ -57,8 +57,8 @@ function LandingPage() {
 
   return (
     <>
-      <div className="overlay"></div>
       <div className="landingPage">
+      <div className="overlay">   </div>
         <Navbar transparent={true} />
         <Container>
           <Row>
@@ -183,6 +183,7 @@ function LandingPage() {
             </div>
           )}
         </Container>
+   
       </div>
     </>
   );
