@@ -128,9 +128,15 @@ function AddProductDetails({
 
 			let dataList = [data];
 			addProduct(
-				dataList,
+				data,
 				(success) => {
-					console.log(success);
+					if (success.success) {
+						if (saveAndAdd) {
+							onCurrentPageChange("importOrAdd");
+						} else {
+							onCurrentPageChange("addProductSuccess");
+						}
+					}
 				},
 				(fail) => {
 					console.log(fail);

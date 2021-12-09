@@ -7,7 +7,7 @@ import AddSizes from "./AddSizes/AddSizes";
 import AddModels from "./AddModels/AddModels";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
 function AddProductModal({ isModalVisible, onCancel }) {
-	const [currentPage, updateCurrentPage] = useState("AddProductDetails");
+	const [currentPage, updateCurrentPage] = useState("importOrAdd");
 	const [sizes, updateSizes] = useState([]);
 	const [models, updateModels] = useState([]);
 	const [lang, updateLang] = useState(null);
