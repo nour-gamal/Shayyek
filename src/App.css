@@ -330,34 +330,6 @@ thead:hover {
 .close {
 	width: 25px;
 }
-.priceBox .redball,
-.priceBox .greenball {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: red;
-	position: relative;
-}
-.priceBox .redball::after {
-	content: "";
-	display: block;
-	height: 40px;
-	width: 2px;
-	background: #075f73;
-	position: absolute;
-	top: 10px;
-	left: 45%;
-}
-.priceBox .greenball {
-	background: #44e501;
-	margin-top: 40px;
-}
-.priceBox label {
-	display: block;
-}
-.priceBox label:nth-of-type(2) {
-	margin-top: 30px;
-}
 
 @media (max-width: 480px) {
 	.ant-table-cell {

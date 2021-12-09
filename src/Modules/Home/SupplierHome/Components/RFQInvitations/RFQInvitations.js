@@ -1,6 +1,6 @@
 import React from "react";
 import RFQIcon from "../../../../../Resources/Assets/research@2x.png";
-import RFQInvitation from "../RFQInvitation/RFQInvitation";
+import RFQInvitation from "../../../../Common/RFQInvitation/RFQInvitation";
 import { useSelector } from "react-redux";
 import "./RFQInvitations.css";
 function RFQInvitations({ invitationCount, rfqDetails }) {
@@ -16,7 +16,7 @@ function RFQInvitations({ invitationCount, rfqDetails }) {
 				<div className="invitations_number f-12">{invitationCount}</div>
 			</div>
 			<div className="section">
-				<RFQInvitation />
+				<RFQInvitation revealPrices={true} location={"supplier"} />
 			</div>
 		</div>
 	);
