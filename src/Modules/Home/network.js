@@ -1,4 +1,4 @@
-import { PostResource, GetResource } from "../../Services";
+import { PostResource, GetResource, deleteResource } from "../../Services";
 
 export const getCategories = (
 	languageId,
@@ -115,4 +115,13 @@ export const getProducts = (
 ) => {
 	const path = `api/Product/GetProducts?languageId=${languageId}&companyId=${companyId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
+};
+export const deleteProducts = (
+	productId,
+	onSuccess,
+	onFail,
+	reqAuth = true
+) => {
+	const path = `api/Product/DeleteProduct?productId=${productId}`;
+	deleteResource(path, onSuccess, onFail, reqAuth);
 };

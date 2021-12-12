@@ -27,6 +27,21 @@ function Products({ draftsCount }) {
 			}
 		);
 	}, [authorization.companyId, currentLocal.language]);
+
+	const requestAllProducts = () => {
+		getProducts(
+			currentLocal.language === "English"
+				? localStorage.getItem("englishId")
+				: localStorage.getItem("arabicId"),
+			authorization.companyId,
+			(success) => {
+				updateCompany(success.data);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	};
 	return (
 		<div
 			className={
@@ -55,7 +70,10 @@ function Products({ draftsCount }) {
 				{company.map((product) => {
 					return (
 						<Col xs={24} md={12} lg={6}>
-							<ProductsCard product={product} />
+							<ProductsCard
+								product={product}
+								requestAllProducts={requestAllProducts}
+							/>
 						</Col>
 					);
 				})}
@@ -66,6 +84,7 @@ function Products({ draftsCount }) {
 					isModalVisible={isModalVisible}
 					onCancel={() => {
 						toggleProductModal(!isModalVisible);
+						requestAllProducts();
 					}}
 				/>
 			)}

@@ -64,3 +64,33 @@ export function GetResource(path, onSuccess, onFail, reqAuth) {
 			// }
 		});
 }
+
+export function deleteResource(path, onSuccess, onFail, reqAuth) {
+	const requestData = {
+		method: "delete",
+		url: baseUrl + path,
+		headers: {},
+	};
+
+	if (reqAuth && token) {
+		requestData.headers = {
+			Authorization: "Bearer " + token,
+		};
+	}
+
+	axios(requestData)
+		.then((res) => {
+			onSuccess(res.data);
+		})
+		.catch((error) => {
+			onFail(error.response);
+			// 	if(error.response){
+			// 	if (error.response.status === 401) {
+			// 		if (localStorage.getItem("persist:root")) {
+			// 			localStorage.removeItem("persist:root");
+			// 			window.location.reload();
+			// 		}
+			// 	}
+			// }
+		});
+}

@@ -5,7 +5,7 @@ import "./AddProductSuccess.css";
 function AddProductSuccess({ onCancel }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	return (
-		<div className="addProductSuccess d-flex justify-content-evenly">
+		<div className="addProductSuccess d-flex justify-content-evenly align-content-center">
 			<div>
 				<div className="d-flex justify-content-center">
 					<img src={sent} alt="sent" />
