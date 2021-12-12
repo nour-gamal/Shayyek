@@ -80,6 +80,7 @@ function RegistrationForm() {
   const [options, updateOptions] = useState([]);
   const [foucesItem, setFoucesItem] = useState("");
   const [mobileState, setMobileState] = useState("");
+  const[categoriesRequest,setcategoriesRequest]=useState([])
   const [emailState, setEmailState] = useState("");
   const showState = true;
   const uploadCompanyLogo = "";
@@ -102,12 +103,12 @@ function RegistrationForm() {
       setAccountId("d23f2c1e-1ed3-4066-96d6-66a970e39a7f");
     }
   };
-  const categoriesRequest = [];
   const onChange = (currentNode, selectedNodes) => {
-    categoriesRequest.push({
-      categoryId: currentNode.value,
+  console.log(currentNode.label);
+    setcategoriesRequest([{
+         categoryId: currentNode.value,
       subCategories: [],
-    });
+    }])
         if (currentNode.firstchildren) {
       currentNode.firstchildren.forEach((supChild) => {
         categoriesRequest.forEach((z) => {
@@ -126,10 +127,15 @@ function RegistrationForm() {
         });
       })}
       else if (currentNode.grandParend) {
-          categoriesRequest.push({
-            categoryId: currentNode.grandParend,
-            subCategories: [],
-          });
+          // categoriesRequest.push({
+          //   categoryId: currentNode.grandParend,
+          //   subCategories: [],
+          // });
+          setcategoriesRequest([...categoriesRequest,{
+              categoryId: currentNode.grandParend,
+              subCategories: [],
+            }]
+            )
           categoriesRequest.forEach((n) => {
             n.subCategories.push({
               subCategoryId: currentNode.subvalue,
@@ -143,10 +149,14 @@ function RegistrationForm() {
           });
         }
         else if (currentNode.subGrandParent) {
-            categoriesRequest.push({
-              categoryId: currentNode.subGrandParent,
-              subCategories: [],
-            });
+            // categoriesRequest.push({
+            //   categoryId: currentNode.subGrandParent,
+            //   subCategories: [],
+            // });
+            setcategoriesRequest([...categoriesRequest,{
+                          categoryId: currentNode.subGrandParent,
+              subCategories: [],  
+            }])
             categoriesRequest.forEach((b) => {
               b.subCategories.push({
                 subCategoryId: currentNode.parent,
@@ -161,7 +171,6 @@ function RegistrationForm() {
           // setWork(categoriesRequest)
 
   };
-  console.log(categoriesRequest);
 
   const assignObjectPaths = (obj, stack) => {
     Object.keys(obj).forEach((k) => {
@@ -615,6 +624,7 @@ function RegistrationForm() {
   if (redirect) {
     return <Redirect to="/verifyByEmail" />;
   }
+  console.log(categoriesRequest);
 
   return (
     <div className="RegistrationForm ppl ppr">
@@ -826,14 +836,11 @@ function RegistrationForm() {
           ? "bootstrap-demo disableInput input-dropdown"
           : "bootstrap-demo input-dropdown"
       }   
-      texts={{
-        placeholder: 
-           currentLocal.registration.work,
-      }}
+
       disabled={
         !individual && buyer !== currentLocal.registration.Supplier
       }
-      />
+            />
 
               {!individual && buyer !== currentLocal.registration.Supplier ? (
                 <img
