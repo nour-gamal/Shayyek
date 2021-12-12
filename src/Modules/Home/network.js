@@ -92,7 +92,7 @@ export const addProduct = (
 	reqAuth = true,
 	formData = false
 ) => {
-	const path = "api/Product/AddProduts";
+	const path = "api/Product/AddProduct";
 	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
 };
 
