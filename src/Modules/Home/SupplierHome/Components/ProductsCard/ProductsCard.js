@@ -6,11 +6,13 @@ import { useSelector } from "react-redux";
 import moreDots from "../../../../../Resources/Assets/more-dots.svg";
 import eye from "../../../../../Resources/Assets/eye.svg";
 import edit from "../../../../../Resources/Assets/edit.svg";
+import ProductDetails from "../../../../Common/ProductDetails/ProductDetails";
 import garbage from "../../../../../Resources/Assets/garbage.svg";
 import "./ProductsCard.css";
 function ProductsCard({ product, requestAllProducts }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [selectedProduct, updateSelectedProduct] = useState(null);
+	const [isDetailsModalVisible, toggleDetailsModal] = useState(false);
 	const menu = (
 		<Menu onClick={(e) => handleClickItem(e)}>
 			<Menu.Item key="0">
@@ -44,6 +46,10 @@ function ProductsCard({ product, requestAllProducts }) {
 				);
 				break;
 			}
+			case "0": {
+				toggleDetailsModal(!isDetailsModalVisible);
+				break;
+			}
 			default: {
 				break;
 			}
@@ -71,6 +77,13 @@ function ProductsCard({ product, requestAllProducts }) {
 					/>
 				</Dropdown>
 			</div>
+			<ProductDetails
+				isModalVisible={isDetailsModalVisible}
+				onCancel={() => {
+					toggleDetailsModal(!isDetailsModalVisible);
+				}}
+				product={product}
+			/>
 		</div>
 	);
 }
