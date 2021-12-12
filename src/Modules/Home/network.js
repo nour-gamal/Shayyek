@@ -106,3 +106,13 @@ export const addProductImg = (
 	const path = "api/Product/GetImagePath";
 	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
 };
+export const getProducts = (
+	languageId,
+	companyId,
+	onSuccess,
+	onFail,
+	reqAuth = true
+) => {
+	const path = `api/Product/GetProducts?languageId=${languageId}&companyId=${companyId}`;
+	GetResource(path, onSuccess, onFail, reqAuth);
+};
