@@ -214,6 +214,9 @@ export const ar = {
 		maxPrice: "السعر الاعلي",
 		minPrice: "السعر الادني",
 		fillSheet: "قم بتقديم سعرك ",
+		productDetails: "تفاصيل المنتج",
+		edit: "تعديل",
+		delete: "الغاء",
 	},
 	home: {
 		shayek: "شيّك",

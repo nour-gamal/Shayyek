@@ -9,3 +9,9 @@
 	width: 100%;
 	height: 80%;
 }
+.productName {
+	width: 50px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
