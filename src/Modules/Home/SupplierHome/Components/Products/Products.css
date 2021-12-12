@@ -1,3 +1,17 @@
+.products .noProducts {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.products .noProducts > div {
+	font-size: 21px;
+	color: #707070;
+}
+.products .noProducts > div:nth-of-type(2) {
+	font-size: 16px;
+}
+
 @media (max-width: 768px) {
 	.products .orange_btn {
 		position: absolute;

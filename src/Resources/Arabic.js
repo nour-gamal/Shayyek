@@ -217,6 +217,9 @@ export const ar = {
 		productDetails: "تفاصيل المنتج",
 		edit: "تعديل",
 		delete: "الغاء",
+		noRFQs: "لا يوجد طلبات سعر",
+		noProducts: "لا يوجد منتجات",
+		youCanAddProducts: "يمكنك اضافه المنتجات الي متجرك الالي",
 	},
 	home: {
 		shayek: "شيّك",

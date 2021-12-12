@@ -1,8 +1,7 @@
 .RFQInvitations {
 	background: #efefef;
 	padding: 2px;
-	/* height: calc(100vh - 181px); */
-	max-height: 100vh;
+	height: calc(100vh - 181px);
 	overflow: auto;
 }
 
@@ -23,6 +22,11 @@
 .RFQInvitations .RFQIcon {
 	width: 20px;
 	height: 30px;
+}
+.RFQInvitations .noRFqs {
+	color: #a6a6a6;
+	margin: 20px 0;
+	font-size: 17.5px;
 }
 .invitations_number {
 	border-radius: 35%;

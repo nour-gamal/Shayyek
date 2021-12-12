@@ -4,12 +4,13 @@ import Plus from "../../../../../Resources/Assets/plus (2).svg";
 import Drafts from "../../../../../Resources/Assets/draft.svg";
 import ProductsCard from "../ProductsCard/ProductsCard";
 import { getProducts } from "../../../network";
+import noProducts from "../../../../../Resources/Assets/noRFQs.svg";
 import { Row, Col } from "antd";
 import AddProductModal from "../AddProductModal/AddProductModal";
 import "./Products.css";
 function Products({ draftsCount }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const [company, updateCompany] = useState([]);
+	const [products, updateProducts] = useState([]);
 	const { authorization } = useSelector((state) => state.authorization);
 	const [isModalVisible, toggleProductModal] = useState(false);
 
@@ -20,7 +21,7 @@ function Products({ draftsCount }) {
 				: localStorage.getItem("arabicId"),
 			authorization.companyId,
 			(success) => {
-				updateCompany(success.data);
+				updateProducts(success.data);
 			},
 			(fail) => {
 				console.log(fail);
@@ -35,7 +36,7 @@ function Products({ draftsCount }) {
 				: localStorage.getItem("arabicId"),
 			authorization.companyId,
 			(success) => {
-				updateCompany(success.data);
+				updateProducts(success.data);
 			},
 			(fail) => {
 				console.log(fail);
@@ -67,16 +68,24 @@ function Products({ draftsCount }) {
 			</div>
 
 			<Row>
-				{company.map((product) => {
-					return (
-						<Col xs={24} md={12} lg={6}>
-							<ProductsCard
-								product={product}
-								requestAllProducts={requestAllProducts}
-							/>
-						</Col>
-					);
-				})}
+				{products.length === 0 ? (
+					<div className="noProducts text-center">
+						<img src={noProducts} alt="noCompanies" />
+						<div>{currentLocal.supplierHome.noProducts}</div>
+						<div>{currentLocal.supplierHome.youCanAddProducts}</div>
+					</div>
+				) : (
+					products.map((product) => {
+						return (
+							<Col xs={24} md={12} lg={6}>
+								<ProductsCard
+									product={product}
+									requestAllProducts={requestAllProducts}
+								/>
+							</Col>
+						);
+					})
+				)}
 			</Row>
 
 			{isModalVisible && (

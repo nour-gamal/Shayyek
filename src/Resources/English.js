@@ -172,6 +172,9 @@ export const en = {
 		productDetails: "Product details",
 		edit: "Edit",
 		delete: "Delete",
+		noRFQs: "No RFQs",
+		noProducts: "There are no products",
+		youCanAddProducts: "You can add products to your marketplace",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",
