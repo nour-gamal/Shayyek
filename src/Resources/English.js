@@ -169,6 +169,9 @@ export const en = {
 		maxPrice: "Max price",
 		minPrice: "Min price",
 		fillSheet: "Fill Sheet",
+		productDetails: "Product details",
+		edit: "Edit",
+		delete: "Delete",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",

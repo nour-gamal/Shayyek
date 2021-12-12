@@ -203,7 +203,7 @@ export const ar = {
 		addDifferentModels: "اضف انواع مختلفه",
 		availableQuantity: "الكميه المتوفره في المخازن",
 		add: "اضف",
-		pleaseAddPhoto: "من فضلك اضف صوره",
+		pleaseAddPhoto: "من فضلك اضف صوره ",
 		pleaseAddSpecs: "من فضلك اضف المواصفات",
 		pleaseAddName: "من فضلك اضف الاسم",
 		pleaseAddPrice: "من فضلك اضف السعر",
@@ -214,6 +214,9 @@ export const ar = {
 		maxPrice: "السعر الاعلي",
 		minPrice: "السعر الادني",
 		fillSheet: "قم بتقديم سعرك ",
+		productDetails: "تفاصيل المنتج",
+		edit: "تعديل",
+		delete: "الغاء",
 	},
 	home: {
 		shayek: "شيّك",

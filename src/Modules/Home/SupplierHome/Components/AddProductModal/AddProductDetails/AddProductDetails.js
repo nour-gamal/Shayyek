@@ -7,7 +7,7 @@ import negative from "../../../../../../Resources/Assets/negative.svg";
 import darkCross from "../../../../../../Resources/Assets/DarkCross.svg";
 import AddProductPhoto from "../../../../../../Resources/Assets/AddProductPhoto.svg";
 import { GetLanguages } from "../../../../../../Network";
-import { addProduct } from "../../../../network";
+import { addProduct, addProductImg } from "../../../../network";
 import { useSelector } from "react-redux";
 import "./AddProductDetails.css";
 function AddProductDetails({
@@ -39,6 +39,7 @@ function AddProductDetails({
 		data && data.quantityCount ? data.quantityCount : null
 	);
 	const [errSign, updateErrSign] = useState(false);
+	const [validImg, isValidImg] = useState(true);
 	const { Option } = Select;
 	let langName =
 		langValue === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar";
@@ -65,7 +66,7 @@ function AddProductDetails({
 		) {
 			updateErrSign(true);
 		} else {
-			let data = new FormData();
+			let imageData = new FormData();
 			let product = [];
 			let sizesList = [];
 			let modelsList = [];
@@ -76,42 +77,57 @@ function AddProductDetails({
 					ProductName:
 						productName[
 							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
-						],
+						].length > 0
+							? productName[
+									lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+										? "en"
+										: "ar"
+							  ]
+							: productName[langName],
 					Specs:
 						specs[
 							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
-						],
-					Price:
+						].length > 0
+							? specs[
+									lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+										? "en"
+										: "ar"
+							  ]
+							: specs[langName],
+					Price: parseInt(
 						price[
 							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
-						],
+						].length > 0
+							? price[
+									lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+										? "en"
+										: "ar"
+							  ]
+							: price[langName]
+					),
 				});
 			});
 
-			sizes.forEach((size, sizeIndex) => {
-				sizesList.push([
-					{
-						SizesLocalizations: [],
-					},
-				]);
+			sizess.forEach((size, sizeIndex) => {
+				sizesList.push({
+					sizeLocalizations: [],
+				});
 				langList.forEach((lang) => {
-					sizesList[sizeIndex][0].SizesLocalizations.push({
-						Id: lang.id,
-						Name:
+					sizesList[sizeIndex].sizeLocalizations.push({
+						id: lang.id,
+						name:
 							size[
 								lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
 							],
 					});
 				});
 			});
-			models.forEach((model, modelIndex) => {
-				modelsList.push([
-					{
-						ModelsLocalizations: [],
-					},
-				]);
+			modelss.forEach((model, modelIndex) => {
+				modelsList.push({
+					modelLocalizations: [],
+				});
 				langList.forEach((lang) => {
-					modelsList[modelIndex][0].ModelsLocalizations.push({
+					modelsList[modelIndex].modelLocalizations.push({
 						Id: lang.id,
 						Name:
 							model[
@@ -121,30 +137,35 @@ function AddProductDetails({
 				});
 			});
 
-			// data.append("Image", image);
-			// data.append("ProductLocalizations", product);
-			// data.append("AvailabilityInStock", quantityCount);
-			// data.append("Models", modelsList);
-			// data.append("Sizes", sizesList);
+			imageData.append("Image", image);
 
-			let x = {
-				Image: image,
+			let data = {
 				ProductLocalizations: product,
 				AvailabilityInStock: quantityCount,
 				Models: modelsList,
 				Sizes: sizesList,
+				ImagePath: "",
 			};
-			data.append("product", x);
-			console.log("product", x);
-			addProduct(
-				data,
+			addProductImg(
+				imageData,
 				(success) => {
 					if (success.success) {
-						if (saveAndAdd) {
-							onCurrentPageChange("importOrAdd");
-						} else {
-							onCurrentPageChange("addProductSuccess");
-						}
+						data.ImagePath = success.data;
+						addProduct(
+							data,
+							(success) => {
+								if (success.success) {
+									if (saveAndAdd) {
+										onCurrentPageChange("importOrAdd");
+									} else {
+										onCurrentPageChange("addProductSuccess");
+									}
+								}
+							},
+							(fail) => {
+								console.log(fail);
+							}
+						);
 					}
 				},
 				(fail) => {
@@ -158,8 +179,9 @@ function AddProductDetails({
 		if (event.target.files && event.target.files[0]) {
 			if (event.target.files[0].type.includes("image")) {
 				setImage(event.target.files[0]);
+				isValidImg(true);
 			} else {
-				updateErrSign(true);
+				isValidImg(false);
 			}
 		}
 	};
@@ -215,7 +237,13 @@ function AddProductDetails({
 								onChange={uploadImgHandler}
 								className="d-none"
 							/>
-							{errSign && image === null && (
+							{errSign && image === null && validImg && (
+								<div className="danger-font">
+									* {currentLocal.supplierHome.pleaseAddPhoto}
+								</div>
+							)}
+
+							{!validImg && (
 								<div className="danger-font">
 									* {currentLocal.supplierHome.pleaseAddPhoto}
 								</div>
