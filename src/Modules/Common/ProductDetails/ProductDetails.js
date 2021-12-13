@@ -9,7 +9,6 @@ import "./ProductDetails.css";
 function ProductDetails({ isModalVisible, onCancel, product }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [quantityCount, updateQuantityCount] = useState(0);
-	console.log(product);
 	return (
 		<Modal
 			title="Basic Modal"
@@ -26,7 +25,7 @@ function ProductDetails({ isModalVisible, onCancel, product }) {
 					/>
 				</Col>
 				<Col xs={6} md={18}>
-					<div>{product.name}</div>
+					<div className="productName">{product.name}</div>
 					<div className="d-flex">
 						<img
 							src={baseUrl + product.companyLogo}

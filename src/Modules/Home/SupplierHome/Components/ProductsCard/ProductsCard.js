@@ -12,7 +12,8 @@ import "./ProductsCard.css";
 function ProductsCard({ product, requestAllProducts }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [selectedProduct, updateSelectedProduct] = useState(null);
-	const [isDetailsModalVisible, toggleDetailsModal] = useState(true);
+	const [isDetailsModalVisible, toggleDetailsModal] = useState(false);
+	const [productDetails, updateProductDetails] = useState(null);
 	const menu = (
 		<Menu onClick={(e) => handleClickItem(e)}>
 			<Menu.Item key="0">
@@ -47,6 +48,7 @@ function ProductsCard({ product, requestAllProducts }) {
 				break;
 			}
 			case "0": {
+				//updateProductDetails()
 				toggleDetailsModal(!isDetailsModalVisible);
 				break;
 			}
@@ -77,13 +79,15 @@ function ProductsCard({ product, requestAllProducts }) {
 					/>
 				</Dropdown>
 			</div>
-			<ProductDetails
-				isModalVisible={isDetailsModalVisible}
-				onCancel={() => {
-					toggleDetailsModal(!isDetailsModalVisible);
-				}}
-				product={product}
-			/>
+			{productDetails && (
+				<ProductDetails
+					isModalVisible={isDetailsModalVisible}
+					onCancel={() => {
+						toggleDetailsModal(!isDetailsModalVisible);
+					}}
+					product={productDetails}
+				/>
+			)}
 		</div>
 	);
 }

@@ -118,7 +118,13 @@ function AddProductDetails({
 						name:
 							size[
 								lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
-							],
+							].length > 0
+								? size[
+										lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+											? "en"
+											: "ar"
+								  ]
+								: size[langName],
 					});
 				});
 			});
@@ -132,7 +138,13 @@ function AddProductDetails({
 						Name:
 							model[
 								lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
-							],
+							].length > 0
+								? model[
+										lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+											? "en"
+											: "ar"
+								  ]
+								: model[langName],
 					});
 				});
 			});
