@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { baseUrl } from "../../../../../Services";
 import { deleteProducts } from "../../../network";
+import { GetProductDetails } from "../../../../Common/Network";
 import { Menu, Dropdown, Tooltip } from "antd";
 import { useSelector } from "react-redux";
 import moreDots from "../../../../../Resources/Assets/more-dots.svg";
@@ -49,7 +50,19 @@ function ProductsCard({ product, requestAllProducts }) {
 			}
 			case "0": {
 				//updateProductDetails()
-				toggleDetailsModal(!isDetailsModalVisible);
+				GetProductDetails(
+					currentLocal.language === "English"
+						? localStorage.getItem("englishId")
+						: localStorage.getItem("arabicId"),
+					selectedProduct,
+					(success) => {
+						console.log(success);
+					},
+					(fail) => {
+						console.log(fail);
+					}
+				);
+				//toggleDetailsModal(!isDetailsModalVisible);
 				break;
 			}
 			default: {
