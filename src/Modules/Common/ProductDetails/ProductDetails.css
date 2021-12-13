@@ -1,3 +1,26 @@
 .productDetails .productImg {
-	width: 100%;
+	width: 90%;
 }
+.productDetails .companyLogo {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+}
+
+.productDetails .productName,
+.productDetails .price {
+	color: #f50000;
+	font-size: 17.5px;
+	font-weight: bold;
+}
+
+.productDetails label {
+	font-size: 17.5px;
+}
+
+/* .x {
+	height: 100%;
+	display: flex;
+	align-content: space-between;
+	flex-direction: column;
+} */

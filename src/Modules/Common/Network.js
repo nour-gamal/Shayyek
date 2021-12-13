@@ -10,6 +10,6 @@ export const GetProductDetails = (
 	onFail,
 	reqAuth = true
 ) => {
-	const path = `api/Product/GetProduct?languageId=${languageId}&productId=${productId}`;
+	const path = `api/Product/GetProductDetails?languageId=${languageId}&productId=${productId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
