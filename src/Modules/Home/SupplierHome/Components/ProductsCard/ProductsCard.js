@@ -12,7 +12,7 @@ import "./ProductsCard.css";
 function ProductsCard({ product, requestAllProducts }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [selectedProduct, updateSelectedProduct] = useState(null);
-	const [isDetailsModalVisible, toggleDetailsModal] = useState(false);
+	const [isDetailsModalVisible, toggleDetailsModal] = useState(true);
 	const menu = (
 		<Menu onClick={(e) => handleClickItem(e)}>
 			<Menu.Item key="0">

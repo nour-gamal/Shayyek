@@ -20,10 +20,6 @@
 	border-radius: 60px;
 	color: #fff;
 }
-.postRFQModal .capsulesContainer {
-	display: flex;
-	flex-wrap: wrap;
-}
 
 .checkbox-area > div:first-of-type {
 	display: flex;

@@ -220,6 +220,10 @@ export const ar = {
 		noRFQs: "لا يوجد طلبات سعر",
 		noProducts: "لا يوجد منتجات",
 		youCanAddProducts: "يمكنك اضافه المنتجات الي متجرك الالي",
+		chooseSize: "اختر المقاس",
+		chooseModel: "اختر الموديل",
+		addToCart: "اضف الي العربه",
+		quantity: "الكميه",
 	},
 	home: {
 		shayek: "شيّك",

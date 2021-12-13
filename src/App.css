@@ -330,6 +330,27 @@ thead:hover {
 .close {
 	width: 25px;
 }
+.capsulesContainer {
+	display: flex;
+	flex-wrap: wrap;
+}
+.capsules {
+	display: inline-block;
+	background: #dceefd;
+	padding: 1px 10px;
+	border-radius: 118px;
+	margin: 10px;
+}
+.quantityCount {
+	width: 71px;
+	height: 32px;
+	line-height: 32px;
+	display: inline-block;
+	text-align: center;
+	border: 1px solid #bce0fd;
+	border-radius: 15px;
+	background-color: #fff;
+}
 
 @media (max-width: 480px) {
 	.ant-table-cell {
