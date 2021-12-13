@@ -56,13 +56,13 @@ function ProductsCard({ product, requestAllProducts }) {
 						: localStorage.getItem("arabicId"),
 					selectedProduct,
 					(success) => {
-						console.log(success);
+						updateProductDetails(success.data);
+						toggleDetailsModal(!isDetailsModalVisible);
 					},
 					(fail) => {
 						console.log(fail);
 					}
 				);
-				//toggleDetailsModal(!isDetailsModalVisible);
 				break;
 			}
 			default: {
