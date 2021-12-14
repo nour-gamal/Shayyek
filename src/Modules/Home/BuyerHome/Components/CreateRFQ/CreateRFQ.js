@@ -449,7 +449,7 @@ function CreateRFQ() {
 	return (
 		<section>
 			<Navbar />
-			<div className="ppl ppr f-14 my-4 createRFQ">
+			<div className="ppl ppr f-16 my-4 createRFQ">
 				<div className="actionsContainer">
 					<div>
 						<div className="mb-3">

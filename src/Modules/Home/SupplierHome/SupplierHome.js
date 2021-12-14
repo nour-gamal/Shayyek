@@ -26,10 +26,10 @@ function SupplierHome() {
 	return (
 		<div>
 			<Row>
-				<Col md={16} xs={14} lg={18} className="mt-2">
+				<Col md={12} xs={14} lg={18} className="mt-2">
 					<Products draftsCount={draftsCount} />
 				</Col>
-				<Col md={8} xs={10} lg={6}>
+				<Col md={12} xs={10} lg={6}>
 					<RFQInvitations
 						invitationCount={invitationCount}
 						rfqDetails={rfqDetails}

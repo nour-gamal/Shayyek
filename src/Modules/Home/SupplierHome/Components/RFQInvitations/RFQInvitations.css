@@ -18,6 +18,9 @@
 	display: flex;
 	justify-content: space-between;
 }
+.RFQInvitations .title > div:first-of-type {
+	width: 50%;
+}
 
 .RFQInvitations .RFQIcon {
 	width: 20px;

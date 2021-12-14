@@ -12,6 +12,7 @@
 	border: none !important;
 	overflow: auto;
 	scrollbar-width: none;
+	height: 20px;
 }
 .createRFQ textarea::-webkit-scrollbar {
 	display: none;
