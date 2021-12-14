@@ -12,8 +12,34 @@
 	color: #f50000;
 	font-size: 17.5px;
 	font-weight: bold;
+	flex-shrink: 0;
+}
+.productDetails .ant-row {
+	height: 100% !important;
 }
 
 .productDetails label {
-	font-size: 17.5px;
+	font-size: 16px;
+	color: #003b6b;
+}
+.productDetails .companyName {
+	color: #010101;
+}
+.productDetails .button-primary {
+	width: max-content;
+	margin-top: 20px;
+}
+@media (max-width: 768px) {
+	.productDetails .companyInfoContainer {
+		flex-direction: column;
+	}
+	.productDetails .button-primary {
+		width: 90%;
+	}
+	.productDetails .button-container {
+		background: #fff;
+		position: sticky;
+		bottom: -36px;
+		left: 10px;
+	}
 }

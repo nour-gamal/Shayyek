@@ -121,11 +121,16 @@ section {
 	margin-top: 50px !important;
 }
 .ant-modal-body {
-	height: 85vh;
+	height: 85vh !important;
+	overflow: auto;
 	padding: 0;
-	padding-bottom: 44px;
-	padding-top: 54px;
+	padding-bottom: 42px;
+	padding-top: 42px;
 }
+.ant-modal-body::-webkit-scrollbar {
+	display: none;
+}
+
 .modal-sm {
 	width: 45vw !important;
 	margin: 0 auto;
@@ -348,9 +353,9 @@ thead:hover {
 .capsules {
 	display: inline-block;
 	background: #dceefd;
-	padding: 1px 10px;
+	padding: 5px 16px;
 	border-radius: 118px;
-	margin: 10px;
+	margin: 5px;
 }
 .quantityCount {
 	width: 71px;
@@ -400,7 +405,7 @@ thead:hover {
 @media (max-width: 768px) {
 	.ant-modal,
 	.modal-lg .ant-modal-content {
-		padding: 10px;
+		padding: 10px 20px;
 	}
 	.ant-modal-body {
 		height: max-content;
