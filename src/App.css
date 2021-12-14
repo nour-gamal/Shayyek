@@ -108,15 +108,26 @@ section {
 }
 
 .modal-lg .ant-modal-content {
-	width: 95% !important;
+	width: 100% !important;
 	margin: 0 auto;
 	border-radius: 20px;
 	padding: 10px 50px;
 	height: fit-content !important;
 	/* overflow: auto; */
 }
-.modal-sm .ant-modal-content {
-	width: 45% !important;
+.modal-lg {
+	width: 85vw !important;
+	position: static !important;
+	margin-top: 50px !important;
+}
+.ant-modal-body {
+	height: 85vh;
+	padding: 0;
+	padding-bottom: 44px;
+	padding-top: 54px;
+}
+.modal-sm {
+	width: 45vw !important;
 	margin: 0 auto;
 	border-radius: 20px;
 	padding: 10px;

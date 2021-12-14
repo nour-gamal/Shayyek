@@ -28,64 +28,6 @@
 	font-size: 14px;
 }
 
-.ant-modal {
-	width: 80vw !important;
-	position: static !important;
-	margin-top: 50px !important;
-}
-.ant-modal-content {
-	border-radius: 20px !important;
-}
-.ant-modal-body {
-	min-height: 85vh;
-	padding: 0;
-	padding-bottom: 44px;
-	padding-top: 54px;
-}
-.ant-modal-body .modalBody .msgImg {
-	padding-top: 45px;
-	padding-bottom: 33px;
-}
-.ant-modal-body .modalBody .checkMobile {
-	color: red;
-}
-.ant-modal-body .closIcon {
-	position: absolute;
-	top: 24px;
-	left: 24px;
-	opacity: 80%;
-	cursor: pointer;
-	width: 24px;
-}
-.ant-modal-body .modalBody .resendCodev {
-	color: #0370ff;
-	cursor: pointer;
-	font-weight: bold;
-}
-.ant-modal-body .modalBody .code {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 32px;
-}
-.ant-modal-body .modalBody .mobileNumber {
-	color: #707070;
-}
-.ant-modal-body .modalBody .button {
-	margin-bottom: 30px;
-}
-.ant-modal-body .modalBody .button button {
-	padding: 0 120px;
-}
-.ant-modal-centered::before {
-	content: unset;
-}
-.ant-modal-close {
-	display: none;
-}
-.ant-modal-footer {
-	display: none;
-}
-
 .vi__character {
 	/* line-height: 50px; */
 	font-size: 24px !important;

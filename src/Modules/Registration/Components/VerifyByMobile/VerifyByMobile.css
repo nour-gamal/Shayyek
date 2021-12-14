@@ -1,0 +1,43 @@
+.verifyByMobile .msgImg {
+	padding-top: 45px;
+	padding-bottom: 33px;
+}
+.verifyByMobile .checkMobile {
+	color: red;
+}
+.verifyByMobile .closIcon {
+	position: absolute;
+	top: 24px;
+	left: 24px;
+	opacity: 80%;
+	cursor: pointer;
+	width: 24px;
+}
+.verifyByMobile .resendCodev {
+	color: #0370ff;
+	cursor: pointer;
+	font-weight: bold;
+}
+.verifyByMobile .code {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 32px;
+}
+.verifyByMobile .mobileNumber {
+	color: #707070;
+}
+.verifyByMobile .button {
+	margin-bottom: 30px;
+}
+.verifyByMobile .button button {
+	padding: 0 120px;
+}
+.ant-modal-centered::before {
+	content: unset;
+}
+.ant-modal-close {
+	display: none;
+}
+.ant-modal-footer {
+	display: none;
+}
