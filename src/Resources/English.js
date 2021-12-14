@@ -177,6 +177,8 @@ export const en = {
 		youCanAddProducts: "You can add products to your marketplace",
 		chooseSize: "Choose size",
 		chooseModel: "Choose model",
+		sizes: "Sizes",
+		models: "Models",
 		addToCart: "Add to Cart",
 		quantity: "Quantity",
 	},

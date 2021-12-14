@@ -6,7 +6,7 @@ import positive from "../../../Resources/Assets/postive.svg";
 import negative from "../../../Resources/Assets/negative.svg";
 import { useSelector } from "react-redux";
 import "./ProductDetails.css";
-function ProductDetails({ isModalVisible, onCancel, product }) {
+function ProductDetails({ isModalVisible, onCancel, product, parent }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [quantityCount, updateQuantityCount] = useState(0);
 	return (
@@ -26,9 +26,9 @@ function ProductDetails({ isModalVisible, onCancel, product }) {
 				</Col>
 				<Col xs={6} sm={18}>
 					<div>
-						<div className="productName">{product.name}</div>
+						<div className="productName my-2">{product.name}</div>
 						<div className="d-flex justify-content-between">
-							<div>
+							<div className="d-flex align-items-center my-2">
 								{product.companyLogo ? (
 									<img
 										src={baseUrl + product.companyLogo}
@@ -42,7 +42,7 @@ function ProductDetails({ isModalVisible, onCancel, product }) {
 										className="companyLogo"
 									/>
 								)}
-								<div>{product.storeName}</div>
+								<div className="mx-2">{product.companyName}</div>
 							</div>
 							<div className="d-flex align-items-center">
 								<div className="priceLabel mx-2">
@@ -52,8 +52,12 @@ function ProductDetails({ isModalVisible, onCancel, product }) {
 							</div>
 						</div>
 						<div className="specs my-2">{product.specs}</div>
-						<div>
-							<label>{currentLocal.supplierHome.chooseSize}</label>
+						<div className="my-2">
+							<label>
+								{parent === "supplierHome"
+									? currentLocal.supplierHome.sizes
+									: currentLocal.supplierHome.chooseSize}
+							</label>
 							<div className="capsulesContainer">
 								{product.sizes.map((size, index) => (
 									<div className="capsules" key={index}>
@@ -62,8 +66,12 @@ function ProductDetails({ isModalVisible, onCancel, product }) {
 								))}
 							</div>
 						</div>
-						<div>
-							<label>{currentLocal.supplierHome.chooseModel}</label>
+						<div className="my-2">
+							<label>
+								{parent === "supplierHome"
+									? currentLocal.supplierHome.models
+									: currentLocal.supplierHome.chooseModel}
+							</label>
 							<div className="capsulesContainer">
 								{product.models.map((model, index) => (
 									<div className="capsules" key={index}>
@@ -76,34 +84,40 @@ function ProductDetails({ isModalVisible, onCancel, product }) {
 						<label>{currentLocal.supplierHome.quantity}</label>
 						<div className="d-flex px-2 justify-content-between inputField avQty align-items-center">
 							<div className="d-flex align-items-center">
-								<div>
-									<img
-										src={negative}
-										alt="negative"
-										onClick={() => {
-											if (quantityCount !== 0) {
-												updateQuantityCount(quantityCount - 1);
-											}
-										}}
-										className="cursorPointer"
-									/>
-								</div>
+								{parent !== "supplierHome" && (
+									<div>
+										<img
+											src={negative}
+											alt="negative"
+											onClick={() => {
+												if (quantityCount !== 0) {
+													updateQuantityCount(quantityCount - 1);
+												}
+											}}
+											className="cursorPointer"
+										/>
+									</div>
+								)}
 								<div className="quantityCount mx-2">{quantityCount}</div>
-								<div>
-									<img
-										src={positive}
-										alt="positive"
-										onClick={() => {
-											updateQuantityCount(quantityCount + 1);
-										}}
-										className="cursorPointer"
-									/>
-								</div>
+								{parent !== "supplierHome" && (
+									<div>
+										<img
+											src={positive}
+											alt="positive"
+											onClick={() => {
+												updateQuantityCount(quantityCount + 1);
+											}}
+											className="cursorPointer"
+										/>
+									</div>
+								)}
 							</div>
 						</div>
 					</div>
 					<button className="button-primary">
-						{currentLocal.supplierHome.addToCart}
+						{parent === "supplierHome"
+							? currentLocal.supplierHome.edit
+							: currentLocal.supplierHome.addToCart}
 					</button>
 				</Col>
 			</Row>

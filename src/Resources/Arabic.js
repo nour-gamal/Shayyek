@@ -222,6 +222,8 @@ export const ar = {
 		youCanAddProducts: "يمكنك اضافه المنتجات الي متجرك الالي",
 		chooseSize: "اختر المقاس",
 		chooseModel: "اختر الموديل",
+		sizes: "المقاسات",
+		models: "الموديلات",
 		addToCart: "اضف الي العربه",
 		quantity: "الكميه",
 	},

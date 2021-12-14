@@ -81,7 +81,11 @@ function ProductsCard({ product, requestAllProducts }) {
 				<Tooltip title={product.name} key="leftButton">
 					<div className="productName">{product.name}</div>
 				</Tooltip>
-				<Dropdown overlay={menu} trigger={["click"]}>
+				<Dropdown
+					overlay={menu}
+					trigger={["click"]}
+					overlayClassName="productMenu"
+				>
 					<img
 						src={moreDots}
 						alt="moreDots"
@@ -99,6 +103,7 @@ function ProductsCard({ product, requestAllProducts }) {
 						toggleDetailsModal(!isDetailsModalVisible);
 					}}
 					product={productDetails}
+					parent={"supplierHome"}
 				/>
 			)}
 		</div>
