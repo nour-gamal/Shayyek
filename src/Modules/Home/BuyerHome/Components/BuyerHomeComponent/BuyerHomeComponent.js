@@ -26,7 +26,6 @@ function BuyerHomeComponent() {
 	const [hoverId, setHoverId] = useState();
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
-	console.log(currentLanguageId);
 	const [overlay, setOverlay] = useState({
 		no: 0,
 		state: false,
@@ -156,7 +155,6 @@ function BuyerHomeComponent() {
 										) : (
 											<>
 												{companies.map((company, i) => {
-													console.log(company);
 													return (
 														<Col md="6" lg="3" xs="12" key={i} className="mb-4">
 															<div
@@ -272,7 +270,6 @@ function BuyerHomeComponent() {
 								) : (
 									<>
 										{rfqDetails.map((project) => {
-											console.log(project);
 											return (
 												<div className="projects" key={project.rfqHeaderId}>
 													<h5 className="projectName f-14">
