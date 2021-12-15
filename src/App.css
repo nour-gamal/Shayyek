@@ -322,6 +322,11 @@ thead:hover {
 	color: #8e8e8e !important;
 	background-color: transparent !important;
 }
+.ant-dropdown-menu {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
 
 .ant-pagination {
 	justify-content: flex-end !important;

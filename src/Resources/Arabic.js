@@ -56,6 +56,7 @@ export const ar = {
 		pleaseFillAddress: "* برجاء املئ العنوان ",
 		pleaseUploadCommercialRecord: "* برجاء رفع سجل الشركة ",
 		pleaseChooseYourRole: "* برجاء اختار الوظيفة  ",
+		uploadValidImage: "من فضلك اضف صوره صحيحه",
 	},
 	footer: {
 		copyRights: "٢٠٢١ شيك , كل الحقوق محفوظه",

@@ -28,15 +28,9 @@ function AuthHeader({
 					<Menu.Item
 						key={user.id}
 						onClick={(e) => {
-							// if(user.name==="Supplier"){
-							//   setToggleState(true)
-							// }else{
-							//   setToggleState(false)
-							// }
 							onSelectUserType(user.name);
 							setItem(user.name);
 							sendDataToParent(user.id);
-							//state change when click on dropdown of usertype to make state of comapanyname false
 						}}
 					>
 						{user.name}
@@ -61,17 +55,14 @@ function AuthHeader({
 			false
 		);
 	}, [currentLanguageId, currentLocal.registration.userType]);
-	// setTimeout(() => {
-	//   toggleValue(toggleState)
 
-	// }, 100);
 	return (
 		<div className="AuthHeader ppl ppr">
 			{alert && !firstName && (
 				<Row>
 					<Alert
 						w-10
-						message={currentLocal.registration.PleaseFillAllRequiredFields}
+						message={currentLocal.registration.pleaseFillAllRequiredFields}
 						type="error"
 					/>
 				</Row>

@@ -42,7 +42,7 @@ export const en = {
 		commercialRecordOptional: "commercialRecord (Optional)",
 		organisationLegalStructure: "Organisation Legal Structure",
 		pleaseChooseCountryFirst: "please Choose Country First",
-		PleaseFillAllRequiredFields: "please Fill All Required Fields *",
+		pleaseFillAllRequiredFields: "Please fill all required fields *",
 		pleaseFillFirstName: "* Please fill firstName",
 		pleaseFillLastName: "* Please fill lastName",
 		pleaseChooseCompanyName: "* please Choose CompanyName",
@@ -58,6 +58,7 @@ export const en = {
 		pleaseFillAddress: "* please Fill Address",
 		pleaseUploadCommercialRecord: "* please Upload CommercialRecord",
 		pleaseChooseYourRole: "* please Choose Your Role  ",
+		uploadValidImage: "Please upload a vaild image",
 	},
 	footer: {
 		copyRights: "2021 Shayyek. All Rights Reserved",
