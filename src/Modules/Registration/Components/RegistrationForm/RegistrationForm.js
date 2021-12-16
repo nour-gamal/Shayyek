@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
 import { useSelector } from "react-redux";
-import "./RegistrationForm.css";
 import DropdownTreeSelect from "react-dropdown-tree-select";
-import "react-dropdown-tree-select/dist/styles.css";
 import { Col, Radio, Row, Checkbox, Menu, Dropdown } from "antd";
-import "react-dropdown-tree-select/dist/styles.css";
 import {
 	CompanyList,
 	CompanyHasAdmin,
@@ -23,6 +20,9 @@ import foucesArrow from "../../../../Resources/Assets/blue dropdown arrow.svg";
 import uploadImg from "../../../../Resources/Assets/Attach icn.svg";
 import disapleUploadImg from "../../../../Resources/Assets/disapleUploadImg.svg";
 import { Redirect } from "react-router";
+import "react-dropdown-tree-select/dist/styles.css";
+import "./RegistrationForm.css";
+
 function RegistrationForm() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
@@ -37,8 +37,6 @@ function RegistrationForm() {
 	const [mobileNumber, setMobileNumber] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	// const [workName, setWorkName] = useState("");
-	//   const [workValue, setWorkValue] = useState("");
 	const [admin, setAdmin] = useState("");
 	const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
 	const [companyTypes, setCompanyTypes] = useState([]);
@@ -47,9 +45,7 @@ function RegistrationForm() {
 	const [companyPhoneNumber, setCompanyPhoneNumber] = useState("");
 	const [companiesName, setCompaniesName] = useState([]);
 	const [companyMail, setCompanyMail] = useState("");
-	//   const [acceptTerms, setAcceptTerms] = useState("");
 	const [checked, toggleChecked] = useState("");
-	//   const [countryAlertte, setCountryAlert] = useState(false);
 	const [confirmationState, setConfirmationState] = useState("");
 	const [companyWebsite, setcompanyWebsite] = useState("");
 	const [companyId, setCompanyId] = useState("");
@@ -63,23 +59,18 @@ function RegistrationForm() {
 	const [roleName, setRoleName] = useState("");
 	const [accountList, setAccountList] = useState([[]]);
 	const [accountId, setAccountId] = useState("");
-	//   const [toggleAccountType, setToggleAccountType] = useState("");
 	const [roleId, setRoleId] = useState("");
 	const [userTypeId, setUserTypeId] = useState("");
-	// const [work, setWork] = useState([]);
-	//   const [categoryId, setCategoryId] = useState("");
-	//   const [subCategoryId, setSubCategoryId] = useState("");
-	//   const [subSubCategoryId, setSubSubCategoryId] = useState("");
 	const [alert, setAlert] = useState(false);
 	const [redirect, setRedirect] = useState(false);
 	const [logoName, setlogoName] = useState("");
 	const [fileName, setFileName] = useState("");
 	const [logoData, setLogoData] = useState("");
 	const [fileData, setFileData] = useState("");
-	const [options, updateOptions] = useState([]);
+	const [treeOptions, updateTreeOptions] = useState([]);
 	const [foucesItem, setFoucesItem] = useState("");
 	const [mobileState, setMobileState] = useState("");
-	const [categoriesRequest, setcategoriesRequest] = useState([]);
+	const [categoriesRequests, setcategoriesRequests] = useState(null);
 	const [emailState, setEmailState] = useState("");
 	const showState = true;
 	const uploadCompanyLogo = "";
@@ -103,23 +94,63 @@ function RegistrationForm() {
 			setAccountId("d23f2c1e-1ed3-4066-96d6-66a970e39a7f");
 		}
 	};
-	const onChange = (currentNode, selectedNodes) => {
-		selectedNodes.forEach((selectedNode) => {
-			console.log(selectedNode);
+	const onTreeChange = (currentNode, selectedNodes) => {
+		let categoriesRequest = [];
+		let result = selectedNodes.reduce(function(r, a) {
+			r[a.levelOne] = r[a.levelOne] || [];
+			r[a.levelOne].push(a);
+			return r;
+		}, {});
+		Object.keys(result).forEach((MainCategoryId) => {
+			categoriesRequest.push({
+				MainCategoryId,
+				Categories: [],
+				result: result[MainCategoryId],
+			});
 		});
-	};
-
-	const assignObjectPaths = (obj, stack) => {
-		Object.keys(obj).forEach((k) => {
-			const node = obj[k];
-			if (typeof node === "object") {
-				node.path = stack ? `${stack}.${k}` : k;
-				assignObjectPaths(node, node.path);
-			}
+		categoriesRequest.forEach((mainCategory, mainCategoryIndex) => {
+			mainCategory.result.forEach((subCategory, subCategoryIndex) => {
+				categoriesRequest[mainCategoryIndex].Categories[subCategoryIndex] = {
+					CategoryId: subCategory.levelTwo,
+					SubCategoryIds: [],
+				};
+				if (typeof subCategory.levelThree === "string") {
+					categoriesRequest[mainCategoryIndex].Categories[
+						subCategoryIndex
+					].SubCategoryIds.push(subCategory.levelThree);
+				} else {
+					subCategory.levelThree.forEach((subSubCat) => {
+						categoriesRequest[mainCategoryIndex].Categories[
+							subCategoryIndex
+						].SubCategoryIds.push(subSubCat.id);
+					});
+				}
+			});
 		});
-	};
+		categoriesRequest.forEach((mainCategory, mainCategoryIndex) => {
+			let subResult = mainCategory.Categories.reduce(function(r, a) {
+				r[a.CategoryId] = r[a.CategoryId] || [];
+				r[a.CategoryId].push(a);
+				return r;
+			}, {});
+			let newSubCatList = [];
+			Object.keys(subResult).forEach((subCategory, subCategoryIndex) => {
+				newSubCatList.push({
+					CategoryId: subCategory,
+					SubCategoryIds: [],
+				});
+				subResult[subCategory].forEach((subSub) => {
+					subSub.SubCategoryIds.forEach((subSubId) => {
+						newSubCatList[subCategoryIndex].SubCategoryIds.push(subSubId);
+					});
+				});
+			});
+			categoriesRequest[mainCategoryIndex].Categories = newSubCatList;
+			delete categoriesRequest[mainCategoryIndex].result;
+		});
 
-	assignObjectPaths(options);
+		setcategoriesRequests(categoriesRequest);
+	};
 
 	useEffect(() => {
 		if (localStorage.getItem("redirectToRegistration")) {
@@ -171,7 +202,7 @@ function RegistrationForm() {
 			currentLanguageId,
 			(success) => {
 				// console.log(success.data[0]);
-				const data = [];
+				let data = [];
 				success.data.forEach((category, i) => {
 					data.push({
 						value: category.category.id,
@@ -179,49 +210,37 @@ function RegistrationForm() {
 						firstchildren: category.subCategories,
 						children: [],
 						disabled: "disabled",
-						mode: "simpleSelect",
 					});
 					category.subCategories.forEach((subCategories, j) => {
 						data[i].children.push({
-							subvalue: subCategories.subCategory.id,
+							value: subCategories.subCategory.id,
 							label: subCategories.subCategory.name,
-							levelOne: {
-								id: category.category.id,
-								name: category.category.name,
-							},
-							levelTwo: subCategories.subSubCategories,
+							levelOne: category.category.id,
+							levelTwo: subCategories.subCategory.id,
+							levelThree: subCategories.subSubCategories,
 							children: [],
 							disabled: "",
 						});
 						subCategories.subSubCategories.forEach((subSubCategories) => {
 							data[i].children[j].children.push({
-								subsubvalue: subSubCategories.id,
+								value: subSubCategories.id,
 								label: subSubCategories.name,
-								levelOne: {
-									id: category.category.id,
-									name: category.category.name,
-								},
-								levelTwo: {
-									id: subCategories.subCategory.id,
-									name: subCategories.subCategory.name,
-								},
-								levelThree: {
-									id: subSubCategories.id,
-									name: subSubCategories.name,
-								},
-
+								levelOne: category.category.id,
+								levelTwo: subCategories.subCategory.id,
+								levelThree: subSubCategories.id,
 								disabled: "",
 							});
 						});
 					});
 				});
-
-				updateOptions(data);
+				updateTreeOptions(data);
 			},
-			(fail) => {},
+			(fail) => {
+				console.log(fail);
+			},
 			false
 		);
-	}, [currentLanguageId, updateOptions]);
+	}, [currentLanguageId]);
 
 	//dropdown of company
 	const menu = (
@@ -362,7 +381,7 @@ function RegistrationForm() {
 		body.append("CompanyId", companyId);
 		body.append(roleId && "RoleId", roleId);
 		body.append("GovernmentId", governmentId);
-		body.append("CategoriesRequest", categoriesRequest);
+		body.append("CategoriesRequest", categoriesRequests);
 		register(
 			body,
 			(success) => {
@@ -420,7 +439,7 @@ function RegistrationForm() {
 				!companyPhoneNumber ||
 				!companyTypeId ||
 				!roleName ||
-				!categoriesRequest
+				categoriesRequests === null
 				// !workValue
 			) {
 				setAlert(true);
@@ -491,7 +510,7 @@ function RegistrationForm() {
 				!governmentName ||
 				!address ||
 				!checked ||
-				!categoriesRequest
+				categoriesRequests === null
 				// !work
 			) {
 				setAlert(true);
@@ -556,7 +575,7 @@ function RegistrationForm() {
 				!address ||
 				!fileName ||
 				!checked ||
-				!categoriesRequest
+				categoriesRequests === null
 
 				// !work
 			) {
@@ -784,8 +803,8 @@ function RegistrationForm() {
 								{alert && <>{currentLocal.registration.PleaseChooseWork}</>}
 							</p>
 							<DropdownTreeSelect
-								data={options}
-								onChange={onChange}
+								data={treeOptions}
+								onChange={onTreeChange}
 								className={
 									!individual && buyer !== currentLocal.registration.Supplier
 										? "bootstrap-demo disableInput input-dropdown"
