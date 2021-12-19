@@ -34,7 +34,6 @@ export const en = {
 		individual: "Individual",
 		buyer: "Buyer",
 		Contractor: "Contractor",
-
 		admin: "Admin",
 		employee: "Employee",
 		Supplier: "Supplier",

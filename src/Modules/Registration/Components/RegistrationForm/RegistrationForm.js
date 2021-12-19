@@ -27,18 +27,18 @@ import "./RegistrationForm.css";
 function RegistrationForm() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
-	const { authorization } = useSelector((state) => state.authorization);
+	const { deviceToken } = useSelector((state) => state.authorization);
 	const [buyer, setBuyer] = useState(currentLocal.registration.userType);
 	const [individual, setIndividual] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [focusIcon, setFocusIcon] = useState(false);
 	const [lastName, setLastName] = useState("");
-	const [address, setAddress] = useState("test");
+	const [address, setAddress] = useState("");
 	const [email, setEmail] = useState("");
 	const [mobileNumber, setMobileNumber] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	const [admin, setAdmin] = useState("");
+	const [admin, setAdmin] = useState(false);
 	const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
 	const [companyTypes, setCompanyTypes] = useState([]);
 	const [companyTypeId, setCompanyTypeId] = useState("");
@@ -54,13 +54,13 @@ function RegistrationForm() {
 	const [companyName, setCompanyName] = useState("");
 	const [governmentsName, setGovernmentsName] = useState([]);
 	const [countriesName, setCountriesName] = useState([]);
-	const [governmentName, setGovernmentName] = useState("test");
-	const [countryName, setCountryName] = useState("test");
+	const [governmentName, setGovernmentName] = useState("");
+	const [countryName, setCountryName] = useState("");
 	const [roleList, setRoleList] = useState([]);
 	const [roleName, setRoleName] = useState("");
 	const [accountList, setAccountList] = useState([[]]);
 	const [accountId, setAccountId] = useState("");
-	const [roleId, setRoleId] = useState("");
+	const [roleId, setRoleId] = useState("4940d4e9-8bfd-467d-a9d9-20f719cdff93");
 	const [userTypeId, setUserTypeId] = useState("");
 	const [alert, setAlert] = useState(false);
 	const [redirect, setRedirect] = useState(false);
@@ -73,6 +73,7 @@ function RegistrationForm() {
 	const [mobileState, setMobileState] = useState("");
 	const [categoriesRequests, setcategoriesRequests] = useState(null);
 	const [emailState, setEmailState] = useState("");
+	const [individualId, SetIndividualId] = useState("");
 	const showState = true;
 	const uploadCompanyLogo = "";
 	const commercialRecord = "";
@@ -186,6 +187,11 @@ function RegistrationForm() {
 			currentLanguageId,
 			(success) => {
 				setAccountList(success.data);
+				success.data.forEach((type) => {
+					if (type.name === "Individual") {
+						SetIndividualId(type.id);
+					}
+				});
 			},
 			(fail) => {},
 			false
@@ -357,6 +363,7 @@ function RegistrationForm() {
 			})}
 		</Menu>
 	);
+
 	const axioFun = () => {
 		const body = new FormData();
 		body.append("FirstName", firstName);
@@ -365,14 +372,14 @@ function RegistrationForm() {
 		body.append("Password", password);
 		body.append("MobileUser", mobileNumber);
 		body.append("IsWhatsAppNumber", checkedWhatsApp);
-		body.append("FirebaseToken", authorization.deviceToken);
+		body.append("FirebaseToken", deviceToken.deviceToken);
 		body.append("Logo", logoData);
 		body.append("CommercialRecord", fileData);
 		body.append("MailCompany", companyMail);
 		body.append("MobileCompany", companyPhoneNumber);
 		body.append("Website", companyWebsite);
 		body.append("Address", address);
-		body.append("CompanyHasData", !admin);
+		body.append("CompanyHasData", accountId === individualId ? false : !admin);
 		body.append("CompanyTypeId", companyTypeId);
 		body.append(
 			"AccountTypeId",
@@ -380,7 +387,7 @@ function RegistrationForm() {
 		);
 		body.append("UserTypeId", userTypeId);
 		body.append("CompanyId", companyId);
-		body.append(roleId && "RoleId", roleId);
+		body.append("RoleId", roleId);
 		body.append("GovernmentId", governmentId);
 		body.append("CategoriesRequest", categoriesRequests);
 		register(
@@ -407,7 +414,6 @@ function RegistrationForm() {
 			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
 			admin
 		) {
-			console.log(1);
 			if (
 				!firstName ||
 				!lastName ||
@@ -428,7 +434,6 @@ function RegistrationForm() {
 			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
 			!admin
 		) {
-			console.log(2);
 			if (
 				!firstName ||
 				!lastName ||
@@ -453,7 +458,6 @@ function RegistrationForm() {
 			buyer === currentLocal.registration.buyer &&
 			individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d"
 		) {
-			console.log(3);
 			if (
 				!firstName ||
 				!lastName ||
@@ -473,7 +477,6 @@ function RegistrationForm() {
 			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
 			admin
 		) {
-			console.log(4);
 			if (
 				!firstName ||
 				!lastName ||
@@ -500,7 +503,6 @@ function RegistrationForm() {
 			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
 			!admin
 		) {
-			console.log(5);
 			if (
 				!firstName ||
 				!lastName ||
@@ -529,7 +531,6 @@ function RegistrationForm() {
 			buyer === currentLocal.registration.Contractor &&
 			individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d"
 		) {
-			console.log(6);
 			if (
 				!firstName ||
 				!lastName ||
@@ -548,7 +549,6 @@ function RegistrationForm() {
 				axioFun();
 			}
 		} else if (buyer === currentLocal.registration.Supplier && admin) {
-			console.log(7);
 			if (
 				!firstName ||
 				!lastName ||
@@ -568,7 +568,6 @@ function RegistrationForm() {
 				axioFun();
 			}
 		} else if (buyer === currentLocal.registration.Supplier && !admin) {
-			console.log(8);
 			if (
 				!firstName ||
 				!lastName ||
@@ -586,8 +585,6 @@ function RegistrationForm() {
 				!fileName ||
 				!checked ||
 				!categoriesRequests
-
-				// !work
 			) {
 				setAlert(true);
 			} else {
@@ -606,6 +603,7 @@ function RegistrationForm() {
 			updateCompanyLogoErr(true);
 		}
 	};
+
 	if (redirect) {
 		return <Redirect to="/verifyByEmail" />;
 	}
@@ -621,35 +619,36 @@ function RegistrationForm() {
 				fistName={firstName}
 				lastName={lastName}
 			/>
-			<Row style={{ height: "100px" }}>
-				<Col xs={24}>
-					{buyer !== currentLocal.registration.Supplier && (
-						<Radio.Group>
-							{accountList.map((account, accoundIndex) => {
-								return (
-									<Radio
-										key={accoundIndex}
-										className={
-											buyer === currentLocal.registration.userType &&
-											"disableRadio"
+			<Row>
+				<Col
+					xs={24}
+					className={buyer === currentLocal.registration.Supplier && "d-none"}
+				>
+					<Radio.Group>
+						{accountList.map((account, accoundIndex) => {
+							return (
+								<Radio
+									key={accoundIndex}
+									className={
+										buyer === currentLocal.registration.userType &&
+										"disableRadio"
+									}
+									onChange={(e) => {
+										setAccountId(account.id);
+										setIndividual(e.target.value);
+										if (companyName) {
+											setCompanyName("");
+											setAdmin("");
 										}
-										onChange={(e) => {
-											setAccountId(account.id);
-											setIndividual(e.target.value);
-											if (companyName) {
-												setCompanyName("");
-												setAdmin("");
-											}
-										}}
-										disabled={buyer === currentLocal.registration.userType}
-										value={account.id}
-									>
-										{account.name}
-									</Radio>
-								);
-							})}
-						</Radio.Group>
-					)}
+									}}
+									disabled={buyer === currentLocal.registration.userType}
+									value={account.id}
+								>
+									{account.name}
+								</Radio>
+							);
+						})}
+					</Radio.Group>
 				</Col>
 			</Row>
 			<form onSubmit={sendData}>
@@ -816,10 +815,14 @@ function RegistrationForm() {
 							<TreeContainer
 								data={treeOptions}
 								onChange={onTreeChange}
-								className={"bootstrap-demo input-dropdown"}
-								// 	disabled={
-								// 		!individual && buyer !== currentLocal.registration.Supplier
-								// 	}
+								className={
+									!individual && buyer !== currentLocal.registration.Supplier
+										? "bootstrap-demo disableInput input-dropdown"
+										: "bootstrap-demo input-dropdown disabled"
+								}
+								disabled={
+									!individual && buyer !== currentLocal.registration.Supplier
+								}
 							/>
 
 							{!individual && buyer !== currentLocal.registration.Supplier ? (
@@ -1182,7 +1185,7 @@ function RegistrationForm() {
 						individual === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f") ||
 						(buyer === currentLocal.registration.Contractor &&
 							individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") ||
-						buyer === currentLocal.registration.userType) && (
+						buyer === currentLocal.registration.Supplier) && (
 						<>
 							<Col md={12} xs={24} className="country">
 								<p className="alertMsg">
