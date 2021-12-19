@@ -33,7 +33,7 @@ function RegistrationForm() {
 	const [firstName, setFirstName] = useState("");
 	const [focusIcon, setFocusIcon] = useState(false);
 	const [lastName, setLastName] = useState("");
-	const [address, setAddress] = useState("");
+	const [address, setAddress] = useState("test");
 	const [email, setEmail] = useState("");
 	const [mobileNumber, setMobileNumber] = useState("");
 	const [password, setPassword] = useState("");
@@ -54,8 +54,8 @@ function RegistrationForm() {
 	const [companyName, setCompanyName] = useState("");
 	const [governmentsName, setGovernmentsName] = useState([]);
 	const [countriesName, setCountriesName] = useState([]);
-	const [governmentName, setGovernmentName] = useState("");
-	const [countryName, setCountryName] = useState("");
+	const [governmentName, setGovernmentName] = useState("test");
+	const [countryName, setCountryName] = useState("test");
 	const [roleList, setRoleList] = useState([]);
 	const [roleName, setRoleName] = useState("");
 	const [accountList, setAccountList] = useState([[]]);
@@ -407,6 +407,7 @@ function RegistrationForm() {
 			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
 			admin
 		) {
+			console.log(1);
 			if (
 				!firstName ||
 				!lastName ||
@@ -427,6 +428,7 @@ function RegistrationForm() {
 			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
 			!admin
 		) {
+			console.log(2);
 			if (
 				!firstName ||
 				!lastName ||
@@ -440,8 +442,7 @@ function RegistrationForm() {
 				!companyPhoneNumber ||
 				!companyTypeId ||
 				!roleName ||
-				categoriesRequests === null
-				// !workValue
+				!categoriesRequests
 			) {
 				setAlert(true);
 			} else {
@@ -452,6 +453,7 @@ function RegistrationForm() {
 			buyer === currentLocal.registration.buyer &&
 			individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d"
 		) {
+			console.log(3);
 			if (
 				!firstName ||
 				!lastName ||
@@ -471,6 +473,7 @@ function RegistrationForm() {
 			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
 			admin
 		) {
+			console.log(4);
 			if (
 				!firstName ||
 				!lastName ||
@@ -482,7 +485,9 @@ function RegistrationForm() {
 				!checked ||
 				!countryName ||
 				!governmentName ||
-				!address
+				!address ||
+				!categoriesRequests
+
 				// !work
 			) {
 				setAlert(true);
@@ -495,6 +500,7 @@ function RegistrationForm() {
 			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
 			!admin
 		) {
+			console.log(5);
 			if (
 				!firstName ||
 				!lastName ||
@@ -511,7 +517,7 @@ function RegistrationForm() {
 				!governmentName ||
 				!address ||
 				!checked ||
-				categoriesRequests === null
+				!categoriesRequests
 				// !work
 			) {
 				setAlert(true);
@@ -523,6 +529,7 @@ function RegistrationForm() {
 			buyer === currentLocal.registration.Contractor &&
 			individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d"
 		) {
+			console.log(6);
 			if (
 				!firstName ||
 				!lastName ||
@@ -541,6 +548,7 @@ function RegistrationForm() {
 				axioFun();
 			}
 		} else if (buyer === currentLocal.registration.Supplier && admin) {
+			console.log(7);
 			if (
 				!firstName ||
 				!lastName ||
@@ -560,6 +568,7 @@ function RegistrationForm() {
 				axioFun();
 			}
 		} else if (buyer === currentLocal.registration.Supplier && !admin) {
+			console.log(8);
 			if (
 				!firstName ||
 				!lastName ||
@@ -576,7 +585,7 @@ function RegistrationForm() {
 				!address ||
 				!fileName ||
 				!checked ||
-				categoriesRequests === null
+				!categoriesRequests
 
 				// !work
 			) {
@@ -597,7 +606,6 @@ function RegistrationForm() {
 			updateCompanyLogoErr(true);
 		}
 	};
-
 	if (redirect) {
 		return <Redirect to="/verifyByEmail" />;
 	}
@@ -801,7 +809,9 @@ function RegistrationForm() {
 							!admin)) && (
 						<Col md={12} xs={24} className="work">
 							<p className="alertMsg">
-								{alert && <>{currentLocal.registration.PleaseChooseWork}</>}
+								{alert && categoriesRequests === null && (
+									<>{currentLocal.registration.PleaseChooseWork}</>
+								)}
 							</p>
 							<TreeContainer
 								data={treeOptions}
