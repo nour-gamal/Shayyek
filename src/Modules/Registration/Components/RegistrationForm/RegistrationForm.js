@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AuthHeader from "../../../Common/AuthHeader/AuthHeader";
 import { useSelector } from "react-redux";
-import DropdownTreeSelect from "react-dropdown-tree-select";
+//import DropdownTreeSelect from "react-dropdown-tree-select";
 import { Col, Radio, Row, Checkbox, Menu, Dropdown } from "antd";
 import {
 	CompanyList,
@@ -20,6 +20,7 @@ import foucesArrow from "../../../../Resources/Assets/blue dropdown arrow.svg";
 import uploadImg from "../../../../Resources/Assets/Attach icn.svg";
 import disapleUploadImg from "../../../../Resources/Assets/disapleUploadImg.svg";
 import { Redirect } from "react-router";
+import TreeContainer from "../TreeContainer/TreeContainer";
 import "react-dropdown-tree-select/dist/styles.css";
 import "./RegistrationForm.css";
 
@@ -209,7 +210,7 @@ function RegistrationForm() {
 						label: category.category.name,
 						firstchildren: category.subCategories,
 						children: [],
-						disabled: "disabled",
+						disabled: true,
 					});
 					category.subCategories.forEach((subCategories, j) => {
 						data[i].children.push({
@@ -219,7 +220,7 @@ function RegistrationForm() {
 							levelTwo: subCategories.subCategory.id,
 							levelThree: subCategories.subSubCategories,
 							children: [],
-							disabled: "",
+							disabled: false,
 						});
 						subCategories.subSubCategories.forEach((subSubCategories) => {
 							data[i].children[j].children.push({
@@ -228,7 +229,7 @@ function RegistrationForm() {
 								levelOne: category.category.id,
 								levelTwo: subCategories.subCategory.id,
 								levelThree: subSubCategories.id,
-								disabled: "",
+								disabled: false,
 							});
 						});
 					});
@@ -802,17 +803,13 @@ function RegistrationForm() {
 							<p className="alertMsg">
 								{alert && <>{currentLocal.registration.PleaseChooseWork}</>}
 							</p>
-							<DropdownTreeSelect
+							<TreeContainer
 								data={treeOptions}
 								onChange={onTreeChange}
-								className={
-									!individual && buyer !== currentLocal.registration.Supplier
-										? "bootstrap-demo disableInput input-dropdown"
-										: "bootstrap-demo input-dropdown"
-								}
-								disabled={
-									!individual && buyer !== currentLocal.registration.Supplier
-								}
+								className={"bootstrap-demo input-dropdown"}
+								// 	disabled={
+								// 		!individual && buyer !== currentLocal.registration.Supplier
+								// 	}
 							/>
 
 							{!individual && buyer !== currentLocal.registration.Supplier ? (

@@ -1,6 +1,5 @@
 import axios from "axios";
-export const baseUrl =
-	"http://ec2-54-194-113-34.eu-west-1.compute.amazonaws.com:8080/";
+export const baseUrl = "https://api.shayyek.co/";
 
 const token =
 	localStorage.getItem("persist:root") &&
