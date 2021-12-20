@@ -29,10 +29,13 @@ function GuestNav() {
 					</Nav.Link>
 				</div>
 				<div className="d-flex  actionNav">
-					<Link to="/loginByEmail" className="nav-link">
+					<Link to="/loginByEmail" className="nav-link pl-28 pr-28">
 						{currentLocal.navbar.signin}
 					</Link>
-					<Link to="/registration" className="nav-link register_btn">
+					<Link
+						to="/registration"
+						className="nav-link register_btn pl-28 pr-28"
+					>
 						{/* <Nav.Link href="/registration"> */}
 						{currentLocal.navbar.register}
 					</Link>

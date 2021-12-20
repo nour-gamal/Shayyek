@@ -218,8 +218,6 @@
 		background: none;
 		margin-left: unset !important;
 		margin-right: unset !important;
-		padding-right: unset !important;
-		padding-left: unset !important;
 	}
 }
 @media (min-width: 992px) {

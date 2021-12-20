@@ -15,7 +15,7 @@ export const en = {
 		field: "Field",
 		description: "Description",
 		country: "Country",
-		governorate: "Government",
+		governorate: "Governorate",
 		address: "Address",
 		companyPhoneNumber: "Company Phone Number",
 		commercialRecord: "Commercial Record ",
