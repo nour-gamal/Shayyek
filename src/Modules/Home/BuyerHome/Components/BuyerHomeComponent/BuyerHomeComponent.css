@@ -1,6 +1,6 @@
 .homeByer {
-  display: flex;
-  flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 /* .homeByer .CompanyContainer {
   width: 75%;
@@ -23,10 +23,10 @@
 	width: 100%;
 }
 .homeByer .infoContainer {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: 150px;
-  white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: 150px;
+	white-space: nowrap;
 	/* text-overflow: ellipsis;
 	width: 150px;
 	white-space: nowrap;
@@ -75,260 +75,217 @@
 	flex-direction: column;
 	justify-content: flex-end;
 }
-.homeByer .line::after
-{
- display: inline;
- content: "";
- margin-bottom: 70px;
- position: relative;
- bottom: 20px;
- width: 20px;
- height: 20px;
- border-radius: 50%;
+.homeByer .line::after {
+	display: inline;
+	content: "";
+	margin-bottom: 70px;
+	position: relative;
+	bottom: 20px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
 }
 
 @-moz-document url-prefix() {
-  .homeByer .projectContainer {
-
-    height: 99.5% !important;
-    background-color: #F5F5F5;
-  }
+	.homeByer .projectContainer {
+		height: 99.5% !important;
+		background-color: #f5f5f5;
+	}
 }
 .homeByer .btn-danger {
-  width: 188px;
+	width: 188px;
 }
-.homeByer .acceptOffer
-{
-  padding-left: 8px;}
+.homeByer .acceptOffer {
+	padding-left: 8px;
+}
 .homeByer .invitations {
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-right: 40px;
-  /* margin-bottom: 29px; */
-/* border-bottom: 1px solid #00000029; */
-margin-top: 1px;
-background-color: #fff;
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-right: 40px;
+	/* margin-bottom: 29px; */
+	/* border-bottom: 1px solid #00000029; */
+	margin-top: 1px;
+	background-color: #fff;
 }
 
-.homeByer .arInvitations
-{
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-left: 40px;
-  padding-top: 29px;
-  /* margin-bottom: 29px; */
-/* border-bottom: 1px solid #00000029; */
-margin-top: 1px;
-background-color: #fff; 
+.homeByer .arInvitations {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-left: 40px;
+	padding-top: 29px;
+	/* margin-bottom: 29px; */
+	/* border-bottom: 1px solid #00000029; */
+	margin-top: 1px;
+	background-color: #fff;
 }
-.homeByer .invitationsContainer
-{
-  box-shadow: 0px 3px 6px #00000029;
+.homeByer .invitationsContainer {
+	box-shadow: 0px 3px 6px #00000029;
 	opacity: 1;
-  height: 100%;
+	height: 100%;
 }
-.homeByer .noRFQ
-{
-  color: #8E8E8E;
+.homeByer .noRFQ {
+	color: #8e8e8e;
 }
-.homeByer .noRFQContainer
-{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 80%;
+.homeByer .noRFQContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 80%;
 }
-.homeByer .noCompaniesContainer
-{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 37.75vh;
-  color: #707070;
+.homeByer .noCompaniesContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 37.75vh;
+	color: #707070;
 }
-.homeByer .noCompaniesContainer img
-{
-width: 96px;
-height: 118.95px;
-margin-bottom: 16px;
+.homeByer .noCompaniesContainer img {
+	width: 96px;
+	height: 118.95px;
+	margin-bottom: 16px;
 }
-.homeByer .noRFQContainer img
-{
-  width: 68.5px;
-height: 84.8px;
+.homeByer .noRFQContainer img {
+	width: 68.5px;
+	height: 84.8px;
 }
-.homeByer .projectContainer{
+.homeByer .projectContainer {
 	/* box-shadow: 0px 3px 6px #00000029;
 	opacity: 1; */
-  height: 70.75vh;
-  background-color: #F5F5F5;
+	height: 70.75vh;
+	background-color: #f5f5f5;
 }
-.homeByer img {
-  width: 15.23px;
-  height: 20px;
-  margin-right: 20px;
-}
+
 .homeByer .RFQinvitations {
-  display: flex;
-  flex-direction: row;
-  margin-top: 25px;
+	display: flex;
+	flex-direction: row;
+	margin-top: 25px;
 }
 .homeByer .companyInfo {
-  padding-left: 28px;
-  padding-top: 17px;
-  padding-bottom: 15px;
+	padding-left: 28px;
+	padding-top: 17px;
+	padding-bottom: 15px;
 }
 .homeByer .RFQinvitations p {
-  color: #707070;
-  opacity: 75%;
+	color: #707070;
+	opacity: 75%;
 }
 .homeByer .number p {
-  background-color: red;
-  padding-left: 15px;
-  padding-right: 15px;
-  border-radius: 10px;
+	background-color: red;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-radius: 10px;
 }
 .homeByer .projects {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-right: 24px;
-  padding-left: 22px;
-  background-color: #fff;
-  margin-top: 2px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-right: 24px;
+	padding-left: 22px;
+	background-color: #fff;
+	margin-top: 2px;
+}
 
-}
-.homeByer .CompanyContainer button a
-{
-	color: #fff;
-	opacity: 75%;
-	background-color: #E15A4E;
-	padding: 8px 38px 8px 1px;
-	box-shadow: 0px 3px 6px #00000029;
-border-radius: 5px;
-}
-.homeByer .CompanyContainer button img
-{
-	margin-left: 38px;
-	margin-right: 12.5px;
-}
-.homeByer .arCompanyContainer
-{
-  width:75% ;
-}
-.homeByer .arCompanyContainer button a{
-  color: #fff;
-	opacity: 75%;
-	background-color: #E15A4E;
-	padding: 8px 38px 8px 1px;
-	box-shadow: 0px 3px 6px #00000029;
-border-radius: 5px;
-}
-.homeByer .arCompanyContainer button img{
-	margin-left: 38px;
-	margin-right: 12.5px;
+.homeByer .arCompanyContainer {
+	width: 75%;
 }
 .homeByer .company .logo {
-  margin: auto;
-  text-align: center;
-  border-bottom: 1px gainsboro solid;
-  width: 100%;
+	margin: auto;
+	text-align: center;
+	border-bottom: 1px gainsboro solid;
+	width: 100%;
 }
 .homeByer .companyCard {
-  padding: 0;
-  margin-right: 20px;
-  box-shadow: 0px 1px 3px #00000029 !important;
-  position: relative;
+	padding: 0;
+	margin-right: 20px;
+	box-shadow: 0px 1px 3px #00000029 !important;
+	position: relative;
 }
 .homeByer .rfqInfo {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: space-between;
 }
-.homeByer .arRFQ
-{
-  margin-right: 20px;
+.homeByer .arRFQ {
+	margin-right: 20px;
 }
 .homeByer .projectName {
-  color: red;
-  display: flex;
-  justify-content: space-between;
+	color: red;
+	display: flex;
+	justify-content: space-between;
 }
 .homeByer .numberOfQuotations,
 .homeByer .deadline {
-  color: #707070;
+	color: #707070;
 }
 
 .homeByer .noOfQuotations,
 .homeByer .deadlineTime {
-  color: #092a44;
+	color: #092a44;
 }
 
 .homeByer .maxPrice .redDote {
-  background-color: red;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  margin-right: 10px;
+	background-color: red;
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	margin-right: 10px;
 }
 .homeByer .maxPrice .arRedDote {
-  background-color: red;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  margin-left: 10px;
+	background-color: red;
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	margin-left: 10px;
 }
 .homeByer .maxPrice,
 .homeByer .minPrice {
-  color: #092a44;
-  opacity: 75%;
+	color: #092a44;
+	opacity: 75%;
 }
-.homeByer .ant-btn-group
-{
-  bottom: 6px;
+.homeByer .ant-btn-group {
+	bottom: 6px;
 }
 .homeByer .max-price,
 .homeByer .min-price {
-  color: #092a44;
-  opacity: 100%;
+	color: #092a44;
+	opacity: 100%;
 }
 .homeByer .maxPrice .redDote::before {
-  content: "|";
-  display: inline-block;
-  margin-left: 3px;
+	content: "|";
+	display: inline-block;
+	margin-left: 3px;
 }
 .homeByer .minPrice .blueDote {
-  background-color: #44e501;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  margin-right: 10px;
+	background-color: #44e501;
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	margin-right: 10px;
 }
 .homeByer .minPrice .arBlueDote {
-  background-color: #44e501;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  margin-left: 10px;
+	background-color: #44e501;
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	margin-left: 10px;
 }
 .homeByer .ant-btn .anticon {
-  font-size: 25px;
+	font-size: 25px;
 }
 .homeByer .ant-dropdown-trigger {
-  color: #707070;
-  border: none;
-  box-shadow: none !important;
-  background-color: transparent;
+	color: #707070;
+	border: none;
+	box-shadow: none !important;
+	background-color: transparent;
 }
 
- .ant-dropdown
-{
-  width: 200px !important;
+.ant-dropdown {
+	width: 200px !important;
 }
 /* .homeByer .ant-dropdown-trigger
 {
@@ -348,36 +305,36 @@ border-radius: 5px;
     background-color: transparent !important;
 } */
 .homeByer .ant-dropdown-trigger:hover {
-  background-color: transparent;
+	background-color: transparent;
 }
 .homeByer .ant-dropdown-trigger:active {
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-  outline: none;
+	background-color: transparent;
+	border: none;
+	box-shadow: none;
+	outline: none;
 }
 .homeByer .ant-dropdown-trigger:focus {
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-  outline: none;
+	background-color: transparent;
+	border: none;
+	box-shadow: none;
+	outline: none;
 }
 .homeByer .ant-btn:active {
-  color: #707070 !important;
+	color: #707070 !important;
 }
 .ant-btn:hover,
 .ant-btn:focus {
-  color: #707070 !important;
+	color: #707070 !important;
 }
 .ant-btn::after {
-  display: none !important;
-  /* border: none !important;
+	display: none !important;
+	/* border: none !important;
   box-shadow: none !important;
   outline: none !important; */
 }
 
 @media only screen and (max-width: 768px) {
-  /* .homeByer .CompanyContainer {
+	/* .homeByer .CompanyContainer {
     width: 50%;
   }
   .homeByer .projectContainer {

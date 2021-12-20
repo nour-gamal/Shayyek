@@ -130,8 +130,8 @@ function BuyerHomeComponent() {
 							<Container>
 								<Link to="createrfq">
 									<button className="orange_btn my-2">
-										{currentLocal.buyerHome.addRfq}
 										<img src={plus} alt="Request_RFQ" />
+										<span>{currentLocal.buyerHome.addRfq}</span>
 									</button>
 								</Link>
 
