@@ -58,6 +58,10 @@ export const en = {
 		pleaseUploadCommercialRecord: "* please Upload CommercialRecord",
 		pleaseChooseYourRole: "* please Choose Your Role  ",
 		uploadValidImage: "Please upload a vaild image",
+		regSuccessTitle: "Successfully Registered",
+		checkMail: "Check Your Mail to Verify Your Account",
+		or: "or",
+		verifyMobile: "Verify your Mobile Number",
 	},
 	footer: {
 		copyRights: "2021 Shayyek. All Rights Reserved",

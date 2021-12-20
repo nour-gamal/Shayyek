@@ -73,7 +73,6 @@ function RegistrationForm() {
 	const [mobileState, setMobileState] = useState("");
 	const [categoriesRequests, setcategoriesRequests] = useState(null);
 	const [emailState, setEmailState] = useState("");
-	const [individualId, SetIndividualId] = useState("");
 	const showState = true;
 	const uploadCompanyLogo = "";
 	const commercialRecord = "";
@@ -89,11 +88,10 @@ function RegistrationForm() {
 	};
 
 	const sendDataToParent = (val) => {
-		setTimeout(() => {
-			setUserTypeId(val);
-		}, 100);
-		if (userTypeId === "2a9e1d5f-722e-404e-8041-a6a665149e03") {
+		setUserTypeId(val);
+		if (val === "2a9e1d5f-722e-404e-8041-a6a665149e03") {
 			setAccountId("d23f2c1e-1ed3-4066-96d6-66a970e39a7f");
+			setIndividual("d23f2c1e-1ed3-4066-96d6-66a970e39a7f");
 		}
 	};
 	const onTreeChange = (currentNode, selectedNodes) => {
@@ -187,11 +185,6 @@ function RegistrationForm() {
 			currentLanguageId,
 			(success) => {
 				setAccountList(success.data);
-				success.data.forEach((type) => {
-					if (type.name === "Individual") {
-						SetIndividualId(type.id);
-					}
-				});
 			},
 			(fail) => {},
 			false
@@ -379,7 +372,10 @@ function RegistrationForm() {
 		body.append("MobileCompany", companyPhoneNumber);
 		body.append("Website", companyWebsite);
 		body.append("Address", address);
-		body.append("CompanyHasData", accountId === individualId ? false : !admin);
+		body.append(
+			"CompanyHasData",
+			accountId === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ? false : !admin
+		);
 		body.append("CompanyTypeId", companyTypeId);
 		body.append(
 			"AccountTypeId",

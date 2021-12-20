@@ -57,6 +57,10 @@ export const ar = {
 		pleaseUploadCommercialRecord: "* برجاء رفع سجل الشركة ",
 		pleaseChooseYourRole: "* برجاء اختار الوظيفة  ",
 		uploadValidImage: "من فضلك اضف صوره صحيحه",
+		regSuccessTitle: "تم التسجيل بنجاح",
+		checkMail: "افحص بريدك الالكتروني لتوثيق الحساب",
+		or: "او",
+		verifyMobile: "وثق حسابك عن طريق الهاتف",
 	},
 	footer: {
 		copyRights: "٢٠٢١ شيك , كل الحقوق محفوظه",

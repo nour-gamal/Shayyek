@@ -23,10 +23,12 @@ function Navbarr({ navState, verifayState, transparent }) {
 			expand="lg"
 			className={
 				transparent
-					? "transparent f-14 ppl ppr "
+					? "transparent f-14 ppl ppr"
 					: navState
-					? "light f-14 ppl ppr "
-					: "dark f-14 ppl ppr "
+					? verifayState
+						? "light f-14 ppl ppr d-flex justify-content-between"
+						: "light f-14 ppl ppr"
+					: "dark f-14 ppl ppr"
 			}
 			variant={"dark"}
 			collapseOnSelect={true}
@@ -52,7 +54,7 @@ function Navbarr({ navState, verifayState, transparent }) {
 			{verifayState && (
 				<>
 					<div className="lang">
-						<span className="languageWord">
+						<span className="languageWord mx-2">
 							{currentLocal.language === "العربيه" ? "عربي" : "English"}
 						</span>
 						<span>
