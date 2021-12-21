@@ -382,7 +382,9 @@ function RegistrationForm() {
 			accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
 		);
 		body.append("UserTypeId", userTypeId);
-		body.append("CompanyId", companyId);
+		roleId === "274c0b77-90cf-4ee3-976e-01e409413057"
+			? body.append("CompanyName", companyName)
+			: body.append("CompanyId", companyId);
 		body.append("RoleId", roleId);
 		body.append("GovernmentId", governmentId);
 		body.append("CategoriesRequest", categoriesRequests);
@@ -417,7 +419,7 @@ function RegistrationForm() {
 				!email ||
 				!password ||
 				!confirmPassword ||
-				!companyId ||
+				!companyName ||
 				!checked
 			) {
 				setAlert(true);
@@ -437,7 +439,7 @@ function RegistrationForm() {
 				!email ||
 				!password ||
 				!confirmPassword ||
-				!companyId ||
+				!companyName ||
 				!checked ||
 				!fileName ||
 				!companyPhoneNumber ||
@@ -480,7 +482,7 @@ function RegistrationForm() {
 				!email ||
 				!password ||
 				!confirmPassword ||
-				!companyId ||
+				!companyName ||
 				!checked ||
 				!countryName ||
 				!governmentName ||
@@ -506,7 +508,7 @@ function RegistrationForm() {
 				!email ||
 				!password ||
 				!confirmPassword ||
-				!companyId ||
+				!companyName ||
 				!companyPhoneNumber ||
 				!companyTypeId ||
 				!roleName ||
@@ -549,7 +551,7 @@ function RegistrationForm() {
 				!firstName ||
 				!lastName ||
 				!mobileNumber ||
-				!companyId ||
+				!companyName ||
 				!email ||
 				!password ||
 				!confirmPassword ||
@@ -567,7 +569,7 @@ function RegistrationForm() {
 			if (
 				!firstName ||
 				!lastName ||
-				!companyId ||
+				!companyName ||
 				!roleName ||
 				!mobileNumber ||
 				!email ||
@@ -698,56 +700,70 @@ function RegistrationForm() {
 						/>
 					</Col>
 
-					{!(individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") && (
-						<Col md={12} xs={24} className="companyName">
-							<p className="alertMsg">
-								{alert && !companyName && (
-									<>{currentLocal.registration.pleaseChooseCompanyName}</>
-								)}
-							</p>
-							<Dropdown
-								overlay={menu}
-								trigger={["click"]}
-								className={
-									!individual && buyer !== currentLocal.registration.Supplier
-										? "disableInput input-field"
-										: "input-field"
-								}
-								disabled={
-									!individual && buyer !== currentLocal.registration.Supplier
-								}
-								onClick={(e) => {
-									setFoucesItem(e.target.id);
-									setFocusIcon(true);
-								}}
-								onBlur={() => setFocusIcon(false)}
-							>
-								<a
-									href="/"
-									id="companyName"
-									className="ant-dropdown-link"
-									onClick={(e) => e.preventDefault()}
-								>
-									{companyName
-										? companyName
-										: currentLocal.registration.companyName}
-									{!individual &&
-									buyer !== currentLocal.registration.Supplier ? (
-										<img src={disableArrow} alt="disableArrow" />
-									) : (
-										<img
-											src={
-												focusIcon && foucesItem === "companyName"
-													? foucesArrow
-													: Arrow
-											}
-											alt="Arrow"
-										/>
+					{!(individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") &&
+						roleName.length > 0 && (
+							<Col md={12} xs={24} className="companyName">
+								<p className="alertMsg">
+									{alert && !companyName && (
+										<>{currentLocal.registration.pleaseChooseCompanyName}</>
 									)}
-								</a>
-							</Dropdown>
-						</Col>
-					)}
+								</p>
+								{roleId === "4940d4e9-8bfd-467d-a9d9-20f719cdff93" ? (
+									<Dropdown
+										overlay={menu}
+										trigger={["click"]}
+										className={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+												? "disableInput input-field"
+												: "input-field"
+										}
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+										onClick={(e) => {
+											setFoucesItem(e.target.id);
+											setFocusIcon(true);
+										}}
+										onBlur={() => setFocusIcon(false)}
+									>
+										<a
+											href="/"
+											id="companyName"
+											className="ant-dropdown-link"
+											onClick={(e) => e.preventDefault()}
+										>
+											{companyName
+												? companyName
+												: currentLocal.registration.companyName}
+											{!individual &&
+											buyer !== currentLocal.registration.Supplier ? (
+												<img src={disableArrow} alt="disableArrow" />
+											) : (
+												<img
+													src={
+														focusIcon && foucesItem === "companyName"
+															? foucesArrow
+															: Arrow
+													}
+													alt="Arrow"
+												/>
+											)}
+										</a>
+									</Dropdown>
+								) : (
+									<input
+										type="text"
+										value={companyName}
+										onChange={(e) => {
+											setCompanyName(e.target.value);
+										}}
+										className="input-field"
+									/>
+								)}
+							</Col>
+						)}
 					{individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin && (
 						<>
 							<Col md={12} xs={24}>
