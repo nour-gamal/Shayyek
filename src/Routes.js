@@ -76,7 +76,13 @@ function Routes() {
 					<Route
 						path="/createrfq"
 						render={() => {
-							return isAuth ? <CreateRFQ /> : <Redirect to="/" />;
+							return isAuth &&
+								authorization.userTypeId ===
+									"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
+								<CreateRFQ />
+							) : (
+								<Redirect to="/" />
+							);
 						}}
 					/>
 				</Switch>

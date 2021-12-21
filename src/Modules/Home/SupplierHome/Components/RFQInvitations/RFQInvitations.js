@@ -4,7 +4,7 @@ import RFQInvitation from "../../../../Common/RFQInvitation/RFQInvitation";
 import NoRFQs from "../../../../../Resources/Assets/noRFQs.svg";
 import { useSelector } from "react-redux";
 import "./RFQInvitations.css";
-function RFQInvitations({ invitationCount, rfqDetails }) {
+function RFQInvitations({ invitationCount, rfqDetails, parent }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	return (
 		<div className="RFQInvitations">
