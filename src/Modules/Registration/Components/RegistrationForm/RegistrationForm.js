@@ -388,6 +388,7 @@ function RegistrationForm() {
 		body.append("RoleId", roleId);
 		body.append("GovernmentId", governmentId);
 		body.append("CategoriesRequest", categoriesRequests);
+
 		register(
 			body,
 			(success) => {

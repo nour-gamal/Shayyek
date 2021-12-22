@@ -5,7 +5,7 @@ import RFQInvitations from "./../SupplierHome/Components/RFQInvitations/RFQInvit
 
 function BuyerHome() {
 	const [invitationCount, updateInvitationsCount] = useState(0);
-	const [rfqDetails, updateRFQDetails] = useState([]);
+	const [rfqDetails, updateRFQDetails] = useState(null);
 
 	useEffect(() => {
 		BuyerRFQ(
@@ -17,7 +17,8 @@ function BuyerHome() {
 				console.log(fail);
 			}
 		);
-	});
+	}, []);
+
 	return (
 		<div>
 			<Row>
@@ -25,11 +26,14 @@ function BuyerHome() {
 					test
 				</Col>
 				<Col md={12} xs={10} lg={6}>
-					{/* <RFQInvitations
-						invitationCount={invitationCount}
-						rfqDetails={rfqDetails}
-						parent={"buyer"}
-					/> */}
+					{rfqDetails && (
+						<RFQInvitations
+							invitationCount={invitationCount}
+							rfqDetails={rfqDetails}
+							revealPrices={true}
+							parent={"buyer"}
+						/>
+					)}
 				</Col>
 			</Row>
 		</div>

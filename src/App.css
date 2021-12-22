@@ -374,7 +374,12 @@ thead:hover {
 	border-radius: 15px;
 	background-color: #fff;
 }
-
+.text-right {
+	text-align: right;
+}
+.text-left {
+	text-align: left;
+}
 @media (max-width: 480px) {
 	.ant-table-cell {
 		padding: 8px 10px !important;

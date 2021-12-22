@@ -4,7 +4,7 @@ import RFQInvitation from "../../../../Common/RFQInvitation/RFQInvitation";
 import NoRFQs from "../../../../../Resources/Assets/noRFQs.svg";
 import { useSelector } from "react-redux";
 import "./RFQInvitations.css";
-function RFQInvitations({ invitationCount, rfqDetails, parent }) {
+function RFQInvitations({ invitationCount, rfqDetails, parent, revealPrices }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	return (
 		<div className="RFQInvitations">
@@ -21,13 +21,17 @@ function RFQInvitations({ invitationCount, rfqDetails, parent }) {
 					<div className="noRFqs">{currentLocal.supplierHome.noRFQs}</div>
 				</div>
 			) : (
-				rfqDetails.map((details) => {
+				rfqDetails.map((details, rfqIndex) => {
 					return (
-						<div className="section">
-							<RFQInvitation revealPrices={true} location={"supplier"} />
+						<div className="section" key={rfqIndex}>
+							<RFQInvitation
+								revealPrices={revealPrices}
+								parent={parent}
+								rfqDetails={details}
+							/>
 						</div>
 					);
-				})()
+				})
 			)}
 		</div>
 	);

@@ -6,16 +6,16 @@ import Suppliers from "./Modules/Suppliers/Suppliers";
 import Products from "./Modules/Suppliers/Products";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import Login from "./Modules/Login/Login";
 import ForgetPassword from "./Modules/Login/Components/ForgetPassword/ForgetPassword";
 import ProfilePage from "./Modules/ProfilePage/ProfilePage";
 import VerifyByEmail from "./Modules/Registration/Components/VerifyByEmail/VerifyByEmail";
 import LoginByMobile from "./Modules/Login/Components/LoginByMobile/LoginByMobile";
-//import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
 import Login from "./Modules/Login/Login";
 import ResetPassword from "./Modules/ResetPassword/ResetPassword";
 import CreateRFQ from "./Modules/Home/BuyerHome/Components/CreateRFQ/CreateRFQ";
-
+import OffersTable from "./Modules/Home/BuyerHome/Components/OffersTable/OffersTable";
+// import Login from "./Modules/Login/Login";
+//import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
 function Routes() {
 	const { authorization } = useSelector((state) => state.authorization);
 	const isAuth = authorization.id ? true : false;
@@ -80,6 +80,19 @@ function Routes() {
 								authorization.userTypeId ===
 									"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
 								<CreateRFQ />
+							) : (
+								<Redirect to="/" />
+							);
+						}}
+					/>
+
+					<Route
+						path="/offerstable/:id"
+						render={() => {
+							return isAuth &&
+								authorization.userTypeId ===
+									"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
+								<OffersTable />
 							) : (
 								<Redirect to="/" />
 							);

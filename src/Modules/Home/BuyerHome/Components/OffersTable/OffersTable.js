@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { Table, Dropdown, Menu } from "antd";
 import { PDFExport } from "@progress/kendo-react-pdf";
-import acceptOffer from "../../../../Resources/Assets/acceptOffer.svg";
-import deletee from "../../../../Resources/Assets/deletee.svg";
-import chat from "../../../../Resources/Assets/chat.svg";
-import star from "../../../../Resources/Assets/star (1).svg";
-import download from "../../../../Resources/Assets/direct-download.svg";
-import share from "../../../../Resources/Assets/share (5).svg";
+import acceptOffer from "../../../../../Resources/Assets/acceptOffer.svg";
+import deletee from "../../../../../Resources/Assets/deletee.svg";
+import chat from "../../../../../Resources/Assets/chat.svg";
+import star from "../../../../../Resources/Assets/star (1).svg";
+import download from "../../../../../Resources/Assets/direct-download.svg";
+import share from "../../../../../Resources/Assets/share (5).svg";
 import ReactTooltip from "react-tooltip";
 import { useSelector } from "react-redux";
-import "./OfferTable.css";
+import Navbar from "../../../../Common/Navbar/Navbar";
+import Footer from "../../../../Common/Footer/Footer";
+import "./OffersTable.css";
 
-function OfferTable() {
+function OfferTable(props) {
+	console.log(props);
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -238,53 +241,57 @@ function OfferTable() {
 	};
 
 	return (
-		<div className="OfferTable ppr ppl">
-			<div className="py-4 d-flex justify-content-end mx-4">
-				<img
-					src={share}
-					alt="share"
-					className="mx-4 share"
-					onClick={shareOffer}
-				/>
+		<section className="OfferTable">
+			<Navbar />
+			<div className="ppr ppl">
+				<div className="py-4 d-flex justify-content-end mx-4">
+					<img
+						src={share}
+						alt="share"
+						className="mx-4 share"
+						onClick={shareOffer}
+					/>
 
-				<img
-					src={download}
-					alt="download"
-					onClick={exportPDFWithComponent}
-					className="download"
-				/>
+					<img
+						src={download}
+						alt="download"
+						onClick={exportPDFWithComponent}
+						className="download"
+					/>
+				</div>
+				<PDFExport
+					ref={pdfExportComponent}
+					paperSize="auto"
+					margin={40}
+					fileName={`RFQ ProjectName Response`}
+					author="shayyek"
+				>
+					<Table
+						className="table-striped-rows"
+						dataSource={dataSource}
+						columns={columns}
+						scroll={{ x: "calc(100wh - 4em)" }}
+						pagination={{
+							position: [bottom],
+							total: dataSource.length,
+							current: currentPage,
+							pageSize: 5,
+							hideOnSinglePage: true,
+							onChange: (page, pageSize) => {
+								setCurrentPage(page);
+							},
+						}}
+					/>
+				</PDFExport>
+				<div className="text-center">
+					<ReactTooltip />
+					<button className="button-primary my-2">
+						{currentLocal.offerTable.makeOnlineSession}
+					</button>
+				</div>
 			</div>
-			<PDFExport
-				ref={pdfExportComponent}
-				paperSize="auto"
-				margin={40}
-				fileName={`RFQ ProjectName Response`}
-				author="shayyek"
-			>
-				<Table
-					className="table-striped-rows"
-					dataSource={dataSource}
-					columns={columns}
-					scroll={{ x: "calc(100wh - 4em)" }}
-					pagination={{
-						position: [bottom],
-						total: dataSource.length,
-						current: currentPage,
-						pageSize: 5,
-						hideOnSinglePage: true,
-						onChange: (page, pageSize) => {
-							setCurrentPage(page);
-						},
-					}}
-				/>
-			</PDFExport>
-			<div className="text-center">
-				<ReactTooltip />
-				<button className="button-primary">
-					{currentLocal.offerTable.makeOnlineSession}
-				</button>
-			</div>
-		</div>
+			<Footer />
+		</section>
 	);
 }
 

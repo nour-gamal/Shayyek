@@ -33,6 +33,7 @@ function SupplierHome() {
 					<RFQInvitations
 						invitationCount={invitationCount}
 						rfqDetails={rfqDetails}
+						parent={"supplier"}
 					/>
 				</Col>
 			</Row>

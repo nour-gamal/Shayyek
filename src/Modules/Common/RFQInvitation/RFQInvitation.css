@@ -26,6 +26,9 @@
 .priceBox label:nth-of-type(2) {
 	margin-top: 30px;
 }
+.rfqInvitation .projectName {
+	color: #f50000;
+}
 @media (min-width: 769px) {
 	.rfqInvitation .popup-button-primary {
 		padding-left: 42px;

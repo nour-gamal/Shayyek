@@ -190,6 +190,7 @@ export const ar = {
 		noCompanies: "لا يوجد شركات تطابق مجالات عملك",
 		toSeeCompanies: "يمكنك تعديل عملك / مجالك لرؤية الشركات ذات الصلة",
 		relatedMarketPlace: "الشركات ذات الصلة",
+		viewOffers: "اظهر العروض",
 	},
 	supplierHome: {
 		addNewProduct: "أضف منتج جديد",
