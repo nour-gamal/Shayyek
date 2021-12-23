@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Menu, Dropdown, message } from "antd";
+import { Menu, Dropdown } from "antd";
 import eye from "../../../Resources/Assets/eye.svg";
 import edit from "../../../Resources/Assets/edit.svg";
 import deletee from "../../../Resources/Assets/deletee.svg";

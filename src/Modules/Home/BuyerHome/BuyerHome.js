@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
-import { BuyerRFQ, getBuyerCompany } from "./../network";
+import { BuyerRFQ } from "./../network";
 import RFQInvitations from "./../SupplierHome/Components/RFQInvitations/RFQInvitations";
 
 function BuyerHome() {
