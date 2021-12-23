@@ -1,7 +1,9 @@
 import React from "react";
 import { Navbar } from "react-bootstrap";
-import ShayyekLogoDark from "../../../Resources/Assets/shayyekLogoDark.png";
-import ShayyekLogoLight from "../../../Resources/Assets/shayyekLogoLight.png";
+import ShayyekLogoDarkEn from "../../../Resources/Assets/shayyekLogoDark.png";
+import ShayyekLogoLightEn from "../../../Resources/Assets/shayyekLogoLight.png";
+import ShayyekLogoDarkAr from "../../../Resources/Assets/ShayyekLogoDarkAr.png";
+import ShayyekLogoLightAr from "../../../Resources/Assets/ShayyekLogoLightAr.svg";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import languages from "../../../Resources/Assets/languages.svg";
@@ -15,8 +17,8 @@ import "./Navbar.css";
 function Navbarr({ navState, verifayState, transparent }) {
 	const dispatch = useDispatch();
 	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
-
 	const loginState = authorization.userTypeId ? true : false;
 	return (
 		<Navbar
@@ -35,9 +37,15 @@ function Navbarr({ navState, verifayState, transparent }) {
 		>
 			<Link to="/">
 				{navState ? (
-					<img src={ShayyekLogoDark} alt="ShayyekLogoDark" />
+					currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057" ? (
+						<img src={ShayyekLogoDarkEn} alt="ShayyekLogoDark" />
+					) : (
+						<img src={ShayyekLogoDarkAr} alt="ShayyekLogoDark" />
+					)
+				) : currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057" ? (
+					<img src={ShayyekLogoLightEn} alt="ShayyekLogoLight" />
 				) : (
-					<img src={ShayyekLogoLight} alt="ShayyekLogoLight" />
+					<img src={ShayyekLogoLightAr} alt="ShayyekLogoLight" />
 				)}
 			</Link>
 

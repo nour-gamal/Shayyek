@@ -49,12 +49,23 @@ export const getCompanyType = (
 	const path = `api/Company/GetCompanyTypes?languageId=${languageId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
+
+export const addRegisterImage = (
+	data,
+	onSuccess,
+	onFail,
+	reqAuth = false,
+	formData = true
+) => {
+	const path = "api/Account/GetImagePath";
+	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
+};
 export const register = (
 	body,
 	onSuccess,
 	onFail,
 	reqAuth = false,
-	formData = true
+	formData = false
 ) => {
 	const path = `api/Account/Register`;
 	PostResource(path, body, onSuccess, onFail, reqAuth, formData);

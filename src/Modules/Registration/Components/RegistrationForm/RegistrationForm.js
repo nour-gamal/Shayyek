@@ -13,6 +13,7 @@ import {
 	getCompanyType,
 	getAccountType,
 	register,
+	addRegisterImage,
 } from "../../Network";
 import disableArrow from "../../../../Resources/Assets/disableArrow.svg";
 import Arrow from "../../../../Resources/Assets/dropdown arrow icn.svg";
@@ -41,17 +42,17 @@ function RegistrationForm() {
 	const [admin, setAdmin] = useState(false);
 	const [checkedWhatsApp, toggleCheckedWhatsApp] = useState(false);
 	const [companyTypes, setCompanyTypes] = useState([]);
-	const [companyTypeId, setCompanyTypeId] = useState("");
-	const [companyTypeName, setCompanyTypeName] = useState("");
+	const [companyTypeId, setCompanyTypeId] = useState(null);
+	const [companyTypeName, setCompanyTypeName] = useState(null);
 	const [companyPhoneNumber, setCompanyPhoneNumber] = useState("");
 	const [companiesName, setCompaniesName] = useState([]);
 	const [companyMail, setCompanyMail] = useState("");
 	const [checked, toggleChecked] = useState("");
 	const [confirmationState, setConfirmationState] = useState("");
 	const [companyWebsite, setcompanyWebsite] = useState("");
-	const [companyId, setCompanyId] = useState("");
-	const [governmentId, setGovernmentId] = useState("");
-	const [companyName, setCompanyName] = useState("");
+	const [companyId, setCompanyId] = useState(null);
+	const [governmentId, setGovernmentId] = useState(null);
+	const [companyName, setCompanyName] = useState(null);
 	const [governmentsName, setGovernmentsName] = useState([]);
 	const [countriesName, setCountriesName] = useState([]);
 	const [governmentName, setGovernmentName] = useState("");
@@ -66,13 +67,13 @@ function RegistrationForm() {
 	const [redirect, setRedirect] = useState(false);
 	const [logoName, setlogoName] = useState("");
 	const [fileName, setFileName] = useState("");
-	const [logoData, setLogoData] = useState("");
-	const [fileData, setFileData] = useState("");
 	const [treeOptions, updateTreeOptions] = useState([]);
 	const [foucesItem, setFoucesItem] = useState("");
 	const [mobileState, setMobileState] = useState("");
 	const [categoriesRequests, setcategoriesRequests] = useState(null);
 	const [emailState, setEmailState] = useState("");
+	const [comRecPath, updateComRecPath] = useState(null);
+	const [compLogoPath, updateCompLogoPath] = useState(null);
 	const showState = true;
 	const uploadCompanyLogo = "";
 	const commercialRecord = "";
@@ -119,11 +120,12 @@ function RegistrationForm() {
 						subCategoryIndex
 					].SubCategoryIds.push(subCategory.levelThree);
 				} else {
-					subCategory.levelThree.forEach((subSubCat) => {
-						categoriesRequest[mainCategoryIndex].Categories[
-							subCategoryIndex
-						].SubCategoryIds.push(subSubCat.id);
-					});
+					subCategory.levelThree &&
+						subCategory.levelThree.forEach((subSubCat) => {
+							categoriesRequest[mainCategoryIndex].Categories[
+								subCategoryIndex
+							].SubCategoryIds.push(subSubCat.id);
+						});
 				}
 			});
 		});
@@ -201,8 +203,7 @@ function RegistrationForm() {
 		getWork(
 			currentLanguageId,
 			(success) => {
-				// console.log(success.data[0]);
-				let data = [];
+				var data = [];
 				success.data.forEach((category, i) => {
 					data.push({
 						value: category.category.id,
@@ -221,18 +222,20 @@ function RegistrationForm() {
 							children: [],
 							disabled: false,
 						});
-						subCategories.subSubCategories.forEach((subSubCategories) => {
-							data[i].children[j].children.push({
-								value: subSubCategories.id,
-								label: subSubCategories.name,
-								levelOne: category.category.id,
-								levelTwo: subCategories.subCategory.id,
-								levelThree: subSubCategories.id,
-								disabled: false,
+						subCategories.subSubCategories !== null &&
+							subCategories.subSubCategories.forEach((subSubCategories) => {
+								data[i].children[j].children.push({
+									value: subSubCategories.id,
+									label: subSubCategories.name,
+									levelOne: category.category.id,
+									levelTwo: subCategories.subCategory.id,
+									levelThree: subSubCategories.id,
+									disabled: false,
+								});
 							});
-						});
 					});
 				});
+
 				updateTreeOptions(data);
 			},
 			(fail) => {
@@ -256,7 +259,8 @@ function RegistrationForm() {
 								CompanyHasAdmin(
 									company.id,
 									(success) => {
-										setAdmin(success.data);
+										//setAdmin(success.data);
+										setAdmin(true);
 									},
 									(fail) => {},
 									false
@@ -357,40 +361,37 @@ function RegistrationForm() {
 		</Menu>
 	);
 
-	const axioFun = () => {
-		const body = new FormData();
-		body.append("FirstName", firstName);
-		body.append("LastName", lastName);
-		body.append("MailUser", email);
-		body.append("Password", password);
-		body.append("MobileUser", mobileNumber);
-		body.append("IsWhatsAppNumber", checkedWhatsApp);
-		body.append("FirebaseToken", deviceToken.deviceToken);
-		body.append("Logo", logoData);
-		body.append("CommercialRecord", fileData);
-		body.append("MailCompany", companyMail);
-		body.append("MobileCompany", companyPhoneNumber);
-		body.append("Website", companyWebsite);
-		body.append("Address", address);
-		body.append(
-			"CompanyHasData",
-			accountId === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ? false : !admin
-		);
-		body.append("CompanyTypeId", companyTypeId);
-		body.append(
-			"AccountTypeId",
-			accountId ? accountId : "d23f2c1e-1ed3-4066-96d6-66a970e39a7f"
-		);
-		body.append("UserTypeId", userTypeId);
-		roleId === "274c0b77-90cf-4ee3-976e-01e409413057"
-			? body.append("CompanyName", companyName)
-			: body.append("CompanyId", companyId);
-		body.append("RoleId", roleId);
-		body.append("GovernmentId", governmentId);
-		body.append("CategoriesRequest", categoriesRequests);
-
+	const submitRegister = () => {
+		let data = {
+			FirstName: firstName,
+			LastName: lastName,
+			MailUser: email,
+			Password: password,
+			MobileUser: mobileNumber,
+			IsWhatsAppNumber: checkedWhatsApp,
+			FirebaseToken: deviceToken.deviceToken,
+			MailCompany: companyMail,
+			MobileCompany: companyPhoneNumber,
+			Website: companyWebsite,
+			Address: address,
+			CompanyHasData:
+				accountId === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ? false : !admin,
+			CompanyTypeId: companyTypeId,
+			AccountTypeId: accountId
+				? accountId
+				: "d23f2c1e-1ed3-4066-96d6-66a970e39a7f",
+			UserTypeId: userTypeId,
+			// roleId === "274c0b77-90cf-4ee3-976e-01e409413057"
+			CompanyName: companyName,
+			CompanyId: companyId,
+			RoleId: roleId,
+			GovernmentId: governmentId,
+			CategoriesRequest: categoriesRequests,
+			Logo: compLogoPath,
+			commercialRecord: comRecPath,
+		};
 		register(
-			body,
+			data,
 			(success) => {
 				if (success.success === true) {
 					localStorage.setItem("mobileNumber", mobileNumber);
@@ -404,6 +405,43 @@ function RegistrationForm() {
 				}
 			},
 			(fail) => console.log(fail)
+		);
+	};
+
+	const handleAddCompanyLogo = (e) => {
+		if (e.target.files[0].type.includes("image")) {
+			setlogoName(e.target.files[0].name);
+			updateCompanyLogoErr(false);
+			const companyLogoData = new FormData();
+			companyLogoData.append("image", e.target.files[0]);
+			companyLogoData.append("status", 1);
+			addRegisterImage(
+				companyLogoData,
+				(success) => {
+					updateCompLogoPath(success.data);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		} else {
+			updateCompanyLogoErr(true);
+		}
+	};
+	const handleUploadCommercialRecord = (e) => {
+		setFileName(e.target.files[0].name);
+
+		const commercialRecordData = new FormData();
+		commercialRecordData.append("image", e.target.files[0]);
+		commercialRecordData.append("status", 2);
+		addRegisterImage(
+			commercialRecordData,
+			(success) => {
+				updateComRecPath(success.data);
+			},
+			(fail) => {
+				console.log(fail);
+			}
 		);
 	};
 	const sendData = (e) => {
@@ -426,7 +464,7 @@ function RegistrationForm() {
 				setAlert(true);
 			} else {
 				setAlert(false);
-				axioFun();
+				submitRegister();
 			}
 		} else if (
 			buyer === currentLocal.registration.buyer &&
@@ -451,7 +489,7 @@ function RegistrationForm() {
 				setAlert(true);
 			} else {
 				setAlert(false);
-				axioFun();
+				submitRegister();
 			}
 		} else if (
 			buyer === currentLocal.registration.buyer &&
@@ -469,7 +507,7 @@ function RegistrationForm() {
 				setAlert(true);
 			} else {
 				setAlert(false);
-				axioFun();
+				submitRegister();
 			}
 		} else if (
 			buyer === currentLocal.registration.Contractor &&
@@ -484,18 +522,14 @@ function RegistrationForm() {
 				!password ||
 				!confirmPassword ||
 				!companyName ||
-				!checked ||
-				!countryName ||
-				!governmentName ||
-				!address ||
-				!categoriesRequests
+				!checked
 
 				// !work
 			) {
 				setAlert(true);
 			} else {
 				setAlert(false);
-				axioFun();
+				submitRegister();
 			}
 		} else if (
 			buyer === currentLocal.registration.Contractor &&
@@ -524,7 +558,7 @@ function RegistrationForm() {
 				setAlert(true);
 			} else {
 				setAlert(false);
-				axioFun();
+				submitRegister();
 			}
 		} else if (
 			buyer === currentLocal.registration.Contractor &&
@@ -545,7 +579,7 @@ function RegistrationForm() {
 				setAlert(true);
 			} else {
 				setAlert(false);
-				axioFun();
+				submitRegister();
 			}
 		} else if (buyer === currentLocal.registration.Supplier && admin) {
 			if (
@@ -564,7 +598,7 @@ function RegistrationForm() {
 				setAlert(true);
 			} else {
 				setAlert(false);
-				axioFun();
+				submitRegister();
 			}
 		} else if (buyer === currentLocal.registration.Supplier && !admin) {
 			if (
@@ -588,18 +622,8 @@ function RegistrationForm() {
 				setAlert(true);
 			} else {
 				setAlert(false);
-				axioFun();
+				submitRegister();
 			}
-		}
-	};
-
-	const handleAddCompanyLogo = (e) => {
-		if (e.target.files[0].type.includes("image")) {
-			setLogoData(e.target.files[0]);
-			setlogoName(e.target.files[0].name);
-			updateCompanyLogoErr(false);
-		} else {
-			updateCompanyLogoErr(true);
 		}
 	};
 
@@ -761,6 +785,7 @@ function RegistrationForm() {
 											setCompanyName(e.target.value);
 										}}
 										className="input-field"
+										placeholder={currentLocal.registration.companyName}
 									/>
 								)}
 							</Col>
@@ -1358,10 +1383,7 @@ function RegistrationForm() {
 									type="file"
 									id="file"
 									value={commercialRecord}
-									onChange={(e) => {
-										setFileName(e.target.files[0].name);
-										setFileData(e.target.files[0]);
-									}}
+									onChange={handleUploadCommercialRecord}
 									style={{ display: "none" }}
 								/>
 								<label htmlFor="file" className="w-100">

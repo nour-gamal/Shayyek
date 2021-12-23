@@ -64,6 +64,7 @@ function AuthHeader({
 						w-10
 						message={currentLocal.registration.pleaseFillAllRequiredFields}
 						type="error"
+						className="text-center"
 					/>
 				</Row>
 			)}
