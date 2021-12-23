@@ -90,6 +90,7 @@ function RegistrationForm() {
 
 	const sendDataToParent = (val) => {
 		setUserTypeId(val);
+		setIndividual("");
 		if (val === "2a9e1d5f-722e-404e-8041-a6a665149e03") {
 			setAccountId("d23f2c1e-1ed3-4066-96d6-66a970e39a7f");
 			setIndividual("d23f2c1e-1ed3-4066-96d6-66a970e39a7f");
