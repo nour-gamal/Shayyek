@@ -88,11 +88,11 @@ function Routes() {
 
 					<Route
 						path="/offerstable/:id"
-						render={() => {
+						render={(props) => {
 							return isAuth &&
 								authorization.userTypeId ===
 									"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
-								<OffersTable />
+								<OffersTable {...props} />
 							) : (
 								<Redirect to="/" />
 							);

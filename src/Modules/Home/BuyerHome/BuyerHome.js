@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
 import { BuyerRFQ } from "./../network";
 import RFQInvitations from "./../SupplierHome/Components/RFQInvitations/RFQInvitations";
-
+import RelatedMarket from "./Components/RelatedMarket/RelatedMarket";
 function BuyerHome() {
 	const [invitationCount, updateInvitationsCount] = useState(0);
 	const [rfqDetails, updateRFQDetails] = useState(null);
@@ -18,12 +18,23 @@ function BuyerHome() {
 			}
 		);
 	}, []);
+	const updateRFQsList = () => {
+		BuyerRFQ(
+			(success) => {
+				updateInvitationsCount(success.data.rfqCount);
+				updateRFQDetails(success.data.rfqInvitationDetails);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	};
 
 	return (
 		<div>
 			<Row>
 				<Col md={12} xs={14} lg={18} className="mt-2">
-					test
+					<RelatedMarket />
 				</Col>
 				<Col md={12} xs={10} lg={6}>
 					{rfqDetails && (
@@ -32,6 +43,7 @@ function BuyerHome() {
 							rfqDetails={rfqDetails}
 							revealPrices={true}
 							parent={"buyer"}
+							updateRFQsList={updateRFQsList}
 						/>
 					)}
 				</Col>

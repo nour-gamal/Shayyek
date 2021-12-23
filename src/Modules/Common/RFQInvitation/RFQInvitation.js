@@ -5,13 +5,24 @@ import eye from "../../../Resources/Assets/eye.svg";
 import edit from "../../../Resources/Assets/edit.svg";
 import deletee from "../../../Resources/Assets/deletee.svg";
 import { Redirect } from "react-router-dom";
+import { DeleteRFQ } from "../../../Modules/Home/network";
 import "./RFQInvitation.css";
-function RFQInvitation({ revealPrices, rfqDetails, parent }) {
+function RFQInvitation({ revealPrices, rfqDetails, parent, updateRFQsList }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [redirectTo, updateRedirectTo] = useState(false);
 	function handleMenuClick(e) {
 		if (e.key === "1") {
 			updateRedirectTo(true);
+		} else if (e.key === "3") {
+			DeleteRFQ(
+				rfqDetails.rfqHeaderId,
+				(success) => {
+					updateRFQsList();
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
 		}
 	}
 
@@ -28,8 +39,9 @@ function RFQInvitation({ revealPrices, rfqDetails, parent }) {
 			</Menu.Item>
 		</Menu>
 	);
+
 	if (redirectTo) {
-		return <Redirect to="/offerstable" />;
+		return <Redirect to={`/offerstable/${rfqDetails.rfqHeaderId}`} />;
 	}
 	return (
 		<div className="rfqInvitation">

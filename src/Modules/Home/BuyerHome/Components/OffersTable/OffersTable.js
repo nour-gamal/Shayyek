@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Dropdown, Menu } from "antd";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import acceptOffer from "../../../../../Resources/Assets/acceptOffer.svg";
@@ -9,15 +9,30 @@ import download from "../../../../../Resources/Assets/direct-download.svg";
 import share from "../../../../../Resources/Assets/share (5).svg";
 import ReactTooltip from "react-tooltip";
 import { useSelector } from "react-redux";
+import { GetBuyerAddedRFQOffers } from "../../../network";
 import Navbar from "../../../../Common/Navbar/Navbar";
 import Footer from "../../../../Common/Footer/Footer";
 import "./OffersTable.css";
 
 function OfferTable(props) {
-	console.log(props);
 	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [currentPage, setCurrentPage] = useState(1);
-
+	const [rfqDetails, updateRFQDetails] = useState([]);
+	const { id } = props.match.params;
+	console.log(rfqDetails);
+	useEffect(() => {
+		GetBuyerAddedRFQOffers(
+			id,
+			currentLanguageId,
+			(success) => {
+				updateRFQDetails(success.data);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	});
 	const shareOffer = () => {
 		alert("bye");
 	};

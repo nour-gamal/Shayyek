@@ -23,13 +23,14 @@ function SupplierHome() {
 			}
 		);
 	}, []);
+
 	return (
 		<div>
 			<Row>
-				<Col md={12} xs={14} lg={18} className="mt-2">
+				<Col xs={16} lg={18} className="mt-2">
 					<Products draftsCount={draftsCount} />
 				</Col>
-				<Col md={12} xs={10} lg={6}>
+				<Col xs={8} lg={6}>
 					<RFQInvitations
 						invitationCount={invitationCount}
 						rfqDetails={rfqDetails}

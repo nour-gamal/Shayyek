@@ -125,3 +125,17 @@ export const deleteProducts = (
 	const path = `api/Product/DeleteProduct?productId=${productId}`;
 	deleteResource(path, onSuccess, onFail, reqAuth);
 };
+export const GetBuyerAddedRFQOffers = (
+	RFQId,
+	languageId,
+	onSuccess,
+	onFail,
+	reqAuth = true
+) => {
+	const path = `api/RFQ/GetBuyerAddedRFQOffers?RFQId=${RFQId}&LanguageId=${languageId}`;
+	GetResource(path, onSuccess, onFail, reqAuth);
+};
+export const DeleteRFQ = (RFQId, onSuccess, onFail, reqAuth = true) => {
+	const path = `api/RFQ/DeleteRFQ?RFQId=${RFQId}`;
+	deleteResource(path, onSuccess, onFail, reqAuth);
+};

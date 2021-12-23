@@ -9,6 +9,7 @@
 	width: 80px;
 	height: 80px;
 	border: 1px solid #707070;
+	width: 100%;
 }
 
 .companyCard > ul {
