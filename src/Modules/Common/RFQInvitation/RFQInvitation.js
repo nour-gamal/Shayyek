@@ -9,20 +9,28 @@ import { DeleteRFQ } from "../../../Modules/Home/network";
 import "./RFQInvitation.css";
 function RFQInvitation({ revealPrices, rfqDetails, parent, updateRFQsList }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const [redirectTo, updateRedirectTo] = useState(false);
+	const [redirectTo, updateRedirectTo] = useState(null);
 	function handleMenuClick(e) {
-		if (e.key === "1") {
-			updateRedirectTo(true);
-		} else if (e.key === "3") {
-			DeleteRFQ(
-				rfqDetails.rfqHeaderId,
-				(success) => {
-					updateRFQsList();
-				},
-				(fail) => {
-					console.log(fail);
-				}
-			);
+		switch (e.key) {
+			case "1":
+				updateRedirectTo("offers");
+				break;
+			case "2":
+				updateRedirectTo("edit");
+				break;
+			case "3":
+				DeleteRFQ(
+					rfqDetails.rfqHeaderId,
+					(success) => {
+						updateRFQsList();
+					},
+					(fail) => {
+						console.log(fail);
+					}
+				);
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -40,9 +48,10 @@ function RFQInvitation({ revealPrices, rfqDetails, parent, updateRFQsList }) {
 		</Menu>
 	);
 
-	if (redirectTo) {
+	if (redirectTo === "offers") {
 		return <Redirect to={`/offerstable/${rfqDetails.rfqHeaderId}`} />;
-	}
+	} else if (redirectTo === "edit")
+		return <Redirect to={`/createrfq/${rfqDetails.rfqHeaderId}`} />;
 	return (
 		<div className="rfqInvitation">
 			<div className="projectName f-14 my-1">{rfqDetails.projectName}</div>

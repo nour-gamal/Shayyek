@@ -73,13 +73,25 @@ function Routes() {
 						}}
 					/>
 
-					<Route
+					{/* <Route
 						path="/createrfq"
 						render={() => {
 							return isAuth &&
 								authorization.userTypeId ===
 									"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
 								<CreateRFQ />
+							) : (
+								<Redirect to="/" />
+							);
+						}}
+					/> */}
+					<Route
+						path="/createrfq/:id"
+						render={(props) => {
+							return isAuth &&
+								authorization.userTypeId ===
+									"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
+								<CreateRFQ {...props} />
 							) : (
 								<Redirect to="/" />
 							);

@@ -41,7 +41,6 @@ function BuyerHome() {
 						<RFQInvitations
 							invitationCount={invitationCount}
 							rfqDetails={rfqDetails}
-							revealPrices={true}
 							parent={"buyer"}
 							updateRFQsList={updateRFQsList}
 						/>

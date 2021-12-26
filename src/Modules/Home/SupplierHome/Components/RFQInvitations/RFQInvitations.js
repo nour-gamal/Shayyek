@@ -8,7 +8,6 @@ function RFQInvitations({
 	invitationCount,
 	rfqDetails,
 	parent,
-	revealPrices,
 	updateRFQsList,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -32,7 +31,7 @@ function RFQInvitations({
 					return (
 						<div className="section" key={rfqIndex}>
 							<RFQInvitation
-								revealPrices={revealPrices}
+								revealPrices={details.isBidders}
 								parent={parent}
 								rfqDetails={details}
 								updateRFQsList={updateRFQsList}

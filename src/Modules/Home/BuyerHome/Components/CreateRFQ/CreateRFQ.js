@@ -7,13 +7,18 @@ import PostRFQModal from "../PostRFQModal/PostRFQModal";
 import datePickerSuffix from "../../../../../Resources/Assets/datePickerSuffix.svg";
 import { ExcelRenderer } from "react-excel-renderer";
 import { Alert } from "react-bootstrap";
+import moment from "moment";
 import Navbar from "../../../../Common/Navbar/Navbar";
 import Footer from "../../../../Common/Footer/Footer";
 import { Select, Checkbox, DatePicker, Radio } from "antd";
-import { getCategories, getDeliverdOptions } from "../../../network";
+import {
+	getCategories,
+	getDeliverdOptions,
+	GetBuyerRFQ,
+} from "../../../network";
 import "./CreateRFQ.css";
 
-function CreateRFQ() {
+function CreateRFQ(props) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [categoriesOption, setCategoriesOption] = useState([]);
@@ -34,10 +39,14 @@ function CreateRFQ() {
 	const [installAll, updateInstallAll] = useState(false);
 	const [deliveredToOptions, updateDeliveryOptions] = useState([]);
 	const [modalType, updateModalType] = useState("post");
-
+	const [ccList, updateCCList] = useState([]);
+	const [invitedEmails, updateInvitedEmails] = useState([]);
+	const [projectName, updateProjectName] = useState("");
+	const [revealPrice, updateRevealPrice] = useState(false);
+	const [publishToRelevant, updatePublishToRelevant] = useState(false);
+	const { id } = props.match.params;
 	useEffect(() => {
 		let options = [];
-
 		getDeliverdOptions(
 			currentLanguageId,
 			(success) => {
@@ -55,6 +64,30 @@ function CreateRFQ() {
 		);
 	}, [currentLanguageId]);
 
+	useEffect(() => {
+		if (id !== "new") {
+			GetBuyerRFQ(
+				id,
+				(success) => {
+					var data = success.data.rfqDetails;
+					updateDataSource(data);
+					updateAddress(success.data.address);
+					setOffersDate(success.data.deadlineDate);
+					setDeliveryDate(success.data.deliveryDate);
+					// updateDeliveredTo();
+					updateCCList(success.data.rfQ_CC_Colleagues);
+					updateInvitedEmails(success.data.rfqInvitedEmails);
+					updateProjectName(success.data.projectName);
+					updateRevealPrice(success.data.isRevealPricesToBidders);
+					updatePublishToRelevant(success.data.isPublishToSuppliersNetwork);
+					console.log(success.data);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
+	}, [id]);
 	var index = {
 		item: null,
 		notes: null,
@@ -446,6 +479,7 @@ function CreateRFQ() {
 			},
 		},
 	];
+
 	return (
 		<section>
 			<Navbar />
@@ -537,7 +571,7 @@ function CreateRFQ() {
 								<Radio.Group
 									options={deliveredToOptions}
 									onChange={handleDeliveredTo}
-									defaultValue={"a9c83c89-4aeb-46b8-b245-a144276d927f"}
+									defaultValue={deliveredTo}
 									className={"secondary-color"}
 								/>
 							</div>
@@ -586,23 +620,35 @@ function CreateRFQ() {
 											: "datePicker"
 									}
 									allowClear={false}
+									value={recievingOffersDate && moment(recievingOffersDate)}
+									defaultPickerValue={
+										recievingOffersDate && moment(recievingOffersDate)
+									}
 								/>
 							</div>
 							<div className="my-3 datePickerContainer">
 								<label className=" primary-color">
 									{currentLocal.buyerHome.deliveryDate}
 								</label>
-								<DatePicker
-									suffixIcon={<img src={datePickerSuffix} alt="suffixIcon" />}
-									onChange={(date, dateString) => setDeliveryDate(dateString)}
-									disabledDate={disabledDeliveryDate}
-									placeholder={currentLocal.buyerHome.selectDate}
-									disabled={recievingOffersDate ? false : true}
-									className={
-										alert && deliveryDate === null ? "alertSign" : "datePicker"
-									}
-									allowClear={false}
-								/>
+								{moment(deliveryDate) && (
+									<DatePicker
+										suffixIcon={<img src={datePickerSuffix} alt="suffixIcon" />}
+										onChange={(date, dateString) => setDeliveryDate(dateString)}
+										disabledDate={disabledDeliveryDate}
+										placeholder={currentLocal.buyerHome.selectDate}
+										disabled={
+											deliveryDate ? false : recievingOffersDate ? false : true
+										}
+										className={
+											alert && deliveryDate === null
+												? "alertSign"
+												: "datePicker"
+										}
+										allowClear={false}
+										value={deliveryDate && moment(deliveryDate)}
+										defaultPickerValue={deliveryDate && moment(deliveryDate)}
+									/>
+								)}
 							</div>
 						</div>
 						<button className="button-primary native" onClick={handleConfirm}>
@@ -617,6 +663,12 @@ function CreateRFQ() {
 							deliveredTo={deliveredTo}
 							rfqDetails={dataSource}
 							address={address}
+							ccColluguesProp={ccList}
+							invitedEmailsProp={invitedEmails}
+							projectNameProp={projectName}
+							revealPriceProp={revealPrice}
+							publishToReleventProp={publishToRelevant}
+							id={id}
 						/>
 					</div>
 				</div>

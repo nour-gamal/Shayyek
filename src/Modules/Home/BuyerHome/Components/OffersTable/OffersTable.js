@@ -32,7 +32,7 @@ function OfferTable(props) {
 				console.log(fail);
 			}
 		);
-	});
+	}, [id, currentLanguageId]);
 	const shareOffer = () => {
 		alert("bye");
 	};

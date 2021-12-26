@@ -24,6 +24,12 @@ function PostRFQModal({
 	deliveredTo,
 	rfqDetails,
 	address,
+	ccColluguesProp,
+	invitedEmailsProp,
+	projectNameProp,
+	publishToReleventProp,
+	revealPriceProp,
+	id,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
@@ -37,6 +43,20 @@ function PostRFQModal({
 	const [projectName, changeProjectName] = useState("");
 	const [ccCollugues, updateCcCollugues] = useState([]);
 	const [isEmailModVisible, toggleEmailModal] = useState(false);
+
+	useEffect(() => {
+		changeProjectName(projectNameProp);
+		updateCcCollugues(ccColluguesProp);
+		updateInvited(invitedEmailsProp);
+		updatePublishToRelevant(publishToReleventProp);
+		updateRevealPrice(revealPriceProp);
+	}, [
+		projectNameProp,
+		ccColluguesProp,
+		invitedEmailsProp,
+		publishToReleventProp,
+		revealPriceProp,
+	]);
 	useEffect(() => {
 		if (modalType === "post") {
 			GetSupplierAndContractorEmails(
@@ -143,7 +163,8 @@ function PostRFQModal({
 				ccCollugues.forEach((email) => {
 					ccEmails.push(email.name);
 				});
-				const data = {
+
+				let data = {
 					isPublishToSuppliersNetwork: publishToRelevent,
 					isRevealPricesToBidders: revealPrice,
 					address: address,
@@ -155,7 +176,9 @@ function PostRFQModal({
 					cC_Colleagues: ccEmails,
 					projectName,
 				};
-
+				if (id !== "new") {
+					data = { ...data, rfqHeaderId: id, isEdit: true };
+				}
 				postRFQ(
 					data,
 					(success) => {

@@ -24,7 +24,7 @@ function RelatedMarket() {
 	});
 	return (
 		<div className={currentLocal.language === "English" ? "ppl" : "ppr"}>
-			<Link to="/createrfq">
+			<Link to="/createrfq/new">
 				<button className="orange_btn">
 					<img src={Plus} alt="Plus" className="mx-2" />
 					<span>{currentLocal.buyerHome.addRfq}</span>
