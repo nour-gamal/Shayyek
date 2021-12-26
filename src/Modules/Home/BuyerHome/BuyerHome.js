@@ -33,10 +33,10 @@ function BuyerHome() {
 	return (
 		<div>
 			<Row>
-				<Col md={12} xs={14} lg={18} className="mt-2">
+				<Col md={16} xs={14} lg={18} className="mt-2">
 					<RelatedMarket />
 				</Col>
-				<Col md={12} xs={10} lg={6}>
+				<Col md={8} xs={10} lg={6}>
 					{rfqDetails && (
 						<RFQInvitations
 							invitationCount={invitationCount}
