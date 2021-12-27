@@ -1,0 +1,16 @@
+.deleteRFQRowModal .button-secondary {
+	border-color: #003b6b;
+}
+.deleteRFQRowModal button {
+	width: 48%;
+	margin: 5px;
+}
+@media (max-width: 991px) {
+	.deleteRFQRowModal button {
+		width: 99%;
+		margin: 10px 5px;
+	}
+	.deleteRFQRowModal .buttonContainer {
+		flex-direction: column;
+	}
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
+import Garbage from "../../../../../Resources/Assets/garbage.svg";
 import { useSelector } from "react-redux";
 import PostRFQModal from "../PostRFQModal/PostRFQModal";
 import datePickerSuffix from "../../../../../Resources/Assets/datePickerSuffix.svg";
@@ -16,6 +17,7 @@ import {
 	getDeliverdOptions,
 	GetBuyerRFQ,
 } from "../../../network";
+import DeleteModal from "../DeleteModal/DeleteModal";
 import "./CreateRFQ.css";
 
 function CreateRFQ(props) {
@@ -44,6 +46,10 @@ function CreateRFQ(props) {
 	const [projectName, updateProjectName] = useState("");
 	const [revealPrice, updateRevealPrice] = useState(false);
 	const [publishToRelevant, updatePublishToRelevant] = useState(false);
+	const [hoveredRow, updateHoveredRow] = useState(null);
+	const [isDeleteRowModal, updateDeleteRowModal] = useState(false);
+	const [deletedIndex, updateDeletedIndex] = useState(null);
+	const [deletedRowsList, updateDeleteRowsList] = useState([]);
 	const { id } = props.match.params;
 	useEffect(() => {
 		let options = [];
@@ -80,7 +86,6 @@ function CreateRFQ(props) {
 					updateProjectName(success.data.projectName);
 					updateRevealPrice(success.data.isRevealPricesToBidders);
 					updatePublishToRelevant(success.data.isPublishToSuppliersNetwork);
-					console.log(success.data);
 				},
 				(fail) => {
 					console.log(fail);
@@ -94,21 +99,35 @@ function CreateRFQ(props) {
 		description: null,
 		quantity: null,
 		unit: null,
-		categories: null,
+		categoryId: null,
 	};
 
 	const { Option } = Select;
 
+	const onDeleteRow = () => {
+		let tableData = dataSource;
+		// tableData[deletedIndex] = { ...tableData[deletedIndex], actionStatus: 3 };
+		tableData.splice(deletedIndex, 1);
+		if (tableData[deletedIndex].rfqDetailId) {
+			updateDeleteRowsList([
+				...deletedRowsList,
+				tableData[deletedIndex].rfqDetailId,
+			]);
+		}
+		updateDataSource(tableData);
+		updateDeleteRowModal(false);
+	};
+
 	function handleCategoriesChange(optionId, rowIndex) {
 		let data = [...dataSource];
-		data[rowIndex].categories = optionId;
+		data[rowIndex].categoryId = optionId;
 		updateDataSource(data);
 	}
 
 	function changeCategoryForAll(optionId, optionName) {
 		let data = [...dataSource];
 		data.forEach((row) => {
-			row.categories = optionId;
+			row.categoryId = optionId;
 		});
 
 		updateDataSource(data);
@@ -151,6 +170,7 @@ function CreateRFQ(props) {
 				unit: "",
 				preferredBrands: "",
 				includeInstallation: false,
+				actionStatus: 1,
 			},
 		]);
 		updateItemAdded(true);
@@ -170,14 +190,14 @@ function CreateRFQ(props) {
 	function handleConfirm() {
 		updateModalType("post");
 
-		dataSource.forEach((data) => {
-			if (data.categories === undefined) {
-				updateNotContainCategory(true);
-			} else {
-				updateNotContainCategory(false);
-			}
+		const hasNoCat = dataSource.every((data) => {
+			return data.categoryId === undefined;
 		});
-
+		if (hasNoCat) {
+			updateNotContainCategory(true);
+		} else {
+			updateNotContainCategory(false);
+		}
 		if (
 			address.length === 0 ||
 			recievingOffersDate === null ||
@@ -320,23 +340,42 @@ function CreateRFQ(props) {
 			}
 		);
 	}, [currentLanguageId]);
+
 	const columns = [
 		{
 			title: currentLocal.buyerHome.item,
 			dataIndex: "item",
 			key: "item",
-			render: (item, record) => {
+			render: (item, record, index) => {
 				return (
-					<textarea
-						type="text"
-						onChange={(e) => {
-							let data = [...dataSource];
-							data[selectedRow].item = e.target.value;
-							updateDataSource(data);
-						}}
-						className="form-control"
-						value={item}
-					/>
+					<div className="d-flex">
+						<img
+							src={Garbage}
+							alt="Garbage"
+							className={
+								index === hoveredRow
+									? "cursorPointer showshowGarbage"
+									: "cursorPointer hideGarbage"
+							}
+							onClick={() => {
+								updateDeleteRowModal(true);
+								updateDeletedIndex(index);
+							}}
+						/>
+						<textarea
+							type="text"
+							onChange={(e) => {
+								let data = [...dataSource];
+								data[selectedRow].item = e.target.value;
+								updateDataSource(data);
+							}}
+							className="form-control"
+							value={item}
+							disabled={
+								id !== "new" && record.actionStatus !== 1 ? true : false
+							}
+						/>
+					</div>
 				);
 			},
 		},
@@ -355,6 +394,7 @@ function CreateRFQ(props) {
 						}}
 						className="form-control"
 						value={description}
+						disabled={id !== "new" && record.actionStatus !== 1 ? true : false}
 					/>
 				);
 			},
@@ -374,6 +414,7 @@ function CreateRFQ(props) {
 						}}
 						className="form-control"
 						value={unit}
+						disabled={id !== "new" && record.actionStatus !== 1 ? true : false}
 					/>
 				);
 			},
@@ -394,6 +435,7 @@ function CreateRFQ(props) {
 						}}
 						className={"form-control"}
 						value={quantity}
+						disabled={id !== "new" && record.actionStatus !== 1 ? true : false}
 					/>
 				);
 			},
@@ -413,18 +455,20 @@ function CreateRFQ(props) {
 						}}
 						className="form-control"
 						value={preferredBrands}
+						disabled={id !== "new" && record.actionStatus !== 1 ? true : false}
 					/>
 				);
 			},
 		},
 		{
 			title: currentLocal.buyerHome.categories,
-			dataIndex: "categories",
-			key: "categories",
+			dataIndex: "categoryId",
+			key: "categoryId",
 			render: (categoryId, record, rowIndex) => {
 				return (
 					<Select
 						style={{ width: "100%" }}
+						defaultValue={categoryId}
 						placeholder={
 							allCategoryName
 								? allCategoryName
@@ -434,12 +478,15 @@ function CreateRFQ(props) {
 							handleCategoriesChange(optionId, rowIndex);
 						}}
 						className="selectCategory"
+						disabled={id !== "new" && record.actionStatus !== 1 ? true : false}
 					>
-						{categoriesOption.map((category, key) => (
-							<Option value={category.id} key={key}>
-								{category.name}
-							</Option>
-						))}
+						{categoriesOption.map((category, key) => {
+							return (
+								<Option value={category.id} key={key}>
+									{category.name}
+								</Option>
+							);
+						})}
 					</Select>
 				);
 			},
@@ -451,6 +498,7 @@ function CreateRFQ(props) {
 			render: (includeInstallation, record, rowIndex) => {
 				return (
 					<Checkbox
+						disabled={id !== "new" && record.actionStatus !== 1 ? true : false}
 						onChange={(checkVal) => {
 							handleIncludeInstallation(checkVal, rowIndex);
 						}}
@@ -466,6 +514,7 @@ function CreateRFQ(props) {
 			render: (notes, record) => {
 				return (
 					<textarea
+						disabled={id !== "new" && record.actionStatus !== 1 ? true : false}
 						type="text"
 						onChange={(e) => {
 							let data = [...dataSource];
@@ -492,11 +541,13 @@ function CreateRFQ(props) {
 								id="actual-btn"
 								onChange={fileHandler}
 								className="d-none"
+								disabled={id !== "new" ? true : false}
 							/>
 
 							<label htmlFor="actual-btn" className="primary-color">
 								<img src={importIcon} alt="importIcon" className="mx-3" />
 							</label>
+
 							<label>{currentLocal.buyerHome.importExcelFile}</label>
 						</div>
 						<div className="mb-3">
@@ -523,6 +574,7 @@ function CreateRFQ(props) {
 									changeCategoryForAll(optionId, record.children);
 								}}
 								className={notContainCategory ? "alertSign" : ""}
+								disabled={id !== "new" ? true : false}
 							>
 								{categoriesOption.map((category, key) => {
 									return (
@@ -537,7 +589,11 @@ function CreateRFQ(props) {
 							<label className="mx-2 primary-color">
 								{currentLocal.buyerHome.installAll}
 							</label>
-							<Checkbox onChange={handleInstallAll} checked={installAll} />
+							<Checkbox
+								disabled={id !== "new" ? true : false}
+								onChange={handleInstallAll}
+								checked={installAll}
+							/>
 						</div>
 					</div>
 				</div>
@@ -547,6 +603,7 @@ function CreateRFQ(props) {
 					</Alert>
 				)}
 				<Table
+					key={dataSource}
 					indentSize={300}
 					columns={columns}
 					dataSource={dataSource}
@@ -556,6 +613,12 @@ function CreateRFQ(props) {
 						return {
 							onClick: (event) => {
 								updateSelectedRow(rowIndex);
+							},
+							onMouseEnter: (event) => {
+								updateHoveredRow(rowIndex);
+							},
+							onMouseLeave: (event) => {
+								updateHoveredRow(null);
 							},
 						};
 					}}
@@ -573,6 +636,7 @@ function CreateRFQ(props) {
 									onChange={handleDeliveredTo}
 									defaultValue={deliveredTo}
 									className={"secondary-color"}
+									disabled={id !== "new" ? true : false}
 								/>
 							</div>
 							<div className="d-flex align-items-center">
@@ -590,6 +654,7 @@ function CreateRFQ(props) {
 										updateAddress(e.target.value);
 									}}
 									value={address}
+									disabled={id !== "new" ? true : false}
 								/>
 							</div>
 							<div className="my-3 cursorPointer">
@@ -608,6 +673,7 @@ function CreateRFQ(props) {
 									{currentLocal.buyerHome.deadlineRecievingOffers}
 								</label>
 								<DatePicker
+									disabled={id !== "new" ? true : false}
 									suffixIcon={<img src={datePickerSuffix} alt="suffixIcon" />}
 									onChange={(date, dateString) => {
 										setOffersDate(dateString);
@@ -637,7 +703,7 @@ function CreateRFQ(props) {
 										disabledDate={disabledDeliveryDate}
 										placeholder={currentLocal.buyerHome.selectDate}
 										disabled={
-											deliveryDate ? false : recievingOffersDate ? false : true
+											id !== "new" ? true : recievingOffersDate ? false : true
 										}
 										className={
 											alert && deliveryDate === null
@@ -669,7 +735,17 @@ function CreateRFQ(props) {
 							revealPriceProp={revealPrice}
 							publishToReleventProp={publishToRelevant}
 							id={id}
+							deletedRowsList={deletedRowsList}
 						/>
+						{isDeleteRowModal && (
+							<DeleteModal
+								isModalVisible={isDeleteRowModal}
+								onCancel={() => {
+									updateDeleteRowModal(false);
+								}}
+								onDeleteRow={onDeleteRow}
+							/>
+						)}
 					</div>
 				</div>
 			</div>

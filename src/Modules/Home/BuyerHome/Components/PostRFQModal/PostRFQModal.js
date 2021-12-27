@@ -30,6 +30,7 @@ function PostRFQModal({
 	publishToReleventProp,
 	revealPriceProp,
 	id,
+	deletedRowsList,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
@@ -177,7 +178,12 @@ function PostRFQModal({
 					projectName,
 				};
 				if (id !== "new") {
-					data = { ...data, rfqHeaderId: id, isEdit: true };
+					data = {
+						...data,
+						rfqHeaderId: id,
+						isEdit: true,
+						deletedRFQDetails: deletedRowsList,
+					};
 				}
 				postRFQ(
 					data,
@@ -231,6 +237,7 @@ function PostRFQModal({
 								}
 								value={projectName}
 								onChange={(e) => changeProjectName(e.target.value)}
+								disabled={id !== "new" ? true : false}
 							/>
 						</div>
 					)}
@@ -246,12 +253,15 @@ function PostRFQModal({
 							closeOnSelect={true}
 							name="emails"
 							search={true}
+							disabled={id !== "new" ? true : false}
 							placeholder={currentLocal.buyerHome.selectSupplierEmail}
 						/>
 						<span
 							className="cursorPointer"
 							onClick={() => {
-								toggleEmailModal(!isEmailModVisible);
+								if (id === "new") {
+									toggleEmailModal(!isEmailModVisible);
+								}
 							}}
 						>
 							<img src={PlusCircle} alt="PlusCircle" className="mx-2" />
@@ -298,6 +308,7 @@ function PostRFQModal({
 										updatePublishToRelevant(checkVal.target.checked);
 									}}
 									checked={publishToRelevent}
+									disabled={id !== "new" ? true : false}
 								/>
 								<label className="mx-2 primary-color">
 									{currentLocal.buyerHome.publishToNetwork}
@@ -309,6 +320,7 @@ function PostRFQModal({
 										updateRevealPrice(checkVal.target.checked);
 									}}
 									checked={revealPrice}
+									disabled={id !== "new" ? true : false}
 								/>
 								<label className="mx-2 primary-color">
 									{currentLocal.buyerHome.revealPrices}

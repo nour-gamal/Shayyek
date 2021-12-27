@@ -122,38 +122,35 @@ section {
 	position: static !important;
 	margin-top: 50px !important;
 }
-.ant-modal-body {
+
+.modal-lg .ant-modal-body {
 	height: 85vh !important;
 	overflow: auto;
 	padding: 0;
 	padding-bottom: 42px;
 	padding-top: 42px;
 }
+
 .ant-modal-body::-webkit-scrollbar {
 	display: none;
 }
 
 .modal-sm {
-	width: 45vw !important;
+	width: 45% !important;
+}
+.modal-sm .ant-modal-content {
 	margin: 0 auto;
 	border-radius: 20px;
-	padding: 10px;
+	padding: 10px 50px;
+	height: fit-content !important;
 }
-
-/* .modal-lg .ant-modal-content,
-.modal-sm .ant-modal-content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-} */
 
 .modal-lg .ant-modal-header,
 .modal-sm .ant-modal-header {
 	display: none;
 }
 .primary-color {
-	color: #003b6b;
+	color: #003b6b !important;
 }
 .primary-color-light {
 	color: #bce0fd;
@@ -419,13 +416,15 @@ thead:hover {
 	.modal-lg .ant-modal-content {
 		padding: 10px 20px;
 	}
-	.ant-modal-body {
-		height: max-content;
-	}
+
 	.modal-lg .ant-modal-content {
 		width: 100% !important;
 	}
-	.modal-sm .ant-modal-content {
+	.modal-sm {
 		width: 80% !important;
+		padding: 10px;
+	}
+	.ant-modal-body {
+		padding: 0 !important;
 	}
 }
