@@ -1,23 +1,16 @@
-.landingPage {height: fit-content;
-	background-image: url("../../../../../Resources/Assets/AdobeStock_63818065_Preview.png");
+.landingPage {
+	height: fit-content;
+	background-image: url("../../../../../Resources/Assets/landingPageImage.png");
 	background-attachment: bottom;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	position: relative;
 }
-.overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #003b6b;
-	opacity: 0.53;
-}
+
 .landingPage .liveBoxContainer {
 	padding-bottom: 20px;
-	}
-.landingPage .button{
+}
+.landingPage .button {
 	padding-top: 20px;
 }
 .landingPage .button button {
@@ -73,13 +66,11 @@
 	left: 24px;
 	margin-right: 16px;
 }
-.landingPage h1
-{
+.landingPage h1 {
 	font-weight: 700 !important;
 	margin-bottom: 0;
 }
-.landingPage h3
-{
+.landingPage h3 {
 	font-weight: 700 !important;
 }
 .landingPage input {
@@ -103,9 +94,8 @@
 	box-shadow: none;
 	border: none;
 }
-.landingPage .empty-text p
-{
-color: #707070;
+.landingPage .empty-text p {
+	color: #707070;
 }
 .landingPage input:focus-visible {
 	padding-top: 0.75rem !important;
@@ -166,7 +156,6 @@ color: #707070;
 .landingPage .searchName {
 	padding-left: 65px;
 	padding-top: 10px;
-
 }
 .landingPage .stars {
 	display: flex;
@@ -184,8 +173,7 @@ color: #707070;
 	margin-left: 30px;
 }
 @media only screen and (max-width: 768px) {
-	.landingPage h1
-	{
+	.landingPage h1 {
 		padding-top: 0 !important;
 	}
 	.landingPage .search {
@@ -219,7 +207,7 @@ color: #707070;
 	}
 	.landingPage {
 		height: fit-content;
-	position: relative;
+		position: relative;
 	}
 	/* @-moz-document url-prefix() {
 		.landingPage {
@@ -260,7 +248,6 @@ color: #707070;
 
 		font-size: 0.75rem;
 	}
-
 
 	.landingPage input:focus {
 		width: 95.2% !important;
@@ -312,10 +299,10 @@ color: #707070;
 	.landingPage .lastUpdatStock p {
 		font-size: 14px !important;
 	}
-	.landingPage .searchResult  {
+	.landingPage .searchResult {
 		width: 90.7%;
 		position: absolute;
-		top:56%;
+		top: 56%;
 		left: 3px;
 		padding: 30px;
 		background-color: #fff;
@@ -324,25 +311,24 @@ color: #707070;
 		border-bottom-right-radius: 15px;
 		border-bottom-left-radius: 15px;
 		box-shadow: 0 3px 6px #00000029;
-	margin-top: 6px;
+		margin-top: 6px;
 	}
-		.landingPage .SearchShayyek {
-			position: absolute;
-			top: 48px !important;
-			left: 16px;
-			margin-right: 16px;
-		}
+	.landingPage .SearchShayyek {
+		position: absolute;
+		top: 48px !important;
+		left: 16px;
+		margin-right: 16px;
+	}
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
 	.landingPage .f-27 {
 		font-size: 21px !important;
 	}
-	.landingPage .searchResult
-	{
+	.landingPage .searchResult {
 		left: 3px;
-		width: 92.8% ;
-		top: 68%
+		width: 92.8%;
+		top: 68%;
 	}
 	.landingPage .SearchShayyek {
 		position: absolute;
@@ -397,7 +383,7 @@ color: #707070;
 	}
 	.landingPage {
 		height: fit-content;
-	position: relative;
+		position: relative;
 	}
 	.landingPage .button button {
 		background-color: #fc6b5e;
@@ -413,7 +399,6 @@ color: #707070;
 		cursor: default;
 	}
 	.landingPage .liveBoxContainer {
-	padding-bottom: 20px;
+		padding-bottom: 20px;
 	}
-	
 }
