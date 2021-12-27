@@ -80,7 +80,7 @@ function CreateRFQ(props) {
 					updateAddress(success.data.address);
 					setOffersDate(success.data.deadlineDate);
 					setDeliveryDate(success.data.deliveryDate);
-					// updateDeliveredTo();
+					updateDeliveredTo(success.data.deliveryToId);
 					updateCCList(success.data.rfQ_CC_Colleagues);
 					updateInvitedEmails(success.data.rfqInvitedEmails);
 					updateProjectName(success.data.projectName);
