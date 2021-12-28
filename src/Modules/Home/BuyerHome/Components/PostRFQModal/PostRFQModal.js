@@ -58,6 +58,7 @@ function PostRFQModal({
 		publishToReleventProp,
 		revealPriceProp,
 	]);
+
 	useEffect(() => {
 		if (modalType === "post") {
 			GetSupplierAndContractorEmails(
@@ -275,9 +276,13 @@ function PostRFQModal({
 						{modalType === "post"
 							? invited.map((invitedOption, selectedIndex) => (
 									<span className="orangeCapsule m-2 f-14" key={selectedIndex}>
-										<span className="mx-2">{invitedOption.name}</span>
+										<span className="mx-2">
+											{invitedOption.name ? invitedOption.name : invitedOption}
+										</span>
 										<img
-											id={invitedOption.name}
+											id={
+												invitedOption.name ? invitedOption.name : invitedOption
+											}
 											src={WhiteCross}
 											alt="WhiteCross"
 											className="cursorPointer"
@@ -285,18 +290,25 @@ function PostRFQModal({
 										/>
 									</span>
 							  ))
-							: ccCollugues.map((ccOptions, selectedIndex) => (
-									<span className="orangeCapsule m-2 f-14" key={selectedIndex}>
-										<span className="mx-2">{ccOptions.name}</span>
-										<img
-											id={ccOptions.name}
-											src={WhiteCross}
-											alt="WhiteCross"
-											className="cursorPointer"
-											onClick={onRemoveSelected}
-										/>
-									</span>
-							  ))}
+							: ccCollugues.map((ccOptions, selectedIndex) => {
+									return (
+										<span
+											className="orangeCapsule m-2 f-14"
+											key={selectedIndex}
+										>
+											<span className="mx-2">
+												{ccOptions.name ? ccOptions.name : ccOptions}
+											</span>
+											<img
+												id={ccOptions.name ? ccOptions.name : ccOptions}
+												src={WhiteCross}
+												alt="WhiteCross"
+												className="cursorPointer"
+												onClick={onRemoveSelected}
+											/>
+										</span>
+									);
+							  })}
 					</div>
 				</div>
 				<div className="checkbox-area">

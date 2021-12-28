@@ -15,6 +15,7 @@ function AuthHeader({
 	alert,
 	login,
 	firstName,
+	parent,
 }) {
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -57,7 +58,9 @@ function AuthHeader({
 	}, [currentLanguageId, currentLocal.registration.userType]);
 
 	return (
-		<div className="AuthHeader ppl ppr">
+		<div
+			className={parent === "register" ? "AuthHeader" : "AuthHeader ppl ppr"}
+		>
 			{alert && !firstName && (
 				<Row>
 					<Alert

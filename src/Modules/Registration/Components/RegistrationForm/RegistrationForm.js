@@ -642,6 +642,7 @@ function RegistrationForm() {
 				alert={alert}
 				fistName={firstName}
 				lastName={lastName}
+				parent={"register"}
 			/>
 			<Row>
 				<Col
@@ -1366,7 +1367,7 @@ function RegistrationForm() {
 									!fileName &&
 									individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && (
 										<>
-											{currentLocal.registration.pleaseUploadCommercialRecord}
+											{currentLocal.registration.pleaseUploadCommercialRegister}
 										</>
 									)}
 							</p>
@@ -1409,7 +1410,7 @@ function RegistrationForm() {
 												<div>
 													{fileName
 														? fileName
-														: currentLocal.registration.commercialRecord}
+														: currentLocal.registration.commercialRegister}
 												</div>
 												<div>
 													<img src={uploadImg} alt="uploadImg" />{" "}

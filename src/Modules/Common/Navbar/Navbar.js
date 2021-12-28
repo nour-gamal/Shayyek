@@ -3,7 +3,6 @@ import { Navbar } from "react-bootstrap";
 import ShayyekLogoDarkEn from "../../../Resources/Assets/shayyekLogoDark.png";
 import ShayyekLogoLightEn from "../../../Resources/Assets/shayyekLogoLight.png";
 import ShayyekLogoDarkAr from "../../../Resources/Assets/ShayyekLogoDarkAr.png";
-import ShayyekLogoLightAr from "../../../Resources/Assets/ShayyekLogoLightAr.svg";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import languages from "../../../Resources/Assets/languages.svg";
@@ -45,7 +44,7 @@ function Navbarr({ navState, verifayState, transparent }) {
 				) : currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057" ? (
 					<img src={ShayyekLogoLightEn} alt="ShayyekLogoLight" />
 				) : (
-					<img src={ShayyekLogoLightAr} alt="ShayyekLogoLight" />
+					<img src={ShayyekLogoDarkAr} alt="ShayyekLogoLight" />
 				)}
 			</Link>
 

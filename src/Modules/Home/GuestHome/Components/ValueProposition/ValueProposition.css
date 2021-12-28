@@ -1,58 +1,39 @@
-.valueProposition 
-{
-    padding-top: 107px;
+.valueProposition {
+	padding-top: 50px;
 }
-.valueProposition h1
-{
-    color:#003B6B;
-    padding-bottom: 42px;
-    
+.valueProposition h1 {
+	color: #003b6b;
+	padding-bottom: 42px;
 }
 
-.valueProposition .cardContainer
-{
-    background-color: #003B6B;
-    padding:34px 28px;
-    margin-left: 73px;
+.valueProposition .cardContainer {
+	background-color: #003b6b;
+	padding: 34px 28px;
+	width: 90%;
+	margin: 0 auto;
+	min-height: 450px;
 }
-.valueProposition .cardContainer p{
-    margin-top: 21px;
-    min-height: 151px;
+.valueProposition .cardContainer p {
+	margin-top: 21px;
 }
-.valueProposition .cardContainer h2{
-    margin-top: 32px;
+.valueProposition .cardContainer h2 {
+	margin-top: 32px;
 }
-.valueProposition .cardContainer img{
-    width: 110px;
+.valueProposition .cardContainer img {
+	width: 110px;
 }
-@media only screen and (max-width: 768px) {
-    .valueProposition .cardContainer
-    {
-        margin-left: 25px;
-        margin-bottom: 20px;
-        width: 85%;
-    }
-    .valueProposition h1{
-        margin-left: 12px;
-    }
-
-  }
-  @media  (min-width: 768px) and (max-width: 991px) {
-
-    .valueProposition .cardContainer
-    {
-        margin-left: 29px;
-        margin-bottom: 20px;
-        width: 90%;
-        min-height: 550px;
-    }
-
-/* .valueProposition .cardSection
-{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    justify-content: center;
-} */
-  } 
+@media (min-width: 769px) and (max-width: 991px) {
+	.valueProposition .cardContainer {
+		min-height: 600px;
+	}
+}
+@media (max-width: 768px) {
+	.valueProposition .cardContainer {
+		margin-left: 25px;
+		margin-bottom: 20px;
+		width: 85%;
+	}
+	.valueProposition h1 {
+		margin-left: 12px;
+	}
+}

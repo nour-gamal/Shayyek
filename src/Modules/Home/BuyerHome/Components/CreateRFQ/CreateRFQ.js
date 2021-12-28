@@ -634,7 +634,7 @@ function CreateRFQ(props) {
 								<Radio.Group
 									options={deliveredToOptions}
 									onChange={handleDeliveredTo}
-									defaultValue={deliveredTo}
+									value={deliveredTo}
 									className={"secondary-color"}
 									disabled={id !== "new" ? true : false}
 								/>

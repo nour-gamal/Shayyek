@@ -18,7 +18,7 @@ export const en = {
 		governorate: "Governorate",
 		address: "Address",
 		companyPhoneNumber: "Company Phone Number",
-		commercialRecord: "Commercial Record ",
+		commercialRegister: "Commercial Register ",
 		uploadCompanyLogo: "Upload Company Logo( Optional )",
 		optional: "Optional",
 		acceptTermsOfServiceAndPrivacyPolicy:
@@ -55,7 +55,7 @@ export const en = {
 		pleaseFillCountry: "* please Fill Country",
 		pleaseChooseGovernorate: "* Please Choose Governorate",
 		pleaseFillAddress: "* please Fill Address",
-		pleaseUploadCommercialRecord: "* please Upload CommercialRecord",
+		pleaseUploadCommercialRegister: "* please Upload Commercial Register",
 		pleaseChooseYourRole: "* please Choose Your Role  ",
 		uploadValidImage: "Please upload a vaild image",
 		regSuccessTitle: "Successfully Registered",
