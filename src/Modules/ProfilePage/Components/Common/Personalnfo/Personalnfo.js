@@ -4,9 +4,9 @@ import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
 import "./Personalnfo.css";
 
-function Personalnfo() {
+function Personalnfo({ parent }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-
+	const { authorization } = useSelector((state) => state.authorization);
 	return (
 		<div className="PersonalInfo">
 			<div>
@@ -16,42 +16,60 @@ function Personalnfo() {
 					}
 					alt="profile"
 				/>
-				<div className="info">
-					<div className="fw-600">Mohamed Ali</div>
-					<ReactStars
-						edit={false}
-						count={5}
-						value={3}
-						size={24}
-						activeColor="#ffd700"
-						classNames={
-							currentLocal.language === "English" ? "ltrStars" : "rtlStars"
-						}
-					/>
-					{/* <progress id="file" value="40" max="100">
-					40%
-				</progress> */}
-					<span className="progressContainer">
-						<ProgressBar now={30} />
-						<span className="f-14">
-							{currentLocal.profilePage.completedPercentage}
-						</span>
-					</span>
-					<div className="f-10">{currentLocal.profilePage.addMoreWork}</div>
+				<div className="info mx-4">
+					<div className="fw-600">{authorization.fullName}</div>
+
+					{parent === "buyerAdmin" ? (
+						<>
+							<div className="my-1">{authorization.email}</div>
+							<div className="my-1 mobile">{authorization.mobile}</div>
+						</>
+					) : (
+						<>
+							<ReactStars
+								edit={false}
+								count={5}
+								value={3}
+								size={24}
+								activeColor="#ffd700"
+								classNames={
+									currentLocal.language === "English" ? "ltrStars" : "rtlStars"
+								}
+							/>
+
+							<span className="progressContainer">
+								<ProgressBar now={30} />
+								<span className="f-14">
+									{currentLocal.profilePage.completedPercentage}
+								</span>
+							</span>
+							<div className="f-10">{currentLocal.profilePage.addMoreWork}</div>
+						</>
+					)}
 				</div>
 			</div>
-			<div
-				className={
-					currentLocal.language === "English" ? "actions left" : "actions right"
-				}
-			>
-				<button className="popup-button-secondary mx-2">
-					{currentLocal.profilePage.reject}
-				</button>
-				<button className="popup-button-primary mx-2">
-					{currentLocal.profilePage.accept}
-				</button>
-			</div>
+			{parent === "buyerAdmin" ? (
+				<>
+					<button className="orange_btn">
+						{currentLocal.profilePage.manageCompany}
+					</button>
+				</>
+			) : (
+				<div
+					className={
+						currentLocal.language === "English"
+							? "actions left"
+							: "actions right"
+					}
+				>
+					<button className="popup-button-secondary mx-2">
+						{currentLocal.profilePage.reject}
+					</button>
+					<button className="popup-button-primary mx-2">
+						{currentLocal.profilePage.accept}
+					</button>
+				</div>
+			)}
 		</div>
 	);
 }

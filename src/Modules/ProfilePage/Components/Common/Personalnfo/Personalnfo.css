@@ -2,9 +2,15 @@
 	padding: 20px 0;
 	display: flex;
 	flex-wrap: wrap;
-	width: 98%;
+	justify-content: space-between;
 }
-
+.PersonalInfo .orange_btn {
+	height: fit-content;
+	padding: 10px;
+}
+.PersonalInfo .mobile {
+	color: #2699fb;
+}
 .PersonalInfo > div:first-of-type {
 	display: flex;
 	flex-wrap: wrap;

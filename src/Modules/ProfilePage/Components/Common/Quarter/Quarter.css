@@ -1,0 +1,14 @@
+.quarter .doughnutContainer {
+	width: 200px;
+	position: relative;
+}
+.quarter .doughnutText {
+	position: absolute;
+	top: 46%;
+	left: 33%;
+}
+
+.quarter .percentage {
+	color: #fc6b5e;
+    
+}

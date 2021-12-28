@@ -125,6 +125,8 @@ export const ar = {
 		prevWork: "الاعمال السابقه",
 		reject: "ارفض",
 		accept: "اقبل",
+		manageCompany: "تحكم في شركتك",
+		savingUpTo: "توفيرك يصل الي",
 	},
 	offerTable: {
 		name: "الاسم",

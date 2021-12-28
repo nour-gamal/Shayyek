@@ -15,7 +15,7 @@ function UserNav({ loginState }) {
 	const menu = (
 		<Menu>
 			<Menu.Item key="0">
-				<Link to="/me/name">{currentLocal.navbar.viewProfile}</Link>
+				<Link to={`/me/${authorization.fullName}`}>{currentLocal.navbar.viewProfile}</Link>
 			</Menu.Item>
 			<Menu.Item
 				key="1"
@@ -53,7 +53,7 @@ function UserNav({ loginState }) {
 						}
 					>
 						<Link
-							to="/me/name"
+							to={`/me/${authorization.fullName}`}
 							data-toggle="tooltip"
 							title={authorization.fullName}
 							className="nameContainer"
@@ -75,7 +75,7 @@ function UserNav({ loginState }) {
 							<img src={arrowDown} alt="arrowDown" />
 						</a>
 					</Dropdown>
-					<Link to="/me/name">
+					<Link to={`/me/${authorization.fullName}`}>
 						<img
 							className={"avatar rounded-circle d-flex align-items-center mx-4"}
 							src={

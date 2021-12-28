@@ -129,6 +129,8 @@ export const en = {
 		prevWork: "Previous work",
 		reject: "Reject",
 		accept: "Accept",
+		manageCompany: "Manage your company",
+		savingUpTo: "Saving up to",
 	},
 	offerTable: {
 		name: "Name",
