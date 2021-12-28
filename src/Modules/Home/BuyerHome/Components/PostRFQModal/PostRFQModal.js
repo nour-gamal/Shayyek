@@ -160,10 +160,10 @@ function PostRFQModal({
 				const invitedEmails = [];
 				const ccEmails = [];
 				invited.forEach((email) => {
-					invitedEmails.push(email.name);
+					invitedEmails.push(email.name ? email.name : email);
 				});
 				ccCollugues.forEach((email) => {
-					ccEmails.push(email.name);
+					ccEmails.push(email.name ? email.name : email);
 				});
 
 				let data = {
@@ -254,15 +254,12 @@ function PostRFQModal({
 							closeOnSelect={true}
 							name="emails"
 							search={true}
-							disabled={id !== "new" ? true : false}
 							placeholder={currentLocal.buyerHome.selectSupplierEmail}
 						/>
 						<span
 							className="cursorPointer"
 							onClick={() => {
-								if (id === "new") {
-									toggleEmailModal(!isEmailModVisible);
-								}
+								toggleEmailModal(!isEmailModVisible);
 							}}
 						>
 							<img src={PlusCircle} alt="PlusCircle" className="mx-2" />

@@ -190,7 +190,7 @@ export const en = {
 		importExcelFile: "Import Excel File",
 		addNewItem: "Add New Item",
 		ccCollugues: "CC Collugues",
-		item: "Item",
+		item: "Item No",
 		unit: "Unit",
 		description: "Description",
 		quantity: "Quantity",

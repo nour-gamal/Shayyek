@@ -50,6 +50,7 @@ function CreateRFQ(props) {
 	const [isDeleteRowModal, updateDeleteRowModal] = useState(false);
 	const [deletedIndex, updateDeletedIndex] = useState(null);
 	const [deletedRowsList, updateDeleteRowsList] = useState([]);
+	const [indexState, updateIndexState] = useState(false);
 	const { id } = props.match.params;
 	useEffect(() => {
 		let options = [];
@@ -116,6 +117,7 @@ function CreateRFQ(props) {
 		}
 		updateDataSource(tableData);
 		updateDeleteRowModal(false);
+		updateIndexState(true);
 	};
 
 	function handleCategoriesChange(optionId, rowIndex) {
@@ -163,7 +165,7 @@ function CreateRFQ(props) {
 			...dataSource,
 			{
 				key,
-				item: "",
+				item: null,
 				notes: "",
 				description: "",
 				quantity: 1,
@@ -173,6 +175,7 @@ function CreateRFQ(props) {
 				actionStatus: 1,
 			},
 		]);
+		updateIndexState(true);
 		updateItemAdded(true);
 		setTimeout(() => {
 			updateItemAdded(false);
@@ -225,20 +228,20 @@ function CreateRFQ(props) {
 				//Loop to indicate the index of each row
 				resp.rows[0].forEach((item, itemIndex) => {
 					switch (item.toLowerCase().trim()) {
-						case "item":
-						case "Item No.":
-						case "code":
-						case "code No.":
-						case "section":
-						case "section No.":
-						case "رقم":
-						case "الرقم":
-						case "البند":
-						case "بند":
-						case "رقم البند": {
-							index.item = itemIndex;
-							break;
-						}
+						// case "item":
+						// case "Item No.":
+						// case "code":
+						// case "code No.":
+						// case "section":
+						// case "section No.":
+						// case "رقم":
+						// case "الرقم":
+						// case "البند":
+						// case "بند":
+						// case "رقم البند": {
+						// 	index.item = itemIndex;
+						// 	break;
+						// }
 						case "description":
 						case "specifications":
 						case "specs":
@@ -310,6 +313,7 @@ function CreateRFQ(props) {
 						}
 					});
 				});
+				updateIndexState(true);
 			}
 		});
 	};
@@ -328,6 +332,7 @@ function CreateRFQ(props) {
 				includeInstallation: false,
 			});
 		}
+		updateIndexState(true);
 		updateDataSource(data);
 
 		getCategories(
@@ -341,6 +346,16 @@ function CreateRFQ(props) {
 		);
 	}, [currentLanguageId]);
 
+	useEffect(() => {
+		if (indexState) {
+			updateIndexState(false);
+			let tableData = dataSource;
+			tableData.forEach((data, dataIndex) => {
+				data.item = dataIndex;
+			});
+			updateDataSource(tableData);
+		}
+	}, [indexState, dataSource]);
 	const columns = [
 		{
 			title: currentLocal.buyerHome.item,
@@ -362,7 +377,7 @@ function CreateRFQ(props) {
 								updateDeletedIndex(index);
 							}}
 						/>
-						<textarea
+						{/* <textarea
 							type="text"
 							onChange={(e) => {
 								let data = [...dataSource];
@@ -374,7 +389,8 @@ function CreateRFQ(props) {
 							disabled={
 								id !== "new" && record.actionStatus !== 1 ? true : false
 							}
-						/>
+						/> */}
+						<div>{item}</div>
 					</div>
 				);
 			},
