@@ -8,7 +8,7 @@ function Personalnfo({ parent }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
 	return (
-		<div className="PersonalInfo">
+		<div className="PersonalInfo d-flex align-items-center">
 			<div>
 				<img
 					src={
@@ -50,7 +50,7 @@ function Personalnfo({ parent }) {
 			</div>
 			{parent === "buyerAdmin" ? (
 				<>
-					<button className="orange_btn">
+					<button className="orange_btn mx-2">
 						{currentLocal.profilePage.manageCompany}
 					</button>
 				</>

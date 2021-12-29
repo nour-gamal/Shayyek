@@ -24,7 +24,7 @@ function ProfilePage() {
 	//  Admin:"274c0b77-90cf-4ee3-976e-01e409413057",
 	//  Employee:"4940d4e9-8bfd-467d-a9d9-20f719cdff93"
 	// };
-	console.log(authorization);
+
 	return (
 		<section>
 			<Navbar />

@@ -1,14 +1,21 @@
-.quarter .doughnutContainer {
+.quarterCard {
+	box-shadow: 0 3px 6px #00000029;
+	margin: 10px;
+}
+.quarterCard > div:not(.doughnutContainer) {
+	padding: 20px;
+}
+.quarterCard .doughnutContainer {
 	width: 200px;
 	position: relative;
+	margin: auto;
 }
-.quarter .doughnutText {
+.quarterCard .doughnutText {
 	position: absolute;
 	top: 46%;
 	left: 33%;
 }
 
-.quarter .percentage {
+.quarterCard .percentage {
 	color: #fc6b5e;
-    
 }

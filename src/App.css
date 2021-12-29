@@ -18,7 +18,9 @@ section {
 .f-21 {
 	font-size: 21.88px;
 }
-
+.f-18 {
+	font-size: 18px;
+}
 .f-17 {
 	font-size: 17.5px;
 }
@@ -70,6 +72,55 @@ section {
 }
 .pl-0 {
 	padding-left: 0 !important;
+}
+.pr-1 {
+	padding-right: 0.25rem;
+}
+.pr-2 {
+	padding-right: 0.5rem;
+}
+.pr-3 {
+	padding-right: 0.75rem;
+}
+.pr-4 {
+	padding-right: 15rem;
+}
+.pl-1 {
+	padding-right: 0.25rem;
+}
+.pl-2 {
+	padding-right: 0.5rem;
+}
+.pl-3 {
+	padding-right: 0.75rem;
+}
+.pl-4 {
+	padding-right: 15rem;
+}
+
+.mr-1 {
+	margin-right: 0.25rem;
+}
+.mr-2 {
+	margin-right: 0.5rem;
+}
+.mr-3 {
+	margin-right: 0.75rem;
+}
+.mr-4 {
+	margin-right: 15rem;
+}
+.ml-1 {
+	margin-right: 0.25rem;
+}
+.ml-2 {
+	margin-right: 0.5rem;
+}
+.ml-3 {
+	margin-right: 0.75rem;
+}
+.ml-4 {
+	margin-right: 15rem;
 }
 
 .input-field {
