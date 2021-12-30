@@ -1,3 +1,9 @@
+.colorLabel > div:first-of-type {
+	width: 20px;
+	height: 20px;
+	background: red;
+}
+
 @media (max-width: 767px) {
 	.margin-auto {
 		width: 100%;
