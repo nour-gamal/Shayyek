@@ -14,6 +14,8 @@ function MyRFQs({ buyerRFQs }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [singleRFQModalState, updateSingleRFQModal] = useState(false);
+	const [rfqId, updateRfqId] = useState(null);
+	const [companyName, updateCompanyName] = useState("");
 	const shareOffer = () => {
 		alert("bye");
 	};
@@ -31,6 +33,7 @@ function MyRFQs({ buyerRFQs }) {
 			</Menu.Item>
 		</Menu>
 	);
+
 	const endMenu = (
 		<Menu>
 			<Menu.Item
@@ -146,13 +149,26 @@ function MyRFQs({ buyerRFQs }) {
 							setCurrentPage(page);
 						},
 					}}
+					onRow={(record, rowIndex) => {
+						return {
+							onClick: (event) => {
+								updateRfqId(record.rfqId);
+								updateCompanyName(record.companyName);
+							},
+						};
+					}}
 				/>
 			</PDFExport>
 
-			<SingleRFQModal
-				isModalVisible={singleRFQModalState}
-				onCancel={handleCancelRFQModal}
-			/>
+			{singleRFQModalState && (
+				<SingleRFQModal
+					isModalVisible={singleRFQModalState}
+					onCancel={handleCancelRFQModal}
+					rfqId={rfqId}
+					parent="buyerProfile"
+					companyName={companyName}
+				/>
+			)}
 		</div>
 	);
 }

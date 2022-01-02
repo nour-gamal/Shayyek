@@ -107,14 +107,15 @@ function CreateRFQ(props) {
 
 	const onDeleteRow = () => {
 		let tableData = dataSource;
-		// tableData[deletedIndex] = { ...tableData[deletedIndex], actionStatus: 3 };
-		tableData.splice(deletedIndex, 1);
+
 		if (tableData[deletedIndex].rfqDetailId) {
 			updateDeleteRowsList([
 				...deletedRowsList,
 				tableData[deletedIndex].rfqDetailId,
 			]);
 		}
+		tableData.splice(deletedIndex, 1);
+
 		updateDataSource(tableData);
 		updateDeleteRowModal(false);
 		updateIndexState(true);
@@ -205,7 +206,7 @@ function CreateRFQ(props) {
 			address.length === 0 ||
 			recievingOffersDate === null ||
 			deliveryDate === null ||
-			notContainCategory
+			hasNoCat
 		) {
 			setAlert(true);
 		} else {

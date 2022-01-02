@@ -1,0 +1,8 @@
+.profileDetailsModal .profileImage {
+	width: 73px;
+	height: 73px;
+	border-radius: 50%;
+}
+.profileDetailsModal .userType {
+	color: #a0c9ff;
+}

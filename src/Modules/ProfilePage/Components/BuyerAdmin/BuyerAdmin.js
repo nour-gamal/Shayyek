@@ -6,6 +6,7 @@ import Quarter from "../Common/Quarter/Quarter";
 import MyRFQs from "../Common/MyRFQs/MyRFQs";
 import MyOrders from "../Common/MyOrders/MyOrders";
 import CompanyCard from "../Common/CompanyCard/CompanyCard";
+import SidePersonalInfo from "../Common/SidePersonalInfo/SidePersonalInfo";
 import { getBuyerProfile } from "../../network";
 import "./BuyerAdmin.css";
 function BuyerAdmin() {
@@ -14,6 +15,7 @@ function BuyerAdmin() {
 	const [buyerChartWorks, updateBuyerChartWorks] = useState([]);
 	const [buyerRFQs, updataBuyerRFQs] = useState([]);
 	const [buyerOrders, updateBuyerOrders] = useState([]);
+	const [company, updateCompany] = useState(null);
 	// const labelData = [
 	// 	{
 	// 		label:
@@ -31,7 +33,7 @@ function BuyerAdmin() {
 				updateBuyerChartWorks(success.data.buyerChartWorks);
 				updataBuyerRFQs(success.data.buyerRFQs);
 				updateBuyerOrders(success.data.buyerOrders);
-				console.log(success.data);
+				updateCompany(success.data.company);
 			},
 			(fail) => {
 				console.log(fail);
@@ -69,7 +71,10 @@ function BuyerAdmin() {
 					<MyOrders />
 				</Col>
 				<Col md={5} xs={8}>
-					<CompanyCard buyerOrders={buyerOrders} />
+					<div className="profileSideMenu">
+						<SidePersonalInfo />
+						<CompanyCard buyerOrders={buyerOrders} companyDetails={company} />
+					</div>
 				</Col>
 			</Row>
 		</div>

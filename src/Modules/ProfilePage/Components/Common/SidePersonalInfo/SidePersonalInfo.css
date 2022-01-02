@@ -1,0 +1,40 @@
+.sidePersonalInfo > ul {
+	padding: 10px 19px;
+}
+.sidePersonalInfo .companyImg {
+	width: 50px;
+	height: 50px;
+	border: 1px solid #707070;
+}
+.sidePersonalInfo label {
+	color: #707070;
+}
+.sidePersonalInfo .title {
+	box-shadow: 0px 3px 6px #00000029;
+}
+.sidePersonalInfo .title > div {
+	color: #032440;
+}
+.sidePersonalInfo .title .profileImg {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+
+.sidePersonalInfo > ul > li {
+	padding-top: 13px;
+}
+.sidePersonalInfo > ul > li > img {
+	width: 70px;
+	height: 50px;
+	border-radius: 17px;
+	display: block;
+}
+@media (max-width: 768px) {
+	.sidePersonalInfo .title > div {
+		font-size: 14px;
+	}
+	.sidePersonalInfo .title > .d-flex {
+		flex-direction: column;
+	}
+}
