@@ -179,7 +179,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 			)}
 			{profileData && (
 				<Row>
-					<Col xs={24} md={12}>
+					<Col xs={24} md={12} style={{ padding: "0 20px" }}>
 						<div className="d-flex align-items-center">
 							<input
 								type={"file"}
@@ -254,23 +254,23 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 							<label>{currentLocal.profilePage.email}</label>
 							<div>{authorization.email}</div>
 						</div>
-						<div className="labelContainer">
+						<div className="labelContainer w-80">
 							<div class="d-flex justify-content-between">
 								<label>{currentLocal.registration.password}</label>
-								<div className="flex-1 text-center f-12 fw-600 cursorPointer">
+								<div className="f-12 fw-600 cursorPointer">
 									{currentLocal.profilePage.change}
 								</div>
 							</div>
 							<div>**********</div>
 						</div>
-						<div className="labelContainer d-flex">
+						<div className="labelContainer d-flex w-80 justify-content-between">
 							<div>
 								<label>{currentLocal.registration.companyPhoneNumber}</label>
 								<div>
 									<div>{profileData.company.phone}</div>
 								</div>
 							</div>
-							<div className="flex-1 text-center">
+							<div>
 								<img
 									src={plusCircle}
 									alt="plusCircle"

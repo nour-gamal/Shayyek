@@ -55,3 +55,7 @@
 .profileDetailsModal .labelContainer div {
 	color: #0370ff;
 }
+
+.profileDetailsModal .labelContainer.w-80 {
+	width: 80%;
+}
