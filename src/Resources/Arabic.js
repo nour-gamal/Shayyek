@@ -158,6 +158,8 @@ export const ar = {
 		type: "النوع",
 		workField: "مجال العمل",
 		profileInfo: "البيانات الشخصيه",
+		mobileNumber: "الهاتف",
+		change: "تغيير"
 	},
 	offerTable: {
 		name: "الاسم",

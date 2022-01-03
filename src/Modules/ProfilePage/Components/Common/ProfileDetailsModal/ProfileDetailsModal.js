@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import plusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import { getBuyerProfile, postImage } from "../../../network";
 import { baseUrl } from "../../../../../Services";
 import { getWork } from "../../../../../Modules/Registration/Network";
 import TreeContainer from "../../../../../Modules/Registration/Components/TreeContainer/TreeContainer";
-import { Modal, Col, Row } from "antd";
+import { Modal, Col, Row, Checkbox } from "antd";
 import paperClip from "../../../../../Resources/Assets/paperClip.svg";
 import { Alert } from "react-bootstrap";
 import "./ProfileDetailsModal.css";
@@ -20,7 +21,9 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 	});
 	const [profileImgLink, updateProfileImgLink] = useState(null);
 	const [companyImgLink, updateCompanyImgLink] = useState(null);
+	const [categoriesRequest, setcategoriesRequests] = useState([]);
 	const [alert, setAlert] = useState(false);
+
 	useEffect(() => {
 		getWork(
 			currentLanguageId,
@@ -136,7 +139,32 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 				}
 			});
 		});
+		categoriesRequest.forEach((mainCategory, mainCategoryIndex) => {
+			let subResult = mainCategory.Categories.reduce(function(r, a) {
+				r[a.CategoryId] = r[a.CategoryId] || [];
+				r[a.CategoryId].push(a);
+				return r;
+			}, {});
+			let newSubCatList = [];
+			Object.keys(subResult).forEach((subCategory, subCategoryIndex) => {
+				newSubCatList.push({
+					CategoryId: subCategory,
+					SubCategoryIds: [],
+					checked: true,
+				});
+				subResult[subCategory].forEach((subSub) => {
+					subSub.SubCategoryIds.forEach((subSubId) => {
+						newSubCatList[subCategoryIndex].SubCategoryIds.push(subSubId);
+					});
+				});
+			});
+			categoriesRequest[mainCategoryIndex].Categories = newSubCatList;
+			delete categoriesRequest[mainCategoryIndex].result;
+		});
+
+		setcategoriesRequests(categoriesRequest);
 	};
+	console.log(categoriesRequest);
 	return (
 		<Modal
 			title="Basic Modal"
@@ -211,8 +239,45 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 						<TreeContainer
 							data={treeOptions}
 							onChange={onTreeChange}
-							className={"input-dropdown"}
+							className={"inputField"}
 						/>
+						<div className="labelContainer d-flex justify-content-between align-items-end">
+							<div>
+								<label>{currentLocal.profilePage.mobileNumber}</label>
+								<div>{authorization.mobile}</div>
+							</div>
+							<div>
+								<Checkbox>{currentLocal.registration.whatsAppNumber}</Checkbox>
+							</div>
+						</div>
+						<div className="labelContainer">
+							<label>{currentLocal.profilePage.email}</label>
+							<div>{authorization.email}</div>
+						</div>
+						<div className="labelContainer">
+							<div class="d-flex justify-content-between">
+								<label>{currentLocal.registration.password}</label>
+								<div className="flex-1 text-center f-12 fw-600 cursorPointer">
+									{currentLocal.profilePage.change}
+								</div>
+							</div>
+							<div>**********</div>
+						</div>
+						<div className="labelContainer d-flex">
+							<div>
+								<label>{currentLocal.registration.companyPhoneNumber}</label>
+								<div>
+									<div>{profileData.company.phone}</div>
+								</div>
+							</div>
+							<div className="flex-1 text-center">
+								<img
+									src={plusCircle}
+									alt="plusCircle"
+									className="cursorPointer"
+								/>
+							</div>
+						</div>
 					</Col>
 					<Col xs={24} md={12}>
 						<div className="d-flex align-items-center">

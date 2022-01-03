@@ -72,7 +72,7 @@ function BuyerAdmin() {
 				</Col>
 				<Col md={5} xs={8}>
 					<div className="profileSideMenu">
-						<SidePersonalInfo />
+						<SidePersonalInfo company={company} />
 						<CompanyCard buyerOrders={buyerOrders} companyDetails={company} />
 					</div>
 				</Col>

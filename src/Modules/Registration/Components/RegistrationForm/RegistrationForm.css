@@ -1,10 +1,8 @@
-
-.RegistrationForm  input
-{
+.RegistrationForm input {
 	font-size: 12px !important;
 }
 
-.RegistrationForm .input-dropdown{
+.RegistrationForm .input-dropdown {
 	width: 98%;
 	text-align: left;
 	display: flex;
@@ -22,10 +20,9 @@
 	margin-bottom: 16px;
 	font-size: 12px;
 }
-.RegistrationForm .cascaderFiled:focus
-{
+.RegistrationForm .cascaderFiled:focus {
 	outline: none;
-	border-color: #0370ff  !important;
+	border-color: #0370ff !important;
 	color: #0370ff !important;
 }
 
@@ -33,22 +30,19 @@
 	width: 12px;
 	height: 12px;
 	margin-bottom: 1px;
- }
- .RegistrationForm .check-field:focus-within {
-	 margin-bottom: 0 !important;
- }
- .RegistrationForm .work .rightIcon
- {
+}
+.RegistrationForm .check-field:focus-within {
+	margin-bottom: 0 !important;
+}
+.RegistrationForm .work .rightIcon {
 	position: absolute;
 	right: 90% !important;
 	bottom: 40% !important;
- }
-.RegistrationForm .ant-dropdown-trigger
-{
+}
+.RegistrationForm .ant-dropdown-trigger {
 	text-decoration: none !important;
 }
-.RegistrationForm  .ant-checkbox 
-{
+.RegistrationForm .ant-checkbox {
 	font-size: 12px !important;
 }
 .RegistrationForm .languages {
@@ -70,86 +64,75 @@
 	width: 95% !important;
 	margin-bottom: 16px !important;
 }
-.RegistrationForm .dropdownmenu #dropdown-basic{
-	background: #F5F5F5 0% 0% no-repeat padding-box;
-		border: none;
-		color: #707070;
-		padding-left: 24px;
-		padding-top: 14px;
-		padding-bottom: 14px;
-		padding-right: 35px;
+.RegistrationForm .dropdownmenu #dropdown-basic {
+	background: #f5f5f5 0% 0% no-repeat padding-box;
+	border: none;
+	color: #707070;
+	padding-left: 24px;
+	padding-top: 14px;
+	padding-bottom: 14px;
+	padding-right: 35px;
 	width: 242px;
 }
-.RegistrationForm .dropdownmenu #dropdown-basic:focus{
-border: none;
-box-shadow: none;
+.RegistrationForm .dropdownmenu #dropdown-basic:focus {
+	border: none;
+	box-shadow: none;
 }
 .RegistrationForm .dropdown-menu {
 	width: 100% !important;
 }
-.RegistrationForm .disableCheck{
+.RegistrationForm .disableCheck {
 	color: #707070 !important;
-
 }
-.RegistrationForm .disableLink
-{
+.RegistrationForm .disableLink {
 	text-decoration: none;
 }
-.RegistrationForm .disableInput
-{
+.RegistrationForm .disableInput {
 	background-color: transparent !important;
-	color:  #DDDDDD !important;
-	border:1px solid #DDDDDD !important;
+	color: #dddddd !important;
+	border: 1px solid #dddddd !important;
 	font-size: 12px !important;
 }
-.RegistrationForm .disableFiled
-{
+.RegistrationForm .disableFiled {
 	color: #707070 !important;
-
-
 }
-.RegistrationForm .ant-checkbox + span
-{
+.RegistrationForm .ant-checkbox + span {
 	font-size: 12px !important;
 }
-.RegistrationForm .work .anticon-down{
+.RegistrationForm .work .anticon-down {
 	display: none !important;
 }
-.RegistrationForm .work .dropDownicon
-{
+.RegistrationForm .work .dropDownicon {
 	position: absolute;
 	left: 90%;
 	bottom: 50%;
 }
-.RegistrationForm #rdts1-0,.RegistrationForm #rdts1-1,.RegistrationForm #rdts1-2{
+.RegistrationForm #rdts1-0,
+.RegistrationForm #rdts1-1,
+.RegistrationForm #rdts1-2 {
 	display: none !important;
 }
-.RegistrationForm .tag-item #rdts1-0-0_li
-{
+.RegistrationForm .tag-item #rdts1-0-0_li {
 	display: none;
 }
 
-.RegistrationForm .work .input-field
-{
+.RegistrationForm .work .input-field {
 	border: 1px solid #8e8e8e;
 	color: #8e8e8e !important;
 }
 
-.RegistrationForm .input
-{
+.RegistrationForm .input {
 	font-size: 12px !important;
 }
 
-.RegistrationForm .check-field
-{
+.RegistrationForm .check-field {
 	border-radius: 5px;
 	color: #8e8e8e;
 	padding-left: 8px;
 	padding-right: 8px;
 	width: 95%;
 }
-.RegistrationForm .check-field:focus-within
-{
+.RegistrationForm .check-field:focus-within {
 	border-radius: 5px;
 	color: #0370ff !important;
 	padding-left: 8px;
@@ -158,8 +141,7 @@ box-shadow: none;
 	margin-bottom: 16px;
 }
 
-
-.RegistrationForm .input-dropdown:hover{
+.RegistrationForm .input-dropdown:hover {
 	width: 95%;
 	box-shadow: none !important;
 	text-align: left;
@@ -177,7 +159,7 @@ box-shadow: none;
 	width: 95%;
 	margin-bottom: 16px;
 }
-.RegistrationForm .input-dropdown:focus{
+.RegistrationForm .input-dropdown:focus {
 	width: 95%;
 	box-shadow: none !important;
 	text-align: left;
@@ -195,68 +177,72 @@ box-shadow: none;
 	width: 95%;
 	margin-bottom: 16px;
 }
-.RegistrationForm .btn-check:focus{
+.RegistrationForm .btn-check:focus {
 	outline: none;
 	border-color: #0370ff !important;
 	color: #0370ff !important;
 }
 
-.RegistrationForm .disableRadio span
-{
-	color: #DDDDDD !important;
+.RegistrationForm .disableRadio span {
+	color: #dddddd !important;
 }
 .RegistrationForm .disableInput::placeholder {
-	color: #DDDDDD ;
+	color: #dddddd;
 	opacity: 1;
 	font-size: 12px !important;
 }
-.RegistrationForm .disable{
+.RegistrationForm .disable {
 	background: #707070 0% 0% no-repeat padding-box;
-border-radius: 5px;
-opacity: 0.67;
-color: #fff;
+	border-radius: 5px;
+	opacity: 0.67;
+	color: #fff;
 }
 .dropdown-toggle::after {
-margin-left: 99px !important;
+	margin-left: 99px !important;
 }
-.RegistrationForm .roleDropDown{
+.RegistrationForm .roleDropDown {
 	width: 95%;
 	text-align: left;
 	background-color: transparent;
-	color: #DDDDDD;
-	border-color: #DDDDDD;
+	color: #dddddd;
+	border-color: #dddddd;
 	display: flex;
-justify-content: space-between;
-
+	justify-content: space-between;
 }
 .RegistrationForm .disableInput {
 	width: 95%;
 	/* text-align: left; */
 	background-color: transparent;
-	color: #DDDDDD;
-	border-color: #DDDDDD;
+	color: #dddddd;
+	border-color: #dddddd;
 	display: flex;
-justify-content: space-between;
-border-radius: 5px;
-
+	justify-content: space-between;
+	border-radius: 5px;
 }
 
 .RegistrationForm .disableInput ::placeholder {
-color: #DDDDDD;
-
+	color: #dddddd;
 }
-.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-trigger.arrow.bottom::after {
+.RegistrationForm
+	.react-dropdown-tree-select
+	.dropdown
+	.dropdown-trigger.arrow.bottom::after {
 	display: none;
 }
-.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-trigger.arrow.top::after {
+.RegistrationForm
+	.react-dropdown-tree-select
+	.dropdown
+	.dropdown-trigger.arrow.top::after {
 	display: none;
 }
-.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-trigger.arrow {
+.RegistrationForm
+	.react-dropdown-tree-select
+	.dropdown
+	.dropdown-trigger.arrow {
 	border: none;
 }
-.RegistrationForm .roleDropDown::after{
-margin-top: 10px;
-
+.RegistrationForm .roleDropDown::after {
+	margin-top: 10px;
 }
 .RegistrationForm .tag-item .search {
 	background-color: transparent;
@@ -264,56 +250,54 @@ margin-top: 10px;
 .RegistrationForm .tag-item .search {
 	border-bottom: 0;
 }
-.RegistrationForm .diableRole
-{
+.RegistrationForm .diableRole {
 	width: 95%;
 	text-align: left !important;
 	background-color: transparent !important;
-	color: #DDDDDD !important;
-	border-color: #DDDDDD !important;
-
+	color: #dddddd !important;
+	border-color: #dddddd !important;
 }
-.RegistrationForm .roleDropDown{
+.RegistrationForm .roleDropDown {
 	width: 95% !important;
 	text-align: left;
 	background-color: transparent !important;
-	color: #DDDDDD;
-	border-color: #DDDDDD;
+	color: #dddddd;
+	border-color: #dddddd;
 	display: flex;
-justify-content: space-between;
-
+	justify-content: space-between;
 }
-.RegistrationForm .roleDropDown:hover{
+.RegistrationForm .roleDropDown:hover {
 	width: 95%;
 	text-align: left;
 	background-color: transparent;
-	color: #DDDDDD;
-	border-color: #DDDDDD;
-
+	color: #dddddd;
+	border-color: #dddddd;
 }
-.RegistrationForm .roleDropDown.btn-check:active + .btn-primary, .btn-check:checked + .btn-primary, .btn-primary.active, .btn-primary:active, .show > .btn-primary.dropdown-toggle {
-    color: #DDDDDD !important;
-    background-color: transparent !important;
-    border-color: #DDDDDD !important;
+.RegistrationForm .roleDropDown.btn-check:active + .btn-primary,
+.btn-check:checked + .btn-primary,
+.btn-primary.active,
+.btn-primary:active,
+.show > .btn-primary.dropdown-toggle {
+	color: #dddddd !important;
+	background-color: transparent !important;
+	border-color: #dddddd !important;
 	box-shadow: none !important;
 }
-.RegistrationForm .roleDropDown .btn-check:focus + .btn-primary, .btn-primary:focus {
-    color: #DDDDDD !important;
-    background-color: transparent !important;
-    border-color: #DDDDDD !important;
+.RegistrationForm .roleDropDown .btn-check:focus + .btn-primary,
+.btn-primary:focus {
+	color: #dddddd !important;
+	background-color: transparent !important;
+	border-color: #dddddd !important;
 	box-shadow: none !important;
 }
 .RegistrationForm .checked {
 	color: #8e8e8e;
 	margin-bottom: 16px !important;
-
 }
-.RegistrationForm .dropdown-content  
-{
+.RegistrationForm .dropdown-content {
 	width: 100% !important;
 }
-.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-content  {
-
+.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-content {
 	padding: 0px 16px;
 }
 
@@ -343,7 +327,6 @@ justify-content: space-between;
 	font: 300 1em/100% "Helvetica Neue", Arial, sans-serif;
 	line-height: 1.5em;
 
-
 	border-radius: 0;
 	margin: 0;
 	-webkit-box-sizing: border-box;
@@ -363,7 +346,7 @@ justify-content: space-between;
 	font-weight: bold;
 	color: #0370ff;
 }
-.RegistrationForm  ::placeholder {
+.RegistrationForm ::placeholder {
 	color: #8e8e8e;
 	opacity: 1;
 }
@@ -373,24 +356,21 @@ justify-content: space-between;
 }
 ::-webkit-file-upload-button {
 	display: none !important;
- }
-.RegistrationForm .ant-input  
- {
- border: none !important;
- padding-top: 12px !important;
- outline: none;
- }
- .RegistrationForm .ant-input:focus
- {
- border: none !important;
- padding-top: 12px !important;
- outline: none !important;
- box-shadow: none !important;
- }
+}
+.RegistrationForm .ant-input {
+	border: none !important;
+	padding-top: 12px !important;
+	outline: none;
+}
+.RegistrationForm .ant-input:focus {
+	border: none !important;
+	padding-top: 12px !important;
+	outline: none !important;
+	box-shadow: none !important;
+}
 
 .RegistrationForm ::-ms-input-placeholder {
 	color: #8e8e8e;
-	
 }
 .RegistrationForm input:focus::-webkit-input-placeholder {
 	color: #0370ff !important;
@@ -475,8 +455,8 @@ justify-content: space-between;
 	-moz-appearance: textfield;
 }
 .RegistrationForm input[type="file"]:focus {
-color: #0370ff;
-border-color:#0370ff ;
+	color: #0370ff;
+	border-color: #0370ff;
 }
 .RegistrationForm .ant-checkbox-inner {
 	border-color: #8e8e8e;
@@ -486,110 +466,89 @@ border-color:#0370ff ;
 	margin-top: 16px;
 	font-size: 14px;
 }
-.RegistrationForm .alertMsg,.countryAlert
-{
+.RegistrationForm .alertMsg,
+.countryAlert {
 	color: red;
 	font-size: 12px;
 }
-.RegistrationForm p{
+.RegistrationForm p {
 	height: 24px;
 	margin-bottom: 0px;
 }
 
- .RegistrationForm .requird .ant-checkbox-inner {
+.RegistrationForm .requird .ant-checkbox-inner {
 	border-color: red !important;
-  }
- .RegistrationForm .requird .ant-checkbox-inner:hover {
+}
+.RegistrationForm .requird .ant-checkbox-inner:hover {
 	border-color: red !important;
-  }
+}
 
-.RegistrationForm .disableCheck a
-{
+.RegistrationForm .disableCheck a {
 	color: #707070 !important;
 	text-decoration: none;
-
 }
 
 .RegistrationForm .checkSignIn a {
 	text-decoration: none;
 }
-.RegistrationForm .checkSignIn{
+.RegistrationForm .checkSignIn {
 	margin-bottom: 40px;
 }
 
-.RegistrationForm .companyName .ant-dropdown-trigger
-{
+.RegistrationForm .companyName .ant-dropdown-trigger {
 	width: 95% !important;
-display: flex !important;
-justify-content: space-between !important;
-align-items: center;
-text-decoration: none;
-border: 1px solid #8e8e8e;
-font-size: 12px !important;
-
-}
-.RegistrationForm .companyType .ant-dropdown-trigger
-{
-	width: 95% !important;
-display: flex !important;
-justify-content: space-between !important;
-align-items: center;
-text-decoration: none;
-border: 1px solid #8e8e8e;
-font-size: 12px !important;
-
-}
-.RegistrationForm .country .ant-dropdown-trigger
-{
-width: 95% !important;
-display: flex !important;
-justify-content: space-between !important;
-align-items: center;
-text-decoration: none;
-font-size: 12px !important;
-}
-.RegistrationForm .government .ant-dropdown-trigger
-{
-	width: 95% !important;
-display: flex !important;
-justify-content: space-between !important;
-align-items: center;
-text-decoration: none;
-font-size: 12px !important;
-
-}
-.RegistrationForm .input-field
-{
-	background-color: #fff;
-	border-radius: 5px !important;
-	border: 1px solid #8e8e8e ;
-	color: #8e8e8e ;
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center;
+	text-decoration: none;
+	border: 1px solid #8e8e8e;
 	font-size: 12px !important;
-
 }
-.RegistrationForm label
-{
-
-	cursor: pointer !important;
-
-
+.RegistrationForm .companyType .ant-dropdown-trigger {
+	width: 95% !important;
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center;
+	text-decoration: none;
+	border: 1px solid #8e8e8e;
+	font-size: 12px !important;
 }
-.RegistrationForm .disableInput label
-{
-
-	cursor:auto !important;
-
-
+.RegistrationForm .country .ant-dropdown-trigger {
+	width: 95% !important;
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center;
+	text-decoration: none;
+	font-size: 12px !important;
 }
-.RegistrationForm .input-field:hover
-{
+.RegistrationForm .government .ant-dropdown-trigger {
+	width: 95% !important;
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center;
+	text-decoration: none;
+	font-size: 12px !important;
+}
+.RegistrationForm .input-field {
 	background-color: #fff;
 	border-radius: 5px !important;
-	border: 1px solid #8e8e8e ;
-	color: #8e8e8e ;
+	border: 1px solid #8e8e8e;
+	color: #8e8e8e;
+	font-size: 12px !important;
 }
- .cascaderFiled
-{
+.RegistrationForm label {
+	cursor: pointer !important;
+}
+.RegistrationForm .disableInput label {
+	cursor: auto !important;
+}
+.RegistrationForm .input-field:hover {
+	background-color: #fff;
+	border-radius: 5px !important;
+	border: 1px solid #8e8e8e;
+	color: #8e8e8e;
+}
+.cascaderFiled {
 	border-radius: 5px;
 	height: auto;
 	border: 1px solid #8e8e8e !important;
@@ -599,45 +558,55 @@ font-size: 12px !important;
 	width: 95%;
 	margin-bottom: 16px;
 }
-.cascaderFiled .search
-{
+.cascaderFiled .search {
 	cursor: pointer !important;
 }
-.disableInput .search{
+.disableInput .search {
 	cursor: default !important;
 }
-.RegistrationForm .dropdown
-{
+.RegistrationForm .dropdown {
 	width: 100%;
 }
-.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-trigger.arrow { 
-
+.RegistrationForm
+	.react-dropdown-tree-select
+	.dropdown
+	.dropdown-trigger.arrow {
 	width: 100% !important;
 }
-.RegistrationForm .react-dropdown-tree-select .dropdown .dropdown-trigger.arrow .tag-list{ 
-
+.RegistrationForm
+	.react-dropdown-tree-select
+	.dropdown
+	.dropdown-trigger.arrow
+	.tag-list {
 	width: 100% !important;
 }
 .RegistrationForm .ant-checkbox-wrapper:hover .ant-checkbox-inner,
 .RegistrationForm .ant-checkbox:hover .ant-checkbox-inner,
-.RegistrationForm .ant-checkbox-input:focus + .RegistrationForm .ant-checkbox-inner {
+.RegistrationForm
+	.ant-checkbox-input:focus
+	+ .RegistrationForm
+	.ant-checkbox-inner {
 	border-color: #8e8e8e !important;
 }
-.RegistrationForm .requird .ant-checkbox-wrapper:hover .ant-checkbox-inner, .RegistrationForm .requird .ant-checkbox:hover .ant-checkbox-inner, .RegistrationForm .requird .ant-checkbox-input:focus + .RegistrationForm .requird .ant-checkbox-inner
-{
+.RegistrationForm .requird .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.RegistrationForm .requird .ant-checkbox:hover .ant-checkbox-inner,
+.RegistrationForm
+	.requird
+	.ant-checkbox-input:focus
+	+ .RegistrationForm
+	.requird
+	.ant-checkbox-inner {
 	border-color: red !important;
 }
 .RegistrationForm .disableInput:focus {
 	width: 95%;
-		background-color: transparent;
-	color: #DDDDDD !important;
-	border-color: #DDDDDD !important;
+	background-color: transparent;
+	color: #dddddd !important;
+	border-color: #dddddd !important;
 	display: flex;
-justify-content: space-between;
-border-radius: 5px;
-
+	justify-content: space-between;
+	border-radius: 5px;
 }
-
 
 @media screen and (max-width: 765px) {
 	.RegistrationForm .dropdownmenu {

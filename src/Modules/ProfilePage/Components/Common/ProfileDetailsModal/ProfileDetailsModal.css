@@ -24,22 +24,34 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
-
-.profileDetailsModal .input-dropdown {
-	width: 98%;
-	text-align: left;
+.profileDetailsModal .inputField {
+	margin-top: 20px;
+	margin-bottom: 10px;
+	width: 100% !important;
+	border: none;
+}
+.profileDetailsModal .inputField .dropdown,
+.profileDetailsModal .inputField .dropdown .dropdown-trigger,
+.profileDetailsModal .inputField .dropdown .dropdown-trigger .tag-list {
+	width: 100%;
+}
+.profileDetailsModal .inputField .dropdown .dropdown-trigger {
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	background-color: transparent;
-	border-radius: 5px;
-	height: 44px;
-	border: 1px solid #8e8e8e !important;
-	color: #8e8e8e !important;
-	padding-left: 8px;
-	padding-right: 8px;
-	width: 95%;
-	margin-bottom: 16px;
-	font-size: 12px;
+	border-color: #bce0fd;
+}
+.profileDetailsModal .inputField .tag-item > input {
+	border-bottom: none;
+}
+.profileDetailsModal .inputField .tag-item > input::placeholder {
+	color: #0370ff;
+}
+.profileDetailsModal .labelContainer {
+	margin-top: 10px;
+}
+.profileDetailsModal .labelContainer label {
+	color: #003b6b;
+	font-size: 14px;
+}
+.profileDetailsModal .labelContainer div {
+	color: #0370ff;
 }

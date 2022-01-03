@@ -162,6 +162,8 @@ export const en = {
 		type: "Type",
 		workField: "Work field",
 		profileInfo: "Profile Information",
+		mobileNumber: "Mobile Number",
+		change: "Change"
 	},
 	offerTable: {
 		name: "Name",

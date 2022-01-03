@@ -167,6 +167,7 @@ function RegistrationForm() {
 			(fail) => {},
 			false
 		);
+
 		countryList(
 			currentLanguageId,
 			(success) => {

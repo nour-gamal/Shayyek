@@ -428,6 +428,11 @@ thead:hover {
 .text-left {
 	text-align: left;
 }
+/* flexbox */
+.flex-1{ 
+	flex: 1;
+}
+/* flexbox */
 @media (max-width: 480px) {
 	.ant-table-cell {
 		padding: 8px 10px !important;
