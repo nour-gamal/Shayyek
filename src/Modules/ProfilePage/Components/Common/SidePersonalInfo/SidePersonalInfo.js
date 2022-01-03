@@ -6,7 +6,7 @@ import "./SidePersonalInfo.css";
 function SidePersonalInfo() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
-	const [isModalVisible, updateModalStatus] = useState(false);
+	const [isModalVisible, updateModalStatus] = useState(true);
 	return (
 		<div className="sidePersonalInfo">
 			<div className="title d-flex align-items-center p-2 justify-content-between">
