@@ -24,6 +24,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.profileDetailsModal .companyBorder {
+	border: 1px solid #707070;
+}
 .profileDetailsModal .inputField {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -58,4 +61,17 @@
 
 .profileDetailsModal .labelContainer.w-80 {
   width: 80%;
+}
+
+.profileDetailsModal .labelContainer .commercialRegister {
+	border-radius: 5px;
+	width: 48px;
+	height: 37px;
+}
+.profileDetailsModal .button-primary {
+	padding: 5px 50px;
+}
+.profileDetailsModal .button-secondary {
+	border-color: #003b6b;
+	color: #003b6b;
 }
