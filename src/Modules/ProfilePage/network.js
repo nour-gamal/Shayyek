@@ -19,3 +19,8 @@ export const postImage = (
 	const path = `api/Account/GetImagePath`;
 	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
 };
+
+export const changePassword = (data, onSuccess, onFail, reqAuth = true) => {
+	let path = `.......`;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};
