@@ -1,0 +1,59 @@
+.addPhoneModal .closeModalIcon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 24px;
+}
+.addPhoneModal h3 {
+  margin-bottom: 32px;
+}
+.addPhoneModal input {
+  max-width: 300px;
+  margin: auto;
+  height: 52px;
+  border: 1px solid #bce0fd;
+}
+.addPhoneModal input::placeholder {
+  color: #003b6b;
+}
+.addPhoneModal .button-container {
+  margin-top: 2rem;
+}
+.addPhoneModal h3 {
+  margin-top: 2rem;
+}
+
+.addPhoneModal .alert {
+  text-align: center;
+}
+
+@media (min-width: 320px) and (max-width: 576px) {
+  .addPhoneModal .ant-modal-content {
+    padding: 3.5rem 1rem 2rem 1rem !important;
+    min-width: 100% !important;
+  }
+  .addPhoneModal .closeModalIcon {
+    top: 1rem;
+    left: 1rem;
+  }
+  .addPhoneModal input,
+  .addPhoneModal input::placeholder,
+  .addPhoneModal .alert {
+    font-size: 0.75rem;
+  }
+
+  .addPhoneModal h3 {
+    text-align: center;
+    margin-top: 0;
+  }
+}
+@media (min-width: 576px) and (max-width: 768px) {
+  .changePasswordModal .ant-modal-content {
+    padding-top: 3.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+  .changePasswordModal h3 {
+    margin-left: 2rem;
+    margin-top: 0;
+  }
+}
