@@ -163,7 +163,11 @@ export const en = {
 		workField: "Work field",
 		profileInfo: "Profile Information",
 		mobileNumber: "Mobile Number",
-		change: "Change"
+		companyEmail: "Company E-mail",
+		companyLegalStructure: "Company legal structure",
+		change: "Change",
+		save: "Save",
+		discardChanges: "Discard changes",
 	},
 	offerTable: {
 		name: "Name",

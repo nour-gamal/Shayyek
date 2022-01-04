@@ -19,6 +19,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 	const [profileData, updateProfileData] = useState(null);
 	const [isChangePassModalVisible, toggleChangePassModal] = useState(false);
 	const [companyPhoneModalVisible, toggleCompanyPhoneModal] = useState(false);
+	const [companyEmail, updateCompanyEmail] = useState("");
 	const [paperClipState, togglePaperClip] = useState({
 		type: "profileImage",
 		state: false,
@@ -79,6 +80,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 			(success) => {
 				console.log(success.data);
 				updateProfileData(success.data);
+				updateCompanyEmail(success.data.company.companyWebsite);
 			},
 			(fail) => {
 				console.log(fail);
@@ -290,6 +292,16 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 								/>
 							</div>
 						</div>
+						<div className="labelContainer">
+							<label className="d-block">
+								{currentLocal.registration.commercialRegister}
+							</label>
+							<img
+								src={baseUrl + profileData.company.commercialRecord}
+								alt="commercialRegister"
+								className="commercialRegister"
+							/>
+						</div>
 					</Col>
 					<Col xs={24} md={12}>
 						<div className="d-flex align-items-center">
@@ -310,7 +322,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 												: baseUrl + profileData.company.image
 										}
 										alt="CompanyImage"
-										className="profileCompImage"
+										className="profileCompImage companyBorder"
 										onMouseEnter={() => {
 											togglePaperClip({
 												type: "companyImage",
@@ -343,9 +355,41 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 								{profileData.company.name}
 							</div>
 						</div>
+						<div className="labelContainer">
+							<label>{currentLocal.registration.governorate}</label>
+							<div>{profileData.company.governorateName}</div>
+						</div>
+						<div className="labelContainer">
+							<label>{currentLocal.registration.address}</label>
+							<div>{profileData.company.address}</div>
+						</div>
+						<div className="labelContainer">
+							<label>{currentLocal.registration.role}</label>
+							<div>{currentLocal.registration.admin}</div>
+						</div>
+						<div className="labelContainer">
+							<label>{currentLocal.profilePage.companyEmail}</label>
+							<div>{profileData.company.email}</div>
+						</div>
+						<div className="labelContainer">
+							<label>{currentLocal.profilePage.companyLegalStructure}</label>
+							<div>{profileData.company.typeName}</div>
+						</div>
+						<div className="labelContainer">
+							<label>{currentLocal.profilePage.companyWebsite}</label>
+							<input type="text" value={companyEmail} className="d-block" />
+						</div>
 					</Col>
 				</Row>
 			)}
+			<div className="justify-content-center my-4 d-flex">
+				<button className="button-secondary mx-1">
+					{currentLocal.profilePage.discardChanges}
+				</button>
+				<button className="button-primary mx-1">
+					{currentLocal.profilePage.save}
+				</button>
+			</div>
 			<ChangePasswordModal
 				isModalVisible={isChangePassModalVisible}
 				onCancel={() => {
@@ -356,6 +400,16 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 				isModalVisible={companyPhoneModalVisible}
 				onCancel={() => {
 					toggleCompanyPhoneModal(false);
+					getBuyerProfile(
+						currentLanguageId,
+						(success) => {
+							updateProfileData(success.data);
+							updateCompanyEmail(success.data.company.companyWebsite);
+						},
+						(fail) => {
+							console.log(fail);
+						}
+					);
 				}}
 			/>
 		</Modal>

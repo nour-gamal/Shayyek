@@ -159,7 +159,11 @@ export const ar = {
 		workField: "مجال العمل",
 		profileInfo: "البيانات الشخصيه",
 		mobileNumber: "الهاتف",
-		change: "تغيير"
+		companyEmail: "ايميل الشركه",
+		companyLegalStructure: "الهيكل القانوني للشركه",
+		change: "تغيير",
+		save: "حفظ",
+		discardChanges: "الغاء التغيرات",
 	},
 	offerTable: {
 		name: "الاسم",
