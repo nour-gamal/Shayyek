@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Alert } from "react-bootstrap";
+import { Modal, Col, Row, Checkbox } from "antd";
 import plusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import { getBuyerProfile, postImage } from "../../../network";
 import { baseUrl } from "../../../../../Services";
 import { getWork } from "../../../../../Modules/Registration/Network";
 import TreeContainer from "../../../../../Modules/Registration/Components/TreeContainer/TreeContainer";
-import { Modal, Col, Row, Checkbox } from "antd";
 import paperClip from "../../../../../Resources/Assets/paperClip.svg";
-import { Alert } from "react-bootstrap";
+import ChangePasswordModal from "../ChangePasswordModal/ChangePasswordModal";
+import AddCompanyPhoneModal from "../AddCompanyPhoneModal/AddCompanyPhoneModal";
 import "./ProfileDetailsModal.css";
 function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -15,6 +17,8 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 	const { authorization } = useSelector((state) => state.authorization);
 	const [treeOptions, updateTreeOptions] = useState([]);
 	const [profileData, updateProfileData] = useState(null);
+	const [isChangePassModalVisible, toggleChangePassModal] = useState(false);
+	const [companyPhoneModalVisible, toggleCompanyPhoneModal] = useState(false);
 	const [paperClipState, togglePaperClip] = useState({
 		type: "profileImage",
 		state: false,
@@ -257,7 +261,12 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 						<div className="labelContainer w-80">
 							<div class="d-flex justify-content-between">
 								<label>{currentLocal.registration.password}</label>
-								<div className="f-12 fw-600 cursorPointer">
+								<div
+									className="f-12 fw-600 cursorPointer"
+									onClick={() => {
+										toggleChangePassModal(true);
+									}}
+								>
 									{currentLocal.profilePage.change}
 								</div>
 							</div>
@@ -275,6 +284,9 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 									src={plusCircle}
 									alt="plusCircle"
 									className="cursorPointer"
+									onClick={() => {
+										toggleCompanyPhoneModal(true);
+									}}
 								/>
 							</div>
 						</div>
@@ -334,6 +346,18 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 					</Col>
 				</Row>
 			)}
+			<ChangePasswordModal
+				isModalVisible={isChangePassModalVisible}
+				onCancel={() => {
+					toggleChangePassModal(false);
+				}}
+			/>
+			<AddCompanyPhoneModal
+				isModalVisible={companyPhoneModalVisible}
+				onCancel={() => {
+					toggleCompanyPhoneModal(false);
+				}}
+			/>
 		</Modal>
 	);
 }
