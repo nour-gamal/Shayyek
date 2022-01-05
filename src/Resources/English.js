@@ -168,6 +168,11 @@ export const en = {
     change: "Change",
     save: "Save",
     discardChanges: "Discard changes",
+    changePassword: "Change password",
+    oldPassword: "old password",
+    newPassword: "new password",
+    requiredOldPassword: "New password is required",
+    requiredNewPassword: "Old password is required",
   },
   offerTable: {
     name: "Name",

@@ -164,6 +164,11 @@ export const ar = {
     change: "تغيير",
     save: "حفظ",
     discardChanges: "الغاء التغيرات",
+    changePassword: "تغيير الرقم السري",
+    oldPassword: "الرقم السري القديم",
+    newPassword: "الرقم السري الحديث",
+    requiredOldPassword: "الرقم السري القديم مطلوب",
+    requiredNewPassword: "الرقم السري الجديد مطلوب",
   },
   offerTable: {
     name: "الاسم",

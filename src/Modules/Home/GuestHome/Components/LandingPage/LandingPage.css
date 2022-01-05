@@ -1,215 +1,218 @@
 .landingPage {
-	height: fit-content;
-	background-image: url("../../../../../Resources/Assets/landingPageImage.png");
-	background-attachment: bottom;
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	position: relative;
+  height: fit-content;
+  background-image: url("../../../../../Resources/Assets/landingPageImage.png");
+  background-attachment: bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  position: relative;
 }
 
 .landingPage .liveBoxContainer {
-	padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 .landingPage .button {
-	padding-top: 20px;
+  padding-top: 20px;
 }
 .landingPage .button button {
-	background-color: #fc6b5e;
-	margin-left: 12px;
-	padding-right: 68px;
-	padding-left: 68px;
-	padding-top: 12px;
-	padding-bottom: 12px;
-	height: 55px;
-	border-radius: 12px;
-	opacity: 0.75;
-	cursor: default;
+  background-color: #fc6b5e;
+  margin-left: 12px;
+  padding-right: 68px;
+  padding-left: 68px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  height: 55px;
+  border-radius: 12px;
+  opacity: 0.75;
+  cursor: default;
 }
 .landingPage .button::after {
-	content: ".";
-	color: #fff;
-	font-size: 52px;
-	position: absolute;
-	top: 70%;
-	left: 190px;
+  content: ".";
+  color: #fff;
+  font-size: 52px;
+  position: absolute;
+  top: 70%;
+  left: 190px;
 }
 .landingPage .btnArb::after {
-	content: ".";
-	color: #fff;
-	font-size: 52px;
-	position: absolute;
-	top: 70%;
-	right: 190px;
+  content: ".";
+  color: #fff;
+  font-size: 52px;
+  position: absolute;
+  top: 70%;
+  right: 190px;
 }
 
 .landingPage .liveBox {
-	display: flex;
-	align-items: flex-end;
-	height: 100%;
-	padding-bottom: 37px;
-	width: 100%;
-	margin-top: 20px;
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  padding-bottom: 37px;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .landingPage .liveBox p {
-	margin-top: 25px;
+  margin-top: 25px;
+}
+.landingPage .inputWrapper {
+  width: 50%;
+  position: relative;
 }
 .landingPage .search {
-	position: relative;
-	margin-bottom: 40px;
-	padding-top: 35px;
-	padding-left: 0 !important;
+  margin-bottom: 40px;
+  padding-top: 35px;
+  padding-left: 0px;
 }
-.landingPage .SearchShayyek {
-	position: absolute;
-	top: 45px;
-	left: 24px;
-	margin-right: 16px;
+
+.landingPage .searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  padding-left: 0 !important;
 }
+/* .landingPage .searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  left: auto;
+  right: 1rem;
+  padding-left: auto !important;
+} */
 .landingPage h1 {
-	font-weight: 700 !important;
-	margin-bottom: 0;
+  font-weight: 700 !important;
+  margin-bottom: 0;
 }
 .landingPage h3 {
-	font-weight: 700 !important;
+  font-weight: 700 !important;
 }
 .landingPage input {
-	width: 55.2% !important;
-	padding-top: 0.75rem !important;
-	padding-left: 45px;
-	padding-bottom: 0.75rem;
-	border-radius: 15px;
-	background-color: rgba(250, 250, 250, 0.86);
-	box-shadow: none;
-	border: none;
+  width: 100%;
+  padding-top: 0.75rem !important;
+  padding-left: 60px;
+  padding-bottom: 0.75rem;
+  border-radius: 15px;
+  background-color: rgba(250, 250, 250, 0.86);
+  box-shadow: none;
+  border: none;
+  position: relative;
 }
-.landingPage input:focus-visible {
-	outline: none;
-	width: 55.2% !important;
-	padding-top: 0.75rem !important;
-	padding-left: 45px;
-	padding-bottom: 0.75rem;
-	border-radius: 15px;
-	background-color: rgba(250, 250, 250, 0.86);
-	box-shadow: none;
-	border: none;
-}
+
 .landingPage .empty-text p {
-	color: #707070;
+  color: #707070;
 }
 .landingPage input:focus-visible {
-	padding-top: 0.75rem !important;
-	padding-left: 45px;
-	padding-bottom: 0.75rem;
-	border-radius: 15px;
-	background-color: rgba(250, 250, 250, 0.86);
-	box-shadow: none;
+  outline: none;
+  background-color: rgba(250, 250, 250, 0.86);
+  box-shadow: none;
 }
 .landingPage .selectInput {
-	background-color: #fff;
-	border-top-left-radius: 15px !important;
-	border-top-right-radius: 15px !important;
-	border-bottom-left-radius: 0 !important;
-	border-bottom-right-radius: 0 !important;
+  background-color: #fff;
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 .landingPage .selectInput:focus-visible {
-	outline: none;
-	background-color: #fff;
-	border-top-left-radius: 15px !important;
-	border-top-right-radius: 15px !important;
-	border-bottom-left-radius: 0 !important;
-	border-bottom-right-radius: 0 !important;
+  outline: none;
+  background-color: #fff;
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 .landingPage .companyInfo {
-	cursor: pointer;
-	display: flex;
-	flex-direction: row;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 .landingPage .procurementManagement {
-	display: flex;
-	flex-direction: column-reverse;
+  display: flex;
+  flex-direction: column-reverse;
 }
 .landingPage .procurementManagement p {
-	margin-bottom: 0px !important;
+  margin-bottom: 0px !important;
 }
 .landingPage .procurementManagement h3 {
-	margin-bottom: 48px !important;
+  margin-bottom: 48px !important;
 }
 .landingPage .searchResult {
-	width: 54.5%;
-	position: absolute;
-	top: 62%;
-	left: 2px;
-	padding: 30px;
-	background-color: #fff;
-	margin-top: 25px;
-	position: absolute;
-	z-index: 555555;
-	border-bottom-right-radius: 15px;
-	border-bottom-left-radius: 15px;
-	box-shadow: 0 3px 6px #00000029;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 30px;
+  background-color: #fff;
+  margin-top: 3px;
+  position: absolute;
+  z-index: 555555;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  box-shadow: 0 3px 6px #00000029;
+
+  max-height: 400px;
+  overflow-y: scroll;
 }
+
 .landingPage .rounded-circle {
-	width: 44px;
-	height: 44px;
+  width: 44px;
+  height: 44px;
 }
-.landingPage .searchName {
-	padding-left: 65px;
-	padding-top: 10px;
-}
+
 .landingPage .stars {
-	display: flex;
-	justify-content: flex-end;
-	margin-right: 35px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 35px;
 }
 .landingPage h3 {
-	color: #fc6b5e;
+  color: #fc6b5e;
 }
 .landingPage .lastUpdatStock {
-	width: 100%;
-	padding-top: 50px;
+  width: 100%;
+  padding-top: 50px;
 }
 .landingPage .lastUpdatStock span {
-	margin-left: 30px;
+  margin-left: 30px;
 }
 @media only screen and (max-width: 768px) {
-	.landingPage h1 {
-		padding-top: 0 !important;
-	}
-	.landingPage .search {
-		position: relative;
-		margin-bottom: 23px;
-		padding-left: 0;
-	}
-	.landingPage .stars {
-		display: flex;
-		justify-content: flex-end;
-		margin-right: 0px;
-	}
-	.landingPage .companyInfo {
-		cursor: pointer;
-		display: flex;
-		flex-direction: row;
-		font-size: 12px;
-	}
-	.landingPage .searchName {
-		padding-left: 16px;
-		padding-top: 10px;
-	}
-	.overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-color: #003b6b;
-		opacity: 0.53;
-	}
-	.landingPage {
-		height: fit-content;
-		position: relative;
-	}
-	/* @-moz-document url-prefix() {
+  .landingPage h1 {
+    padding-top: 0 !important;
+  }
+  .landingPage .search {
+    position: relative;
+    margin-bottom: 23px;
+    padding-left: 0;
+  }
+  .landingPage .stars {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 0px;
+  }
+  .landingPage .companyInfo {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
+  }
+  .landingPage .searchName {
+    padding-left: 16px;
+    padding-top: 10px;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #003b6b;
+    opacity: 0.53;
+  }
+  .landingPage {
+    height: fit-content;
+    position: relative;
+  }
+  /* @-moz-document url-prefix() {
 		.landingPage {
 			height: 55vh;
 		}
@@ -225,180 +228,163 @@
 			height: 55vh;
 		}
 	  } */
-	.landingPage .button::after {
-		content: ".";
-		color: #fff;
-		font-size: 52px;
-		position: absolute;
-		top: 55%;
-		left: 140px;
-	}
-	.landingPage .container {
-		margin-left: 20px;
-		width: 95%;
-	}
-	.landingPage h3 {
-		font-size: 17px !important;
-	}
-	.landingPage .f-27 {
-		font-size: 17px !important;
-	}
-	.landingPage input {
-		width: 95.2% !important;
-
-		font-size: 0.75rem;
-	}
-
-	.landingPage input:focus {
-		width: 95.2% !important;
-
-		font-size: 0.75rem;
-	}
-	.landingPage .select-search {
-		width: 100% !important;
-	}
-	.landingPage .search img {
-		width: 18px;
-		top: 12px;
-	}
-
-	.landingPage p {
-		font-size: 17px !important;
-		margin-bottom: 1rem !important;
-	}
-	.landingPage .liveBoxContainer {
-		display: flex;
-		align-items: flex-end;
-		height: 100%;
-		padding-bottom: 37px;
-		width: 100%;
-		width: 100%;
-		padding-top: 0px !important;
-	}
-	.landingPage .liveBoxContainer .row {
-		width: 100%;
-	}
-	.landingPage .button button {
-		background-color: #fc6b5e;
-		font-size: 14px !important;
-		margin-left: 13px;
-		padding-right: 52px;
-		padding-left: 52px;
-		padding-top: 2px;
-		padding-bottom: 1px;
-		height: 32px;
-		border-radius: 12px;
-		opacity: 0.75;
-		cursor: default;
-	}
-	.landingPage .lastUpdatStock {
-		margin-top: 0px;
-		margin-left: 20px;
-		padding-top: 20px;
-	}
-	.landingPage .lastUpdatStock p {
-		font-size: 14px !important;
-	}
-	.landingPage .searchResult {
-		width: 90.7%;
-		position: absolute;
-		top: 56%;
-		left: 3px;
-		padding: 30px;
-		background-color: #fff;
-		position: absolute;
-		z-index: 555555;
-		border-bottom-right-radius: 15px;
-		border-bottom-left-radius: 15px;
-		box-shadow: 0 3px 6px #00000029;
-		margin-top: 6px;
-	}
-	.landingPage .SearchShayyek {
-		position: absolute;
-		top: 48px !important;
-		left: 16px;
-		margin-right: 16px;
-	}
+  .landingPage .button::after {
+    content: ".";
+    color: #fff;
+    font-size: 52px;
+    position: absolute;
+    top: 55%;
+    left: 140px;
+  }
+  .landingPage .container {
+    margin-left: 20px;
+    width: 95%;
+  }
+  .landingPage h3 {
+    font-size: 17px !important;
+  }
+  .landingPage .f-27 {
+    font-size: 17px !important;
+  }
+  .landingPage input {
+    font-size: 0.75rem;
+  }
+  .landingPage .select-search {
+    width: 100% !important;
+  }
+  .landingPage .search .inputWrapper {
+    width: 100%;
+  }
+  .landingPage .search img {
+    left: 1.1rem;
+  }
+  .landingPage .search img.rounded-circle {
+    width: 25px;
+    height: auto;
+  }
+  .landingPage p {
+    font-size: 17px !important;
+    margin-bottom: 1rem !important;
+  }
+  .landingPage .liveBoxContainer {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    padding-bottom: 37px;
+    width: 100%;
+    width: 100%;
+    padding-top: 0px !important;
+  }
+  .landingPage .liveBoxContainer .row {
+    width: 100%;
+  }
+  .landingPage .button button {
+    background-color: #fc6b5e;
+    font-size: 14px !important;
+    margin-left: 13px;
+    padding-right: 52px;
+    padding-left: 52px;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    height: 32px;
+    border-radius: 12px;
+    opacity: 0.75;
+    cursor: default;
+  }
+  .landingPage .lastUpdatStock {
+    margin-top: 0px;
+    margin-left: 20px;
+    padding-top: 20px;
+  }
+  .landingPage .lastUpdatStock p {
+    font-size: 14px !important;
+  }
+  .landingPage .SearchShayyek {
+    position: absolute;
+    top: 48px !important;
+    left: 16px;
+    margin-right: 16px;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-	.landingPage .f-27 {
-		font-size: 21px !important;
-	}
-	.landingPage .searchResult {
-		left: 3px;
-		width: 92.8%;
-		top: 68%;
-	}
-	.landingPage .SearchShayyek {
-		position: absolute;
-		top: 48px !important;
-		left: 16px;
-		margin-right: 35px;
-		width: 17px;
-	}
-	.landingPage input:focus {
-		width: 95.2% !important;
+  .landingPage .f-27 {
+    font-size: 21px !important;
+  }
+  .landingPage .searchResult {
+    left: 3px;
+    width: 92.8%;
+    top: 68%;
+  }
+  .landingPage .SearchShayyek {
+    position: absolute;
+    top: 48px !important;
+    left: 16px;
+    margin-right: 35px;
+    width: 17px;
+  }
+  .landingPage input:focus {
+    width: 95.2% !important;
 
-		font-size: 0.75rem;
-	}
-	.landingPage .f-21 {
-		font-size: 17.5px !important;
-	}
-	.landingPage .lastUpdatStock {
-		width: 100%;
-		padding-top: 12px;
-		margin-left: 15px;
-		width: 150%;
-	}
-	.landingPage .lastUpdatStock span {
-		margin-left: 30px;
-	}
-	.landingPage .button::after {
-		content: ".";
-		color: #fff;
-		font-size: 52px;
-		position: absolute;
-		top: 70%;
-		left: 137px;
-	}
-	.landingPage .search {
-		position: relative;
-		margin-bottom: 40px;
-		padding-left: 0;
-	}
-	.landingPage input {
-		width: 95.2% !important;
+    font-size: 0.75rem;
+  }
+  .landingPage .f-21 {
+    font-size: 17.5px !important;
+  }
+  .landingPage .lastUpdatStock {
+    width: 100%;
+    padding-top: 12px;
+    margin-left: 15px;
+    width: 150%;
+  }
+  .landingPage .lastUpdatStock span {
+    margin-left: 30px;
+  }
+  .landingPage .button::after {
+    content: ".";
+    color: #fff;
+    font-size: 52px;
+    position: absolute;
+    top: 70%;
+    left: 137px;
+  }
+  .landingPage .search {
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 0;
+  }
+  .landingPage input {
+    width: 95.2% !important;
 
-		font-size: 0.75rem;
-	}
-	.overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-color: #003b6b;
-		opacity: 0.53;
-	}
-	.landingPage {
-		height: fit-content;
-		position: relative;
-	}
-	.landingPage .button button {
-		background-color: #fc6b5e;
-		font-size: 14px !important;
-		margin-left: 12px;
-		padding-right: 52px;
-		padding-left: 52px;
-		padding-top: 2px;
-		padding-bottom: 1px;
-		height: 32px;
-		border-radius: 12px;
-		opacity: 0.75;
-		cursor: default;
-	}
-	.landingPage .liveBoxContainer {
-		padding-bottom: 20px;
-	}
+    font-size: 0.75rem;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #003b6b;
+    opacity: 0.53;
+  }
+  .landingPage {
+    height: fit-content;
+    position: relative;
+  }
+  .landingPage .button button {
+    background-color: #fc6b5e;
+    font-size: 14px !important;
+    margin-left: 12px;
+    padding-right: 52px;
+    padding-left: 52px;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    height: 32px;
+    border-radius: 12px;
+    opacity: 0.75;
+    cursor: default;
+  }
+  .landingPage .liveBoxContainer {
+    padding-bottom: 20px;
+  }
 }

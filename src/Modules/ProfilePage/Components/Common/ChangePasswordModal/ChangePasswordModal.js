@@ -5,89 +5,118 @@ import { Alert } from "react-bootstrap";
 import { changePassword } from "../../../network";
 import CloseIcon from "../../../../../Resources/Assets/closeIcon.svg";
 import "./ChangePasswordModal.css";
-function ChangePasswordModal({ isModalVisible, onCancel, getNewPassword }) {
-	const [oldPassword, setOldPassword] = useState("");
-	const [newPassword, setNewPassword] = useState("");
-	const [confirmNewPassword, setConfirmNewPassword] = useState("");
-	const [showAlert, setshowAlert] = useState(false);
-	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const updatePassword = () => {
-		if (oldPassword && newPassword && confirmNewPassword) {
-			let data = {
-				oldPassword,
-				newPassword,
-			};
 
-			changePassword(
-				data,
-				(success) => {
-					console.log(success);
-					// if (success.status) {
-					// 	getNewPassword(newPassword);
-					// }
-				},
-				(fail) => {
-					console.log(fail);
-				}
-			);
-		} else {
-			setshowAlert(true);
-		}
-	};
-	return (
-		<Modal
-			title="Basic Modal"
-			visible={isModalVisible}
-			onCancel={onCancel}
-			className="modal-sm changePasswordModal"
-		>
-			<img
-				onClick={() => onCancel()}
-				src={CloseIcon}
-				className="closeModalIcon cursorPointer"
-				alt="close-modal"
-			/>
-			<h3 className="f-16 primary-color">
-				{currentLocal.profilePage.changePassword}
-			</h3>
-			{showAlert && (
-				<Alert variant={"danger"} className="text-center">
-					{currentLocal.profilePage.passworRepeated}
-				</Alert>
-			)}
-			<div>
-				<input
-					type="password"
-					className={`form-control ${oldPassword ? "alertSign" : ""}`}
-					value={oldPassword}
-					placeholder={currentLocal.profilePage.oldPassword}
-					onChange={(e) => setOldPassword(e.target.value)}
-				/>
-				<small className={`form-control ${oldPassword ? "red-text" : ""}`}>
-					{}
-				</small>
-			</div>
-			<input
-				type="password"
-				className={`form-control ${newPassword ? "alertSign" : ""}`}
-				placeholder={currentLocal.profilePage.newPassword}
-				value={newPassword}
-				onChange={(e) => setNewPassword(e.target.value)}
-			/>
-			<input
-				type="password"
-				className={`form-control ${confirmNewPassword ? "alertSign" : ""}`}
-				placeholder={currentLocal.registration.confirmPassword}
-				value={confirmNewPassword}
-				onChange={(e) => setConfirmNewPassword(e.target.value)}
-			/>
-			<div className="text-center button-container">
-				<button className="button-primary" onClick={updatePassword}>
-					{currentLocal.buyerHome.confirm}
-				</button>
-			</div>
-		</Modal>
-	);
+function ChangePasswordModal({ isModalVisible, onCancel, getNewPassword }) {
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [confirmNewPasswordError, setConfirmNewPasswordError] = useState(false);
+  const [errorMessage, seterrorMessage] = useState(false);
+  const [showAlert, setShowAlert] = useState(null);
+  const { currentLocal } = useSelector((state) => state.currentLocal);
+  const { currentLanguageId } = useSelector((state) => state.currentLocal);
+  const updatePassword = () => {
+    if (oldPassword && newPassword && confirmNewPassword) {
+      let data = {
+        oldPassword,
+        newPassword,
+        languageId: currentLanguageId,
+      };
+      changePassword(
+        data,
+        (success) => {
+          if (success.success) {
+            onCancel();
+            getNewPassword(newPassword);
+            setShowAlert(false);
+          } else {
+            setShowAlert(success.message);
+          }
+        },
+        (fail) => {
+          console.log("success", fail);
+        }
+      );
+    } else if (!confirmNewPassword) {
+      setConfirmNewPasswordError(true);
+    } else {
+      seterrorMessage(true);
+    }
+  };
+  return (
+    <Modal
+      title="Basic Modal"
+      visible={isModalVisible}
+      onCancel={onCancel}
+      className="modal-sm changePasswordModal"
+    >
+      <img
+        onClick={() => onCancel()}
+        src={CloseIcon}
+        className="closeModalIcon cursorPointer"
+        alt="close-modal"
+      />
+      <h3 className="f-16 primary-color">
+        {currentLocal.profilePage.changePassword}
+      </h3>
+      {showAlert && <Alert variant="danger">{showAlert}</Alert>}
+      <div className="inputWrapper">
+        {errorMessage && !oldPassword && (
+          <small className="text-red">
+            {currentLocal.profilePage.requiredOldPassword}
+          </small>
+        )}
+        <input
+          type="password"
+          className={`form-control ${oldPassword ? "alertSign" : ""}`}
+          value={oldPassword}
+          placeholder={currentLocal.profilePage.oldPassword}
+          onChange={(e) => setOldPassword(e.target.value)}
+        />
+      </div>
+      <div className="inputWrapper">
+        {errorMessage && !newPassword ? (
+          <small className="text-red">
+            {currentLocal.profilePage.requiredNewPassword}
+          </small>
+        ) : null}
+        <input
+          type="password"
+          className={`form-control ${newPassword ? "alertSign" : ""}`}
+          placeholder={currentLocal.profilePage.newPassword}
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+      </div>
+      <div className="inputWrapper">
+        {errorMessage && !confirmNewPassword ? (
+          <>
+            <small className="text-red">
+              {currentLocal.login.confirmPasswordIsRequired}
+            </small>
+            <br />
+          </>
+        ) : null}
+        {confirmNewPasswordError && newPassword !== confirmNewPassword ? (
+          <small className="text-red">
+            {currentLocal.login.passwordConfirmationDoesnotMatch}
+          </small>
+        ) : null}
+        <input
+          type="password"
+          className={`form-control ${confirmNewPassword ? "alertSign" : ""}`}
+          placeholder={currentLocal.registration.confirmPassword}
+          value={confirmNewPassword}
+          onChange={(e) => setConfirmNewPassword(e.target.value)}
+        />
+      </div>
+      <div className="text-center button-container">
+        <button className="button-primary" onClick={updatePassword}>
+          {currentLocal.buyerHome.confirm}
+        </button>
+      </div>
+    </Modal>
+  );
 }
 
 export default ChangePasswordModal;

@@ -1,30 +1,31 @@
 import { GetResource, PostResource } from "../../Services";
 
 export const getBuyerProfile = (
-	languageId,
-	onSuccess,
-	onFail,
-	reqAuth = true
+  languageId,
+  onSuccess,
+  onFail,
+  reqAuth = true
 ) => {
-	const path = `api/Profile/BuyerProfile?languageId=${languageId}`;
-	GetResource(path, onSuccess, onFail, reqAuth);
+  const path = `api/Profile/BuyerProfile?languageId=${languageId}`;
+  GetResource(path, onSuccess, onFail, reqAuth);
 };
 export const postImage = (
-	data,
-	onSuccess,
-	onFail,
-	reqAuth = false,
-	formData = true
+  data,
+  onSuccess,
+  onFail,
+  reqAuth = false,
+  formData = true
 ) => {
-	const path = `api/Account/GetImagePath`;
-	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
+  const path = `api/Account/GetImagePath`;
+  PostResource(path, data, onSuccess, onFail, reqAuth, formData);
 };
 
 export const changePassword = (data, onSuccess, onFail, reqAuth = true) => {
-	let path = `api/Account/IsPasswordMatched`;
-	PostResource(path, data, onSuccess, onFail, reqAuth);
+  const { languageId, newPassword, oldPassword } = data;
+  let path = `api/Account/IsPasswordMatched?oldPassword=${oldPassword}&newPassword=${newPassword}&languageId=${languageId}`;
+  PostResource(path, data, onSuccess, onFail, reqAuth);
 };
 export const editProfile = (data, onSuccess, onFail, reqAuth = true) => {
-	let path = `api/Account/EditUser`;
-	PostResource(path, data, onSuccess, onFail, reqAuth);
+  let path = `api/Account/EditUser`;
+  PostResource(path, data, onSuccess, onFail, reqAuth);
 };
