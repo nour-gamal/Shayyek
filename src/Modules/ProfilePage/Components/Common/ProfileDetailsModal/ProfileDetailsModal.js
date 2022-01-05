@@ -472,25 +472,27 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 					}}
 				/>
 			)}
-			<AddCompanyPhoneModal
-				isModalVisible={companyPhoneModalVisible}
-				appendNewPhone={(newPhone) => {
-					updatePhonesArr([...phonesArr, newPhone]);
-				}}
-				onCancel={() => {
-					toggleCompanyPhoneModal(false);
-					getBuyerProfile(
-						currentLanguageId,
-						(success) => {
-							updateProfileData(success.data);
-							updateCompanyEmail(success.data.company.companyWebsite);
-						},
-						(fail) => {
-							console.log(fail);
-						}
-					);
-				}}
-			/>
+			{companyPhoneModalVisible && (
+				<AddCompanyPhoneModal
+					isModalVisible={companyPhoneModalVisible}
+					appendNewPhone={(newPhone) => {
+						updatePhonesArr([...phonesArr, newPhone]);
+					}}
+					onCancel={() => {
+						toggleCompanyPhoneModal(false);
+						getBuyerProfile(
+							currentLanguageId,
+							(success) => {
+								updateProfileData(success.data);
+								updateCompanyEmail(success.data.company.companyWebsite);
+							},
+							(fail) => {
+								console.log(fail);
+							}
+						);
+					}}
+				/>
+			)}
 		</Modal>
 	);
 }
