@@ -173,6 +173,9 @@ export const en = {
     newPassword: "new password",
     requiredOldPassword: "New password is required",
     requiredNewPassword: "Old password is required",
+    add: "add",
+    addPhoneNumber: "phone number",
+    changePhoneNumber: "add phone number",
   },
   offerTable: {
     name: "Name",

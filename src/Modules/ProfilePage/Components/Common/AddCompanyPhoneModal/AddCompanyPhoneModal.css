@@ -7,14 +7,17 @@
 .addPhoneModal h3 {
   margin-bottom: 32px;
 }
+
 .addPhoneModal input {
-  max-width: 300px;
   margin: auto;
   height: 52px;
   border: 1px solid #bce0fd;
 }
 .addPhoneModal input::placeholder {
   color: #003b6b;
+}
+.addPhoneModal input.error-placeholder::placeholder {
+  color: red;
 }
 .addPhoneModal .button-container {
   margin-top: 2rem;

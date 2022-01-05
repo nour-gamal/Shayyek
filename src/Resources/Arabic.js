@@ -169,6 +169,9 @@ export const ar = {
     newPassword: "الرقم السري الحديث",
     requiredOldPassword: "الرقم السري القديم مطلوب",
     requiredNewPassword: "الرقم السري الجديد مطلوب",
+    add: "أضف",
+    addPhoneNumber: "رقم الهاتف",
+    changePhoneNumber: "أضافة رقم الهاتف",
   },
   offerTable: {
     name: "الاسم",
