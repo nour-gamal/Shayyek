@@ -94,6 +94,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 				updateProfileData(success.data);
 				updateCompanyEmail(success.data.company.email);
 				updateCompanyWebsite(success.data.company.website);
+				updateProfileImgLink(success.data.profileImage);
 				//toggleWhatsAppState(success.data);
 			},
 			(fail) => {
@@ -193,7 +194,8 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 			companyPhones: phonesArr,
 			companyMail: companyEmail,
 			companyWebsite,
-			categoriesRequest,
+			categoriesRequest:
+				categoriesRequest.length === 0 ? null : categoriesRequest,
 			newPassword,
 		};
 		editProfile(
@@ -247,8 +249,6 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 											src={
 												profileImgLink
 													? baseUrl + profileImgLink
-													: authorization.image
-													? authorization.image
 													: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
 											}
 											alt="profileImage"
