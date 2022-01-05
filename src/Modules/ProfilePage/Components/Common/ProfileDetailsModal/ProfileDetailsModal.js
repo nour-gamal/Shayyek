@@ -36,7 +36,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 	const [categoriesRequest, setcategoriesRequests] = useState([]);
 	const [newPassword, updateNewPassword] = useState(null);
 	const [alert, setAlert] = useState(false);
-
+	const [validationAlert, toggleValidationAlert] = useState(false);
 	useEffect(() => {
 		getCategoriesWithSelected(
 			currentLanguageId,
@@ -187,26 +187,32 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 	};
 
 	const handleSubmitEdit = () => {
-		let data = {
-			isWhatsAppNumber: whatsAppState,
-			profileImgPath: profileImgLink,
-			companyImgPath: companyImgLink,
-			companyPhones: phonesArr,
-			companyMail: companyEmail,
-			companyWebsite,
-			categoriesRequest:
-				categoriesRequest.length === 0 ? null : categoriesRequest,
-			newPassword,
-		};
-		editProfile(
-			data,
-			(success) => {
-				console.log(success);
-			},
-			(fail) => {
-				console.log(fail);
-			}
-		);
+		if (!companyEmail || !companyWebsite) {
+			toggleValidationAlert(true);
+		} else {
+			let data = {
+				isWhatsAppNumber: whatsAppState,
+				profileImgPath: profileImgLink,
+				companyImgPath: companyImgLink,
+				companyPhones: phonesArr,
+				companyMail: companyEmail,
+				companyWebsite,
+				categoriesRequest:
+					categoriesRequest.length === 0 ? null : categoriesRequest,
+				newPassword,
+			};
+			editProfile(
+				data,
+				(success) => {
+					if (success.success) {
+						onCancel();
+					}
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
 	};
 
 	return (
@@ -216,22 +222,21 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 			onCancel={onCancel}
 			className="modal-lg profileDetailsModal"
 		>
-			<div>
-				{alert && (
-					<Alert variant={"danger"} className="text-center">
-						{currentLocal.registration.uploadValidImage}
-					</Alert>
-				)}
-
-				{profileData && (
+			{alert && (
+				<Alert variant={"danger"} className="text-center">
+					{currentLocal.registration.uploadValidImage}
+				</Alert>
+			)}
+			{profileData && (
+				<div>
 					<Row>
 						<Col
 							xs={24}
 							md={12}
 							className={
 								currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057"
-									? "pr-5"
-									: "pl-5"
+									? "pr-5 mb-20"
+									: "pl-5 mb-20"
 							}
 						>
 							<div className="d-flex align-items-center">
@@ -426,9 +431,13 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 							<div className="labelContainer">
 								<label>{currentLocal.profilePage.companyEmail}</label>
 								<input
-									type="text"
+									type="email"
 									value={companyEmail}
-									className={"input-field d-block"}
+									className={
+										validationAlert && companyEmail.length === 0
+											? "input-field d-block alertSign text-red"
+											: "input-field d-block"
+									}
 									onChange={(e) => {
 										updateCompanyEmail(e.target.value);
 									}}
@@ -441,9 +450,13 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 							<div className="labelContainer">
 								<label>{currentLocal.profilePage.companyWebsite}</label>
 								<input
-									type="text"
+									type="email"
 									value={companyWebsite}
-									className={"input-field d-block"}
+									className={
+										validationAlert && companyWebsite.length === 0
+											? "input-field d-block alertSign text-red"
+											: "input-field d-block"
+									}
 									onChange={(e) => {
 										updateCompanyWebsite(e.target.value);
 									}}
@@ -451,16 +464,17 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 							</div>
 						</Col>
 					</Row>
-				)}
-			</div>
-			<div className="justify-content-center d-flex">
-				<button className="button-secondary mx-1" onClick={onCancel}>
-					{currentLocal.profilePage.discardChanges}
-				</button>
-				<button className="button-primary mx-1" onClick={handleSubmitEdit}>
-					{currentLocal.profilePage.save}
-				</button>
-			</div>
+
+					<div className="justify-content-center d-flex mt-4 btnContainer">
+						<button className="button-secondary mx-1" onClick={onCancel}>
+							{currentLocal.profilePage.discardChanges}
+						</button>
+						<button className="button-primary mx-1" onClick={handleSubmitEdit}>
+							{currentLocal.profilePage.save}
+						</button>
+					</div>
+				</div>
+			)}
 			{isChangePassModalVisible && (
 				<ChangePasswordModal
 					isModalVisible={isChangePassModalVisible}

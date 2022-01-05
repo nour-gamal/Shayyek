@@ -82,16 +82,23 @@
 	color: #bce0fd;
 	border-color: #bce0fd;
 }
-.modal-lg.profileDetailsModal .ant-modal-body {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
+
 @media (min-width: 769px) {
 	.profileDetailsModal .pl-5 {
 		padding-left: 5%;
 	}
 	.profileDetailsModal .pr-5 {
 		padding-right: 5%;
+	}
+}
+@media (max-width: 768px) {
+	.profileDetailsModal .mb-20 {
+		margin-bottom: 20px;
+	}
+	.profileDetailsModal .btnContainer {
+		flex-direction: column;
+	}
+	.profileDetailsModal .btnContainer button {
+		margin: 5px 0;
 	}
 }
