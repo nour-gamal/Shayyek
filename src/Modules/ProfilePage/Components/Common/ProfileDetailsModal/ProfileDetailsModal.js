@@ -3,9 +3,13 @@ import { useSelector } from "react-redux";
 import { Alert } from "react-bootstrap";
 import { Modal, Col, Row, Checkbox } from "antd";
 import plusCircle from "../../../../../Resources/Assets/plusCircle.svg";
-import { getBuyerProfile, postImage, editProfile } from "../../../network";
+import {
+	getBuyerProfile,
+	postImage,
+	editProfile,
+	getCategoriesWithSelected,
+} from "../../../network";
 import { baseUrl } from "../../../../../Services";
-import { getWork } from "../../../../../Modules/Registration/Network";
 import TreeContainer from "../../../../../Modules/Registration/Components/TreeContainer/TreeContainer";
 import paperClip from "../../../../../Resources/Assets/paperClip.svg";
 import ChangePasswordModal from "../ChangePasswordModal/ChangePasswordModal";
@@ -21,6 +25,8 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 	const [companyPhoneModalVisible, toggleCompanyPhoneModal] = useState(false);
 	const [companyEmail, updateCompanyEmail] = useState("");
 	const [companyWebsite, updateCompanyWebsite] = useState("");
+	const [whatsAppState, toggleWhatsAppState] = useState(false);
+	const [phonesArr, updatePhonesArr] = useState([]);
 	const [paperClipState, togglePaperClip] = useState({
 		type: "profileImage",
 		state: false,
@@ -32,36 +38,40 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 	const [alert, setAlert] = useState(false);
 
 	useEffect(() => {
-		getWork(
+		getCategoriesWithSelected(
 			currentLanguageId,
 			(success) => {
 				var data = [];
-				success.data.forEach((category, i) => {
+
+				success.data.forEach((mainCategory, i) => {
 					data.push({
-						value: category.category.id,
-						label: category.category.name,
-						firstchildren: category.subCategories,
+						value: mainCategory.mainCategory.id,
+						label: mainCategory.mainCategory.name,
 						children: [],
 						disabled: true,
 					});
-					category.subCategories.forEach((subCategories, j) => {
+
+					mainCategory.categories.forEach((subCategories, j) => {
 						data[i].children.push({
-							value: subCategories.subCategory.id,
-							label: subCategories.subCategory.name,
-							levelOne: category.category.id,
-							levelTwo: subCategories.subCategory.id,
-							levelThree: subCategories.subSubCategories,
+							value: subCategories.category.id,
+							label: subCategories.category.name,
+							levelOne: mainCategory.mainCategory.id,
+							levelTwo: subCategories.category.id,
+							levelThree: subCategories.subCategories,
 							children: [],
 							disabled: false,
+							isDefaultValue: subCategories.category.isDefaultValue,
 						});
-						subCategories.subSubCategories !== null &&
-							subCategories.subSubCategories.forEach((subSubCategories) => {
+
+						subCategories.subCategories !== null &&
+							subCategories.subCategories.forEach((subSubCategories) => {
 								data[i].children[j].children.push({
 									value: subSubCategories.id,
 									label: subSubCategories.name,
-									levelOne: category.category.id,
-									levelTwo: subCategories.subCategory.id,
+									levelOne: mainCategory.mainCategory.id,
+									levelTwo: subCategories.category.id,
 									levelThree: subSubCategories.id,
+									isDefaultValue: subSubCategories.isDefaultValue,
 									disabled: false,
 								});
 							});
@@ -72,10 +82,10 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 			},
 			(fail) => {
 				console.log(fail);
-			},
-			false
+			}
 		);
 	}, [currentLanguageId]);
+
 	useEffect(() => {
 		getBuyerProfile(
 			currentLanguageId,
@@ -84,6 +94,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 				updateProfileData(success.data);
 				updateCompanyEmail(success.data.company.email);
 				updateCompanyWebsite(success.data.company.website);
+				//toggleWhatsAppState(success.data);
 			},
 			(fail) => {
 				console.log(fail);
@@ -175,10 +186,27 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 	};
 
 	const handleSubmitEdit = () => {
-		editProfile();
+		let data = {
+			isWhatsAppNumber: whatsAppState,
+			profileImgPath: profileImgLink,
+			companyImgPath: companyImgLink,
+			companyPhones: phonesArr,
+			companyMail: companyEmail,
+			companyWebsite,
+			categoriesRequest,
+			newPassword,
+		};
+		editProfile(
+			data,
+			(success) => {
+				console.log(success);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
 	};
-	console.log(categoriesRequest);
-	console.log(newPassword);
+
 	return (
 		<Modal
 			title="Basic Modal"
@@ -271,7 +299,12 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 									<div>{authorization.mobile}</div>
 								</div>
 								<div>
-									<Checkbox>
+									<Checkbox
+										checked={whatsAppState}
+										onChange={(e) => {
+											toggleWhatsAppState(e.target.checked);
+										}}
+									>
 										{currentLocal.registration.whatsAppNumber}
 									</Checkbox>
 								</div>
@@ -281,7 +314,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 								<div>{authorization.email}</div>
 							</div>
 							<div className="labelContainer w-80">
-								<div class="d-flex justify-content-between">
+								<div className="d-flex justify-content-between">
 									<label>{currentLocal.registration.password}</label>
 									<div
 										className="f-12 fw-600 cursorPointer"
@@ -298,7 +331,10 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 								<div>
 									<label>{currentLocal.registration.companyPhoneNumber}</label>
 									<div>
-										<div>{profileData.company.phone}</div>
+										{/* <div>{profileData.company.phone}</div> */}
+										{phonesArr.map((phone, index) => (
+											<div key={index}>{phone}</div>
+										))}
 									</div>
 								</div>
 								<div>
@@ -393,6 +429,9 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 									type="text"
 									value={companyEmail}
 									className={"input-field d-block"}
+									onChange={(e) => {
+										updateCompanyEmail(e.target.value);
+									}}
 								/>
 							</div>
 							<div className="labelContainer">
@@ -405,6 +444,9 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 									type="text"
 									value={companyWebsite}
 									className={"input-field d-block"}
+									onChange={(e) => {
+										updateCompanyWebsite(e.target.value);
+									}}
 								/>
 							</div>
 						</Col>
@@ -432,6 +474,9 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 			)}
 			<AddCompanyPhoneModal
 				isModalVisible={companyPhoneModalVisible}
+				appendNewPhone={(newPhone) => {
+					updatePhonesArr([...phonesArr, newPhone]);
+				}}
 				onCancel={() => {
 					toggleCompanyPhoneModal(false);
 					getBuyerProfile(
