@@ -206,37 +206,39 @@ function RegistrationForm() {
 			currentLanguageId,
 			(success) => {
 				var data = [];
-				success.data.forEach((category, i) => {
+				success.data.forEach((mainCategory, i) => {
 					data.push({
-						value: category.category.id,
-						label: category.category.name,
-						firstchildren: category.subCategories,
+						value: mainCategory.mainCategory.id,
+						label: mainCategory.mainCategory.name,
 						children: [],
 						disabled: true,
 					});
-					category.subCategories.forEach((subCategories, j) => {
+
+					mainCategory.categories.forEach((subCategories, j) => {
 						data[i].children.push({
-							value: subCategories.subCategory.id,
-							label: subCategories.subCategory.name,
-							levelOne: category.category.id,
-							levelTwo: subCategories.subCategory.id,
-							levelThree: subCategories.subSubCategories,
+							value: subCategories.category.id,
+							label: subCategories.category.name,
+							levelOne: mainCategory.mainCategory.id,
+							levelTwo: subCategories.category.id,
+							levelThree: subCategories.subCategories,
 							children: [],
 							disabled: false,
 						});
-						subCategories.subSubCategories !== null &&
-							subCategories.subSubCategories.forEach((subSubCategories) => {
+
+						subCategories.subCategories !== null &&
+							subCategories.subCategories.forEach((subSubCategories) => {
 								data[i].children[j].children.push({
 									value: subSubCategories.id,
 									label: subSubCategories.name,
-									levelOne: category.category.id,
-									levelTwo: subCategories.subCategory.id,
+									levelOne: mainCategory.mainCategory.id,
+									levelTwo: subCategories.category.id,
 									levelThree: subSubCategories.id,
 									disabled: false,
 								});
 							});
 					});
 				});
+				console.log("data", data);
 
 				updateTreeOptions(data);
 			},

@@ -9,6 +9,16 @@ export const getBuyerProfile = (
   const path = `api/Profile/BuyerProfile?languageId=${languageId}`;
   GetResource(path, onSuccess, onFail, reqAuth);
 };
+
+export const getCategoriesWithSelected = (
+	languageId,
+	onSuccess,
+	onFail,
+	reqAuth = true
+) => {
+	const path = `api/Profile/GetCategoriesWithSelected?languageId=${languageId}`;
+	GetResource(path, onSuccess, onFail, reqAuth);
+};
 export const postImage = (
   data,
   onSuccess,
