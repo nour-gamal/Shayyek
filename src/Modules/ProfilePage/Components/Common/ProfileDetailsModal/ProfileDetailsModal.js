@@ -27,6 +27,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 	const [profileImgLink, updateProfileImgLink] = useState(null);
 	const [companyImgLink, updateCompanyImgLink] = useState(null);
 	const [categoriesRequest, setcategoriesRequests] = useState([]);
+	const [newPassword, updateNewPassword] = useState(null);
 	const [alert, setAlert] = useState(false);
 
 	useEffect(() => {
@@ -395,6 +396,9 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 					isModalVisible={isChangePassModalVisible}
 					onCancel={() => {
 						toggleChangePassModal(false);
+					}}
+					getNewPassword={(newPassword) => {
+						updateNewPassword(newPassword);
 					}}
 				/>
 			)}

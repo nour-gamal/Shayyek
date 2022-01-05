@@ -5,7 +5,7 @@ import { Alert } from "react-bootstrap";
 import { changePassword } from "../../../network";
 import CloseIcon from "../../../../../Resources/Assets/closeIcon.svg";
 import "./ChangePasswordModal.css";
-function ChangePasswordModal({ isModalVisible, onCancel }) {
+function ChangePasswordModal({ isModalVisible, onCancel, getNewPassword }) {
 	const [oldPassword, setOldPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -22,6 +22,9 @@ function ChangePasswordModal({ isModalVisible, onCancel }) {
 				data,
 				(success) => {
 					console.log(success);
+					// if (success.status) {
+					// 	getNewPassword(newPassword);
+					// }
 				},
 				(fail) => {
 					console.log(fail);
