@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Alert } from "react-bootstrap";
 import { Modal, Col, Row, Checkbox } from "antd";
 import plusCircle from "../../../../../Resources/Assets/plusCircle.svg";
-import { getBuyerProfile, postImage } from "../../../network";
+import { getBuyerProfile, postImage, editProfile } from "../../../network";
 import { baseUrl } from "../../../../../Services";
 import { getWork } from "../../../../../Modules/Registration/Network";
 import TreeContainer from "../../../../../Modules/Registration/Components/TreeContainer/TreeContainer";
@@ -20,6 +20,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 	const [isChangePassModalVisible, toggleChangePassModal] = useState(false);
 	const [companyPhoneModalVisible, toggleCompanyPhoneModal] = useState(false);
 	const [companyEmail, updateCompanyEmail] = useState("");
+	const [companyWebsite, updateCompanyWebsite] = useState("");
 	const [paperClipState, togglePaperClip] = useState({
 		type: "profileImage",
 		state: false,
@@ -81,7 +82,8 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 			(success) => {
 				console.log(success.data);
 				updateProfileData(success.data);
-				updateCompanyEmail(success.data.company.companyWebsite);
+				updateCompanyEmail(success.data.company.email);
+				updateCompanyWebsite(success.data.company.website);
 			},
 			(fail) => {
 				console.log(fail);
@@ -171,7 +173,12 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 
 		setcategoriesRequests(categoriesRequest);
 	};
+
+	const handleSubmitEdit = () => {
+		editProfile();
+	};
 	console.log(categoriesRequest);
+	console.log(newPassword);
 	return (
 		<Modal
 			title="Basic Modal"
@@ -179,215 +186,236 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 			onCancel={onCancel}
 			className="modal-lg profileDetailsModal"
 		>
-			{alert && (
-				<Alert variant={"danger"} className="text-center">
-					{currentLocal.registration.uploadValidImage}
-				</Alert>
-			)}
-			{profileData && (
-				<Row>
-					<Col xs={24} md={12} style={{ padding: "0 20px" }}>
-						<div className="d-flex align-items-center">
-							<input
-								type={"file"}
-								className="d-none"
-								id="profileImage"
-								onChange={(e) => {
-									handleUploadFile(e, 3);
-								}}
-							/>
-							<label for="profileImage">
-								<div className="imgContainer">
-									<img
-										src={
-											profileImgLink
-												? baseUrl + profileImgLink
-												: authorization.image
-												? authorization.image
-												: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-										}
-										alt="profileImage"
-										className="profileCompImage"
-										onMouseEnter={() => {
-											togglePaperClip({
-												type: "profileImage",
-												state: true,
-											});
-										}}
-										onMouseLeave={() => {
-											togglePaperClip({
-												type: "profileImage",
-												state: false,
-											});
-										}}
-									/>
-									{paperClipState.state &&
-										paperClipState.type === "profileImage" && (
-											<img
-												src={paperClip}
-												alt="paperClip"
-												onMouseEnter={() => {
-													togglePaperClip({
-														type: "profileImage",
-														state: true,
-													});
-												}}
-											/>
-										)}
-								</div>
-							</label>
-							<div className="mx-2">
-								<div className="primary-color f-14 fw-600">
-									{authorization.fullName}
-								</div>
-								<div className="userType my-1">{userType}</div>
-							</div>
-						</div>
-						<TreeContainer
-							data={treeOptions}
-							onChange={onTreeChange}
-							className={"inputField"}
-						/>
-						<div className="labelContainer d-flex justify-content-between align-items-end">
-							<div>
-								<label>{currentLocal.profilePage.mobileNumber}</label>
-								<div>{authorization.mobile}</div>
-							</div>
-							<div>
-								<Checkbox>{currentLocal.registration.whatsAppNumber}</Checkbox>
-							</div>
-						</div>
-						<div className="labelContainer">
-							<label>{currentLocal.profilePage.email}</label>
-							<div>{authorization.email}</div>
-						</div>
-						<div className="labelContainer w-80">
-							<div class="d-flex justify-content-between">
-								<label>{currentLocal.registration.password}</label>
-								<div
-									className="f-12 fw-600 cursorPointer"
-									onClick={() => {
-										toggleChangePassModal(true);
-									}}
-								>
-									{currentLocal.profilePage.change}
-								</div>
-							</div>
-							<div>**********</div>
-						</div>
-						<div className="labelContainer d-flex w-80 justify-content-between">
-							<div>
-								<label>{currentLocal.registration.companyPhoneNumber}</label>
-								<div>
-									<div>{profileData.company.phone}</div>
-								</div>
-							</div>
-							<div>
-								<img
-									src={plusCircle}
-									alt="plusCircle"
-									className="cursorPointer"
-									onClick={() => {
-										toggleCompanyPhoneModal(true);
+			<div>
+				{alert && (
+					<Alert variant={"danger"} className="text-center">
+						{currentLocal.registration.uploadValidImage}
+					</Alert>
+				)}
+
+				{profileData && (
+					<Row>
+						<Col
+							xs={24}
+							md={12}
+							className={
+								currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057"
+									? "pr-5"
+									: "pl-5"
+							}
+						>
+							<div className="d-flex align-items-center">
+								<input
+									type={"file"}
+									className="d-none"
+									id="profileImage"
+									onChange={(e) => {
+										handleUploadFile(e, 3);
 									}}
 								/>
-							</div>
-						</div>
-						<div className="labelContainer">
-							<label className="d-block">
-								{currentLocal.registration.commercialRegister}
-							</label>
-							<img
-								src={baseUrl + profileData.company.commercialRecord}
-								alt="commercialRegister"
-								className="commercialRegister"
-							/>
-						</div>
-					</Col>
-					<Col xs={24} md={12}>
-						<div className="d-flex align-items-center">
-							<input
-								type={"file"}
-								className="d-none"
-								id="companyImage"
-								onChange={(e) => {
-									handleUploadFile(e, 1);
-								}}
-							/>
-							<label for="companyImage">
-								<div className="imgContainer">
-									<img
-										src={
-											companyImgLink
-												? baseUrl + companyImgLink
-												: baseUrl + profileData.company.image
-										}
-										alt="CompanyImage"
-										className="profileCompImage companyBorder"
-										onMouseEnter={() => {
-											togglePaperClip({
-												type: "companyImage",
-												state: true,
-											});
-										}}
-										onMouseLeave={() => {
-											togglePaperClip({
-												type: "companyImage",
-												state: false,
-											});
-										}}
-									/>{" "}
-									{paperClipState.state &&
-										paperClipState.type === "companyImage" && (
-											<img
-												src={paperClip}
-												alt="paperClip"
-												onMouseEnter={() => {
-													togglePaperClip({
-														type: "companyImage",
-														state: true,
-													});
-												}}
-											/>
-										)}
+								<label for="profileImage">
+									<div className="imgContainer">
+										<img
+											src={
+												profileImgLink
+													? baseUrl + profileImgLink
+													: authorization.image
+													? authorization.image
+													: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+											}
+											alt="profileImage"
+											className="profileCompImage"
+											onMouseEnter={() => {
+												togglePaperClip({
+													type: "profileImage",
+													state: true,
+												});
+											}}
+											onMouseLeave={() => {
+												togglePaperClip({
+													type: "profileImage",
+													state: false,
+												});
+											}}
+										/>
+										{paperClipState.state &&
+											paperClipState.type === "profileImage" && (
+												<img
+													src={paperClip}
+													alt="paperClip"
+													onMouseEnter={() => {
+														togglePaperClip({
+															type: "profileImage",
+															state: true,
+														});
+													}}
+												/>
+											)}
+									</div>
+								</label>
+								<div className="mx-2">
+									<div className="primary-color f-14 fw-600">
+										{authorization.fullName}
+									</div>
+									<div className="userType my-1">{userType}</div>
 								</div>
-							</label>
-							<div className="primary-color f-14 fw-600 mx-2">
-								{profileData.company.name}
 							</div>
-						</div>
-						<div className="labelContainer">
-							<label>{currentLocal.registration.governorate}</label>
-							<div>{profileData.company.governorateName}</div>
-						</div>
-						<div className="labelContainer">
-							<label>{currentLocal.registration.address}</label>
-							<div>{profileData.company.address}</div>
-						</div>
-						<div className="labelContainer">
-							<label>{currentLocal.registration.role}</label>
-							<div>{currentLocal.registration.admin}</div>
-						</div>
-						<div className="labelContainer">
-							<label>{currentLocal.profilePage.companyEmail}</label>
-							<div>{profileData.company.email}</div>
-						</div>
-						<div className="labelContainer">
-							<label>{currentLocal.profilePage.companyLegalStructure}</label>
-							<div>{profileData.company.typeName}</div>
-						</div>
-						<div className="labelContainer">
-							<label>{currentLocal.profilePage.companyWebsite}</label>
-							<input type="text" value={companyEmail} className="d-block" />
-						</div>
-					</Col>
-				</Row>
-			)}
-			<div className="justify-content-center my-4 d-flex">
-				<button className="button-secondary mx-1">
+							<TreeContainer
+								data={treeOptions}
+								onChange={onTreeChange}
+								className={"inputField"}
+							/>
+							<div className="labelContainer d-flex justify-content-between align-items-end">
+								<div>
+									<label>{currentLocal.profilePage.mobileNumber}</label>
+									<div>{authorization.mobile}</div>
+								</div>
+								<div>
+									<Checkbox>
+										{currentLocal.registration.whatsAppNumber}
+									</Checkbox>
+								</div>
+							</div>
+							<div className="labelContainer">
+								<label>{currentLocal.profilePage.email}</label>
+								<div>{authorization.email}</div>
+							</div>
+							<div className="labelContainer w-80">
+								<div class="d-flex justify-content-between">
+									<label>{currentLocal.registration.password}</label>
+									<div
+										className="f-12 fw-600 cursorPointer"
+										onClick={() => {
+											toggleChangePassModal(true);
+										}}
+									>
+										{currentLocal.profilePage.change}
+									</div>
+								</div>
+								<div>**********</div>
+							</div>
+							<div className="labelContainer d-flex w-80 justify-content-between">
+								<div>
+									<label>{currentLocal.registration.companyPhoneNumber}</label>
+									<div>
+										<div>{profileData.company.phone}</div>
+									</div>
+								</div>
+								<div>
+									<img
+										src={plusCircle}
+										alt="plusCircle"
+										className="cursorPointer"
+										onClick={() => {
+											toggleCompanyPhoneModal(true);
+										}}
+									/>
+								</div>
+							</div>
+							<div className="labelContainer">
+								<label className="d-block">
+									{currentLocal.registration.commercialRegister}
+								</label>
+								<img
+									src={baseUrl + profileData.company.commercialRecord}
+									alt="commercialRegister"
+									className="commercialRegister"
+								/>
+							</div>
+						</Col>
+						<Col xs={24} md={12}>
+							<div className="d-flex align-items-center">
+								<input
+									type={"file"}
+									className="d-none"
+									id="companyImage"
+									onChange={(e) => {
+										handleUploadFile(e, 1);
+									}}
+								/>
+								<label for="companyImage">
+									<div className="imgContainer">
+										<img
+											src={
+												companyImgLink
+													? baseUrl + companyImgLink
+													: baseUrl + profileData.company.image
+											}
+											alt="CompanyImage"
+											className="profileCompImage companyBorder"
+											onMouseEnter={() => {
+												togglePaperClip({
+													type: "companyImage",
+													state: true,
+												});
+											}}
+											onMouseLeave={() => {
+												togglePaperClip({
+													type: "companyImage",
+													state: false,
+												});
+											}}
+										/>{" "}
+										{paperClipState.state &&
+											paperClipState.type === "companyImage" && (
+												<img
+													src={paperClip}
+													alt="paperClip"
+													onMouseEnter={() => {
+														togglePaperClip({
+															type: "companyImage",
+															state: true,
+														});
+													}}
+												/>
+											)}
+									</div>
+								</label>
+								<div className="primary-color f-14 fw-600 mx-2">
+									{profileData.company.name}
+								</div>
+							</div>
+							<div className="labelContainer">
+								<label>{currentLocal.registration.governorate}</label>
+								<div>{profileData.company.governorateName}</div>
+							</div>
+							<div className="labelContainer">
+								<label>{currentLocal.registration.address}</label>
+								<div>{profileData.company.address}</div>
+							</div>
+							<div className="labelContainer">
+								<label>{currentLocal.registration.role}</label>
+								<div>{currentLocal.registration.admin}</div>
+							</div>
+							<div className="labelContainer">
+								<label>{currentLocal.profilePage.companyEmail}</label>
+								<input
+									type="text"
+									value={companyEmail}
+									className={"input-field d-block"}
+								/>
+							</div>
+							<div className="labelContainer">
+								<label>{currentLocal.profilePage.companyLegalStructure}</label>
+								<div>{profileData.company.typeName}</div>
+							</div>
+							<div className="labelContainer">
+								<label>{currentLocal.profilePage.companyWebsite}</label>
+								<input
+									type="text"
+									value={companyWebsite}
+									className={"input-field d-block"}
+								/>
+							</div>
+						</Col>
+					</Row>
+				)}
+			</div>
+			<div className="justify-content-center d-flex">
+				<button className="button-secondary mx-1" onClick={onCancel}>
 					{currentLocal.profilePage.discardChanges}
 				</button>
-				<button className="button-primary mx-1">
+				<button className="button-primary mx-1" onClick={handleSubmitEdit}>
 					{currentLocal.profilePage.save}
 				</button>
 			</div>

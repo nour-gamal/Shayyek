@@ -21,6 +21,10 @@ export const postImage = (
 };
 
 export const changePassword = (data, onSuccess, onFail, reqAuth = true) => {
-	let path = `.......`;
+	let path = `api/Account/IsPasswordMatched`;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};
+export const editProfile = (data, onSuccess, onFail, reqAuth = true) => {
+	let path = `api/Account/EditUser`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
