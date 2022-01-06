@@ -11,36 +11,38 @@ function ChangePasswordModal({ isModalVisible, onCancel, getNewPassword }) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [confirmNewPasswordError, setConfirmNewPasswordError] = useState(false);
-  const [errorMessage, seterrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
   const [showAlert, setShowAlert] = useState(null);
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
   const updatePassword = () => {
     if (oldPassword && newPassword && confirmNewPassword) {
-      let data = {
-        oldPassword,
-        newPassword,
-        languageId: currentLanguageId,
-      };
-      changePassword(
-        data,
-        (success) => {
-          if (success.success) {
-            onCancel();
-            getNewPassword(newPassword);
-            setShowAlert(false);
-          } else {
-            setShowAlert(success.message);
+      if (confirmNewPassword !== newPassword) {
+        setConfirmNewPasswordError(true);
+      } else {
+        let data = {
+          oldPassword,
+          newPassword,
+          languageId: currentLanguageId,
+        };
+        changePassword(
+          data,
+          (success) => {
+            if (success.success) {
+              onCancel();
+              getNewPassword(newPassword);
+              setShowAlert(false);
+            } else {
+              setShowAlert(success.message);
+            }
+          },
+          (fail) => {
+            console.log("success", fail);
           }
-        },
-        (fail) => {
-          console.log("success", fail);
-        }
-      );
-    } else if (!confirmNewPassword) {
-      setConfirmNewPasswordError(true);
+        );
+      }
     } else {
-      seterrorMessage(true);
+      setErrorMessage(true);
     }
   };
   return (
@@ -62,9 +64,11 @@ function ChangePasswordModal({ isModalVisible, onCancel, getNewPassword }) {
       {showAlert && <Alert variant="danger">{showAlert}</Alert>}
       <div className="inputWrapper">
         {errorMessage && !oldPassword && (
-          <small className="text-red">
-            {currentLocal.profilePage.requiredOldPassword}
-          </small>
+          <div className="mb-2">
+            <small className="text-red">
+              {currentLocal.profilePage.requiredOldPassword}
+            </small>
+          </div>
         )}
         <input
           type="password"
@@ -76,9 +80,11 @@ function ChangePasswordModal({ isModalVisible, onCancel, getNewPassword }) {
       </div>
       <div className="inputWrapper">
         {errorMessage && !newPassword ? (
-          <small className="text-red">
-            {currentLocal.profilePage.requiredNewPassword}
-          </small>
+          <div className="mb-2">
+            <small className="text-red">
+              {currentLocal.profilePage.requiredNewPassword}
+            </small>
+          </div>
         ) : null}
         <input
           type="password"
@@ -90,17 +96,21 @@ function ChangePasswordModal({ isModalVisible, onCancel, getNewPassword }) {
       </div>
       <div className="inputWrapper">
         {errorMessage && !confirmNewPassword ? (
-          <>
+          <div className="mb-2">
             <small className="text-red">
               {currentLocal.login.confirmPasswordIsRequired}
             </small>
             <br />
-          </>
+          </div>
         ) : null}
-        {confirmNewPasswordError && newPassword !== confirmNewPassword ? (
-          <small className="text-red">
-            {currentLocal.login.passwordConfirmationDoesnotMatch}
-          </small>
+        {confirmNewPasswordError &&
+        newPassword !== confirmNewPassword &&
+        confirmNewPassword ? (
+          <div className="mb-2">
+            <small className="text-red">
+              {currentLocal.login.passwordConfirmationDoesnotMatch}
+            </small>
+          </div>
         ) : null}
         <input
           type="password"

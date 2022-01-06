@@ -81,7 +81,13 @@ function LandingPage() {
           </Row>
           <Row>
             <div className="search w-100">
-              <div class="inputWrapper">
+              <div
+                class={`inputWrapper ${
+                  currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057"
+                    ? ""
+                    : "rtl"
+                }`}
+              >
                 <input
                   type="search"
                   value={searchWord}
@@ -125,8 +131,8 @@ function LandingPage() {
                                     className={`companyInfo ${
                                       currentLanguageId ===
                                       "274c0b77-90cf-4ee3-976e-01e409413057"
-                                        ? "ml-3"
-                                        : "mr-3"
+                                        ? "mr-4"
+                                        : "ml-4"
                                     }`}
                                   >
                                     <img
@@ -135,7 +141,7 @@ function LandingPage() {
                                       className="rounded-circle"
                                     />
                                   </div>
-                                  <div className="d-flex justify-content-between align-items-center">
+                                  <div className="d-flex justify-content-between align-items-center flex-1 item">
                                     <div className="searchName">
                                       {search.name}
                                     </div>

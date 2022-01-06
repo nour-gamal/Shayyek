@@ -19,6 +19,7 @@
 .addPhoneModal input.error-placeholder::placeholder {
   color: red;
 }
+
 .addPhoneModal .button-container {
   margin-top: 2rem;
 }
@@ -59,4 +60,14 @@
     margin-left: 2rem;
     margin-top: 0;
   }
+}
+
+/* remove input[type:number] arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
 }

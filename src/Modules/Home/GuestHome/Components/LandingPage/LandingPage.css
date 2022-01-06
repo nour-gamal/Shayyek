@@ -99,6 +99,14 @@
   position: relative;
 }
 
+.landingPage .inputWrapper.rtl .searchIcon {
+  left: none;
+  right: 1rem;
+}
+.landingPage .inputWrapper.rtl input {
+  padding-left: unset;
+  padding-right: 55px;
+}
 .landingPage .empty-text p {
   color: #707070;
 }
@@ -154,16 +162,13 @@
   max-height: 400px;
   overflow-y: scroll;
 }
-
 .landingPage .rounded-circle {
   width: 44px;
   height: 44px;
 }
-
 .landingPage .stars {
   display: flex;
   justify-content: flex-end;
-  margin-right: 35px;
 }
 .landingPage h3 {
   color: #fc6b5e;
@@ -174,6 +179,17 @@
 }
 .landingPage .lastUpdatStock span {
   margin-left: 30px;
+}
+@media only screen and (max-width: 568px) {
+  .landingPage .item {
+    flex-direction: column;
+  }
+  .landingPage .item .searchName,
+  .landingPage .item .stars {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
 }
 @media only screen and (max-width: 768px) {
   .landingPage h1 {
@@ -195,9 +211,9 @@
     flex-direction: row;
     font-size: 12px;
   }
+
   .landingPage .searchName {
-    padding-left: 16px;
-    padding-top: 10px;
+    flex: 1;
   }
   .overlay {
     position: absolute;
@@ -252,9 +268,10 @@
   .landingPage .select-search {
     width: 100% !important;
   }
-  .landingPage .search .inputWrapper {
+  .landingPage .inputWrapper {
     width: 100%;
   }
+
   .landingPage .search img {
     left: 1.1rem;
   }
@@ -312,9 +329,8 @@
     font-size: 21px !important;
   }
   .landingPage .searchResult {
-    left: 3px;
-    width: 92.8%;
-    top: 68%;
+    left: 0;
+    width: 100%;
   }
   .landingPage .SearchShayyek {
     position: absolute;
@@ -322,11 +338,6 @@
     left: 16px;
     margin-right: 35px;
     width: 17px;
-  }
-  .landingPage input:focus {
-    width: 95.2% !important;
-
-    font-size: 0.75rem;
   }
   .landingPage .f-21 {
     font-size: 17.5px !important;
@@ -353,11 +364,7 @@
     margin-bottom: 40px;
     padding-left: 0;
   }
-  .landingPage input {
-    width: 95.2% !important;
 
-    font-size: 0.75rem;
-  }
   .overlay {
     position: absolute;
     top: 0;
@@ -386,5 +393,15 @@
   }
   .landingPage .liveBoxContainer {
     padding-bottom: 20px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .landingPage .searchResult {
+    left: 0;
+    width: 100%;
+  }
+  .landingPage .inputWrapper {
+    width: 100%;
   }
 }

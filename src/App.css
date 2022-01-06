@@ -108,19 +108,19 @@ section {
   margin-right: 0.75rem;
 }
 .mr-4 {
-  margin-right: 15rem;
+  margin-right: 1.5rem;
 }
 .ml-1 {
-  margin-right: 0.25rem;
+  margin-left: 0.25rem;
 }
 .ml-2 {
-  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 }
 .ml-3 {
-  margin-right: 0.75rem;
+  margin-left: 0.75rem;
 }
 .ml-4 {
-  margin-right: 15rem;
+  margin-left: 1.5rem;
 }
 
 .input-field {

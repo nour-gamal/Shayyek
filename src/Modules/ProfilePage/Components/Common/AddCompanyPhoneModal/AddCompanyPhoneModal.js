@@ -34,12 +34,14 @@ function AddCompanyPhoneModal({ isModalVisible, onCancel, appendNewPhone }) {
       </h3>
       <div className="inputWrapper">
         {newPhoneError && !newPhone && (
-          <small className="text-red text-error f-12">
-            {currentLocal.registration.pleaseFillmobileNumber}
-          </small>
+          <div className="mb-2">
+            <small className="text-red text-error f-12">
+              {currentLocal.registration.pleaseFillmobileNumber}
+            </small>
+          </div>
         )}
         <input
-          type="text"
+          type="number"
           className={`form-control ${
             newPhoneError && !newPhone ? "alertSign error-placeholder" : ""
           }`}
