@@ -95,6 +95,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 				updateCompanyEmail(success.data.company.email);
 				updateCompanyWebsite(success.data.company.website);
 				updateProfileImgLink(success.data.profileImage);
+				// updatePhonesArr(success.data.company.phones);
 				//toggleWhatsAppState(success.data);
 			},
 			(fail) => {
@@ -434,7 +435,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 									type="email"
 									value={companyEmail}
 									className={
-										validationAlert && companyEmail.length === 0
+										validationAlert && companyEmail && companyEmail.length === 0
 											? "input-field d-block alertSign text-red"
 											: "input-field d-block"
 									}
@@ -498,7 +499,9 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 							currentLanguageId,
 							(success) => {
 								updateProfileData(success.data);
-								updateCompanyEmail(success.data.company.companyWebsite);
+								updateCompanyEmail(success.data.company.email);
+								updateCompanyWebsite(success.data.company.website);
+								updateProfileImgLink(success.data.profileImage);
 							},
 							(fail) => {
 								console.log(fail);

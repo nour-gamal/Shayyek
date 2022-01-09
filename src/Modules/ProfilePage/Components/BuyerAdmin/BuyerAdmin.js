@@ -16,6 +16,7 @@ function BuyerAdmin() {
 	const [buyerRFQs, updataBuyerRFQs] = useState([]);
 	const [buyerOrders, updateBuyerOrders] = useState([]);
 	const [company, updateCompany] = useState(null);
+	const [allData, updateAllDate] = useState({});
 	// const labelData = [
 	// 	{
 	// 		label:
@@ -34,6 +35,7 @@ function BuyerAdmin() {
 				updataBuyerRFQs(success.data.buyerRFQs);
 				updateBuyerOrders(success.data.buyerOrders);
 				updateCompany(success.data.company);
+				updateAllDate(success.data);
 			},
 			(fail) => {
 				console.log(fail);
@@ -72,7 +74,7 @@ function BuyerAdmin() {
 				</Col>
 				<Col md={5} xs={8}>
 					<div className="profileSideMenu">
-						<SidePersonalInfo company={company} />
+						<SidePersonalInfo allData={allData} />
 						<CompanyCard buyerOrders={buyerOrders} companyDetails={company} />
 					</div>
 				</Col>

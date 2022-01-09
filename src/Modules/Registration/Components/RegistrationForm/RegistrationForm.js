@@ -238,8 +238,6 @@ function RegistrationForm() {
 							});
 					});
 				});
-				console.log("data", data);
-
 				updateTreeOptions(data);
 			},
 			(fail) => {
@@ -375,7 +373,7 @@ function RegistrationForm() {
 			IsWhatsAppNumber: checkedWhatsApp,
 			FirebaseToken: deviceToken.deviceToken,
 			MailCompany: companyMail,
-			MobileCompany: companyPhoneNumber,
+			CompanyPhones: [companyPhoneNumber],
 			Website: companyWebsite,
 			Address: address,
 			CompanyHasData:

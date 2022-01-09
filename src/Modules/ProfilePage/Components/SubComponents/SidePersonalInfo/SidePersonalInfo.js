@@ -1,12 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Tree } from "antd";
 import ProfileDetailsModal from "../ProfileDetailsModal/ProfileDetailsModal";
 import moreDots from "../../../../../Resources/Assets/more-dots.svg";
 import "./SidePersonalInfo.css";
-function SidePersonalInfo() {
+function SidePersonalInfo({ allData }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
-	const [isModalVisible, updateModalStatus] = useState(true);
+	const [isModalVisible, updateModalStatus] = useState(false);
+	const [workField, updateWorkField] = useState([]);
+	useEffect(() => {
+		var treeData = [];
+		if (allData.categories) {
+			allData.categories.forEach((mainCat, mainCatIndex) => {
+				treeData.push({
+					title: mainCat.mainCategory.name,
+					key: mainCat.mainCategory.id,
+					children: [],
+				});
+				mainCat.categories.forEach((cat, catId) => {
+					treeData[mainCatIndex].children.push({
+						title: cat.category.name,
+						key: cat.category.id,
+						children: [],
+					});
+
+					cat.subCategories.forEach((subCat) => {
+						treeData[mainCatIndex].children[catId].children.push({
+							title: subCat.name,
+							key: subCat.id,
+						});
+					});
+				});
+			});
+		}
+		updateWorkField(treeData);
+	}, [allData.categories]);
+
 	return (
 		<div className="sidePersonalInfo">
 			<div className="title d-flex align-items-center p-2 justify-content-between">
@@ -34,22 +64,25 @@ function SidePersonalInfo() {
 			<ul className="list-unstyled">
 				<li>
 					<label>{currentLocal.profilePage.name}</label>
-					<div>Egypt,Giza</div>
+					<div>{allData.name}</div>
 				</li>
 				<li>
 					<label>{currentLocal.profilePage.type}</label>
+					<div>{allData.userTypeName}</div>
 				</li>
 				<li>
 					<label>{currentLocal.profilePage.workField}</label>
-					<div>0123456789</div>
+					<div>
+						<Tree checkedKeys={"checkable"} treeData={workField} />
+					</div>
 				</li>
 				<li>
 					<label>{currentLocal.profilePage.phoneNumber}</label>
-					<div>0123456789</div>
+					<div>{allData.mobile}</div>
 				</li>
 				<li>
 					<label>{currentLocal.profilePage.email}</label>
-					<div>Enmsjj@kddj.com</div>
+					<div>{allData.email}</div>
 				</li>
 			</ul>
 			<ProfileDetailsModal
