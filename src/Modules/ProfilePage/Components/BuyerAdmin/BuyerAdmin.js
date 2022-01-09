@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import PersonalInfo from "../Common/Personalnfo/Personalnfo";
+import PersonalInfo from "../SubComponents/Personalnfo/Personalnfo";
 import { useSelector } from "react-redux";
 import { Row, Col } from "antd";
-import Quarter from "../Common/Quarter/Quarter";
-import MyRFQs from "../Common/MyRFQs/MyRFQs";
-import MyOrders from "../Common/MyOrders/MyOrders";
-import CompanyCard from "../Common/CompanyCard/CompanyCard";
-import SidePersonalInfo from "../Common/SidePersonalInfo/SidePersonalInfo";
+import Quarter from "../SubComponents/Quarter/Quarter";
+import MyRFQs from "../SubComponents/MyRFQs/MyRFQs";
+import MyOrders from "../SubComponents/MyOrders/MyOrders";
+import CompanyCard from "../SubComponents/CompanyCard/CompanyCard";
+import SidePersonalInfo from "../SubComponents/SidePersonalInfo/SidePersonalInfo";
 import { getBuyerProfile } from "../../network";
 import "./BuyerAdmin.css";
 function BuyerAdmin() {

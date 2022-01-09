@@ -1,5 +1,5 @@
 import React from "react";
-import PersonalInfo from "../Common/Personalnfo/Personalnfo";
+import PersonalInfo from "../SubComponents/Personalnfo/Personalnfo";
 import "./SupplierContractorAdmin.css";
 function SupplierContractorAdmin() {
 	return (
