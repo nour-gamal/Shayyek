@@ -8,35 +8,11 @@ import "./BusinessCard.css";
 function BusinessCard({ profileDetails }) {
   const [workField, updateWorkField] = useState([]);
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  const categories = [
-    {
-      mainCategory: {
-        id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        name: "string",
-      },
-      categories: [
-        {
-          category: {
-            id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            name: "string",
-            isDefaultValue: true,
-          },
-          subCategories: [
-            {
-              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              name: "string",
-              isDefaultValue: true,
-            },
-          ],
-        },
-      ],
-    },
-  ];
+
   useEffect(() => {
     var treeData = [];
-    console.log(categories);
-    if (categories) {
-      categories.forEach((mainCat, mainCatIndex) => {
+    if (profileDetails.categories) {
+      profileDetails.categories.forEach((mainCat, mainCatIndex) => {
         treeData.push({
           title: mainCat.mainCategory.name,
           key: mainCat.mainCategory.id,
@@ -58,8 +34,7 @@ function BusinessCard({ profileDetails }) {
       });
     }
     updateWorkField(treeData);
-  }, []);
-  console.log(workField);
+  }, [profileDetails]);
   return (
     <div className="businessCard">
       <ul className="list-unstyled f-14">

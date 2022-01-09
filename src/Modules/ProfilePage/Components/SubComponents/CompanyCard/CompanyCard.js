@@ -3,64 +3,82 @@ import { useSelector } from "react-redux";
 import { baseUrl } from "../../../../../Services";
 import "./CompanyCard.css";
 function CompanyCard({ companyDetails }) {
-	const { currentLocal } = useSelector((state) => state.currentLocal);
-	return (
-		<div className=" f-12">
-			{companyDetails && (
-				<div className="companyCard">
-					<div className="d-flex align-items-center">
-						<img
-							src={
-								companyDetails.image
-									? baseUrl + companyDetails.image
-									: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-							}
-							alt="companyProfile"
-							className="rounded-circle companyImg"
-						/>
-						<div className="mx-2">{companyDetails.name}</div>
-					</div>
-					<ul className="list-unstyled">
-						<li>
-							<label>{currentLocal.profilePage.address}</label>
-							<div>{companyDetails.address}</div>
-						</li>
-						<li>
-							<label>{currentLocal.profilePage.governorate}</label>
-							<div>{companyDetails.governorateName}</div>
-						</li>
-						<li>
-							<label>{currentLocal.profilePage.phoneNumber}</label>
-							<div>
-								{companyDetails.phones.map((phone, index) => (
-									<div key={index}>{phone}</div>
-								))}
-							</div>
-						</li>
-						<li>
-							<label>{currentLocal.profilePage.email}</label>
-							<div>{companyDetails.email}</div>
-						</li>
-						<li>
-							<label>{currentLocal.profilePage.organizLegalStruc}</label>
-							<div>{companyDetails.typeName}</div>
-						</li>
-						<li>
-							<label>{currentLocal.profilePage.companyWebsite}</label>
-							<div>{companyDetails.website}</div>
-						</li>
-						<li>
-							<label>{currentLocal.profilePage.commercialRegister}</label>
-							<img
-								src={baseUrl + companyDetails.commercialRecord}
-								alt="CommercialRecord"
-							/>
-						</li>
-					</ul>
-				</div>
-			)}
-		</div>
-	);
+  const { currentLocal } = useSelector((state) => state.currentLocal);
+  return (
+    <>
+      {companyDetails && (
+        <div className="companyCard">
+          <div className="d-flex align-items-center">
+            <img
+              src={
+                companyDetails.image
+                  ? baseUrl + companyDetails.image
+                  : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+              }
+              alt="companyProfile"
+              className="rounded-circle companyImg"
+            />
+            <div className="mx-2">{companyDetails.name}</div>
+          </div>
+          <ul className="list-unstyled">
+            <li className="item">
+              <span className="companyCard__label">
+                {currentLocal.profilePage.address}:
+              </span>
+              <span className="companyCard__val">{companyDetails.address}</span>
+            </li>
+            <li className="item">
+              <span className="companyCard__label">
+                {currentLocal.profilePage.governorate}:
+              </span>
+              <span className="companyCard__val">
+                {companyDetails.governorateName}
+              </span>
+            </li>
+            <li className="item">
+              <span className="companyCard__label">
+                {currentLocal.profilePage.phoneNumber}:
+              </span>
+              <span className="companyCard__val">
+                {companyDetails.phones.map((phone, index) => (
+                  <div key={index}>{phone}</div>
+                ))}
+              </span>
+            </li>
+            <li className="item">
+              <span className="companyCard__label">
+                {currentLocal.profilePage.email}:
+              </span>
+              <span className="companyCard__val">{companyDetails.email}</span>
+            </li>
+            <li className="item">
+              <span className="companyCard__label">
+                {currentLocal.profilePage.organizLegalStruc}:
+              </span>
+              <span className="companyCard__val">
+                {companyDetails.typeName}
+              </span>
+            </li>
+            <li className="item">
+              <span className="companyCard__label">
+                {currentLocal.profilePage.companyWebsite}:
+              </span>
+              <span className="companyCard__val">{companyDetails.website}</span>
+            </li>
+            <li className="item">
+              <span className="companyCard__label">
+                {currentLocal.profilePage.commercialRecord}:{" "}
+              </span>
+              <img
+                src={baseUrl + companyDetails.commercialRecord}
+                alt="CommercialRecord"
+              />
+            </li>
+          </ul>
+        </div>
+      )}
+    </>
+  );
 }
 
 export default CompanyCard;

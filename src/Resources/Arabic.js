@@ -172,6 +172,7 @@ export const ar = {
     add: "أضف",
     addPhoneNumber: "رقم الهاتف",
     changePhoneNumber: "أضافة رقم الهاتف",
+    commercialRecord: "السجل التجاري",
   },
   offerTable: {
     name: "الاسم",
