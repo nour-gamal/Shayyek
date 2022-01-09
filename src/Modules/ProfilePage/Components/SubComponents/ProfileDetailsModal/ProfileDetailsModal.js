@@ -90,13 +90,11 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
 		getBuyerProfile(
 			currentLanguageId,
 			(success) => {
-				console.log(success.data);
 				updateProfileData(success.data);
 				updateCompanyEmail(success.data.company.email);
 				updateCompanyWebsite(success.data.company.website);
 				updateProfileImgLink(success.data.profileImage);
-				// updatePhonesArr(success.data.company.phones);
-				//toggleWhatsAppState(success.data);
+				updatePhonesArr(success.data.company.phones);
 			},
 			(fail) => {
 				console.log(fail);

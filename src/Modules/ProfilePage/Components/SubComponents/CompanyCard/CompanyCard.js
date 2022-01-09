@@ -31,7 +31,11 @@ function CompanyCard({ companyDetails }) {
 						</li>
 						<li>
 							<label>{currentLocal.profilePage.phoneNumber}</label>
-							<div>{companyDetails.phone}</div>
+							<div>
+								{companyDetails.phones.map((phone, index) => (
+									<div key={index}>{phone}</div>
+								))}
+							</div>
 						</li>
 						<li>
 							<label>{currentLocal.profilePage.email}</label>
