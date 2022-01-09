@@ -128,7 +128,7 @@ function SingleRFQModal({
 							: rfqDetails.supplierContractorName}
 					</div>
 
-					{parent !== "supplierHome" ? (
+					{parent === "supplierHome" ? (
 						<div className="my-2">
 							{currentLocal.supplierHome.paymentTerms} {" : "}
 						</div>
@@ -161,6 +161,16 @@ function SingleRFQModal({
 					hideOnSinglePage: true,
 				}}
 			/>
+			{parent === "supplierHome" && (
+				<div>
+					<button className="button-secondary">
+						{currentLocal.supplierHome.saveAsDraft}
+					</button>
+					<button className="button-primary">
+						{currentLocal.supplierHome.submit}
+					</button>
+				</div>
+			)}
 		</Modal>
 	);
 }
