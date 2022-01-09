@@ -20,20 +20,22 @@ function SingleRFQModal({
 	const [companyAddress, updateAddress] = useState("");
 	const [deliveryDate, updateDeliveryDate] = useState("");
 	useEffect(() => {
-		GetBuyerRFQ(
-			rfqId,
-			(success) => {
-				updateRFQDetails(success.data.rfqDetails);
-				updateAddress(success.data.address);
-				updateDeliveryDate(success.data.deliveryDate);
-				updateBuyerName(success.data.buyerName);
-				console.log(success.data);
-			},
-			(fail) => {
-				console.log(fail);
-			}
-		);
-	}, [rfqId]);
+		if (parent === "supplierHome") {
+		} else {
+			GetBuyerRFQ(
+				rfqId,
+				(success) => {
+					updateRFQDetails(success.data.rfqDetails);
+					updateAddress(success.data.address);
+					updateDeliveryDate(success.data.deliveryDate);
+					updateBuyerName(success.data.buyerName);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
+	}, [rfqId, parent]);
 	useEffect(() => {
 		getCategories(
 			currentLanguageId,
@@ -117,7 +119,7 @@ function SingleRFQModal({
 			<div className="d-flex justify-content-between f-14 primary-color">
 				<div>
 					<div className="my-2">
-						{parent === "buyerProfile"
+						{parent === "buyerProfile" || parent === "supplierHome"
 							? currentLocal.profilePage.buyerName
 							: currentLocal.profilePage.supplierContractorName}
 						:{" "}
@@ -126,9 +128,15 @@ function SingleRFQModal({
 							: rfqDetails.supplierContractorName}
 					</div>
 
-					<div className="my-2">
-						{currentLocal.profilePage.companyName} {" : "} {companyName}
-					</div>
+					{parent !== "supplierHome" ? (
+						<div className="my-2">
+							{currentLocal.supplierHome.paymentTerms} {" : "}
+						</div>
+					) : (
+						<div className="my-2">
+							{currentLocal.profilePage.companyName} {" : "} {companyName}
+						</div>
+					)}
 				</div>
 				<div>
 					<div className="my-2">

@@ -6,10 +6,13 @@ import edit from "../../../Resources/Assets/edit.svg";
 import deletee from "../../../Resources/Assets/deletee.svg";
 import { Redirect } from "react-router-dom";
 import { DeleteRFQ } from "../../../Modules/Home/network";
+import SingleRFQModal from "../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
+
 import "./RFQInvitation.css";
 function RFQInvitation({ revealPrices, rfqDetails, parent, updateRFQsList }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [redirectTo, updateRedirectTo] = useState(null);
+	const [isRFQModalVisible, toggleRFQModal] = useState(false);
 	function handleMenuClick(e) {
 		switch (e.key) {
 			case "1":
@@ -86,11 +89,26 @@ function RFQInvitation({ revealPrices, rfqDetails, parent, updateRFQsList }) {
 			</div>
 			{parent === "supplier" && (
 				<div className="text-center my-2">
-					<button className="popup-button-primary">
+					<button
+						className="popup-button-primary"
+						onClick={() => {
+							toggleRFQModal(true);
+						}}
+					>
 						{currentLocal.supplierHome.fillSheet}
 					</button>
 				</div>
 			)}
+			<SingleRFQModal
+				isModalVisible={isRFQModalVisible}
+				onCancel={() => {
+					toggleRFQModal(false);
+				}}
+				// rfqId,
+				// parent,
+				// companyName,
+				parent="supplierHome"
+			/>
 		</div>
 	);
 }
