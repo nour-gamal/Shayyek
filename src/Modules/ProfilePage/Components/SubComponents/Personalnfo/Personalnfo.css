@@ -1,79 +1,107 @@
 .PersonalInfo {
-	padding: 20px 0;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+  padding: 20px 0;
+}
+.PersonalInfo .profileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.PersonalInfo .profileHeader__personal {
+  display: flex;
+}
+.PersonalInfo .profileHeader__info {
+  display: flex;
+}
+.PersonalInfo .profileHeader__info .draft {
+  color: #032440;
+  margin-left: 0.5rem;
+}
+
+.PersonalInfo .profileHeader__info .num {
+  margin-left: 2rem;
+  background: #f90d0d;
+  color: white;
+  padding: 0 1rem;
+  height: 20px;
+  border-radius: 1.5rem;
 }
 .PersonalInfo .orange_btn {
-	height: fit-content;
-	padding: 10px;
+  height: fit-content;
+  padding: 10px;
 }
 .PersonalInfo .mobile {
-	color: #2699fb;
+  color: #2699fb;
 }
 .PersonalInfo > div:first-of-type {
-	display: flex;
-	flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
-.PersonalInfo img {
-	width: 80px;
-	height: 80px;
-	border-radius: 50%;
+.PersonalInfo img.user {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
 }
 .PersonalInfo .info {
-	margin: 10px;
+  margin: 10px;
 }
 .PersonalInfo .progress {
-	height: 14px;
-	width: 230px;
-	border-radius: 30px;
-	margin-top: 4px;
+  height: 14px;
+  width: 230px;
+  border-radius: 30px;
+  margin-top: 4px;
 }
 .PersonalInfo .progressContainer span {
-	margin-right: 15px;
-	margin-left: 15px;
-	width: 100%;
+  margin-right: 15px;
+  margin-left: 15px;
+  width: 100%;
 }
 .PersonalInfo .progress .progress-bar {
-	border-radius: 30px !important;
+  border-radius: 30px !important;
 }
 .PersonalInfo .progressContainer {
-	display: flex;
-	margin-bottom: 10px;
+  display: flex;
+  margin-bottom: 10px;
 }
 
 .PersonalInfo .progressContainer span {
-	color: #005fb1;
+  color: #005fb1;
 }
 
 .PersonalInfo .actions {
-	display: inline-block;
+  display: inline-block;
 }
 .PersonalInfo .actions.left {
-	margin-left: auto;
+  margin-left: auto;
 }
 .PersonalInfo .actions.right {
-	margin-right: auto;
+  margin-right: auto;
+}
+
+.PersonalInfo .bussiness-cards {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 @media (max-width: 480px) {
-	.progressContainer {
-		flex-direction: column;
-	}
-	.progressContainer .progress {
-		width: 90%;
-	}
-	.progressContainer > span {
-		margin-right: 0 !important;
-		margin-left: 0 !important;
-	}
-	.PersonalInfo .actions {
-		margin-left: 0;
-		margin-right: auto;
-	}
-	.PersonalInfo .actions .popup-button-secondary,
-	.PersonalInfo .actions .popup-button-primary {
-		font-size: 12px;
-		padding: 2px 20px;
-	}
+  .progressContainer {
+    flex-direction: column;
+  }
+  .progressContainer .progress {
+    width: 90%;
+  }
+  .progressContainer > span {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  .PersonalInfo .actions {
+    margin-left: 0;
+    margin-right: auto;
+  }
+  .PersonalInfo .actions .popup-button-secondary,
+  .PersonalInfo .actions .popup-button-primary {
+    font-size: 12px;
+    padding: 2px 20px;
+  }
 }

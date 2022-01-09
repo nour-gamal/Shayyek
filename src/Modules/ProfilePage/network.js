@@ -11,13 +11,13 @@ export const getBuyerProfile = (
 };
 
 export const getCategoriesWithSelected = (
-	languageId,
-	onSuccess,
-	onFail,
-	reqAuth = true
+  languageId,
+  onSuccess,
+  onFail,
+  reqAuth = true
 ) => {
-	const path = `api/Profile/GetCategoriesWithSelected?languageId=${languageId}`;
-	GetResource(path, onSuccess, onFail, reqAuth);
+  const path = `api/Profile/GetCategoriesWithSelected?languageId=${languageId}`;
+  GetResource(path, onSuccess, onFail, reqAuth);
 };
 export const postImage = (
   data,
@@ -38,4 +38,14 @@ export const changePassword = (data, onSuccess, onFail, reqAuth = true) => {
 export const editProfile = (data, onSuccess, onFail, reqAuth = true) => {
   let path = `api/Account/EditUser`;
   PostResource(path, data, onSuccess, onFail, reqAuth);
+};
+
+export const SupplierContractorProfile = (
+  languageId,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) => {
+  let path = `api/Profile/SupplierContractorProfile?languageId=${languageId}`;
+  GetResource(path, onSuccess, onFail, reqAuth);
 };

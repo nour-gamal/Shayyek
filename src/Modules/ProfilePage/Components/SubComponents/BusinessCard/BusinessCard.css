@@ -1,11 +1,25 @@
 .businessCard {
-	box-shadow: 0px 3px 6px #00000029;
-	padding: 10px 20px 5px;
-	min-height: 100%;
-	width: 98%;
-	margin: 0 auto;
+  box-shadow: 0px 3px 6px #00000029;
+  padding: 10px 20px 5px;
+  min-height: 100%;
+  margin-right: 1rem;
+  flex: 1;
+  padding: 1.5rem;
 }
-.businessCard ul li {
-	color: #003b6b;
-	padding-top: 10px;
+.businessCard ul .item {
+  margin-bottom: 0.5rem;
+  font-size: 14px;
+}
+.businessCard .businessCard__label {
+  color: #707070;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+.businessCard .businessCard__val {
+  color: #003b6b;
+}
+
+html[dir="rtl"] .businessCard .businessCard__label {
+  margin-right: unset;
+  margin-left: 0.5rem;
 }

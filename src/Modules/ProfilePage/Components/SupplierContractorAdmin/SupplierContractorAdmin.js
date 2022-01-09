@@ -1,12 +1,45 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+// components
 import PersonalInfo from "../SubComponents/Personalnfo/Personalnfo";
+import BusinessCard from "../SubComponents/BusinessCard/BusinessCard";
+import CompanyCard from "../SubComponents/CompanyCard/CompanyCard";
+// network
+import { SupplierContractorProfile } from "../../network";
+// style
 import "./SupplierContractorAdmin.css";
+
 function SupplierContractorAdmin() {
-	return (
-		<div>
-			<PersonalInfo />
-		</div>
-	);
+  const [companyDetails, setCompanyDetails] = useState(null);
+  const [profileDetails, setProfileDetails] = useState(null);
+  const { currentLanguageId } = useSelector((state) => state.currentLocal);
+  useEffect(() => {
+    SupplierContractorProfile(
+      currentLanguageId,
+      (success) => {
+        if (success.success) {
+          const { company, ...data } = success.data;
+          setCompanyDetails(company);
+          setProfileDetails(data);
+          console.log(data.userTypeName);
+        }
+      },
+      (fail) => {}
+    );
+  }, [currentLanguageId]);
+  return (
+    <div className="ppl">
+      {companyDetails && profileDetails && (
+        <>
+          <PersonalInfo parent={profileDetails.userTypeName} />
+          <div className="bussiness-cards">
+            <BusinessCard profileDetails={profileDetails} />
+            <CompanyCard companyDetails={companyDetails} />
+          </div>
+        </>
+      )}
+    </div>
+  );
 }
 
 export default SupplierContractorAdmin;
