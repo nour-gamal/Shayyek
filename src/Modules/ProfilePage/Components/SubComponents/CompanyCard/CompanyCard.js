@@ -43,7 +43,7 @@ function CompanyCard({ companyDetails }) {
 						</li>
 						<li>
 							<label>{currentLocal.profilePage.companyWebsite}</label>
-							<div>{companyDetails.companyWebsite}</div>
+							<div>{companyDetails.website}</div>
 						</li>
 						<li>
 							<label>{currentLocal.profilePage.commercialRegister}</label>
