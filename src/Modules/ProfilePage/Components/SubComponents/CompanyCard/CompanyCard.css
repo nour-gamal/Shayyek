@@ -6,11 +6,16 @@
   flex: 1;
   padding: 1.5rem;
 }
-
 .companyProfile__header {
   color: #707070;
   font-weight: bold;
   margin-right: 0.5rem;
+}
+.companyCard header {
+  width: 100%;
+}
+.companyCard header h6 {
+  margin-bottom: 0;
 }
 .companyCard .companyImg {
   width: 50px;
@@ -23,6 +28,9 @@
   height: 50px;
   border-radius: 17px;
   display: block;
+}
+.companyCard > ul {
+  padding: 0;
 }
 
 .companyCard ul .item {
@@ -38,6 +46,16 @@
 .companyCard .companyCard__val {
   color: #003b6b;
 }
+.companyCard .companyCard__btn {
+  font-size: 14px;
+  background: #fc6b5e;
+  color: white;
+  min-width: 170px;
+  flex: 1;
+}
+.btn:hover {
+  color: unset;
+}
 html[dir="rtl"] .companyCard {
   margin-right: unset;
   margin-left: 1.25rem;
@@ -51,6 +69,9 @@ html[dir="rtl"] .companyCard .companyCard__label {
   margin-left: 0.5rem;
 }
 @media (max-width: 767px) {
+  .companyCard .companyCard__val {
+    display: block;
+  }
   .companyCard {
     margin-right: unset;
     margin-left: unset;
@@ -66,5 +87,18 @@ html[dir="rtl"] .companyCard .companyCard__label {
   }
   .companyCard > .d-flex {
     flex-direction: column;
+  }
+  .companyCard .companyCard__btn {
+    font-size: 12px;
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 1000px) {
+  .companyCard .companyCard__header {
+    flex-wrap: wrap;
+  }
+  .companyCard .companyImg {
+    margin-bottom: 1rem;
   }
 }

@@ -8,19 +8,24 @@ function CompanyCard({ companyDetails }) {
     <>
       {companyDetails && (
         <div className="companyCard">
-          <div className="d-flex align-items-center">
-            <img
-              src={
-                companyDetails.image
-                  ? baseUrl + companyDetails.image
-                  : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-              }
-              alt="companyProfile"
-              className="rounded-circle companyImg"
-            />
-            <h6 className="companyProfile__header mx-2">
-              {companyDetails.name}
-            </h6>
+          <div className="d-flex align-items-center justify-content-between companyCard__header">
+            <header className="d-flex align-items-center justify-content-start">
+              <img
+                src={
+                  companyDetails.image
+                    ? baseUrl + companyDetails.image
+                    : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                }
+                alt="companyProfile"
+                className="rounded-circle companyImg"
+              />
+              <h6 className="companyProfile__header mx-2">
+                {companyDetails.name}
+              </h6>
+            </header>
+            <button className="btn companyCard__btn">
+              {currentLocal.profilePage.manageyourCompany}
+            </button>
           </div>
           <ul className="list-unstyled">
             <li className="item">

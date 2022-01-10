@@ -175,6 +175,7 @@ export const ar = {
     commercialRecord: "السجل التجاري",
     addWork: "أضف عمل",
     draft: "مسودة",
+    manageyourCompany: "إدارة شركتك",
   },
   offerTable: {
     name: "الاسم",
