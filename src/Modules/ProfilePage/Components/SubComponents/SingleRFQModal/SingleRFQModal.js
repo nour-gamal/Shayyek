@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Modal, Table, Select } from "antd";
 import { useSelector } from "react-redux";
-import { DatePicker, Space } from "antd";
+import { DatePicker } from "antd";
 import { GetBuyerRFQ, getCategories } from "../../../../Home/network";
 import "./SingleRFQModal.css";
 
@@ -49,6 +49,9 @@ function SingleRFQModal({
 		);
 	}, [currentLanguageId]);
 
+	const onDateChange = (date, dateString) => {
+		console.log(date, dateString);
+	};
 	let columns = [
 		{
 			title: currentLocal.buyerHome.item,
@@ -134,7 +137,7 @@ function SingleRFQModal({
 				title: currentLocal.supplierHome.deliveryDate,
 				dataIndex: "deliveryDate",
 				key: "deliveryDate",
-				render: (deliveryDate) => <input type="number" />,
+				render: (deliveryDate) => <DatePicker onChange={onDateChange} />,
 			},
 			{
 				title: "",
@@ -143,6 +146,7 @@ function SingleRFQModal({
 			},
 		];
 	}
+
 	return (
 		<Modal
 			title="Basic Modal"
