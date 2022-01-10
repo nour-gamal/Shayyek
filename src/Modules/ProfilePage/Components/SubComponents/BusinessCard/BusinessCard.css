@@ -21,7 +21,7 @@
 
 html[dir="rtl"] .businessCard {
   margin-right: 0;
-  margin-left: 0.7rem;
+  margin-left: 1.25rem;
 }
 html[dir="rtl"] .businessCard .businessCard__label {
   margin-right: unset;
@@ -31,6 +31,7 @@ html[dir="rtl"] .businessCard .businessCard__label {
 @media (max-width: 767px) {
   .businessCard {
     margin-right: unset;
+    margin-left: unset;
     margin-bottom: 1rem;
   }
   .businessCard.companyImg {

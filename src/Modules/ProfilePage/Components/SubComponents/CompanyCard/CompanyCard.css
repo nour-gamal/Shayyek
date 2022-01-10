@@ -40,7 +40,7 @@
 }
 html[dir="rtl"] .companyCard {
   margin-right: unset;
-  margin-left: 0.7rem;
+  margin-left: 1.25rem;
 }
 html[dir="rtl"] .companyProfile__header {
   margin-right: unset;
@@ -53,6 +53,7 @@ html[dir="rtl"] .companyCard .companyCard__label {
 @media (max-width: 767px) {
   .companyCard {
     margin-right: unset;
+    margin-left: unset;
     margin-bottom: 1rem;
   }
   .companyCard .companyImg {

@@ -6,7 +6,7 @@ import DraftIcon from "../../../../../Resources/Assets/draft.svg";
 // style
 import "./Personalnfo.css";
 
-function Personalnfo({ parent }) {
+function Personalnfo({ parent, count }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { authorization } = useSelector((state) => state.authorization);
   return (
@@ -70,9 +70,9 @@ function Personalnfo({ parent }) {
               <div className="d-flex align-items-center">
                 <div className="d-flex align-items-center ">
                   <img class="draftIcon" src={DraftIcon} alt="Draft" />
-                  <div className="draft">Darft</div>
+                  <div className="draft">{currentLocal.profilePage.draft}</div>
                 </div>
-                <div className="num">2</div>
+                <div className="num">{count}</div>
               </div>
             </>
           ) : (

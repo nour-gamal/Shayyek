@@ -9,7 +9,10 @@
 .sideWorker {
   box-shadow: 0 0 6px 0 #00000029;
 }
-
+html[dir="rtl"] .supplierContractorAdmin.ppl {
+  padding-left: unset !important;
+  padding-right: 84px !important;
+}
 @media (max-width: 767px) {
   .sideWorker {
     margin-bottom: 1.25rem;
@@ -17,9 +20,8 @@
   .supplierContractorAdmin {
     padding-right: 1rem;
   }
-}
-
-html[dir="rtl"] .supplierContractorAdmin.ppl {
-  padding-left: unset !important;
-  padding-right: 84px !important;
+  html[dir="rtl"] .supplierContractorAdmin.ppl {
+    padding-left: unset !important;
+    padding-right: 1rem !important;
+  }
 }

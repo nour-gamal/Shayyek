@@ -178,6 +178,7 @@ export const en = {
     changePhoneNumber: "Add phone number",
     commercialRecord: "commercial Records",
     addWork: "Add Work",
+    draft: "draft",
   },
   offerTable: {
     name: "Name",

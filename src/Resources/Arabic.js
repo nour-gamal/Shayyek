@@ -174,6 +174,7 @@ export const ar = {
     changePhoneNumber: "أضافة رقم الهاتف",
     commercialRecord: "السجل التجاري",
     addWork: "أضف عمل",
+    draft: "مسودة",
   },
   offerTable: {
     name: "الاسم",

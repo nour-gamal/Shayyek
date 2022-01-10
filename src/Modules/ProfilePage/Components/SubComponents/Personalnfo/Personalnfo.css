@@ -113,3 +113,11 @@
     padding: 2px 20px;
   }
 }
+html[dir="rtl"] .PersonalInfo .profileHeader__info .draft {
+  margin-left: unset;
+  margin-right: 0.5rem;
+}
+
+html[dir="rtl"] .PersonalInfo .profileHeader__info .num {
+  margin-right: 1rem;
+}

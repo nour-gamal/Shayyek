@@ -37,7 +37,10 @@ function SupplierContractorAdmin() {
       {companyDetails && profileDetails && (
         <Row className="flex-1">
           <Col md={16} lg={18} className="flex-1">
-            <PersonalInfo parent={profileDetails.userTypeName} />
+            <PersonalInfo
+              parent={profileDetails.userTypeName}
+              count={profileDetails.draftsCount}
+            />
             <div className="bussiness-cards">
               <Row
                 style={{
