@@ -234,7 +234,7 @@ export const en = {
 		addToCart: "Add to Cart",
 		quantity: "Quantity",
 		paymentTerms: "Payment terms",
-		saveAsDraft: "Save as draft",
+		saveAsDraft: "Save as a draft",
 		submit: "Submit",
 		unitPrice: "Unit Price",
 		totalPrice: "Total Price",
