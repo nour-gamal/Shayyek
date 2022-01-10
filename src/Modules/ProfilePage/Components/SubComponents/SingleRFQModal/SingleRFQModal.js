@@ -49,9 +49,6 @@ function SingleRFQModal({
 		);
 	}, [currentLanguageId]);
 
-	const onDateChange = (date, dateString) => {
-		console.log(date, dateString);
-	};
 	let columns = [
 		{
 			title: currentLocal.buyerHome.item,
@@ -112,7 +109,7 @@ function SingleRFQModal({
 			key: "notes",
 		},
 	];
-	if (parent === "supplierHome") {
+	if (parent === "supplierHome" && rfqDetails.length > 0) {
 		columns = columns.filter(
 			(column) =>
 				column.dataIndex !== "unit" &&
@@ -125,19 +122,59 @@ function SingleRFQModal({
 				title: currentLocal.supplierHome.unitPrice,
 				dataIndex: "unitPrice",
 				key: "unitPrice",
-				render: (unitPrice) => <input type="number" />,
+				render: (unitPrice, record, rowIndex) => {
+					return (
+						<input
+							type="number"
+							className="form-control"
+							onChange={(e) => {
+								var rfqArr = [...rfqDetails];
+								rfqArr[rowIndex] = {
+									...rfqArr[rowIndex],
+									unitPrice: e.target.value,
+								};
+								updateRFQDetails(rfqArr);
+							}}
+						/>
+					);
+				},
 			},
 			{
 				title: currentLocal.supplierHome.totalPrice,
 				dataIndex: "totalPrice",
 				key: "totalPrice",
-				render: (totalPrice) => <input type="number" />,
+				render: (totalPrice, record, rowIndex) => (
+					<input
+						type="number"
+						className="form-control"
+						onChange={(e) => {
+							var rfqArr = [...rfqDetails];
+							rfqArr[rowIndex] = {
+								...rfqArr[rowIndex],
+								totalPrice: e.target.value,
+							};
+							updateRFQDetails(rfqArr);
+						}}
+					/>
+				),
 			},
 			{
 				title: currentLocal.supplierHome.deliveryDate,
 				dataIndex: "deliveryDate",
 				key: "deliveryDate",
-				render: (deliveryDate) => <DatePicker onChange={onDateChange} />,
+				render: (deliveryDate, record, rowIndex) => (
+					<DatePicker
+						onChange={(date, dateString) => {
+							var rfqArr = [...rfqDetails];
+							rfqArr[rowIndex] = {
+								...rfqArr[rowIndex],
+								deliveryDate: dateString,
+							};
+							updateRFQDetails(rfqArr);
+						}}
+						className="form-control"
+					/>
+				),
 			},
 			{
 				title: "",
