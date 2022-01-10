@@ -67,7 +67,7 @@ function Personalnfo({ parent }) {
             </>
           ) : parent === "Supplier" ? (
             <>
-              <div className="d-flex">
+              <div className="d-flex align-items-center">
                 <div className="d-flex align-items-center ">
                   <img class="draftIcon" src={DraftIcon} alt="Draft" />
                   <div className="draft">Darft</div>

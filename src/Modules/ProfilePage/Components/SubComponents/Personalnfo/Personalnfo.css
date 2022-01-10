@@ -5,8 +5,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
+@media (max-width: 767px) {
+  .PersonalInfo .profileHeader {
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+}
 .PersonalInfo .profileHeader__personal {
   display: flex;
 }

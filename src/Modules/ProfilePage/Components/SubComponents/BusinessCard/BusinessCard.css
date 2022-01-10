@@ -19,7 +19,28 @@
   color: #003b6b;
 }
 
+html[dir="rtl"] .businessCard {
+  margin-right: 0;
+  margin-left: 0.7rem;
+}
 html[dir="rtl"] .businessCard .businessCard__label {
   margin-right: unset;
   margin-left: 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .businessCard {
+    margin-right: unset;
+    margin-bottom: 1rem;
+  }
+  .businessCard.companyImg {
+    margin-bottom: 1rem;
+    align-self: flex-start;
+  }
+  .companyProfile__header {
+    margin-right: 0 !important;
+  }
+  .businessCard > .d-flex {
+    flex-direction: column;
+  }
 }

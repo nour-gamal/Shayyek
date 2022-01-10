@@ -15,15 +15,17 @@ import PreviousWorks from "./../SubComponents/PreviousWorks/PreviousWorks";
 function SupplierContractorAdmin() {
   const [companyDetails, setCompanyDetails] = useState(null);
   const [profileDetails, setProfileDetails] = useState(null);
+  const [works, setWorks] = useState(null);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
   useEffect(() => {
     SupplierContractorProfile(
       currentLanguageId,
       (success) => {
         if (success.success) {
-          const { company, ...data } = success.data;
+          const { company, previousWorks, ...data } = success.data;
           setCompanyDetails(company);
           setProfileDetails(data);
+          setWorks(previousWorks);
           console.log(data.userTypeName);
         }
       },
@@ -31,19 +33,29 @@ function SupplierContractorAdmin() {
     );
   }, [currentLanguageId]);
   return (
-    <div className="ppl">
+    <div className="supplierContractorAdmin ppl">
       {companyDetails && profileDetails && (
-        <Row>
-          <Col md={18}>
+        <Row className="flex-1">
+          <Col md={16} lg={18} className="flex-1">
             <PersonalInfo parent={profileDetails.userTypeName} />
             <div className="bussiness-cards">
-              <BusinessCard profileDetails={profileDetails} />
-              <CompanyCard companyDetails={companyDetails} />
+              <Row
+                style={{
+                  width: "100%",
+                }}
+              >
+                <Col md={12} xs={24} className="mb-4">
+                  <BusinessCard profileDetails={profileDetails} />
+                </Col>
+                <Col md={12} xs={24} className="mb-4">
+                  <CompanyCard companyDetails={companyDetails} />
+                </Col>
+              </Row>
             </div>
           </Col>
-          <Col className="sideWorker" md={6}>
+          <Col className="sideWorker" md={8} lg={6} xs={24}>
             <PreviousWorks
-              worksDetails={null}
+              works={works}
               companyImage={
                 companyDetails.image
                   ? baseUrl + companyDetails.image
