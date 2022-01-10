@@ -7,6 +7,14 @@
 	justify-content: center;
 	width: 100%;
 }
+.singleRFQModal .button-primary {
+	padding: 2px 50px;
+}
+.singleRFQModal .button-secondary {
+	background-color: #fc6b5e;
+	border-color: #fc6b5e;
+	color: #fff;
+}
 @media (max-width: 768px) {
 	.singleRFQModal .btn-container {
 		flex-direction: column;

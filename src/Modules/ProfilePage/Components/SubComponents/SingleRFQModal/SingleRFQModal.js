@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Modal, Table, Select } from "antd";
 import { useSelector } from "react-redux";
+import { DatePicker, Space } from "antd";
 import { GetBuyerRFQ, getCategories } from "../../../../Home/network";
 import "./SingleRFQModal.css";
 
@@ -19,6 +20,9 @@ function SingleRFQModal({
 	const [buyerName, updateBuyerName] = useState("");
 	const [companyAddress, updateAddress] = useState("");
 	const [deliveryDate, updateDeliveryDate] = useState("");
+	// const [unitPrice, updateUnitPrice] = useState(null);
+	// const [totalPrice, updateTotalPrice] = useState(null);
+	// const [deliveryDate, updateDeliveryDate] = useState(null);
 	useEffect(() => {
 		GetBuyerRFQ(
 			rfqId,
@@ -118,16 +122,19 @@ function SingleRFQModal({
 				title: currentLocal.supplierHome.unitPrice,
 				dataIndex: "unitPrice",
 				key: "unitPrice",
+				render: (unitPrice) => <input type="number" />,
 			},
 			{
 				title: currentLocal.supplierHome.totalPrice,
 				dataIndex: "totalPrice",
 				key: "totalPrice",
+				render: (totalPrice) => <input type="number" />,
 			},
 			{
 				title: currentLocal.supplierHome.deliveryDate,
 				dataIndex: "deliveryDate",
 				key: "deliveryDate",
+				render: (deliveryDate) => <input type="number" />,
 			},
 			{
 				title: "",
