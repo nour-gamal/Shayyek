@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { baseUrl } from "../../../../Services";
 // components
 import { Row, Col } from "antd";
 import PersonalInfo from "../SubComponents/Personalnfo/Personalnfo";
@@ -40,8 +41,15 @@ function SupplierContractorAdmin() {
               <CompanyCard companyDetails={companyDetails} />
             </div>
           </Col>
-          <Col md={6}>
-            <PreviousWorks />
+          <Col className="sideWorker" md={6}>
+            <PreviousWorks
+              worksDetails={null}
+              companyImage={
+                companyDetails.image
+                  ? baseUrl + companyDetails.image
+                  : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+              }
+            />
           </Col>
         </Row>
       )}

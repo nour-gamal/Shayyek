@@ -18,7 +18,9 @@ function CompanyCard({ companyDetails }) {
               alt="companyProfile"
               className="rounded-circle companyImg"
             />
-            <div className="mx-2">{companyDetails.name}</div>
+            <h6 className="companyProfile__header mx-2">
+              {companyDetails.name}
+            </h6>
           </div>
           <ul className="list-unstyled">
             <li className="item">
@@ -67,7 +69,7 @@ function CompanyCard({ companyDetails }) {
             </li>
             <li className="item">
               <span className="companyCard__label">
-                {currentLocal.profilePage.commercialRecord}:{" "}
+                {currentLocal.profilePage.commercialRecord}:
               </span>
               <img
                 src={baseUrl + companyDetails.commercialRecord}
