@@ -99,16 +99,16 @@ function RFQInvitation({ revealPrices, rfqDetails, parent, updateRFQsList }) {
 					</button>
 				</div>
 			)}
-			<SingleRFQModal
-				isModalVisible={isRFQModalVisible}
-				onCancel={() => {
-					toggleRFQModal(false);
-				}}
-				// rfqId,
-				// parent,
-				// companyName,
-				parent="supplierHome"
-			/>
+			{isRFQModalVisible && (
+				<SingleRFQModal
+					isModalVisible={isRFQModalVisible}
+					onCancel={() => {
+						toggleRFQModal(false);
+					}}
+					rfqId={rfqDetails.rfqHeaderId}
+					parent="supplierHome"
+				/>
+			)}
 		</div>
 	);
 }

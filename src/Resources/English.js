@@ -236,6 +236,9 @@ export const en = {
 		paymentTerms: "Payment terms",
 		saveAsDraft: "Save as draft",
 		submit: "Submit",
+		unitPrice: "Unit Price",
+		totalPrice: "Total Price",
+		deliveryDate: "Delivery date",
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",

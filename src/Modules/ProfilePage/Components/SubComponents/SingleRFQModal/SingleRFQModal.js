@@ -20,21 +20,18 @@ function SingleRFQModal({
 	const [companyAddress, updateAddress] = useState("");
 	const [deliveryDate, updateDeliveryDate] = useState("");
 	useEffect(() => {
-		if (parent === "supplierHome") {
-		} else {
-			GetBuyerRFQ(
-				rfqId,
-				(success) => {
-					updateRFQDetails(success.data.rfqDetails);
-					updateAddress(success.data.address);
-					updateDeliveryDate(success.data.deliveryDate);
-					updateBuyerName(success.data.buyerName);
-				},
-				(fail) => {
-					console.log(fail);
-				}
-			);
-		}
+		GetBuyerRFQ(
+			rfqId,
+			(success) => {
+				updateRFQDetails(success.data.rfqDetails);
+				updateAddress(success.data.address);
+				updateDeliveryDate(success.data.deliveryDate);
+				updateBuyerName(success.data.buyerName);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
 	}, [rfqId, parent]);
 	useEffect(() => {
 		getCategories(
@@ -48,7 +45,7 @@ function SingleRFQModal({
 		);
 	}, [currentLanguageId]);
 
-	const columns = [
+	let columns = [
 		{
 			title: currentLocal.buyerHome.item,
 			dataIndex: "item",
@@ -108,7 +105,37 @@ function SingleRFQModal({
 			key: "notes",
 		},
 	];
-
+	if (parent === "supplierHome") {
+		columns = columns.filter(
+			(column) =>
+				column.dataIndex !== "unit" &&
+				column.dataIndex !== "categoryId" &&
+				column.dataIndex !== "includeInstallation"
+		);
+		columns = [
+			...columns,
+			{
+				title: currentLocal.supplierHome.unitPrice,
+				dataIndex: "unitPrice",
+				key: "unitPrice",
+			},
+			{
+				title: currentLocal.supplierHome.totalPrice,
+				dataIndex: "totalPrice",
+				key: "totalPrice",
+			},
+			{
+				title: currentLocal.supplierHome.deliveryDate,
+				dataIndex: "deliveryDate",
+				key: "deliveryDate",
+			},
+			{
+				title: "",
+				dataIndex: "percentage",
+				key: "percentage",
+			},
+		];
+	}
 	return (
 		<Modal
 			title="Basic Modal"
@@ -116,61 +143,68 @@ function SingleRFQModal({
 			onCancel={onCancel}
 			className="modal-lg"
 		>
-			<div className="d-flex justify-content-between f-14 primary-color">
+			<div className="d-flex singleRFQModal">
 				<div>
-					<div className="my-2">
-						{parent === "buyerProfile" || parent === "supplierHome"
-							? currentLocal.profilePage.buyerName
-							: currentLocal.profilePage.supplierContractorName}
-						:{" "}
-						{parent === "buyerProfile"
-							? buyerName
-							: rfqDetails.supplierContractorName}
-					</div>
+					<div className="d-flex justify-content-between f-14 primary-color">
+						<div>
+							<div className="my-2">
+								{parent === "buyerProfile" || parent === "supplierHome"
+									? currentLocal.profilePage.buyerName
+									: currentLocal.profilePage.supplierContractorName}
+								:{" "}
+								{parent === "buyerProfile"
+									? buyerName
+									: rfqDetails.supplierContractorName}
+							</div>
 
-					{parent === "supplierHome" ? (
-						<div className="my-2">
-							{currentLocal.supplierHome.paymentTerms} {" : "}
+							{parent === "supplierHome" ? (
+								<div className="my-2">
+									{currentLocal.supplierHome.paymentTerms} {" : "}
+								</div>
+							) : (
+								<div className="my-2">
+									{currentLocal.profilePage.companyName} {" : "} {companyName}
+								</div>
+							)}
 						</div>
-					) : (
-						<div className="my-2">
-							{currentLocal.profilePage.companyName} {" : "} {companyName}
+						<div>
+							<div className="my-2">
+								{currentLocal.profilePage.deliveryDate} {": "}
+								{deliveryDate}
+							</div>
+							<div className="my-2">
+								{currentLocal.profilePage.deliveryAddress} {": "}{" "}
+								{companyAddress}
+							</div>
+						</div>
+					</div>
+					<Table
+						key={rfqDetails}
+						indentSize={300}
+						columns={columns}
+						dataSource={rfqDetails}
+						className="my-4"
+						scroll={{ x: true }}
+						pagination={{
+							total: rfqDetails.length,
+							pageSize: 5,
+							hideOnSinglePage: true,
+						}}
+					/>
+				</div>
+				<div>
+					{parent === "supplierHome" && (
+						<div className="btn-container mt-2 d-flex">
+							<button className="button-secondary mx-1">
+								{currentLocal.supplierHome.saveAsDraft}
+							</button>
+							<button className="button-primary mx-1">
+								{currentLocal.supplierHome.submit}
+							</button>
 						</div>
 					)}
 				</div>
-				<div>
-					<div className="my-2">
-						{currentLocal.profilePage.deliveryDate} {": "}
-						{deliveryDate}
-					</div>
-					<div className="my-2">
-						{currentLocal.profilePage.deliveryAddress} {": "} {companyAddress}
-					</div>
-				</div>
 			</div>
-			<Table
-				key={rfqDetails}
-				indentSize={300}
-				columns={columns}
-				dataSource={rfqDetails}
-				className="my-4"
-				scroll={{ x: true }}
-				pagination={{
-					total: rfqDetails.length,
-					pageSize: 5,
-					hideOnSinglePage: true,
-				}}
-			/>
-			{parent === "supplierHome" && (
-				<div>
-					<button className="button-secondary">
-						{currentLocal.supplierHome.saveAsDraft}
-					</button>
-					<button className="button-primary">
-						{currentLocal.supplierHome.submit}
-					</button>
-				</div>
-			)}
 		</Modal>
 	);
 }

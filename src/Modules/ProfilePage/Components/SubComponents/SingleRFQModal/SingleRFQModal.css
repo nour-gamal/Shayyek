@@ -1,0 +1,17 @@
+.singleRFQModal {
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+}
+.singleRFQModal .btn-container {
+	justify-content: center;
+	width: 100%;
+}
+@media (max-width: 768px) {
+	.singleRFQModal .btn-container {
+		flex-direction: column;
+	}
+	.singleRFQModal .btn-container > button {
+		margin-top: 10px;
+	}
+}

@@ -285,6 +285,9 @@ export const ar = {
 		paymentTerms: "قواعد الدفع",
 		saveAsDraft: "حفظ في المسوده",
 		submit: "ارسل",
+		unitPrice: "سعر الوحده",
+		totalPrice: "السعر الكلي",
+		deliveryDate: "تاريخ التسليم",
 	},
 	home: {
 		shayek: "شيّك",
