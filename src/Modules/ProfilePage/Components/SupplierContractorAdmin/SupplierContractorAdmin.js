@@ -6,16 +6,17 @@ import { Row, Col } from "antd";
 import PersonalInfo from "../SubComponents/Personalnfo/Personalnfo";
 import BusinessCard from "../SubComponents/BusinessCard/BusinessCard";
 import CompanyCard from "../SubComponents/CompanyCard/CompanyCard";
-// import SidePersonalInfo from "./../SubComponents/SidePersonalInfo/SidePersonalInfo";
 // network
 import { SupplierContractorProfile } from "../../network";
 // style
 import "./SupplierContractorAdmin.css";
 import PreviousWorks from "./../SubComponents/PreviousWorks/PreviousWorks";
+import AddWrokDetailsModal from "./../AddWorkModal/AddWorkModal";
 function SupplierContractorAdmin() {
   const [companyDetails, setCompanyDetails] = useState(null);
   const [profileDetails, setProfileDetails] = useState(null);
-  const [works, setWorks] = useState(null);
+  const [previousWorks, setPreviousWorks] = useState(null);
+  const [AddModalVisibilty, toggleAddModalVisibilty] = useState(false);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
   useEffect(() => {
     SupplierContractorProfile(
@@ -25,13 +26,15 @@ function SupplierContractorAdmin() {
           const { company, previousWorks, ...data } = success.data;
           setCompanyDetails(company);
           setProfileDetails(data);
-          setWorks(previousWorks);
-          console.log(data.userTypeName);
+          setPreviousWorks(previousWorks);
         }
       },
-      (fail) => {}
+      (fail) => {
+        console.log(fail);
+      }
     );
   }, [currentLanguageId]);
+
   return (
     <div className="supplierContractorAdmin ppl">
       {companyDetails && profileDetails && (
@@ -58,7 +61,8 @@ function SupplierContractorAdmin() {
           </Col>
           <Col className="sideWorker" md={8} lg={6} xs={24}>
             <PreviousWorks
-              works={works}
+              toggleAddModalVisibilty={toggleAddModalVisibilty}
+              works={previousWorks}
               companyImage={
                 companyDetails.image
                   ? baseUrl + companyDetails.image
@@ -67,6 +71,13 @@ function SupplierContractorAdmin() {
             />
           </Col>
         </Row>
+      )}
+      {AddModalVisibilty && (
+        <AddWrokDetailsModal
+          onCancel={() => toggleAddModalVisibilty(false)}
+          isModalVisible={AddModalVisibilty}
+          setPreviousWorks={setPreviousWorks}
+        />
       )}
     </div>
   );

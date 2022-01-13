@@ -291,6 +291,12 @@ export const ar = {
     unitPrice: "سعر الوحده",
     totalPrice: "السعر الكلي",
     deliveryDate: "تاريخ التسليم",
+    sizeOfContract: "حجم العقد",
+    uploadDocuments: "أرفع الملفات",
+    uploadDocumentsExample:
+      "مثال: شهادة الأداء / العقد / أمر الشراء / الفاتورة إلخ ...",
+    projectNameFieldRequired: "* أسم المشروع مطلوب",
+    descriptionFieldRequired: "* الوصف مطلوب",
   },
   home: {
     shayek: "شيّك",

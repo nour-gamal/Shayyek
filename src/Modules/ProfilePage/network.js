@@ -49,3 +49,13 @@ export const SupplierContractorProfile = (
   let path = `api/Profile/SupplierContractorProfile?languageId=${languageId}`;
   GetResource(path, onSuccess, onFail, reqAuth);
 };
+
+export const SupplierContractorAddWork = (
+  data,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) => {
+  let path = `api/Profile/SupplierContractorAddWork`;
+  PostResource(path, data, onSuccess, onFail, reqAuth, true);
+};

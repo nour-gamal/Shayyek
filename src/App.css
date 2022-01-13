@@ -152,6 +152,9 @@ section {
 .alertSign {
   border: 1px solid red !important;
 }
+.alertSign::placeholder {
+  color: red !important;
+}
 .text-red {
   color: red;
 }
@@ -484,3 +487,27 @@ thead:hover {
     padding: 0 !important;
   }
 }
+
+/*start input field */
+.primary-input-field {
+  border-radius: 0 !important;
+  border: 1px solid #bce0fd;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.primary-input-field::placeholder {
+  color: #003b6b;
+}
+
+.primary-input-field:hover,
+.primary-input-field:focus,
+.primary-input-field:active {
+  box-shadow: none;
+  outline: none;
+}
+@media (max-width: 767px) {
+  .primary-input-field {
+    font-size: 12px;
+  }
+}
+/*end input field */

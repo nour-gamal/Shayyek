@@ -1,48 +1,65 @@
-.sideBar__profile {
+.sideBarProfile {
   background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
-.sideBar__profile header {
+
+.sideBarProfile .sideBarProfile__add,
+.sideBarProfile .sideBarProfile__body {
+  flex: 1;
+}
+.sideBarProfile .sideBarProfile__body ul {
+  max-height: 300px;
+}
+.sideBarProfile .sideBarProfile__add {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+}
+.sideBarProfile header {
   display: flex;
   align-items: center;
   background-color: white;
   padding: 1rem;
   border-bottom: 1px solid #00000029;
 }
-.sideBar__profile header h2 {
+.sideBarProfile header h2 {
   margin-bottom: 0;
   color: #003b6b;
   font-size: 1.25rem;
 }
-.sideBar__profile img.companyLogo {
+.sideBarProfile img.companyLogo {
   width: 50px;
   height: 50px;
   border: 1px solid #707070;
   border-radius: 50%;
   margin-right: 0.2rem;
 }
-.sideBar__profile ul {
+.sideBarProfile ul {
   overflow-y: auto;
 }
-.sideBar__profile .item {
+.sideBarProfile .item {
   background: white;
   padding: 0.8rem 1rem;
   border-bottom: 1px solid #00000029;
 }
 
-.sideBar__profile .item h6 {
+.sideBarProfile .item h6 {
   color: #003b6b;
   font-weight: bold;
   font-size: 0.875rem;
 }
 
-.sideBar__profile .item p {
+.sideBarProfile .item p {
   color: #707070;
   font-weight: bold;
   margin-bottom: 0 !important;
   font-size: 0.875rem;
 }
-.sideBar__profile .sideBar__button {
+.sideBarProfile .sideBar__button {
   background: #003b6b;
   color: white;
   padding: 0.5rem 1.5rem;
@@ -51,15 +68,15 @@
   color: white !important;
 }
 @media (max-width: 1010px) {
-  .sideBar__profile header h2 {
+  .sideBarProfile header h2 {
     font-size: 1.25rem;
   }
 }
 
-html[dir="rtl"] .sideBar__profile ul {
+html[dir="rtl"] .sideBarProfile ul {
   padding: 0;
 }
-html[dir="rtl"] .sideBar__profile img.companyLogo {
+html[dir="rtl"] .sideBarProfile img.companyLogo {
   margin-left: 0.2rem;
   margin-right: unset;
 }

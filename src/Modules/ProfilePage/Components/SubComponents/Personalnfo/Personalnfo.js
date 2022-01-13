@@ -12,7 +12,7 @@ function Personalnfo({ parent, count }) {
   return (
     <div className="PersonalInfo">
       <header className="profileHeader">
-        <div class="profileHeader__personal">
+        <div className="profileHeader__personal">
           <img
             className="user"
             src={
@@ -69,7 +69,7 @@ function Personalnfo({ parent, count }) {
             <>
               <div className="d-flex align-items-center">
                 <div className="d-flex align-items-center ">
-                  <img class="draftIcon" src={DraftIcon} alt="Draft" />
+                  <img className="draftIcon" src={DraftIcon} alt="Draft" />
                   <div className="draft">{currentLocal.profilePage.draft}</div>
                 </div>
                 <div className="num">{count}</div>

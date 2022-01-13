@@ -242,6 +242,12 @@ export const en = {
     unitPrice: "Unit Price",
     totalPrice: "Total Price",
     deliveryDate: "Delivery date",
+    sizeOfContract: "Size Of Contract / PQ",
+    uploadDocuments: "Upload Documents",
+    uploadDocumentsExample:
+      "Example: Certificate of Performance / Contract / PO / Invoice etc...",
+    projectNameFieldRequired: "* Project name field is required",
+    descriptionFieldRequired: "* Description field required",
   },
   buyerHome: {
     importExcelFile: "Import Excel File",
