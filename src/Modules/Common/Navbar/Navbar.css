@@ -147,6 +147,9 @@
 	padding-right: 84px !important;
 	padding-left: 84px !important;
 }
+.navbar .arrowDown {
+	width: 15px;
+}
 .navbar .nameContainer,
 .navbar .nameContainer:hover {
 	color: #fff;
