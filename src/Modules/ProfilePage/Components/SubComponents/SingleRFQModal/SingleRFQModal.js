@@ -138,6 +138,7 @@ function SingleRFQModal({
 						/>
 					);
 				},
+				width: 600,
 			},
 			{
 				title: currentLocal.supplierHome.totalPrice,
@@ -200,7 +201,7 @@ function SingleRFQModal({
 									? currentLocal.profilePage.buyerName
 									: currentLocal.profilePage.supplierContractorName}
 								:{" "}
-								{parent === "buyerProfile"
+								{parent === "supplierHome"
 									? buyerName
 									: rfqDetails.supplierContractorName}
 							</div>
