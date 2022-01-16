@@ -15,6 +15,9 @@
 	border-color: #fc6b5e;
 	color: #fff;
 }
+.singleRFQModal input {
+	width: 100px;
+}
 @media (max-width: 768px) {
 	.singleRFQModal .btn-container {
 		flex-direction: column;
