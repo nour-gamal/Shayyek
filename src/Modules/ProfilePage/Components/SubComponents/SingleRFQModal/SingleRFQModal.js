@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Modal, Table, Select } from "antd";
 import { useSelector } from "react-redux";
 import { DatePicker } from "antd";
-import { GetBuyerRFQ, getCategories } from "../../../../Home/network";
+import { GetBuyerRFQ, getCategories, fillRFQ } from "../../../../Home/network";
 import "./SingleRFQModal.css";
 
 function SingleRFQModal({
@@ -131,14 +131,13 @@ function SingleRFQModal({
 								var rfqArr = [...rfqDetails];
 								rfqArr[rowIndex] = {
 									...rfqArr[rowIndex],
-									unitPrice: e.target.value,
+									unitPrice: parseInt(e.target.value),
 								};
 								updateRFQDetails(rfqArr);
 							}}
 						/>
 					);
 				},
-				width: 600,
 			},
 			{
 				title: currentLocal.supplierHome.totalPrice,
@@ -152,7 +151,7 @@ function SingleRFQModal({
 							var rfqArr = [...rfqDetails];
 							rfqArr[rowIndex] = {
 								...rfqArr[rowIndex],
-								totalPrice: e.target.value,
+								totalPrice: parseInt(e.target.value),
 							};
 							updateRFQDetails(rfqArr);
 						}}
@@ -178,12 +177,48 @@ function SingleRFQModal({
 				),
 			},
 			{
-				title: "",
-				dataIndex: "percentage",
-				key: "percentage",
+				title: currentLocal.supplierHome.paymentTerms,
+				dataIndex: "paymentTerms",
+				key: "paymentTerms",
+				render: (paymentTerms, record, rowIndex) => {
+					return (
+						<input
+							type="text"
+							className="form-control"
+							value={paymentTerms}
+							onChange={(e) => {
+								var rfqArr = [...rfqDetails];
+								rfqArr[rowIndex] = {
+									...rfqArr[rowIndex],
+									paymentTerms: e.target.value,
+								};
+								updateRFQDetails(rfqArr);
+							}}
+						/>
+					);
+				},
 			},
 		];
 	}
+
+	const submitRFQ = (isDraft) => {
+		let data = {
+			isDraft: isDraft,
+			rfqId: rfqId,
+			rfqDetailsRequests: rfqDetails,
+		};
+		fillRFQ(
+			data,
+			(success) => {
+				if (success.success) {
+					onCancel();
+				}
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	};
 
 	return (
 		<Modal
@@ -194,7 +229,7 @@ function SingleRFQModal({
 		>
 			<div className="d-flex singleRFQModal">
 				<div>
-					<div className="d-flex justify-content-between f-14 primary-color">
+					<div className="d-flex justify-content-between f-14 primary-color actionsSection">
 						<div>
 							<div className="my-2">
 								{parent === "buyerProfile" || parent === "supplierHome"
@@ -207,8 +242,19 @@ function SingleRFQModal({
 							</div>
 
 							{parent === "supplierHome" ? (
-								<div className="my-2">
+								<div className="my-2 d-flex">
 									{currentLocal.supplierHome.paymentTerms} {" : "}
+									<input
+										type="text"
+										className="form-control"
+										onChange={(e) => {
+											let rfqArr = [...rfqDetails];
+											rfqArr.forEach((detail, detailIndex) => {
+												rfqArr[detailIndex].paymentTerms = e.target.value;
+											});
+											updateRFQDetails(rfqArr);
+										}}
+									/>
 								</div>
 							) : (
 								<div className="my-2">
@@ -244,10 +290,16 @@ function SingleRFQModal({
 				<div>
 					{parent === "supplierHome" && (
 						<div className="btn-container mt-2 d-flex">
-							<button className="button-secondary mx-1">
+							<button
+								className="button-secondary mx-1"
+								onClick={() => submitRFQ(true)}
+							>
 								{currentLocal.supplierHome.saveAsDraft}
 							</button>
-							<button className="button-primary mx-1">
+							<button
+								className="button-primary mx-1"
+								onClick={() => submitRFQ(false)}
+							>
 								{currentLocal.supplierHome.submit}
 							</button>
 						</div>
