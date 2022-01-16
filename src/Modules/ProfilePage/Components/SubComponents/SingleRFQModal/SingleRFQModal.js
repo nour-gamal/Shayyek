@@ -111,6 +111,10 @@ function SingleRFQModal({
 			key: "notes",
 		},
 	];
+
+	function disabledOffersDate(current) {
+		return current && current.valueOf() < Date.now();
+	}
 	if (parent === "supplierHome" && rfqDetails.length > 0) {
 		columns = columns.filter(
 			(column) =>
@@ -175,6 +179,7 @@ function SingleRFQModal({
 							updateRFQDetails(rfqArr);
 						}}
 						className="form-control"
+						disabledDate={disabledOffersDate}
 					/>
 				),
 			},
