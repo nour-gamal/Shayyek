@@ -176,6 +176,7 @@ export const ar = {
     addWork: "أضف عمل",
     draft: "مسودة",
     manageyourCompany: "إدارة شركتك",
+    close: "أغلق",
   },
   offerTable: {
     name: "الاسم",

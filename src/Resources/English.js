@@ -180,6 +180,7 @@ export const en = {
     addWork: "Add Work",
     draft: "Draft",
     manageyourCompany: "Manage your Company",
+    close: "Close",
   },
   offerTable: {
     name: "Name",

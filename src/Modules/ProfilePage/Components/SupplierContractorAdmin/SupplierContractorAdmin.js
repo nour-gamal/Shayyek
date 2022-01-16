@@ -5,18 +5,27 @@ import { baseUrl } from "../../../../Services";
 import { Row, Col } from "antd";
 import PersonalInfo from "../SubComponents/Personalnfo/Personalnfo";
 import BusinessCard from "../SubComponents/BusinessCard/BusinessCard";
+import PreviousWorks from "./../SubComponents/PreviousWorks/PreviousWorks";
 import CompanyCard from "../SubComponents/CompanyCard/CompanyCard";
+import AddWrokDetailsModal from "./../AddWorkModal/AddWorkModal";
+import ShowSinglePrevWorkModal from "../SubComponents/ShowSinglePrevWorkModal/ShowSinglePrevWorkModal";
 // network
 import { SupplierContractorProfile } from "../../network";
 // style
 import "./SupplierContractorAdmin.css";
-import PreviousWorks from "./../SubComponents/PreviousWorks/PreviousWorks";
-import AddWrokDetailsModal from "./../AddWorkModal/AddWorkModal";
+
 function SupplierContractorAdmin() {
   const [companyDetails, setCompanyDetails] = useState(null);
   const [profileDetails, setProfileDetails] = useState(null);
   const [previousWorks, setPreviousWorks] = useState(null);
   const [AddModalVisibilty, toggleAddModalVisibilty] = useState(false);
+  const [
+    showPrevWorkModalVisibilty,
+    toggleShowPrevWorkModalVisibilty,
+  ] = useState(false);
+  const [selectedPrevWork, setSelectedPrevWork] = useState(null);
+  const [selectedPrevWorkId, setSelectedPrevWorkId] = useState(null);
+
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
   useEffect(() => {
     SupplierContractorProfile(
@@ -61,8 +70,10 @@ function SupplierContractorAdmin() {
           </Col>
           <Col className="sideWorker" md={8} lg={6} xs={24}>
             <PreviousWorks
+              togglePrevWorkModalVisibilty={toggleShowPrevWorkModalVisibilty}
               toggleAddModalVisibilty={toggleAddModalVisibilty}
               works={previousWorks}
+              setSelectedPrevWorkId={setSelectedPrevWorkId}
               companyImage={
                 companyDetails.image
                   ? baseUrl + companyDetails.image
@@ -76,7 +87,18 @@ function SupplierContractorAdmin() {
         <AddWrokDetailsModal
           onCancel={() => toggleAddModalVisibilty(false)}
           isModalVisible={AddModalVisibilty}
-          setPreviousWorks={setPreviousWorks}
+          // edit
+          selectedPrevWorkId={selectedPrevWorkId}
+        />
+      )}
+      {showPrevWorkModalVisibilty && (
+        <ShowSinglePrevWorkModal
+          onCancel={() => toggleShowPrevWorkModalVisibilty(false)}
+          isModalVisible={showPrevWorkModalVisibilty}
+          selectedPrevWorkId={selectedPrevWorkId}
+          // to -> edit
+          setSelectedPrevWork={setSelectedPrevWork}
+          toggleAddModalVisibilty={toggleAddModalVisibilty}
         />
       )}
     </div>

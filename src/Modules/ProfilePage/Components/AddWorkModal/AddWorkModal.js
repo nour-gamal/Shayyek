@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Col, Row } from "antd";
 import { SupplierContractorAddWork } from "../../network";
@@ -9,26 +9,32 @@ import closeIcon from "../../../../Resources/Assets/closeIcon.svg";
 //style
 import "./AddWorkModal.css";
 
-function AddWrokDetailsModal({ isModalVisible, onCancel, setPreviousWorks }) {
+function AddWrokDetailsModal({
+  isModalVisible,
+  onCancel,
+  setPreviousWorks,
+  editableModalData,
+  selectedPrevWorkId,
+}) {
+  console.log(selectedPrevWorkId);
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  const [projectName, setProjectName] = useState("");
-  const [projectLocation, setProjectLocation] = useState("");
-  const [description, setDescription] = useState("");
-  const [sizeOfContract, setSizeOfContract] = useState("");
-  const [uploadFiles, setUploadFiles] = useState(undefined);
+  const [ProjectName, setProjectName] = useState("");
+  const [ProjectLocation, setProjectLocation] = useState("");
+  const [Description, setDescription] = useState("");
+  const [SizeOfContract, setSizeOfContract] = useState("");
+  const [PrevWorkDocuments, setPrevWorkDocuments] = useState(undefined);
   const [requiredFieldError, setRequiredFieldError] = useState(false);
-
   function submitForm(e) {
     e.preventDefault();
-    if (projectName && description) {
-      const prevWorkId = uniqIdV4();
+    if (ProjectName && Description) {
+      let PrevWorkId = uniqIdV4();
       const data = {
-        PrevWorkId: prevWorkId,
-        ProjectName: projectName,
-        ProjectLocation: projectLocation,
-        Description: description,
-        SizeOfContract: sizeOfContract,
-        PrevWorkDocuments: uploadFiles,
+        PrevWorkId,
+        ProjectName,
+        ProjectLocation,
+        Description,
+        SizeOfContract,
+        PrevWorkDocuments,
       };
 
       let payload = new FormData();
@@ -48,8 +54,8 @@ function AddWrokDetailsModal({ isModalVisible, onCancel, setPreviousWorks }) {
             onCancel();
             setPreviousWorks((prevState) => {
               if (prevState)
-                return [...prevState, { projectName, description, prevWorkId }];
-              else return [{ projectName, description, prevWorkId }];
+                return [{ ProjectName, Description, PrevWorkId }, ...prevState];
+              else return [{ ProjectName, Description, PrevWorkId }];
             });
           }
         },
@@ -60,9 +66,34 @@ function AddWrokDetailsModal({ isModalVisible, onCancel, setPreviousWorks }) {
       setRequiredFieldError(true);
     }
   }
+  useEffect(() => {
+    // effect
+    if (editableModalData) {
+      const {
+        projectName,
+        projectLocation,
+        description,
+        sizeOfContract,
+        prevWorkDocuments,
+      } = editableModalData;
+      setProjectName(projectName);
+      setProjectLocation(projectLocation);
+      setDescription(description);
+      setSizeOfContract(sizeOfContract);
+      setPrevWorkDocuments(prevWorkDocuments);
+    }
+    // () => {
+    //   setProjectName("");
+    //   setProjectLocation("");
+    //   setDescription("");
+    //   setSizeOfContract("");
+    //   setPrevWorkDocuments(undefined);
+    //   setPrevWorkId = null;
+    // };
+  }, [editableModalData]);
 
   function selectFiles(e) {
-    setUploadFiles([...e.target.files]);
+    setPrevWorkDocuments([...e.target.files]);
   }
   return (
     <Modal
@@ -83,7 +114,7 @@ function AddWrokDetailsModal({ isModalVisible, onCancel, setPreviousWorks }) {
         <Row>
           <Col md={12} xs={24}>
             <div className="addWorkModal__input">
-              {requiredFieldError && !projectName && (
+              {requiredFieldError && !ProjectName && (
                 <small className="text-red">
                   {currentLocal.supplierHome.projectNameFieldRequired}
                 </small>
@@ -91,11 +122,11 @@ function AddWrokDetailsModal({ isModalVisible, onCancel, setPreviousWorks }) {
               <input
                 type="text"
                 className={`form-control primary-input-field red ${requiredFieldError &&
-                  !projectName &&
+                  !ProjectName &&
                   "alertSign"}`}
                 placeholder={currentLocal.profilePage.projectName}
                 onChange={(e) => setProjectName(e.target.value)}
-                value={projectName}
+                value={ProjectName}
               />
             </div>
             <div className="addWorkModal__input">
@@ -104,11 +135,11 @@ function AddWrokDetailsModal({ isModalVisible, onCancel, setPreviousWorks }) {
                 className="form-control primary-input-field"
                 placeholder={currentLocal.buyerHome.projectLocation}
                 onChange={(e) => setProjectLocation(e.target.value)}
-                value={projectLocation}
+                value={ProjectLocation}
               />
             </div>
             <div className="addWorkModal__input">
-              {requiredFieldError && !description && (
+              {requiredFieldError && !Description && (
                 <small className="text-red">
                   {currentLocal.supplierHome.descriptionFieldRequired}
                 </small>
@@ -116,11 +147,11 @@ function AddWrokDetailsModal({ isModalVisible, onCancel, setPreviousWorks }) {
               <textarea
                 type="text"
                 className={`form-control primary-input-field ${requiredFieldError &&
-                  !description &&
+                  !Description &&
                   "alertSign"}`}
                 placeholder={currentLocal.registration.description}
                 onChange={(e) => setDescription(e.target.value)}
-                value={description}
+                value={Description}
               ></textarea>
             </div>
           </Col>
@@ -131,7 +162,7 @@ function AddWrokDetailsModal({ isModalVisible, onCancel, setPreviousWorks }) {
                 className="form-control primary-input-field"
                 placeholder={currentLocal.supplierHome.sizeOfContract}
                 onChange={(e) => setSizeOfContract(e.target.value)}
-                value={sizeOfContract}
+                value={SizeOfContract}
               />
             </div>
             <div className="addWorkModal__upload">

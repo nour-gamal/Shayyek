@@ -56,6 +56,15 @@ export const SupplierContractorAddWork = (
   onFail,
   reqAuth = true
 ) => {
-  let path = `api/Profile/SupplierContractorAddWork`;
+  const path = `api/Profile/SupplierContractorAddWork`;
   PostResource(path, data, onSuccess, onFail, reqAuth, true);
+};
+
+export const GetWorkAddedBySupplierContractor = (
+  prevWorkId,
+  onSuccess,
+  onFail
+) => {
+  const path = `api/Profile/GetWorkAddedBySupplierContractor?prevWorkId=${prevWorkId}`;
+  GetResource(path, onSuccess, onFail, true);
 };
