@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Col, Row } from "antd";
-import { SupplierContractorAddWork } from "../../network";
+import {
+  SupplierContractorAddWork,
+  supplierContractorEditWork,
+} from "../../network";
 import { v4 as uniqIdV4 } from "uuid";
 // components
 import UploadImage from "../../../../Resources/Assets/uploadImg.svg";
@@ -14,9 +17,10 @@ function AddWrokDetailsModal({
   onCancel,
   setPreviousWorks,
   editableModalData,
+  setEditableModalData,
   selectedPrevWorkId,
+  setSelectedPrevWorkId,
 }) {
-  console.log(selectedPrevWorkId);
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [ProjectName, setProjectName] = useState("");
   const [ProjectLocation, setProjectLocation] = useState("");
@@ -24,11 +28,12 @@ function AddWrokDetailsModal({
   const [SizeOfContract, setSizeOfContract] = useState("");
   const [PrevWorkDocuments, setPrevWorkDocuments] = useState(undefined);
   const [requiredFieldError, setRequiredFieldError] = useState(false);
+  let data;
   function submitForm(e) {
     e.preventDefault();
     if (ProjectName && Description) {
       let PrevWorkId = uniqIdV4();
-      const data = {
+      data = {
         PrevWorkId,
         ProjectName,
         ProjectLocation,
@@ -36,7 +41,6 @@ function AddWrokDetailsModal({
         SizeOfContract,
         PrevWorkDocuments,
       };
-
       let payload = new FormData();
       for (let item in data) {
         if (Array.isArray(data[item])) {
@@ -47,28 +51,41 @@ function AddWrokDetailsModal({
           payload.append(item, data[item]);
         }
       }
-      SupplierContractorAddWork(
-        payload,
-        (success) => {
-          if (success.success) {
+      if (selectedPrevWorkId) {
+        supplierContractorEditWork(
+          payload,
+          (success) => {
             onCancel();
-            setPreviousWorks((prevState) => {
-              if (prevState)
-                return [{ ProjectName, Description, PrevWorkId }, ...prevState];
-              else return [{ ProjectName, Description, PrevWorkId }];
-            });
-          }
-        },
-        (fail) => {}
-      );
+          },
+          (fail) => {}
+        );
+      } else {
+        SupplierContractorAddWork(
+          payload,
+          (success) => {
+            if (success.success) {
+              onCancel();
+              setPreviousWorks((prevState) => {
+                if (prevState)
+                  return [
+                    { ProjectName, Description, PrevWorkId },
+                    ...prevState,
+                  ];
+                else return [{ ProjectName, Description, PrevWorkId }];
+              });
+            }
+          },
+          (fail) => {}
+        );
+      }
+
       setRequiredFieldError(false);
     } else {
       setRequiredFieldError(true);
     }
   }
   useEffect(() => {
-    // effect
-    if (editableModalData) {
+    if (selectedPrevWorkId) {
       const {
         projectName,
         projectLocation,
@@ -77,24 +94,24 @@ function AddWrokDetailsModal({
         prevWorkDocuments,
       } = editableModalData;
       setProjectName(projectName);
-      setProjectLocation(projectLocation);
+      setProjectLocation(projectLocation ? projectLocation : "");
       setDescription(description);
-      setSizeOfContract(sizeOfContract);
-      setPrevWorkDocuments(prevWorkDocuments);
+      setSizeOfContract(sizeOfContract ? sizeOfContract : "");
+      setPrevWorkDocuments(prevWorkDocuments ? prevWorkDocuments : "");
     }
-    // () => {
-    //   setProjectName("");
-    //   setProjectLocation("");
-    //   setDescription("");
-    //   setSizeOfContract("");
-    //   setPrevWorkDocuments(undefined);
-    //   setPrevWorkId = null;
-    // };
-  }, [editableModalData]);
+  }, [editableModalData, selectedPrevWorkId]);
 
   function selectFiles(e) {
     setPrevWorkDocuments([...e.target.files]);
   }
+
+  function closeModal() {
+    onCancel();
+    setEditableModalData(null);
+    setSelectedPrevWorkId(null);
+  }
+
+  console.log(editableModalData, PrevWorkDocuments);
   return (
     <Modal
       title="Basic Modal"
@@ -191,15 +208,21 @@ function AddWrokDetailsModal({
         </Row>
         <div className="addWorkModal__btns">
           <button
-            onClick={onCancel}
+            onClick={closeModal}
             className="cancel  button-secondary"
             type="button"
           >
             {currentLocal.profilePage.cancel}
           </button>
-          <button className="add  button-primary" type="submit">
-            {currentLocal.profilePage.add}
-          </button>
+          {selectedPrevWorkId ? (
+            <button className="add  button-primary" type="submit">
+              {currentLocal.profilePage.saveChanges}
+            </button>
+          ) : (
+            <button className="add  button-primary" type="submit">
+              {currentLocal.profilePage.add}
+            </button>
+          )}
         </div>
       </form>
     </Modal>
