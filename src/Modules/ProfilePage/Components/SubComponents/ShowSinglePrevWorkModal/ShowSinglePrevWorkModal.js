@@ -13,7 +13,9 @@ function ShowSinglePrevWorkModal({
   isModalVisible,
   onCancel,
   selectedPrevWorkId,
+  setSelectedPrevWorkId,
   toggleAddModalVisibilty,
+  setEditableModalData,
 }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [prevWorkData, setPrevWorkData] = useState(null);
@@ -33,7 +35,12 @@ function ShowSinglePrevWorkModal({
 
   function editPrevWork() {
     onCancel(true);
+    setEditableModalData(prevWorkData);
     toggleAddModalVisibilty(true);
+  }
+  function closeModal() {
+    onCancel(true);
+    setSelectedPrevWorkId(null);
   }
 
   return (
@@ -84,7 +91,7 @@ function ShowSinglePrevWorkModal({
             </Row>
           </div>
           <div className="showWorkModal__footer">
-            <button className="button-secondary" onClick={onCancel}>
+            <button className="button-secondary" onClick={closeModal}>
               {currentLocal.profilePage.close}
             </button>
             <button className="edit button-primary" onClick={editPrevWork}>

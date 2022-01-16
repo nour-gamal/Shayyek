@@ -181,6 +181,7 @@ export const en = {
     draft: "Draft",
     manageyourCompany: "Manage your Company",
     close: "Close",
+    saveChanges: "Save changes",
   },
   offerTable: {
     name: "Name",
