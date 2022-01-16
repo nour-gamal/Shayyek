@@ -11,6 +11,7 @@ function SingleRFQModal({
 	rfqId,
 	parent,
 	companyName,
+	recallGetRFQ,
 }) {
 	const { Option } = Select;
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -20,6 +21,7 @@ function SingleRFQModal({
 	const [buyerName, updateBuyerName] = useState("");
 	const [companyAddress, updateAddress] = useState("");
 	const [deliveryDate, updateDeliveryDate] = useState("");
+	const [isSubmitClicked, updateSubmitClicked] = useState(false);
 	// const [unitPrice, updateUnitPrice] = useState(null);
 	// const [totalPrice, updateTotalPrice] = useState(null);
 	// const [deliveryDate, updateDeliveryDate] = useState(null);
@@ -202,6 +204,7 @@ function SingleRFQModal({
 	}
 
 	const submitRFQ = (isDraft) => {
+		updateSubmitClicked(true);
 		let data = {
 			isDraft: isDraft,
 			rfqId: rfqId,
@@ -212,6 +215,7 @@ function SingleRFQModal({
 			(success) => {
 				if (success.success) {
 					onCancel();
+					recallGetRFQ();
 				}
 			},
 			(fail) => {
@@ -292,13 +296,13 @@ function SingleRFQModal({
 						<div className="btn-container mt-2 d-flex">
 							<button
 								className="button-secondary mx-1"
-								onClick={() => submitRFQ(true)}
+								onClick={() => !isSubmitClicked && submitRFQ(true)}
 							>
 								{currentLocal.supplierHome.saveAsDraft}
 							</button>
 							<button
 								className="button-primary mx-1"
-								onClick={() => submitRFQ(false)}
+								onClick={() => !isSubmitClicked && submitRFQ(false)}
 							>
 								{currentLocal.supplierHome.submit}
 							</button>

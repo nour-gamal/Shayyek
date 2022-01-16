@@ -149,3 +149,13 @@ export const fillRFQ = (data, onSuccess, onFail, reqAuth = true) => {
 	const path = "api/RFQ/FillRFQ";
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
+export const getFilledRFQ = (
+	RFQId,
+	languageId,
+	onSuccess,
+	onFail,
+	reqAuth = true
+) => {
+	const path = `api/RFQ/GetFilledRFQOfferDetails?rfqHeaderId=${RFQId}&languageId=${languageId}`;
+	GetResource(path, onSuccess, onFail, reqAuth);
+};

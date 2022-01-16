@@ -35,6 +35,21 @@ function SupplierHome() {
 						invitationCount={invitationCount}
 						rfqDetails={rfqDetails}
 						parent={"supplier"}
+						recallGetRFQ={() => {
+							getRFQ(
+								false,
+								(success) => {
+									if (success.success) {
+										updateRfqDetails(success.data.rfqInvitationDetails);
+										updateDraftsCount(success.data.draftsCount);
+										updateInvitationsCount(success.data.invitationsCount);
+									}
+								},
+								(fail) => {
+									console.log(fail);
+								}
+							);
+						}}
 					/>
 				</Col>
 			</Row>
