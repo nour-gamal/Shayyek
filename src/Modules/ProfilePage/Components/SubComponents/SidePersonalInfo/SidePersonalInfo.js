@@ -86,13 +86,15 @@ function SidePersonalInfo({ allData }) {
 					<div>{allData.email}</div>
 				</li>
 			</ul>
-			<ProfileDetailsModal
-				isModalVisible={isModalVisible}
-				onCancel={() => {
-					updateModalStatus(false);
-				}}
-				userType={currentLocal.registration.buyer}
-			/>
+			{isModalVisible && (
+				<ProfileDetailsModal
+					isModalVisible={isModalVisible}
+					onCancel={() => {
+						updateModalStatus(false);
+					}}
+					userType={currentLocal.registration.buyer}
+				/>
+			)}
 		</div>
 	);
 }
