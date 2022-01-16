@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Menu, Dropdown } from "antd";
 import arrowDown from "../../../Resources/Assets/arrowDown.svg";
 import { logout } from "../../../Redux/Authorization";
-
+import { baseUrl } from "../../../Services";
 function UserNav({ loginState }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
@@ -15,7 +15,9 @@ function UserNav({ loginState }) {
 	const menu = (
 		<Menu>
 			<Menu.Item key="0">
-				<Link to={`/me/${authorization.fullName}`}>{currentLocal.navbar.viewProfile}</Link>
+				<Link to={`/me/${authorization.fullName}`}>
+					{currentLocal.navbar.viewProfile}
+				</Link>
 			</Menu.Item>
 			<Menu.Item
 				key="1"
@@ -79,7 +81,9 @@ function UserNav({ loginState }) {
 						<img
 							className={"avatar rounded-circle d-flex align-items-center mx-4"}
 							src={
-								"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+								authorization.profileImage
+									? baseUrl + authorization.profileImage
+									: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
 							}
 							alt="avatar"
 						/>
