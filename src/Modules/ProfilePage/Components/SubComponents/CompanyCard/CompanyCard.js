@@ -4,6 +4,7 @@ import { baseUrl } from "../../../../../Services";
 import "./CompanyCard.css";
 function CompanyCard({ companyDetails, parent }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const { authorization } = useSelector((state) => state.authorization);
 	return (
 		<>
 			{companyDetails && (
@@ -18,8 +19,8 @@ function CompanyCard({ companyDetails, parent }) {
 						<header className="d-flex align-items-center justify-content-start">
 							<img
 								src={
-									companyDetails.image
-										? baseUrl + companyDetails.image
+									authorization.companyLogo
+										? baseUrl + authorization.companyLogo
 										: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
 								}
 								alt="companyProfile"
