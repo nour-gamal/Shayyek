@@ -42,7 +42,7 @@ function UserNav({ loginState }) {
 							onClick={(e) => e.preventDefault()}
 							href="/"
 						>
-							<img src={arrowDown} alt="arrowDown" />
+							<img src={arrowDown} alt="arrowDown" className="arrowDown" />
 						</a>
 					</Dropdown>
 					<span

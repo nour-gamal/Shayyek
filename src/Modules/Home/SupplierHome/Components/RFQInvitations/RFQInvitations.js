@@ -9,6 +9,7 @@ function RFQInvitations({
 	rfqDetails,
 	parent,
 	updateRFQsList,
+	recallGetRFQ,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 
@@ -35,6 +36,7 @@ function RFQInvitations({
 								parent={parent}
 								rfqDetails={details}
 								updateRFQsList={updateRFQsList}
+								recallGetRFQ={recallGetRFQ}
 							/>
 						</div>
 					);

@@ -9,7 +9,13 @@ import { DeleteRFQ } from "../../../Modules/Home/network";
 import SingleRFQModal from "../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
 
 import "./RFQInvitation.css";
-function RFQInvitation({ revealPrices, rfqDetails, parent, updateRFQsList }) {
+function RFQInvitation({
+	revealPrices,
+	rfqDetails,
+	parent,
+	updateRFQsList,
+	recallGetRFQ,
+}) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [redirectTo, updateRedirectTo] = useState(null);
 	const [isRFQModalVisible, toggleRFQModal] = useState(false);
@@ -107,6 +113,7 @@ function RFQInvitation({ revealPrices, rfqDetails, parent, updateRFQsList }) {
 					}}
 					rfqId={rfqDetails.rfqHeaderId}
 					parent="supplierHome"
+					recallGetRFQ={recallGetRFQ}
 				/>
 			)}
 		</div>

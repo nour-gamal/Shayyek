@@ -135,12 +135,7 @@ export const GetBuyerAddedRFQOffers = (
 	const path = `api/RFQ/GetBuyerAddedRFQOffers?RFQId=${RFQId}&LanguageId=${languageId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
-export const GetBuyerRFQ = (
-	RFQId,
-	onSuccess,
-	onFail,
-	reqAuth = true
-) => {
+export const GetBuyerRFQ = (RFQId, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/RFQ/GetRFQ?rfqHeaderId=${RFQId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
@@ -148,4 +143,19 @@ export const GetBuyerRFQ = (
 export const DeleteRFQ = (RFQId, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/RFQ/DeleteRFQ?RFQId=${RFQId}`;
 	deleteResource(path, onSuccess, onFail, reqAuth);
+};
+
+export const fillRFQ = (data, onSuccess, onFail, reqAuth = true) => {
+	const path = "api/RFQ/FillRFQ";
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};
+export const getFilledRFQ = (
+	RFQId,
+	languageId,
+	onSuccess,
+	onFail,
+	reqAuth = true
+) => {
+	const path = `api/RFQ/GetFilledRFQOfferDetails?rfqHeaderId=${RFQId}&languageId=${languageId}`;
+	GetResource(path, onSuccess, onFail, reqAuth);
 };
