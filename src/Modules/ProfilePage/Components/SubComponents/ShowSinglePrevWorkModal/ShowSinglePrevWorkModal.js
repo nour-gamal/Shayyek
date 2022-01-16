@@ -48,7 +48,10 @@ function ShowSinglePrevWorkModal({
       <Modal
         title="Basic Modal"
         visible={isModalVisible}
-        onCancel={onCancel}
+        onCancel={() => {
+          onCancel();
+          setSelectedPrevWorkId(null);
+        }}
         className="modal-lg showWorkModal"
       >
         <header className="showWorkModal__header">

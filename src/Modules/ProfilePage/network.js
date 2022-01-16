@@ -1,4 +1,4 @@
-import { GetResource, PostResource } from "../../Services";
+import { GetResource, PatchResource, PostResource } from "../../Services";
 
 export const getBuyerProfile = (
   languageId,
@@ -71,5 +71,5 @@ export const GetWorkAddedBySupplierContractor = (
 
 export const supplierContractorEditWork = (data, onSuccess, onFail) => {
   const path = `api/Profile/SupplierContractorEditWork`;
-  PostResource(path, data, onSuccess, onFail, true);
+  PatchResource(path, data, onSuccess, onFail, true);
 };

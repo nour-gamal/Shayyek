@@ -32,7 +32,9 @@ function AddWrokDetailsModal({
   function submitForm(e) {
     e.preventDefault();
     if (ProjectName && Description) {
-      let PrevWorkId = uniqIdV4();
+      let PrevWorkId;
+      if (!selectedPrevWorkId) PrevWorkId = uniqIdV4();
+      else PrevWorkId = selectedPrevWorkId;
       data = {
         PrevWorkId,
         ProjectName,
@@ -91,7 +93,7 @@ function AddWrokDetailsModal({
         projectLocation,
         description,
         sizeOfContract,
-        prevWorkDocuments,
+        documents: prevWorkDocuments,
       } = editableModalData;
       setProjectName(projectName);
       setProjectLocation(projectLocation ? projectLocation : "");
@@ -116,7 +118,10 @@ function AddWrokDetailsModal({
     <Modal
       title="Basic Modal"
       visible={isModalVisible}
-      onCancel={onCancel}
+      onCancel={() => {
+        setSelectedPrevWorkId(null);
+        onCancel();
+      }}
       className="modal-lg addWorkModal"
     >
       <header className="addWorkModal__header">
