@@ -23,7 +23,20 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 					/>
 				</Col>
 				<Col md={16} className="d-flex justify-content-between flex-column">
-					<div>test</div>
+					<div>
+						<h6 className="f-18 productName">
+							{currentLocal.suppliers.productName}
+						</h6>
+						<div>
+							<div>
+								<img
+									src={baseUrl + product.companyLogo}
+									alt="supplierImg"
+									className="rounded-circle companyLogo"
+								/>
+							</div>
+						</div>
+					</div>
 					<div>
 						<button className="button-primary">
 							{currentLocal.supplierHome.addToCart}

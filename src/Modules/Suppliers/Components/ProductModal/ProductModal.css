@@ -1,3 +1,11 @@
 .productModal .productImage {
 	width: 90%;
 }
+
+.productModal .productName {
+	color: #f50000;
+}
+
+.productModal .companyLogo {
+	width: 32px !important;
+}
