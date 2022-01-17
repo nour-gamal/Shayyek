@@ -65,28 +65,29 @@ function Filter() {
 		getCategories(
 			currentLanguageId,
 			(success) => {
+				console.log(success.data);
 				let treeData = [];
 				success.data.forEach((category, categoryIndex) => {
 					treeData.push({
-						title: category.category.name,
-						key: category.category.id,
+						title: category.mainCategory.name,
+						key: category.mainCategory.id,
 						type: "category",
 						children: [],
 					});
 
-					category.subCategories.forEach((subCategory, subCategoryIndex) => {
+					category.categories.forEach((subCategory, subCategoryIndex) => {
 						treeData[categoryIndex].children = [
 							...treeData[categoryIndex].children,
 							{
-								title: subCategory.subCategory.name,
-								key: subCategory.subCategory.id,
+								title: subCategory.category.name,
+								key: subCategory.category.id,
 								type: "subCategory",
 								parentId: treeData[categoryIndex].key,
 								children: [],
 							},
 						];
 
-						subCategory.subSubCategories.forEach((subSubCategory) => {
+						subCategory.subCategories.forEach((subSubCategory) => {
 							treeData[categoryIndex].children[subCategoryIndex].children = [
 								...treeData[categoryIndex].children[subCategoryIndex].children,
 								{
@@ -101,7 +102,6 @@ function Filter() {
 						});
 					});
 				});
-
 				updateTreeData(treeData);
 			},
 			(fail) => {
@@ -162,7 +162,7 @@ function Filter() {
 
 		updateSelectedCategories(selected);
 	};
-
+	const onSubmitFilter = () => {};
 	return (
 		<aside className="suppliersFilter">
 			<h5 className="title f-17 paddingSection">
