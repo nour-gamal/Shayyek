@@ -4,20 +4,27 @@ import { Checkbox, Tree } from "antd";
 import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
 import filterIcon from "../../../../Resources/Assets/filterIcon.svg";
-import { getCategories, getGovernmentList, countryList } from "../../Network";
+import {
+	getCategories,
+	getGovernmentList,
+	countryList,
+	GetCompaniesWithFilters,
+} from "../../Network";
 import "./Filter.css";
-function Filter() {
+function Filter({ getFilteredCompany }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [allProducts, toggleAllProducts] = useState(false);
 	const [inStock, toggleInStock] = useState(false);
 	const [count, updateCount] = useState(0);
-	const [selectedCategories, updateSelectedCategories] = useState([]);
+	const [selectedCategories, updateSelectedCategories] = useState(null);
 	const [treeData, updateTreeData] = useState([]);
 	const [governmentList, setGovernmentList] = useState([]);
-	const [government, setGovernment] = useState("");
-
+	const [government, setGovernment] = useState(null);
+	const [productAvailability, updateProductAvailability] = useState(null);
+	const [isRequestFilter, updateRequestFilter] = useState(false);
 	var treeIcon = document.querySelectorAll(".anticon");
+
 	if (treeIcon.length > 0) {
 		if (currentLocal.language === "English") {
 			treeIcon.forEach((icon) => {
@@ -68,25 +75,26 @@ function Filter() {
 				let treeData = [];
 				success.data.forEach((category, categoryIndex) => {
 					treeData.push({
-						title: category.category.name,
-						key: category.category.id,
+						title: category.mainCategory.name,
+						key: category.mainCategory.id,
 						type: "category",
 						children: [],
+						disabled: true,
 					});
 
-					category.subCategories.forEach((subCategory, subCategoryIndex) => {
+					category.categories.forEach((subCategory, subCategoryIndex) => {
 						treeData[categoryIndex].children = [
 							...treeData[categoryIndex].children,
 							{
-								title: subCategory.subCategory.name,
-								key: subCategory.subCategory.id,
+								title: subCategory.category.name,
+								key: subCategory.category.id,
 								type: "subCategory",
 								parentId: treeData[categoryIndex].key,
 								children: [],
 							},
 						];
 
-						subCategory.subSubCategories.forEach((subSubCategory) => {
+						subCategory.subCategories.forEach((subSubCategory) => {
 							treeData[categoryIndex].children[subCategoryIndex].children = [
 								...treeData[categoryIndex].children[subCategoryIndex].children,
 								{
@@ -101,7 +109,6 @@ function Filter() {
 						});
 					});
 				});
-
 				updateTreeData(treeData);
 			},
 			(fail) => {
@@ -109,17 +116,6 @@ function Filter() {
 			}
 		);
 	}, [currentLanguageId, governmentList]);
-
-	useEffect(() => {
-		// Call Filter API
-	}, [
-		currentLanguageId,
-		selectedCategories,
-		inStock,
-		allProducts,
-		count,
-		government,
-	]);
 
 	const checkAllProducts = () => {
 		toggleInStock(false);
@@ -133,6 +129,7 @@ function Filter() {
 
 	const onGovSelect = (checkedValues) => {
 		setGovernment(checkedValues);
+		updateRequestFilter(true);
 	};
 	const onSelect = (selectedKeys, info) => {
 		console.log("selected", selectedKeys, info);
@@ -144,24 +141,52 @@ function Filter() {
 		info.checkedNodes.forEach((checked) => {
 			if (checked.parentId && checked.grandParentId) {
 				selected.push({
-					category: { id: checked.grandParentId },
-					subCategory: { id: checked.parentId },
-					subSubCategory: { id: checked.key },
+					mainCategoryId: checked.grandParentId,
+					categoryId: checked.parentId,
+					subCategoryId: checked.key,
 				});
 			} else if (checked.parentId) {
 				selected.push({
-					category: { id: checked.parentId },
-					subCategory: { id: checked.key },
+					mainCategoryId: checked.parentId,
+					categoryId: checked.key,
 				});
 			} else {
 				selected.push({
-					category: { id: checked.key },
+					mainCategoryId: checked.key,
 				});
 			}
 		});
 
 		updateSelectedCategories(selected);
+		updateRequestFilter(true);
 	};
+
+	useEffect(() => {
+		if (isRequestFilter) {
+			let data = {
+				languageId: currentLanguageId,
+				categories: selectedCategories,
+				governmentIds: government,
+				stockStatus: productAvailability,
+				rateAvg: count,
+			};
+			GetCompaniesWithFilters(
+				data,
+				(success) => {
+					getFilteredCompany(success.data);
+				},
+				(fail) => {}
+			);
+		}
+	}, [
+		isRequestFilter,
+		count,
+		currentLanguageId,
+		getFilteredCompany,
+		government,
+		productAvailability,
+		selectedCategories,
+	]);
 
 	return (
 		<aside className="suppliersFilter">
@@ -201,12 +226,26 @@ function Filter() {
 					{currentLocal.suppliers.suppliersFilter.products}
 				</h5>
 				<div className="my-2">
-					<Checkbox onChange={checkAllProducts} checked={allProducts}>
+					<Checkbox
+						onChange={() => {
+							checkAllProducts();
+							updateProductAvailability(1);
+							updateRequestFilter(true);
+						}}
+						checked={allProducts}
+					>
 						{currentLocal.suppliers.suppliersFilter.all}
 					</Checkbox>
 				</div>
 				<div className="my-2">
-					<Checkbox onChange={checkInStock} checked={inStock}>
+					<Checkbox
+						onChange={() => {
+							checkInStock();
+							updateProductAvailability(2);
+							updateRequestFilter(true);
+						}}
+						checked={inStock}
+					>
 						{currentLocal.suppliers.suppliersFilter.inStock}
 					</Checkbox>
 				</div>
@@ -224,6 +263,7 @@ function Filter() {
 					activeColor="#ffd700"
 					onChange={(count) => {
 						updateCount(count);
+						updateRequestFilter(true);
 					}}
 				/>
 			</div>

@@ -1,4 +1,4 @@
-import { GetResource } from "../../Services";
+import { GetResource, PostResource } from "../../Services";
 
 export const getCompanies = (languageId, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/Company/GetCompanies?languageId=${languageId}`;
@@ -33,6 +33,16 @@ export const getProducts = (
 ) => {
 	const path = `api/Product/GetProductsByCompanyId?languageId=${languageId}&&companyId=${companyId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
+};
+
+export const GetCompaniesWithFilters = (
+	data,
+	onSuccess,
+	onFail,
+	reqAuth = false
+) => {
+	const path = `api/Company/GetCompaniesWithFilters`;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
 
 // export const getRateDetails = (

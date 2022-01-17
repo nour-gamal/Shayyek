@@ -1,28 +1,26 @@
-import React from "react";
+import { useState } from "react";
 import SuppliersGrid from "./Components/SuppliersGrid/SuppliersGrid";
 import NavBar from "../Common/Navbar/Navbar";
-import { useSelector } from "react-redux";
-import { Container, Col, Row } from "react-bootstrap";
+import { Col, Row } from "antd";
 import Filter from "./Components/Filter/Filter";
 import Footer from "../Common/Footer/Footer";
 function Companies() {
-	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const [filteredCompanies, updateFilteredCompanies] = useState(null);
+	const getFilteredCompany = (companies) => {
+		updateFilteredCompanies(companies);
+	};
+
 	return (
 		<section>
 			<NavBar />
-			<Container
-				fluid
-				className={currentLocal.language === "English" ? "ppl" : "ppr"}
-			>
-				<Row>
-					<Col xs={8} sm={9} lg={10}>
-						<SuppliersGrid />
-					</Col>
-					<Col xs={4} sm={3} lg={2} className="pr-0 pl-0 ">
-						<Filter />
-					</Col>
-				</Row>
-			</Container>
+			<Row className="d-flex flex-1">
+				<Col xs={16} sm={18} lg={20}>
+					<SuppliersGrid filteredCompanies={filteredCompanies} />
+				</Col>
+				<Col xs={8} sm={6} lg={4}>
+					<Filter getFilteredCompany={getFilteredCompany} />
+				</Col>
+			</Row>
 			<Footer />
 		</section>
 	);

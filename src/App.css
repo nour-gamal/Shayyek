@@ -285,6 +285,12 @@ section {
 	padding-right: 84px !important;
 }
 
+.pps {
+	padding-inline-start: 84px !important;
+}
+.ppe {
+	padding-inline-end: 84px !important;
+}
 .ant-pagination {
 	display: flex !important;
 	justify-content: center !important;
@@ -446,6 +452,12 @@ thead:hover {
 	.ppr {
 		padding-right: 16px !important;
 	}
+	.pps {
+		padding-inline-start: 16px !important;
+	}
+	.ppe {
+		padding-inline-end: 16px !important;
+	}
 }
 @media (min-width: 481px) and (max-width: 768px) {
 	.ppl {
@@ -453,6 +465,12 @@ thead:hover {
 	}
 	.ppr {
 		padding-right: 30px !important;
+	}
+	.pps {
+		padding-inline-start: 30px !important;
+	}
+	.ppe {
+		padding-inline-end: 30px !important;
 	}
 	.ant-table-cell {
 		padding: 8px 10px !important;
@@ -466,6 +484,12 @@ thead:hover {
 	}
 	.ppr {
 		padding-right: 60px !important;
+	}
+	.pps {
+		padding-inline-start: 60px !important;
+	}
+	.ppe {
+		padding-inline-end: 60px !important;
 	}
 }
 

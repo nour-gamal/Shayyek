@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { getCompanies } from "../../Network";
 import SupplierCard from "../SupplierCard/SupplierCard";
 import "./SuppliersGrid.css";
-function CompaniesGrid() {
+function CompaniesGrid({ filteredCompanies }) {
 	const [overlay, setOverlay] = useState({
 		no: 0,
 		state: false,
@@ -17,23 +17,24 @@ function CompaniesGrid() {
 		getCompanies(
 			currentLanguageId,
 			(success) => {
-				updateCompanies(success.data);
+				updateCompanies(filteredCompanies ? filteredCompanies : success.data);
 			},
 			(fail) => {
 				console.log(fail);
 			}
 		);
-	}, [currentLanguageId]);
+	}, [currentLanguageId, filteredCompanies]);
 
 	return (
-		<div className="suppliersGrid ppl ppr">
+		<div className="suppliersGrid pps">
 			<Container fluid>
 				<Row>
 					{companies.map((company, i) => {
 						return (
 							<Col
 								sm={6}
-								lg={3}
+								lg={4}
+								xl={3}
 								onMouseEnter={() => {
 									setOverlay({
 										no: i,

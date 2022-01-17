@@ -24,7 +24,7 @@ function ProfilePage() {
   //  Admin:"274c0b77-90cf-4ee3-976e-01e409413057",
   //  Employee:"4940d4e9-8bfd-467d-a9d9-20f719cdff93"
   // };
-
+  console.log(authorization);
   return (
     <section>
       <Navbar />
@@ -34,8 +34,12 @@ function ProfilePage() {
       authorization.userTypeId === "fcb9fde8-4ae5-4f6c-88e2-62e412847b2e" ? (
         authorization.roleId === "274c0b77-90cf-4ee3-976e-01e409413057" ? (
           <SupplierContractorAdmin />
-        ) : (
+        ) : authorization.roleId === "4940d4e9-8bfd-467d-a9d9-20f719cdff93" &&
+          authorization.accountTypeId ===
+            "d23f2c1e-1ed3-4066-96d6-66a970e39a7f" ? (
           <SupplierContractorEmployee />
+        ) : (
+          <ContractorIndividual />
         )
       ) : authorization.userTypeId ===
         "4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
@@ -47,6 +51,7 @@ function ProfilePage() {
       ) : (
         <ContractorIndividual />
       )}
+
       {/* <Container
 				fluid
 				className={currentLocal.language === "English" ? "ppl" : "ppr"}
