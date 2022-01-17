@@ -8,6 +8,7 @@ const PreviousWorks = ({
   togglePrevWorkModalVisibilty,
   toggleAddModalVisibilty,
   setSelectedPrevWorkId,
+  parent,
 }) => {
   const { currentLocal } = useSelector((state) => state.currentLocal);
 
@@ -42,14 +43,16 @@ const PreviousWorks = ({
           </ul>
         )}
       </div>
-      <div className="sideBarProfile__add">
-        <button
-          className="button-primary"
-          onClick={() => toggleAddModalVisibilty(true)}
-        >
-          {currentLocal.profilePage.addWork}
-        </button>
-      </div>
+      {parent === "supplierContractorAdmin" && (
+        <div className="sideBarProfile__add">
+          <button
+            className="button-primary"
+            onClick={() => toggleAddModalVisibilty(true)}
+          >
+            {currentLocal.profilePage.addWork}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

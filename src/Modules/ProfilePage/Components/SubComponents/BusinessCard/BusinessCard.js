@@ -37,6 +37,7 @@ function BusinessCard({ profileDetails }) {
   }, [profileDetails]);
   return (
     <div className="businessCard">
+      <button className="businessCard__edit">...</button>
       <ul className="list-unstyled f-14">
         <li className="item">
           <span className="businessCard__label">

@@ -5,6 +5,22 @@
   margin-right: 1rem;
   flex: 1;
   padding: 1.5rem;
+  position: relative;
+}
+.businessCard .businessCard__edit {
+  position: absolute;
+  top: 0.5rem;
+  right: 1.5rem;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  font-size: 2rem;
+  line-height: 0;
+}
+
+html[dir="rtl"].businessCard .businessCard__edit {
+  right: unset;
+  left: 0.5rem;
 }
 .businessCard ul .item {
   margin-bottom: 0.5rem;

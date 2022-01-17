@@ -1,7 +1,7 @@
-import React from "react";
+import SupplierContractorAdmin from "../SupplierContractorAdmin/SupplierContractorAdmin";
 import "./SupplierContractorEmployee.css";
-function SupplierContractorEmployee() {
-	return <div>SupplierContractorEmployee</div>;
-}
 
+function SupplierContractorEmployee() {
+  return <SupplierContractorAdmin parent={"Supplier"} />;
+}
 export default SupplierContractorEmployee;

@@ -1,107 +1,124 @@
 .companyCard {
-	box-shadow: 0px 3px 6px #00000029;
-	padding: 10px 20px 5px;
-	margin-right: 1rem;
-	flex: 1;
-	padding: 1.5rem;
+  box-shadow: 0px 3px 6px #00000029;
+  padding: 10px 20px 5px;
+  margin-right: 1rem;
+  flex: 1;
+  padding: 1.5rem;
+  position: relative;
+}
+.companyCard .companCard__edit {
+  position: absolute;
+  top: 0.5rem;
+  right: 1.5rem;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  font-size: 2rem;
+  line-height: 0;
+}
+
+html[dir="rtl"].companyCard .companCard__edit {
+  right: unset;
+  left: 0.5rem;
 }
 .companyCard .min-height-100 {
-	min-height: 100%;
+  min-height: 100%;
 }
 .companyProfile__header {
-	color: #707070;
-	font-weight: bold;
-	margin-right: 0.5rem;
+  color: #707070;
+  font-weight: bold;
+  margin-right: 0.5rem;
 }
 .companyCard header {
-	width: 100%;
+  width: 100%;
 }
 .companyCard header h6 {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 .companyCard .companyImg {
-	width: 50px;
-	height: 50px;
-	border: 1px solid #707070;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #707070;
 }
 
 .companyCard > ul > li > img {
-	width: 70px;
-	height: 50px;
-	border-radius: 17px;
-	display: block;
+  width: 70px;
+  height: 50px;
+  border-radius: 17px;
+  display: block;
 }
 
 .companyCard > ul {
-	padding: 0;
+  padding: 0;
 }
 
 .companyCard ul .item {
-	margin-top: 0.5rem;
-	margin-bottom: 0.5rem;
-	font-size: 14px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 14px;
 }
 .companyCard .companyCard__label {
-	color: #707070;
-	font-weight: bold;
-	margin-right: 0.5rem;
+  color: #707070;
+  font-weight: bold;
+  margin-right: 0.5rem;
 }
 .companyCard .companyCard__val {
-	color: #003b6b;
+  color: #003b6b;
 }
 .companyCard .companyCard__btn {
-	font-size: 14px;
-	background: #fc6b5e;
-	color: white;
-	min-width: 170px;
-	flex: 1;
+  margin-top: 0.5rem;
+  font-size: 14px;
+  background: #fc6b5e;
+  color: white;
+  min-width: 170px;
+  flex: 1;
 }
 .btn:hover {
-	color: unset;
+  color: unset;
 }
 html[dir="rtl"] .companyCard {
-	margin-right: unset;
-	margin-left: 1.25rem;
+  margin-right: unset;
+  margin-left: 1.25rem;
 }
 html[dir="rtl"] .companyProfile__header {
-	margin-right: unset;
-	margin-left: 0.5rem;
+  margin-right: unset;
+  margin-left: 0.5rem;
 }
 html[dir="rtl"] .companyCard .companyCard__label {
-	margin-right: unset;
-	margin-left: 0.5rem;
+  margin-right: unset;
+  margin-left: 0.5rem;
 }
 @media (max-width: 767px) {
-	.companyCard .companyCard__val {
-		display: block;
-	}
-	.companyCard {
-		margin-right: unset;
-		margin-left: unset;
-		margin-bottom: 1rem;
-	}
-	.companyCard .companyImg {
-		margin-bottom: 1rem;
-		align-self: flex-start;
-	}
-	.companyProfile__header {
-		margin-left: 0 !important;
-		align-self: flex-start;
-	}
-	.companyCard > .d-flex {
-		flex-direction: column;
-	}
-	.companyCard .companyCard__btn {
-		font-size: 12px;
-		align-self: flex-start;
-	}
+  .companyCard .companyCard__val {
+    display: block;
+  }
+  .companyCard {
+    margin-right: unset;
+    margin-left: unset;
+    margin-bottom: 1rem;
+  }
+  .companyCard .companyImg {
+    margin-bottom: 1rem;
+    align-self: flex-start;
+  }
+  .companyProfile__header {
+    margin-left: 0 !important;
+    align-self: flex-start;
+  }
+  .companyCard > .d-flex {
+    flex-direction: column;
+  }
+  .companyCard .companyCard__btn {
+    font-size: 12px;
+    align-self: flex-start;
+  }
 }
 
 @media (max-width: 1000px) {
-	.companyCard .companyCard__header {
-		flex-wrap: wrap;
-	}
-	.companyCard .companyImg {
-		margin-bottom: 1rem;
-	}
+  .companyCard .companyCard__header {
+    flex-wrap: wrap;
+  }
+  .companyCard .companyImg {
+    margin-bottom: 1rem;
+  }
 }

@@ -14,7 +14,7 @@ import { SupplierContractorProfile } from "../../network";
 // style
 import "./SupplierContractorAdmin.css";
 
-function SupplierContractorAdmin() {
+function SupplierContractorAdmin({ parent }) {
   const [companyDetails, setCompanyDetails] = useState(null);
   const [profileDetails, setProfileDetails] = useState(null);
   const [previousWorks, setPreviousWorks] = useState(null);
@@ -27,7 +27,6 @@ function SupplierContractorAdmin() {
   const [editableModalData, setEditableModalData] = useState(null);
 
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
-  console.log();
   useEffect(() => {
     SupplierContractorProfile(
       currentLanguageId,
@@ -37,6 +36,7 @@ function SupplierContractorAdmin() {
           setCompanyDetails(company);
           setProfileDetails(data);
           setPreviousWorks(previousWorks);
+          console.log(company, previousWorks, data);
         }
       },
       (fail) => {
@@ -66,7 +66,7 @@ function SupplierContractorAdmin() {
                 <Col md={12} xs={24} className="mb-4">
                   <CompanyCard
                     companyDetails={companyDetails}
-                    parent="supplierContractorAdmin"
+                    parent={parent ? parent : "supplierContractorAdmin"}
                   />
                 </Col>
               </Row>
@@ -84,6 +84,7 @@ function SupplierContractorAdmin() {
                   : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
               }
               previousWorks={previousWorks}
+              parent={parent ? parent : "supplierContractorAdmin"}
             />
           </Col>
         </Row>

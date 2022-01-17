@@ -21,8 +21,20 @@
   border-radius: 50%;
 }
 
-.sidePersonalInfo > ul > li {
-  padding-top: 13px;
+.sidePersonalInfo > ul .item {
+  margin-bottom: 1rem;
+}
+
+.sidePersonalInfo > ul .item h6 {
+  color: #707070;
+  font-size: 0.875rem;
+}
+.sidePersonalInfo > ul .item:first-of-type h6 {
+  margin-top: 0.5rem;
+}
+.sidePersonalInfo > ul .item p {
+  color: #003b6b;
+  font-size: 0.875rem;
 }
 .sidePersonalInfo > ul > li > img {
   width: 70px;

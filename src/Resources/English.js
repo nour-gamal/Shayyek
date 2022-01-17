@@ -176,7 +176,7 @@ export const en = {
     add: "Add",
     addPhoneNumber: "Phone number",
     changePhoneNumber: "Add phone number",
-    commercialRecord: "commercial Records",
+    commercialRecord: "Commercial Records",
     addWork: "Add Work",
     draft: "Draft",
     manageyourCompany: "Manage your Company",
