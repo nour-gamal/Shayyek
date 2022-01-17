@@ -27,6 +27,7 @@ function SupplierContractorAdmin() {
   const [editableModalData, setEditableModalData] = useState(null);
 
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
+  console.log();
   useEffect(() => {
     SupplierContractorProfile(
       currentLanguageId,
@@ -82,6 +83,7 @@ function SupplierContractorAdmin() {
                   ? baseUrl + companyDetails.image
                   : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
               }
+              previousWorks={previousWorks}
             />
           </Col>
         </Row>
@@ -90,6 +92,8 @@ function SupplierContractorAdmin() {
         <AddWrokDetailsModal
           onCancel={() => toggleAddModalVisibilty(false)}
           isModalVisible={AddModalVisibilty}
+          previousWorks={previousWorks}
+          setPreviousWorks={setPreviousWorks}
           // edit
           selectedPrevWorkId={selectedPrevWorkId}
           setSelectedPrevWorkId={setSelectedPrevWorkId}

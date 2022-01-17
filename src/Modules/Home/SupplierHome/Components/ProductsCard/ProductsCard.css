@@ -1,22 +1,21 @@
 .ProductCard {
-	background: #fcfcfc;
-	width: 90%;
-	margin: 10px auto;
-	height: 180px;
-	border-radius: 12px;
+  background: #fcfcfc;
+  width: 90%;
+  margin: 10px auto;
+  height: 180px;
+  border-radius: 12px;
 }
 .ProductCard .productImg {
-	width: 100%;
-	height: 80%;
+  width: 100%;
 }
 .ProductCard .productName {
-	width: 100px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .productMenu > ul {
-	display: flex;
-	align-items: flex-start;
-	flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
 }

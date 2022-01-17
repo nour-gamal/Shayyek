@@ -38,6 +38,7 @@ function ShowSinglePrevWorkModal({
     setEditableModalData(prevWorkData);
     toggleAddModalVisibilty(true);
   }
+
   function closeModal() {
     onCancel(true);
     setSelectedPrevWorkId(null);
@@ -78,7 +79,7 @@ function ShowSinglePrevWorkModal({
                       <img src={docIcon} alt={doc.fileName} />
                     )}
                     <div className="doc__desc">
-                      <Tooltip placement="rightTop" title={doc.fileName}>
+                      <Tooltip placement="bottom" title={doc.fileName}>
                         <h6>{doc.fileName}</h6>
                       </Tooltip>
                       <p>

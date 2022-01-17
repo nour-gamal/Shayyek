@@ -16,11 +16,13 @@ function AddWrokDetailsModal({
   isModalVisible,
   onCancel,
   setPreviousWorks,
+  previousWorks,
   editableModalData,
   setEditableModalData,
   selectedPrevWorkId,
   setSelectedPrevWorkId,
 }) {
+  console.log(previousWorks);
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [ProjectName, setProjectName] = useState("");
   const [ProjectLocation, setProjectLocation] = useState("");
@@ -29,6 +31,7 @@ function AddWrokDetailsModal({
   const [PrevWorkDocuments, setPrevWorkDocuments] = useState(undefined);
   const [requiredFieldError, setRequiredFieldError] = useState(false);
   let data;
+
   function submitForm(e) {
     e.preventDefault();
     if (ProjectName && Description) {
@@ -54,14 +57,28 @@ function AddWrokDetailsModal({
         }
       }
       if (selectedPrevWorkId) {
+        // edit data
         supplierContractorEditWork(
           payload,
           (success) => {
+            setPreviousWorks((prevState) => {
+              return prevState.map((item) =>
+                item.previousWorkId === PrevWorkId
+                  ? {
+                      previousWorkId: PrevWorkId,
+                      projectName: ProjectName,
+                      description: Description,
+                    }
+                  : item
+              );
+            });
+            setSelectedPrevWorkId(null);
             onCancel();
           },
           (fail) => {}
         );
       } else {
+        // add data
         SupplierContractorAddWork(
           payload,
           (success) => {
@@ -70,10 +87,21 @@ function AddWrokDetailsModal({
               setPreviousWorks((prevState) => {
                 if (prevState)
                   return [
-                    { ProjectName, Description, PrevWorkId },
+                    {
+                      previousWorkId: PrevWorkId,
+                      projectName: ProjectName,
+                      description: Description,
+                    },
                     ...prevState,
                   ];
-                else return [{ ProjectName, Description, PrevWorkId }];
+                else
+                  return [
+                    {
+                      previousWorkId: PrevWorkId,
+                      projectName: ProjectName,
+                      description: Description,
+                    },
+                  ];
               });
             }
           },
@@ -87,7 +115,7 @@ function AddWrokDetailsModal({
     }
   }
   useEffect(() => {
-    if (selectedPrevWorkId) {
+    if (selectedPrevWorkId && editableModalData) {
       const {
         projectName,
         projectLocation,
@@ -101,7 +129,7 @@ function AddWrokDetailsModal({
       setSizeOfContract(sizeOfContract ? sizeOfContract : "");
       setPrevWorkDocuments(prevWorkDocuments ? prevWorkDocuments : "");
     }
-  }, [editableModalData, selectedPrevWorkId]);
+  }, [selectedPrevWorkId, editableModalData]);
 
   function selectFiles(e) {
     setPrevWorkDocuments([...e.target.files]);
@@ -113,7 +141,6 @@ function AddWrokDetailsModal({
     setSelectedPrevWorkId(null);
   }
 
-  console.log(editableModalData, PrevWorkDocuments);
   return (
     <Modal
       title="Basic Modal"
