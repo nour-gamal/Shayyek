@@ -162,7 +162,7 @@ function Filter() {
 
 		updateSelectedCategories(selected);
 	};
-	const onSubmitFilter = () => {};
+	// const onSubmitFilter = () => {};
 	return (
 		<aside className="suppliersFilter">
 			<h5 className="title f-17 paddingSection">
