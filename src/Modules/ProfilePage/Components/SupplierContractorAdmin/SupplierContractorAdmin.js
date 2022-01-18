@@ -10,6 +10,7 @@ import CompanyCard from "../SubComponents/CompanyCard/CompanyCard";
 import AddWrokDetailsModal from "./../AddWorkModal/AddWorkModal";
 import ShowSinglePrevWorkModal from "../SubComponents/ShowSinglePrevWorkModal/ShowSinglePrevWorkModal";
 // network
+
 import { SupplierContractorProfile } from "../../network";
 // style
 import "./SupplierContractorAdmin.css";
@@ -95,7 +96,6 @@ function SupplierContractorAdmin({ parent }) {
           isModalVisible={AddModalVisibilty}
           previousWorks={previousWorks}
           setPreviousWorks={setPreviousWorks}
-          // edit
           selectedPrevWorkId={selectedPrevWorkId}
           setSelectedPrevWorkId={setSelectedPrevWorkId}
           editableModalData={editableModalData}
@@ -107,7 +107,6 @@ function SupplierContractorAdmin({ parent }) {
           onCancel={() => toggleShowPrevWorkModalVisibilty(false)}
           isModalVisible={showPrevWorkModalVisibilty}
           selectedPrevWorkId={selectedPrevWorkId}
-          // to -> edit
           setSelectedPrevWorkId={setSelectedPrevWorkId}
           toggleAddModalVisibilty={toggleAddModalVisibilty}
           setEditableModalData={setEditableModalData}

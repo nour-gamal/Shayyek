@@ -5,7 +5,7 @@ import { Tree } from "antd";
 // style
 import "./BusinessCard.css";
 
-function BusinessCard({ profileDetails }) {
+function BusinessCard({ profileDetails, parent }) {
   const [workField, updateWorkField] = useState([]);
   const { currentLocal } = useSelector((state) => state.currentLocal);
 
@@ -36,7 +36,10 @@ function BusinessCard({ profileDetails }) {
     updateWorkField(treeData);
   }, [profileDetails]);
   return (
-    <div className="businessCard">
+    <div
+      className={`businessCard ${parent === "contractorIndividual" &&
+        "d-flex flex-1"}`}
+    >
       <button className="businessCard__edit">...</button>
       <ul className="list-unstyled f-14">
         <li className="item">
