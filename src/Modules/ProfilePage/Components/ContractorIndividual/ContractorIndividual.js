@@ -6,7 +6,6 @@ import { Row, Col } from "antd";
 import PersonalInfo from "../SubComponents/Personalnfo/Personalnfo";
 import BusinessCard from "../SubComponents/BusinessCard/BusinessCard";
 import PreviousWorks from "./../SubComponents/PreviousWorks/PreviousWorks";
-import CompanyCard from "../SubComponents/CompanyCard/CompanyCard";
 import AddWrokDetailsModal from "./../AddWorkModal/AddWorkModal";
 import ShowSinglePrevWorkModal from "../SubComponents/ShowSinglePrevWorkModal/ShowSinglePrevWorkModal";
 // network
