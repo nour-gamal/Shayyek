@@ -100,6 +100,7 @@ export const en = {
 			workQualityOpinion: "Quality of work? Safety? Cleanliness? etc... ",
 		},
 		productName: "Product Name",
+		price: "Price",
 	},
 	login: {
 		signin: "Sign in",

@@ -96,6 +96,8 @@ export const ar = {
 			timingOpinion: "الشغل خلص في الوقت المحدد ؟",
 			workQualityOpinion: "رأيك في جوده الشغل ؟",
 		},
+		productName: "اسم المنتج",
+		price: "السعر",
 	},
 	login: {
 		signin: "تسجيل الدخول",
