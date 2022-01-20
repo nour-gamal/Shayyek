@@ -44,8 +44,9 @@ export const GetCompaniesWithFilters = (
 	const path = `api/Company/GetCompaniesWithFilters`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
-export const getProductDetails = (onSuccess, onFail, reqAuth = false) => {
-	const path = `api/Product/GetProductDetails`;
+export const getProductDetails = (data, onSuccess, onFail, reqAuth = false) => {
+	const { languageId, productId } = data;
+	const path = `api/Product/GetProductDetails?languageId=${languageId}&productId=${productId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
 

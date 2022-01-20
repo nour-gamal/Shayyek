@@ -178,7 +178,7 @@ section {
 }
 
 .modal-lg .ant-modal-body {
-	height: 85vh !important;
+	min-height: 85vh !important;
 	overflow: auto;
 	padding: 0;
 	padding-bottom: 42px;
@@ -426,6 +426,7 @@ thead:hover {
 	padding: 5px 16px;
 	border-radius: 118px;
 	margin: 5px;
+	cursor: pointer;
 }
 .quantityCount {
 	width: 71px;

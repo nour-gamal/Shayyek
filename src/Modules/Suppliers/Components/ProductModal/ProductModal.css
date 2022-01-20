@@ -9,4 +9,19 @@
 
 .productModal .companyLogo {
 	width: 32px !important;
+	height: 32px;
+}
+
+.productModal .selectedCapsule {
+	background: #003b6b;
+	color: #fff;
+}
+
+@media (max-width: 768px) {
+	.productModal .productName {
+		margin-top: 10px;
+	}
+	.productModal .price {
+		font-size: 14px;
+	}
 }
