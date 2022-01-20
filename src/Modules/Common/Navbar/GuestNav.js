@@ -23,10 +23,10 @@ function GuestNav() {
 						<img src={Request_RFQ} alt="Request_RFQ" />
 						{currentLocal.navbar.requestRFQ}
 					</Nav.Link>
-					<Nav.Link href="#link">
+					<Link to="/cart" className="nav-link">
 						<img src={cart} alt="cart" />
 						{currentLocal.navbar.cart}
-					</Nav.Link>
+					</Link>
 				</div>
 				<div className="d-flex  actionNav">
 					<Link to="/loginByEmail" className="nav-link pl-28 pr-28">

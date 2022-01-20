@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import localizationReducer from "./Localization";
 import authorizationReducer from "./Authorization";
+import cartReducer from "./Cart";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
@@ -14,6 +15,7 @@ const persistConfig = {
 const RootReducers = combineReducers({
 	currentLocal: localizationReducer,
 	authorization: authorizationReducer,
+	cart: cartReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, RootReducers);

@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Row, Col } from "antd";
 import { baseUrl } from "../../../../Services";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import positive from "../../../../Resources/Assets/postive.svg";
 import negative from "../../../../Resources/Assets/negative.svg";
-import { getProductDetails } from "../../Network";
+import { getProductDetails, addOneProductToCart } from "../../Network";
+import { addToCart } from "../../../../Redux/Cart";
+
 import "./ProductModal.css";
 
 function ProductModal({ isModalVisible, onCancel, product }) {
+	const {
+		authorization: { id },
+	} = useSelector((state) => state.authorization);
+	const {
+		deviceToken: { deviceToken },
+	} = useSelector((state) => state.authorization);
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [productDetails, updateProductDetails] = useState(null);
-	const [quantityCount, updateQuantityCount] = useState(0);
+	const [quantityCount, updateQuantityCount] = useState(1);
 	const [selectedSize, updateSelectedSize] = useState(null);
 	const [selectedModel, updateSelectedModel] = useState(null);
+	const [alert, setAlert] = useState({ type: null, state: false });
+	const dispatch = useDispatch();
 	useEffect(() => {
 		let data = {
 			productId: product.id,
@@ -29,6 +39,35 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 			}
 		);
 	}, [currentLanguageId, product.id]);
+
+	const addProductToCart = () => {
+		let addedProduct = {
+			productId: product.id,
+			productSizeId: selectedSize,
+			productModelId: selectedModel,
+			userId: id,
+			deviceId: deviceToken,
+			quantity: quantityCount,
+		};
+		if (productDetails.sizes.length > 0 || productDetails.models.length > 0) {
+			if (!selectedSize) {
+				setAlert({ type: "sizes", state: true });
+			} else if (!selectedModel) {
+				setAlert({ type: "models", state: true });
+			}
+		} else {
+			addOneProductToCart(
+				addedProduct,
+				(success) => {
+					console.log(success);
+					dispatch(addToCart(addedProduct));
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
+	};
 	return (
 		<Modal
 			title="Basic Modal"
@@ -77,7 +116,10 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 									{productDetails.sizes.length > 0 && (
 										<div>
 											<div className="f-18">
-												{currentLocal.supplierHome.chooseSize} :
+												{alert.type === "sizes" && alert.state && (
+													<span className="required">*</span>
+												)}{" "}
+												{currentLocal.supplierHome.chooseSize} :{" "}
 											</div>
 											<div className="capsulesContainer">
 												{productDetails.sizes.map((size) => (
@@ -102,6 +144,9 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 									{productDetails.models.length > 0 && (
 										<div>
 											<div className="f-18">
+												{alert.type === "models" && alert.state && (
+													<span className="required"> *</span>
+												)}{" "}
 												{currentLocal.supplierHome.chooseModel} :
 											</div>
 											<div className="capsulesContainer">
@@ -133,7 +178,7 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 												src={negative}
 												alt="negative"
 												onClick={() => {
-													if (quantityCount !== 0) {
+													if (quantityCount !== 1) {
 														updateQuantityCount(quantityCount - 1);
 													}
 												}}
@@ -154,9 +199,11 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 									</div>
 								</div>
 							</div>
-							<button className="button-primary">
-								{currentLocal.supplierHome.addToCart}
-							</button>
+							<div>
+								<button className="button-primary" onClick={addProductToCart}>
+									{currentLocal.supplierHome.addToCart}
+								</button>
+							</div>
 						</Col>
 					</Row>
 				</div>

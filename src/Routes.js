@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-// components
 import Home from "./Modules/Home/Home";
 import Registration from "./Modules/Registration/Registration";
 import Suppliers from "./Modules/Suppliers/Suppliers";
@@ -16,77 +15,93 @@ import ResetPassword from "./Modules/ResetPassword/ResetPassword";
 import CreateRFQ from "./Modules/Home/BuyerHome/Components/CreateRFQ/CreateRFQ";
 import OffersTable from "./Modules/Home/BuyerHome/Components/OffersTable/OffersTable";
 import ManageCompany from "./Modules/ProfilePage/Components/SubComponents/ManageCompany/ManageCompany";
-// userType
 import { authorType } from "./helpers/authType";
 import AdminAcceptSupplier from "./Modules/ProfilePage/Components/SubComponents/AdminAcceptSupplier/AdminAcceptSupplier";
-// import Login from "./Modules/Login/Login";
-//import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
+import Cart from "./Modules/Cart/Cart";
+
 function Routes() {
-  const {
-    authorization,
-    authorization: { accountTypeId, roleId, userTypeId },
-  } = useSelector((state) => state.authorization);
-  const isAuth = authorization.id ? true : false;
-  let companyAdmin;
-  if (accountTypeId) {
-    const authTypeName = authorType(accountTypeId, userTypeId, roleId);
-    companyAdmin = authTypeName.includes("company_admin");
-  }
+	const {
+		authorization,
+		authorization: { accountTypeId, roleId, userTypeId },
+	} = useSelector((state) => state.authorization);
+	const isAuth = authorization.id ? true : false;
+	let companyAdmin;
+	if (accountTypeId) {
+		var authTypeName = authorType(accountTypeId, userTypeId, roleId);
+		companyAdmin = authTypeName.includes("company_admin");
+	}
+	const isGuestOrBuyer = !accountTypeId || authTypeName.includes("buyer");
+	return (
+		<Route
+			render={({ location }) => (
+				<Switch location={location}>
+					<Route exact path="/" render={() => <Home />} />
+					<Route
+						path="/registration"
+						render={() => {
+							return isAuth ? <Redirect to="/" /> : <Registration />;
+						}}
+					/>
+					<Route
+						path="/suppliers"
+						render={() => {
+							return isGuestOrBuyer ? <Suppliers /> : <Redirect to="/" />;
+						}}
+					/>
+					<Route
+						path="/supplier/:id"
+						render={(props) => {
+							return isGuestOrBuyer ? (
+								<Products {...props} />
+							) : (
+								<Redirect to="/" />
+							);
+						}}
+					/>
+					<Route
+						path="/Cart"
+						render={() => {
+							return isGuestOrBuyer ? <Cart /> : <Redirect to="/" />;
+						}}
+					/>
+					<Route
+						path="/me/:name"
+						render={() => {
+							return isAuth ? <ProfilePage /> : <Redirect to="/" />;
+						}}
+					/>
+					<Route
+						path="/verifyByEmail"
+						render={() => {
+							return isAuth ? <Redirect to="/" /> : <VerifyByEmail />;
+						}}
+					/>
+					<Route
+						path="/loginByMobile"
+						render={() => {
+							return isAuth ? <Redirect to="/" /> : <LoginByMobile />;
+						}}
+					/>
+					<Route
+						path="/forgetpassword"
+						render={() => {
+							return isAuth ? <Redirect to="/" /> : <ForgetPassword />;
+						}}
+					/>
+					<Route
+						path="/loginByEmail"
+						render={() => {
+							return isAuth ? <Redirect to="/" /> : <Login />;
+						}}
+					/>
+					<Route
+						path="/resetpassword"
+						render={() => {
+							return isAuth ? <Redirect to="/" /> : <ResetPassword />;
+						}}
+					/>
 
-  return (
-    <Route
-      render={({ location }) => (
-        <Switch location={location}>
-          <Route exact path="/" render={() => <Home />} />
-          <Route
-            path="/registration"
-            render={() => {
-              return isAuth ? <Redirect to="/" /> : <Registration />;
-            }}
-          />
-          <Route path="/suppliers" render={() => <Suppliers />} />
-          <Route
-            path="/supplier/:id"
-            render={(props) => <Products {...props} />}
-          />
-          <Route
-            path="/me/:name"
-            render={() => {
-              return isAuth ? <ProfilePage /> : <Redirect to="/" />;
-            }}
-          />
-          <Route
-            path="/verifyByEmail"
-            render={() => {
-              return isAuth ? <Redirect to="/" /> : <VerifyByEmail />;
-            }}
-          />
-          <Route
-            path="/loginByMobile"
-            render={() => {
-              return isAuth ? <Redirect to="/" /> : <LoginByMobile />;
-            }}
-          />
-          <Route
-            path="/forgetpassword"
-            render={() => {
-              return isAuth ? <Redirect to="/" /> : <ForgetPassword />;
-            }}
-          />
-          <Route
-            path="/loginByEmail"
-            render={() => {
-              return isAuth ? <Redirect to="/" /> : <Login />;
-            }}
-          />
-          <Route
-            path="/resetpassword"
-            render={() => {
-              return isAuth ? <Redirect to="/" /> : <ResetPassword />;
-            }}
-          />
-
-          {/* <Route
+					{/* <Route
 						path="/createrfq"
 						render={() => {
 							return isAuth &&
@@ -98,50 +113,51 @@ function Routes() {
 							);
 						}}
 					/> */}
-          <Route
-            path="/createrfq/:id"
-            render={(props) => {
-              return isAuth &&
-                authorization.userTypeId ===
-                  "4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
-                <CreateRFQ {...props} />
-              ) : (
-                <Redirect to="/" />
-              );
-            }}
-          />
-          <Route
-            path="/offerstable/:id"
-            render={(props) => {
-              return isAuth &&
-                authorization.userTypeId ===
-                  "4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
-                <OffersTable {...props} />
-              ) : (
-                <Redirect to="/" />
-              );
-            }}
-          />
-          <Route
-            path="/company/:name"
-            render={() =>
-              isAuth && companyAdmin ? <ManageCompany /> : <Redirect to="/" />
-            }
-          />
-          <Route
-            path="/view/:name"
-            render={(props) =>
-              isAuth && companyAdmin ? (
-                <AdminAcceptSupplier {...props} />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-        </Switch>
-      )}
-    />
-  );
+					<Route
+						path="/createrfq/:id"
+						render={(props) => {
+							return isAuth &&
+								authorization.userTypeId ===
+									"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
+								<CreateRFQ {...props} />
+							) : (
+								<Redirect to="/" />
+							);
+						}}
+					/>
+
+					<Route
+						path="/offerstable/:id"
+						render={(props) => {
+							return isAuth &&
+								authorization.userTypeId ===
+									"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
+								<OffersTable {...props} />
+							) : (
+								<Redirect to="/" />
+							);
+						}}
+					/>
+					<Route
+						path="/company/:name"
+						render={() =>
+							isAuth && companyAdmin ? <ManageCompany /> : <Redirect to="/" />
+						}
+					/>
+					<Route
+						path="/view/:name"
+						render={(props) =>
+							isAuth && companyAdmin ? (
+								<AdminAcceptSupplier {...props} />
+							) : (
+								<Redirect to="/" />
+							)
+						}
+					/>
+				</Switch>
+			)}
+		/>
+	);
 }
 
 export default Routes;

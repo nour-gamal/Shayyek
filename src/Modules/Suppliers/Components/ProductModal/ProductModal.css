@@ -3,7 +3,8 @@
 }
 
 .productModal .productName,
-.productModal .price {
+.productModal .price,
+.productModal .required {
 	color: #f50000;
 }
 
