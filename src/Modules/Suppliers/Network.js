@@ -44,6 +44,10 @@ export const GetCompaniesWithFilters = (
 	const path = `api/Company/GetCompaniesWithFilters`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
+export const getProductDetails = (onSuccess, onFail, reqAuth = false) => {
+	const path = `api/Product/GetProductDetails`;
+	GetResource(path, onSuccess, onFail, reqAuth);
+};
 
 // export const getRateDetails = (
 // 	languageId,

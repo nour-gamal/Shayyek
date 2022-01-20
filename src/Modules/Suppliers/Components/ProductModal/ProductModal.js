@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal, Row, Col } from "antd";
 import { baseUrl } from "../../../../Services";
 import { useSelector } from "react-redux";
+import { getProductDetails } from "../../Network";
 import "./ProductModal.css";
 function ProductModal({ isModalVisible, onCancel, product }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-
+	useEffect(() => {
+		getProductDetails((success) => {});
+	}, []);
 	console.log(product);
 	return (
 		<Modal
