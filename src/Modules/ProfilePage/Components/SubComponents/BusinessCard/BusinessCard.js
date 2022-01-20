@@ -2,12 +2,18 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 // components
 import { Tree } from "antd";
+import ProfileDetailsModal from "../ProfileDetailsModal/ProfileDetailsModal";
 // style
 import "./BusinessCard.css";
 
 function BusinessCard({ profileDetails, parent }) {
   const [workField, updateWorkField] = useState([]);
+  const [
+    profileDetailsModalVisibility,
+    toggleProfileDetailsModalVisibility,
+  ] = useState(false);
   const { currentLocal } = useSelector((state) => state.currentLocal);
+  console.log(profileDetails);
 
   useEffect(() => {
     var treeData = [];
@@ -35,49 +41,63 @@ function BusinessCard({ profileDetails, parent }) {
     }
     updateWorkField(treeData);
   }, [profileDetails]);
+
   return (
-    <div
-      className={`businessCard ${parent === "contractorIndividual" &&
-        "d-flex flex-1"}`}
-    >
-      <button className="businessCard__edit">...</button>
-      <ul className="list-unstyled f-14">
-        <li className="item">
-          <span className="businessCard__label">
-            {currentLocal.profilePage.name}:
-          </span>
-          <span className="businessCard__val">{profileDetails.name}</span>
-        </li>
-        <li className="item">
-          <span className="businessCard__label">
-            {currentLocal.profilePage.type}:
-          </span>
-          <span className="businessCard__val">
-            {profileDetails.userTypeName}
-          </span>
-        </li>
-        <li className="item">
-          <span className="businessCard__label">
-            {currentLocal.profilePage.workField}:
-          </span>
-          <div className="businessCard__val">
-            <Tree checkedKeys={"checkable"} treeData={workField} />
-          </div>
-        </li>
-        <li className="item">
-          <span className="businessCard__label">
-            {currentLocal.profilePage.phoneNumber} :
-          </span>
-          <span className="businessCard__val">{profileDetails.phone}</span>
-        </li>
-        <li className="item">
-          <span className="businessCard__label">
-            {currentLocal.profilePage.email} :
-          </span>
-          <span className="businessCard__val">{profileDetails.email}</span>
-        </li>
-      </ul>
-    </div>
+    <>
+      <div
+        className={`businessCard ${parent === "contractorIndividual" &&
+          "d-flex flex-1"}`}
+      >
+        <button
+          className="businessCard__edit"
+          onClick={() => toggleProfileDetailsModalVisibility(true)}
+        >
+          ...
+        </button>
+        <ul className="list-unstyled f-14">
+          <li className="item">
+            <span className="businessCard__label">
+              {currentLocal.profilePage.name}:
+            </span>
+            {/* <span className="businessCard__val">{profileDetails.name}</span> */}
+          </li>
+          <li className="item">
+            <span className="businessCard__label">
+              {currentLocal.profilePage.type}:
+            </span>
+            <span className="businessCard__val">
+              {profileDetails.userTypeName}
+            </span>
+          </li>
+          <li className="item">
+            <span className="businessCard__label">
+              {currentLocal.profilePage.workField}:
+            </span>
+            <div className="businessCard__val">
+              <Tree checkedKeys={"checkable"} treeData={workField} />
+            </div>
+          </li>
+          <li className="item">
+            <span className="businessCard__label">
+              {currentLocal.profilePage.phoneNumber} :
+            </span>
+            <span className="businessCard__val">{profileDetails.phone}</span>
+          </li>
+          <li className="item">
+            <span className="businessCard__label">
+              {currentLocal.profilePage.email} :
+            </span>
+            <span className="businessCard__val">{profileDetails.email}</span>
+          </li>
+        </ul>
+      </div>
+      {profileDetailsModalVisibility && (
+        <ProfileDetailsModal
+          onCancel={() => toggleProfileDetailsModalVisibility(false)}
+          isModalVisible={profileDetailsModalVisibility}
+        />
+      )}
+    </>
   );
 }
 

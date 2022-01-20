@@ -73,9 +73,9 @@ function SidePersonalInfo({ allData }) {
         </li>
         <li className="item">
           <h6>{currentLocal.profilePage.workField}</h6>
-          <p>
+          <div>
             <Tree checkedKeys={"checkable"} treeData={workField} />
-          </p>
+          </div>
         </li>
         <li className="item">
           <h6>{currentLocal.profilePage.phoneNumber}</h6>

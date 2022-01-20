@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { baseUrl } from "../../../../../Services";
 import "./CompanyCard.css";
 function CompanyCard({ companyDetails, parent }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { authorization } = useSelector((state) => state.authorization);
+
   return (
     <>
       {companyDetails && (
@@ -32,9 +34,11 @@ function CompanyCard({ companyDetails, parent }) {
               <button className="companCard__edit">...</button>
             </header>
             {parent === "supplierContractorAdmin" && (
-              <button className="btn companyCard__btn">
-                {currentLocal.profilePage.manageyourCompany}
-              </button>
+              <Link to={`/company/${companyDetails.name}`}>
+                <button className="btn companyCard__btn">
+                  {currentLocal.profilePage.manageyourCompany}
+                </button>
+              </Link>
             )}
           </div>
           <ul className="list-unstyled">

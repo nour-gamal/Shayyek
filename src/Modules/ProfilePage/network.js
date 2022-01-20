@@ -73,3 +73,19 @@ export const supplierContractorEditWork = (data, onSuccess, onFail) => {
   const path = `api/Profile/SupplierContractorEditWork`;
   PatchResource(path, data, onSuccess, onFail, true);
 };
+
+export const getUsersByComapnyAdmin = (
+  data,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) => {
+  const { companyId, languageId } = data;
+  const path = `api/Profile/GetUsersByComapnyAdmin?companyId=${companyId}&languageId=${languageId}`;
+  GetResource(path, onSuccess, onFail, reqAuth);
+};
+
+export const userDetailsForAdminActions = (data, onSuccess, onFail) => {
+  const path = "api/Profile/UserDetailsForAdminActions";
+  PostResource(path, data, onSuccess, onFail, true);
+};

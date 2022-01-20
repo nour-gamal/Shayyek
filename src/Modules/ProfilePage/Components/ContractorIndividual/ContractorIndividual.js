@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { baseUrl } from "../../../../Services";
-// components
 import { Row, Col } from "antd";
+// components
 import PersonalInfo from "../SubComponents/Personalnfo/Personalnfo";
 import BusinessCard from "../SubComponents/BusinessCard/BusinessCard";
 import PreviousWorks from "./../SubComponents/PreviousWorks/PreviousWorks";
@@ -17,13 +17,16 @@ function SupplierContractorAdmin({ parent }) {
   const [companyDetails, setCompanyDetails] = useState(null);
   const [profileDetails, setProfileDetails] = useState(null);
   const [previousWorks, setPreviousWorks] = useState(null);
+
+  const [selectedPrevWorkId, setSelectedPrevWorkId] = useState(null);
+  const [editableModalData, setEditableModalData] = useState(null);
+
+  // modals visibility
   const [AddModalVisibilty, toggleAddModalVisibilty] = useState(false);
   const [
     showPrevWorkModalVisibilty,
     toggleShowPrevWorkModalVisibilty,
   ] = useState(false);
-  const [selectedPrevWorkId, setSelectedPrevWorkId] = useState(null);
-  const [editableModalData, setEditableModalData] = useState(null);
 
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
   useEffect(() => {
@@ -58,7 +61,7 @@ function SupplierContractorAdmin({ parent }) {
                 <Col xs={24} className="flex-1">
                   <BusinessCard
                     profileDetails={profileDetails}
-                    parent={"contractorIndividual"}
+                    parent={profileDetails.userTypeName}
                   />
                 </Col>
               </Row>
