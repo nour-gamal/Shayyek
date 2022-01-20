@@ -24,16 +24,21 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 				</Col>
 				<Col md={16} className="d-flex justify-content-between flex-column">
 					<div>
-						<h6 className="f-18 productName">
-							{currentLocal.suppliers.productName}
-						</h6>
+						<h6 className="f-18 productName">{product.specs}</h6>
 						<div>
-							<div>
-								<img
-									src={baseUrl + product.companyLogo}
-									alt="supplierImg"
-									className="rounded-circle companyLogo"
-								/>
+							<div className="d-flex justify-content-between">
+								<div className="d-flex">
+									<img
+										src={baseUrl + product.companyLogo}
+										alt="supplierImg"
+										className="rounded-circle companyLogo"
+									/>
+									<div className="mx-2">{product.companyName}</div>
+								</div>
+								<div>
+									<span className="f-14">{currentLocal.suppliers.price}</span>:{" "}
+									<span className="f-18 price">{product.price} LE</span>
+								</div>
 							</div>
 						</div>
 					</div>

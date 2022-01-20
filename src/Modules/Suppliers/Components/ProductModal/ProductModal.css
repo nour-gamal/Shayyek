@@ -2,7 +2,8 @@
 	width: 90%;
 }
 
-.productModal .productName {
+.productModal .productName,
+.productModal .price {
 	color: #f50000;
 }
 
