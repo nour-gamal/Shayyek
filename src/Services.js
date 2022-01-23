@@ -50,10 +50,8 @@ export function GetResource(path, onSuccess, onFail, reqAuth) {
   axios(requestData)
     .then((res) => {
       onSuccess(res.data);
-      console.log("success", res);
     })
     .catch((error) => {
-      console.log("fail");
       onFail(error.response);
       if (error.response) {
         if (error.response.status === 401) {
