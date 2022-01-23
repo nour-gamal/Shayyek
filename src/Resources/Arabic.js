@@ -77,7 +77,6 @@ export const ar = {
 		contactUs: "اتصل بنا",
 	},
 	suppliers: {
-		suppliersGrid: {},
 		suppliersFilter: {
 			filter: "فلتر",
 			category: "الفئه",
@@ -97,6 +96,8 @@ export const ar = {
 			workQualityOpinion: "رأيك في جوده الشغل ؟",
 		},
 		price: "السعر",
+		chooseSize: "من فضلك ادخل المقاس",
+		chooseModel: "من فضلك ادخل الموديل",
 	},
 	login: {
 		signin: "تسجيل الدخول",

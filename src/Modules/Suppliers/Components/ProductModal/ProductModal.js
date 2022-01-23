@@ -52,7 +52,8 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 		if (productDetails.sizes.length > 0 || productDetails.models.length > 0) {
 			if (!selectedSize) {
 				setAlert({ type: "sizes", state: true });
-			} else if (!selectedModel) {
+			}
+			if (!selectedModel) {
 				setAlert({ type: "models", state: true });
 			}
 		} else {
@@ -116,9 +117,6 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 									{productDetails.sizes.length > 0 && (
 										<div>
 											<div className="f-18">
-												{alert.type === "sizes" && alert.state && (
-													<span className="required">*</span>
-												)}{" "}
 												{currentLocal.supplierHome.chooseSize} :{" "}
 											</div>
 											<div className="capsulesContainer">
@@ -139,6 +137,9 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 													</div>
 												))}
 											</div>
+											{alert.type === "sizes" && alert.state && (
+												<span className="required">{}</span>
+											)}
 										</div>
 									)}
 									{productDetails.models.length > 0 && (
