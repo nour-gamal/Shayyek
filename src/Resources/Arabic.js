@@ -98,6 +98,8 @@ export const ar = {
 		price: "السعر",
 		chooseSize: "من فضلك ادخل المقاس",
 		chooseModel: "من فضلك ادخل الموديل",
+		items: "منتجات",
+		inYourCart: "في العربه",
 	},
 	login: {
 		signin: "تسجيل الدخول",
