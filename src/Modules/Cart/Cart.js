@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbarr from "../Common/Navbar/Navbar";
 import Footer from "../Common/Footer/Footer";
 import { getCart } from "./Network";
 import { useSelector } from "react-redux";
+import CartContainer from "./Components/CartContainer/CartContainer";
 
 function Cart() {
 	const {
@@ -10,20 +11,21 @@ function Cart() {
 		authorization,
 	} = useSelector((state) => state.authorization);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
+	const [products, updateProducts] = useState([]);
 	const isAuth = Object.keys(authorization).length > 0;
 
 	useEffect(() => {
 		console.log(authorization);
-		let body = { languageId: currentLanguageId };
-		if (isAuth) {
-			body.deviceId = deviceToken;
-		} else {
-			body.userId = "s";
-		}
+		let body = {
+			languageId: currentLanguageId,
+			deviceId: deviceToken,
+			userId: isAuth ? authorization.id : "",
+		};
+
 		getCart(
 			body,
 			(success) => {
-				console.log(success);
+				updateProducts(success.data);
 			},
 			(fail) => {
 				console.log(fail);
@@ -33,7 +35,9 @@ function Cart() {
 	return (
 		<section>
 			<Navbarr />
-			Cart
+			<div className="pps ppe">
+				<CartContainer products={products} />
+			</div>
 			<Footer />
 		</section>
 	);

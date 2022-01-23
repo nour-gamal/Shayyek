@@ -102,6 +102,8 @@ export const en = {
 		price: "Price",
 		chooseSize: "Please choose size",
 		chooseModel: "Please choose model",
+		items: "Items",
+		inYourCart: "in your cart",
 	},
 	login: {
 		signin: "Sign in",
