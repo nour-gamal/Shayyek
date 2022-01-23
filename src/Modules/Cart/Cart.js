@@ -5,7 +5,10 @@ import { getCart } from "./Network";
 import { useSelector } from "react-redux";
 
 function Cart() {
-	const { authorization } = useSelector((state) => state.authorization);
+	const {
+		deviceToken: { deviceToken },
+		authorization,
+	} = useSelector((state) => state.authorization);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const isAuth = Object.keys(authorization).length > 0;
 
@@ -13,6 +16,7 @@ function Cart() {
 		console.log(authorization);
 		let body = { languageId: currentLanguageId };
 		if (isAuth) {
+			body.deviceId = deviceToken;
 		} else {
 			body.userId = "s";
 		}
@@ -25,7 +29,7 @@ function Cart() {
 				console.log(fail);
 			}
 		);
-	}, [currentLanguageId]);
+	}, [currentLanguageId, authorization, deviceToken, isAuth]);
 	return (
 		<section>
 			<Navbarr />
