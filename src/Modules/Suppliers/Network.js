@@ -49,6 +49,15 @@ export const getProductDetails = (data, onSuccess, onFail, reqAuth = false) => {
 	const path = `api/Product/GetProductDetails?languageId=${languageId}&productId=${productId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
+export const addOneProductToCart = (
+	data,
+	onSuccess,
+	onFail,
+	reqAuth = false
+) => {
+	const path = `api/Cart/AddProductToCart`;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};
 
 // export const getRateDetails = (
 // 	languageId,

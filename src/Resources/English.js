@@ -79,7 +79,6 @@ export const en = {
 		contactUs: "Contact Us",
 	},
 	suppliers: {
-		suppliersGrid: {},
 		suppliersFilter: {
 			filter: "Filter",
 			category: "Category",
@@ -101,6 +100,8 @@ export const en = {
 		},
 		productName: "Product Name",
 		price: "Price",
+		chooseSize: "Please choose size",
+		chooseModel: "Please choose model",
 	},
 	login: {
 		signin: "Sign in",

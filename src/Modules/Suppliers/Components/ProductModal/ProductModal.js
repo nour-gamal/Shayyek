@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Row, Col } from "antd";
 import { baseUrl } from "../../../../Services";
-import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { useSelector /*useDispatch*/ } from "react-redux";
 import positive from "../../../../Resources/Assets/postive.svg";
 import negative from "../../../../Resources/Assets/negative.svg";
-import { getProductDetails } from "../../Network";
+import { getProductDetails, addOneProductToCart } from "../../Network";
+//import { addToCart } from "../../../../Redux/Cart";
 import "./ProductModal.css";
 
 function ProductModal({ isModalVisible, onCancel, product }) {
+	const {
+		authorization: { id },
+	} = useSelector((state) => state.authorization);
+	const {
+		deviceToken: { deviceToken },
+	} = useSelector((state) => state.authorization);
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [productDetails, updateProductDetails] = useState(null);
-	const [quantityCount, updateQuantityCount] = useState(0);
+	const [quantityCount, updateQuantityCount] = useState(1);
 	const [selectedSize, updateSelectedSize] = useState(null);
 	const [selectedModel, updateSelectedModel] = useState(null);
+	const [alert, setAlert] = useState({ size: false, model: false });
+	const [redirectTo, setRedirectTo] = useState(null);
+	// const dispatch = useDispatch();
 	useEffect(() => {
 		let data = {
 			productId: product.id,
@@ -29,6 +40,42 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 			}
 		);
 	}, [currentLanguageId, product.id]);
+
+	const addProductToCart = () => {
+		let addedProduct = {
+			productId: product.id,
+			productSizeId: selectedSize,
+			productModelId: selectedModel,
+			userId: id,
+			deviceId: deviceToken,
+			quantity: quantityCount,
+		};
+		if (
+			(productDetails.sizes.length > 0 && !selectedSize) ||
+			(productDetails.models.length > 0 && !selectedModel)
+		) {
+			setAlert({
+				size: productDetails.sizes.length > 0 && !selectedSize,
+				model: productDetails.models.length > 0 && !selectedModel,
+			});
+		} else {
+			addOneProductToCart(
+				addedProduct,
+				(success) => {
+					// dispatch(addToCart(addedProduct));
+					if (success.success) {
+						setRedirectTo("/cart");
+					}
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
+	};
+	if (redirectTo) {
+		return <Redirect to={redirectTo} />;
+	}
 	return (
 		<Modal
 			title="Basic Modal"
@@ -77,7 +124,7 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 									{productDetails.sizes.length > 0 && (
 										<div>
 											<div className="f-18">
-												{currentLocal.supplierHome.chooseSize} :
+												{currentLocal.supplierHome.chooseSize} :{" "}
 											</div>
 											<div className="capsulesContainer">
 												{productDetails.sizes.map((size) => (
@@ -91,12 +138,18 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 														key={size.id}
 														onClick={(e) => {
 															updateSelectedSize(e.target.id);
+															setAlert({ ...alert, size: false });
 														}}
 													>
 														{size.name}
 													</div>
 												))}
 											</div>
+											{alert.size && (
+												<span className="required">
+													{currentLocal.suppliers.chooseSize}
+												</span>
+											)}
 										</div>
 									)}
 									{productDetails.models.length > 0 && (
@@ -116,12 +169,19 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 														id={model.id}
 														onClick={(e) => {
 															updateSelectedModel(e.target.id);
+															setAlert({ ...alert, model: false });
 														}}
 													>
 														{model.name}
 													</div>
 												))}
 											</div>
+											{alert.model && (
+												<span className="required">
+													{" "}
+													{currentLocal.suppliers.chooseModel}
+												</span>
+											)}
 										</div>
 									)}
 									<div>
@@ -133,7 +193,7 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 												src={negative}
 												alt="negative"
 												onClick={() => {
-													if (quantityCount !== 0) {
+													if (quantityCount !== 1) {
 														updateQuantityCount(quantityCount - 1);
 													}
 												}}
@@ -154,9 +214,11 @@ function ProductModal({ isModalVisible, onCancel, product }) {
 									</div>
 								</div>
 							</div>
-							<button className="button-primary">
-								{currentLocal.supplierHome.addToCart}
-							</button>
+							<div>
+								<button className="button-primary" onClick={addProductToCart}>
+									{currentLocal.supplierHome.addToCart}
+								</button>
+							</div>
 						</Col>
 					</Row>
 				</div>

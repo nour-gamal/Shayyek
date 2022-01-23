@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-// components
 import Home from "./Modules/Home/Home";
 import Registration from "./Modules/Registration/Registration";
 import Suppliers from "./Modules/Suppliers/Suppliers";
@@ -16,9 +15,10 @@ import ResetPassword from "./Modules/ResetPassword/ResetPassword";
 import CreateRFQ from "./Modules/Home/BuyerHome/Components/CreateRFQ/CreateRFQ";
 import OffersTable from "./Modules/Home/BuyerHome/Components/OffersTable/OffersTable";
 import ManageCompany from "./Modules/ProfilePage/Components/SubComponents/ManageCompany/ManageCompany";
-// userType
 import { authorType } from "./helpers/authType";
 import AdminViewSupplier from "./Modules/ProfilePage/Components/SubComponents/AdminViewSupplier/AdminViewSupplier";
+import Cart from "./Modules/Cart/Cart";
+
 // import Login from "./Modules/Login/Login";
 //import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
 function Routes() {
@@ -29,10 +29,10 @@ function Routes() {
   const isAuth = authorization.id ? true : false;
   let companyAdmin;
   if (accountTypeId) {
-    const authTypeName = authorType(accountTypeId, userTypeId, roleId);
+    var authTypeName = authorType(accountTypeId, userTypeId, roleId);
     companyAdmin = authTypeName.includes("company_admin");
   }
-
+  const isGuestOrBuyer = !accountTypeId || authTypeName.includes("buyer");
   return (
     <Route
       render={({ location }) => (
@@ -44,10 +44,27 @@ function Routes() {
               return isAuth ? <Redirect to="/" /> : <Registration />;
             }}
           />
-          <Route path="/suppliers" render={() => <Suppliers />} />
+          <Route
+            path="/suppliers"
+            render={() => {
+              return isGuestOrBuyer ? <Suppliers /> : <Redirect to="/" />;
+            }}
+          />
           <Route
             path="/supplier/:id"
-            render={(props) => <Products {...props} />}
+            render={(props) => {
+              return isGuestOrBuyer ? (
+                <Products {...props} />
+              ) : (
+                <Redirect to="/" />
+              );
+            }}
+          />
+          <Route
+            path="/Cart"
+            render={() => {
+              return isGuestOrBuyer ? <Cart /> : <Redirect to="/" />;
+            }}
           />
           <Route
             path="/me/:name"
