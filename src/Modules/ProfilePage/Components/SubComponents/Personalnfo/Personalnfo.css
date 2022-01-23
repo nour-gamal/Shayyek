@@ -8,6 +8,16 @@
   flex-wrap: wrap;
 }
 
+.PersonalInfo .info__name {
+  color: #707070;
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.PersonalInfo .info__companyName {
+  color: #003b6b;
+}
+
 @media (max-width: 767px) {
   .PersonalInfo .profileHeader {
     flex-wrap: wrap;

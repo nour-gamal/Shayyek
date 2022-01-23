@@ -6,14 +6,13 @@ import ProfileDetailsModal from "../ProfileDetailsModal/ProfileDetailsModal";
 // style
 import "./BusinessCard.css";
 
-function BusinessCard({ profileDetails, parent }) {
+function BusinessCard({ profileDetails, parent, AdminView }) {
   const [workField, updateWorkField] = useState([]);
   const [
     profileDetailsModalVisibility,
     toggleProfileDetailsModalVisibility,
   ] = useState(false);
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  console.log(profileDetails);
 
   useEffect(() => {
     var treeData = [];
@@ -39,6 +38,7 @@ function BusinessCard({ profileDetails, parent }) {
         });
       });
     }
+
     updateWorkField(treeData);
   }, [profileDetails]);
 
@@ -48,18 +48,21 @@ function BusinessCard({ profileDetails, parent }) {
         className={`businessCard ${parent === "contractorIndividual" &&
           "d-flex flex-1"}`}
       >
-        <button
-          className="businessCard__edit"
-          onClick={() => toggleProfileDetailsModalVisibility(true)}
-        >
-          ...
-        </button>
+        {AdminView && (
+          <button
+            className="businessCard__edit"
+            onClick={() => toggleProfileDetailsModalVisibility(true)}
+          >
+            ...
+          </button>
+        )}
+
         <ul className="list-unstyled f-14">
           <li className="item">
             <span className="businessCard__label">
               {currentLocal.profilePage.name}:
             </span>
-            {/* <span className="businessCard__val">{profileDetails.name}</span> */}
+            <span className="businessCard__val">{profileDetails.name}</span>
           </li>
           <li className="item">
             <span className="businessCard__label">

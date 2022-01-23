@@ -50,17 +50,19 @@ export function GetResource(path, onSuccess, onFail, reqAuth) {
   axios(requestData)
     .then((res) => {
       onSuccess(res.data);
+      console.log("success", res);
     })
     .catch((error) => {
+      console.log("fail");
       onFail(error.response);
-      // 	if(error.response){
-      // 	if (error.response.status === 401) {
-      // 		if (localStorage.getItem("persist:root")) {
-      // 			localStorage.removeItem("persist:root");
-      // 			window.location.reload();
-      // 		}
-      // 	}
-      // }
+      if (error.response) {
+        if (error.response.status === 401) {
+          if (localStorage.getItem("persist:root")) {
+            localStorage.removeItem("persist:root");
+            window.location.reload();
+          }
+        }
+      }
     });
 }
 

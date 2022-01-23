@@ -68,7 +68,9 @@ function LandingPage() {
               md={6}
               xs={12}
               className={
-                currentLocal.language === "العربيه" && "procurementManagement"
+                currentLocal.language === "العربيه"
+                  ? "procurementManagement"
+                  : null
               }
             >
               <h3 className="f-27 my-0">
@@ -82,7 +84,7 @@ function LandingPage() {
           <Row>
             <div className="search w-100">
               <div
-                class={`inputWrapper ${
+                className={`inputWrapper ${
                   currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057"
                     ? ""
                     : "rtl"
@@ -92,7 +94,7 @@ function LandingPage() {
                   type="search"
                   value={searchWord}
                   onChange={SearchFun}
-                  className={searshResult && "selectInput"}
+                  className={searshResult ? "selectInput" : undefined}
                 />
                 <img
                   src={SearchShayyek}

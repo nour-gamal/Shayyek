@@ -89,3 +89,11 @@ export const userDetailsForAdminActions = (data, onSuccess, onFail) => {
   const path = "api/Profile/UserDetailsForAdminActions";
   PostResource(path, data, onSuccess, onFail, true);
 };
+export const acceptOrRejectUser = (
+  { isActive, rejectedUserId },
+  onSuccess,
+  onFail
+) => {
+  const path = `api/Profile/AcceptOrRejectUser?rejectedUserId=${rejectedUserId}&isActive=${isActive}`;
+  GetResource(path, onSuccess, onFail, true);
+};

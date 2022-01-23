@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { login } from "../../../../Redux/Authorization";
 import "./LoginByEmail.css";
 
-function LoginByEmail({ signinByEmail,rejection,holding }) {
+function LoginByEmail({ signinByEmail, rejection, holding }) {
   const dispatch = useDispatch();
   const { currentLocal } = useSelector((state) => state.currentLocal);
   // const { authorization } = useSelector((state) => state.authorization);
@@ -53,7 +53,7 @@ function LoginByEmail({ signinByEmail,rejection,holding }) {
             setWrongEmailState(success.message);
           } else if (!success.success && success.data.errorStatus === 4) {
             rejection("rejection");
-            holding(success.message)
+            holding(success.message);
           }
         },
         (fail) => console.log(fail),
@@ -105,11 +105,11 @@ function LoginByEmail({ signinByEmail,rejection,holding }) {
               <p className="errorMsg">
                 {alert && !email && <>* {currentLocal.login.emailIsRequired}</>}
                 {verrifayState && verrifayState}
-                {wrongEmailState&&wrongEmailState}
+                {wrongEmailState && wrongEmailState}
               </p>
               <input
                 className={
-                  (alert && !email) || verrifayState||wrongEmailState
+                  (alert && !email) || verrifayState || wrongEmailState
                     ? "error input-field form-control my-1"
                     : "input-field form-control my-1"
                 }
@@ -169,7 +169,6 @@ function LoginByEmail({ signinByEmail,rejection,holding }) {
           <div className="checkAccount">
             <span> {currentLocal.login.didHaveAnAcount}</span>
             <span className="mx-2">
-              {" "}
               <Link to="/registration"> {currentLocal.login.registerNow} </Link>
             </span>
           </div>

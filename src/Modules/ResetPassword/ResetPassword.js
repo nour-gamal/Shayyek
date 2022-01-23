@@ -15,6 +15,7 @@ function ResetPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmationState, setConfirmationState] = useState(false);
   const [redirect, setRedirect] = useState(false);
+
   const sendData = (e) => {
     e.preventDefault();
     if (!confirmPassword || !password) {
@@ -22,20 +23,10 @@ function ResetPassword() {
     } else {
       setAlert(false);
       setRedirect(true);
-
-      // const body = {
-      //     confirmPassword: confirmPassword,
-      //   password: password,
-      //   fireBaseToken: authorization.deviceToken,
-      // };
-      // loginApi(
-      //   body,
-      //   (success) => console.log(success),
-      //   (fail) => console.log(fail),
-      //   false
-      // );
+      console.log("resetPassword");
     }
   };
+
   const handleChange = (e) => {
     const id = e.target.id;
     switch (id) {
@@ -60,7 +51,7 @@ function ResetPassword() {
     <div className="ResetPassword">
       <Navbar navState={"light"} />
       <Container>
-        <AuthHeader title={currentLocal.login.ResetPassword}  login="login" />
+        <AuthHeader title={currentLocal.login.ResetPassword} login="login" />
         <form onSubmit={sendData} className="LoginForm">
           <div className="form">
             <div className="w-50">
@@ -98,7 +89,7 @@ function ResetPassword() {
                     : setConfirmationState(false);
                 }}
                 className={
-                  alert && !confirmPassword 
+                  alert && !confirmPassword
                     ? "error input-field form-control"
                     : "input-field form-control"
                 }

@@ -18,7 +18,7 @@ import OffersTable from "./Modules/Home/BuyerHome/Components/OffersTable/OffersT
 import ManageCompany from "./Modules/ProfilePage/Components/SubComponents/ManageCompany/ManageCompany";
 // userType
 import { authorType } from "./helpers/authType";
-import AdminAcceptSupplier from "./Modules/ProfilePage/Components/SubComponents/AdminAcceptSupplier/AdminAcceptSupplier";
+import AdminViewSupplier from "./Modules/ProfilePage/Components/SubComponents/AdminViewSupplier/AdminViewSupplier";
 // import Login from "./Modules/Login/Login";
 //import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
 function Routes() {
@@ -132,7 +132,17 @@ function Routes() {
             path="/view/:name"
             render={(props) =>
               isAuth && companyAdmin ? (
-                <AdminAcceptSupplier {...props} />
+                <AdminViewSupplier {...props} />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
+          <Route
+            path="/reset-password/:name"
+            render={(props) =>
+              isAuth && companyAdmin ? (
+                <ResetPassword {...props} />
               ) : (
                 <Redirect to="/" />
               )
