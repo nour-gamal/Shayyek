@@ -8,11 +8,13 @@ import DraftIcon from "../../../../../Resources/Assets/draft.svg";
 import { baseUrl } from "../../../../../Services";
 import { acceptOrRejectUser } from "../../../network";
 import "./Personalnfo.css";
+import DraftsModal from "./../DraftsModal/DraftsModal";
 
 function Personalnfo({ parent, count, profileDetails, adminView, history }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { authorization } = useSelector((state) => state.authorization);
   const [isActive, setIsActive] = useState(profileDetails?.isActive);
+  const [draftsModalVisible, updateDraftsModalVisible] = useState(false);
 
   function acceptOrRejectUserAction(isActive) {
     acceptOrRejectUser(
@@ -25,6 +27,9 @@ function Personalnfo({ parent, count, profileDetails, adminView, history }) {
         }
       }
     );
+  }
+  function openDraftPopup() {
+    console.log("ook");
   }
 
   return (
@@ -46,7 +51,6 @@ function Personalnfo({ parent, count, profileDetails, adminView, history }) {
               <div className="fw-600 info__companyName">
                 {profileDetails.companyName}
               </div>
-
               {
                 // if the employee is already accepted and have an rating data
                 /* {parent === "buyerAdmin" ? (
@@ -163,7 +167,10 @@ function Personalnfo({ parent, count, profileDetails, adminView, history }) {
               </>
             ) : parent === "Supplier" ? (
               <>
-                <div className="d-flex align-items-center">
+                <div
+                  className="d-flex align-items-center cursorPointer"
+                  onClick={openDraftPopup}
+                >
                   <div className="d-flex align-items-center ">
                     <img className="draftIcon" src={DraftIcon} alt="Draft" />
                     <div className="draft">
@@ -194,6 +201,7 @@ function Personalnfo({ parent, count, profileDetails, adminView, history }) {
           </div>
         </header>
       )}
+      <DraftsModal />
     </div>
   );
 }

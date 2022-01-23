@@ -52,15 +52,15 @@ export function GetResource(path, onSuccess, onFail, reqAuth) {
       onSuccess(res.data);
     })
     .catch((error) => {
-      onFail(error.response);
-      if (error.response) {
-        if (error.response.status === 401) {
-          if (localStorage.getItem("persist:root")) {
-            localStorage.removeItem("persist:root");
-            window.location.reload();
-          }
-        }
-      }
+      // onFail(error.response);
+      // if (error.response) {
+      //   if (error.response.status === 401) {
+      //     if (localStorage.getItem("persist:root")) {
+      //       localStorage.removeItem("persist:root");
+      //       window.location.reload();
+      //     }
+      //   }
+      // }
     });
 }
 
