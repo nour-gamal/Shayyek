@@ -8,7 +8,7 @@ import "./LoginByMobile.css";
 function LoginByMobile({ setSigninByEmail }) {
   const dispatch = useDispatch();
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  const { deviceToken } = useSelector((state) => state.authorization);
+  const { deviceToken, deviceId } = useSelector((state) => state.authorization);
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState("");
@@ -33,6 +33,7 @@ function LoginByMobile({ setSigninByEmail }) {
         mobile: mobileNumber,
         password: password,
         fireBaseToken: deviceToken.deviceToken,
+        deviceId: deviceId.deviceId,
       };
       loginApi(
         body,
@@ -105,7 +106,7 @@ function LoginByMobile({ setSigninByEmail }) {
               </p>
               <input
                 className={
-                  (alert && !mobileNumber) || verrifayState||wrongEmailState
+                  (alert && !mobileNumber) || verrifayState || wrongEmailState
                     ? "error input-field form-control my-1"
                     : "input-field form-control my-1"
                 }
