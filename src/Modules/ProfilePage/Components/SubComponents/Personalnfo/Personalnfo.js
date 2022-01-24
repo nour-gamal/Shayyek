@@ -29,7 +29,9 @@ function Personalnfo({ parent, count, profileDetails, adminView, history }) {
     );
   }
   function openDraftPopup() {
-    console.log("ook");
+    if (count) {
+      updateDraftsModalVisible(true);
+    }
   }
 
   return (
@@ -201,7 +203,12 @@ function Personalnfo({ parent, count, profileDetails, adminView, history }) {
           </div>
         </header>
       )}
-      <DraftsModal />
+      <DraftsModal
+        isVisible={draftsModalVisible}
+        onCancel={() => {
+          updateDraftsModalVisible(false);
+        }}
+      />
     </div>
   );
 }

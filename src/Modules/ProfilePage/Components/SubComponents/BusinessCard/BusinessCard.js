@@ -48,7 +48,7 @@ function BusinessCard({ profileDetails, parent, AdminView }) {
         className={`businessCard ${parent === "contractorIndividual" &&
           "d-flex flex-1"}`}
       >
-        {AdminView && (
+        {!AdminView && (
           <button
             className="businessCard__edit"
             onClick={() => toggleProfileDetailsModalVisibility(true)}

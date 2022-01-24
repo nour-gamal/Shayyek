@@ -108,7 +108,6 @@ function AddWrokDetailsModal({
           (fail) => {}
         );
       }
-
       setRequiredFieldError(false);
     } else {
       setRequiredFieldError(true);
