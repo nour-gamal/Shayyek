@@ -7,11 +7,11 @@ import { Link } from "react-router-dom";
 import { login } from "../../../../Redux/Authorization";
 import "./LoginByEmail.css";
 
-function LoginByEmail({ signinByEmail,rejection,holding }) {
+function LoginByEmail({ signinByEmail, rejection, holding }) {
   const dispatch = useDispatch();
   const { currentLocal } = useSelector((state) => state.currentLocal);
   // const { authorization } = useSelector((state) => state.authorization);
-  const { deviceToken } = useSelector((state) => state.authorization);
+  const { deviceToken, deviceId } = useSelector((state) => state.authorization);
   const [email, setEmail] = useState("");
   const [alert, setAlert] = useState("");
   const [password, setPassword] = useState("");
@@ -37,7 +37,9 @@ function LoginByEmail({ signinByEmail,rejection,holding }) {
         email: email,
         password: password,
         fireBaseToken: deviceToken.deviceToken,
+        deviceId: deviceId.deviceId,
       };
+      console.log(body);
       loginApi(
         body,
         (success) => {
@@ -53,7 +55,7 @@ function LoginByEmail({ signinByEmail,rejection,holding }) {
             setWrongEmailState(success.message);
           } else if (!success.success && success.data.errorStatus === 4) {
             rejection("rejection");
-            holding(success.message)
+            holding(success.message);
           }
         },
         (fail) => console.log(fail),
@@ -105,11 +107,11 @@ function LoginByEmail({ signinByEmail,rejection,holding }) {
               <p className="errorMsg">
                 {alert && !email && <>* {currentLocal.login.emailIsRequired}</>}
                 {verrifayState && verrifayState}
-                {wrongEmailState&&wrongEmailState}
+                {wrongEmailState && wrongEmailState}
               </p>
               <input
                 className={
-                  (alert && !email) || verrifayState||wrongEmailState
+                  (alert && !email) || verrifayState || wrongEmailState
                     ? "error input-field form-control my-1"
                     : "input-field form-control my-1"
                 }

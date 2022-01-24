@@ -5,8 +5,16 @@ export const authorizationSlice = createSlice({
   initialState: {
     authorization: {},
     deviceToken: {},
+    deviceId: {},
   },
   reducers: {
+    getDeviceId: (state, action) => {
+      if (Object.keys(action.payload)[0] === "deviceId") {
+        state.deviceId = action.payload;
+      } else {
+        state.authorization.deviceId = action.payload;
+      }
+    },
     login: (state, action) => {
       if (Object.keys(action.payload)[0] === "deviceToken") {
         state.deviceToken = action.payload;
@@ -20,6 +28,7 @@ export const authorizationSlice = createSlice({
   },
 });
 
+export const { getDeviceId } = authorizationSlice.actions;
 export const { login } = authorizationSlice.actions;
 export const { logout } = authorizationSlice.actions;
 
