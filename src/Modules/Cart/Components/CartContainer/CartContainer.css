@@ -10,3 +10,10 @@
 	height: auto;
 	border-radius: 25px;
 }
+.cartContainer .item {
+	min-width: 14%;
+}
+
+.cartContainer .item:last-of-type {
+	text-align: end;
+}

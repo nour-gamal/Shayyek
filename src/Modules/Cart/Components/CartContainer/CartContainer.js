@@ -41,62 +41,122 @@ function CartContainer() {
 		let selectedProduct = allProducts[productIndex];
 		if (type === "remove" && selectedProduct.quantity > 1) {
 			allProducts[productIndex].quantity--;
+			let body = {
+				cartId: selectedProduct.cartId,
+				quantity: allProducts[productIndex].quantity,
+				deviceId,
+			};
+
+			updateCart(
+				body,
+				(success) => {
+					console.log(success);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
 		} else if (type === "add") {
 			allProducts[productIndex].quantity++;
-		}
-   	updateProducts(allProducts);
-	};
+			let body = {
+				cartId: selectedProduct.cartId,
+				quantity: allProducts[productIndex].quantity,
+				deviceId,
+			};
 
+			updateCart(
+				body,
+				(success) => {},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
+		updateProducts(allProducts);
+	};
+	const deleteProduct = (productIndex) => {
+		let allProducts = [...products];
+		allProducts[productIndex].quantity = 0;
+
+		let body = {
+			cartId: allProducts[productIndex].cartId,
+			quantity: allProducts[productIndex].quantity,
+			deviceId,
+		};
+
+		updateCart(
+			body,
+			(success) => {},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+		updateProducts(allProducts);
+	};
+	const productsCount = products.filter((product) => product.quantity !== 0)
+		.length;
 	return (
 		<div className="cartContainer my-4">
 			<div className="title f-18">
 				<span>
-					{products.length} {currentLocal.suppliers.items}
+					{productsCount} {currentLocal.suppliers.items}
 				</span>{" "}
 				{currentLocal.suppliers.inYourCart}
 			</div>
 			{products.map((product, productIndex) => {
-				return (
-					<div
-						className="productRow d-flex my-2 justify-content-between align-items-center"
-						key={product.cartId}
-					>
-						<img
-							src={baseUrl + product.productImage}
-							alt="productImage"
-							className="productImage"
-						/>
-						<div className="item">{product.productName}</div>
-						<div className="item">{product.productModelName}</div>
-						<div className="item">{product.productSizeName}</div>
-						<div className="d-flex item">
+				if (product.quantity > 0) {
+					return (
+						<div
+							className="productRow d-flex my-2 justify-content-between align-items-center"
+							key={product.cartId}
+						>
 							<img
-								src={minusCircle}
-								alt="minusCircle"
-								className="cursorPointer"
-								onClick={() => {
-									changeQuantity("remove", productIndex);
-								}}
+								src={baseUrl + product.productImage}
+								alt="productImage"
+								className="productImage"
 							/>
-							<div className="mx-2">
-								{product.quantity} {currentLocal.suppliers.items}
+							<div className="item">{product.productName}</div>
+							<div className="item">{product.productModelName}</div>
+							<div className="item">{product.productSizeName}</div>
+							<div className="d-flex item">
+								<img
+									src={minusCircle}
+									alt="minusCircle"
+									className="cursorPointer"
+									onClick={() => {
+										changeQuantity("remove", productIndex);
+									}}
+								/>
+								<div className="mx-2">
+									{product.quantity} {currentLocal.suppliers.items}
+								</div>
+								<img
+									src={plusCircle}
+									alt="plusCircle"
+									className="cursorPointer"
+									onClick={() => {
+										changeQuantity("add", productIndex);
+									}}
+								/>
 							</div>
-							<img
-								src={plusCircle}
-								alt="plusCircle"
-								className="cursorPointer"
-								onClick={() => {
-									changeQuantity("add", productIndex);
-								}}
-							/>
+							<div className="item">{product.price} LE</div>
+							<div className="item">
+								<img
+									src={garbage}
+									alt="garbage"
+									className="cursorPointer"
+									onClick={(e) => {
+										deleteProduct(productIndex);
+									}}
+								/>
+							</div>
 						</div>
-						<div className="item">{product.price} LE</div>
-						<div className="item">
-							<img src={garbage} alt="garbage" className="cursorPointer" />
-						</div>
-					</div>
-				);
+					);
+				} else return "";
 			})}
+			<button className="button-primary">
+				{currentLocal.suppliers.checkOut}
+			</button>
 		</div>
 	);
 }

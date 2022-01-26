@@ -100,6 +100,7 @@ export const ar = {
 		chooseModel: "من فضلك ادخل الموديل",
 		items: "منتجات",
 		inYourCart: "في العربه",
+		checkOut: "الدفع",
 	},
 	login: {
 		signin: "تسجيل الدخول",

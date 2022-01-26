@@ -104,6 +104,7 @@ export const en = {
 		chooseModel: "Please choose model",
 		items: "Items",
 		inYourCart: "in your cart",
+		checkOut: "Checkout",
 	},
 	login: {
 		signin: "Sign in",
