@@ -1,11 +1,14 @@
 import axios from "axios";
-import { store } from "./Redux/Store";
+
 export const baseUrl = "https://api.shayyek.co/";
 
-let storedData = store.getState();
-console.log("from service", storedData);
+let token;
+export const setStoreData = (newToken = null) => {
+  token = newToken;
+  return token;
+};
 
-const token =
+token =
   localStorage.getItem("persist:root") &&
   JSON.parse(JSON.parse(localStorage.getItem("persist:root")).authorization)
     .authorization.token;
@@ -23,6 +26,7 @@ export function PostResource(path, data, onSuccess, onFail, reqAuth, formData) {
     };
   }
 
+  // console.log(token);
   if (reqAuth && token) {
     requestData.headers = {
       Authorization: "Bearer " + token,
@@ -45,6 +49,7 @@ export function GetResource(path, onSuccess, onFail, reqAuth) {
     headers: {},
   };
 
+  console.log(token);
   if (reqAuth && token) {
     requestData.headers = {
       Authorization: "Bearer " + token,
@@ -75,6 +80,7 @@ export function deleteResource(path, onSuccess, onFail, reqAuth) {
     headers: {},
   };
 
+  console.log(token);
   if (reqAuth && token) {
     requestData.headers = {
       Authorization: "Bearer " + token,

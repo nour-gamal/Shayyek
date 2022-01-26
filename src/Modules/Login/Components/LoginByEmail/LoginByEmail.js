@@ -5,6 +5,7 @@ import { IsUserAdmin, loginApi } from "../../network";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import { login } from "../../../../Redux/Authorization";
+import { setStoreData } from "../../../../Services";
 import "./LoginByEmail.css";
 
 function LoginByEmail({ signinByEmail, rejection, holding }) {
@@ -44,8 +45,9 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
         body,
         (success) => {
           if (success.success) {
-            console.log(success.data);
             dispatch(login(success.data));
+            console.log(success.data);
+            setStoreData(success.data.token);
             setRedirect(true);
           } else if (!success.success && success.data.errorStatus === 1) {
             //email Not verrify
