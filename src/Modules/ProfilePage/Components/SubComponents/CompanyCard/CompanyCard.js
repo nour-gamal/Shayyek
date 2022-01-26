@@ -1,18 +1,27 @@
-import React from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { baseUrl } from "../../../../../Services";
+import ProfileDetailsModal from "../ProfileDetailsModal/ProfileDetailsModal";
+import { authorType } from "../../../../../helpers/authType";
 import "./CompanyCard.css";
 function CompanyCard({ companyDetails, parent }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  const { authorization } = useSelector((state) => state.authorization);
+  const {
+    authorization,
+    authorization: { accountTypeId, userTypeId, roleId },
+  } = useSelector((state) => state.authorization);
+  const [porfileDetailsModalVisible, setProfileDetailsModalVisible] = useState(
+    false
+  );
+  const userTypeName = authorType(accountTypeId, userTypeId, roleId);
 
   return (
     <>
-      {companyDetails && (
+      {userTypeName.includes("company_admin") && companyDetails && (
         <div
           className={
-            parent === "supplierContractorAdmin"
+            userTypeName.includes("company_admin")
               ? "companyCard min-height-100"
               : "companyCard"
           }
@@ -31,15 +40,18 @@ function CompanyCard({ companyDetails, parent }) {
               <h6 className="companyProfile__header mx-2">
                 {companyDetails.name}
               </h6>
-              <button className="companCard__edit">...</button>
+              <button
+                className="companCard__edit"
+                onClick={() => setProfileDetailsModalVisible(true)}
+              >
+                ...
+              </button>
             </header>
-            {parent === "supplierContractorAdmin" && (
-              <Link to={`/company/${companyDetails.name}`}>
-                <button className="btn companyCard__btn">
-                  {currentLocal.profilePage.manageyourCompany}
-                </button>
-              </Link>
-            )}
+            <Link to={`/company/${companyDetails.name}`}>
+              <button className="btn companyCard__btn">
+                {currentLocal.profilePage.manageyourCompany}
+              </button>
+            </Link>
           </div>
           <ul className="list-unstyled">
             <li className="item">
@@ -99,6 +111,12 @@ function CompanyCard({ companyDetails, parent }) {
             </li>
           </ul>
         </div>
+      )}
+      {porfileDetailsModalVisible && (
+        <ProfileDetailsModal
+          isModalVisible={porfileDetailsModalVisible}
+          onCancel={() => setProfileDetailsModalVisible(false)}
+        />
       )}
     </>
   );

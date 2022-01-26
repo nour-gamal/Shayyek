@@ -1,5 +1,9 @@
 import axios from "axios";
+import { store } from "./Redux/Store";
 export const baseUrl = "https://api.shayyek.co/";
+
+let storedData = store.getState();
+console.log("from service", storedData);
 
 const token =
   localStorage.getItem("persist:root") &&

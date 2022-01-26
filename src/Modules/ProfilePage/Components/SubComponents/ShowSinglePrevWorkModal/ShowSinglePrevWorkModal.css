@@ -1,14 +1,20 @@
 .showWorkModal {
   color: #707070;
 }
+.showWorkModal__header {
+  margin-top: 1rem;
+}
+
+.showWorkModal__header .closeIcon {
+  width: 25px;
+  height: 25px;
+}
 .showWorkModal .ant-modal-body {
   padding: 0 !important;
   display: flex;
   flex-direction: column;
 }
-.showWorkModal__header {
-  margin-top: 1rem;
-}
+
 .showWorkModal .showWorkModal__body {
   flex: 1;
   display: flex;

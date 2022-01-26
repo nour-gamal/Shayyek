@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Alert } from "react-bootstrap";
+import { Modal, Col, Row, Checkbox } from "antd";
+// network
 import {
   getBuyerProfile,
   postImage,
@@ -9,9 +12,7 @@ import {
 } from "../../../network";
 import { baseUrl } from "../../../../../Services";
 // components
-import { Alert } from "react-bootstrap";
 import { login } from "../../../../../Redux/Authorization";
-import { Modal, Col, Row, Checkbox } from "antd";
 import { authorType } from "../../../../../helpers/authType";
 import plusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import TreeContainer from "../../../../../Modules/Registration/Components/TreeContainer/TreeContainer";
@@ -20,7 +21,12 @@ import ChangePasswordModal from "../ChangePasswordModal/ChangePasswordModal";
 import AddCompanyPhoneModal from "../AddCompanyPhoneModal/AddCompanyPhoneModal";
 // style
 import "./ProfileDetailsModal.css";
-function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
+function ProfileDetailsModal({
+  isModalVisible,
+  onCancel,
+  userType,
+  adminView,
+}) {
   const dispatch = useDispatch();
 
   const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -48,6 +54,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
   const [alert, setAlert] = useState(false);
   const [validationAlert, toggleValidationAlert] = useState(false);
   const userTypeName = authorType(accountTypeId, userTypeId, roleId);
+
   useEffect(() => {
     getCategoriesWithSelected(
       currentLanguageId,
@@ -102,6 +109,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
       getBuyerProfile(
         currentLanguageId,
         (success) => {
+          console.log(success.data);
           updateProfileData(success.data);
           updateCompanyEmail(success.data.company.email);
           updateCompanyWebsite(success.data.company.website);
@@ -119,11 +127,11 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
           if (success.success) {
             const {
               data,
-              data: { profileImage, IsWhatsAppNumber },
+              data: { profileImage },
             } = success;
             updateProfileData(data);
             updateProfileImgLink(profileImage);
-            toggleWhatsAppState(IsWhatsAppNumber);
+            toggleWhatsAppState(data.isWhatsAppNumber);
           }
         },
         (fail) => {
@@ -218,7 +226,8 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
   };
 
   const handleSubmitEdit = () => {
-    if (userTypeName === "contractor-individual") {
+    console.log(userTypeName);
+    if (userTypeName !== "contractor_individual") {
       let data = {
         isWhatsAppNumber: whatsAppState,
         profileImgPath: profileImgLink,
@@ -266,7 +275,6 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
       }
     }
   };
-
   return (
     <Modal
       title="Basic Modal"
@@ -293,7 +301,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
             >
               <div className="d-flex align-items-center">
                 <input
-                  type={"file"}
+                  type="file"
                   className="d-none"
                   id="profileImage"
                   onChange={(e) => {
@@ -359,7 +367,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
                   <Checkbox
                     checked={whatsAppState}
                     onChange={(e) => {
-                      toggleWhatsAppState(e.target.checked);
+                      toggleWhatsAppState(!whatsAppState);
                     }}
                   >
                     {currentLocal.registration.whatsAppNumber}
@@ -392,7 +400,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
                         {currentLocal.registration.companyPhoneNumber}
                       </label>
                       <div style={{ flex: 1 }}>
-                        {/* <div>{profileData.company.phone}</div> */}
+                        <div>{profileData.company.phone}</div>
                         {phonesArr.map((phone, index) => (
                           <div key={index}>{phone}</div>
                         ))}
@@ -455,7 +463,7 @@ function ProfileDetailsModal({ isModalVisible, onCancel, userType }) {
                             state: false,
                           });
                         }}
-                      />{" "}
+                      />
                       {paperClipState.state &&
                         paperClipState.type === "companyImage" && (
                           <img

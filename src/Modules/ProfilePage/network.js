@@ -97,3 +97,9 @@ export const acceptOrRejectUser = (
   const path = `api/Profile/AcceptOrRejectUser?rejectedUserId=${rejectedUserId}&isActive=${isActive}`;
   GetResource(path, onSuccess, onFail, true);
 };
+
+export const resetPassword = (data, onSuccess, onFail) => {
+  const { userId, newPassword } = data;
+  const path = `api/Account/ResetPassword?userId=${userId}&newPassword=${newPassword}`;
+  PostResource(path, data, onSuccess, onFail);
+};

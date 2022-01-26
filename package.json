@@ -1,75 +1,76 @@
 {
-	"name": "shayyek",
-	"version": "0.1.14",
-	"private": true,
-	"dependencies": {
-		"@fingerprintjs/fingerprintjs": "^3.3.2",
-		"@progress/kendo-drawing": "^1.14.0",
-		"@progress/kendo-licensing": "^1.2.0",
-		"@progress/kendo-react-layout": "^4.9.0",
-		"@progress/kendo-react-pdf": "^4.9.0",
-		"@progress/kendo-theme-default": "^4.41.2",
-		"@reduxjs/toolkit": "^1.6.1",
-		"@testing-library/jest-dom": "^5.14.1",
-		"@testing-library/react": "^11.2.7",
-		"@testing-library/user-event": "^12.8.3",
-		"antd": "^4.16.13",
-		"axios": "^0.21.4",
-		"bootstrap": "^5.1.1",
-		"chart.js": "^3.7.0",
-		"firebase": "^9.4.1",
-		"rc-rate": "^2.9.1",
-		"rc-slider": "^9.7.2",
-		"react": "^17.0.2",
-		"react-bootstrap": "^2.0.0-rc.0",
-		"react-chartjs-2": "^4.0.0",
-		"react-dom": "^17.0.2",
-		"react-dropdown-tree-select": "^2.5.1",
-		"react-dual-range-slider": "^1.0.4",
-		"react-excel-renderer": "^1.1.0",
-		"react-input-verification-code": "^0.7.5",
-		"react-rate-component": "^1.0.2",
-		"react-rating-stars-component": "^2.2.0",
-		"react-redux": "^7.2.5",
-		"react-router-dom": "^5.3.0",
-		"react-scripts": "4.0.3",
-		"react-search-input": "^0.11.3",
-		"react-select-search": "^3.0.8",
-		"react-tooltip": "^4.2.21",
-		"react-verification-code-input": "^1.2.9",
-		"react-verification-input": "^2.0.3",
-		"redux-persist": "^6.0.0",
-		"rsuite": "^5.2.1",
-		"select2": "^4.1.0-rc.0",
-		"stars-rating": "^1.1.0",
-		"styled-components": "^5.3.3",
-		"treeview-react-bootstrap": "^0.4.6",
-		"uuid": "^8.3.2",
-		"validator": "^13.7.0",
-		"web-vitals": "^1.1.2"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	}
+  "name": "shayyek",
+  "version": "0.1.15",
+  "private": true,
+  "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^3.3.2",
+    "@progress/kendo-drawing": "^1.14.0",
+    "@progress/kendo-licensing": "^1.2.0",
+    "@progress/kendo-react-layout": "^4.9.0",
+    "@progress/kendo-react-pdf": "^4.9.0",
+    "@progress/kendo-theme-default": "^4.41.2",
+    "@reduxjs/toolkit": "^1.6.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "antd": "^4.16.13",
+    "axios": "^0.21.4",
+    "bootstrap": "^5.1.1",
+    "chart.js": "^3.7.0",
+    "dy-foundation-cli": "^1.1.8",
+    "firebase": "^9.4.1",
+    "rc-rate": "^2.9.1",
+    "rc-slider": "^9.7.2",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.0.0-rc.0",
+    "react-chartjs-2": "^4.0.0",
+    "react-dom": "^17.0.2",
+    "react-dropdown-tree-select": "^2.5.1",
+    "react-dual-range-slider": "^1.0.4",
+    "react-excel-renderer": "^1.1.0",
+    "react-input-verification-code": "^0.7.5",
+    "react-rate-component": "^1.0.2",
+    "react-rating-stars-component": "^2.2.0",
+    "react-redux": "^7.2.5",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "4.0.3",
+    "react-search-input": "^0.11.3",
+    "react-select-search": "^3.0.8",
+    "react-tooltip": "^4.2.21",
+    "react-verification-code-input": "^1.2.9",
+    "react-verification-input": "^2.0.3",
+    "redux-persist": "^6.0.0",
+    "rsuite": "^5.2.1",
+    "select2": "^4.1.0-rc.0",
+    "stars-rating": "^1.1.0",
+    "styled-components": "^5.3.3",
+    "treeview-react-bootstrap": "^0.4.6",
+    "uuid": "^8.3.2",
+    "validator": "^13.7.0",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

@@ -26,6 +26,7 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
     setAlert(false);
     setVerrifayState(false);
   };
+
   // console.log(holdingState);
   const sendData = (e) => {
     e.preventDefault();
@@ -39,11 +40,11 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
         fireBaseToken: deviceToken.deviceToken,
         deviceId: deviceId.deviceId,
       };
-      console.log(body);
       loginApi(
         body,
         (success) => {
           if (success.success) {
+            console.log(success.data);
             dispatch(login(success.data));
             setRedirect(true);
           } else if (!success.success && success.data.errorStatus === 1) {
@@ -91,6 +92,7 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
       false
     );
   };
+
   if (redirect) {
     return <Redirect to="/" />;
   }
@@ -171,7 +173,6 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
           <div className="checkAccount">
             <span> {currentLocal.login.didHaveAnAcount}</span>
             <span className="mx-2">
-              {" "}
               <Link to="/registration"> {currentLocal.login.registerNow} </Link>
             </span>
           </div>

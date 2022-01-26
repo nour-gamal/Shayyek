@@ -17,6 +17,7 @@ export const authorizationSlice = createSlice({
     },
     login: (state, action) => {
       if (Object.keys(action.payload)[0] === "deviceToken") {
+        console.log(action.payload);
         state.deviceToken = action.payload;
       } else {
         state.authorization = action.payload;

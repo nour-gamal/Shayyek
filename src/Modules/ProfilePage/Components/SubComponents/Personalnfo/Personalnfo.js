@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import { ProgressBar } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 // component
-import DraftIcon from "../../../../../Resources/Assets/draft.svg";
 import { baseUrl } from "../../../../../Services";
 import { acceptOrRejectUser } from "../../../network";
+import DraftIcon from "../../../../../Resources/Assets/draft.svg";
 import "./Personalnfo.css";
 import DraftsModal from "./../DraftsModal/DraftsModal";
 

@@ -98,6 +98,7 @@ function BusinessCard({ profileDetails, parent, AdminView }) {
         <ProfileDetailsModal
           onCancel={() => toggleProfileDetailsModalVisibility(false)}
           isModalVisible={profileDetailsModalVisibility}
+          adminView={AdminView}
         />
       )}
     </>

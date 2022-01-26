@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-// import { loginApi } from "../../network";
-// import { Link } from "react-router-dom";
+import { Redirect } from "react-router";
+import { Container } from "react-bootstrap";
+// container
 import Navbar from "../Common/Navbar/Navbar";
 import AuthHeader from "../Common/AuthHeader/AuthHeader";
 import Footer from "../Common/Footer/Footer";
 import "./ResetPassword.css";
-import { Redirect } from "react-router";
 function ResetPassword() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [password, setPassword] = useState("");
@@ -22,13 +21,14 @@ function ResetPassword() {
       setAlert(true);
     } else {
       setAlert(false);
+      // send data to the user !!!!!
       setRedirect(true);
-      console.log("resetPassword");
     }
   };
 
   const handleChange = (e) => {
     const id = e.target.id;
+    console.log(id);
     switch (id) {
       case "confirmPassword": {
         setConfirmPassword(e.target.value);
@@ -37,16 +37,17 @@ function ResetPassword() {
       }
       case "password": {
         setPassword(e.target.value);
-
         break;
       }
       default:
         break;
     }
   };
+
   if (redirect) {
     return <Redirect to="/loginByEmail" />;
   }
+
   return (
     <div className="ResetPassword">
       <Navbar navState={"light"} />
