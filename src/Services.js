@@ -26,7 +26,6 @@ export function PostResource(path, data, onSuccess, onFail, reqAuth, formData) {
     };
   }
 
-  // console.log(token);
   if (reqAuth && token) {
     requestData.headers = {
       Authorization: "Bearer " + token,
@@ -49,7 +48,6 @@ export function GetResource(path, onSuccess, onFail, reqAuth) {
     headers: {},
   };
 
-  console.log(token);
   if (reqAuth && token) {
     requestData.headers = {
       Authorization: "Bearer " + token,
@@ -80,7 +78,6 @@ export function deleteResource(path, onSuccess, onFail, reqAuth) {
     headers: {},
   };
 
-  console.log(token);
   if (reqAuth && token) {
     requestData.headers = {
       Authorization: "Bearer " + token,
