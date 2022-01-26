@@ -11,9 +11,19 @@
 	border-radius: 25px;
 }
 .cartContainer .item {
-	min-width: 14%;
+	width: 14%;
+	word-break: break-all;
 }
 
-.cartContainer .item:last-of-type {
+.cartContainer .item {
 	text-align: end;
+}
+.cartContainer.item img {
+	height: 20px !important;
+}
+.cartContainer .totalPrice {
+	color: red;
+}
+.cartContainer .itemsContainer {
+	overflow: auto;
 }

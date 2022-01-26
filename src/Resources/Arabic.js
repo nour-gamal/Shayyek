@@ -101,6 +101,7 @@ export const ar = {
 		items: "منتجات",
 		inYourCart: "في العربه",
 		checkOut: "الدفع",
+		checkOutFor: "ادفع ل ",
 	},
 	login: {
 		signin: "تسجيل الدخول",

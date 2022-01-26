@@ -105,6 +105,7 @@ export const en = {
 		items: "Items",
 		inYourCart: "in your cart",
 		checkOut: "Checkout",
+		checkoutFor: "Checkout for",
 	},
 	login: {
 		signin: "Sign in",
