@@ -4,134 +4,133 @@ export const baseUrl = "https://api.shayyek.co/";
 
 let token;
 export const setStoreData = (newToken = null) => {
-  token = newToken;
-  return token;
+	token = newToken;
 };
 
 token =
-  localStorage.getItem("persist:root") &&
-  JSON.parse(JSON.parse(localStorage.getItem("persist:root")).authorization)
-    .authorization.token;
+	localStorage.getItem("persist:root") &&
+	JSON.parse(JSON.parse(localStorage.getItem("persist:root")).authorization)
+		.authorization.token;
 
 export function PostResource(path, data, onSuccess, onFail, reqAuth, formData) {
-  const requestData = {
-    method: "post",
-    url: baseUrl + path,
-    headers: {},
-    data,
-  };
-  if (formData) {
-    requestData.headers = {
-      "content-type": "multipart/form-data",
-    };
-  }
+	const requestData = {
+		method: "post",
+		url: baseUrl + path,
+		headers: {},
+		data,
+	};
+	if (formData) {
+		requestData.headers = {
+			"content-type": "multipart/form-data",
+		};
+	}
 
-  if (reqAuth && token) {
-    requestData.headers = {
-      Authorization: "Bearer " + token,
-    };
-  }
+	if (reqAuth && token) {
+		requestData.headers = {
+			Authorization: "Bearer " + token,
+		};
+	}
 
-  axios(requestData)
-    .then((res) => {
-      onSuccess(res.data);
-    })
-    .catch((err) => {
-      onFail(err.response);
-    });
+	axios(requestData)
+		.then((res) => {
+			onSuccess(res.data);
+		})
+		.catch((err) => {
+			onFail(err.response);
+		});
 }
 
 export function GetResource(path, onSuccess, onFail, reqAuth) {
-  const requestData = {
-    method: "get",
-    url: baseUrl + path,
-    headers: {},
-  };
+	const requestData = {
+		method: "get",
+		url: baseUrl + path,
+		headers: {},
+	};
 
-  if (reqAuth && token) {
-    requestData.headers = {
-      Authorization: "Bearer " + token,
-    };
-  }
+	if (reqAuth && token) {
+		requestData.headers = {
+			Authorization: "Bearer " + token,
+		};
+	}
 
-  axios(requestData)
-    .then((res) => {
-      onSuccess(res.data);
-    })
-    .catch((error) => {
-      // onFail(error.response);
-      // if (error.response) {
-      //   if (error.response.status === 401) {
-      //     if (localStorage.getItem("persist:root")) {
-      //       localStorage.removeItem("persist:root");
-      //       window.location.reload();
-      //     }
-      //   }
-      // }
-    });
+	axios(requestData)
+		.then((res) => {
+			onSuccess(res.data);
+		})
+		.catch((error) => {
+			// onFail(error.response);
+			// if (error.response) {
+			//   if (error.response.status === 401) {
+			//     if (localStorage.getItem("persist:root")) {
+			//       localStorage.removeItem("persist:root");
+			//       window.location.reload();
+			//     }
+			//   }
+			// }
+		});
 }
 
 export function deleteResource(path, onSuccess, onFail, reqAuth) {
-  const requestData = {
-    method: "delete",
-    url: baseUrl + path,
-    headers: {},
-  };
+	const requestData = {
+		method: "delete",
+		url: baseUrl + path,
+		headers: {},
+	};
 
-  if (reqAuth && token) {
-    requestData.headers = {
-      Authorization: "Bearer " + token,
-    };
-  }
+	if (reqAuth && token) {
+		requestData.headers = {
+			Authorization: "Bearer " + token,
+		};
+	}
 
-  axios(requestData)
-    .then((res) => {
-      onSuccess(res.data);
-    })
-    .catch((error) => {
-      onFail(error.response);
-      // 	if(error.response){
-      // 	if (error.response.status === 401) {
-      // 		if (localStorage.getItem("persist:root")) {
-      // 			localStorage.removeItem("persist:root");
-      // 			window.location.reload();
-      // 		}
-      // 	}
-      // }
-    });
+	axios(requestData)
+		.then((res) => {
+			onSuccess(res.data);
+		})
+		.catch((error) => {
+			onFail(error.response);
+			// 	if(error.response){
+			// 	if (error.response.status === 401) {
+			// 		if (localStorage.getItem("persist:root")) {
+			// 			localStorage.removeItem("persist:root");
+			// 			window.location.reload();
+			// 		}
+			// 	}
+			// }
+		});
 }
 
 export function PatchResource(
-  path,
-  data,
-  onSuccess,
-  onFail,
-  reqAuth,
-  formData
+	path,
+	data,
+	onSuccess,
+	onFail,
+	reqAuth,
+	formData
 ) {
-  const requestData = {
-    method: "patch",
-    url: baseUrl + path,
-    headers: {},
-    data,
-  };
-  if (formData) {
-    requestData.headers = {
-      "content-type": "multipart/form-data",
-    };
-  }
+	const requestData = {
+		method: "patch",
+		url: baseUrl + path,
+		headers: {},
+		data,
+	};
+	if (formData) {
+		requestData.headers = {
+			"content-type": "multipart/form-data",
+		};
+	}
 
-  if (reqAuth && token) {
-    requestData.headers = {
-      Authorization: "Bearer " + token,
-    };
-  }
+	if (reqAuth && token) {
+		requestData.headers = {
+			Authorization: "Bearer " + token,
+		};
+	}
 
-  axios(requestData)
-    .then((res) => {
-      onSuccess(res.data);
-    })
-    .catch((err) => {
-      onFail(err.response);
-    });
+	axios(requestData)
+		.then((res) => {
+			onSuccess(res.data);
+		})
+		.catch((err) => {
+			onFail(err.response);
+		});
 }
