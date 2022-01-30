@@ -113,6 +113,7 @@ export const en = {
 		name: "Name",
 		expDate: "Exp.Date",
 		confirmPayment: "Confirm Payment",
+		willGetInTouch: "We will get on the below contact details ASAP!",
 	},
 	login: {
 		signin: "Sign in",

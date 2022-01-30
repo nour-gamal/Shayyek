@@ -15,6 +15,7 @@ function CartContainer() {
 		authorization,
 	} = useSelector((state) => state.authorization);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
+
 	const [products, updateProducts] = useState([]);
 	const [redirectTo, setRedirectTo] = useState(null);
 	let totalPrice = 0;
@@ -115,6 +116,7 @@ function CartContainer() {
 					state: {
 						isAuth: redirectTo === "checkout" ? true : false,
 						totalPrice,
+						products,
 					},
 				}}
 			/>
@@ -195,7 +197,7 @@ function CartContainer() {
 							: "button-primary flat"
 					}
 					onClick={handleCheckout}
-					// disabled={totalPrice === 0}
+					disabled={totalPrice === 0}
 				>
 					{currentLocal.suppliers.checkOut}
 				</button>

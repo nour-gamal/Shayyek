@@ -109,6 +109,7 @@ export const ar = {
 		name: "الاسم",
 		expDate: "تاريخ الانتهاء",
 		confirmPayment: "تاكيد الدفع",
+		willGetInTouch: "سنقوم بالتواصل معك في اسرع وقت",
 	},
 	login: {
 		signin: "تسجيل الدخول",

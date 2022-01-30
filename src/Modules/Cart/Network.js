@@ -1,4 +1,4 @@
-import { GetResource, PatchResource } from "../../Services";
+import { GetResource, PatchResource, PostResource } from "../../Services";
 
 export const getCart = (body, onSuccess, onFail, reqAuth = false) => {
 	let { userId, languageId, deviceId } = body;
@@ -22,4 +22,8 @@ export const GetPaymentMethods = (body, onSuccess, onFail, reqAuth = false) => {
 	let path = `api/Order/GetPaymentMethods?languageId=${languageId}`;
 
 	GetResource(path, onSuccess, onFail, reqAuth);
+};
+export const AddOrder = (body, onSuccess, onFail, reqAuth = true) => {
+	let path = `/api/Order/AddOrder`;
+	PostResource(path, body, onSuccess, onFail, reqAuth);
 };
