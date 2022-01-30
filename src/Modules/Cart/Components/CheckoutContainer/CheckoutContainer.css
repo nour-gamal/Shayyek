@@ -1,3 +1,15 @@
 .CheckoutContainer .title {
 	color: red;
 }
+.CheckoutContainer .form-control::placeholder {
+	color: rgba(3, 112, 255, 0.5);
+}
+.CheckoutContainer .form-control {
+	width: 80%;
+	margin: auto;
+	height: 52px;
+	border: 1px solid rgba(188, 224, 253, 1);
+}
+.CheckoutContainer .totalPrice {
+	color: red;
+}

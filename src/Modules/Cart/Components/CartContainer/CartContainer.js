@@ -103,10 +103,22 @@ function CartContainer() {
 			setRedirectTo("loginByEmail");
 		}
 	};
-
-	const productsCount = products.filter((product) => product.quantity !== 0)
-		.length;
-	if (redirectTo) return <Redirect to={redirectTo} />;
+	var productsCount = 0;
+	if (products && products.length) {
+		productsCount = products.filter((product) => product.quantity !== 0).length;
+	}
+	if (redirectTo)
+		return (
+			<Redirect
+				to={{
+					pathname: redirectTo,
+					state: {
+						isAuth: redirectTo === "checkout" ? true : false,
+						totalPrice,
+					},
+				}}
+			/>
+		);
 	return (
 		<div className="cartContainer my-4 d-flex flex-1 justify-content-between flex-column">
 			<div className="products-grid">
@@ -117,63 +129,74 @@ function CartContainer() {
 					{currentLocal.suppliers.inYourCart}
 				</div>
 				<div className="itemsContainer">
-					{products.map((product, productIndex) => {
-						totalPrice = totalPrice + product.quantity * product.price;
-						if (product.quantity > 0) {
-							return (
-								<div
-									className="productRow d-flex my-2 justify-content-between align-items-center"
-									key={product.cartId}
-								>
-									<img
-										src={baseUrl + product.productImage}
-										alt="productImage"
-										className="productImage"
-									/>
-									<div className="item productName">{product.productName}</div>
-									<div className="item">{product.productModelName}</div>
-									<div className="item">{product.productSizeName}</div>
-
-									<div className="d-flex item">
+					{products &&
+						products.map((product, productIndex) => {
+							totalPrice = totalPrice + product.quantity * product.price;
+							if (product.quantity > 0) {
+								return (
+									<div
+										className="productRow d-flex my-2 justify-content-between align-items-center"
+										key={product.cartId}
+									>
 										<img
-											src={minusCircle}
-											alt="minusCircle"
-											className="cursorPointer"
-											onClick={() => {
-												changeQuantity("remove", productIndex);
-											}}
+											src={baseUrl + product.productImage}
+											alt="productImage"
+											className="productImage"
 										/>
-										<div className="mx-2">
-											{product.quantity} {currentLocal.suppliers.items}
+										<div className="item productName">
+											{product.productName}
 										</div>
-										<img
-											src={plusCircle}
-											alt="plusCircle"
-											className="cursorPointer"
-											onClick={() => {
-												changeQuantity("add", productIndex);
-											}}
-										/>
+										<div className="item">{product.productModelName}</div>
+										<div className="item">{product.productSizeName}</div>
+
+										<div className="d-flex item">
+											<img
+												src={minusCircle}
+												alt="minusCircle"
+												className="cursorPointer"
+												onClick={() => {
+													changeQuantity("remove", productIndex);
+												}}
+											/>
+											<div className="mx-2">
+												{product.quantity} {currentLocal.suppliers.items}
+											</div>
+											<img
+												src={plusCircle}
+												alt="plusCircle"
+												className="cursorPointer"
+												onClick={() => {
+													changeQuantity("add", productIndex);
+												}}
+											/>
+										</div>
+										<div className="item">{product.price} LE</div>
+										<div className="item">
+											<img
+												src={garbage}
+												alt="garbage"
+												className="cursorPointer"
+												onClick={(e) => {
+													deleteProduct(productIndex);
+												}}
+											/>
+										</div>
 									</div>
-									<div className="item">{product.price} LE</div>
-									<div className="item">
-										<img
-											src={garbage}
-											alt="garbage"
-											className="cursorPointer"
-											onClick={(e) => {
-												deleteProduct(productIndex);
-											}}
-										/>
-									</div>
-								</div>
-							);
-						} else return "";
-					})}
+								);
+							} else return "";
+						})}
 				</div>
 			</div>
 			<div className="text-center">
-				<button className="button-primary flat" onClick={handleCheckout}>
+				<button
+					className={
+						totalPrice === 0
+							? "button-primary flat disabledField"
+							: "button-primary flat"
+					}
+					onClick={handleCheckout}
+					// disabled={totalPrice === 0}
+				>
 					{currentLocal.suppliers.checkOut}
 				</button>
 				<div className="fw-500 mt-2">

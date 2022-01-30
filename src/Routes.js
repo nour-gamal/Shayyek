@@ -68,9 +68,9 @@ function Routes() {
 					/>
 					<Route
 						path="/Checkout"
-						render={() => {
+						render={(props) => {
 							return isGuestOrBuyer && isAuth ? (
-								<Checkout />
+								<Checkout {...props} />
 							) : (
 								<Redirect to="/" />
 							);

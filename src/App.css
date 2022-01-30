@@ -236,7 +236,10 @@ section {
 	padding-left: 64px;
 	padding-right: 64px;
 }
-
+.disabledField {
+	background: #003b6b8e;
+	cursor: not-allowed;
+}
 .button-secondary {
 	background: transparent;
 	border: 1px solid #f50000;
@@ -458,6 +461,15 @@ thead:hover {
 	flex: 1;
 }
 /* flexbox */
+
+.form-control::placeholder {
+	color: rgba(3, 112, 255, 0.5);
+}
+.form-control {
+	margin: 10px auto !important;
+	border: 1px solid rgba(188, 224, 253, 1);
+}
+
 @media (max-width: 480px) {
 	.ant-table-cell {
 		padding: 8px 10px !important;

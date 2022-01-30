@@ -17,3 +17,9 @@ export const updateCart = (data, onSuccess, onFail) => {
 	const path = `api/cart/updateCart?orderDetailsId=${cartId}&quantity=${quantity}&deviceId=${deviceId}`;
 	PatchResource(path, {}, onSuccess, onFail);
 };
+export const GetPaymentMethods = (body, onSuccess, onFail, reqAuth = false) => {
+	let { languageId } = body;
+	let path = `api/Order/GetPaymentMethods?languageId=${languageId}`;
+
+	GetResource(path, onSuccess, onFail, reqAuth);
+};
