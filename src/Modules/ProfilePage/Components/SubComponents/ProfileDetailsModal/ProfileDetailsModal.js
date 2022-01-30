@@ -54,6 +54,8 @@ function ProfileDetailsModal({
   const [alert, setAlert] = useState(false);
   const [validationAlert, toggleValidationAlert] = useState(false);
   const userTypeName = authorType(accountTypeId, userTypeId, roleId);
+  console.log(userTypeName, accountTypeId, userTypeId, roleId);
+  console.log(authorization);
 
   useEffect(() => {
     getCategoriesWithSelected(
@@ -105,7 +107,7 @@ function ProfileDetailsModal({
   }, [currentLanguageId]);
 
   useEffect(() => {
-    if (userTypeName.includes("buyer")) {
+    if (userTypeName?.includes("buyer")) {
       getBuyerProfile(
         currentLanguageId,
         (success) => {
@@ -392,7 +394,7 @@ function ProfileDetailsModal({
                 </div>
                 <div>**********</div>
               </div>
-              {userTypeName.includes("company_admin") && (
+              {userTypeName?.includes("company_admin") && (
                 <>
                   <div className="labelContainer d-flex  justify-content-between">
                     <div>
@@ -430,7 +432,7 @@ function ProfileDetailsModal({
                 </>
               )}
             </Col>
-            {userTypeName.includes("company_admin") && (
+            {userTypeName?.includes("company_admin") && (
               <Col xs={24} md={12}>
                 <div className="d-flex align-items-center">
                   <input

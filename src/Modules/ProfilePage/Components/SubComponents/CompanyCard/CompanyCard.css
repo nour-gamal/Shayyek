@@ -6,6 +6,18 @@
   padding: 1.5rem;
   position: relative;
 }
+
+.companyCard.sidebar {
+  margin-right: 0;
+  box-shadow: none;
+}
+.companyCard.sidebar .companyCard__header {
+  flex-direction: column;
+}
+.companyCard.sidebar .companyCard__btn {
+  margin-bottom: 1rem;
+}
+
 .companyCard .companCard__edit {
   position: absolute;
   top: 0.5rem;

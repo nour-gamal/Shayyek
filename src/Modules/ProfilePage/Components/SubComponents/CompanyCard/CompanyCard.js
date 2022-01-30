@@ -5,7 +5,7 @@ import { baseUrl } from "../../../../../Services";
 import ProfileDetailsModal from "../ProfileDetailsModal/ProfileDetailsModal";
 import { authorType } from "../../../../../helpers/authType";
 import "./CompanyCard.css";
-function CompanyCard({ companyDetails, parent }) {
+function CompanyCard({ companyDetails, sidebar }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const {
     authorization,
@@ -20,11 +20,9 @@ function CompanyCard({ companyDetails, parent }) {
     <>
       {userTypeName.includes("company_admin") && companyDetails && (
         <div
-          className={
-            userTypeName.includes("company_admin")
-              ? "companyCard min-height-100"
-              : "companyCard"
-          }
+          className={`companyCard ${
+            userTypeName.includes("company_admin") ? "min-height-100" : ""
+          } ${sidebar ? "sidebar" : ""}`}
         >
           <div className="d-flex align-items-center justify-content-between companyCard__header">
             <header className="d-flex align-items-center justify-content-start">

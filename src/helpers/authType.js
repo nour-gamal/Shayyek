@@ -1,15 +1,16 @@
 import userTypeNames from "./authTypeNames";
+
 export const authorType = function(accountTypeId, userTypeId, roleId = null) {
+  console.log(accountTypeId === "436b77d6-bc46-4527-bc72-ec7fc595e16d");
   // contractor
-  if (userTypeId === "436b77d6-bc46-4527-bc72-ec7fc595e16d") {
-    if (accountTypeId === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f") {
+  if (accountTypeId === "436b77d6-bc46-4527-bc72-ec7fc595e16d") {
+    if (userTypeId === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f") {
       if (roleId === "4940d4e9-8bfd-467d-a9d9-20f719cdff93") {
         return userTypeNames.contractor_company_employee;
       } else {
         return userTypeNames.contractor_company_admin;
       }
     } else return userTypeNames.contractor_individual;
-
     // buyer
   } else if (userTypeId === "4dbe2854-fee8-4466-a9f0-aacf394a5b7e") {
     if (accountTypeId === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f") {

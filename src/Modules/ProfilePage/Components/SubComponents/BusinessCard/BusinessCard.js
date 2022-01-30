@@ -2,17 +2,22 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 // components
 import { Tree } from "antd";
+import { authorType } from "../../../../../helpers/authType";
 import ProfileDetailsModal from "../ProfileDetailsModal/ProfileDetailsModal";
 // style
 import "./BusinessCard.css";
 
-function BusinessCard({ profileDetails, parent, AdminView }) {
+function BusinessCard({ profileDetails, parent, adminView }) {
   const [workField, updateWorkField] = useState([]);
   const [
     profileDetailsModalVisibility,
     toggleProfileDetailsModalVisibility,
   ] = useState(false);
   const { currentLocal } = useSelector((state) => state.currentLocal);
+  const {
+    authorization: { accountTypeId, userTypeId, roleId },
+  } = useSelector((state) => state.authorization);
+  console.log(authorType(accountTypeId, userTypeId, roleId));
 
   useEffect(() => {
     var treeData = [];
@@ -38,7 +43,6 @@ function BusinessCard({ profileDetails, parent, AdminView }) {
         });
       });
     }
-
     updateWorkField(treeData);
   }, [profileDetails]);
 
@@ -48,14 +52,14 @@ function BusinessCard({ profileDetails, parent, AdminView }) {
         className={`businessCard ${parent === "contractorIndividual" &&
           "d-flex flex-1"}`}
       >
-        {!AdminView && (
+        {!adminView ? (
           <button
             className="businessCard__edit"
             onClick={() => toggleProfileDetailsModalVisibility(true)}
           >
             ...
           </button>
-        )}
+        ) : null}
 
         <ul className="list-unstyled f-14">
           <li className="item">
@@ -98,7 +102,7 @@ function BusinessCard({ profileDetails, parent, AdminView }) {
         <ProfileDetailsModal
           onCancel={() => toggleProfileDetailsModalVisibility(false)}
           isModalVisible={profileDetailsModalVisibility}
-          adminView={AdminView}
+          adminView={adminView}
         />
       )}
     </>

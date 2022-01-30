@@ -36,11 +36,13 @@ function App() {
 
   useEffect(() => {
     const fpPromise = FingerprintJS.load();
-
     // Get the visitor identifier when you need it.
     fpPromise
       .then((fp) => fp.get())
-      .then((result) => dispatch(getDeviceId({ deviceId: result.visitorId })));
+      .then((result) => {
+        console.log(result.visitorId);
+        dispatch(getDeviceId({ deviceId: result.visitorId }));
+      });
     const messaging = getMessaging();
     getToken(messaging, {
       vapidKey:
@@ -89,12 +91,10 @@ function App() {
           );
         }
       });
-
     GetLanguages(
       (success) => {
         localStorage.setItem("englishId", success.data[0].id);
         localStorage.setItem("arabicId", success.data[1].id);
-
         dispatch(
           changeLocal(currentLocal.language === "English" ? "en" : "ar")
         );

@@ -2,20 +2,32 @@ import { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
 import { ProgressBar } from "react-bootstrap";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 // component
 import { baseUrl } from "../../../../../Services";
 import { acceptOrRejectUser } from "../../../network";
 import DraftIcon from "../../../../../Resources/Assets/draft.svg";
-import "./Personalnfo.css";
+import { authorType } from "../../../../../helpers/authType";
 import DraftsModal from "./../DraftsModal/DraftsModal";
+// style
+import "./Personalnfo.css";
 
-function Personalnfo({ parent, count, profileDetails, adminView, history }) {
+function Personalnfo({
+  parent,
+  count,
+  profileDetails,
+  adminView,
+  history,
+  company,
+}) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  const { authorization } = useSelector((state) => state.authorization);
+  const {
+    authorization,
+    authorization: { accountTypeId, userTypeId, roleId },
+  } = useSelector((state) => state.authorization);
   const [isActive, setIsActive] = useState(profileDetails?.isActive);
   const [draftsModalVisible, updateDraftsModalVisible] = useState(false);
-
+  const authorTypeName = authorType(accountTypeId, userTypeId, roleId);
   function acceptOrRejectUserAction(isActive) {
     acceptOrRejectUser(
       { isActive, rejectedUserId: profileDetails.userId },
@@ -63,11 +75,7 @@ function Personalnfo({ parent, count, profileDetails, adminView, history }) {
               ) : (
                 <>
                   <ReactStars
-                    edit={false}
-                    count={5}
-                    value={3}
-                    size={24}
-                    activeColor="#ffd700"
+                    edit={false} count={5} value={3} size={24} activeColor="#ffd700"
                     classNames={
                       currentLocal.language === "English"
                         ? "ltrStars"
@@ -90,28 +98,30 @@ function Personalnfo({ parent, count, profileDetails, adminView, history }) {
             </div>
           </div>
           <div className="profileHeader__info">
-            {parent.includes("company_admin") && !isActive && (
-              <div
-                className={
-                  currentLocal.language === "English"
-                    ? "actions left"
-                    : "actions right"
-                }
-              >
-                <button
-                  className="popup-button-secondary mx-2"
-                  onClick={() => acceptOrRejectUserAction(false)}
+            {authorTypeName.includes("company_admin") &&
+              adminView &&
+              !isActive && (
+                <div
+                  className={
+                    currentLocal.language === "English"
+                      ? "actions left"
+                      : "actions right"
+                  }
                 >
-                  {currentLocal.profilePage.reject}
-                </button>
-                <button
-                  className="popup-button-primary mx-2"
-                  onClick={() => acceptOrRejectUserAction(true)}
-                >
-                  {currentLocal.profilePage.accept}
-                </button>
-              </div>
-            )}
+                  <button
+                    className="popup-button-secondary mx-2"
+                    onClick={() => acceptOrRejectUserAction(false)}
+                  >
+                    {currentLocal.profilePage.reject}
+                  </button>
+                  <button
+                    className="popup-button-primary mx-2"
+                    onClick={() => acceptOrRejectUserAction(true)}
+                  >
+                    {currentLocal.profilePage.accept}
+                  </button>
+                </div>
+              )}
           </div>
         </header>
       ) : (
@@ -161,13 +171,17 @@ function Personalnfo({ parent, count, profileDetails, adminView, history }) {
             </div>
           </div>
           <div className="profileHeader__info">
-            {parent === "buyerAdmin" ? (
+            {authorTypeName.includes("buyer_company_admin") &&
+            !adminView &&
+            company ? (
               <>
-                <button className="orange_btn mx-2">
-                  {currentLocal.profilePage.manageCompany}
-                </button>
+                <Link to={`/company/${company?.name}`}>
+                  <button className="orange_btn mx-2">
+                    {currentLocal.profilePage.manageCompany}
+                  </button>
+                </Link>
               </>
-            ) : parent === "Supplier" ? (
+            ) : parent === "Supplier" ? ( // supplier? -> here
               <>
                 <div
                   className="d-flex align-items-center cursorPointer"
@@ -183,7 +197,8 @@ function Personalnfo({ parent, count, profileDetails, adminView, history }) {
                 </div>
               </>
             ) : (
-              parent.includes("company_admin") && (
+              parent.includes("company_admin") &&
+              adminView && (
                 <div
                   className={
                     currentLocal.language === "English"

@@ -30,9 +30,9 @@ function Routes() {
   let companyAdmin;
   if (accountTypeId) {
     var authTypeName = authorType(accountTypeId, userTypeId, roleId);
-    companyAdmin = authTypeName.includes("company_admin");
+    companyAdmin = authTypeName?.includes("company_admin");
   }
-  const isGuestOrBuyer = !accountTypeId || authTypeName.includes("buyer");
+  const isGuestOrBuyer = !accountTypeId || authTypeName?.includes("buyer");
   return (
     <Route
       render={({ location }) => (
