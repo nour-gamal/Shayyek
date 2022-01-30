@@ -20,6 +20,7 @@ function Personalnfo({
   history,
   company,
 }) {
+  // console.log()
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const {
     authorization,
@@ -28,11 +29,12 @@ function Personalnfo({
   const [isActive, setIsActive] = useState(profileDetails?.isActive);
   const [draftsModalVisible, updateDraftsModalVisible] = useState(false);
   const authorTypeName = authorType(accountTypeId, userTypeId, roleId);
+  console.log("isActive", isActive);
   function acceptOrRejectUserAction(isActive) {
     acceptOrRejectUser(
       { isActive, rejectedUserId: profileDetails.userId },
       (success) => {
-        if (success.success && success.data) {
+        if (success.success) {
           setIsActive(false);
         } else {
           history.goBack();
@@ -45,7 +47,6 @@ function Personalnfo({
       updateDraftsModalVisible(true);
     }
   }
-
   return (
     <div className="PersonalInfo">
       {adminView ? (
@@ -138,7 +139,7 @@ function Personalnfo({
             />
             <div className="info mx-4">
               <div className="fw-600">{authorization.fullName}</div>
-              {parent === "buyerAdmin" ? (
+              {authorTypeName.includes("buyer") ? (
                 <>
                   <div className="my-1">{authorization.email}</div>
                   <div className="my-1 mobile">{authorization.mobile}</div>
@@ -171,7 +172,7 @@ function Personalnfo({
             </div>
           </div>
           <div className="profileHeader__info">
-            {authorTypeName.includes("buyer_company_admin") &&
+            {authorTypeName.includes("company_admin") &&
             !adminView &&
             company ? (
               <>
@@ -181,7 +182,8 @@ function Personalnfo({
                   </button>
                 </Link>
               </>
-            ) : parent === "Supplier" ? ( // supplier? -> here
+            ) : authorTypeName.includes("contractor") ||
+              authorTypeName.includes("supplier") ? (
               <>
                 <div
                   className="d-flex align-items-center cursorPointer"
@@ -206,10 +208,16 @@ function Personalnfo({
                       : "actions right"
                   }
                 >
-                  <button className="popup-button-secondary mx-2">
+                  <button
+                    className="popup-button-secondary mx-2"
+                    onClick={() => acceptOrRejectUserAction(false)}
+                  >
                     {currentLocal.profilePage.reject}
                   </button>
-                  <button className="popup-button-primary mx-2">
+                  <button
+                    className="popup-button-primary mx-2"
+                    onClick={() => acceptOrRejectUserAction(true)}
+                  >
                     {currentLocal.profilePage.accept}
                   </button>
                 </div>

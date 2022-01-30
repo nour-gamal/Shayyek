@@ -20,9 +20,11 @@ const ManageCompany = () => {
   const { currentLocal, currentLanguageId } = useSelector(
     (state) => state.currentLocal
   );
+
   const {
     authorization: { companyId },
   } = useSelector((state) => state.authorization);
+
   const [data, updateData] = useState(null);
   useEffect(() => {
     getUsersByComapnyAdmin(
