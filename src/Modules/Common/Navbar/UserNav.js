@@ -8,6 +8,9 @@ import { Menu, Dropdown } from "antd";
 import arrowDown from "../../../Resources/Assets/arrowDown.svg";
 import { logout } from "../../../Redux/Authorization";
 import { baseUrl } from "../../../Services";
+import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
+import cart from "../../../Resources/Assets/cart.svg";
+
 function UserNav({ loginState }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
@@ -64,6 +67,7 @@ function UserNav({ loginState }) {
 							{authorization.fullName}
 						</Link>
 					</span>
+
 					<Dropdown
 						overlay={menu}
 						trigger={["click"]}
@@ -77,6 +81,7 @@ function UserNav({ loginState }) {
 							<img src={arrowDown} alt="arrowDown" />
 						</a>
 					</Dropdown>
+
 					<Link to={`/me/${authorization.fullName}`}>
 						<img
 							className={"avatar rounded-circle d-flex align-items-center mx-4"}
@@ -89,7 +94,17 @@ function UserNav({ loginState }) {
 						/>
 					</Link>
 				</div>
-				<Nav.Link href="#" className="ml-3">
+				<Link to="/suppliers" className="nav-link d-inline d-lg-none">
+					<img src={AllSuppliers} alt="AllSuppliers" />
+					<span className="color-white mx-1 ">
+						{currentLocal.navbar.AllSuppliers}
+					</span>
+				</Link>
+				<Link to="/cart" className="nav-link d-inline d-lg-none">
+					<img src={cart} alt="cart" />
+					<span className="color-white mx-1 ">{currentLocal.navbar.cart}</span>
+				</Link>
+				<Nav.Link href="#">
 					<img
 						src={languages}
 						alt="languages"

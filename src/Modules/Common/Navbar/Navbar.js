@@ -8,11 +8,12 @@ import { useSelector, useDispatch } from "react-redux";
 import languages from "../../../Resources/Assets/languages.svg";
 import GuestNav from "./GuestNav";
 import { changeLocal } from "../../../Redux/Localization";
-import Chat from "../../../Resources/Assets/ChatIcon.svg";
+import Chat from "../../../Resources/Assets/ChatIcon.png";
 import Notification from "../../../Resources/Assets/Notification Icon.svg";
-import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
 import UserNav from "./UserNav";
 import cart from "../../../Resources/Assets/cart.svg";
+import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
+import { authorType } from "../../../helpers/authType";
 import "./Navbar.css";
 
 function Navbarr({ navState, verifayState, transparent }) {
@@ -21,6 +22,13 @@ function Navbarr({ navState, verifayState, transparent }) {
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
 	const loginState = authorization.userTypeId ? true : false;
+	const {
+		authorization: { userTypeId, accountTypeId, roleId },
+	} = useSelector((state) => state.authorization);
+	const isBuyer =
+		authorType(accountTypeId, userTypeId, roleId) &&
+		authorType(accountTypeId, userTypeId, roleId).includes("buyer");
+
 	return (
 		<Navbar
 			expand="lg"
@@ -56,17 +64,22 @@ function Navbarr({ navState, verifayState, transparent }) {
 
 			{!navState && loginState && (
 				<span className="controlIcon d-flex justify-content-end">
-					<Link to="/cart" className="nav-link">
-						<img src={cart} alt="cart" />
-						<span className="color-white"> {currentLocal.navbar.cart}</span>
-					</Link>
-					<Link to="/suppliers" className="nav-link">
-						<img src={AllSuppliers} alt="AllSuppliers" />
-						<span className="color-white">
-							{" "}
-							{currentLocal.navbar.AllSuppliers}
+					{isBuyer && (
+						<span className="align-content-center d-flex">
+							<Link to="/suppliers" className="nav-link d-none d-lg-inline">
+								<img src={AllSuppliers} alt="AllSuppliers" />
+								<span className="color-white mx-1 ">
+									{currentLocal.navbar.AllSuppliers}
+								</span>
+							</Link>
+							<Link to="/cart" className="nav-link d-none d-lg-inline">
+								<img src={cart} alt="cart" />
+								<span className="color-white mx-1 ">
+									{currentLocal.navbar.cart}
+								</span>
+							</Link>
 						</span>
-					</Link>
+					)}
 					<Link to="/loginByEmail" className="nav-link">
 						<img src={Chat} alt="Chat" />
 					</Link>
