@@ -102,6 +102,13 @@ export const ar = {
 		inYourCart: "في العربه",
 		checkOut: "الدفع",
 		checkOutFor: "ادفع ل ",
+		paymentMethod: "طريقه الدفع",
+		paymentDetails: "تفاصيل الدفع",
+		cardNumber: "رقم البطاقه",
+		CVV: "رقم بطاقه التحقق",
+		name: "الاسم",
+		expDate: "تاريخ الانتهاء",
+		confirmPayment: "تاكيد الدفع",
 	},
 	login: {
 		signin: "تسجيل الدخول",

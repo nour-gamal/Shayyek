@@ -98,7 +98,7 @@ function CartContainer() {
 
 	const handleCheckout = () => {
 		if (isAuth) {
-			setRedirectTo("payCart");
+			setRedirectTo("checkout");
 		} else {
 			setRedirectTo("loginByEmail");
 		}

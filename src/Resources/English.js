@@ -106,6 +106,13 @@ export const en = {
 		inYourCart: "in your cart",
 		checkOut: "Checkout",
 		checkoutFor: "Checkout for",
+		paymentMethod: "Payment Method",
+		paymentDetails: "Payment Details",
+		cardNumber: "Card Number",
+		CVV: "CVV",
+		name: "Name",
+		expDate: "Exp.Date",
+		confirmPayment: "Confirm Payment",
 	},
 	login: {
 		signin: "Sign in",
