@@ -47,6 +47,7 @@ function UserNav({ loginState }) {
 							<img src={arrowDown} alt="arrowDown" className="arrowDown" />
 						</a>
 					</Dropdown>
+
 					<span
 						className={
 							currentLocal.language === "English"
@@ -63,7 +64,6 @@ function UserNav({ loginState }) {
 							{authorization.fullName}
 						</Link>
 					</span>
-
 					<Dropdown
 						overlay={menu}
 						trigger={["click"]}

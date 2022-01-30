@@ -5,7 +5,7 @@ import { baseUrl } from "../../../../Services";
 import minusCircle from "../../../../Resources/Assets/minusCircle.png";
 import plusCircle from "../../../../Resources/Assets/plusCircle.png";
 import garbage from "../../../../Resources/Assets/garbage.svg";
-// style
+import { Redirect } from "react-router-dom";
 import "./CartContainer.css";
 
 function CartContainer() {
@@ -16,6 +16,7 @@ function CartContainer() {
 	} = useSelector((state) => state.authorization);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [products, updateProducts] = useState([]);
+	const [redirectTo, setRedirectTo] = useState(null);
 	let totalPrice = 0;
 	const isAuth = Object.keys(authorization).length > 0;
 
@@ -94,9 +95,18 @@ function CartContainer() {
 		);
 		updateProducts(allProducts);
 	};
+
+	const handleCheckout = () => {
+		if (isAuth) {
+			setRedirectTo("payCart");
+		} else {
+			setRedirectTo("loginByEmail");
+		}
+	};
+
 	const productsCount = products.filter((product) => product.quantity !== 0)
 		.length;
-
+	if (redirectTo) return <Redirect to={redirectTo} />;
 	return (
 		<div className="cartContainer my-4 d-flex flex-1 justify-content-between flex-column">
 			<div className="products-grid">
@@ -163,7 +173,7 @@ function CartContainer() {
 				</div>
 			</div>
 			<div className="text-center">
-				<button className="button-primary flat">
+				<button className="button-primary flat" onClick={handleCheckout}>
 					{currentLocal.suppliers.checkOut}
 				</button>
 				<div className="fw-500 mt-2">

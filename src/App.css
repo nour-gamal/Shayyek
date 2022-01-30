@@ -194,6 +194,9 @@ section {
 .ant-modal-body::-webkit-scrollbar {
 	display: none;
 }
+.color-white {
+	color: "#fff";
+}
 
 .modal-sm {
 	width: 45% !important;
