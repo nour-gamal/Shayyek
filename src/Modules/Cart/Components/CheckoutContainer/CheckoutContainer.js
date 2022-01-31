@@ -2,16 +2,20 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Radio, Row, Col } from "antd";
 import { GetPaymentMethods, AddOrder } from "../../Network";
+import { Redirect } from "react-router-dom";
 import SuccessModal from "../SuccessModal/SuccessModal";
 import "./CheckoutContainer.css";
 
-function CheckoutContainer({ totalPrice }) {
+function CheckoutContainer({ totalPrice, products }) {
 	const { currentLocal, currentLanguageId } = useSelector(
 		(state) => state.currentLocal
 	);
-	const [radioValue, setRadioValue] = useState(0);
+	const [redirectTo, setRedirectTo] = useState(null);
+	const [radioValue, setRadioValue] = useState(
+		"357e5c60-7eaa-4d0f-bedf-f2e582cb6042"
+	);
 	const [radioOptions, updateRadioOptions] = useState([]);
-	const [isModalVisible, updateModalVisible] = useState(true);
+	const [isModalVisible, updateModalVisible] = useState(false);
 	useEffect(() => {
 		GetPaymentMethods({ languageId: currentLanguageId }, (success) => {
 			updateRadioOptions(success.data);
@@ -24,26 +28,21 @@ function CheckoutContainer({ totalPrice }) {
 	const handleAddOrder = () => {
 		let body = {
 			paymentMethodId: radioValue,
-			orderDetails: [
-				{
-					productId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-					quantity: 0,
-					price: 0,
-					productSizeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-					productModelId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-				},
-			],
+			orderDetails: products,
 		};
 		AddOrder(
 			body,
 			(success) => {
-				console.log(success);
+				if (success.success) {
+					updateModalVisible(true);
+				}
 			},
 			(fail) => {
 				console.log(fail);
 			}
 		);
 	};
+	if (redirectTo) return <Redirect to={redirectTo} />;
 	return (
 		<div className="CheckoutContainer d-flex flex-1 flex-column">
 			<div className="my-4">
@@ -109,6 +108,7 @@ function CheckoutContainer({ totalPrice }) {
 				isModalVisible={isModalVisible}
 				onCancel={() => {
 					updateModalVisible(!isModalVisible);
+					setRedirectTo("/");
 				}}
 			/>
 		</div>

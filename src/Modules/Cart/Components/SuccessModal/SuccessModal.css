@@ -1,0 +1,10 @@
+.successModal .ant-modal-body {
+	display: flex;
+	font-weight: bold;
+}
+
+@media (max-width: 768px) {
+	.f-27 {
+		font-size: 18px !important;
+	}
+}

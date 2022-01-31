@@ -24,6 +24,6 @@ export const GetPaymentMethods = (body, onSuccess, onFail, reqAuth = false) => {
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
 export const AddOrder = (body, onSuccess, onFail, reqAuth = true) => {
-	let path = `/api/Order/AddOrder`;
+	let path = `api/Order/AddOrder`;
 	PostResource(path, body, onSuccess, onFail, reqAuth);
 };

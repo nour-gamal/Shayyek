@@ -18,9 +18,9 @@ function CartContainer() {
 
 	const [products, updateProducts] = useState([]);
 	const [redirectTo, setRedirectTo] = useState(null);
-	let totalPrice = 0;
+	const [finalPrice, updateFinalPrice] = useState(0);
+	var totalPrice = 0;
 	const isAuth = Object.keys(authorization).length > 0;
-
 	useEffect(() => {
 		let body = {
 			languageId: currentLanguageId,
@@ -98,6 +98,7 @@ function CartContainer() {
 	};
 
 	const handleCheckout = () => {
+		updateFinalPrice(totalPrice);
 		if (isAuth) {
 			setRedirectTo("checkout");
 		} else {
@@ -108,6 +109,7 @@ function CartContainer() {
 	if (products && products.length) {
 		productsCount = products.filter((product) => product.quantity !== 0).length;
 	}
+
 	if (redirectTo)
 		return (
 			<Redirect
@@ -115,7 +117,7 @@ function CartContainer() {
 					pathname: redirectTo,
 					state: {
 						isAuth: redirectTo === "checkout" ? true : false,
-						totalPrice,
+						totalPrice: finalPrice,
 						products,
 					},
 				}}
@@ -136,52 +138,52 @@ function CartContainer() {
 							totalPrice = totalPrice + product.quantity * product.price;
 							if (product.quantity > 0) {
 								return (
-									<div
-										className="productRow d-flex my-2 justify-content-between align-items-center"
-										key={product.cartId}
-									>
-										<img
-											src={baseUrl + product.productImage}
-											alt="productImage"
-											className="productImage"
-										/>
-										<div className="item productName">
-											{product.productName}
-										</div>
-										<div className="item">{product.productModelName}</div>
-										<div className="item">{product.productSizeName}</div>
-
-										<div className="d-flex item">
+									<div className="productRow d-flex my-2" key={product.cartId}>
+										<div className="d-flex justify-content-between align-items-center flex-1">
 											<img
-												src={minusCircle}
-												alt="minusCircle"
-												className="cursorPointer"
-												onClick={() => {
-													changeQuantity("remove", productIndex);
-												}}
+												src={baseUrl + product.productImage}
+												alt="productImage"
+												className="productImage"
 											/>
-											<div className="mx-2">
-												{product.quantity} {currentLocal.suppliers.items}
+											<div className="item productName">
+												{product.productName}
 											</div>
-											<img
-												src={plusCircle}
-												alt="plusCircle"
-												className="cursorPointer"
-												onClick={() => {
-													changeQuantity("add", productIndex);
-												}}
-											/>
+											<div className="item">{product.productModelName}</div>
+											<div className="item">{product.productSizeName}</div>
 										</div>
-										<div className="item">{product.price} LE</div>
-										<div className="item">
-											<img
-												src={garbage}
-												alt="garbage"
-												className="cursorPointer"
-												onClick={(e) => {
-													deleteProduct(productIndex);
-												}}
-											/>
+										<div className="d-flex justify-content-between align-items-center flex-1">
+											<div className="d-flex item">
+												<img
+													src={minusCircle}
+													alt="minusCircle"
+													className="cursorPointer"
+													onClick={() => {
+														changeQuantity("remove", productIndex);
+													}}
+												/>
+												<div className="mx-2">
+													{product.quantity} {currentLocal.suppliers.items}
+												</div>
+												<img
+													src={plusCircle}
+													alt="plusCircle"
+													className="cursorPointer"
+													onClick={() => {
+														changeQuantity("add", productIndex);
+													}}
+												/>
+											</div>
+											<div className="item">{product.price} LE</div>
+											<div className="item">
+												<img
+													src={garbage}
+													alt="garbage"
+													className="cursorPointer"
+													onClick={(e) => {
+														deleteProduct(productIndex);
+													}}
+												/>
+											</div>
 										</div>
 									</div>
 								);

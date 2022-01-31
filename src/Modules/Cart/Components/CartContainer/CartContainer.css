@@ -1,3 +1,6 @@
+.cartContainer {
+	width: 100%;
+}
 .cartContainer .productRow {
 	background-color: #fbfbfb;
 	padding: 10px;
@@ -10,10 +13,10 @@
 	height: auto;
 	border-radius: 25px;
 }
-.cartContainer .item {
-	width: 14%;
+/* .cartContainer .item {
+	max-width: 14%;
 	word-break: break-all;
-}
+} */
 
 .cartContainer .item {
 	text-align: end;
@@ -26,4 +29,14 @@
 }
 .cartContainer .itemsContainer {
 	overflow: auto;
+}
+
+@media (max-width: 768px) {
+	.cartContainer .productRow {
+		flex-direction: column;
+		text-align: center;
+	}
+	.cartContainer .productRow > div:nth-of-type(2) {
+		margin-top: 10px;
+	}
 }
