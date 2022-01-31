@@ -1,0 +1,109 @@
+.singleUserChatMessage {
+  background: #f5f5f5;
+}
+.singleUserChatMessage_container {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.singleUserChatMessage_chat {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.singleUserChatMessage_chat textarea {
+  border-radius: 2rem;
+  padding: 1rem 1rem;
+  line-height: 1;
+}
+
+.singleUserChatMessage_send {
+  display: flex;
+}
+
+.singleUserChatMessage_send .chat__uploader {
+  display: flex;
+  align-items: center;
+}
+.singleUserChatMessage_send .chat__controler {
+  display: flex;
+  align-items: center;
+  margin-inline-start: 0.5rem;
+}
+
+.singleUserChatMessage_body .chat__messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  height: 100%;
+  padding-bottom: 1rem;
+}
+
+.singleUserChatMessage_body .chat__messages .message-item .time {
+  color: #aeaeae;
+}
+
+.singleUserChatMessage_body .chat__messages .message-item img.user {
+  width: 50px;
+  height: 50px;
+}
+
+.singleUserChatMessage_body .chat__messages .message-item .text {
+  margin-bottom: 0 !important;
+  background: #a6d2f7;
+  align-self: stretch;
+  padding: 0 1rem;
+  border-radius: 25px;
+  font-size: 14px;
+  display: table;
+  padding: 1rem 1rem;
+}
+
+.singleUserChatMessage_body .chat__messages .message-item__container {
+  max-width: 50%;
+}
+.singleUserChatMessage_body
+  .chat__messages
+  .message-item
+  .text
+  > span.vertically_center {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+/* sender */
+.singleUserChatMessage_body .chat__messages .message-item.sender .wrapper {
+  align-items: flex-end;
+}
+.singleUserChatMessage_body .chat__messages .message-item.sender img.user {
+  margin-inline-end: 0.63rem;
+}
+
+/* reciever */
+
+.singleUserChatMessage_body .chat__messages .message-item.reciver {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.singleUserChatMessage_body .chat__messages .message-item.reciver .wrapper {
+  flex-direction: row-reverse;
+}
+.singleUserChatMessage_body .chat__messages .message-item.reciver img.user {
+  margin-inline-start: 0.63rem;
+}
+
+.singleUserChatMessage_body .chat__messages .message-item.sender .time {
+  text-align: end;
+}
+
+.singleUserChatMessage_body .chat__messages .message-item.reciver .time {
+  text-align: start;
+}
+
+html[dir="rtl"] .chat__icon {
+  transform: scale(-1);
+}

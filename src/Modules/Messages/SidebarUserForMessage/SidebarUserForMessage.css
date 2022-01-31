@@ -1,0 +1,39 @@
+.SidebarUserForMessage {
+  background: white;
+  box-shadow: 0 0 5px 0 #333;
+  height: 100%;
+}
+
+.SidebarUserForMessage__figure {
+  width: 2.5rem;
+  height: 2.5rem;
+  overflow: hidden;
+  margin-inline-end: 0.5rem;
+}
+
+.SidebarUserForMessage__figure img {
+  width: 100%;
+}
+
+.SidebarUserForMessage__list {
+  padding: 0;
+}
+
+.SidebarUserForMessage__item {
+  padding-inline-start: 0.5rem;
+  padding-inline-end: 0.5rem;
+  padding-bottom: 0;
+  padding: 0.75rem 0.5rem;
+  box-shadow: 0px 2px 2px #00000029;
+  margin-bottom: 0;
+}
+
+.SidebarUserForMessage__item h5 {
+  font-size: 1rem;
+}
+
+.SidebarUserForMessage__item button {
+  font-size: 1.25rem;
+  font-weight: bold;
+  line-height: 0;
+}

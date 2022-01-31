@@ -60,6 +60,7 @@ function BuyerAdmin() {
               </Col>
             ))}
           </Row>
+
           {/* <div className="d-flex">
 						{labelData.map((label) => (
 							<div className="colorLabel d-flex">
