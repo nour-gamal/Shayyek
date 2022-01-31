@@ -5,6 +5,7 @@ import acceptOffer from "../../../../../Resources/Assets/acceptOffer.svg";
 import deletee from "../../../../../Resources/Assets/deletee.svg";
 import chat from "../../../../../Resources/Assets/chat.svg";
 import star from "../../../../../Resources/Assets/star (1).svg";
+import eye from "../../../../../Resources/Assets/eye.svg";
 import download from "../../../../../Resources/Assets/direct-download.svg";
 import share from "../../../../../Resources/Assets/share (5).svg";
 import ReactTooltip from "react-tooltip";
@@ -17,6 +18,7 @@ import {
 import Navbar from "../../../../Common/Navbar/Navbar";
 import Footer from "../../../../Common/Footer/Footer";
 import "./OffersTable.css";
+import SingleRFQModal from "../../../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
 
 function OfferTable(props) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -24,6 +26,7 @@ function OfferTable(props) {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [rfqDetails, updateRFQDetails] = useState([]);
 	const [selectedRow, setSelectedRow] = useState(null);
+	const [isRFQModalVisible, toggleRFQModal] = useState(false);
 	const { id } = props.match.params;
 	useEffect(() => {
 		GetBuyerAddedRFQOffers(
@@ -56,22 +59,33 @@ function OfferTable(props) {
 	const bottom = "bottomRight";
 	const menu = (
 		<Menu>
-			<Menu.Item key="0" onClick={(e) => {}}>
-				<img src={acceptOffer} alt="acceptOffer" />
-				<span className="acceptOffer">
-					{currentLocal.offerTable.acceptOffer}
-				</span>
+			<Menu.Item
+				key="0"
+				onClick={(e) => {
+					toggleRFQModal(true);
+				}}
+			>
+				<img src={eye} alt="acceptOffer" />
+				<span className="acceptOffer">{currentLocal.offerTable.view}</span>
 			</Menu.Item>
 			<Menu.Item
 				key="1"
 				onClick={(e) => {
 					let body = {
-						RFQId: selectedRow.RFQId,
-						filledRFQId: selectedRow.filledRFQId,
+						RFQId: selectedRow.rfqId,
+						filledRFQId: selectedRow.fillRFQId,
 					};
-					BuyerAcceptRFQ(body, (success) => {
-						console.log(success);
-					});
+					BuyerAcceptRFQ(
+						body,
+						(success) => {
+							if (success.success) {
+								getBuyerAddedRFQs();
+							}
+						},
+						(fail) => {
+							console.log(fail);
+						}
+					);
 				}}
 			>
 				<img src={acceptOffer} alt="acceptOffer" />
@@ -151,18 +165,12 @@ function OfferTable(props) {
 			},
 		},
 		{
-			title: currentLocal.offerTable.paymentRequired,
-			dataIndex: "appicantPaymentCondition",
-			key: "appicantPaymentCondition",
-			className: "bordercol bottomBorderCol PaymentConditions",
-		},
-		{
 			title: currentLocal.offerTable.rating,
 			dataIndex: "applicantRate",
 			key: "applicantRate",
 			className: "bordercol bottomBorderCol rating",
 			render: (rate) => (
-				<div className="d-flex align-items-center">
+				<div className="d-flex align-items-center justify-content-center">
 					<span>{rate}</span>
 					<img src={star} alt="star" className="mx-1" />
 				</div>
@@ -173,19 +181,6 @@ function OfferTable(props) {
 			dataIndex: "applicantWorkVolumeOnShayyek",
 			key: "applicantWorkVolumeOnShayyek",
 			className: "bordercol bottomBorderCol valum",
-		},
-		{
-			title: currentLocal.offerTable.note,
-			dataIndex: "applicantNote",
-			key: "applicantNote",
-			className: "bordercol bottomBorderCol notes",
-			render: (notes) => {
-				return (
-					<div className="shortText" data-tip={notes}>
-						{notes}
-					</div>
-				);
-			},
 		},
 		{
 			title: currentLocal.offerTable.actionList,
@@ -267,6 +262,14 @@ function OfferTable(props) {
 				</div>
 			</div>
 			<Footer />
+			<SingleRFQModal
+				isModalVisible={isRFQModalVisible}
+				onCancel={() => {
+					toggleRFQModal(false);
+				}}
+				// rfqId={rfqDetails.rfqHeaderId}
+				// parent="supplierHome"
+			/>
 		</section>
 	);
 }
