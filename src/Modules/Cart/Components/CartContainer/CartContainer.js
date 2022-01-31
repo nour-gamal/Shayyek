@@ -152,7 +152,7 @@ function CartContainer() {
 											<div className="item">{product.productSizeName}</div>
 										</div>
 										<div className="d-flex justify-content-between align-items-center flex-1">
-											<div className="d-flex item">
+											<div className="d-flex item align-items-center">
 												<img
 													src={minusCircle}
 													alt="minusCircle"

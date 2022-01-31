@@ -213,6 +213,7 @@ export const en = {
 		acceptOffer: "Accept Offer",
 		startConversation: "Start Conversation",
 		makeOnlineSession: "Make online session",
+		view: "View",
 	},
 	supplierHome: {
 		addNewProduct: "Add New Product",

@@ -8,6 +8,10 @@
 .cartContainer .title > span {
 	color: red;
 }
+.cartContainer .productRow {
+	width: 100%;
+	overflow: auto;
+}
 .cartContainer .productRow .productImage {
 	width: 50px;
 	height: auto;
@@ -20,9 +24,11 @@
 
 .cartContainer .item {
 	text-align: end;
+	margin: 0 20px;
 }
 .cartContainer.item img {
 	height: 20px !important;
+	width: 20px !important;
 }
 .cartContainer .totalPrice {
 	color: red;

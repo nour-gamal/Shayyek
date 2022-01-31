@@ -9,7 +9,11 @@ import download from "../../../../../Resources/Assets/direct-download.svg";
 import share from "../../../../../Resources/Assets/share (5).svg";
 import ReactTooltip from "react-tooltip";
 import { useSelector } from "react-redux";
-import { GetBuyerAddedRFQOffers } from "../../../network";
+import {
+	GetBuyerAddedRFQOffers,
+	BuyerAcceptRFQ,
+	BuyerRejectOffer,
+} from "../../../network";
 import Navbar from "../../../../Common/Navbar/Navbar";
 import Footer from "../../../../Common/Footer/Footer";
 import "./OffersTable.css";
@@ -19,8 +23,8 @@ function OfferTable(props) {
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [rfqDetails, updateRFQDetails] = useState([]);
+	const [selectedRow, setSelectedRow] = useState(null);
 	const { id } = props.match.params;
-	console.log(rfqDetails);
 	useEffect(() => {
 		GetBuyerAddedRFQOffers(
 			id,
@@ -33,16 +37,41 @@ function OfferTable(props) {
 			}
 		);
 	}, [id, currentLanguageId]);
+
+	const getBuyerAddedRFQs = () => {
+		GetBuyerAddedRFQOffers(
+			id,
+			currentLanguageId,
+			(success) => {
+				updateRFQDetails(success.data);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	};
 	const shareOffer = () => {
 		alert("bye");
 	};
 	const bottom = "bottomRight";
 	const menu = (
 		<Menu>
+			<Menu.Item key="0" onClick={(e) => {}}>
+				<img src={acceptOffer} alt="acceptOffer" />
+				<span className="acceptOffer">
+					{currentLocal.offerTable.acceptOffer}
+				</span>
+			</Menu.Item>
 			<Menu.Item
-				key="0"
-				onClick={() => {
-					alert("hi");
+				key="1"
+				onClick={(e) => {
+					let body = {
+						RFQId: selectedRow.RFQId,
+						filledRFQId: selectedRow.filledRFQId,
+					};
+					BuyerAcceptRFQ(body, (success) => {
+						console.log(success);
+					});
 				}}
 			>
 				<img src={acceptOffer} alt="acceptOffer" />
@@ -51,7 +80,7 @@ function OfferTable(props) {
 				</span>
 			</Menu.Item>
 			<Menu.Item
-				key="1"
+				key="2"
 				onClick={() => {
 					alert("hi 2");
 				}}
@@ -62,10 +91,17 @@ function OfferTable(props) {
 				</span>
 			</Menu.Item>
 			<Menu.Item
-				key="1"
+				key="3"
 				className={currentLocal.language !== "English" && "delete"}
 				onClick={() => {
-					alert("hi 3");
+					let body = {
+						supplierOrContractorId: selectedRow.applicantId,
+					};
+					BuyerRejectOffer(body, (success) => {
+						if (success.success) {
+							getBuyerAddedRFQs();
+						}
+					});
 				}}
 			>
 				<img src={deletee} alt="deletee" />
@@ -74,99 +110,18 @@ function OfferTable(props) {
 		</Menu>
 	);
 
-	const dataSource = [
-		{
-			key: "1",
-			name: "employee",
-			company: "employee1111111111111111111111 11111111111111111",
-			price: "500.00",
-			city: "elseikh  zayed",
-			PaymentConditions: "50-50%",
-			rating: 4,
-			volumeWork: "500.00 L.E",
-			notes: "loremloremloremlore  mloremloremloremloremlorem",
-			list: "hello",
-		},
-		{
-			key: "2",
-			name: "John",
-			company: "employee 2",
-			price: "500.00",
-			city: "Giza",
-			PaymentConditions: "50-50%",
-			rating: 4,
-			volumeWork: "500.00 L.E",
-			notes: "lorem",
-		},
-		{
-			key: "3",
-			name: "John",
-			company: "employee 3",
-			price: "500.00",
-			city: "Giza",
-			PaymentConditions: "50-50%",
-			rating: 4,
-			volumeWork: "500.00 L.E",
-			notes: "lorem",
-		},
-		{
-			key: "4",
-			name: "John",
-			company: "employee 4",
-			price: "500.00",
-			city: "Giza",
-			PaymentConditions: "50-50%",
-			rating: 4,
-			volumeWork: "500.00 L.E",
-			notes: "lorem",
-		},
-		{
-			key: "5",
-			name: "John",
-			company: "employee 5",
-			price: "500.00",
-			city: "Giza",
-			PaymentConditions: "50-50%",
-			rating: 4,
-			volumeWork: "500.00 L.E",
-			notes: "lorem",
-		},
-		{
-			key: "6",
-			name: "John",
-			company: "employee 6",
-			price: "500.00",
-			city: "Giza",
-			PaymentConditions: "50-50%",
-			rating: 4,
-			volumeWork: "500.00 L.E",
-			notes: "lorem",
-		},
-		{
-			key: "7",
-			name: "John",
-			company: "employee 7",
-			price: "500.00",
-			city: "Giza",
-			PaymentConditions: "50-50%",
-			rating: 4,
-			volumeWork: "500.00 L.E",
-			notes: "lorem",
-		},
-	];
-
 	const columns = [
 		{
 			title: currentLocal.offerTable.name,
-			dataIndex: "name",
-			key: "name",
+			dataIndex: "applicantName",
+			key: "applicantName",
 			className: "bordercol bottomBorderCol nameEmp",
 		},
 
 		{
 			title: currentLocal.offerTable.company,
-			dataIndex: "company",
-			key: "company",
+			dataIndex: "applicantCompany",
+			key: "applicantCompany",
 			className: "bordercol bottomBorderCol company",
 			render: (company) => {
 				return (
@@ -178,14 +133,14 @@ function OfferTable(props) {
 		},
 		{
 			title: currentLocal.offerTable.price,
-			dataIndex: "price",
-			key: "price",
+			dataIndex: "totalPrice",
+			key: "totalPrice",
 			className: "bordercol bottomBorderCol price",
 		},
 		{
 			title: currentLocal.offerTable.city,
-			dataIndex: "city",
-			key: "city",
+			dataIndex: "applicantCity",
+			key: "applicantCity",
 			className: "bordercol bottomBorderCol city",
 			render: (city) => {
 				return (
@@ -197,31 +152,32 @@ function OfferTable(props) {
 		},
 		{
 			title: currentLocal.offerTable.paymentRequired,
-			dataIndex: "PaymentConditions",
-			key: "PaymentConditions",
+			dataIndex: "appicantPaymentCondition",
+			key: "appicantPaymentCondition",
 			className: "bordercol bottomBorderCol PaymentConditions",
 		},
 		{
 			title: currentLocal.offerTable.rating,
-			dataIndex: "rating",
-			key: "rating",
+			dataIndex: "applicantRate",
+			key: "applicantRate",
 			className: "bordercol bottomBorderCol rating",
 			render: (rate) => (
-				<div>
-					{rate} <img src={star} alt="star" />
+				<div className="d-flex align-items-center">
+					<span>{rate}</span>
+					<img src={star} alt="star" className="mx-1" />
 				</div>
 			),
 		},
 		{
 			title: currentLocal.offerTable.volumeOfWorkFromShyeek,
-			dataIndex: "volumeWork",
-			key: "volumeWork",
+			dataIndex: "applicantWorkVolumeOnShayyek",
+			key: "applicantWorkVolumeOnShayyek",
 			className: "bordercol bottomBorderCol valum",
 		},
 		{
 			title: currentLocal.offerTable.note,
-			dataIndex: "notes",
-			key: "notes",
+			dataIndex: "applicantNote",
+			key: "applicantNote",
 			className: "bordercol bottomBorderCol notes",
 			render: (notes) => {
 				return (
@@ -241,7 +197,12 @@ function OfferTable(props) {
 					<Dropdown.Button
 						overlay={menu}
 						trigger={["click"]}
-						onClick={(e) => e.preventDefault()}
+						onClick={(e) => {
+							e.preventDefault();
+						}}
+						onMouseEnter={() => {
+							setSelectedRow(_);
+						}}
 					></Dropdown.Button>
 				);
 			},
@@ -283,12 +244,12 @@ function OfferTable(props) {
 				>
 					<Table
 						className="table-striped-rows"
-						dataSource={dataSource}
+						dataSource={rfqDetails}
 						columns={columns}
 						scroll={{ x: "calc(100wh - 4em)" }}
 						pagination={{
 							position: [bottom],
-							total: dataSource.length,
+							total: rfqDetails.length,
 							current: currentPage,
 							pageSize: 5,
 							hideOnSinglePage: true,
