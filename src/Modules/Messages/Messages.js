@@ -1,9 +1,8 @@
-// layout
 import Navbar from "../Common/Navbar/Navbar";
 import Footer from "../Common/Footer/Footer";
-// main-component
 import SidebarUserForMessage from "./SidebarUserForMessage/SidebarUserForMessage";
 import SingleUserChatMessage from "./SingleUserChatMessage/SingleUserChatMessage";
+//import { db } from "../../firebase";
 import "./Messages.css";
 const messages = () => {
   return (
