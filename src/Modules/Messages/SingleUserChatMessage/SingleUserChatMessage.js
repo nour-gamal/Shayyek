@@ -1,8 +1,8 @@
 // component
 import { Button, Input } from "antd";
-import Microphone from "../../../Resources/Assets/microphone.png";
-import PaperClip from "../../../Resources/Assets/paperclip.png";
-import UploadPhoto from "../../../Resources/Assets/uploadPhoto.png";
+import Microphone from "../../../Resources/Assets/microphone.svg";
+import PaperClip from "../../../Resources/Assets/paperClip.svg";
+import CameraIcon from "../../../Resources/Assets/camera.svg";
 import SendMessage from "../../../Resources/Assets/sendMessage.png";
 import MessageAvatar from "../../../Resources/Assets/MessageAvatar2x.png";
 // style
@@ -21,11 +21,9 @@ const SingleUserChatMessage = () => {
                     <img class="user" src={MessageAvatar} alt="user-avatar" />
                     <p className="text">
                       <span className="vertically_center">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quisquam asperiores neque corporis culpa expedita.
-                        Veritatis quos ullam nemo nam autem est. Quia facilis
-                        vitae dicta quibusdam cupiditate quasi voluptatem sequi?
-                        1st call
+                        Lorem ipsum dolor, sit amet consectetur adipisicing
+                        elit. Ad non ullam corporis recusandae sequi facere
+                        officiis id eligendi? Aut, ad? 2nd call
                       </span>
                     </p>
                   </div>
@@ -53,13 +51,21 @@ const SingleUserChatMessage = () => {
           <div className="singleUserChatMessage_send">
             <div className="chat__uploader">
               <Button type="text">
-                <img src={PaperClip} alt="upload-paper" />
+                <img className="chat-icon" src={PaperClip} alt="upload-paper" />
               </Button>
               <Button type="text">
-                <img src={UploadPhoto} alt="upload-images" />
+                <img
+                  className="chat-icon"
+                  src={CameraIcon}
+                  alt="upload-images"
+                />
               </Button>
               <Button type="text">
-                <img src={Microphone} alt="record-voice" />
+                <img
+                  className="chat-icon"
+                  src={Microphone}
+                  alt="record-voice"
+                />
               </Button>
             </div>
             <Input.TextArea
@@ -68,7 +74,7 @@ const SingleUserChatMessage = () => {
               autoSize={{ minRows: 1, maxRows: 3 }}
             />
             <div className="chat__controler">
-              <img className="chat__icon" src={SendMessage} alt="send-data" />
+              <img className="flip-image" src={SendMessage} alt="send-data" />
             </div>
           </div>
         </div>

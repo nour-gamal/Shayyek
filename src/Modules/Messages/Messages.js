@@ -1,4 +1,3 @@
-import { Row, Col } from "antd";
 // layout
 import Navbar from "../Common/Navbar/Navbar";
 import Footer from "../Common/Footer/Footer";
@@ -10,14 +9,14 @@ const messages = () => {
   return (
     <section>
       <Navbar />
-      <Row className="flex-1">
-        <Col md={6}>
+      <div className="d-flex  flex-1">
+        <div className="sidebarUserForMessageContainer">
           <SidebarUserForMessage />
-        </Col>
-        <Col md={18}>
+        </div>
+        <div className="singleUserChatMessageContainer">
           <SingleUserChatMessage />
-        </Col>
-      </Row>
+        </div>
+      </div>
       <Footer />
     </section>
   );

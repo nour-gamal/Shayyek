@@ -10,6 +10,10 @@ li {
 figure {
   margin-bottom: 0;
 }
+html[dir="rtl"] .flip-image {
+  transform: scale(-1);
+}
+
 /* reset css */
 .f-42 {
   font-size: 34.18px;

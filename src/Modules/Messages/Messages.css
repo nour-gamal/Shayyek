@@ -1,0 +1,15 @@
+.sidebarUserForMessageContainer {
+  width: 400px;
+}
+.singleUserChatMessageContainer {
+}
+@media (max-width: 720px) {
+  .sidebarUserForMessageContainer {
+    width: 75px;
+    z-index: 999;
+  }
+  .sidebarUserForMessageContainer:hover {
+    min-width: 250px;
+    flex: 1;
+  }
+}
