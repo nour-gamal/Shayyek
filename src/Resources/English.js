@@ -214,6 +214,7 @@ export const en = {
 		startConversation: "Start Conversation",
 		makeOnlineSession: "Make online session",
 		view: "View",
+		cancel: "Cancel",
 	},
 	supplierHome: {
 		addNewProduct: "Add New Product",

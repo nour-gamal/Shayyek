@@ -2,43 +2,73 @@ import { useEffect, useState } from "react";
 import { Modal, Table, Select } from "antd";
 import { useSelector } from "react-redux";
 import { DatePicker } from "antd";
-import { GetBuyerRFQ, getCategories, fillRFQ } from "../../../../Home/network";
+import {
+	GetBuyerRFQ,
+	getCategories,
+	fillRFQ,
+	GetFilledRFQOfferDetails,
+	BuyerAcceptRFQ,
+} from "../../../../Home/network";
+
 import "./SingleRFQModal.css";
 
 function SingleRFQModal({
 	isModalVisible,
 	onCancel,
 	rfqId,
+	fillRFQId,
 	parent,
 	companyName,
 	recallGetRFQ,
 }) {
 	const { Option } = Select;
-	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const { currentLanguageId } = useSelector((state) => state.currentLocal);
+	const { currentLocal, currentLanguageId } = useSelector(
+		(state) => state.currentLocal
+	);
 	const [rfqDetails, updateRFQDetails] = useState([]);
 	const [categoriesOption, setCategoriesOption] = useState([]);
 	const [buyerName, updateBuyerName] = useState("");
 	const [companyAddress, updateAddress] = useState("");
 	const [deliveryDate, updateDeliveryDate] = useState("");
 	const [isSubmitClicked, updateSubmitClicked] = useState(false);
+	const [companyNamee, updateCompanyNamee] = useState("");
 	// const [unitPrice, updateUnitPrice] = useState(null);
 	// const [totalPrice, updateTotalPrice] = useState(null);
 	// const [deliveryDate, updateDeliveryDate] = useState(null);
 	useEffect(() => {
-		GetBuyerRFQ(
-			rfqId,
-			(success) => {
-				updateRFQDetails(success.data.rfqDetails);
-				updateAddress(success.data.address);
-				updateDeliveryDate(success.data.deliveryDate);
-				updateBuyerName(success.data.buyerName);
-			},
-			(fail) => {
-				console.log(fail);
-			}
-		);
-	}, [rfqId, parent]);
+		if (parent === "supplierHome") {
+			GetBuyerRFQ(
+				rfqId,
+				(success) => {
+					updateRFQDetails(success.data.rfqDetails);
+					updateAddress(success.data.address);
+					updateDeliveryDate(success.data.deliveryDate);
+					updateBuyerName(success.data.buyerName);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		} else if (parent === "offersTable") {
+			let body = {
+				languageId: currentLanguageId,
+				fillRFQHeaderId: fillRFQId,
+			};
+			GetFilledRFQOfferDetails(
+				body,
+				(success) => {
+					updateRFQDetails(success.data.filledAndRFQDetails);
+					updateAddress(success.data.deliveryAddress);
+					updateDeliveryDate(success.data.deliveryDate);
+					updateBuyerName(success.data.supplierContractorName);
+					updateCompanyNamee(success.data.companyName);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
+	}, [rfqId, parent, currentLanguageId, fillRFQId]);
 	useEffect(() => {
 		getCategories(
 			currentLanguageId,
@@ -51,11 +81,11 @@ function SingleRFQModal({
 		);
 	}, [currentLanguageId]);
 
-	let columns = [
+	var columns = [
 		{
 			title: currentLocal.buyerHome.item,
-			dataIndex: "item",
-			key: "item",
+			dataIndex: parent === "offersTable" ? "itemProductName" : "item",
+			key: parent === "offersTable" ? "itemProductName" : "item",
 		},
 		{
 			title: currentLocal.buyerHome.description,
@@ -107,15 +137,18 @@ function SingleRFQModal({
 		},
 		{
 			title: currentLocal.buyerHome.notes,
-			dataIndex: "notes",
-			key: "notes",
+			dataIndex: parent === "offersTable" ? "filledNotes" : "notes",
+			key: parent === "offersTable" ? "filledNotes" : "notes",
 		},
 	];
 
 	function disabledOffersDate(current) {
 		return current && current.valueOf() < Date.now();
 	}
-	if (parent === "supplierHome" && rfqDetails.length > 0) {
+	if (
+		(parent === "supplierHome" && rfqDetails.length > 0) ||
+		(parent === "offersTable" && rfqDetails.length > 0)
+	) {
 		columns = columns.filter(
 			(column) =>
 				column.dataIndex !== "unit" &&
@@ -129,80 +162,100 @@ function SingleRFQModal({
 				dataIndex: "unitPrice",
 				key: "unitPrice",
 				render: (unitPrice, record, rowIndex) => {
-					return (
-						<input
-							type="number"
-							className="form-control"
-							onChange={(e) => {
-								var rfqArr = [...rfqDetails];
-								rfqArr[rowIndex] = {
-									...rfqArr[rowIndex],
-									unitPrice: parseInt(e.target.value),
-								};
-								updateRFQDetails(rfqArr);
-							}}
-						/>
-					);
+					if (parent === "offersTable") {
+						return <div>{unitPrice}</div>;
+					} else {
+						return (
+							<input
+								type="number"
+								className="form-control"
+								onChange={(e) => {
+									var rfqArr = [...rfqDetails];
+									rfqArr[rowIndex] = {
+										...rfqArr[rowIndex],
+										unitPrice: parseInt(e.target.value),
+									};
+									updateRFQDetails(rfqArr);
+								}}
+							/>
+						);
+					}
 				},
 			},
 			{
 				title: currentLocal.supplierHome.totalPrice,
 				dataIndex: "totalPrice",
 				key: "totalPrice",
-				render: (totalPrice, record, rowIndex) => (
-					<input
-						type="number"
-						className="form-control"
-						onChange={(e) => {
-							var rfqArr = [...rfqDetails];
-							rfqArr[rowIndex] = {
-								...rfqArr[rowIndex],
-								totalPrice: parseInt(e.target.value),
-							};
-							updateRFQDetails(rfqArr);
-						}}
-					/>
-				),
+				render: (totalPrice, record, rowIndex) => {
+					if (parent === "offersTable") {
+						return <div>{totalPrice}</div>;
+					} else {
+						return (
+							<input
+								type="number"
+								className="form-control"
+								onChange={(e) => {
+									var rfqArr = [...rfqDetails];
+									rfqArr[rowIndex] = {
+										...rfqArr[rowIndex],
+										totalPrice: parseInt(e.target.value),
+									};
+									updateRFQDetails(rfqArr);
+								}}
+							/>
+						);
+					}
+				},
 			},
 			{
 				title: currentLocal.supplierHome.deliveryDate,
 				dataIndex: "deliveryDate",
 				key: "deliveryDate",
-				render: (deliveryDate, record, rowIndex) => (
-					<DatePicker
-						onChange={(date, dateString) => {
-							var rfqArr = [...rfqDetails];
-							rfqArr[rowIndex] = {
-								...rfqArr[rowIndex],
-								deliveryDate: dateString,
-							};
-							updateRFQDetails(rfqArr);
-						}}
-						className="form-control"
-						disabledDate={disabledOffersDate}
-					/>
-				),
+				render: (deliveryDate, record, rowIndex) => {
+					if (parent === "offersTable") {
+						return <div>{deliveryDate}</div>;
+					} else {
+						return (
+							<DatePicker
+								onChange={(date, dateString) => {
+									var rfqArr = [...rfqDetails];
+									rfqArr[rowIndex] = {
+										...rfqArr[rowIndex],
+										deliveryDate: dateString,
+									};
+									updateRFQDetails(rfqArr);
+								}}
+								className="form-control"
+								disabledDate={disabledOffersDate}
+							/>
+						);
+					}
+				},
 			},
 			{
 				title: currentLocal.supplierHome.paymentTerms,
 				dataIndex: "paymentTerms",
 				key: "paymentTerms",
 				render: (paymentTerms, record, rowIndex) => {
-					return (
-						<input
-							type="text"
-							className="form-control"
-							value={paymentTerms}
-							onChange={(e) => {
-								var rfqArr = [...rfqDetails];
-								rfqArr[rowIndex] = {
-									...rfqArr[rowIndex],
-									paymentTerms: e.target.value,
-								};
-								updateRFQDetails(rfqArr);
-							}}
-						/>
-					);
+					if (parent === "offersTable") {
+						return <div>{paymentTerms}</div>;
+					} else {
+						return (
+							<input
+								type="text"
+								className="form-control"
+								value={paymentTerms}
+								onChange={(e) => {
+									var rfqArr = [...rfqDetails];
+									rfqArr[rowIndex] = {
+										...rfqArr[rowIndex],
+										paymentTerms: e.target.value,
+									};
+									updateRFQDetails(rfqArr);
+								}}
+							/>
+						);
+					}
 				},
 			},
 		];
@@ -228,15 +281,32 @@ function SingleRFQModal({
 			}
 		);
 	};
+	const handleAcceptOffer = () => {
+		let body = {
+			RFQId: rfqId,
+			filledRFQId: fillRFQId,
+		};
+		BuyerAcceptRFQ(
+			body,
+			(success) => {
+				if (success.success) {
+					onCancel();
+				}
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	};
 
 	return (
 		<Modal
 			title="Basic Modal"
 			visible={isModalVisible}
 			onCancel={onCancel}
-			className="modal-lg"
+			className="modal-lg singleRFQContainer"
 		>
-			<div className="d-flex singleRFQModal">
+			<div className="d-flex singleRFQModal flex-1">
 				<div>
 					<div className="d-flex justify-content-between f-14 primary-color actionsSection">
 						<div>
@@ -245,7 +315,7 @@ function SingleRFQModal({
 									? currentLocal.profilePage.buyerName
 									: currentLocal.profilePage.supplierContractorName}
 								:{" "}
-								{parent === "supplierHome"
+								{parent === "supplierHome" || parent === "offersTable"
 									? buyerName
 									: rfqDetails.supplierContractorName}
 							</div>
@@ -267,7 +337,8 @@ function SingleRFQModal({
 								</div>
 							) : (
 								<div className="my-2">
-									{currentLocal.profilePage.companyName} {" : "} {companyName}
+									{currentLocal.profilePage.companyName} {" : "}
+									{parent === "offersTable" ? companyNamee : companyName}
 								</div>
 							)}
 						</div>
@@ -297,7 +368,7 @@ function SingleRFQModal({
 					/>
 				</div>
 				<div>
-					{parent === "supplierHome" && (
+					{parent === "supplierHome" ? (
 						<div className="btn-container mt-2 d-flex">
 							<button
 								className="button-secondary mx-1"
@@ -312,6 +383,23 @@ function SingleRFQModal({
 								{currentLocal.supplierHome.submit}
 							</button>
 						</div>
+					) : (
+						parent === "offersTable" && (
+							<div className="btn-container  d-flex">
+								<button
+									className="button-secondary mx-1"
+									onClick={() => onCancel()}
+								>
+									{currentLocal.offerTable.cancel}
+								</button>
+								<button
+									className="button-primary mx-1"
+									onClick={handleAcceptOffer}
+								>
+									{currentLocal.offerTable.acceptOffer}
+								</button>
+							</div>
+						)
 					)}
 				</div>
 			</div>

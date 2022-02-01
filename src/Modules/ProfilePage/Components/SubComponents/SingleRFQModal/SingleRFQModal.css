@@ -19,6 +19,11 @@
 .singleRFQModal .ant-picker {
 	min-width: 100px;
 }
+.singleRFQContainer .ant-modal-body {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+}
 @media (max-width: 768px) {
 	.singleRFQModal .btn-container {
 		flex-direction: column;

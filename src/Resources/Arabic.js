@@ -210,6 +210,7 @@ export const ar = {
 		startConversation: "بدء المحادثة",
 		makeOnlineSession: "بدء محادثه اون لاين",
 		view: "عرض",
+		cancel: "رفض",
 	},
 	buyerHome: {
 		importExcelFile: "اضف من ملف اكسيل",

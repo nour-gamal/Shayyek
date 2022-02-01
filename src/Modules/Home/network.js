@@ -170,3 +170,13 @@ export const BuyerRejectOffer = (data, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/RFQ/BuyerRejectOffer?supplierOrContractorId=${supplierOrContractorId}`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
+export const GetFilledRFQOfferDetails = (
+	body,
+	onSuccess,
+	onFail,
+	reqAuth = true
+) => {
+	const { fillRFQHeaderId, languageId } = body;
+	const path = `api/RFQ/GetFilledRFQOfferDetails?languageId=${languageId}&fillRFQHeaderId=${fillRFQHeaderId}`;
+	GetResource(path, onSuccess, onFail, reqAuth);
+};
