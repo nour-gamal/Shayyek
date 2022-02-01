@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import Routes from "./Routes";
 import { getMessaging, getToken } from "firebase/messaging";
-import { initializeApp } from "firebase/app";
 import { login, getDeviceId } from "./Redux/Authorization";
 import { GetLanguages } from "./Network";
 import { changeLocal } from "./Redux/Localization";
+import "./firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import "./App.css";
@@ -21,18 +21,6 @@ function App() {
 	// 	dispatch(logout({}));
 	// 	 localStorage.setItem("logout", false);
 	// }
-
-	const firebaseConfig = {
-		apiKey: "AIzaSyAQ-Jx7GBw_9dc56LOXfwefsZF05H-PjEg",
-		authDomain: "shayyak-bb325.firebaseapp.com",
-		projectId: "shayyak-bb325",
-		storageBucket: "shayyak-bb325.appspot.com",
-		messagingSenderId: "429766207084",
-		appId: "1:429766207084:web:27e4304d12727014711a49",
-		measurementId: "G-ZPFZ37KM5G",
-	};
-
-	initializeApp(firebaseConfig);
 
 	useEffect(() => {
 		const fpPromise = FingerprintJS.load();

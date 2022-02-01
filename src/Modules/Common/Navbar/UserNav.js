@@ -10,7 +10,7 @@ import { logout } from "../../../Redux/Authorization";
 import { baseUrl } from "../../../Services";
 import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
 import cart from "../../../Resources/Assets/cart.svg";
-
+import defaultImage from "../../../Resources/Assets/DefaultProfileImage.png";
 function UserNav({ loginState }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
@@ -88,7 +88,7 @@ function UserNav({ loginState }) {
 							src={
 								authorization.profileImage
 									? baseUrl + authorization.profileImage
-									: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+									: defaultImage
 							}
 							alt="avatar"
 						/>
