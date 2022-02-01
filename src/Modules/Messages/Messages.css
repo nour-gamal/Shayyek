@@ -1,12 +1,16 @@
 .sidebarUserForMessageContainer {
   width: 400px;
 }
-.singleUserChatMessageContainer {
+/* .singleUserChatMessageContainer {
+} */
+.chat-page {
+  position: relative;
 }
 @media (max-width: 720px) {
   .sidebarUserForMessageContainer {
-    width: 75px;
+    width: 55px;
     z-index: 999;
+    transition: 0.5s all ease-in-out;
   }
   .sidebarUserForMessageContainer:hover {
     min-width: 250px;

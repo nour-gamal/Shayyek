@@ -124,4 +124,13 @@
   .singleUserChatMessage_body .chat__messages .message-item img.user {
     margin-bottom: 0.5rem;
   }
+  .singleUserChatMessage_send .chat__uploader {
+    display: none;
+  }
+  .singleUserChatMessage_body .chat__messages {
+    padding-inline-start: 3rem;
+  }
+  .singleUserChatMessage_send textarea {
+    margin-inline-start: 3rem;
+  }
 }

@@ -9,7 +9,7 @@ const messages = () => {
   return (
     <section>
       <Navbar />
-      <div className="d-flex  flex-1">
+      <div className="d-flex  flex-1 chat-page">
         <div className="sidebarUserForMessageContainer">
           <SidebarUserForMessage />
         </div>
