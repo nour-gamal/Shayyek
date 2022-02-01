@@ -1,3 +1,4 @@
+import { useState } from "react";
 // component
 import { Button, Input } from "antd";
 import Microphone from "../../../Resources/Assets/microphone.svg";
@@ -9,6 +10,11 @@ import MessageAvatar from "../../../Resources/Assets/MessageAvatar2x.png";
 import "./SingleUserChatMessage.css";
 
 const SingleUserChatMessage = () => {
+  const [messageText, setMessageText] = useState("");
+  const sendMessage = () => {
+    console.log(messageText);
+    setMessageText("");
+  };
   return (
     <div className="singleUserChatMessage h-100">
       <div className="ppe pps singleUserChatMessage_container">
@@ -72,8 +78,13 @@ const SingleUserChatMessage = () => {
               // onChange={this.onChange}
               placeholder="Controlled autosize"
               autoSize={{ minRows: 1, maxRows: 3 }}
+              value={messageText}
+              onChange={(e) => setMessageText(e.target.value)}
             />
-            <div className="chat__controler">
+            <div
+              className="chat__controller cursorPointer"
+              onClick={sendMessage}
+            >
               <img className="flip-image" src={SendMessage} alt="send-data" />
             </div>
           </div>
