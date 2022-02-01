@@ -80,7 +80,7 @@ function Navbarr({ navState, verifayState, transparent }) {
 							</Link>
 						</span>
 					)}
-					<Link to="/loginByEmail" className="nav-link">
+					<Link to="/chat" className="nav-link">
 						<img src={Chat} alt="Chat" />
 					</Link>
 					<Link to="/registration" className="nav-link  registration">

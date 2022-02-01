@@ -40,7 +40,6 @@ function OfferTable(props) {
 			}
 		);
 	}, [id, currentLanguageId]);
-
 	const getBuyerAddedRFQs = () => {
 		GetBuyerAddedRFQOffers(
 			id,
@@ -262,14 +261,16 @@ function OfferTable(props) {
 				</div>
 			</div>
 			<Footer />
-			<SingleRFQModal
-				isModalVisible={isRFQModalVisible}
-				onCancel={() => {
-					toggleRFQModal(false);
-				}}
-				// rfqId={rfqDetails.rfqHeaderId}
-				// parent="supplierHome"
-			/>
+			{isRFQModalVisible && selectedRow && (
+				<SingleRFQModal
+					isModalVisible={isRFQModalVisible}
+					onCancel={() => {
+						toggleRFQModal(false);
+					}}
+					rfqId={selectedRow.fillRFQId}
+					parent="offersTable"
+				/>
+			)}
 		</section>
 	);
 }
