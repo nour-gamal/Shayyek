@@ -267,7 +267,8 @@ function OfferTable(props) {
 					onCancel={() => {
 						toggleRFQModal(false);
 					}}
-					rfqId={selectedRow.fillRFQId}
+					rfqId={selectedRow.rfqId}
+					fillRFQId={selectedRow.fillRFQId}
 					parent="offersTable"
 				/>
 			)}

@@ -7,6 +7,7 @@ import {
 	getCategories,
 	fillRFQ,
 	GetFilledRFQOfferDetails,
+	BuyerAcceptRFQ,
 } from "../../../../Home/network";
 
 import "./SingleRFQModal.css";
@@ -15,6 +16,7 @@ function SingleRFQModal({
 	isModalVisible,
 	onCancel,
 	rfqId,
+	fillRFQId,
 	parent,
 	companyName,
 	recallGetRFQ,
@@ -50,7 +52,7 @@ function SingleRFQModal({
 		} else if (parent === "offersTable") {
 			let body = {
 				languageId: currentLanguageId,
-				fillRFQHeaderId: rfqId,
+				fillRFQHeaderId: fillRFQId,
 			};
 			GetFilledRFQOfferDetails(
 				body,
@@ -66,7 +68,7 @@ function SingleRFQModal({
 				}
 			);
 		}
-	}, [rfqId, parent, currentLanguageId]);
+	}, [rfqId, parent, currentLanguageId, fillRFQId]);
 	useEffect(() => {
 		getCategories(
 			currentLanguageId,
@@ -279,7 +281,23 @@ function SingleRFQModal({
 			}
 		);
 	};
-	const handleAcceptOffer = () => {};
+	const handleAcceptOffer = () => {
+		let body = {
+			RFQId: rfqId,
+			filledRFQId: fillRFQId,
+		};
+		BuyerAcceptRFQ(
+			body,
+			(success) => {
+				if (success.success) {
+					onCancel();
+				}
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	};
 
 	return (
 		<Modal
