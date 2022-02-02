@@ -6,7 +6,7 @@
 .chat-page {
   position: relative;
 }
-@media (max-width: 720px) {
+@media (max-width: 990px) {
   .sidebarUserForMessageContainer {
     width: 55px;
     z-index: 999;

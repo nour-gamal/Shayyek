@@ -1,10 +1,3 @@
-.sidebarUserForMessageContainer {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  height: 100%;
-}
-
 .SidebarUserForMessage {
   background: white;
   box-shadow: 0 0 5px 0 #333;
@@ -45,8 +38,17 @@
   line-height: 0;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 990px) {
   .SidebarUserForMessage__item {
     width: 250px;
+  }
+  .SidebarUserForMessage__list {
+    overflow: hidden;
+  }
+  .sidebarUserForMessageContainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
   }
 }

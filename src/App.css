@@ -14,6 +14,9 @@ html[dir="rtl"] .flip-image {
   transform: scale(-1);
 }
 
+.ant-btn-text:hover {
+  background: transparent;
+}
 /* reset css */
 .f-42 {
   font-size: 34.18px;

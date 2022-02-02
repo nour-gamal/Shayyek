@@ -61,7 +61,7 @@ const SingleUserChatMessage = () => {
               </Button>
               <Button type="text">
                 <img
-                  className="chat-icon"
+                  className="chat-icon-camera"
                   src={CameraIcon}
                   alt="upload-images"
                 />
