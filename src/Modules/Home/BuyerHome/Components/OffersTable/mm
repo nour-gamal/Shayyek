@@ -1,9 +1,0 @@
-      <StartOnlineSession
-        isModalVisible={isSessionModalVisible}
-        onCancel={() => {
-          toggleIsSessionModalVisible(false);
-        }}
-      />
-
-  const [isSessionModalVisible, toggleIsSessionModalVisible] = useState(false);
-import StartOnlineSession from "../../../../Messages/StartOnlineSession/StartOnlineSession";
