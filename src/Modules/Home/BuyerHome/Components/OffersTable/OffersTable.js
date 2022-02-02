@@ -10,6 +10,9 @@ import download from "../../../../../Resources/Assets/direct-download.svg";
 import share from "../../../../../Resources/Assets/share (5).svg";
 import ReactTooltip from "react-tooltip";
 import { useSelector } from "react-redux";
+import { setDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { db } from "../../../../../firebase";
+
 import {
 	GetBuyerAddedRFQOffers,
 	BuyerAcceptRFQ,
@@ -21,8 +24,10 @@ import "./OffersTable.css";
 import SingleRFQModal from "../../../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
 
 function OfferTable(props) {
-	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const { currentLanguageId } = useSelector((state) => state.currentLocal);
+	const { currentLocal, currentLanguageId } = useSelector(
+		(state) => state.currentLocal
+	);
+	const { authorization } = useSelector((state) => state.authorization);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [rfqDetails, updateRFQDetails] = useState([]);
 	const [selectedRow, setSelectedRow] = useState(null);
@@ -54,6 +59,17 @@ function OfferTable(props) {
 	};
 	const shareOffer = () => {
 		alert("bye");
+	};
+	const addNewChat = async (userId, name) => {
+		const roomsDocRef = doc(db, "roomd", userId);
+		await setDoc(roomsDocRef, {
+			messages: [{}],
+		});
+
+		const userDocRef = doc(db, "users", authorization.id);
+		await updateDoc(userDocRef, {
+			friends: arrayUnion({ roomId: 11 }),
+		});
 	};
 	const bottom = "bottomRight";
 	const menu = (
@@ -95,7 +111,7 @@ function OfferTable(props) {
 			<Menu.Item
 				key="2"
 				onClick={() => {
-					alert("hi 2");
+					addNewChat();
 				}}
 			>
 				<img src={chat} alt="chat" />

@@ -20,6 +20,8 @@ import paperClip from "../../../../../Resources/Assets/paperClip.svg";
 import ChangePasswordModal from "../ChangePasswordModal/ChangePasswordModal";
 import AddCompanyPhoneModal from "../AddCompanyPhoneModal/AddCompanyPhoneModal";
 import defaultImage from "../../../../../Resources/Assets/DefaultProfileImage.png";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../../../firebase";
 
 // style
 import "./ProfileDetailsModal.css";
@@ -56,8 +58,6 @@ function ProfileDetailsModal({
 	const [alert, setAlert] = useState(false);
 	const [validationAlert, toggleValidationAlert] = useState(false);
 	const userTypeName = authorType(accountTypeId, userTypeId, roleId);
-	console.log(userTypeName, accountTypeId, userTypeId, roleId);
-	console.log(authorization);
 
 	useEffect(() => {
 		getCategoriesWithSelected(
@@ -113,7 +113,6 @@ function ProfileDetailsModal({
 			getBuyerProfile(
 				currentLanguageId,
 				(success) => {
-					console.log(success.data);
 					updateProfileData(success.data);
 					updateCompanyEmail(success.data.company.email);
 					updateCompanyWebsite(success.data.company.website);
@@ -159,6 +158,7 @@ function ProfileDetailsModal({
 					} else {
 						updateProfileImgLink(success.data);
 						dispatch(login({ ...authorization, profileImage: success.data }));
+						updateFBProfileImage(success.data);
 					}
 				},
 				(fail) => {
@@ -169,7 +169,13 @@ function ProfileDetailsModal({
 			setAlert(true);
 		}
 	};
-
+	const updateFBProfileImage = async (profileImage) => {
+		const userDocRef = doc(db, "users", authorization.id);
+		await setDoc(userDocRef, {
+			...userDocRef,
+			myImage: profileImage,
+		});
+	};
 	const onTreeChange = (currentNode, selectedNodes) => {
 		let categoriesRequest = [];
 		let result = selectedNodes.reduce(function(r, a) {

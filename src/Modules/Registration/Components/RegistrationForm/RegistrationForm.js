@@ -15,8 +15,7 @@ import {
 	register,
 	addRegisterImage,
 } from "../../Network";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../../../firebase";
+
 import disableArrow from "../../../../Resources/Assets/disableArrow.svg";
 import Arrow from "../../../../Resources/Assets/dropdown arrow icn.svg";
 import foucesArrow from "../../../../Resources/Assets/blue dropdown arrow.svg";
@@ -399,8 +398,7 @@ function RegistrationForm() {
 			data,
 			(success) => {
 				if (success.success === true) {
-					localStorage.setItem("mobileNumber", mobileNumber);
-					setUserFBData(success.userId);
+					localStorage.setItem("mobileNumber", mobileNumber);			
 					setRedirect(true);
 				} else if (!success.success && success.data.errorStatus === 2) {
 					//Mobile usedBefore
@@ -414,14 +412,7 @@ function RegistrationForm() {
 		);
 	};
 
-	const setUserFBData = async (userId) => {
-		const frankDocRef = doc(db, "users", userId);
-		await setDoc(frankDocRef, {
-			name: firstName + " " + lastName,
-			friends: [],
-			myImage: null,
-		});
-	};
+
 	const handleAddCompanyLogo = (e) => {
 		if (e.target.files[0].type.includes("image")) {
 			setlogoName(e.target.files[0].name);

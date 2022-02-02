@@ -6,6 +6,8 @@ import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import { login } from "../../../../Redux/Authorization";
 import { setStoreData } from "../../../../Services";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../../firebase";
 import "./LoginByEmail.css";
 
 function LoginByEmail({ signinByEmail, rejection, holding }) {
@@ -27,8 +29,15 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
 		setAlert(false);
 		setVerrifayState(false);
 	};
+	const setUserFBData = async (userId, name) => {
+		const userDocRef = doc(db, "users", userId);
+		await setDoc(userDocRef, {
+			name,
+			friends: [],
+			myImage: null,
+		});
+	};
 
-	// console.log(holdingState);
 	const sendData = (e) => {
 		e.preventDefault();
 		if (!email || !password) {
@@ -45,8 +54,10 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
 				body,
 				(success) => {
 					if (success.success) {
+						const { id, fullName } = success.data;
 						dispatch(login(success.data));
 						setStoreData(success.data.token);
+						setUserFBData(id, fullName);
 						setRedirect(true);
 					} else if (!success.success && success.data.errorStatus === 1) {
 						//email Not verrify
