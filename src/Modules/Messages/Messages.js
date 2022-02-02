@@ -12,7 +12,7 @@ const messages = () => {
         <div className="sidebarUserForMessageContainer">
           <SidebarUserForMessage />
         </div>
-        <div className="singleUserChatMessageContainer">
+        <div className="singleUserChatMessageContainer flex-1">
           <SingleUserChatMessage />
         </div>
       </div>
