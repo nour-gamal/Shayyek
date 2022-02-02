@@ -12,9 +12,8 @@ import ReactTooltip from "react-tooltip";
 import { useSelector } from "react-redux";
 import { setDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../../../../firebase";
-
 import StartOnlineSession from "../../../../Messages/StartOnlineSession/StartOnlineSession";
-
+import { Redirect } from "react-router-dom";
 import {
 	GetBuyerAddedRFQOffers,
 	BuyerAcceptRFQ,
@@ -34,6 +33,7 @@ function OfferTable(props) {
 	const [rfqDetails, updateRFQDetails] = useState([]);
 	const [selectedRow, setSelectedRow] = useState(null);
 	const [isRFQModalVisible, toggleRFQModal] = useState(false);
+	const [redirectState, updateRedirectState] = useState(null);
 	const [isSessionModalVisible, toggleIsSessionModalVisible] = useState(false);
 	const { id } = props.match.params;
 	useEffect(() => {
@@ -77,6 +77,7 @@ function OfferTable(props) {
 				friendId,
 			}),
 		});
+		updateRedirectState("/chat");
 	};
 	const bottom = "bottomRight";
 	const menu = (
@@ -119,7 +120,6 @@ function OfferTable(props) {
 				key="2"
 				onClick={() => {
 					let roomId = `${authorization.id}-${selectedRow.applicantId}`;
-
 					addNewChat(roomId, selectedRow.applicantId);
 				}}
 			>
@@ -234,7 +234,7 @@ function OfferTable(props) {
 			pdfExportComponent.current.save();
 		}
 	};
-
+	if (redirectState) return <Redirect to={redirectState} />;
 	return (
 		<section className="OfferTable">
 			<Navbar />
