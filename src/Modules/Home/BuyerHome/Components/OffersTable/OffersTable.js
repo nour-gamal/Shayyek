@@ -274,7 +274,12 @@ function OfferTable(props) {
         </PDFExport>
         <div className="text-center">
           <ReactTooltip />
-          <button className="button-primary my-2">
+          <button
+            className="button-primary my-2"
+            onClick={() => {
+              toggleIsSessionModalVisible(true);
+            }}
+          >
             {currentLocal.offerTable.makeOnlineSession}
           </button>
         </div>

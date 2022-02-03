@@ -1,0 +1,164 @@
+.StartOnlineSession-modal .ant-modal-body {
+  display: flex;
+  flex-direction: column;
+}
+.StartOnlineSession-modal header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.StartOnlineSession-modal header .user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.StartOnlineSession-modal header .user img {
+  margin-bottom: 1rem;
+}
+.StartOnlineSession-modal header .user p {
+  margin-bottom: 0.5rem;
+  color: #707070;
+  font-size: 0.875rem;
+}
+
+.StartOnlineSession-modal header img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.StartOnlineSession-modal .lastPrice {
+  color: #f50000;
+  font-size: 0.875rem;
+  font-weight: bold;
+  letter-spacing: 0.25px;
+}
+.StartOnlineSession-modal .suppliers {
+  align-items: center;
+}
+.StartOnlineSession-modal .suppliers p {
+  color: #2699fb;
+  font-size: 1rem;
+  margin-bottom: 0 !important;
+}
+.StartOnlineSession-modal img.userImage {
+  margin-inline-start: 0.2rem;
+}
+
+html[lang="ar"]
+  .StartOnlineSession-modal
+  .StartOnlineSession__sendMessages
+  .messageInput {
+  direction: rtl;
+}
+
+.StartOnlineSession-modal .StartOnlineSession__content {
+  flex: 1;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.StartOnlineSession-modal .StartOnlineSession__content .message-content {
+  background: #f5f5f5;
+}
+.StartOnlineSession-modal .StartOnlineSession__sendMessages {
+  min-height: 60px;
+}
+.StartOnlineSession-modal .icons-inside-form-field {
+  display: none !important;
+}
+.StartOnlineSession-modal .StartOnlineSession__sendMessages .messageInput {
+  width: 100%;
+  border-radius: 1.2rem;
+  border: none;
+  background: #f5f5f5;
+  color: #092a44;
+  padding: 0.8rem 1.5rem;
+}
+
+.StartOnlineSession-modal
+  .StartOnlineSession__sendMessages
+  .messageInput::placeholder {
+  color: #092a44;
+  opacity: 1;
+}
+
+.StartOnlineSession-modal
+  .StartOnlineSession__sendMessages
+  .messageInput::-ms-input-placeholder {
+  color: #092a44;
+  opacity: 1;
+}
+
+.StartOnlineSession-modal .StartOnlineSession__sendMessages button {
+  display: block;
+  padding: 0;
+  margin: 0 1rem;
+}
+
+.StartOnlineSession-modal .StartOnlineSession__sendMessages button img {
+  height: 100%;
+}
+
+.StartOnlineSession__sendMessages.mt-2.d-flex.justify-content-between.align-items-center
+  * {
+  height: 100%;
+}
+
+.StartOnlineSession-modal .messageInput:focus,
+.StartOnlineSession-modal .messageInput:active {
+  border: none;
+  outline: none;
+}
+
+.StartOnlineSession-modal .message-content {
+  padding: 1.5rem 1rem;
+  border-radius: 0.5rem;
+  background: #f5f5f5;
+}
+.StartOnlineSession-modal .message-content .content {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+
+.StartOnlineSession-modal .message-content .content h6 {
+  font-size: 0.875rem;
+  color: #8e8e8e;
+}
+
+.StartOnlineSession-modal .message-content .content p {
+  margin-bottom: 0 !important;
+  margin-top: 0.5rem;
+  border-radius: 1.5rem;
+  background: #98aec1;
+  padding: 0.5rem 1rem;
+}
+
+.StartOnlineSession-modal .message-content .content img.message-content__user {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.StartOnlineSession-modal .message-content .content:nth-of-type(2n) {
+  flex-direction: row-reverse;
+}
+
+.StartOnlineSession-modal
+  .message-content
+  .content:nth-of-type(1n)
+  img.message-content__user {
+  margin-inline-end: 0.5rem;
+}
+
+.StartOnlineSession-modal
+  .message-content
+  .content:nth-of-type(2n)
+  img.message-content__user {
+  margin-inline-start: 0.5rem;
+  margin-inline-end: 0;
+}
+
+.StartOnlineSession-modal .message-content .content:nth-of-type(2n) h6 {
+  text-align: end;
+}
