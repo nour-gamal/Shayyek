@@ -1,4 +1,5 @@
 import DefaultProfileImage from "../../../Resources/Assets/DefaultProfileImage.png";
+import { baseUrl } from "../../../Services";
 import { Dropdown, Button, Menu } from "antd";
 import "./SidebarUserForMessage.css";
 
@@ -15,6 +16,7 @@ const SidebarUserForMessage = ({ friendsList }) => {
 			</Menu.Item>
 		</Menu>
 	);
+
 	return (
 		<div className="SidebarUserForMessage">
 			{friendsList.length > 0 && (
@@ -29,9 +31,12 @@ const SidebarUserForMessage = ({ friendsList }) => {
 									<figure className="SidebarUserForMessage__figure">
 										<img
 											src={
-												friend.myImage ? friend.myImage : DefaultProfileImage
+												friend.myImage
+													? baseUrl + friend.myImage
+													: DefaultProfileImage
 											}
 											alt="user"
+											className="rounded-circle"
 										/>
 									</figure>
 									<h5>{friend.name}</h5>
