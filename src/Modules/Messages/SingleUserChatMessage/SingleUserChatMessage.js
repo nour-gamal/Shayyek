@@ -9,13 +9,7 @@ import MessageAvatar from "../../../Resources/Assets/MessageAvatar2x.png";
 import { db } from "../../../firebase";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import {
-	doc,
-	updateDoc,
-	arrayUnion,
-	onSnapshot,
-	Timestamp,
-} from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 import "./SingleUserChatMessage.css";
 
