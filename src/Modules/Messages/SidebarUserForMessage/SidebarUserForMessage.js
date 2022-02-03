@@ -1,4 +1,3 @@
-import MessageAvatar from "../../../Resources/Assets/MessageAvatar2x.png";
 import DefaultProfileImage from "../../../Resources/Assets/DefaultProfileImage.png";
 import { Dropdown, Button, Menu } from "antd";
 import "./SidebarUserForMessage.css";

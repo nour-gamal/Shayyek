@@ -27,12 +27,21 @@ const SingleUserChatMessage = ({ currentRoomId }) => {
 	}, [currentRoomId]);
 	const sendMessage = async () => {
 		const roomsDocRef = doc(db, "rooms", currentRoomId);
+		const userDocRef = doc(db, "users", authorization.id);
 
+		// const userDocRef=
 		await updateDoc(roomsDocRef, {
 			messages: arrayUnion({
 				message: messageText,
 				senderId: authorization.id,
 				createdAt: new Date().getTime(),
+			}),
+		});
+
+		await updateDoc(userDocRef, {
+			friends: arrayUnion({
+				roomId: currentRoomId,
+				friendId: "1",
 			}),
 		});
 		setMessageText("");
