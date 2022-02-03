@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { db } from "../../firebase";
 import { getDoc, doc } from "firebase/firestore";
 import "./Messages.css";
-const Messages = () => {
+const Messages = (props) => {
 	const { authorization } = useSelector((state) => state.authorization);
 	const [friendsList, updateFriendsList] = useState([]);
 	const [currentRoomId, updateCurrentRoomId] = useState(null);
@@ -41,6 +41,7 @@ const Messages = () => {
 		getFriendsList();
 		// eslint-disable-next-line
 	}, []);
+
 	return (
 		<section>
 			<Navbar />
@@ -49,7 +50,10 @@ const Messages = () => {
 					<SidebarUserForMessage friendsList={friendsList} />
 				</div>
 				<div className="singleUserChatMessageContainer flex-1">
-					<SingleUserChatMessage currentRoomId={currentRoomId} />
+					<SingleUserChatMessage
+						currentRoomId={currentRoomId}
+						applicantId={props.location.state}
+					/>
 				</div>
 			</div>
 			<Footer />

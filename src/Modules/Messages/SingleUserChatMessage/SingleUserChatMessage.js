@@ -13,7 +13,7 @@ import { doc, updateDoc, arrayUnion, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 import "./SingleUserChatMessage.css";
 
-const SingleUserChatMessage = ({ currentRoomId }) => {
+const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 	const [messageText, setMessageText] = useState("");
 	const { authorization } = useSelector((state) => state.authorization);
 	const [room, updateRoom] = useState([]);
@@ -27,7 +27,6 @@ const SingleUserChatMessage = ({ currentRoomId }) => {
 	}, [currentRoomId]);
 	const sendMessage = async () => {
 		const roomsDocRef = doc(db, "rooms", currentRoomId);
-		const userDocRef = doc(db, "users", authorization.id);
 
 		// const userDocRef=
 		await updateDoc(roomsDocRef, {
@@ -37,14 +36,17 @@ const SingleUserChatMessage = ({ currentRoomId }) => {
 				createdAt: new Date().getTime(),
 			}),
 		});
+		if (applicantId) {
+			const userDocRef = doc(db, "users", applicantId);
 
-		await updateDoc(userDocRef, {
-			friends: arrayUnion({
-				roomId: currentRoomId,
-				friendId: "1",
-			}),
-		});
-		setMessageText("");
+			await updateDoc(userDocRef, {
+				friends: arrayUnion({
+					roomId: currentRoomId,
+					friendId: authorization.id,
+				}),
+			});
+			setMessageText("");
+		}
 	};
 	// getRoomMessages=()=>{
 	// }
