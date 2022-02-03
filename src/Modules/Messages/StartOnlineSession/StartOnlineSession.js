@@ -5,6 +5,8 @@ import EndSession from "../../../Resources/Assets/end-session.svg";
 import SendSession from "../../../Resources/Assets/send-session.svg";
 import { Modal, Button } from "antd";
 import user from "../../../Resources/Assets/MessageAvatar.png";
+import { db } from "../../../firebase";
+import { doc, setDoc, collection } from "firebase/firestore";
 import "./StartOnlineSession.css";
 
 const StartOnlineSession = ({ isModalVisible, onCancel }) => {
@@ -12,6 +14,7 @@ const StartOnlineSession = ({ isModalVisible, onCancel }) => {
   const [sendOfferText, setSendOfferText] = useState("");
 
   function sendOffer() {
+    // await setDoc(doc(db, "data", "one"), docData);
     setSendOfferText("");
   }
   return (

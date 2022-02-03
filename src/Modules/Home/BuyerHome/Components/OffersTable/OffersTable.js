@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { Table, Dropdown, Menu } from "antd";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import acceptOffer from "../../../../../Resources/Assets/acceptOffer.svg";
@@ -12,8 +13,8 @@ import ReactTooltip from "react-tooltip";
 import { useSelector } from "react-redux";
 import { setDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../../../../firebase";
-import StartOnlineSession from "../../../../Messages/StartOnlineSession/StartOnlineSession";
-import { Redirect } from "react-router-dom";
+// import StartOnlineSession from "../../../../Messages/StartOnlineSession/StartOnlineSession";
+import CreateOnlineSession from "../../../../Messages/CreateOnineSession/CreateOnineSession";
 import {
   GetBuyerAddedRFQOffers,
   BuyerAcceptRFQ,
@@ -280,7 +281,10 @@ function OfferTable(props) {
         </PDFExport>
         <div className="text-center">
           <ReactTooltip />
-          <button className="button-primary my-2">
+          <button
+            className="button-primary my-2"
+            onClick={() => toggleIsSessionModalVisible(true)}
+          >
             {currentLocal.offerTable.makeOnlineSession}
           </button>
         </div>
@@ -297,7 +301,8 @@ function OfferTable(props) {
           parent="offersTable"
         />
       )}
-      <StartOnlineSession
+      {/* <StartOnlineSession /> */}
+      <CreateOnlineSession
         isModalVisible={isSessionModalVisible}
         onCancel={() => {
           toggleIsSessionModalVisible(false);

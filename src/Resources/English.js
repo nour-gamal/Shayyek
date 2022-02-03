@@ -362,5 +362,6 @@ export const en = {
     endSession: "End Session",
     endAndGiveBadge: "End & give badge",
     suppliers: "Suppliers",
+    selectOnlineSessionMembers: "Select Online Session Members",
   },
 };

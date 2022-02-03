@@ -1,0 +1,24 @@
+.createOnlineSession-modal.modal-lg .ant-modal-body {
+  display: flex;
+  flex-direction: column;
+}
+.createOnlineSession-modal {
+  display: flex;
+  flex-direction: column;
+  flex: ;
+}
+.createOnlineSession-modal .createOnlineSession-body {
+  flex: 1;
+  border: 1px solid red;
+}
+
+.createOnlineSession-modal .createOnlineSession-items {
+}
+
+.createOnlineSession-modal .createOnlineSession-items .item {
+  align-items: center;
+}
+
+.createOnlineSession-modal .createOnlineSession-items .item p {
+  margin-bottom: 0;
+}

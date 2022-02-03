@@ -358,5 +358,6 @@ export const ar = {
     endSession: "إنهاء الجلسة",
     endAndGiveBadge: "إنهاء و أعطاء بادج",
     suppliers: "الموردين",
+    selectOnlineSessionMembers: "أختيار أعضاء المناقصة",
   },
 };
