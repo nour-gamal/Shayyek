@@ -12,9 +12,8 @@ import ReactTooltip from "react-tooltip";
 import { useSelector } from "react-redux";
 import { setDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../../../../firebase";
-
 import StartOnlineSession from "../../../../Messages/StartOnlineSession/StartOnlineSession";
-
+import { Redirect } from "react-router-dom";
 import {
   GetBuyerAddedRFQOffers,
   BuyerAcceptRFQ,
@@ -34,6 +33,7 @@ function OfferTable(props) {
   const [rfqDetails, updateRFQDetails] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [isRFQModalVisible, toggleRFQModal] = useState(false);
+  const [redirectState, updateRedirectState] = useState(null);
   const [isSessionModalVisible, toggleIsSessionModalVisible] = useState(false);
   const { id } = props.match.params;
   useEffect(() => {
@@ -61,18 +61,23 @@ function OfferTable(props) {
     );
   };
   const shareOffer = () => {
-    alert("bye");
+    alert("share");
   };
-  const addNewChat = async (userId, name) => {
-    const roomsDocRef = doc(db, "roomd", userId);
+  const addNewChat = async (roomId, friendId) => {
+    const roomsDocRef = doc(db, "rooms", roomId);
+
     await setDoc(roomsDocRef, {
-      messages: [{}],
+      messages: [],
     });
 
     const userDocRef = doc(db, "users", authorization.id);
     await updateDoc(userDocRef, {
-      friends: arrayUnion({ roomId: 11 }),
+      friends: arrayUnion({
+        roomId,
+        friendId,
+      }),
     });
+    updateRedirectState("/chat");
   };
   const bottom = "bottomRight";
   const menu = (
@@ -114,7 +119,8 @@ function OfferTable(props) {
       <Menu.Item
         key="2"
         onClick={() => {
-          addNewChat();
+          let roomId = `${authorization.id}-${selectedRow.applicantId}`;
+          addNewChat(roomId, selectedRow.applicantId);
         }}
       >
         <img src={chat} alt="chat" />
@@ -228,7 +234,7 @@ function OfferTable(props) {
       pdfExportComponent.current.save();
     }
   };
-
+  if (redirectState) return <Redirect to={redirectState} />;
   return (
     <section className="OfferTable">
       <Navbar />
@@ -274,12 +280,7 @@ function OfferTable(props) {
         </PDFExport>
         <div className="text-center">
           <ReactTooltip />
-          <button
-            className="button-primary my-2"
-            onClick={() => {
-              toggleIsSessionModalVisible(true);
-            }}
-          >
+          <button className="button-primary my-2">
             {currentLocal.offerTable.makeOnlineSession}
           </button>
         </div>
