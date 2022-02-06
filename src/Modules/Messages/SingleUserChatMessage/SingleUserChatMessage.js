@@ -5,10 +5,11 @@ import Microphone from "../../../Resources/Assets/microphone.svg";
 import PaperClip from "../../../Resources/Assets/paperClip.svg";
 import CameraIcon from "../../../Resources/Assets/camera.svg";
 import SendMessage from "../../../Resources/Assets/sendMessage.png";
-import MessageAvatar from "../../../Resources/Assets/MessageAvatar2x.png";
+import DefaultProfileImage from "../../../Resources/Assets/DefaultProfileImage.png";
 import { db } from "../../../firebase";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { baseUrl } from "../../../Services";
 import { doc, updateDoc, arrayUnion, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 import "./SingleUserChatMessage.css";
@@ -17,6 +18,10 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 	const [messageText, setMessageText] = useState("");
 	const { authorization } = useSelector((state) => state.authorization);
 	const [room, updateRoom] = useState([]);
+	const [applicantImage, updateApplicantImage] = useState(null);
+	const profileImage = authorization.profileImage
+		? baseUrl + authorization.profileImage
+		: DefaultProfileImage;
 
 	useEffect(() => {
 		if (currentRoomId) {
@@ -24,7 +29,17 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 				updateRoom(doc.data().messages);
 			});
 		}
-	}, [currentRoomId]);
+
+		if (applicantId) {
+			onSnapshot(doc(db, "users", applicantId), (doc) => {
+				if (doc.data().myImage) {
+					updateApplicantImage(baseUrl + doc.data().myImage);
+				} else {
+					updateApplicantImage(DefaultProfileImage);
+				}
+			});
+		}
+	}, [currentRoomId, applicantId]);
 	const sendMessage = async () => {
 		const roomsDocRef = doc(db, "rooms", currentRoomId);
 
@@ -48,8 +63,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 			setMessageText("");
 		}
 	};
-	// getRoomMessages=()=>{
-	// }
+
 	return (
 		<div className="singleUserChatMessage h-100">
 			<div className="ppe pps singleUserChatMessage_container">
@@ -69,9 +83,13 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 										<div className="d-inline-flex flex-column  message-item__container">
 											<div className="d-flex align-items-center justify-content-start wrapper">
 												<img
-													className="user"
-													src={MessageAvatar}
+													src={
+														authorization.id === msg.senderId
+															? profileImage
+															: applicantImage
+													}
 													alt="user-avatar"
+													className="rounded-circle user"
 												/>
 												<p className="text">
 													<span className="vertically_center">

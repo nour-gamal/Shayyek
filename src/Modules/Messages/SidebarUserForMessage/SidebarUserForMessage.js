@@ -31,8 +31,8 @@ const SidebarUserForMessage = ({ friendsList }) => {
 									<figure className="SidebarUserForMessage__figure">
 										<img
 											src={
-												friend.myImage
-													? baseUrl + friend.myImage
+												friend.image
+													? baseUrl + friend.image
 													: DefaultProfileImage
 											}
 											alt="user"

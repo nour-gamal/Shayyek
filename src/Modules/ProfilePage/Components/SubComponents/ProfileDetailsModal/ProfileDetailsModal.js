@@ -20,7 +20,7 @@ import paperClip from "../../../../../Resources/Assets/paperClip.svg";
 import ChangePasswordModal from "../ChangePasswordModal/ChangePasswordModal";
 import AddCompanyPhoneModal from "../AddCompanyPhoneModal/AddCompanyPhoneModal";
 import defaultImage from "../../../../../Resources/Assets/DefaultProfileImage.png";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../../firebase";
 
 // style
@@ -171,8 +171,7 @@ function ProfileDetailsModal({
 	};
 	const updateFBProfileImage = async (profileImage) => {
 		const userDocRef = doc(db, "users", authorization.id);
-		await setDoc(userDocRef, {
-			...userDocRef,
+		await updateDoc(userDocRef, {
 			myImage: profileImage,
 		});
 	};
