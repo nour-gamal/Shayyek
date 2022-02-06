@@ -363,5 +363,6 @@ export const en = {
     endAndGiveBadge: "End & give badge",
     suppliers: "Suppliers",
     selectOnlineSessionMembers: "Select Online Session Members",
+    pickOnlineSession: "Pick Online Session Time And Date",
   },
 };

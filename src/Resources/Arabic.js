@@ -359,5 +359,6 @@ export const ar = {
     endAndGiveBadge: "إنهاء و أعطاء بادج",
     suppliers: "الموردين",
     selectOnlineSessionMembers: "أختيار أعضاء المناقصة",
+    pickOnlineSession: "أختار تاريخ و وقت المناقصة",
   },
 };
