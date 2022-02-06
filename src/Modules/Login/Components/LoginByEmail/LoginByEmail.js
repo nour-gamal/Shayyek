@@ -6,7 +6,7 @@ import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import { login } from "../../../../Redux/Authorization";
 import { setStoreData } from "../../../../Services";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import "./LoginByEmail.css";
 
@@ -31,11 +31,17 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
 	};
 	const setUserFBData = async (userId, name) => {
 		const userDocRef = doc(db, "users", userId);
-		await setDoc(userDocRef, {
-			name,
-			friends: [],
-			myImage: null,
-		});
+		const docSnap = await getDoc(userDocRef);
+		if (docSnap.exists()) {
+			let data = docSnap.data();
+			if (!("friends" in data)) {
+				await setDoc(userDocRef, {
+					name,
+					friends: [],
+					myImage: null,
+				});
+			}
+		}
 	};
 
 	const sendData = (e) => {

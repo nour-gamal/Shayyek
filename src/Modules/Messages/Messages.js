@@ -12,6 +12,7 @@ const Messages = (props) => {
 	const { authorization } = useSelector((state) => state.authorization);
 	const [friendsList, updateFriendsList] = useState([]);
 	const [currentRoomId, updateCurrentRoomId] = useState(null);
+	const [applicantId, updateApplicantId] = useState(null);
 	const getFriendsList = async () => {
 		const userDocRef = doc(db, "users", authorization.id);
 		const docSnap = await getDoc(userDocRef);
@@ -19,7 +20,9 @@ const Messages = (props) => {
 			let data = docSnap.data();
 			if (data.friends.length > 0) {
 				let currentRoomId = data.friends[data.friends.length - 1].roomId;
+				let applicantId = data.friends[data.friends.length - 1].friendId;
 				updateCurrentRoomId(currentRoomId);
+				updateApplicantId(applicantId);
 			}
 			data.friends.forEach(async (friend) => {
 				const userDocRef = doc(db, "users", friend.friendId);
@@ -52,7 +55,7 @@ const Messages = (props) => {
 				<div className="singleUserChatMessageContainer flex-1">
 					<SingleUserChatMessage
 						currentRoomId={currentRoomId}
-						applicantId={props.location.state}
+						applicantId={applicantId}
 					/>
 				</div>
 			</div>
