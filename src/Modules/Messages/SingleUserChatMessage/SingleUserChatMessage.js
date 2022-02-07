@@ -1,6 +1,5 @@
-import { useState } from "react";
-// component
-import { Button, Input } from "antd";
+import { useState, useRef } from "react";
+import { Button } from "antd";
 import Microphone from "../../../Resources/Assets/microphone.svg";
 import PaperClip from "../../../Resources/Assets/paperClip.svg";
 import CameraIcon from "../../../Resources/Assets/camera.svg";
@@ -32,6 +31,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 	const profileImage = authorization.profileImage
 		? baseUrl + authorization.profileImage
 		: DefaultProfileImage;
+	const scroll = useRef();
 
 	useEffect(() => {
 		if (currentRoomId) {
@@ -52,6 +52,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 	}, [currentRoomId, applicantId]);
 	const sendMessage = async (msgType, msgUrl) => {
 		const roomsDocRef = doc(db, "rooms", currentRoomId);
+		setMessageText("");
 
 		// const userDocRef=
 		await updateDoc(roomsDocRef, {
@@ -62,6 +63,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 				msgType,
 			}),
 		});
+
 		if (applicantId) {
 			const userDocRef = doc(db, "users", applicantId);
 
@@ -71,7 +73,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 					friendId: authorization.id,
 				}),
 			});
-			setMessageText("");
+			scroll.current.scrollIntoView({ behavior: "smooth" });
 		}
 	};
 	const handleChooseDocImg = (e, type) => {
@@ -101,8 +103,8 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 	return (
 		<div className="singleUserChatMessage h-100">
 			<div className="ppe pps singleUserChatMessage_container">
-				<div className="singleUserChatMessage_chat d-flex flex-column justify-content-between">
-					<div className="singleUserChatMessage_body flex-1">
+				<div className="singleUserChatMessage_chat">
+					<div className="singleUserChatMessage_body">
 						<ul className="chat__messages">
 							{room.map((msg, msgIndex) => {
 								return (
@@ -131,17 +133,17 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 															{msg.message}
 														</span>
 													</p>
-												) : msg.msgType === "images" ? (
+												) : msg.msgType === "audio" ? (
+													<audio controls>
+														<source src={msg.message} type="audio/ogg" />
+														<source src={msg.message} type="audio/mpeg" />
+													</audio>
+												) : (
 													<img
 														src={msg.message}
 														alt="imageMsg"
 														className="imageMsg"
 													/>
-												) : (
-													<audio controls>
-														<source src={msg.message} type="audio/ogg" />
-														<source src={msg.message} type="audio/mpeg" />
-													</audio>
 												)}
 											</div>
 											<div className="time mt-1 w-100">
@@ -151,6 +153,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 									</li>
 								);
 							})}
+							<div ref={scroll}></div>
 						</ul>
 						<div className="chat__message me"></div>
 					</div>
@@ -162,7 +165,15 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 							handleUpload={handleUpload}
 						/>
 					)}
-					<div className="singleUserChatMessage_send">
+					<form
+						className="singleUserChatMessage_send"
+						onSubmit={(e) => {
+							e.preventDefault();
+							if (messageText.length) {
+								sendMessage("text");
+							}
+						}}
+					>
 						<div className="chat__uploader">
 							<input
 								type="file"
@@ -210,20 +221,18 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 								/>
 							</Button>
 						</div>
-						<Input.TextArea
+						<input
+							type={"text"}
 							// onChange={this.onChange}
 							placeholder="Controlled autosize"
-							autoSize={{ minRows: 1, maxRows: 3 }}
 							value={messageText}
 							onChange={(e) => setMessageText(e.target.value)}
+							className="chat-input"
 						/>
-						<div
-							className="chat__controller cursorPointer"
-							onClick={() => sendMessage("text")}
-						>
+						<button type="submit" className="chat__controller cursorPointer">
 							<img className="flip-image" src={SendMessage} alt="send-data" />
-						</div>
-					</div>
+						</button>
+					</form>
 				</div>
 			</div>
 		</div>

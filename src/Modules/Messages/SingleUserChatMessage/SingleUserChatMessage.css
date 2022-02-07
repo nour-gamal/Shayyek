@@ -18,11 +18,13 @@
 .singleUserChatMessage_chat .chat-icon {
 	width: 1rem;
 }
-.singleUserChatMessage_chat textarea {
+.chat-input {
 	border-radius: 2rem;
 	padding: 1rem 1rem;
 	line-height: 1;
 	flex: 1;
+	outline: none;
+	border: none;
 }
 
 .singleUserChatMessage_send {
@@ -40,16 +42,22 @@
 	display: flex;
 	align-items: center;
 	margin-inline-start: 0.5rem;
+	border: none;
 }
 
 .singleUserChatMessage_body .chat__messages {
-	flex: 1;
 	display: flex;
 	flex-direction: column;
-	height: 100%;
 	padding-bottom: 1rem;
+	height: calc(100vh - 300px);
+	overflow: auto;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 }
 
+.singleUserChatMessage_body .chat__messages::-webkit-scrollbar {
+	display: none;
+}
 .singleUserChatMessage_body .chat__messages .message-item .time {
 	color: #aeaeae;
 }
