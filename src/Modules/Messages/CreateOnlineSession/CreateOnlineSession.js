@@ -1,13 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Checkbox, Row, Col, DatePicker } from "antd";
-import user from "../../../Resources/Assets/MessageAvatar.png";
+import {
+  GetSuppliersAndContratorsThatFilledRFQ,
+  // AddOnlineSession,
+} from "../network";
 import "./CreateOnlineSession.css";
-const CreateOnineSession = ({ isModalVisible, onCancel }) => {
+import { baseUrl } from "./../../../Services";
+import defaultProfileImage from "../../../Resources/Assets/DefaultProfileImage.png";
+const CreateOnineSession = ({ isModalVisible, onCancel, rfqId }) => {
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  const [checkedState, setCheckedState] = useState(new Array(5).fill(false));
-  // const [total, setTotal] = useState()
-  function setChecked() {}
+  const [members, setMembers] = useState(null);
+  const [checkedMembers, setCheckedMembers] = useState(undefined);
+  useEffect(() => {
+    GetSuppliersAndContratorsThatFilledRFQ(
+      rfqId,
+      (success) => {
+        if (success.success) {
+          setMembers(success.data);
+        }
+      },
+      (fail) => {}
+    );
+  }, [rfqId]);
+
+  function onChange(value) {
+    console.log(value);
+  }
+  function onOk(value) {
+    console.log(value);
+  }
+  function changeGroupCheckbox(data) {
+    setCheckedMembers(data);
+  }
+  console.log(checkedMembers);
   return (
     <Modal
       visible={isModalVisible}
@@ -22,21 +48,23 @@ const CreateOnineSession = ({ isModalVisible, onCancel }) => {
             </header>
             <form>
               <ul className="createOnlineSession-items">
-                <li className="item d-flex">
-                  <Checkbox />
-                  <img src={user} alt="user-avatar" />
-                  <p>Joe Weak Hoi</p>
-                </li>
-                <li className="item d-flex">
-                  <Checkbox />
-                  <img src={user} alt="user-avatar" />
-                  <p>Joe Weak Hoi</p>
-                </li>
-                <li className="item d-flex">
-                  <Checkbox />
-                  <img src={user} alt="user-avatar" />
-                  <p>Joe Weak Hoi</p>
-                </li>
+                <Checkbox.Group onChange={changeGroupCheckbox}>
+                  {members &&
+                    members.map((member) => (
+                      <li className="item d-flex" key={member.userId}>
+                        <Checkbox value={member} />
+                        <img
+                          src={
+                            member.userImage
+                              ? baseUrl + member.userImage
+                              : defaultProfileImage
+                          }
+                          alt="user-avatar"
+                        />
+                        <p>{member.userName}</p>
+                      </li>
+                    ))}
+                </Checkbox.Group>
               </ul>
             </form>
           </Col>
@@ -44,8 +72,7 @@ const CreateOnineSession = ({ isModalVisible, onCancel }) => {
             <header>
               <h4>{currentLocal.messages.pickOnlineSession}</h4>
             </header>
-            {/*  onChange={onChange} onOk={onOk}  */}
-            <DatePicker showTime />
+            <DatePicker showTime onChange={onChange} onOk={onOk} />
           </Col>
         </Row>
       </div>

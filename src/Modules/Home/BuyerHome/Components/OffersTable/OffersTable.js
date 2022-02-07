@@ -65,7 +65,6 @@ function OfferTable(props) {
   };
   const addNewChat = async (roomId, friendId) => {
     const roomsDocRef = doc(db, "rooms", roomId);
-
     await setDoc(roomsDocRef, {
       messages: [],
     });
@@ -314,6 +313,7 @@ function OfferTable(props) {
         onCancel={() => {
           toggleIsSessionModalVisible(false);
         }}
+        rfqId={rfqDetails.length ? rfqDetails[0].rfqId : null}
       />
     </section>
   );
