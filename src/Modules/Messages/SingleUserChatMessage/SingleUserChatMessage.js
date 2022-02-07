@@ -12,6 +12,8 @@ import moment from "moment";
 import { baseUrl } from "../../../Services";
 import { doc, updateDoc, arrayUnion, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
+import VoiceRecorder from "../VoiceRecorder/VoiceRecorder";
+import "react-voice-recorder/dist/index.css";
 import "./SingleUserChatMessage.css";
 
 const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
@@ -19,6 +21,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 	const { authorization } = useSelector((state) => state.authorization);
 	const [room, updateRoom] = useState([]);
 	const [applicantImage, updateApplicantImage] = useState(null);
+	const [isRecording, updateIsRecording] = useState(false);
 	const profileImage = authorization.profileImage
 		? baseUrl + authorization.profileImage
 		: DefaultProfileImage;
@@ -107,11 +110,19 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 						</ul>
 						<div className="chat__message me"></div>
 					</div>
+					{isRecording && (
+						<VoiceRecorder
+							resetRecord={() => {
+								updateIsRecording(false);
+							}}
+						/>
+					)}
 					<div className="singleUserChatMessage_send">
 						<div className="chat__uploader">
 							<Button type="text">
 								<img className="chat-icon" src={PaperClip} alt="upload-paper" />
 							</Button>
+							<input type="file" />
 							<Button type="text">
 								<img
 									className="chat-icon-camera"
@@ -124,6 +135,9 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 									className="chat-icon"
 									src={Microphone}
 									alt="record-voice"
+									onClick={() => {
+										updateIsRecording(!isRecording);
+									}}
 								/>
 							</Button>
 						</div>
