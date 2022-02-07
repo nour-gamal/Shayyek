@@ -111,6 +111,10 @@
 .singleUserChatMessage_body .chat__messages .message-item.sender .time {
 	text-align: start;
 }
+.singleUserChatMessage_body .chat__messages .imageMsg {
+	width: 100px;
+	height: 100px;
+}
 
 @media (max-width: 990px) {
 	.singleUserChatMessage_body .chat__messages .message-item {

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Recorder } from "react-voice-recorder";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 import "./VoiceRecorder.css";
-function VoiceRecorder({ resetRecord }) {
+function VoiceRecorder({ resetRecord, handleUpload }) {
 	const [audioDetails, updateAudioDetails] = useState({
 		url: null,
 		blob: null,
@@ -27,16 +26,7 @@ function VoiceRecorder({ resetRecord }) {
 		};
 		updateAudioDetails(reset);
 	};
-	const handleAudioUpload = (file) => {
-		const storage = getStorage();
-		const storageRef = ref(storage, "voicenotes");
-		console.log(file);
-		// 'file' comes from the Blob or File API
-		uploadBytes(storageRef, file).then((snapshot) => {
-			console.log(snapshot);
-		});
-		resetRecord();
-	};
+
 	const handleAudioStop = (data) => {
 		updateAudioDetails(data);
 	};
@@ -49,10 +39,13 @@ function VoiceRecorder({ resetRecord }) {
 				audioURL={audioDetails.url}
 				handleAudioStop={(data) => {
 					handleAudioStop(data);
-					handleAudioUpload(data);
+					const blob = new Blob(data.chunks, {
+						type: "audio/ogg; codecs=opus",
+					});
+					handleUpload(blob, "audio");
 				}}
 				// handleOnChange={(value) => handleOnChange(value, "firstname")}
-				handleAudioUpload={(data) => handleAudioUpload(data)}
+				// handleAudioUpload={(data) => handleAudioUpload(data)}
 				handleRest={() => handleRest()}
 			/>
 		</div>

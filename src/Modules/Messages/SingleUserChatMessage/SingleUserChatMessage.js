@@ -75,9 +75,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 		}
 	};
 	const handleChooseDocImg = (e, type) => {
-		if (type === "docs") {
-			handleUpload(e.target.files[0], type);
-		}
+		handleUpload(e.target.files[0], type);
 	};
 	const generateUniqueId = () => {
 		var unId = "id" + new Date().getTime();
@@ -86,13 +84,16 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 	const handleUpload = (file, type) => {
 		const unId = generateUniqueId();
 		const storage = getStorage();
-		const storageRef = ref(storage, `${type}/${unId}-${file.name}`);
+		const storageRef = ref(
+			storage,
+			`${type}/${unId}-${file.name ? file.name : ""}`
+		);
 		const uploadTask = uploadBytesResumable(storageRef, file);
 
 		// 'file' comes from the Blob or File API
 		uploadBytes(storageRef, file).then((snapshot) => {
 			getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-				sendMessage("image", downloadURL);
+				sendMessage(type, downloadURL);
 			});
 		});
 	};
@@ -130,14 +131,17 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 															{msg.message}
 														</span>
 													</p>
-												) : msg.msgType === "image" ? (
+												) : msg.msgType === "images" ? (
 													<img
 														src={msg.message}
-														alt="imagePic"
-														style={{ width: "100px", height: "100px" }}
+														alt="imageMsg"
+														className="imageMsg"
 													/>
 												) : (
-													<></>
+													<audio controls>
+														<source src={msg.message} type="audio/ogg" />
+														<source src={msg.message} type="audio/mpeg" />
+													</audio>
 												)}
 											</div>
 											<div className="time mt-1 w-100">
@@ -155,6 +159,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 							resetRecord={() => {
 								updateIsRecording(false);
 							}}
+							handleUpload={handleUpload}
 						/>
 					)}
 					<div className="singleUserChatMessage_send">
@@ -162,13 +167,22 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 							<input
 								type="file"
 								className="d-none"
-								id="sendDocument"
+								id="sendImage"
+								onChange={(e) => {
+									handleChooseDocImg(e, "images");
+								}}
+								accept="image/*"
+							/>
+							<input
+								type="file"
+								className="d-none"
+								id="sendDoc"
 								onChange={(e) => {
 									handleChooseDocImg(e, "docs");
 								}}
 							/>
 							<Button type="text">
-								<label htmlFor="sendDocument">
+								<label htmlFor="sendDoc">
 									<img
 										className="chat-icon"
 										src={PaperClip}
@@ -177,11 +191,13 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 								</label>
 							</Button>
 							<Button type="text">
-								<img
-									className="chat-icon-camera"
-									src={CameraIcon}
-									alt="upload-images"
-								/>
+								<label htmlFor="sendImage">
+									<img
+										className="chat-icon-camera"
+										src={CameraIcon}
+										alt="upload-images"
+									/>
+								</label>
 							</Button>
 							<Button type="text">
 								<img
