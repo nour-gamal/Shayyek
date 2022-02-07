@@ -13,6 +13,13 @@ import { baseUrl } from "../../../Services";
 import { doc, updateDoc, arrayUnion, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 import VoiceRecorder from "../VoiceRecorder/VoiceRecorder";
+import {
+	getStorage,
+	ref,
+	uploadBytes,
+	uploadBytesResumable,
+	getDownloadURL,
+} from "firebase/storage";
 import "react-voice-recorder/dist/index.css";
 import "./SingleUserChatMessage.css";
 
@@ -43,15 +50,16 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 			});
 		}
 	}, [currentRoomId, applicantId]);
-	const sendMessage = async () => {
+	const sendMessage = async (msgType, msgUrl) => {
 		const roomsDocRef = doc(db, "rooms", currentRoomId);
 
 		// const userDocRef=
 		await updateDoc(roomsDocRef, {
 			messages: arrayUnion({
-				message: messageText,
+				message: msgType === "text" ? messageText : msgUrl,
 				senderId: authorization.id,
 				createdAt: new Date().getTime(),
+				msgType,
 			}),
 		});
 		if (applicantId) {
@@ -65,6 +73,28 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 			});
 			setMessageText("");
 		}
+	};
+	const handleChooseDocImg = (e, type) => {
+		if (type === "docs") {
+			handleUpload(e.target.files[0], type);
+		}
+	};
+	const generateUniqueId = () => {
+		var unId = "id" + new Date().getTime();
+		return unId;
+	};
+	const handleUpload = (file, type) => {
+		const unId = generateUniqueId();
+		const storage = getStorage();
+		const storageRef = ref(storage, `${type}/${unId}-${file.name}`);
+		const uploadTask = uploadBytesResumable(storageRef, file);
+
+		// 'file' comes from the Blob or File API
+		uploadBytes(storageRef, file).then((snapshot) => {
+			getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+				sendMessage("image", downloadURL);
+			});
+		});
 	};
 
 	return (
@@ -94,11 +124,21 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 													alt="user-avatar"
 													className="rounded-circle user"
 												/>
-												<p className="text">
-													<span className="vertically_center">
-														{msg.message}
-													</span>
-												</p>
+												{msg.msgType === "text" ? (
+													<p className="text">
+														<span className="vertically_center">
+															{msg.message}
+														</span>
+													</p>
+												) : msg.msgType === "image" ? (
+													<img
+														src={msg.message}
+														alt="imagePic"
+														style={{ width: "100px", height: "100px" }}
+													/>
+												) : (
+													<></>
+												)}
 											</div>
 											<div className="time mt-1 w-100">
 												{moment(msg.createdAt).format("hh:mm")}
@@ -119,10 +159,23 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 					)}
 					<div className="singleUserChatMessage_send">
 						<div className="chat__uploader">
+							<input
+								type="file"
+								className="d-none"
+								id="sendDocument"
+								onChange={(e) => {
+									handleChooseDocImg(e, "docs");
+								}}
+							/>
 							<Button type="text">
-								<img className="chat-icon" src={PaperClip} alt="upload-paper" />
+								<label htmlFor="sendDocument">
+									<img
+										className="chat-icon"
+										src={PaperClip}
+										alt="upload-paper"
+									/>
+								</label>
 							</Button>
-							<input type="file" />
 							<Button type="text">
 								<img
 									className="chat-icon-camera"
@@ -150,7 +203,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 						/>
 						<div
 							className="chat__controller cursorPointer"
-							onClick={sendMessage}
+							onClick={() => sendMessage("text")}
 						>
 							<img className="flip-image" src={SendMessage} alt="send-data" />
 						</div>
