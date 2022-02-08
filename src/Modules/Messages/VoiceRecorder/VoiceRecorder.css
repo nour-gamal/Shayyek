@@ -31,3 +31,23 @@
 ._1dpop:hover {
 	background-color: #fff !important;
 }
+._1bSom {
+	position: relative;
+}
+._1bSom::after {
+	content: "Send";
+	display: block;
+	position: absolute;
+	top: 100%;
+	font-size: 14px;
+}
+._3nQu5::after {
+	content: "Play/Pause";
+	display: block;
+	position: absolute;
+	top: 100%;
+	font-size: 14px;
+}
+._1ceqH ._qxztz {
+	padding: 30px 0 !important;
+}
