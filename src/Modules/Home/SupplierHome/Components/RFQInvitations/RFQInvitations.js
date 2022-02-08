@@ -16,7 +16,7 @@ function RFQInvitations({
   return (
     <div className="RFQInvitations">
       <div className="title section">
-        <div className="d-flex">
+        <div className="d-flex flex-1 align-items-center">
           <img src={RFQIcon} alt="RFQIcon" className="RFQIcon mx-2" />
           <span>{currentLocal.supplierHome.rfqInvitations}</span>
         </div>

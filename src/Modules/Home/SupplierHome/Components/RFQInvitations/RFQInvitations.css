@@ -1,7 +1,6 @@
 .RFQInvitations {
   background: #efefef;
-  padding: 2px;
-  height: calc(100vh - 181px);
+  height: 100%;
   overflow: auto;
 }
 
@@ -9,7 +8,6 @@
   color: #b8b8b8;
   padding: 10px;
   background: #fff;
-  margin: 2px;
 }
 .RFQInvitations .section:first-of-type {
   margin-top: 0px;

@@ -1,84 +1,125 @@
-// import { useEffect, useState } from "react";
-// import PersonalInfo from "../../ProfilePage/Components/SubComponents/Personalnfo/Personalnfo";
-// import { useSelector } from "react-redux";
-// import { Row, Col } from "antd";
-// import Quarter from "../../ProfilePage/Components/SubComponents/Quarter/Quarter";
-// import MyRFQs from "../../ProfilePage/Components/SubComponents/MyRFQs/MyRFQs";
-// import MyOrders from "../../ProfilePage/Components/SubComponents/MyOrders/MyOrders";
-// import { SupplierContractorProfile } from "../../ProfilePage/network";
-// import { getRFQ } from "../network";
-// // import CompanyCard from "../../ProfilePage/Components/SubComponents/CompanyCard/CompanyCard";
-// // import SidePersonalInfo from "../../ProfilePage/Components/SubComponents/SidePersonalInfo/SidePersonalInfo";
-// import RFQInvitations from "../SupplierHome/Components/RFQInvitations/RFQInvitations";
-// import "./ContractorHome.css";
+import { useEffect, useState } from "react";
+import PersonalInfo from "../../ProfilePage/Components/SubComponents/Personalnfo/Personalnfo";
+import Drafts from "../../../Resources/Assets/draft.svg";
+import { useSelector } from "react-redux";
+import { Row, Col } from "antd";
+import Quarter from "../../ProfilePage/Components/SubComponents/Quarter/Quarter";
+import MyRFQs from "../../ProfilePage/Components/SubComponents/MyRFQs/MyRFQs";
+import MyOrders from "../../ProfilePage/Components/SubComponents/MyOrders/MyOrders";
+import { getRFQ, getSupplierContractorHomePage } from "../network";
+import Projects from "./Projects/Projects";
+// import CompanyCard from "../../ProfilePage/Components/SubComponents/CompanyCard/CompanyCard";
+// import SidePersonalInfo from "../../ProfilePage/Components/SubComponents/SidePersonalInfo/SidePersonalInfo";
+import RFQInvitations from "../SupplierHome/Components/RFQInvitations/RFQInvitations";
+import "./ContractorHome.css";
+import DraftsModal from "../../ProfilePage/Components/SubComponents/DraftsModal/DraftsModal";
 
 function ContractorHome() {
-  // const { currentLocal } = useSelector((state) => state.currentLocal);
-  // const { currentLanguageId } = useSelector((state) => state.currentLocal);
-  // // const [buyerChartWorks, updateBuyerChartWorks] = useState([]);
-  // const [invitationRFQs, updateInvitationRFQs] = useState([]);
-  // const [buyerOrders, updateBuyerOrders] = useState([]);
-  // const [company, updateCompany] = useState(null);
-  // const [allData, updateAllDate] = useState(null);
-  // // const labelData = [
-  // //   {
-  // //     label:
-  // //       currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057"
-  // //         ? "Consultant"
-  // //         : "مستشار",
-  // //     color: "#00172A",
-  // //   },
-  // // ];
+  const { currentLocal } = useSelector((state) => state.currentLocal);
+  const { currentLanguageId } = useSelector((state) => state.currentLocal);
+  // const [buyerChartWorks, updateBuyerChartWorks] = useState([]);
+  const [rfqDetails, updateRfqDetails] = useState([]);
+  const [draftsCount, updateDraftsCount] = useState([]);
+  const [projects, setProjects] = useState(null);
+  const [invitationsCount, updateInvitationsCount] = useState(null);
+  const [supplierContractorCharts, setSupplierContractorCharts] = useState(
+    null
+  );
+  const [draftsModalVisibility, setDraftsModalVisibility] = useState(false);
+  useEffect(() => {
+    getSupplierContractorHomePage(
+      currentLanguageId,
+      (success) => {
+        if (success.success) {
+          const { supplierContractorCharts, projects } = success.data;
+          setSupplierContractorCharts(supplierContractorCharts);
+          setProjects(projects);
+        }
+      },
+      (fail) => {
+        console.log(fail);
+      }
+    );
+  }, [currentLanguageId]);
 
-  // console.log(currentLanguageId);
-  // useEffect(() => {
-  //   getRFQ(
-  //     false,
-  //     (success) => {
-  //       if (success.success) {
-  //         const { data } = success;
-  //         updateInvitationRFQs(data);
-  //       }
-  //     },
-  //     (fail) => {
-  //       console.log(fail);
-  //     }
-  //   );
-  // }, [currentLanguageId]);
-  // return (
-  //   <div className={currentLocal.language === "English" ? "ppl" : "ppr"}>
-  //     <Row>
-  //       <Col md={19} xs={16} className="pr-1">
-  //         <PersonalInfo parent={"buyerAdmin"} />
-  //         <Row>
-  //           {/* {buyerChartWorks.map((data, indexData) => (
-  //             <Col
-  //               key={indexData}
-  //               md={12}
-  //               lg={8}
-  //               xl={6}
-  //               className="margin-auto"
-  //             >
-  //               <Quarter chartData={data} />
-  //             </Col>
-  //           ))} */}
-  //         </Row>
-  //         {/* <MyRFQs buyerRFQs={invitationRFQs.invitationsCount} /> */}
-  //         <MyOrders />
-  //       </Col>
-  //       <Col md={5} xs={8}>
-  //         <div className="profileSideMenu">
-  //           {/* <RFQInvitations
-  //             invitationCount={invitationRFQs.invitationsCount}
-  //             rfqInvitationDetails={invitationRFQs.rfqInvitationDetails}
-  //             buyerRFQs={invitationRFQs.rfqInvitationDetails}
-  //           /> */}
-  //         </div>
-  //       </Col>
-  //     </Row>
-  //   </div>
-  // );
-  return <div>Contractor Home</div>;
+  useEffect(() => {
+    getRFQ(
+      false,
+      (success) => {
+        if (success.success) {
+          updateRfqDetails(success.data.rfqInvitationDetails);
+          updateDraftsCount(success.data.draftsCount);
+          updateInvitationsCount(success.data.invitationsCount);
+        }
+      },
+      (fail) => {
+        console.log(fail);
+      }
+    );
+  }, []);
+
+  return (
+    <div className={currentLocal.language === "English" ? "ppl" : "ppr"}>
+      <Row>
+        <Col md={19} xs={16} className="pr-1">
+          <div
+            className="my-4 d-flex align-items-center justify-content-end cursorPointer"
+            onClick={() => setDraftsModalVisibility(true)}
+          >
+            <img src={Drafts} alt="Drafts" className="mx-2" />
+            <span>{currentLocal.supplierHome.drafts}</span>
+            <div className="invitations_number mx-2">{draftsCount}</div>
+          </div>
+          <Row>
+            {supplierContractorCharts?.map((data, indexData) => (
+              <Col
+                key={indexData}
+                md={12}
+                lg={8}
+                xl={6}
+                className="margin-auto"
+              >
+                <Quarter chartData={data} />
+              </Col>
+            ))}
+          </Row>
+          <div className="mt-4">
+            <Projects projects={projects} />
+          </div>
+        </Col>
+        <Col md={5} xs={8}>
+          <div className="profileSideMenu">
+            <RFQInvitations
+              invitationCount={invitationsCount}
+              rfqDetails={rfqDetails}
+              parent={"supplier"}
+              recallGetRFQ={() => {
+                getRFQ(
+                  false,
+                  (success) => {
+                    if (success.success) {
+                      updateRfqDetails(success.data.rfqInvitationDetails);
+                      updateDraftsCount(success.data.draftsCount);
+                      updateInvitationsCount(success.data.invitationsCount);
+                    }
+                  },
+                  (fail) => {
+                    console.log(fail);
+                  }
+                );
+              }}
+            />
+          </div>
+        </Col>
+      </Row>
+      {draftsModalVisibility && (
+        <DraftsModal
+          isVisible={draftsModalVisibility}
+          onCancel={() => setDraftsModalVisibility(false)}
+        />
+      )}
+    </div>
+  );
 }
 
 export default ContractorHome;

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Modal, Row, Col } from "antd";
 import { getRFQ } from "../../../../Home/network";
 import RFQInvitation from "./../../../../Common/RFQInvitation/RFQInvitation";
@@ -7,6 +8,7 @@ import "./DraftsModal.css";
 
 const DraftsModal = ({ isVisible, onCancel }) => {
   const [rfqDrafts, updateRfqDrafts] = useState(null);
+  const { currentLocal } = useSelector((state) => state.currentLocal);
 
   useEffect(() => {
     getRFQ(
@@ -29,7 +31,7 @@ const DraftsModal = ({ isVisible, onCancel }) => {
       onCancel={onCancel}
     >
       <header className="draftsModal__header">
-        <h2>Drafts</h2>
+        <h2>{currentLocal.supplierHome.drafts}</h2>
       </header>
       <Row></Row>
       {rfqDrafts?.map((draft) => (

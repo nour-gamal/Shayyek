@@ -356,6 +356,11 @@ export const en = {
     contentOfoptimizedProcess:
       "The process of sourcing - evaluating - negotiating - deciding is a tedious time consuming task which often needs to be repeated several times with little supporting market intelligence. Connecting all parties through an automated platform increases reliability of the outcome while streamlining time and cost savings.",
   },
+  contractorHome: {
+    date: "Date",
+    sizeOfWork: "Size of work",
+    shayyekProjects: "Shayeek Projects",
+  },
   messages: {
     lastPrice: "Last Price",
     enterOfferPrice: "Enter offer percent",
