@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
-import PersonalInfo from "../../ProfilePage/Components/SubComponents/Personalnfo/Personalnfo";
 import Drafts from "../../../Resources/Assets/draft.svg";
 import { useSelector } from "react-redux";
 import { Row, Col } from "antd";
 import Quarter from "../../ProfilePage/Components/SubComponents/Quarter/Quarter";
-import MyRFQs from "../../ProfilePage/Components/SubComponents/MyRFQs/MyRFQs";
-import MyOrders from "../../ProfilePage/Components/SubComponents/MyOrders/MyOrders";
 import { getRFQ, getSupplierContractorHomePage } from "../network";
 import Projects from "./Projects/Projects";
-// import CompanyCard from "../../ProfilePage/Components/SubComponents/CompanyCard/CompanyCard";
-// import SidePersonalInfo from "../../ProfilePage/Components/SubComponents/SidePersonalInfo/SidePersonalInfo";
 import RFQInvitations from "../SupplierHome/Components/RFQInvitations/RFQInvitations";
 import "./ContractorHome.css";
 import DraftsModal from "../../ProfilePage/Components/SubComponents/DraftsModal/DraftsModal";
@@ -17,7 +12,6 @@ import DraftsModal from "../../ProfilePage/Components/SubComponents/DraftsModal/
 function ContractorHome() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
-  // const [buyerChartWorks, updateBuyerChartWorks] = useState([]);
   const [rfqDetails, updateRfqDetails] = useState([]);
   const [draftsCount, updateDraftsCount] = useState([]);
   const [projects, setProjects] = useState(null);
