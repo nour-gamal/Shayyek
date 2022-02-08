@@ -11,7 +11,7 @@ import moment from "moment";
 import { baseUrl } from "../../../Services";
 import { doc, updateDoc, arrayUnion, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
-import VoiceRecorder from "../VoiceRecorder/VoiceRecorder";
+//import VoiceRecorder from "../VoiceRecorder/VoiceRecorder";
 import {
 	getStorage,
 	ref,
@@ -157,82 +157,87 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 						</ul>
 						<div className="chat__message me"></div>
 					</div>
-					{isRecording && (
-						<VoiceRecorder
-							resetRecord={() => {
-								updateIsRecording(false);
+					<div className="actionsContainer">
+						{/* <div className="recorder">
+							{isRecording && (
+								<VoiceRecorder
+									resetRecord={() => {
+										updateIsRecording(false);
+									}}
+									handleUpload={handleUpload}
+								/>
+							)}
+						</div> */}
+
+						<form
+							className="singleUserChatMessage_send"
+							onSubmit={(e) => {
+								e.preventDefault();
+								if (messageText.length) {
+									sendMessage("text");
+								}
 							}}
-							handleUpload={handleUpload}
-						/>
-					)}
-					<form
-						className="singleUserChatMessage_send"
-						onSubmit={(e) => {
-							e.preventDefault();
-							if (messageText.length) {
-								sendMessage("text");
-							}
-						}}
-					>
-						<div className="chat__uploader">
-							<input
-								type="file"
-								className="d-none"
-								id="sendImage"
-								onChange={(e) => {
-									handleChooseDocImg(e, "images");
-								}}
-								accept="image/*"
-							/>
-							<input
-								type="file"
-								className="d-none"
-								id="sendDoc"
-								onChange={(e) => {
-									handleChooseDocImg(e, "docs");
-								}}
-							/>
-							<Button type="text">
-								<label htmlFor="sendDoc">
-									<img
-										className="chat-icon"
-										src={PaperClip}
-										alt="upload-paper"
-									/>
-								</label>
-							</Button>
-							<Button type="text">
-								<label htmlFor="sendImage">
-									<img
-										className="chat-icon-camera"
-										src={CameraIcon}
-										alt="upload-images"
-									/>
-								</label>
-							</Button>
-							<Button type="text">
-								<img
-									className="chat-icon"
-									src={Microphone}
-									alt="record-voice"
-									onClick={() => {
-										updateIsRecording(!isRecording);
+						>
+							<div className="chat__uploader">
+								<input
+									type="file"
+									className="d-none"
+									id="sendImage"
+									onChange={(e) => {
+										handleChooseDocImg(e, "images");
+									}}
+									accept="image/*"
+								/>
+								<input
+									type="file"
+									className="d-none"
+									id="sendDoc"
+									onChange={(e) => {
+										handleChooseDocImg(e, "docs");
 									}}
 								/>
-							</Button>
-						</div>
-						<input
-							type={"text"}
-							// onChange={this.onChange}
-							placeholder="Controlled autosize"
-							value={messageText}
-							onChange={(e) => setMessageText(e.target.value)}
-							className="chat-input"
-						/>
-						<button type="submit" className="chat__controller cursorPointer">
-							<img className="flip-image" src={SendMessage} alt="send-data" />
-						</button>
-					</form>
+								<Button type="text">
+									<label htmlFor="sendDoc">
+										<img
+											className="chat-icon"
+											src={PaperClip}
+											alt="upload-paper"
+										/>
+									</label>
+								</Button>
+								<Button type="text">
+									<label htmlFor="sendImage">
+										<img
+											className="chat-icon-camera"
+											src={CameraIcon}
+											alt="upload-images"
+										/>
+									</label>
+								</Button>
+								<Button type="text">
+									<img
+										className="chat-icon"
+										src={Microphone}
+										alt="record-voice"
+										onClick={() => {
+											updateIsRecording(!isRecording);
+										}}
+									/>
+								</Button>
+							</div>
+							<input
+								type={"text"}
+								// onChange={this.onChange}
+								placeholder="Controlled autosize"
+								value={messageText}
+								onChange={(e) => setMessageText(e.target.value)}
+								className="chat-input"
+							/>
+							<button type="submit" className="chat__controller cursorPointer">
+								<img className="flip-image" src={SendMessage} alt="send-data" />
+							</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

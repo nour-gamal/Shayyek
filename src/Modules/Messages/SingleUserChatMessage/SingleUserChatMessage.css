@@ -29,6 +29,7 @@
 
 .singleUserChatMessage_send {
 	display: flex;
+	width: 100%;
 }
 
 .singleUserChatMessage_send .chat__uploader {
@@ -123,7 +124,14 @@
 	width: 100px;
 	height: 100px;
 }
-
+.actionsContainer {
+	position: relative;
+}
+.actionsContainer .recorder {
+	position: absolute;
+	top: -300%;
+	width: 100%;
+}
 @media (max-width: 990px) {
 	.singleUserChatMessage_body .chat__messages .message-item {
 		margin-bottom: 1rem;
