@@ -1,6 +1,6 @@
 .RFQInvitations {
   background: #efefef;
-  height: 100%;
+  height: calc(100vh - 181px);
   overflow: auto;
 }
 
