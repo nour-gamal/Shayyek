@@ -1,4 +1,5 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import moment from "moment";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Navbar } from "react-bootstrap";
@@ -7,19 +8,22 @@ import { Dropdown, Button, List, Avatar } from "antd";
 import GuestNav from "./GuestNav";
 import UserNav from "./UserNav";
 import { changeLocal } from "../../../Redux/Localization";
+import { authorType } from "../../../helpers/authType";
 import ShayyekLogoDarkAr from "../../../Resources/Assets/ShayyekLogoDarkAr.png";
 import ShayyekLogoDarkEn from "../../../Resources/Assets/shayyekLogoDark.png";
 import ShayyekLogoLightEn from "../../../Resources/Assets/shayyekLogoLight.png";
+import ShayyekLogoLightAr from "../../../Resources/Assets/ShayyekLogoLightAr.svg";
 import Chat from "../../../Resources/Assets/ChatIcon.png";
 import Notification from "../../../Resources/Assets/Notification Icon.svg";
 import languages from "../../../Resources/Assets/languages.svg";
 import cart from "../../../Resources/Assets/cart.svg";
 import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
 import userAvatar from "../../../Resources/Assets/people.svg";
-import { authorType } from "../../../helpers/authType";
+import { getNotifications } from "./../Network";
 import "./Navbar.css";
 
 function Navbarr({ navState, verifayState, transparent }) {
+  const [userNotifications, setUserNotifications] = useState([]);
   const dispatch = useDispatch();
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
@@ -32,215 +36,19 @@ function Navbarr({ navState, verifayState, transparent }) {
     authorType(accountTypeId, userTypeId, roleId) &&
     authorType(accountTypeId, userTypeId, roleId).includes("buyer");
 
-  const data = [
-    {
-      picture: {
-        large: UserNav,
+  useEffect(() => {
+    getNotifications(
+      currentLanguageId,
+      (success) => {
+        if (success.success) {
+          const { notifications } = success.data;
+          setUserNotifications(notifications);
+        }
       },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-    {
-      picture: {
-        large: UserNav,
-      },
-      name: {
-        last: "Mahmoud",
-      },
-      email: "a.elkahlily10@gmail.com",
-    },
-  ];
+      (fail) => {}
+    );
+  }, [currentLanguageId, setUserNotifications]);
+
   const notificationMenu = (
     <div
       id="scrollableDiv"
@@ -251,13 +59,23 @@ function Navbarr({ navState, verifayState, transparent }) {
     >
       <Scrollbars style={{ height: 400 }}>
         <List
-          dataSource={data}
+          dataSource={userNotifications}
           renderItem={(item) => (
-            <List.Item key={item.id}>
+            <List.Item
+              className={!item.isSeen ? "not-seen" : ""}
+              key={item.notificationId}
+            >
               <List.Item.Meta
                 avatar={<Avatar src={userAvatar} />}
-                title={<a href="https://ant.design">{item.name.last}</a>}
-                description={item.email}
+                title={<a href="https://ant.design">{item.title}</a>}
+                description={
+                  <div>
+                    <div>{item.message}</div>
+                    <div className="text-end">
+                      {moment(item.sendDate).format("LLL")}
+                    </div>
+                  </div>
+                }
               />
             </List.Item>
           )}
@@ -295,7 +113,7 @@ function Navbarr({ navState, verifayState, transparent }) {
         ) : currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057" ? (
           <img src={ShayyekLogoLightEn} alt="ShayyekLogoLight" />
         ) : (
-          <img src={ShayyekLogoDarkAr} alt="ShayyekLogoLight" />
+          <img src={ShayyekLogoLightAr} alt="ShayyekLogoLight" />
         )}
       </Link>
 
@@ -331,7 +149,6 @@ function Navbarr({ navState, verifayState, transparent }) {
           </Dropdown>
         </span>
       )}
-
       {verifayState && (
         <>
           <div className="lang">
