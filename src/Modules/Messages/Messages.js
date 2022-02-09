@@ -17,6 +17,7 @@ import {
 import "./Messages.css";
 const Messages = (props) => {
 	const { authorization } = useSelector((state) => state.authorization);
+	// eslint-disable-next-line
 	const [friendsList, updateFriendsList] = useState([]);
 	const [currentRoomId, updateCurrentRoomId] = useState(null);
 	const [applicantId, updateApplicantId] = useState(null);
