@@ -33,18 +33,19 @@ const DraftsModal = ({ isVisible, onCancel }) => {
       <header className="draftsModal__header">
         <h2>{currentLocal.supplierHome.drafts}</h2>
       </header>
-      <Row></Row>
-      {rfqDrafts?.map((draft) => (
-        <Col md={8} key={draft.rfqHeaderId}>
-          <div className="item">
-            <RFQInvitation
-              revealPrices={draft.isBidders}
-              rfqDetails={draft}
-              parent="supplier"
-            />
-          </div>
-        </Col>
-      ))}
+      <Row gutter={[16, 16]}>
+        {rfqDrafts?.map((draft) => (
+          <Col md={8} key={draft.rfqHeaderId}>
+            <div className="item">
+              <RFQInvitation
+                revealPrices={draft.isBidders}
+                rfqDetails={draft}
+                parent="supplier"
+              />
+            </div>
+          </Col>
+        ))}
+      </Row>
     </Modal>
   );
 };

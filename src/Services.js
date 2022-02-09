@@ -12,12 +12,12 @@ token =
   JSON.parse(JSON.parse(localStorage.getItem("persist:root")).authorization)
     .authorization.token;
 
-function onFailStatus(statusCode) {
-  if (statusCode === 401) {
-    localStorage.removeItem("persist:root");
-    window.location.reload();
-  }
-}
+// function onFailStatus(response) {
+//   if (response.status && response.status === 401) {
+//     localStorage.removeItem("persist:root");
+//     window.location.reload();
+//   }
+// }
 export function PostResource(path, data, onSuccess, onFail, reqAuth, formData) {
   const requestData = {
     method: "post",
@@ -25,6 +25,7 @@ export function PostResource(path, data, onSuccess, onFail, reqAuth, formData) {
     headers: {},
     data,
   };
+
   if (formData) {
     requestData.headers = {
       "content-type": "multipart/form-data",
@@ -43,7 +44,8 @@ export function PostResource(path, data, onSuccess, onFail, reqAuth, formData) {
     })
     .catch((err) => {
       onFail(err.response);
-      onFailStatus(err.response.status);
+      // onFailStatus(err.response);
+      console.log(err);
     });
 }
 
@@ -53,6 +55,7 @@ export function GetResource(path, onSuccess, onFail, reqAuth) {
     url: baseUrl + path,
     headers: {},
   };
+
   if (reqAuth && token) {
     requestData.headers = {
       Authorization: "Bearer " + token,
@@ -63,9 +66,10 @@ export function GetResource(path, onSuccess, onFail, reqAuth) {
     .then((res) => {
       onSuccess(res.data);
     })
-    .catch((error) => {
-      onFail(error.response);
-      onFailStatus(error.response.status);
+    .catch((err) => {
+      onFail(err.response);
+      // onFailStatus(err.response);
+      console.log(err);
     });
 }
 
@@ -86,9 +90,10 @@ export function deleteResource(path, onSuccess, onFail, reqAuth) {
     .then((res) => {
       onSuccess(res.data);
     })
-    .catch((error) => {
-      onFail(error.response);
-      onFailStatus(error.response.status);
+    .catch((err) => {
+      onFail(err.response);
+      // onFailStatus(err.response);
+      console.log(err);
     });
 }
 
@@ -117,13 +122,13 @@ export function PatchResource(
       Authorization: "Bearer " + token,
     };
   }
-
   axios(requestData)
     .then((res) => {
       onSuccess(res.data);
     })
     .catch((err) => {
       onFail(err.response);
-      onFailStatus(err.response.status);
+      console.log(err);
+      // onFailStatus(err.response);
     });
 }

@@ -186,7 +186,6 @@ export const getSupplierContractorHomePage = (
   onSuccess,
   onFail
 ) => {
-  console.log("hi tehere");
   const path = `api/Profile/SupplierContractorHomePage?languageId=${languageId}`;
   GetResource(path, onSuccess, onFail, true);
 };
