@@ -22,6 +22,7 @@ const SidebarUserForMessage = ({ friendsList }) => {
 			{friendsList.length > 0 && (
 				<ul className="SidebarUserForMessage__list">
 					{friendsList.map((friend, friendIndex) => {
+						console.log(friend);
 						return (
 							<li
 								className="SidebarUserForMessage__item d-flex justify-content-between"

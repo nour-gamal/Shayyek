@@ -6,7 +6,15 @@ import SingleUserChatMessage from "./SingleUserChatMessage/SingleUserChatMessage
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { db } from "../../firebase";
-import { getDoc, doc } from "firebase/firestore";
+import {
+	getDoc,
+	doc,
+	where,
+	query,
+	collection,
+	getDocs,
+	collectionGroup,
+} from "firebase/firestore";
 import "./Messages.css";
 const Messages = (props) => {
 	const { authorization } = useSelector((state) => state.authorization);
@@ -15,6 +23,8 @@ const Messages = (props) => {
 	const [applicantId, updateApplicantId] = useState(null);
 	const getFriendsList = async () => {
 		const userDocRef = doc(db, "users", authorization.id);
+		const usersRef = collection(db, "users");
+
 		const docSnap = await getDoc(userDocRef);
 		if (docSnap.exists()) {
 			let data = docSnap.data();
@@ -23,18 +33,17 @@ const Messages = (props) => {
 				let applicantId = data.friends[data.friends.length - 1].friendId;
 				updateCurrentRoomId(currentRoomId);
 				updateApplicantId(applicantId);
+				console.log(usersRef);
+				const usersQuery = query(
+					usersRef,
+					where("name", "in", ["Nour Gamal", "Nour Mohamed"])
+				);
+				const querySnapshot = await getDocs(usersQuery);
+
+				querySnapshot.forEach((doc) => {
+					console.log(doc.data());
+				});
 			}
-			data.friends.forEach(async (friend) => {
-				const userDocRef = doc(db, "users", friend.friendId);
-				const docSnap = await getDoc(userDocRef);
-				if (docSnap.exists()) {
-					let data = docSnap.data();
-					updateFriendsList([
-						...friendsList,
-						{ image: data.myImage, name: data.name },
-					]);
-				}
-			});
 		} else {
 			// doc.data() will be undefined in this case
 			console.log("No such document!");
