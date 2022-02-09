@@ -33,7 +33,6 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
 		const userDocRef = doc(db, "users", userId);
 		const docSnap = await getDoc(userDocRef);
 		if (!docSnap.exists()) {
-			let data = docSnap.data();
 			await setDoc(userDocRef, {
 				name,
 				friends: [],
