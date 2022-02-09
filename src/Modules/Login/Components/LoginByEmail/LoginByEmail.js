@@ -32,16 +32,14 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
 	const setUserFBData = async (userId, name) => {
 		const userDocRef = doc(db, "users", userId);
 		const docSnap = await getDoc(userDocRef);
-		if (docSnap.exists()) {
+		if (!docSnap.exists()) {
 			let data = docSnap.data();
-			if (!("friends" in data)) {
-				await setDoc(userDocRef, {
-					name,
-					friends: [],
-					myImage: null,
-					id: userId,
-				});
-			}
+			await setDoc(userDocRef, {
+				name,
+				friends: [],
+				myImage: null,
+				id: userId,
+			});
 		}
 	};
 
