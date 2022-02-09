@@ -13,7 +13,6 @@ import {
 	query,
 	collection,
 	getDocs,
-	collectionGroup,
 } from "firebase/firestore";
 import "./Messages.css";
 const Messages = (props) => {
@@ -33,11 +32,7 @@ const Messages = (props) => {
 				let applicantId = data.friends[data.friends.length - 1].friendId;
 				updateCurrentRoomId(currentRoomId);
 				updateApplicantId(applicantId);
-				console.log(usersRef);
-				const usersQuery = query(
-					usersRef,
-					where("name", "in", ["Nour Gamal", "Nour Mohamed"])
-				);
+				const usersQuery = query(usersRef, where("id", "in", data.friends));
 				const querySnapshot = await getDocs(usersQuery);
 
 				querySnapshot.forEach((doc) => {
