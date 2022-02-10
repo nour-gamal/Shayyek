@@ -9,6 +9,8 @@
   color: #b8b8b8;
   padding: 10px;
   background: #fff;
+  box-shadow: 0 1px 0 #cecece;
+  margin-bottom: 0.2rem;
 }
 .RFQInvitations .section:first-of-type {
   margin-top: 0px;

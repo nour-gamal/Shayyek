@@ -1,8 +1,7 @@
-import React from "react";
+import { useSelector } from "react-redux";
 import RFQIcon from "../../../../../Resources/Assets/research@2x.png";
 import RFQInvitation from "../../../../Common/RFQInvitation/RFQInvitation";
 import NoRFQs from "../../../../../Resources/Assets/noRFQs.svg";
-import { useSelector } from "react-redux";
 import "./RFQInvitations.css";
 function RFQInvitations({
   invitationCount,

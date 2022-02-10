@@ -103,3 +103,11 @@ export const resetPassword = (data, onSuccess, onFail) => {
   const path = `api/Account/ResetPassword?userId=${userId}&newPassword=${newPassword}`;
   PostResource(path, data, onSuccess, onFail);
 };
+export const getRFQDraftedForSupplierAndContractor = (
+  fillRFQHeaderId,
+  onSuccess,
+  onFail
+) => {
+  const path = `api/RFQ/GetRFQDraftedForSupplierAndContractor?fillRFQHeaderId=${fillRFQHeaderId}`;
+  GetResource(path, onSuccess, onFail, true);
+};

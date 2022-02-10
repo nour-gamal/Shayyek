@@ -54,6 +54,7 @@ function Navbarr({ navState, verifayState, transparent }) {
       id="scrollableDiv"
       style={{
         width: 400,
+
         border: "1px solid rgba(140, 140, 140, 0.35)",
       }}
     >
@@ -62,7 +63,7 @@ function Navbarr({ navState, verifayState, transparent }) {
           dataSource={userNotifications}
           renderItem={(item) => (
             <List.Item
-              className={!item.isSeen ? "not-seen" : ""}
+              className={`mb-2 ${!item.isSeen ? "not-seen" : ""}`}
               key={item.notificationId}
             >
               <List.Item.Meta
@@ -102,21 +103,32 @@ function Navbarr({ navState, verifayState, transparent }) {
       <Link to="/">
         {navState ? (
           currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057" ? (
-            <img src={ShayyekLogoDarkEn} alt="ShayyekLogoDark" />
+            <img
+              style={{ height: "30px" }}
+              src={ShayyekLogoDarkEn}
+              alt="ShayyekLogoDark"
+            />
           ) : (
             <img
               src={ShayyekLogoDarkAr}
-              style={{ height: 40 }}
+              style={{ height: "30px" }}
               alt="ShayyekLogoDark"
             />
           )
         ) : currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057" ? (
-          <img src={ShayyekLogoLightEn} alt="ShayyekLogoLight" />
+          <img
+            style={{ height: "30px" }}
+            src={ShayyekLogoLightEn}
+            alt="ShayyekLogoLight"
+          />
         ) : (
-          <img src={ShayyekLogoLightAr} alt="ShayyekLogoLight" />
+          <img
+            style={{ height: "30px" }}
+            src={ShayyekLogoLightAr}
+            alt="ShayyekLogoLight"
+          />
         )}
       </Link>
-
       {!navState && loginState && (
         <span className="controlIcon d-flex justify-content-end">
           {isBuyer && (
@@ -173,7 +185,6 @@ function Navbarr({ navState, verifayState, transparent }) {
         </>
       )}
       {!navState && <Navbar.Toggle aria-controls="basic-navbar-nav" />}
-
       {!navState && (
         <Navbar.Collapse
           id="basic-navbar-nav"

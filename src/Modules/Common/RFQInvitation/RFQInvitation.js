@@ -19,6 +19,8 @@ function RFQInvitation({
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [redirectTo, updateRedirectTo] = useState(null);
   const [isRFQModalVisible, toggleRFQModal] = useState(false);
+
+  console.log(rfqDetails);
   function handleMenuClick(e) {
     switch (e.key) {
       case "1":
@@ -69,7 +71,6 @@ function RFQInvitation({
           <Dropdown.Button overlay={menu} trigger={["click"]}></Dropdown.Button>
         </div>
       )}
-
       <div className="d-flex justify-content-between rfqInvContainer ">
         <ul className="list-unstyled">
           <li>{currentLocal.supplierHome.noOfQuotations} </li>
@@ -113,6 +114,7 @@ function RFQInvitation({
           rfqId={rfqDetails.rfqHeaderId}
           parent="supplierHome"
           recallGetRFQ={recallGetRFQ}
+          fillRFQId={rfqDetails.fillId}
         />
       )}
     </div>

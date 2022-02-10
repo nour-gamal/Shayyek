@@ -9,6 +9,7 @@ import {
   GetFilledRFQOfferDetails,
   BuyerAcceptRFQ,
 } from "../../../../Home/network";
+import { getRFQDraftedForSupplierAndContractor } from "../../../network";
 
 import "./SingleRFQModal.css";
 
@@ -33,8 +34,11 @@ function SingleRFQModal({
   const [isSubmitClicked, updateSubmitClicked] = useState(false);
   const [companyNamee, updateCompanyNamee] = useState("");
 
+  useEffect(() => {}, [fillRFQId]);
+
   useEffect(() => {
-    if (parent === "supplierHome") {
+    if (parent === "supplierHome" && !fillRFQId) {
+      console.log("supplierHome here");
       GetBuyerRFQ(
         rfqId,
         (success) => {
@@ -65,6 +69,16 @@ function SingleRFQModal({
           console.log(fail);
         }
       );
+    } else if (fillRFQId) {
+      getRFQDraftedForSupplierAndContractor(fillRFQId, (success) => {
+        if (success.success) {
+          console.log(success.data.rfqDraftedDetails);
+          updateRFQDetails(success.data.rfqDraftedDetails);
+          updateAddress(success.data.address);
+          updateDeliveryDate(success.data.deliveryDate);
+          updateBuyerName(success.data.buyerName);
+        }
+      });
     }
   }, [rfqId, parent, currentLanguageId, fillRFQId]);
 
@@ -352,7 +366,9 @@ function SingleRFQModal({
               </div>
             </div>
           </div>
+
           <Table
+            // key={rfqDetails}
             key={rfqDetails}
             indentSize={300}
             columns={columns}
