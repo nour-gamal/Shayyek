@@ -31,7 +31,7 @@ function SingleRFQModal({
   const [buyerName, updateBuyerName] = useState("");
   const [companyAddress, updateAddress] = useState("");
   const [deliveryDate, updateDeliveryDate] = useState("");
-  const [isSubmitClicked, updateSubmitClicked] = useState(false);
+  // const [isSubmitClicked, updateSubmitClicked] = useState(false);
   const [companyNamee, updateCompanyNamee] = useState("");
 
   useEffect(() => {}, [fillRFQId]);
@@ -275,7 +275,7 @@ function SingleRFQModal({
   }
 
   const submitRFQ = (isDraft) => {
-    updateSubmitClicked(true);
+    // updateSubmitClicked(true);
     let data = {
       isDraft: isDraft,
       rfqId: rfqId,

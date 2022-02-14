@@ -19,6 +19,7 @@
     "chart.js": "^3.7.0",
     "dy-foundation-cli": "^1.1.8",
     "firebase": "^9.4.1",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "rc-rate": "^2.9.1",
     "rc-slider": "^9.7.2",

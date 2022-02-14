@@ -1,22 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Modal, Button } from "antd";
+import { db } from "../../../firebase";
+import { doc, getDoc } from "firebase/firestore";
 import BadgeSession from "../../../Resources/Assets/badge-session.svg";
 import EndSession from "../../../Resources/Assets/end-session.svg";
 import SendSession from "../../../Resources/Assets/send-session.svg";
-import { Modal, Button } from "antd";
 import user from "../../../Resources/Assets/MessageAvatar.png";
-import { db } from "../../../firebase";
-import { doc, setDoc, collection } from "firebase/firestore";
 import "./StartOnlineSession.css";
 
 const StartOnlineSession = ({ isModalVisible, onCancel }) => {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [sendOfferText, setSendOfferText] = useState("");
 
-  function sendOffer() {
-    // await setDoc(doc(db, "data", "one"), docData);
+  function sendOffer(e) {
+    e.preventDefault();
+    // const data = {
+    //   hasBadget: false,
+    //   message: sendOfferText,
+    //   // sender:
+    // };
     setSendOfferText("");
+
+    // scroll.current.scrollIntoView({ behavior: "smooth" });
   }
+  useEffect(() => {
+    async function getMessages() {
+      const docRef = doc(db, "online-sessions", "jrvdOG7057qqnVurSFfK");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const { users } = docSnap.data();
+        users?.forEach(async (item) => {
+          let { user } = await item;
+          let docSnapshot = await getDoc(user);
+          console.log(docSnapshot.data());
+        });
+      } else {
+        console.log("there's no messages here");
+      }
+    }
+    getMessages();
+  }, []);
   return (
     <Modal
       visible={isModalVisible}
@@ -41,21 +65,7 @@ const StartOnlineSession = ({ isModalVisible, onCancel }) => {
       </header>
       <div className="message-content mt-2 flex-1">
         <div>
-          <div className="content">
-            <img class="message-content__user" src={user} alt="user-avatar" />
-            <div>
-              <h6>Omar</h6>
-              <p>1200 L.E</p>
-            </div>
-          </div>
-          <div className="content">
-            <img class="message-content__user" src={user} alt="user-avatar" />
-            <div>
-              <h6>Omar</h6>
-              <p>1200 L.E</p>
-            </div>
-          </div>
-          <div className="content">
+          <div className="content ">
             <img class="message-content__user" src={user} alt="user-avatar" />
             <div>
               <h6>Omar</h6>
