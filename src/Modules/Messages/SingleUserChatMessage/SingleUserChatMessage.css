@@ -113,16 +113,22 @@
 	margin-inline-start: 0.63rem;
 }
 
-.singleUserChatMessage_body .chat__messages .message-item.reciever .time {
+.singleUserChatMessage_body .chat__messages .message-item.reciver .time {
 	text-align: end;
 }
-
+.singleUserChatMessage_body .chat__messages .message-item.reciver img.user {
+	margin-inline-end: 0.63rem;
+}
 .singleUserChatMessage_body .chat__messages .message-item.sender .time {
 	text-align: start;
 }
+
 .singleUserChatMessage_body .chat__messages .imageMsg {
 	width: 100px;
 	height: 100px;
+}
+.singleUserChatMessage .noMsgsText {
+	color: #707070;
 }
 .actionsContainer {
 	position: relative;

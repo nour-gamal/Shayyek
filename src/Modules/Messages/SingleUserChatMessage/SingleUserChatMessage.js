@@ -3,6 +3,7 @@ import { Button } from "antd";
 import PaperClip from "../../../Resources/Assets/paperClip.svg";
 import CameraIcon from "../../../Resources/Assets/camera.svg";
 import SendMessage from "../../../Resources/Assets/sendMessage.png";
+import NoMsgs from "../../../Resources/Assets/noRFQs.svg";
 import Record from "../../../Resources/Assets/record.png";
 import DefaultProfileImage from "../../../Resources/Assets/DefaultProfileImage.png";
 import { db } from "../../../firebase";
@@ -22,9 +23,10 @@ import {
 import "react-voice-recorder/dist/index.css";
 import "./SingleUserChatMessage.css";
 
-const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
+const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 	const [messageText, setMessageText] = useState("");
 	const { authorization } = useSelector((state) => state.authorization);
+	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [room, updateRoom] = useState([]);
 	const [applicantImage, updateApplicantImage] = useState(null);
 	const [isRecording, updateIsRecording] = useState(false);
@@ -61,12 +63,12 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 				senderId: authorization.id,
 				createdAt: new Date().getTime(),
 				msgType,
+				isRead: false,
 			}),
 		});
 
 		if (applicantId) {
 			const userDocRef = doc(db, "users", applicantId);
-
 			await updateDoc(userDocRef, {
 				friends: arrayUnion({
 					roomId: currentRoomId,
@@ -103,9 +105,15 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 	return (
 		<div className="singleUserChatMessage h-100">
 			<div className="ppe pps singleUserChatMessage_container">
-				<div className="singleUserChatMessage_chat">
+				<div
+					className={
+						isEmptyMsgs
+							? "d-flex flex-1 justify-content-center"
+							: "singleUserChatMessage_chat"
+					}
+				>
 					<div className="singleUserChatMessage_body">
-						<ul className="chat__messages">
+						<ul className={isEmptyMsgs ? "d-none" : "chat__messages"}>
 							{room.map((msg, msgIndex) => {
 								return (
 									<li
@@ -165,85 +173,94 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId }) => {
 						</ul>
 						<div className="chat__message me"></div>
 					</div>
-					<div className="actionsContainer">
-						{isRecording ? (
-							<VoiceRecorder
-								isRecording={isRecording}
-								handleUpload={handleUpload}
-								resetIsRecording={() => {
-									updateIsRecording(false);
-								}}
-							/>
-						) : (
-							<form
-								className="singleUserChatMessage_send"
-								onSubmit={(e) => {
-									e.preventDefault();
-									if (messageText.length) {
-										sendMessage("text");
-									} else {
-										updateIsRecording(true);
-									}
-								}}
-							>
-								<div className="chat__uploader">
-									<input
-										type="file"
-										className="d-none"
-										id="sendImage"
-										onChange={(e) => {
-											handleChooseDocImg(e, "images");
-										}}
-										accept="image/*"
-									/>
-									<input
-										type="file"
-										className="d-none"
-										id="sendDoc"
-										onChange={(e) => {
-											handleChooseDocImg(e, "docs");
-										}}
-									/>
-									<Button type="text">
-										<label htmlFor="sendDoc">
-											<img
-												className="chat-icon"
-												src={PaperClip}
-												alt="upload-paper"
-											/>
-										</label>
-									</Button>
-									<Button type="text">
-										<label htmlFor="sendImage">
-											<img
-												className="chat-icon-camera"
-												src={CameraIcon}
-												alt="upload-images"
-											/>
-										</label>
-									</Button>
-								</div>
-								<input
-									type={"text"}
-									// onChange={this.onChange}
-
-									value={messageText}
-									onChange={(e) => setMessageText(e.target.value)}
-									className="chat-input"
+					{isEmptyMsgs ? (
+						<div className="d-flex justify-content-center align-items-center flex-column">
+							<img src={NoMsgs} alt="NoMsgs" />
+							<div className="f-21 noMsgsText">
+								{currentLocal.messages.noMsgsFound}
+							</div>
+						</div>
+					) : (
+						<div className="actionsContainer">
+							{isRecording ? (
+								<VoiceRecorder
+									isRecording={isRecording}
+									handleUpload={handleUpload}
+									resetIsRecording={() => {
+										updateIsRecording(false);
+									}}
 								/>
-								<button
-									type="submit"
-									className="chat__controller cursorPointer"
+							) : (
+								<form
+									className="singleUserChatMessage_send"
+									onSubmit={(e) => {
+										e.preventDefault();
+										if (messageText.length) {
+											sendMessage("text");
+										} else {
+											updateIsRecording(true);
+										}
+									}}
 								>
-									<img
-										className="flip-image"
-										src={messageText.length ? SendMessage : Record}
-										alt="send-data"
+									<div className="chat__uploader">
+										<input
+											type="file"
+											className="d-none"
+											id="sendImage"
+											onChange={(e) => {
+												handleChooseDocImg(e, "images");
+											}}
+											accept="image/*"
+										/>
+										<input
+											type="file"
+											className="d-none"
+											id="sendDoc"
+											onChange={(e) => {
+												handleChooseDocImg(e, "docs");
+											}}
+										/>
+										<Button type="text">
+											<label htmlFor="sendDoc">
+												<img
+													className="chat-icon"
+													src={PaperClip}
+													alt="upload-paper"
+												/>
+											</label>
+										</Button>
+										<Button type="text">
+											<label htmlFor="sendImage">
+												<img
+													className="chat-icon-camera"
+													src={CameraIcon}
+													alt="upload-images"
+												/>
+											</label>
+										</Button>
+									</div>
+									<input
+										type={"text"}
+										// onChange={this.onChange}
+
+										value={messageText}
+										onChange={(e) => setMessageText(e.target.value)}
+										className="chat-input"
 									/>
-								</button>
-							</form>
-						)}
-					</div>
+									<button
+										type="submit"
+										className="chat__controller cursorPointer"
+									>
+										<img
+											className="flip-image"
+											src={messageText.length ? SendMessage : Record}
+											alt="send-data"
+										/>
+									</button>
+								</form>
+							)}
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

@@ -3,7 +3,7 @@ import { baseUrl } from "../../../Services";
 import { Dropdown, Button, Menu } from "antd";
 import "./SidebarUserForMessage.css";
 
-const SidebarUserForMessage = ({ friendsList }) => {
+const SidebarUserForMessage = ({ friendsList, updateRoomSelection }) => {
 	const menu = (data) => (
 		<Menu>
 			<Menu.Item key={data}>
@@ -22,11 +22,13 @@ const SidebarUserForMessage = ({ friendsList }) => {
 			{friendsList.length > 0 && (
 				<ul className="SidebarUserForMessage__list">
 					{friendsList.map((friend, friendIndex) => {
-						console.log(friend);
 						return (
 							<li
-								className="SidebarUserForMessage__item d-flex justify-content-between"
+								className="SidebarUserForMessage__item cursorPointer d-flex justify-content-between"
 								key={friendIndex}
+								onClick={() => {
+									updateRoomSelection(friend.id);
+								}}
 							>
 								<div className="d-flex align-items-center justify-content-center">
 									<figure className="SidebarUserForMessage__figure">
