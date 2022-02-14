@@ -38,6 +38,7 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
 				friends: [],
 				myImage: null,
 				id: userId,
+				unreadMsgCount: 0,
 			});
 		}
 	};

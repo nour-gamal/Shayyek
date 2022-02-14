@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Nav } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import languages from "../../../Resources/Assets/languages.svg";
@@ -11,9 +11,19 @@ import { baseUrl } from "../../../Services";
 import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
 import cart from "../../../Resources/Assets/cart.svg";
 import defaultImage from "../../../Resources/Assets/DefaultProfileImage.png";
+import { db } from "../../../firebase";
+import { doc, onSnapshot } from "firebase/firestore";
 function UserNav({ loginState }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
+	const [unreadMsgCount, updateUnreadMsgCount] = useState(0);
+	useEffect(() => {
+		const userDocRef = doc(db, "users", authorization.id);
+
+		onSnapshot(userDocRef, (doc) => {
+			updateUnreadMsgCount(doc.data().unreadMsgCount);
+		});
+	}, [unreadMsgCount, authorization.id]);
 	const dispatch = useDispatch();
 	const menu = (
 		<Menu>
