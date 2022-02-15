@@ -1,17 +1,71 @@
 import DefaultProfileImage from "../../../Resources/Assets/DefaultProfileImage.png";
+import eye from "../../../Resources/Assets/eye.svg";
+import profileIcon from "../../../Resources/Assets/profileIcon.svg";
+import garbage from "../../../Resources/Assets/garbage.svg";
 import { baseUrl } from "../../../Services";
 import { Dropdown, Button, Menu } from "antd";
+import { useSelector } from "react-redux";
+import { doc, onSnapshot, updateDoc, arrayUnion } from "firebase/firestore";
+import { db } from "../../../firebase";
 import "./SidebarUserForMessage.css";
 
-const SidebarUserForMessage = ({ friendsList, updateRoomSelection }) => {
-	const menu = (data) => (
-		<Menu>
-			<Menu.Item key={data}>
+const SidebarUserForMessage = ({
+	friendsList,
+	updateRoomSelection,
+	applicantId,
+}) => {
+	const {
+		authorization: { id },
+	} = useSelector((state) => state.authorization);
+
+	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const DeleteConversation = async (friendId) => {
+		const userDocRef = doc(db, "users", id);
+		let friends = [];
+		onSnapshot(userDocRef, (doc) => {
+			friends = doc.data().friends;
+			friends.forEach((friend, friendIndex) => {
+				if (friend.friendId === friendId) {
+					friends[friendIndex].isDeleted = true;
+				}
+			});
+		});
+		await updateDoc(userDocRef, { friends: arrayUnion(friends) });
+	};
+	const menu = (friendId) => (
+		<Menu className="sideBarForMsgs">
+			<Menu.Item key={0}>
 				<Button
 					type="text"
 					className="dropDown__item d-flex justify-content-start align-items-center"
+					onClick={() => {
+						updateRoomSelection(friendId);
+					}}
 				>
-					item
+					<img src={eye} alt="eye" className="mx-2" />
+					<div>{currentLocal.messages.viewChat}</div>
+				</Button>
+			</Menu.Item>
+			<Menu.Item key={1}>
+				<Button
+					type="text"
+					className="dropDown__item d-flex justify-content-start align-items-center"
+					onClick={() => {}}
+				>
+					<img src={profileIcon} alt="profileIcon" className="mx-2" />
+					<div>{currentLocal.messages.viewProfile}</div>
+				</Button>
+			</Menu.Item>
+			<Menu.Item key={2}>
+				<Button
+					type="text"
+					className="dropDown__item d-flex justify-content-start align-items-center"
+					onClick={() => {
+						DeleteConversation(friendId);
+					}}
+				>
+					<img src={garbage} alt="garbage" className="mx-2" />
+					<div>{currentLocal.messages.deleteConversation}</div>
 				</Button>
 			</Menu.Item>
 		</Menu>
@@ -24,11 +78,12 @@ const SidebarUserForMessage = ({ friendsList, updateRoomSelection }) => {
 					{friendsList.map((friend, friendIndex) => {
 						return (
 							<li
-								className="SidebarUserForMessage__item cursorPointer d-flex justify-content-between"
+								className={
+									applicantId === friend.id
+										? "SidebarUserForMessage__item SidebarUserForMessage__item__selected cursorPointer d-flex justify-content-between"
+										: "SidebarUserForMessage__item  cursorPointer d-flex justify-content-between"
+								}
 								key={friendIndex}
-								onClick={() => {
-									updateRoomSelection(friend.id);
-								}}
 							>
 								<div className="d-flex align-items-center justify-content-center">
 									<figure className="SidebarUserForMessage__figure">
@@ -45,7 +100,7 @@ const SidebarUserForMessage = ({ friendsList, updateRoomSelection }) => {
 									<h5>{friend.name}</h5>
 								</div>
 								<Dropdown
-									overlay={() => menu(1)}
+									overlay={() => menu(friend.id)}
 									overlayClassName="manageCompany__dropDown"
 									placement="bottomCenter"
 								>

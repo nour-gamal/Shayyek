@@ -75,6 +75,7 @@ const Messages = (props) => {
 					<div className="sidebarUserForMessageContainer">
 						<SidebarUserForMessage
 							friendsList={friendsList}
+							applicantId={applicantId}
 							updateRoomSelection={updateRoomSelection}
 						/>
 					</div>

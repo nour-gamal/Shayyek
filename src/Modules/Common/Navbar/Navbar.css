@@ -120,13 +120,14 @@
 }
 .navbar .chat-icon .chatNotifications {
 	display: block;
-	padding: 1px 7px;
+	width: 10px;
+	height: 10px;
 	text-align: center;
 	background-color: red;
 	color: #fff;
 	position: absolute;
-	top: 0;
-	right: -5px;
+	top: 5px;
+	right: 10px;
 	border-radius: 50%;
 }
 .navbar .endNav {

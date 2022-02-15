@@ -51,7 +51,8 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 				} else {
 					updateApplicantImage(DefaultProfileImage);
 				}
-
+			});
+			onSnapshot(doc(db, "users", authorization.id), (doc) => {
 				updateUnreadMsgCount(doc.data().unreadMsgCount);
 			});
 		}

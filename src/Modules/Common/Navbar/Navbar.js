@@ -26,8 +26,9 @@ import { db } from "../../../firebase";
 import "./Navbar.css";
 
 function Navbarr({ navState, verifayState, transparent }) {
-	const [userNotifications, setUserNotifications] = useState([]);
 	const dispatch = useDispatch();
+
+	const [userNotifications, setUserNotifications] = useState([]);
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
@@ -99,7 +100,6 @@ function Navbarr({ navState, verifayState, transparent }) {
 			</Scrollbars>
 		</div>
 	);
-
 	return (
 		<Navbar
 			expand="lg"
@@ -163,8 +163,8 @@ function Navbarr({ navState, verifayState, transparent }) {
 						</span>
 					)}
 					<Link to="/chat" className="nav-link chat-icon">
-						{unreadMsgCount && (
-							<div className="chatNotifications f-12">{unreadMsgCount}</div>
+						{unreadMsgCount > 0 && (
+							<div className="chatNotifications f-12"></div>
 						)}
 						<img src={Chat} alt="Chat" />
 					</Link>
