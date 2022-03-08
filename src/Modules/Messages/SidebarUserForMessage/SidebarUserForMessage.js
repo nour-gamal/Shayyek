@@ -1,12 +1,15 @@
+import { useState } from "react";
 import DefaultProfileImage from "../../../Resources/Assets/DefaultProfileImage.png";
 import eye from "../../../Resources/Assets/eye.svg";
 import profileIcon from "../../../Resources/Assets/profileIcon.svg";
 import garbage from "../../../Resources/Assets/garbage.svg";
 import { baseUrl } from "../../../Services";
+import { authorType } from "../../../helpers/authType";
 import { Dropdown, Button, Menu } from "antd";
 import { useSelector } from "react-redux";
 import { doc, onSnapshot, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../../firebase";
+import { Redirect } from "react-router-dom";
 import "./SidebarUserForMessage.css";
 
 const SidebarUserForMessage = ({
@@ -15,9 +18,11 @@ const SidebarUserForMessage = ({
 	applicantId,
 }) => {
 	const {
-		authorization: { id },
+		authorization: { id, accountTypeId, userTypeId, roleId },
 	} = useSelector((state) => state.authorization);
 
+	const userType = authorType(accountTypeId, userTypeId, roleId);
+	const [redirectTo, updateRedirectTo] = useState(null);
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const DeleteConversation = async (friendId) => {
 		const userDocRef = doc(db, "users", id);
@@ -46,16 +51,22 @@ const SidebarUserForMessage = ({
 					<div>{currentLocal.messages.viewChat}</div>
 				</Button>
 			</Menu.Item>
-			<Menu.Item key={1}>
-				<Button
-					type="text"
-					className="dropDown__item d-flex justify-content-start align-items-center"
-					onClick={() => {}}
-				>
-					<img src={profileIcon} alt="profileIcon" className="mx-2" />
-					<div>{currentLocal.messages.viewProfile}</div>
-				</Button>
-			</Menu.Item>
+			{userType.includes("buyer") && (
+				<Menu.Item key={1}>
+					<Button
+						type="text"
+						className="dropDown__item d-flex justify-content-start align-items-center"
+						onClick={() => {
+							updateRedirectTo(
+								`/suppliercontractorprofiles?userId=${friendId}`
+							);
+						}}
+					>
+						<img src={profileIcon} alt="profileIcon" className="mx-2" />
+						<div>{currentLocal.messages.viewProfile}</div>
+					</Button>
+				</Menu.Item>
+			)}
 			<Menu.Item key={2}>
 				<Button
 					type="text"
@@ -70,6 +81,10 @@ const SidebarUserForMessage = ({
 			</Menu.Item>
 		</Menu>
 	);
+
+	if (redirectTo) {
+		return <Redirect to={redirectTo} />;
+	}
 
 	return (
 		<div className="SidebarUserForMessage">
