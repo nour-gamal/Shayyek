@@ -37,8 +37,9 @@ const Messages = (props) => {
 				data.friends.forEach((friend) => {
 					IDsArr.push(friend.friendId);
 				});
-				let currentRoomId = data.friends[0].roomId;
-				let applicantId = data.friends[0].friendId;
+				let currentRoomId = data.friends[data.friends.length - 1].roomId;
+				let applicantId = data.friends[data.friends.length - 1].friendId;
+
 				updateCurrentRoomId(currentRoomId);
 				updateApplicantId(applicantId);
 				const usersQuery = query(usersRef, where("id", "in", IDsArr));
