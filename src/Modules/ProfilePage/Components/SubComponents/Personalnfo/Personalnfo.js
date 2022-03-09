@@ -7,6 +7,7 @@ import { withRouter, Link } from "react-router-dom";
 import { baseUrl } from "../../../../../Services";
 import { acceptOrRejectUser } from "../../../network";
 import DraftIcon from "../../../../../Resources/Assets/draft.svg";
+import Plus from "../../../../../Resources/Assets/add (3).svg";
 import defaultImage from "../../../../../Resources/Assets/DefaultProfileImage.png";
 import { authorType } from "../../../../../helpers/authType";
 import DraftsModal from "./../DraftsModal/DraftsModal";
@@ -18,10 +19,11 @@ function Personalnfo({
 	count,
 	profileDetails,
 	adminView,
+	buyerView,
 	history,
 	company,
 }) {
-	// console.log()
+	console.log(profileDetails);
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const {
 		authorization,
@@ -29,8 +31,7 @@ function Personalnfo({
 	} = useSelector((state) => state.authorization);
 	const [isActive, setIsActive] = useState(profileDetails?.isActive);
 	const [draftsModalVisible, updateDraftsModalVisible] = useState(false);
-	const authorTypeName = authorType(accountTypeId, userTypeId, roleId);
-	console.log("isActive", isActive);
+	let authorTypeName = authorType(accountTypeId, userTypeId, roleId);
 	function acceptOrRejectUserAction(isActive) {
 		acceptOrRejectUser(
 			{ isActive, rejectedUserId: profileDetails.userId },
@@ -67,36 +68,6 @@ function Personalnfo({
 							<div className="fw-600 info__companyName">
 								{profileDetails.companyName}
 							</div>
-							{
-								// if the employee is already accepted and have an rating data
-								/* {parent === "buyerAdmin" ? (
-                <>
-                  <div className="my-1">{authorization.email}</div>
-                  <div className="my-1 mobile">{authorization.mobile}</div>
-                </>
-              ) : (
-                <>
-                  <ReactStars
-                    edit={false} count={5} value={3} size={24} activeColor="#ffd700"
-                    classNames={
-                      currentLocal.language === "English"
-                        ? "ltrStars"
-                        : "rtlStars"
-                    }
-                  />
-
-                  <span className="progressContainer">
-                    <ProgressBar now={30} />
-                    <span className="f-14">
-                      {currentLocal.profilePage.completedPercentage}
-                    </span>
-                  </span>
-                  <div className="f-10">
-                    {currentLocal.profilePage.addMoreWork}
-                  </div>
-                </>
-              )} */
-							}
 						</div>
 					</div>
 					<div className="profileHeader__info">
@@ -126,6 +97,46 @@ function Personalnfo({
 							)}
 					</div>
 				</header>
+			) : buyerView ? (
+				profileDetails && (
+					<header className="profileHeader">
+						<div className="profileHeader__personal">
+							<img
+								className="user"
+								src={baseUrl + profileDetails.profileImage}
+								alt="profile"
+							/>
+							<div className="info mx-4">
+								<div className="fw-600 f-18">{profileDetails.name}</div>
+								<ReactStars
+									edit={false}
+									count={5}
+									value={3}
+									size={24}
+									activeColor="#ffd700"
+									classNames={
+										currentLocal.language === "English"
+											? "ltrStars"
+											: "rtlStars"
+									}
+								/>
+								<div className="d-flex">
+									<img src={Plus} alt="Plus" />
+									<div className="mx-2 primary-color f-14">
+										{currentLocal.profilePage.inviteToRFQ}
+									</div>
+								</div>
+							</div>
+						</div>
+
+						{profileDetails.company && (
+							<div className="profileHeader__info f-14 secondary-color">
+								{currentLocal.profilePage.see} {profileDetails.company.name}{" "}
+								{currentLocal.profilePage.marketPlace}
+							</div>
+						)}
+					</header>
+				)
 			) : (
 				<header className="profileHeader">
 					<div className="profileHeader__personal">

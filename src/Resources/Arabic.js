@@ -194,6 +194,9 @@ export const ar = {
 		close: "أغلق",
 		saveChanges: "حفظ التغييرات",
 		profileName: "أسم الصفحة",
+		inviteToRFQ: "ارسال دعوه لطلب عرض سعر محدد",
+		see: "عرض",
+		marketPlace: "في المتجر",
 	},
 	offerTable: {
 		name: "الاسم",

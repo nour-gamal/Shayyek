@@ -198,6 +198,9 @@ export const en = {
 		close: "Close",
 		saveChanges: "Save changes",
 		profileName: "Profile name",
+		inviteToRFQ: "Invite to specific RFQ",
+		see: "See",
+		marketPlace:'market place'
 	},
 	offerTable: {
 		name: "Name",
