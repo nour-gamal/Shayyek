@@ -200,7 +200,7 @@ export const en = {
 		profileName: "Profile name",
 		inviteToRFQ: "Invite to specific RFQ",
 		see: "See",
-		marketPlace:'market place'
+		marketPlace:'marketplace'
 	},
 	offerTable: {
 		name: "Name",
