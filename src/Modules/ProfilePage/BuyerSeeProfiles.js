@@ -56,18 +56,26 @@ function BuyerSeeProfiles() {
 					<Row>
 						<Col lg={18} md={16} xs={24}>
 							<PersonalInfo buyerView={true} profileDetails={profileDetails} />
-							<SidePersonalInfo
-								allData={{
-									name: profileDetails.name,
-									type: profileDetails.userType,
-									categories: profileDetails.categories,
-								}}
-								parent={"buyerSee"}
-							/>
-							<CompanyCard
-								companyDetails={profileDetails.company}
-								parent={"buyerSee"}
-							/>
+							<Row>
+								<Col md={12} xs={24}>
+									<SidePersonalInfo
+										allData={{
+											name: profileDetails.name,
+											type: profileDetails.userType,
+											categories: profileDetails.categories,
+										}}
+										parent={"buyerSee"}
+									/>
+								</Col>
+								<Col md={12} xs={24}>
+									{profileDetails.company && (
+										<CompanyCard
+											companyDetails={profileDetails.company}
+											parent={"buyerSee"}
+										/>
+									)}
+								</Col>
+							</Row>
 						</Col>
 						<Col className="sideWorker" lg={6} md={8} xs={24}>
 							<PreviousWorks
