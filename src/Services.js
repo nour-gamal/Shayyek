@@ -12,12 +12,6 @@ token =
   JSON.parse(JSON.parse(localStorage.getItem("persist:root")).authorization)
     .authorization.token;
 
-// function onFailStatus(response) {
-//   if (response.status && response.status === 401) {
-//     localStorage.removeItem("persist:root");
-//     window.location.reload();
-//   }
-// }
 export function PostResource(path, data, onSuccess, onFail, reqAuth, formData) {
   const requestData = {
     method: "post",
