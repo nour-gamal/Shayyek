@@ -370,5 +370,8 @@ export const en = {
 		selectOnlineSessionMembers: "Select Online Session Members",
 		pickOnlineSession: "Pick Online Session Time And Date",
 		noMsgsFound: "No Messages Found",
+		viewChat: "View Chat",
+		viewProfile: "View Profile",
+		deleteConversation: "Delete Conversation",
 	},
 };

@@ -1,23 +1,23 @@
 .navbar {
-  width: 100%;
-  background-color: rgba(0, 59, 107, 0.85);
-  padding: 20px 0px !important;
+	width: 100%;
+	background-color: rgba(0, 59, 107, 0.85);
+	padding: 20px 0px !important;
 }
 
 .navbar.light {
-  background-color: #fff;
-  padding-right: 84px !important;
-  padding-left: 84px !important;
+	background-color: #fff;
+	padding-right: 84px !important;
+	padding-left: 84px !important;
 }
 .navbar .dropDownIcon {
-  display: flex;
-  align-content: center;
-  align-items: center;
+	display: flex;
+	align-content: center;
+	align-items: center;
 }
 .transparent {
-  width: 100%;
-  background-color: transparent;
-  padding: 20px 0px !important;
+	width: 100%;
+	background-color: transparent;
+	padding: 20px 0px !important;
 }
 /* #basic-navbar-nav
 {
@@ -26,219 +26,233 @@
 	top: 50px;
 } */
 .navbar .userType {
-  color: #f5f5f5;
-  display: flex;
-  align-items: center;
+	color: #f5f5f5;
+	display: flex;
+	align-items: center;
 }
 .navbar .userType.leftStyles {
-  border-left: 1px solid;
-  padding-left: 20px;
-  margin-left: 20px;
+	border-left: 1px solid;
+	padding-left: 20px;
+	margin-left: 20px;
 }
 .navbar .userType.rightStyles {
-  border-right: 1px solid;
-  padding-right: 20px;
-  margin-right: 20px;
+	border-right: 1px solid;
+	padding-right: 20px;
+	margin-right: 20px;
 }
 .navbar .controlIcon {
-  flex-grow: 1;
+	flex-grow: 1;
 }
 .navbar .flex-grow-0 {
-  flex-grow: 0 !important;
+	flex-grow: 0 !important;
 }
 .navbar .flex-grow-1 {
-  flex-grow: 1 !important;
+	flex-grow: 1 !important;
 }
 .navbar .avatar {
-  width: 35px;
-  height: 35px;
-  margin-right: 20px;
+	width: 35px;
+	height: 35px;
+	margin-right: 20px;
 }
 
 .navbar .avatar.mr-20 {
-  margin-right: 20px;
+	margin-right: 20px;
 }
 
 .navbar .avatar.ml-20 {
-  margin-left: 20px;
+	margin-left: 20px;
 }
 .ant-dropdown-menu-title-content > a {
-  text-decoration: none !important;
+	text-decoration: none !important;
 }
 .dark .navbar-nav {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: row;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: row;
 }
 .transparent .navbar-nav {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: row;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: row;
 }
 .dark .loginNavbar {
-  display: flex;
-  justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 }
 .transparent .loginNavbar {
-  display: flex;
-  justify-content: flex-end;
-  background: red;
+	display: flex;
+	justify-content: flex-end;
+	background: red;
 }
 
 .dark .loginNavbar .registration {
-  border-right: 1px solid #ddd;
-  padding-right: 16px !important;
-  padding-left: 15px !important;
+	border-right: 1px solid #ddd;
+	padding-right: 16px !important;
+	padding-left: 15px !important;
 }
 .transparent .loginNavbar .registration {
-  border-right: 1px solid #ddd;
-  padding-right: 16px !important;
-  padding-left: 15px !important;
+	border-right: 1px solid #ddd;
+	padding-right: 16px !important;
+	padding-left: 15px !important;
 }
 .dark .navbar-nav .nav-link {
-  color: #fff !important;
+	color: #fff !important;
 }
 .transparent .navbar-nav .nav-link {
-  color: #fff !important;
+	color: #fff !important;
 }
 
 .navbar .centerNav {
-  display: flex;
-  width: 360%;
-  justify-content: flex-end;
+	display: flex;
+	width: 360%;
+	justify-content: flex-end;
 }
 
 .navbar .centerNav img {
-  margin: 0 5px;
+	margin: 0 5px;
 }
-
+.navbar .chat-icon {
+	position: relative;
+}
+.navbar .chat-icon .chatNotifications {
+	display: block;
+	width: 10px;
+	height: 10px;
+	text-align: center;
+	background-color: red;
+	color: #fff;
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	border-radius: 50%;
+}
 .navbar .endNav {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .navbar img.langIcon {
-  filter: brightness(300%);
+	filter: brightness(300%);
 }
 .transparent img.langIcon {
-  filter: brightness(300%);
+	filter: brightness(300%);
 }
 .navbar-dark .navbar-toggler {
-  box-shadow: none;
+	box-shadow: none;
 }
 .navbar-dark .navbar-toggler:focus {
-  box-shadow: 0 0 0 0.5px;
+	box-shadow: 0 0 0 0.5px;
 }
 .register_btn {
-  background: rgba(38, 88, 129, 1);
-  padding-left: 18px !important;
-  padding-right: 18px !important;
-  border-radius: 5px;
-  margin-left: 18px;
-  margin-right: 18px;
+	background: rgba(38, 88, 129, 1);
+	padding-left: 18px !important;
+	padding-right: 18px !important;
+	border-radius: 5px;
+	margin-left: 18px;
+	margin-right: 18px;
 }
 .navbar .verfy {
-  background-color: #fff !important;
-  padding-right: 84px !important;
-  padding-left: 84px !important;
+	background-color: #fff !important;
+	padding-right: 84px !important;
+	padding-left: 84px !important;
 }
 .navbar .arrowDown {
-  width: 15px;
+	width: 15px;
 }
 .navbar .nameContainer,
 .navbar .nameContainer:hover {
-  color: #fff;
-  text-overflow: ellipsis;
-  width: 70px;
-  white-space: nowrap;
-  overflow: hidden;
-  direction: ltr;
+	color: #fff;
+	text-overflow: ellipsis;
+	width: 70px;
+	white-space: nowrap;
+	overflow: hidden;
+	direction: ltr;
 }
 #scrollableDiv {
-  background: white;
-  box-shadow: rgb(51 51 51 / 47%) 0px 0px 3px;
-  border-radius: 0.25rem;
-  padding: 0.5rem;
+	background: white;
+	box-shadow: rgb(51 51 51 / 47%) 0px 0px 3px;
+	border-radius: 0.25rem;
+	padding: 0.5rem;
 }
 
 .ant-list-item-meta {
-  align-items: center !important;
-  padding: 0 1rem !important;
+	align-items: center !important;
+	padding: 0 1rem !important;
 }
 .ant-list-item.not-seen {
-  background: rgb(34 34 34 / 4%) !important;
+	background: rgb(34 34 34 / 4%) !important;
 }
 @media (max-width: 991px) {
-  .navbar {
-    position: relative;
-    padding-left: 0;
-    padding-right: 0;
-  }
+	.navbar {
+		position: relative;
+		padding-left: 0;
+		padding-right: 0;
+	}
 
-  .navbar .endNav,
-  .navbar .centerNav,
-  .navbar .centerNav > div {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
-  .navbar .centerNav {
-    width: 100%;
-  }
-  .navbar .personalInfoContainer {
-    flex-direction: row-reverse;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  .navbar .userType.leftStyles,
-  .navbar .userType.rightStyles {
-    border-left: none;
-    border-right: none;
-    margin: 0;
-    padding: 0;
-  }
-  .navbar .userType.leftStyles {
-    margin-left: 10px;
-  }
-  .navbar .userType.rightStyles {
-    margin-right: 10px;
-  }
-  .navbar .avatar.mx-4 {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
+	.navbar .endNav,
+	.navbar .centerNav,
+	.navbar .centerNav > div {
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+	}
+	.navbar .centerNav {
+		width: 100%;
+	}
+	.navbar .personalInfoContainer {
+		flex-direction: row-reverse;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	.navbar .userType.leftStyles,
+	.navbar .userType.rightStyles {
+		border-left: none;
+		border-right: none;
+		margin: 0;
+		padding: 0;
+	}
+	.navbar .userType.leftStyles {
+		margin-left: 10px;
+	}
+	.navbar .userType.rightStyles {
+		margin-right: 10px;
+	}
+	.navbar .avatar.mx-4 {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
 
-  .navbar .navbar-nav {
-    flex-direction: column;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-  .navbar.light {
-    background-color: #fff;
-    padding-right: 16px !important;
-    padding-left: 16px !important;
-  }
-  .pl-28 {
-    padding-left: 28px !important;
-  }
-  .pr-28 {
-    padding-right: 28px !important;
-  }
-  .register_btn {
-    background: none;
-    margin-left: unset !important;
-    margin-right: unset !important;
-  }
+	.navbar .navbar-nav {
+		flex-direction: column;
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+	}
+	.navbar.light {
+		background-color: #fff;
+		padding-right: 16px !important;
+		padding-left: 16px !important;
+	}
+	.pl-28 {
+		padding-left: 28px !important;
+	}
+	.pr-28 {
+		padding-right: 28px !important;
+	}
+	.register_btn {
+		background: none;
+		margin-left: unset !important;
+		margin-right: unset !important;
+	}
 }
 @media (min-width: 992px) {
-  .navbar .actionNav {
-    width: 250px;
-    justify-content: flex-end !important;
-  }
+	.navbar .actionNav {
+		width: 250px;
+		justify-content: flex-end !important;
+	}
 }

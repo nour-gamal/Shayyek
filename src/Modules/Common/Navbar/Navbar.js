@@ -20,15 +20,20 @@ import cart from "../../../Resources/Assets/cart.svg";
 import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
 import userAvatar from "../../../Resources/Assets/people.svg";
 import { getNotifications } from "./../Network";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../../firebase";
+
 import "./Navbar.css";
 
 function Navbarr({ navState, verifayState, transparent }) {
-  const [userNotifications, setUserNotifications] = useState([]);
   const dispatch = useDispatch();
+
+  const [userNotifications, setUserNotifications] = useState([]);
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
   const { authorization } = useSelector((state) => state.authorization);
   const loginState = authorization.userTypeId ? true : false;
+
   const {
     authorization: { userTypeId, accountTypeId, roleId },
   } = useSelector((state) => state.authorization);
@@ -36,20 +41,29 @@ function Navbarr({ navState, verifayState, transparent }) {
     authorType(accountTypeId, userTypeId, roleId) &&
     authorType(accountTypeId, userTypeId, roleId).includes("buyer");
 
+  const [unreadMsgCount, updateUnreadMsgCount] = useState(0);
   useEffect(() => {
-    if (accountTypeId) {
-      getNotifications(
-        currentLanguageId,
-        (success) => {
-          if (success.success) {
-            const { notifications } = success.data;
-            setUserNotifications(notifications);
-          }
-        },
-        (fail) => {}
-      );
+    if (authorization.id) {
+      const userDocRef = doc(db, "users", authorization.id);
+
+      onSnapshot(userDocRef, (doc) => {
+        updateUnreadMsgCount(doc.data().unreadMsgCount);
+      });
     }
-  }, [currentLanguageId, setUserNotifications, authorization]);
+  }, [unreadMsgCount, authorization.id]);
+
+  useEffect(() => {
+    getNotifications(
+      currentLanguageId,
+      (success) => {
+        if (success.success) {
+          const { notifications } = success.data;
+          setUserNotifications(notifications);
+        }
+      },
+      (fail) => {}
+    );
+  }, [currentLanguageId, setUserNotifications]);
 
   const notificationMenu = (
     <div
@@ -86,7 +100,6 @@ function Navbarr({ navState, verifayState, transparent }) {
       </Scrollbars>
     </div>
   );
-
   return (
     <Navbar
       expand="lg"
@@ -149,7 +162,10 @@ function Navbarr({ navState, verifayState, transparent }) {
               </Link>
             </span>
           )}
-          <Link to="/chat" className="nav-link">
+          <Link to="/chat" className="nav-link chat-icon">
+            {unreadMsgCount > 0 && (
+              <div className="chatNotifications f-12"></div>
+            )}
             <img src={Chat} alt="Chat" />
           </Link>
           <Dropdown overlay={notificationMenu} trigger={["click"]}>

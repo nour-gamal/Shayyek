@@ -30,6 +30,8 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 	const [room, updateRoom] = useState([]);
 	const [applicantImage, updateApplicantImage] = useState(null);
 	const [isRecording, updateIsRecording] = useState(false);
+	const [unreadMsgCount, updateUnreadMsgCount] = useState(0);
+	const [isEnterFunction, updateIsEnterFunction] = useState(false);
 	const profileImage = authorization.profileImage
 		? baseUrl + authorization.profileImage
 		: DefaultProfileImage;
@@ -50,13 +52,48 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 					updateApplicantImage(DefaultProfileImage);
 				}
 			});
+			onSnapshot(doc(db, "users", authorization.id), (doc) => {
+				updateUnreadMsgCount(doc.data().unreadMsgCount);
+			});
 		}
-	}, [currentRoomId, applicantId]);
+	}, [currentRoomId, applicantId, authorization.id]);
+	useEffect(() => {
+		const updateReadMsg = async () => {
+			if (currentRoomId) {
+				let allMsgs = [...room];
+				let unreadMessagesCount = unreadMsgCount;
+				const roomsDocRef = doc(db, "rooms", currentRoomId);
+				const usersDocRef = doc(db, "users", authorization.id);
+				if (
+					allMsgs.length &&
+					!allMsgs[room.length - 1].isRead &&
+					allMsgs[allMsgs.length - 1].senderId !== authorization.id
+				) {
+					allMsgs.forEach((msg) => {
+						if (!msg.isRead && !isEnterFunction) {
+							msg.isRead = true;
+							--unreadMessagesCount;
+						}
+					});
+					updateIsEnterFunction(true);
+
+					await updateDoc(roomsDocRef, { messages: allMsgs });
+					await updateDoc(usersDocRef, {
+						unreadMsgCount: unreadMessagesCount,
+					});
+				}
+			}
+		};
+
+		updateReadMsg();
+		// eslint-disable-next-line
+	}, [currentRoomId, room]);
+
 	const sendMessage = async (msgType, msgUrl) => {
 		const roomsDocRef = doc(db, "rooms", currentRoomId);
+		const userDocRef = doc(db, "users", applicantId);
 		setMessageText("");
-
-		// const userDocRef=
+		await updateDoc(userDocRef, { unreadMsgCount: unreadMsgCount + 1 });
 		await updateDoc(roomsDocRef, {
 			messages: arrayUnion({
 				message: msgType === "text" ? messageText : msgUrl,
@@ -78,6 +115,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 			scroll.current.scrollIntoView({ behavior: "smooth" });
 		}
 	};
+
 	const handleChooseDocImg = (e, type) => {
 		handleUpload(e.target.files[0], type);
 	};

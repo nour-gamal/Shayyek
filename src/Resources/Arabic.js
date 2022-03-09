@@ -366,5 +366,8 @@ export const ar = {
 		selectOnlineSessionMembers: "أختيار أعضاء المناقصة",
 		pickOnlineSession: "أختار تاريخ و وقت المناقصة",
 		noMsgsFound: "لا يوجد رسائل",
+		viewChat: "عرض الرسائل",
+		viewProfile: "عرض الصفحه الشخصيه",
+		deleteConversation: "حذف الرسائل",
 	},
 };

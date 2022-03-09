@@ -1,4 +1,3 @@
-import React from "react";
 import { Nav } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import languages from "../../../Resources/Assets/languages.svg";
@@ -14,6 +13,7 @@ import defaultImage from "../../../Resources/Assets/DefaultProfileImage.png";
 function UserNav({ loginState }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
+
 	const dispatch = useDispatch();
 	const menu = (
 		<Menu>

@@ -1,54 +1,60 @@
 .SidebarUserForMessage {
-  background: white;
-  box-shadow: 0 0 5px 0 #333;
-  height: 100%;
+	background: white;
+	box-shadow: 0 0 5px 0 #333;
+	height: 100%;
 }
 
 .SidebarUserForMessage__figure {
-  width: 2.5rem;
-  height: 2.5rem;
-  overflow: hidden;
-  margin-inline-end: 0.5rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	overflow: hidden;
+	margin-inline-end: 0.5rem;
 }
 
 .SidebarUserForMessage__figure img {
-  width: 100%;
+	width: 100%;
 }
 
 .SidebarUserForMessage__list {
-  padding: 0;
+	padding: 0;
 }
 
 .SidebarUserForMessage__item {
-  padding-inline-start: 0.5rem;
-  padding-inline-end: 0.5rem;
-  padding-bottom: 0;
-  padding: 0.75rem 0.5rem;
-  box-shadow: 0px 2px 2px #00000029;
-  margin-bottom: 0;
+	padding-inline-start: 0.5rem;
+	padding-inline-end: 0.5rem;
+	padding-bottom: 0;
+	padding: 0.75rem 0.5rem;
+	box-shadow: 0px 2px 2px #00000029;
+	margin-bottom: 0;
 }
 
 .SidebarUserForMessage__item h5 {
-  font-size: 1rem;
+	font-size: 1rem;
 }
-
+.sideBarForMsgs .SidebarUserForMessage__item__selected {
+	background: #e5f0ff;
+}
+.sideBarForMsgs .ant-dropdown-menu-item,
+.sideBarForMsgs .ant-dropdown-menu-submenu-title {
+	padding: 0 !important;
+}
 .SidebarUserForMessage__item button {
-  font-size: 1.25rem;
-  font-weight: bold;
-  line-height: 0;
+	font-size: 1.25rem;
+	font-weight: bold;
+	line-height: 0;
 }
 
 @media (max-width: 990px) {
-  .SidebarUserForMessage__item {
-    width: 250px;
-  }
-  .SidebarUserForMessage__list {
-    overflow: hidden;
-  }
-  .sidebarUserForMessageContainer {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    height: 100%;
-  }
+	.SidebarUserForMessage__item {
+		width: 250px;
+	}
+	.SidebarUserForMessage__list {
+		overflow: hidden;
+	}
+	.sidebarUserForMessageContainer {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		height: 100%;
+	}
 }
