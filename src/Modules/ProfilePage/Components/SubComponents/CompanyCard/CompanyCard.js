@@ -6,7 +6,7 @@ import ProfileDetailsModal from "../ProfileDetailsModal/ProfileDetailsModal";
 import defaultImage from "../../../../../Resources/Assets/DefaultProfileImage.png";
 import { authorType } from "../../../../../helpers/authType";
 import "./CompanyCard.css";
-function CompanyCard({ companyDetails, sidebar }) {
+function CompanyCard({ companyDetails, sidebar, parent }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const {
 		authorization,
@@ -39,18 +39,22 @@ function CompanyCard({ companyDetails, sidebar }) {
 							<h6 className="companyProfile__header mx-2">
 								{companyDetails.name}
 							</h6>
-							<button
-								className="companCard__edit"
-								onClick={() => setProfileDetailsModalVisible(true)}
-							>
-								...
-							</button>
+							{parent !== "buyerSee" && (
+								<button
+									className="companCard__edit"
+									onClick={() => setProfileDetailsModalVisible(true)}
+								>
+									...
+								</button>
+							)}
 						</header>
-						<Link to={`/company/${companyDetails.name}`}>
-							<button className="btn companyCard__btn">
-								{currentLocal.profilePage.manageyourCompany}
-							</button>
-						</Link>
+						{parent !== "buyerSee" && (
+							<Link to={`/company/${companyDetails.name}`}>
+								<button className="btn companyCard__btn">
+									{currentLocal.profilePage.manageyourCompany}
+								</button>
+							</Link>
+						)}
 					</div>
 					<ul className="list-unstyled">
 						<li className="item">
@@ -69,45 +73,54 @@ function CompanyCard({ companyDetails, sidebar }) {
 						</li>
 						<li className="item">
 							<span className="companyCard__label">
-								{currentLocal.profilePage.phoneNumber}:
-							</span>
-							<span className="companyCard__val">
-								{companyDetails.phones.map((phone, index) => (
-									<div key={index}>{phone}</div>
-								))}
-							</span>
-						</li>
-						<li className="item">
-							<span className="companyCard__label">
-								{currentLocal.profilePage.email}:
-							</span>
-							<span className="companyCard__val">{companyDetails.email}</span>
-						</li>
-						<li className="item">
-							<span className="companyCard__label">
 								{currentLocal.profilePage.organizLegalStruc}:
 							</span>
 							<span className="companyCard__val">
 								{companyDetails.typeName}
 							</span>
 						</li>
-						<li className="item">
-							<span className="companyCard__label">
-								{currentLocal.profilePage.companyWebsite}:
-							</span>
-							<span className="companyCard__val">{companyDetails.website}</span>
-						</li>
-						<li className="item">
-							<span className="companyCard__label">
-								{currentLocal.profilePage.commercialRecord}:
-							</span>
-							{companyDetails.commercialRecord && (
-								<img
-									src={baseUrl + companyDetails.commercialRecord}
-									alt="CommercialRecord"
-								/>
-							)}
-						</li>
+						{parent !== "buyerSee" && (
+							<div>
+								<li className="item">
+									<span className="companyCard__label">
+										{currentLocal.profilePage.phoneNumber}:
+									</span>
+									<span className="companyCard__val">
+										{companyDetails.phones.map((phone, index) => (
+											<div key={index}>{phone}</div>
+										))}
+									</span>
+								</li>
+								<li className="item">
+									<span className="companyCard__label">
+										{currentLocal.profilePage.email}:
+									</span>
+									<span className="companyCard__val">
+										{companyDetails.email}
+									</span>
+								</li>
+
+								<li className="item">
+									<span className="companyCard__label">
+										{currentLocal.profilePage.companyWebsite}:
+									</span>
+									<span className="companyCard__val">
+										{companyDetails.website}
+									</span>
+								</li>
+								<li className="item">
+									<span className="companyCard__label">
+										{currentLocal.profilePage.commercialRecord}:
+									</span>
+									{companyDetails.commercialRecord && (
+										<img
+											src={baseUrl + companyDetails.commercialRecord}
+											alt="CommercialRecord"
+										/>
+									)}
+								</li>
+							</div>
+						)}
 					</ul>
 				</div>
 			)}

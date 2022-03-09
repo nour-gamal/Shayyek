@@ -23,7 +23,6 @@ function Personalnfo({
 	history,
 	company,
 }) {
-	console.log(profileDetails);
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const {
 		authorization,
@@ -103,7 +102,11 @@ function Personalnfo({
 						<div className="profileHeader__personal">
 							<img
 								className="user"
-								src={baseUrl + profileDetails.profileImage}
+								src={
+									profileDetails.profileImage
+										? baseUrl + profileDetails.profileImage
+										: defaultImage
+								}
 								alt="profile"
 							/>
 							<div className="info mx-4">
@@ -122,7 +125,7 @@ function Personalnfo({
 								/>
 								<div className="d-flex">
 									<img src={Plus} alt="Plus" />
-									<div className="mx-2 primary-color f-14">
+									<div className="mx-2 primary-color f-14 cursorPointer">
 										{currentLocal.profilePage.inviteToRFQ}
 									</div>
 								</div>
@@ -130,9 +133,11 @@ function Personalnfo({
 						</div>
 
 						{profileDetails.company && (
-							<div className="profileHeader__info f-14 secondary-color">
-								{currentLocal.profilePage.see} {profileDetails.company.name}{" "}
-								{currentLocal.profilePage.marketPlace}
+							<div className="profileHeader__info f-14 secondary-color cursorPointer mx-2">
+								<Link to={`supplier/${profileDetails.company.id}`}>
+									{currentLocal.profilePage.see} {profileDetails.company.name}{" "}
+									{currentLocal.profilePage.marketPlace}
+								</Link>
 							</div>
 						)}
 					</header>

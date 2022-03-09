@@ -6,7 +6,7 @@ import moreDots from "../../../../../Resources/Assets/more-dots.svg";
 import { baseUrl } from "../../../../../Services";
 import defaultImage from "../../../../../Resources/Assets/DefaultProfileImage.png";
 import "./SidePersonalInfo.css";
-function SidePersonalInfo({ allData }) {
+function SidePersonalInfo({ allData, parent }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
 	const [isModalVisible, updateModalStatus] = useState(false);
@@ -41,28 +41,30 @@ function SidePersonalInfo({ allData }) {
 
 	return (
 		<div className="sidePersonalInfo">
-			<div className="title d-flex align-items-center p-2 justify-content-between">
-				<div className="d-flex align-items-center">
+			{parent !== "buyerSee" && (
+				<div className="title d-flex align-items-center p-2 justify-content-between">
+					<div className="d-flex align-items-center">
+						<img
+							src={
+								authorization.profileImage
+									? baseUrl + authorization.profileImage
+									: defaultImage
+							}
+							alt="profile"
+							className="mx-1 profileImg"
+						/>
+						<div className="mx-1">{currentLocal.profilePage.profileInfo}</div>
+					</div>
 					<img
-						src={
-							authorization.profileImage
-								? baseUrl + authorization.profileImage
-								: defaultImage
-						}
-						alt="profile"
-						className="mx-1 profileImg"
+						src={moreDots}
+						alt="moreDots"
+						className="cursorPointer"
+						onClick={() => {
+							updateModalStatus(true);
+						}}
 					/>
-					<div className="mx-1">{currentLocal.profilePage.profileInfo}</div>
 				</div>
-				<img
-					src={moreDots}
-					alt="moreDots"
-					className="cursorPointer"
-					onClick={() => {
-						updateModalStatus(true);
-					}}
-				/>
-			</div>
+			)}
 			<ul className="list-unstyled">
 				<li className="item">
 					<h6>{currentLocal.profilePage.name}</h6>
@@ -78,14 +80,18 @@ function SidePersonalInfo({ allData }) {
 						<Tree checkedKeys={"checkable"} treeData={workField} />
 					</div>
 				</li>
-				<li className="item">
-					<h6>{currentLocal.profilePage.phoneNumber}</h6>
-					<p>{allData.mobile}</p>
-				</li>
-				<li className="item">
-					<h6>{currentLocal.profilePage.email}</h6>
-					<p>{allData.email}</p>
-				</li>
+				{parent !== "buyerSee" && (
+					<div>
+						<li className="item">
+							<h6>{currentLocal.profilePage.phoneNumber}</h6>
+							<p>{allData.mobile}</p>
+						</li>
+						<li className="item">
+							<h6>{currentLocal.profilePage.email}</h6>
+							<p>{allData.email}</p>
+						</li>
+					</div>
+				)}
 			</ul>
 			{isModalVisible && (
 				<ProfileDetailsModal
