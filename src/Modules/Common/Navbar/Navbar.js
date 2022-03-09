@@ -37,17 +37,19 @@ function Navbarr({ navState, verifayState, transparent }) {
     authorType(accountTypeId, userTypeId, roleId).includes("buyer");
 
   useEffect(() => {
-    getNotifications(
-      currentLanguageId,
-      (success) => {
-        if (success.success) {
-          const { notifications } = success.data;
-          setUserNotifications(notifications);
-        }
-      },
-      (fail) => {}
-    );
-  }, [currentLanguageId, setUserNotifications]);
+    if (accountTypeId) {
+      getNotifications(
+        currentLanguageId,
+        (success) => {
+          if (success.success) {
+            const { notifications } = success.data;
+            setUserNotifications(notifications);
+          }
+        },
+        (fail) => {}
+      );
+    }
+  }, [currentLanguageId, setUserNotifications, authorization]);
 
   const notificationMenu = (
     <div

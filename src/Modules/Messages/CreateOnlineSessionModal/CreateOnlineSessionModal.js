@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { doc, setDoc, collection, addDoc } from "firebase/firestore";
 import { minBy } from "lodash";
 import { Modal, Checkbox, Row, Col, DatePicker } from "antd";
 import {
@@ -7,22 +8,19 @@ import {
   AddOnlineSession,
 } from "../network";
 import { db } from "../../../firebase";
-import { doc } from "firebase/firestore";
 import { baseUrl } from "../../../Services";
 import defaultProfileImage from "../../../Resources/Assets/DefaultProfileImage.png";
 
 import "./CreateOnlineSessionModal.css";
 
-const CreateOnineSession = ({
-  isModalVisible,
-  onCancel,
-  rfqId,
-  rfqDetails,
-}) => {
+const CreateOnineSession = ({ isModalVisible, onCancel, rfqId }) => {
   const { currentLocal } = useSelector((state) => state.currentLocal);
+  const { authorization } = useSelector((state) => state.authorization);
   const [members, setMembers] = useState(null);
   const [time, updateTime] = useState(null);
   const [selectedMembers, updateSelectedMembers] = useState([]);
+  const [selectedMemberIds, updateSelectedMemberIds] = useState([]);
+  const [disableSubmit, updateDisableSubmit] = useState(true);
 
   useEffect(() => {
     GetSuppliersAndContratorsThatFilledRFQ(
@@ -36,44 +34,67 @@ const CreateOnineSession = ({
     );
   }, [rfqId]);
 
+  // add new online-session
   function submitOnlineSession() {
+    console.log(selectedMembers);
     if (selectedMembers.length && time) {
+      // users for firebase
+      let users = [];
+      selectedMembers.forEach(async (userData) => {
+        const { userId } = userData;
+        let userDoc = doc(db, `users/${userId}`);
+        users.push({
+          user: userDoc,
+          isOnline: false,
+          lastPrice: 0,
+        });
+      });
+
       let data = {
         rfqId,
-        membersIds: selectedMembers,
+        membersIds: selectedMemberIds,
         sessionDate: time._d,
-        projectName: "static projectName from createOnlineSession.js",
+        projectName: "static project name!",
       };
       AddOnlineSession(
         data,
         async (success) => {
           if (success.success) {
-            let users = [];
-            selectedMembers.forEach(async (userId) => {
-              let userDoc = doc(db, `users/${userId}`);
-              users.push({
-                user: userDoc,
-                isOnline: false,
-                lastPrice: 0,
-              });
-            });
-            // members -> 3amro will add
-            let { totalPrice } = minBy(members, "totalPrice");
-            console.log(totalPrice);
-            // await setDoc(doc(collection(db, "online-sessions")), {
-            //   lastPrice,
-            //   rfqId,
-            //   users,
-            //   sessionDate: time._d,
-            //   buyerId: authorization.id,
-            // });
+            const {
+              data: { sessionId },
+            } = success;
 
+            const { price } = minBy(selectedMembers, "price");
+            await setDoc(doc(db, "online-sessions", sessionId), {
+              rfqId,
+              users,
+              sessionDate: time._d,
+              buyerId: authorization.id,
+              lastPrice: price,
+            });
             onCancel();
           }
         },
         (fail) => {}
       );
     }
+  }
+
+  // update submitbutton disabled property
+  useEffect(() => {
+    if (selectedMembers.length && time) updateDisableSubmit(false);
+    else updateDisableSubmit(true);
+  }, [time, selectedMembers]);
+
+  //set users on the online session
+  function setMembersOnSelectCheckbox(data) {
+    let memberIds = [];
+    data.forEach((item) => {
+      const { userId } = item;
+      memberIds.push(userId);
+    });
+    updateSelectedMembers(data);
+    updateSelectedMemberIds(memberIds);
   }
 
   return (
@@ -90,13 +111,11 @@ const CreateOnineSession = ({
             </header>
             <form>
               <ul className="createOnlineSession-items">
-                <Checkbox.Group
-                  onChange={(data) => updateSelectedMembers(data)}
-                >
+                <Checkbox.Group onChange={setMembersOnSelectCheckbox}>
                   {members &&
                     members.map((member) => (
                       <li className="item d-flex" key={member.userId}>
-                        <Checkbox value={member.userId} />
+                        <Checkbox value={member} />
                         <img
                           src={
                             member.userImage
@@ -126,6 +145,7 @@ const CreateOnineSession = ({
       </div>
       <div className="createOnlineSession-footer text-center">
         <button
+          disabled={disableSubmit}
           className="btn button-primary"
           type="submit"
           onClick={submitOnlineSession}

@@ -37,7 +37,7 @@ function OfferTable(props) {
   const [redirectState, updateRedirectState] = useState(null);
   const [isSessionModalVisible, toggleIsSessionModalVisible] = useState(false);
   const [startModalSessionVisible, updateStartModalSessionVisible] = useState(
-    false
+    true
   );
   const { id } = props.match.params;
   useEffect(() => {
@@ -329,7 +329,8 @@ function OfferTable(props) {
       )}
       {startModalSessionVisible && (
         <StartOnlineSessionModal
-          isModalVisible={startModalSessionVisible}
+          isModalVisible={true}
+          // ={true}
           onCancel={() => updateStartModalSessionVisible(false)}
         />
       )}

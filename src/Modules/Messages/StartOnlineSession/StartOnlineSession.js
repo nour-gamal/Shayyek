@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Button } from "antd";
 import { db } from "../../../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, addDoc, collection } from "firebase/firestore";
 import BadgeSession from "../../../Resources/Assets/badge-session.svg";
 import EndSession from "../../../Resources/Assets/end-session.svg";
 import SendSession from "../../../Resources/Assets/send-session.svg";
@@ -10,23 +10,43 @@ import user from "../../../Resources/Assets/MessageAvatar.png";
 import "./StartOnlineSession.css";
 
 const StartOnlineSession = ({ isModalVisible, onCancel }) => {
+  const { authorization } = useSelector((state) => state.authorization);
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  const [sendOfferText, setSendOfferText] = useState("");
-
-  function sendOffer(e) {
+  const [offerPrice, setOfferPrice] = useState("");
+  const [messages, updateMessages] = useState([]);
+  const scrollTo = useRef();
+  async function sendOffer(e) {
     e.preventDefault();
-    // const data = {
-    //   hasBadget: false,
-    //   message: sendOfferText,
-    //   // sender:
-    // };
-    setSendOfferText("");
 
-    // scroll.current.scrollIntoView({ behavior: "smooth" });
+    let userDocRef = doc(db, `users/${authorization.id}`);
+    const data = {
+      sender: userDocRef,
+      content: offerPrice,
+      badget: false,
+    };
+    await addDoc(
+      collection(
+        db,
+        "online-sessions",
+        "7d6962a2-3db3-41e6-b1ef-432741a4bf0f",
+        "messages"
+      ),
+      data
+    );
+    // data.messageId += 1;
+    // updateMessages((prevMessages) => [...prevMessages, data]);
+    setOfferPrice("");
+    scrollTo.current.scrollIntoView({ behavior: "smooth" });
   }
+
   useEffect(() => {
     async function getMessages() {
-      const docRef = doc(db, "online-sessions", "jrvdOG7057qqnVurSFfK");
+      const docRef = doc(
+        db,
+        "online-sessions",
+        "7d6962a2-3db3-41e6-b1ef-432741a4bf0f"
+      );
+
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const { users } = docSnap.data();
@@ -64,15 +84,22 @@ const StartOnlineSession = ({ isModalVisible, onCancel }) => {
         </div>
       </header>
       <div className="message-content mt-2 flex-1">
-        <div>
-          <div className="content ">
-            <img class="message-content__user" src={user} alt="user-avatar" />
-            <div>
-              <h6>Omar</h6>
-              <p>1200 L.E</p>
+        <ul>
+          {messages?.map((message) => (
+            <div className="content" key={message.messageId}>
+              <img
+                className="message-content__user"
+                src={message.senderImage}
+                alt="user-avatar"
+              />
+              <div>
+                <h6>{message.senderName}</h6>
+                <p>{message.senderPrice}</p>
+              </div>
             </div>
-          </div>
-        </div>
+          ))}
+          <div ref={scrollTo}></div>
+        </ul>
       </div>
       <div className="StartOnlineSession__sendMessages mt-2 d-flex justify-content-between align-items-center">
         <div className="d-flex">
@@ -85,11 +112,11 @@ const StartOnlineSession = ({ isModalVisible, onCancel }) => {
         </div>
         <form onSubmit={sendOffer} className="flex-1 d-flex align-items-center">
           <input
-            type="text"
+            type="number"
             className="messageInput"
-            value={sendOfferText}
+            value={offerPrice}
             placeholder={currentLocal.messages.enterOfferPrice}
-            onChange={(e) => setSendOfferText(e.target.value)}
+            onChange={(e) => setOfferPrice(e.target.value)}
           />
           <div className="d-flex icons-inside-form-field">
             <Button type="text">
@@ -99,10 +126,10 @@ const StartOnlineSession = ({ isModalVisible, onCancel }) => {
               <img src={BadgeSession} alt="badge-session" />
             </Button>
           </div>
+          <Button type="text" htmlType="submit">
+            <img className="flip-image" src={SendSession} alt="send-session" />
+          </Button>
         </form>
-        <Button type="text">
-          <img className="flip-image" src={SendSession} alt="send-session" />
-        </Button>
       </div>
     </Modal>
   );
