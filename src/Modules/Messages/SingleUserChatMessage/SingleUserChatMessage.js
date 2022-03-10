@@ -30,7 +30,8 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 	const [room, updateRoom] = useState([]);
 	const [applicantImage, updateApplicantImage] = useState(null);
 	const [isRecording, updateIsRecording] = useState(false);
-	const [unreadMsgCount, updateUnreadMsgCount] = useState(0);
+	const [localUnreadMsgCount, updateLocalUnreadMsgCount] = useState(0);
+	const [remoteUnreadMsgCount, updateRemoteUnreadMsgCount] = useState(0);
 	const [isEnterFunction, updateIsEnterFunction] = useState(false);
 	const profileImage = authorization.profileImage
 		? baseUrl + authorization.profileImage
@@ -51,9 +52,10 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 				} else {
 					updateApplicantImage(DefaultProfileImage);
 				}
+				updateRemoteUnreadMsgCount(doc.data().unreadMsgCount);
 			});
 			onSnapshot(doc(db, "users", authorization.id), (doc) => {
-				updateUnreadMsgCount(doc.data().unreadMsgCount);
+				updateLocalUnreadMsgCount(doc.data().unreadMsgCount);
 			});
 		}
 	}, [currentRoomId, applicantId, authorization.id]);
@@ -61,24 +63,24 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 		const updateReadMsg = async () => {
 			if (currentRoomId) {
 				let allMsgs = [...room];
-				let unreadMessagesCount = unreadMsgCount;
+				let unreadMessagesCount = localUnreadMsgCount;
 				const roomsDocRef = doc(db, "rooms", currentRoomId);
-				const usersDocRef = doc(db, "users", authorization.id);
+				const localUsersDocRef = doc(db, "users", authorization.id);
 				if (
 					allMsgs.length &&
 					!allMsgs[room.length - 1].isRead &&
 					allMsgs[allMsgs.length - 1].senderId !== authorization.id
 				) {
-					allMsgs.forEach((msg) => {
+					allMsgs.forEach((msg, msgCount) => {
 						if (!msg.isRead && !isEnterFunction) {
-							msg.isRead = true;
+							allMsgs[msgCount].isRead = true;
 							--unreadMessagesCount;
 						}
 					});
 					updateIsEnterFunction(true);
 
 					await updateDoc(roomsDocRef, { messages: allMsgs });
-					await updateDoc(usersDocRef, {
+					await updateDoc(localUsersDocRef, {
 						unreadMsgCount: unreadMessagesCount,
 					});
 				}
@@ -91,9 +93,11 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 
 	const sendMessage = async (msgType, msgUrl) => {
 		const roomsDocRef = doc(db, "rooms", currentRoomId);
-		const userDocRef = doc(db, "users", applicantId);
+		const remoteUserDocRef = doc(db, "users", applicantId);
 		setMessageText("");
-		await updateDoc(userDocRef, { unreadMsgCount: unreadMsgCount + 1 });
+		await updateDoc(remoteUserDocRef, {
+			unreadMsgCount: remoteUnreadMsgCount + 1,
+		});
 		await updateDoc(roomsDocRef, {
 			messages: arrayUnion({
 				message: msgType === "text" ? messageText : msgUrl,
@@ -105,8 +109,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 		});
 
 		if (applicantId) {
-			const userDocRef = doc(db, "users", applicantId);
-			await updateDoc(userDocRef, {
+			await updateDoc(remoteUserDocRef, {
 				friends: arrayUnion({
 					roomId: currentRoomId,
 					friendId: authorization.id,
