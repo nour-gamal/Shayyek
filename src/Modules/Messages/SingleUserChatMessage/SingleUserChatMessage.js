@@ -32,7 +32,7 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 	const [isRecording, updateIsRecording] = useState(false);
 	const [localUnreadMsgCount, updateLocalUnreadMsgCount] = useState(0);
 	const [remoteUnreadMsgCount, updateRemoteUnreadMsgCount] = useState(0);
-	const [isEnterFunction, updateIsEnterFunction] = useState(false);
+	const [isEntered, updateIsEntered] = useState(false);
 	const profileImage = authorization.profileImage
 		? baseUrl + authorization.profileImage
 		: DefaultProfileImage;
@@ -59,34 +59,35 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 			});
 		}
 	}, [currentRoomId, applicantId, authorization.id]);
-	useEffect(() => {
-		const updateReadMsg = async () => {
-			if (currentRoomId) {
-				let allMsgs = [...room];
-				let unreadMessagesCount = localUnreadMsgCount;
-				const roomsDocRef = doc(db, "rooms", currentRoomId);
-				const localUsersDocRef = doc(db, "users", authorization.id);
-				if (
-					allMsgs.length &&
-					!allMsgs[room.length - 1].isRead &&
-					allMsgs[allMsgs.length - 1].senderId !== authorization.id
-				) {
-					allMsgs.forEach((msg, msgCount) => {
-						if (!msg.isRead && !isEnterFunction) {
-							allMsgs[msgCount].isRead = true;
-							--unreadMessagesCount;
-						}
-					});
-					updateIsEnterFunction(true);
 
-					await updateDoc(roomsDocRef, { messages: allMsgs });
-					await updateDoc(localUsersDocRef, {
-						unreadMsgCount: unreadMessagesCount,
-					});
-				}
+	const updateReadMsg = async () => {
+		if (currentRoomId && room.length) {
+			let allMsgs = [...room];
+			let unreadMessagesCount = localUnreadMsgCount;
+			const roomsDocRef = doc(db, "rooms", currentRoomId);
+			const localUsersDocRef = doc(db, "users", authorization.id);
+			if (
+				allMsgs.length &&
+				!allMsgs[room.length - 1].isRead &&
+				allMsgs[allMsgs.length - 1].senderId !== authorization.id &&
+				!isEntered
+			) {
+				updateIsEntered(true);
+				allMsgs.forEach((msg, msgCount) => {
+					if (!msg.isRead) {
+						allMsgs[msgCount].isRead = true;
+						unreadMessagesCount--;
+					}
+				});
+				console.log(unreadMessagesCount);
+				await updateDoc(localUsersDocRef, {
+					unreadMsgCount: unreadMessagesCount,
+				});
+				await updateDoc(roomsDocRef, { messages: allMsgs });
 			}
-		};
-
+		}
+	};
+	useEffect(() => {
 		updateReadMsg();
 		// eslint-disable-next-line
 	}, [currentRoomId, room]);
