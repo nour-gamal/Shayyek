@@ -46,7 +46,6 @@ function BuyerSeeProfiles() {
 			}
 		);
 	}, [userId, currentLanguageId]);
-	console.log(profileDetails);
 
 	return (
 		<section>

@@ -1,28 +1,82 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "antd";
 import ImportOrAdd from "./ImportOrAdd/ImportOrAdd";
 import AddProductDetails from "./AddProductDetails/AddProductDetails";
 import AddProductSuccess from "./AddProductSuccess/AddProductSuccess";
 import AddSizes from "./AddSizes/AddSizes";
 import AddModels from "./AddModels/AddModels";
+import { useSelector } from "react-redux";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
-function AddProductModal({ isModalVisible, onCancel }) {
-	const [currentPage, updateCurrentPage] = useState("importOrAdd");
+import { GetProductDetails } from "../../../network";
+function AddProductModal({
+	isModalVisible,
+	onCancel,
+	IsEditProduct,
+	resetIsEditProduct,
+}) {
+	const [currentPage, updateCurrentPage] = useState(
+		IsEditProduct.currentPage ? IsEditProduct.currentPage : "importOrAdd"
+	);
+	const { currentLanguageId, currentLocal } = useSelector(
+		(state) => state.currentLocal
+	);
 	const [sizes, updateSizes] = useState([]);
 	const [models, updateModels] = useState([]);
 	const [lang, updateLang] = useState(null);
 	const [data, updateData] = useState(null);
+
+	useEffect(() => {
+		if (IsEditProduct && IsEditProduct.product) {
+			const data = {
+				ProductId: IsEditProduct.product.id,
+				languageId: currentLanguageId,
+			};
+			GetProductDetails(
+				data,
+				(success) => {
+					let newData = {
+						specs: {
+							en: currentLocal.language === "English" ? success.data.specs : "",
+							ar: currentLocal.language === "العربيه" ? success.data.specs : "",
+						},
+						productName: {
+							en: currentLocal.language === "English" ? success.data.name : "",
+							ar: currentLocal.language === "العربيه" ? success.data.name : "",
+						},
+						price: {
+							en: currentLocal.language === "English" ? success.data.price : "",
+							ar: currentLocal.language === "العربيه" ? success.data.price : "",
+						},
+						image: success.data.image,
+					};
+
+					updateData(newData);
+					// updateModels(success.data.models);
+					// updateSizes(success.data.sizes);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
+	}, [IsEditProduct, currentLanguageId, currentLocal.language]);
 	return (
 		<Modal
 			title="Basic Modal"
 			visible={isModalVisible}
-			onCancel={onCancel}
+			onCancel={() => {
+				onCancel();
+				resetIsEditProduct();
+			}}
 			className="modal-lg addProductModal"
 		>
 			<img
 				src={closeIcon}
 				alt="closeIcon"
-				onClick={onCancel}
+				onClick={() => {
+					onCancel();
+					resetIsEditProduct();
+				}}
 				className="close d-block cursorPointer"
 			/>
 			{currentPage === "importOrAdd" ? (

@@ -37,7 +37,6 @@ function SupplierContractorAdmin({ parent }) {
 					setCompanyDetails(company);
 					setProfileDetails(data);
 					setPreviousWorks(previousWorks);
-					console.log(company, previousWorks, data);
 				}
 			},
 			(fail) => {

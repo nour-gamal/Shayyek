@@ -7,9 +7,20 @@ import positive from "../../../Resources/Assets/postive.svg";
 import negative from "../../../Resources/Assets/negative.svg";
 import { useSelector } from "react-redux";
 import "./ProductDetails.css";
-function ProductDetails({ isModalVisible, onCancel, product, parent }) {
+function ProductDetails({
+	isModalVisible,
+	onCancel,
+	product,
+	parent,
+	toggleProductModal,
+}) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [quantityCount, updateQuantityCount] = useState(0);
+
+	const handleEdit = () => {
+		onCancel();
+		toggleProductModal();
+	};
 	return (
 		<Modal
 			title="Basic Modal"
@@ -125,7 +136,7 @@ function ProductDetails({ isModalVisible, onCancel, product, parent }) {
 						</div>
 					</div>
 					<div className="button-container">
-						<button className="button-primary">
+						<button className="button-primary" onClick={handleEdit}>
 							{parent === "supplierHome"
 								? currentLocal.supplierHome.edit
 								: currentLocal.supplierHome.addToCart}

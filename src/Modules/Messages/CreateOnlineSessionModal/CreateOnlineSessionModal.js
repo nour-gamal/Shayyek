@@ -36,7 +36,6 @@ const CreateOnineSession = ({ isModalVisible, onCancel, rfqId }) => {
 
 	// add new online-session
 	function submitOnlineSession() {
-		console.log(selectedMembers);
 		if (selectedMembers.length && time) {
 			// users for firebase
 			let users = [];

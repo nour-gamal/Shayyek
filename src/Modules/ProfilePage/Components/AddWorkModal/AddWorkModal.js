@@ -22,7 +22,6 @@ function AddWrokDetailsModal({
   selectedPrevWorkId,
   setSelectedPrevWorkId,
 }) {
-  console.log(previousWorks);
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [ProjectName, setProjectName] = useState("");
   const [ProjectLocation, setProjectLocation] = useState("");

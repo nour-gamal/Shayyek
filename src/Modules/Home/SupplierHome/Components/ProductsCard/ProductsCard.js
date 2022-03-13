@@ -10,7 +10,7 @@ import edit from "../../../../../Resources/Assets/edit.svg";
 import ProductDetails from "../../../../Common/ProductDetails/ProductDetails";
 import garbage from "../../../../../Resources/Assets/garbage.svg";
 import "./ProductsCard.css";
-function ProductsCard({ product, requestAllProducts }) {
+function ProductsCard({ product, requestAllProducts, toggleProductModal }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [selectedProduct, updateSelectedProduct] = useState(null);
 	const [isDetailsModalVisible, toggleDetailsModal] = useState(false);
@@ -21,7 +21,7 @@ function ProductsCard({ product, requestAllProducts }) {
 				<img src={eye} alt="eye" className="mx-2" />
 				{currentLocal.supplierHome.productDetails}
 			</Menu.Item>
-			<Menu.Item key="1">
+			<Menu.Item key="1" onClick={toggleProductModal}>
 				<img src={edit} alt="edit" className="mx-2" />
 				{currentLocal.supplierHome.edit}
 			</Menu.Item>
@@ -104,6 +104,7 @@ function ProductsCard({ product, requestAllProducts }) {
 					}}
 					product={productDetails}
 					parent={"supplierHome"}
+					toggleProductModal={toggleProductModal}
 				/>
 			)}
 		</div>

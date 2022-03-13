@@ -10,6 +10,7 @@ import { GetLanguages } from "../../../../../../Network";
 import { addProduct, addProductImg } from "../../../../network";
 import { useSelector } from "react-redux";
 import "./AddProductDetails.css";
+import { baseUrl } from "../../../../../../Services";
 function AddProductDetails({
 	onCurrentPageChange,
 	sizes,
@@ -21,16 +22,10 @@ function AddProductDetails({
 	data,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const [image, setImage] = useState(data && data.image ? data.image : null);
-	const [specs, updateSpecs] = useState(
-		data && data.specs ? data.specs : { ar: "", en: "" }
-	);
-	const [productName, updateProductName] = useState(
-		data && data.productName ? data.productName : { ar: "", en: "" }
-	);
-	const [price, updatePrice] = useState(
-		data && data.price ? data.price : { ar: "", en: "" }
-	);
+	const [image, setImage] = useState(null);
+	const [specs, updateSpecs] = useState({ ar: "", en: "" });
+	const [productName, updateProductName] = useState({ ar: "", en: "" });
+	const [price, updatePrice] = useState({ ar: "", en: "" });
 	const [sizess, updateSizess] = useState(sizes);
 	const [modelss, updateModelss] = useState(models);
 	const [langList, updateLangList] = useState([]);
@@ -44,6 +39,17 @@ function AddProductDetails({
 	let langName =
 		langValue === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar";
 	getCurrentLang(langName);
+
+	useEffect(() => {
+		if (data && data.specs) updateSpecs(data.specs);
+
+		if (data && data.productName) updateProductName(data.productName);
+
+		if (data && data.price) updatePrice(data.price);
+
+		if (data && data.image) setImage(data.image);
+	}, [data]);
+
 	useEffect(() => {
 		GetLanguages(
 			(success) => {
@@ -237,7 +243,11 @@ function AddProductDetails({
 				<Col xs={24} md={12}>
 					{image ? (
 						<img
-							src={URL.createObjectURL(image)}
+							src={
+								typeof image === "string"
+									? baseUrl + image
+									: URL.createObjectURL(image)
+							}
 							alt="uploadedImg"
 							className="uploadedImg"
 						/>
@@ -282,6 +292,7 @@ function AddProductDetails({
 							</div>
 						)}
 						<textarea
+							disabled={data && data.specs}
 							placeholder={currentLocal.supplierHome.specs}
 							value={specs[langName]}
 							onChange={(e) => {
@@ -301,6 +312,7 @@ function AddProductDetails({
 							</div>
 						)}
 						<input
+							disabled={data && data.productName}
 							type="text"
 							value={productName[langName]}
 							id="productName"
@@ -344,9 +356,11 @@ function AddProductDetails({
 							alt="add"
 							className="cursorPointer"
 							onClick={() => {
-								getData({ image, productName, specs, price, quantityCount });
-								onCurrentPageChange("addSizes");
-								getSizes(sizess);
+								if (!(data && data.productName)) {
+									getData({ image, productName, specs, price, quantityCount });
+									onCurrentPageChange("addSizes");
+									getSizes(sizess);
+								}
 							}}
 						/>
 					</div>
@@ -387,9 +401,11 @@ function AddProductDetails({
 							alt="add"
 							className="cursorPointer"
 							onClick={() => {
-								onCurrentPageChange("addModels");
-								getData({ image, productName, specs, price, quantityCount });
-								getModels(modelss);
+								if (!(data && data.productName)) {
+									onCurrentPageChange("addModels");
+									getData({ image, productName, specs, price, quantityCount });
+									getModels(modelss);
+								}
 							}}
 						/>
 					</div>

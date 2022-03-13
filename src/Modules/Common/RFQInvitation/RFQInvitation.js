@@ -20,7 +20,6 @@ function RFQInvitation({
   const [redirectTo, updateRedirectTo] = useState(null);
   const [isRFQModalVisible, toggleRFQModal] = useState(false);
 
-  console.log(rfqDetails);
   function handleMenuClick(e) {
     switch (e.key) {
       case "1":

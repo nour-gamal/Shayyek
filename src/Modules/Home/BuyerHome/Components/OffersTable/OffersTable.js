@@ -250,7 +250,6 @@ function OfferTable(props) {
         }}
       />
     );
-  console.log(rfqDetails);
   return (
     <section className="OfferTable">
       <Navbar />
