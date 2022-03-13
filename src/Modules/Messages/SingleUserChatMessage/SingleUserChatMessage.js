@@ -35,7 +35,6 @@ const SingleUserChatMessage = ({ currentRoomId, applicantId, isEmptyMsgs }) => {
 		isRead: false,
 	});
 	const [remoteUnreadMsgCount, updateRemoteUnreadMsgCount] = useState(0);
-	const [isEntered, updateIsEntered] = useState(false);
 	const profileImage = authorization.profileImage
 		? baseUrl + authorization.profileImage
 		: DefaultProfileImage;
