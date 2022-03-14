@@ -113,10 +113,12 @@ function CompanyCard({ companyDetails, sidebar, parent }) {
 										{currentLocal.profilePage.commercialRecord}:
 									</span>
 									{companyDetails.commercialRecord && (
-										<img
-											src={baseUrl + companyDetails.commercialRecord}
-											alt="CommercialRecord"
-										/>
+										<figure className="companyCard__recordFig">
+											<img
+												src={baseUrl + companyDetails.commercialRecord}
+												alt="CommercialRecord"
+											/>
+										</figure>
 									)}
 								</li>
 							</div>

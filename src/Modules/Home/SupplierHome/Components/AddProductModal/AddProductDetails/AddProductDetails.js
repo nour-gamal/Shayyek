@@ -76,15 +76,15 @@ function AddProductDetails({
 					LanguageId: "",
 					AvailabilityInStock: quantityCount,
 				};
-				// EditProduct(
-				// 	finalData,
-				// 	(success) => {
-				// 		console.log(success);
-				// 	},
-				// 	(fail) => {
-				// 		console.log(fail);
-				// 	}
-				// );
+				EditProduct(
+					finalData,
+					(success) => {
+						console.log(success);
+					},
+					(fail) => {
+						console.log(fail);
+					}
+				);
 			}
 		} else {
 			if (
