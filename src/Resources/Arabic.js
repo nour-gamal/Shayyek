@@ -273,6 +273,7 @@ export const ar = {
 		drafts: "مسودات",
 		addPriceList: "أضف قائمه اسعار",
 		save: "حفظ",
+		saveChanges: "حفظ التغيرات",
 		cancel: "الغاء",
 		pleaseUploadExcel: "من فضلك ارفع ملف اكسيل",
 		addProductSuccess: "طلب اضافه المنتجات الخاص بك قيد التنفيذ",

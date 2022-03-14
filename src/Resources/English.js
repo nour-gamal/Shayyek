@@ -200,7 +200,7 @@ export const en = {
 		profileName: "Profile name",
 		inviteToRFQ: "Invite to specific RFQ",
 		see: "See",
-		marketPlace:'marketplace'
+		marketPlace: "marketplace",
 	},
 	offerTable: {
 		name: "Name",
@@ -224,6 +224,7 @@ export const en = {
 		drafts: "Drafts",
 		addPriceList: "Add Price List",
 		save: "Save",
+		saveChanges: "Save Changes",
 		cancel: "Cancel",
 		pleaseUploadExcel: "Please upload an Excel sheet",
 		addProductSuccess: "Your request to add product is being processed",

@@ -194,3 +194,7 @@ export const GetProductDetails = (data, onSuccess, onFail) => {
 	const path = `api/Product/GetProductDetails?languageId=${languageId}&ProductId=${ProductId}`;
 	GetResource(path, onSuccess, onFail, true);
 };
+export const EditProduct = (data, onSuccess, onFail, reqAuth = true) => {
+	const path = `api/Product/EditProduct`;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};

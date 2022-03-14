@@ -7,7 +7,7 @@ import negative from "../../../../../../Resources/Assets/negative.svg";
 import darkCross from "../../../../../../Resources/Assets/DarkCross.svg";
 import AddProductPhoto from "../../../../../../Resources/Assets/AddProductPhoto.svg";
 import { GetLanguages } from "../../../../../../Network";
-import { addProduct, addProductImg } from "../../../../network";
+import { addProduct, addProductImg, EditProduct } from "../../../../network";
 import { useSelector } from "react-redux";
 import "./AddProductDetails.css";
 import { baseUrl } from "../../../../../../Services";
@@ -48,6 +48,8 @@ function AddProductDetails({
 		if (data && data.price) updatePrice(data.price);
 
 		if (data && data.image) setImage(data.image);
+		if (data && data.sizes) updateSizess(data.sizes);
+		if (data && data.models) updateModelss(data.models);
 	}, [data]);
 
 	useEffect(() => {
@@ -61,135 +63,162 @@ function AddProductDetails({
 			}
 		);
 	}, []);
+	console.log(langName);
 
 	const handleSave = (saveAndAdd) => {
-		if (
-			image === null ||
-			specs[langName].length === 0 ||
-			productName[langName].length === 0 ||
-			price[langName].length === 0 ||
-			quantityCount === null
-		) {
-			updateErrSign(true);
+		if (data && data.productName) {
+			if (price[langName].length === 0 || quantityCount === null) {
+				updateErrSign(true);
+			} else {
+				let finalData = {
+					ProductId: data.ProductId,
+					Price: price,
+					LanguageId: "",
+					AvailabilityInStock: quantityCount,
+				};
+				// EditProduct(
+				// 	finalData,
+				// 	(success) => {
+				// 		console.log(success);
+				// 	},
+				// 	(fail) => {
+				// 		console.log(fail);
+				// 	}
+				// );
+			}
 		} else {
-			let imageData = new FormData();
-			let product = [];
-			let sizesList = [];
-			let modelsList = [];
+			if (
+				image === null ||
+				specs[langName].length === 0 ||
+				productName[langName].length === 0 ||
+				price[langName].length === 0 ||
+				quantityCount === null
+			) {
+				updateErrSign(true);
+			} else {
+				let imageData = new FormData();
+				let product = [];
+				let sizesList = [];
+				let modelsList = [];
 
-			langList.forEach((lang) => {
-				product.push({
-					LanguageId: lang.id,
-					ProductName:
-						productName[
-							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
-						].length > 0
-							? productName[
-									lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
-										? "en"
-										: "ar"
-							  ]
-							: productName[langName],
-					Specs:
-						specs[
-							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
-						].length > 0
-							? specs[
-									lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
-										? "en"
-										: "ar"
-							  ]
-							: specs[langName],
-					Price: parseInt(
-						price[
-							lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
-						].length > 0
-							? price[
-									lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
-										? "en"
-										: "ar"
-							  ]
-							: price[langName]
-					),
-				});
-			});
-
-			sizess.forEach((size, sizeIndex) => {
-				sizesList.push({
-					sizeLocalizations: [],
-				});
 				langList.forEach((lang) => {
-					sizesList[sizeIndex].sizeLocalizations.push({
-						id: lang.id,
-						name:
-							size[
+					product.push({
+						LanguageId: lang.id,
+						ProductName:
+							productName[
 								lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
 							].length > 0
-								? size[
+								? productName[
 										lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
 											? "en"
 											: "ar"
 								  ]
-								: size[langName],
-					});
-				});
-			});
-			modelss.forEach((model, modelIndex) => {
-				modelsList.push({
-					modelLocalizations: [],
-				});
-				langList.forEach((lang) => {
-					modelsList[modelIndex].modelLocalizations.push({
-						Id: lang.id,
-						Name:
-							model[
+								: productName[langName],
+						Specs:
+							specs[
 								lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
 							].length > 0
-								? model[
+								? specs[
 										lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
 											? "en"
 											: "ar"
 								  ]
-								: model[langName],
+								: specs[langName],
+						Price: parseInt(
+							price[
+								lang.id === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar"
+							].length > 0
+								? price[
+										lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+											? "en"
+											: "ar"
+								  ]
+								: price[langName]
+						),
 					});
 				});
-			});
 
-			imageData.append("Image", image);
+				sizess.forEach((size, sizeIndex) => {
+					sizesList.push({
+						sizeLocalizations: [],
+					});
+					langList.forEach((lang) => {
+						sizesList[sizeIndex].sizeLocalizations.push({
+							id: lang.id,
+							name:
+								size[
+									lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+										? "en"
+										: "ar"
+								].length > 0
+									? size[
+											lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+												? "en"
+												: "ar"
+									  ]
+									: size[langName],
+						});
+					});
+				});
+				modelss.forEach((model, modelIndex) => {
+					modelsList.push({
+						modelLocalizations: [],
+					});
+					langList.forEach((lang) => {
+						modelsList[modelIndex].modelLocalizations.push({
+							Id: lang.id,
+							Name:
+								model[
+									lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+										? "en"
+										: "ar"
+								].length > 0
+									? model[
+											lang.id === "274c0b77-90cf-4ee3-976e-01e409413057"
+												? "en"
+												: "ar"
+									  ]
+									: model[langName],
+						});
+					});
+				});
 
-			let data = {
-				ProductLocalizations: product,
-				AvailabilityInStock: quantityCount,
-				Models: modelsList,
-				Sizes: sizesList,
-				ImagePath: "",
-			};
-			addProductImg(
-				imageData,
-				(success) => {
-					if (success.success) {
-						data.ImagePath = success.data;
-						addProduct(
-							data,
-							(success) => {
-								if (success.success) {
-									if (saveAndAdd) {
-										onCurrentPageChange("importOrAdd");
-									} else {
-										onCurrentPageChange("addProductSuccess");
+				imageData.append("Image", image);
+
+				let data = {
+					ProductLocalizations: product,
+					AvailabilityInStock: quantityCount,
+					Models: modelsList,
+					Sizes: sizesList,
+					ImagePath: "",
+				};
+				addProductImg(
+					imageData,
+					(success) => {
+						if (success.success) {
+							data.ImagePath = success.data;
+							addProduct(
+								data,
+								(success) => {
+									if (success.success) {
+										if (saveAndAdd) {
+											onCurrentPageChange("importOrAdd");
+										} else {
+											onCurrentPageChange("addProductSuccess");
+										}
 									}
+								},
+								(fail) => {
+									console.log(fail);
 								}
-							},
-							(fail) => {
-								console.log(fail);
-							}
-						);
+							);
+						}
+					},
+					(fail) => {
+						console.log(fail);
 					}
-				},
-				(fail) => {
-					console.log(fail);
-				}
-			);
+				);
+			}
 		}
 	};
 
@@ -364,7 +393,7 @@ function AddProductDetails({
 							}}
 						/>
 					</div>
-					<div>
+					<div className="mx-4">
 						{sizess.map((size) => {
 							return (
 								<span>
@@ -373,19 +402,21 @@ function AddProductDetails({
 									) : (
 										<div className="capsules">
 											{size[langName]}
-											<img
-												src={darkCross}
-												className="mx-1 cursorPointer"
-												alt="darkCross"
-												id={size[langName]}
-												onClick={(e) => {
-													let filteredSizes = sizess.filter(
-														(size) => size[langName] !== e.target.id
-													);
+											{!(data && data.productName) && (
+												<img
+													src={darkCross}
+													className="mx-1 cursorPointer"
+													alt="darkCross"
+													id={size[langName]}
+													onClick={(e) => {
+														let filteredSizes = sizess.filter(
+															(size) => size[langName] !== e.target.id
+														);
 
-													updateSizess(filteredSizes);
-												}}
-											/>
+														updateSizess(filteredSizes);
+													}}
+												/>
+											)}
 										</div>
 									)}
 								</span>
@@ -409,7 +440,7 @@ function AddProductDetails({
 							}}
 						/>
 					</div>
-					<div>
+					<div className="mx-4">
 						{modelss.map((model) => (
 							<span>
 								{model[langName].length === 0 ? (
@@ -417,18 +448,20 @@ function AddProductDetails({
 								) : (
 									<div className="capsules">
 										{model[langName]}
-										<img
-											src={darkCross}
-											className="mx-1 cursorPointer"
-											alt="darkCross"
-											id={model[langName]}
-											onClick={(e) => {
-												let filteredModels = modelss.filter(
-													(model) => model[langName] !== e.target.id
-												);
-												updateModelss(filteredModels);
-											}}
-										/>
+										{!(data && data.productName) && (
+											<img
+												src={darkCross}
+												className="mx-1 cursorPointer"
+												alt="darkCross"
+												id={model[langName]}
+												onClick={(e) => {
+													let filteredModels = modelss.filter(
+														(model) => model[langName] !== e.target.id
+													);
+													updateModelss(filteredModels);
+												}}
+											/>
+										)}
 									</div>
 								)}
 							</span>
@@ -472,21 +505,25 @@ function AddProductDetails({
 				</Col>
 			</Row>
 			<div className="d-flex justify-content-center   actionsContainer">
-				<button
-					className="button-secondary mx-2"
-					onClick={() => {
-						handleSave(true);
-					}}
-				>
-					{currentLocal.supplierHome.saveAndAdd}
-				</button>
+				{!(data && data.productName) && (
+					<button
+						className="button-secondary mx-2"
+						onClick={() => {
+							handleSave(true);
+						}}
+					>
+						{currentLocal.supplierHome.saveAndAdd}
+					</button>
+				)}
 				<button
 					className={"button-primary mx-2"}
 					onClick={() => {
 						handleSave(false);
 					}}
 				>
-					{currentLocal.supplierHome.save}
+					{data && data.productName
+						? currentLocal.supplierHome.saveChanges
+						: currentLocal.supplierHome.save}
 				</button>
 			</div>
 		</div>

@@ -24,7 +24,6 @@ function AddProductModal({
 	const [models, updateModels] = useState([]);
 	const [lang, updateLang] = useState(null);
 	const [data, updateData] = useState(null);
-
 	useEffect(() => {
 		if (IsEditProduct && IsEditProduct.product) {
 			const data = {
@@ -48,11 +47,26 @@ function AddProductModal({
 							ar: currentLocal.language === "العربيه" ? success.data.price : "",
 						},
 						image: success.data.image,
+						sizes: [],
+						models: [],
+						ProductId: success.data.id,
 					};
+					success.data.sizes.forEach((size) => {
+						if (currentLocal.language === "English") {
+							newData.sizes.push({ en: size.name, ar: "" });
+						} else {
+							newData.sizes.push({ en: "", ar: size.name });
+						}
+					});
+					success.data.models.forEach((model) => {
+						if (currentLocal.language === "English") {
+							newData.models.push({ en: model.name, ar: "" });
+						} else {
+							newData.models.push({ en: "", ar: model.name });
+						}
+					});
 
 					updateData(newData);
-					// updateModels(success.data.models);
-					// updateSizes(success.data.sizes);
 				},
 				(fail) => {
 					console.log(fail);
