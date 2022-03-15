@@ -123,6 +123,10 @@ function AddProductModal({
 					sizes={sizes}
 					models={models}
 					lang={lang}
+					onCancel={() => {
+						onCancel();
+						resetIsEditProduct();
+					}}
 				/>
 			) : currentPage === "addSizes" ? (
 				<AddSizes

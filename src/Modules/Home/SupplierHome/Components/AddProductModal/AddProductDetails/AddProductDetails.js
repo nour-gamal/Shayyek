@@ -20,6 +20,7 @@ function AddProductDetails({
 	getCurrentLang,
 	getData,
 	data,
+	onCancel,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [image, setImage] = useState(null);
@@ -63,28 +64,32 @@ function AddProductDetails({
 			}
 		);
 	}, []);
-	console.log(langName);
 
 	const handleSave = (saveAndAdd) => {
-		if (data && data.productName) {
-			if (price[langName].length === 0 || quantityCount === null) {
-				updateErrSign(true);
+		let isEdit = data && data.productName;
+		if (isEdit) {
+			if (saveAndAdd) {
+				onCancel();
 			} else {
-				let finalData = {
-					ProductId: data.ProductId,
-					Price: price,
-					LanguageId: "",
-					AvailabilityInStock: quantityCount,
-				};
-				EditProduct(
-					finalData,
-					(success) => {
-						console.log(success);
-					},
-					(fail) => {
-						console.log(fail);
-					}
-				);
+				if (price[langName].length === 0 || quantityCount === null) {
+					updateErrSign(true);
+				} else {
+					let finalData = {
+						ProductId: data.ProductId,
+						Price: price,
+						LanguageId: "",
+						AvailabilityInStock: quantityCount,
+					};
+					EditProduct(
+						finalData,
+						(success) => {
+							console.log(success);
+						},
+						(fail) => {
+							console.log(fail);
+						}
+					);
+				}
 			}
 		} else {
 			if (
@@ -376,24 +381,27 @@ function AddProductDetails({
 							step={1}
 						/>
 					</div>
-					<div className="inputField form-control d-flex justify-content-between withBorder mb-2">
-						<div className="label">
-							{currentLocal.supplierHome.addDifferentSizes}
-						</div>
-						<img
-							src={add}
-							alt="add"
-							className="cursorPointer"
-							onClick={() => {
-								if (!(data && data.productName)) {
+					{!(data && data.productName) && (
+						<div className="inputField form-control d-flex justify-content-between withBorder mb-2">
+							<div className="label">
+								{currentLocal.supplierHome.addDifferentSizes}
+							</div>
+							<img
+								src={add}
+								alt="add"
+								className="cursorPointer"
+								onClick={() => {
 									getData({ image, productName, specs, price, quantityCount });
 									onCurrentPageChange("addSizes");
 									getSizes(sizess);
-								}
-							}}
-						/>
-					</div>
-					<div className="mx-4">
+								}}
+							/>
+						</div>
+					)}
+					<div>
+						{data && data.productName && sizess.length > 0 && (
+							<span> {currentLocal.supplierHome.sizes}</span>
+						)}
 						{sizess.map((size) => {
 							return (
 								<span>
@@ -423,30 +431,45 @@ function AddProductDetails({
 							);
 						})}
 					</div>
-					<div className="inputField form-control d-flex justify-content-between withBorder mb-2">
-						<div className="label">
-							{currentLocal.supplierHome.addDifferentModels}
+					{!(data && data.productName) && (
+						<div className="inputField form-control d-flex justify-content-between withBorder mb-2">
+							<div className="label">
+								{currentLocal.supplierHome.addDifferentModels}
+							</div>
+							<img
+								src={add}
+								alt="add"
+								className="cursorPointer"
+								onClick={() => {
+									if (!(data && data.productName)) {
+										onCurrentPageChange("addModels");
+										getData({
+											image,
+											productName,
+											specs,
+											price,
+											quantityCount,
+										});
+										getModels(modelss);
+									}
+								}}
+							/>
 						</div>
-						<img
-							src={add}
-							alt="add"
-							className="cursorPointer"
-							onClick={() => {
-								if (!(data && data.productName)) {
-									onCurrentPageChange("addModels");
-									getData({ image, productName, specs, price, quantityCount });
-									getModels(modelss);
-								}
-							}}
-						/>
-					</div>
-					<div className="mx-4">
+					)}
+					<div>
+						{data && data.productName && modelss.length > 0 && (
+							<span>{currentLocal.supplierHome.models}</span>
+						)}
+
 						{modelss.map((model) => (
 							<span>
 								{model[langName].length === 0 ? (
 									<></>
 								) : (
 									<div className="capsules">
+										{data && data.productName && (
+											<span> {currentLocal.supplierHome.sizes}</span>
+										)}
 										{model[langName]}
 										{!(data && data.productName) && (
 											<img
@@ -472,7 +495,7 @@ function AddProductDetails({
 							* {currentLocal.supplierHome.pleaseAddQty}
 						</div>
 					)}
-					<div className="d-flex px-2 justify-content-between inputField avQty align-items-center">
+					<div className="d-flex  justify-content-between inputField avQty align-items-center">
 						<div className="label">
 							{currentLocal.supplierHome.availableQuantity}
 						</div>
@@ -504,17 +527,17 @@ function AddProductDetails({
 					</div>
 				</Col>
 			</Row>
-			<div className="d-flex justify-content-center   actionsContainer">
-				{!(data && data.productName) && (
-					<button
-						className="button-secondary mx-2"
-						onClick={() => {
-							handleSave(true);
-						}}
-					>
-						{currentLocal.supplierHome.saveAndAdd}
-					</button>
-				)}
+			<div className="d-flex justify-content-center  actionsContainer">
+				<button
+					className="button-secondary mx-2"
+					onClick={() => {
+						handleSave(true);
+					}}
+				>
+					{data && data.productName
+						? currentLocal.supplierHome.discardChanges
+						: currentLocal.supplierHome.saveAndAdd}
+				</button>
 				<button
 					className={"button-primary mx-2"}
 					onClick={() => {

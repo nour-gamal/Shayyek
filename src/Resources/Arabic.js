@@ -274,6 +274,7 @@ export const ar = {
 		addPriceList: "أضف قائمه اسعار",
 		save: "حفظ",
 		saveChanges: "حفظ التغيرات",
+		discardChanges:"الغاء التغيرات",
 		cancel: "الغاء",
 		pleaseUploadExcel: "من فضلك ارفع ملف اكسيل",
 		addProductSuccess: "طلب اضافه المنتجات الخاص بك قيد التنفيذ",

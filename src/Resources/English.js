@@ -225,6 +225,7 @@ export const en = {
 		addPriceList: "Add Price List",
 		save: "Save",
 		saveChanges: "Save Changes",
+		discardChanges: "Discard Changes",
 		cancel: "Cancel",
 		pleaseUploadExcel: "Please upload an Excel sheet",
 		addProductSuccess: "Your request to add product is being processed",

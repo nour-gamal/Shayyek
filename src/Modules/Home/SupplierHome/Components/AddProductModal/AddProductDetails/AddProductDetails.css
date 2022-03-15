@@ -31,7 +31,6 @@
 .addProdContainer .dataSection .form-control,
 .addProdContainer .dataSection > div.inputField {
 	height: 42px;
-	width: 80%;
 }
 .addProdContainer .dataSection > input.withBorder,
 .addProdContainer .dataSection > div.inputField.withBorder {
