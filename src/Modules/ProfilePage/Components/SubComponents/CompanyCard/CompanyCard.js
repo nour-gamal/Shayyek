@@ -36,7 +36,7 @@ function CompanyCard({ companyDetails, sidebar, parent }) {
 								alt="companyProfile"
 								className="rounded-circle companyImg"
 							/>
-							<h6 className="companyProfile__header mx-2">
+							<h6 className="companyProfile__header m-2">
 								{companyDetails.name}
 							</h6>
 							{parent !== "buyerSee" && (

@@ -140,6 +140,9 @@ export const en = {
 	},
 	profilePage: {
 		completedPercentage: "40% Completed",
+		orderIndex: "Order Index",
+		date: "Date",
+		total: "Total",
 		addMoreWork: "*Add More Previous Works To Verify Your Account",
 		prevWork: "Previous work",
 		reject: "Reject",

@@ -136,6 +136,9 @@ export const ar = {
 	},
 	profilePage: {
 		completedPercentage: "٤٠٪ مكتمل",
+		orderIndex: "رقم الطلب",
+		date: "التاريخ",
+		total: "السعر",
 		addMoreWork: "*اضف اعمال اخري لتوثيق حسابك",
 		prevWork: "الاعمال السابقه",
 		reject: "ارفض",
@@ -274,7 +277,7 @@ export const ar = {
 		addPriceList: "أضف قائمه اسعار",
 		save: "حفظ",
 		saveChanges: "حفظ التغيرات",
-		discardChanges:"الغاء التغيرات",
+		discardChanges: "الغاء التغيرات",
 		cancel: "الغاء",
 		pleaseUploadExcel: "من فضلك ارفع ملف اكسيل",
 		addProductSuccess: "طلب اضافه المنتجات الخاص بك قيد التنفيذ",

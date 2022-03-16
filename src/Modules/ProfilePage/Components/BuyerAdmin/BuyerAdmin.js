@@ -17,15 +17,6 @@ function BuyerAdmin() {
 	const [buyerOrders, updateBuyerOrders] = useState([]);
 	const [company, updateCompany] = useState(null);
 	const [allData, updateAllDate] = useState({});
-	// const labelData = [
-	// 	{
-	// 		label:
-	// 			currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057"
-	// 				? "Consultant"
-	// 				: "مستشار",
-	// 		color: "#00172A",
-	// 	},
-	// ];
 
 	useEffect(() => {
 		getBuyerProfile(
@@ -62,7 +53,7 @@ function BuyerAdmin() {
 					</Row>
 
 					<MyRFQs buyerRFQs={buyerRFQs} />
-					<MyOrders />
+					<MyOrders buyerOrders={buyerOrders} />
 				</Col>
 				<Col md={5} xs={8}>
 					<div className="profileSideMenu">
