@@ -22,197 +22,196 @@ import userAvatar from "../../../Resources/Assets/people.svg";
 import { getNotifications } from "./../Network";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
-
 import "./Navbar.css";
 
 function Navbarr({ navState, verifayState, transparent }) {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  const [userNotifications, setUserNotifications] = useState([]);
-  const { currentLocal } = useSelector((state) => state.currentLocal);
-  const { currentLanguageId } = useSelector((state) => state.currentLocal);
-  const { authorization } = useSelector((state) => state.authorization);
-  const loginState = authorization.userTypeId ? true : false;
+	const [userNotifications, setUserNotifications] = useState([]);
+	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const { currentLanguageId } = useSelector((state) => state.currentLocal);
+	const { authorization } = useSelector((state) => state.authorization);
+	const loginState = authorization.userTypeId ? true : false;
 
-  const {
-    authorization: { userTypeId, accountTypeId, roleId },
-  } = useSelector((state) => state.authorization);
-  const isBuyer =
-    authorType(accountTypeId, userTypeId, roleId) &&
-    authorType(accountTypeId, userTypeId, roleId).includes("buyer");
+	const {
+		authorization: { userTypeId, accountTypeId, roleId },
+	} = useSelector((state) => state.authorization);
+	const isBuyer =
+		authorType(accountTypeId, userTypeId, roleId) &&
+		authorType(accountTypeId, userTypeId, roleId).includes("buyer");
 
-  const [unreadMsgCount, updateUnreadMsgCount] = useState(0);
-  useEffect(() => {
-    if (authorization.id) {
-      const userDocRef = doc(db, "users", authorization.id);
+	const [unreadMsgCount, updateUnreadMsgCount] = useState(0);
+	useEffect(() => {
+		if (authorization.id) {
+			const userDocRef = doc(db, "users", authorization.id);
 
-      onSnapshot(userDocRef, (doc) => {
-        updateUnreadMsgCount(doc.data().unreadMsgCount);
-      });
-    }
-  }, [unreadMsgCount, authorization.id]);
+			onSnapshot(userDocRef, (doc) => {
+				updateUnreadMsgCount(doc.data().unreadMsgCount);
+			});
+		}
+	}, [unreadMsgCount, authorization.id]);
 
-  useEffect(() => {
-    getNotifications(
-      currentLanguageId,
-      (success) => {
-        if (success.success) {
-          const { notifications } = success.data;
-          setUserNotifications(notifications);
-        }
-      },
-      (fail) => {}
-    );
-  }, [currentLanguageId, setUserNotifications]);
+	useEffect(() => {
+		getNotifications(
+			currentLanguageId,
+			(success) => {
+				if (success.success) {
+					const { notifications } = success.data;
+					setUserNotifications(notifications);
+				}
+			},
+			(fail) => {}
+		);
+	}, [currentLanguageId, setUserNotifications]);
 
-  const notificationMenu = (
-    <div
-      id="scrollableDiv"
-      style={{
-        width: 400,
+	const notificationMenu = (
+		<div
+			id="scrollableDiv"
+			style={{
+				width: 400,
 
-        border: "1px solid rgba(140, 140, 140, 0.35)",
-      }}
-    >
-      <Scrollbars style={{ height: 400 }}>
-        <List
-          dataSource={userNotifications}
-          renderItem={(item) => (
-            <List.Item
-              className={`mb-2 ${!item.isSeen ? "not-seen" : ""}`}
-              key={item.notificationId}
-            >
-              <List.Item.Meta
-                avatar={<Avatar src={userAvatar} />}
-                title={<a href="https://ant.design">{item.title}</a>}
-                description={
-                  <div>
-                    <div>{item.message}</div>
-                    <div className="text-end">
-                      {moment(item.sendDate).format("LLL")}
-                    </div>
-                  </div>
-                }
-              />
-            </List.Item>
-          )}
-        />
-      </Scrollbars>
-    </div>
-  );
-  return (
-    <Navbar
-      expand="lg"
-      className={
-        transparent
-          ? "transparent f-14 ppl ppr"
-          : navState
-          ? verifayState
-            ? "light f-14 ppl ppr d-flex justify-content-between"
-            : "light f-14 ppl ppr"
-          : "dark f-14 ppl ppr"
-      }
-      variant={"dark"}
-      collapseOnSelect={true}
-    >
-      <Link to="/">
-        {navState ? (
-          currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057" ? (
-            <img
-              style={{ height: "30px" }}
-              src={ShayyekLogoDarkEn}
-              alt="ShayyekLogoDark"
-            />
-          ) : (
-            <img
-              src={ShayyekLogoDarkAr}
-              style={{ height: "30px" }}
-              alt="ShayyekLogoDark"
-            />
-          )
-        ) : currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057" ? (
-          <img
-            style={{ height: "30px" }}
-            src={ShayyekLogoLightEn}
-            alt="ShayyekLogoLight"
-          />
-        ) : (
-          <img
-            style={{ height: "30px" }}
-            src={ShayyekLogoLightAr}
-            alt="ShayyekLogoLight"
-          />
-        )}
-      </Link>
-      {!navState && loginState && (
-        <span className="controlIcon d-flex justify-content-end">
-          {isBuyer && (
-            <span className="align-content-center d-flex">
-              <Link to="/suppliers" className="nav-link d-none d-lg-inline">
-                <img src={AllSuppliers} alt="AllSuppliers" />
-                <span className="color-white mx-1 ">
-                  {currentLocal.navbar.AllSuppliers}
-                </span>
-              </Link>
-              <Link to="/cart" className="nav-link d-none d-lg-inline">
-                <img src={cart} alt="cart" />
-                <span className="color-white mx-1 ">
-                  {currentLocal.navbar.cart}
-                </span>
-              </Link>
-            </span>
-          )}
-          <Link to="/chat" className="nav-link chat-icon">
-            {unreadMsgCount > 0 && (
-              <div className="chatNotifications f-12"></div>
-            )}
-            <img src={Chat} alt="Chat" />
-          </Link>
-          <Dropdown overlay={notificationMenu} trigger={["click"]}>
-            <Button
-              type="text"
-              className="nav-link"
-              style={{ padding: "0.5rem 1rem" }}
-            >
-              <img src={Notification} alt="Notification" />
-            </Button>
-          </Dropdown>
-        </span>
-      )}
-      {verifayState && (
-        <>
-          <div className="lang">
-            <span className="languageWord mx-2">
-              {currentLocal.language === "العربيه" ? "عربي" : "English"}
-            </span>
-            <span>
-              <img
-                src={languages}
-                alt="languages"
-                onClick={() => {
-                  dispatch(
-                    changeLocal(
-                      currentLocal.language === "English" ? "ar" : "en"
-                    )
-                  );
-                }}
-                className="languages"
-              />
-            </span>
-          </div>
-        </>
-      )}
-      {!navState && <Navbar.Toggle aria-controls="basic-navbar-nav" />}
-      {!navState && (
-        <Navbar.Collapse
-          id="basic-navbar-nav"
-          className={loginState ? "flex-grow-0" : "flex-grow-1"}
-        >
-          {!loginState ? <GuestNav /> : <UserNav loginState={loginState} />}
-        </Navbar.Collapse>
-      )}
-    </Navbar>
-  );
+				border: "1px solid rgba(140, 140, 140, 0.35)",
+			}}
+		>
+			<Scrollbars style={{ height: 400 }}>
+				<List
+					dataSource={userNotifications}
+					renderItem={(item) => (
+						<List.Item
+							className={`mb-2 ${!item.isSeen ? "not-seen" : ""}`}
+							key={item.notificationId}
+						>
+							<List.Item.Meta
+								avatar={<Avatar src={userAvatar} />}
+								title={<a href="https://ant.design">{item.title}</a>}
+								description={
+									<div>
+										<div>{item.message}</div>
+										<div className="text-end">
+											{moment(item.sendDate).format("LLL")}
+										</div>
+									</div>
+								}
+							/>
+						</List.Item>
+					)}
+				/>
+			</Scrollbars>
+		</div>
+	);
+	return (
+		<Navbar
+			expand="lg"
+			className={
+				transparent
+					? "transparent f-14 ppl ppr"
+					: navState
+					? verifayState
+						? "light f-14 ppl ppr d-flex justify-content-between"
+						: "light f-14 ppl ppr"
+					: "dark f-14 ppl ppr"
+			}
+			variant={"dark"}
+			collapseOnSelect={true}
+		>
+			<Link to="/">
+				{navState ? (
+					currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057" ? (
+						<img
+							style={{ height: "30px" }}
+							src={ShayyekLogoDarkEn}
+							alt="ShayyekLogoDark"
+						/>
+					) : (
+						<img
+							src={ShayyekLogoDarkAr}
+							style={{ height: "30px" }}
+							alt="ShayyekLogoDark"
+						/>
+					)
+				) : currentLanguageId === "274c0b77-90cf-4ee3-976e-01e409413057" ? (
+					<img
+						style={{ height: "30px" }}
+						src={ShayyekLogoLightEn}
+						alt="ShayyekLogoLight"
+					/>
+				) : (
+					<img
+						style={{ height: "30px" }}
+						src={ShayyekLogoLightAr}
+						alt="ShayyekLogoLight"
+					/>
+				)}
+			</Link>
+			{!navState && loginState && (
+				<span className="controlIcon d-flex justify-content-end">
+					{isBuyer && (
+						<span className="align-content-center d-flex">
+							<Link to="/suppliers" className="nav-link d-none d-lg-inline">
+								<img src={AllSuppliers} alt="AllSuppliers" />
+								<span className="color-white mx-1 ">
+									{currentLocal.navbar.AllSuppliers}
+								</span>
+							</Link>
+							<Link to="/cart" className="nav-link d-none d-lg-inline">
+								<img src={cart} alt="cart" />
+								<span className="color-white mx-1 ">
+									{currentLocal.navbar.cart}
+								</span>
+							</Link>
+						</span>
+					)}
+					<Link to="/chat" className="nav-link chat-icon">
+						{unreadMsgCount > 0 && (
+							<div className="chatNotifications f-12"></div>
+						)}
+						<img src={Chat} alt="Chat" />
+					</Link>
+					<Dropdown overlay={notificationMenu} trigger={["click"]}>
+						<Button
+							type="text"
+							className="nav-link"
+							style={{ padding: "0.5rem 1rem" }}
+						>
+							<img src={Notification} alt="Notification" />
+						</Button>
+					</Dropdown>
+				</span>
+			)}
+			{verifayState && (
+				<>
+					<div className="lang">
+						<span className="languageWord mx-2">
+							{currentLocal.language === "العربيه" ? "عربي" : "English"}
+						</span>
+						<span>
+							<img
+								src={languages}
+								alt="languages"
+								onClick={() => {
+									dispatch(
+										changeLocal(
+											currentLocal.language === "English" ? "ar" : "en"
+										)
+									);
+								}}
+								className="languages"
+							/>
+						</span>
+					</div>
+				</>
+			)}
+			{!navState && <Navbar.Toggle aria-controls="basic-navbar-nav" />}
+			{!navState && (
+				<Navbar.Collapse
+					id="basic-navbar-nav"
+					className={loginState ? "flex-grow-0" : "flex-grow-1"}
+				>
+					{!loginState ? <GuestNav /> : <UserNav loginState={loginState} />}
+				</Navbar.Collapse>
+			)}
+		</Navbar>
+	);
 }
 
 export default Navbarr;

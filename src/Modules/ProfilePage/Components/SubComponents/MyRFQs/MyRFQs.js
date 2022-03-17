@@ -8,6 +8,8 @@ import chat from "../../../../../Resources/Assets/chat.svg";
 import download from "../../../../../Resources/Assets/direct-download.svg";
 import share from "../../../../../Resources/Assets/share (5).svg";
 import SingleRFQModal from "../SingleRFQModal/SingleRFQModal";
+//import { useScreenshot } from "use-react-screenshot";
+
 // import {
 // 	EmailShareButton,
 // 	FacebookShareButton,
@@ -16,6 +18,7 @@ import SingleRFQModal from "../SingleRFQModal/SingleRFQModal";
 // 	WhatsappShareButton,
 // } from "react-share";
 import "./MyRFQs.css";
+import ChooseCompaniesToRateModal from "../Ratings/ChooseCompaniesToRateModal/ChooseCompaniesToRateModal";
 
 function MyRFQs({ buyerRFQs }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -23,9 +26,12 @@ function MyRFQs({ buyerRFQs }) {
 	const [singleRFQModalState, updateSingleRFQModal] = useState(false);
 	const [rfqId, updateRfqId] = useState(null);
 	const [companyName, updateCompanyName] = useState("");
-	const shareOffer = () => {
-		alert("bye");
-	};
+	const [rateModal, updateRateModal] = useState(false);
+	const pdfExportComponent = React.useRef(null);
+	// const [image, takeScreenshot] = useScreenshot();
+	// const shareOffer = () => takeScreenshot(pdfExportComponent.current);
+	const shareOffer = () => {};
+	//console.log(image);
 	const location = "bottomRight";
 	const liveMenu = (
 		<Menu>
@@ -57,7 +63,7 @@ function MyRFQs({ buyerRFQs }) {
 			<Menu.Item
 				key="1"
 				onClick={() => {
-					alert("hi 3");
+					updateRateModal(true);
 				}}
 			>
 				<img src={star} alt="deletee" className="mx-1" />
@@ -103,7 +109,6 @@ function MyRFQs({ buyerRFQs }) {
 			},
 		},
 	];
-	const pdfExportComponent = React.useRef(null);
 
 	const exportPDFWithComponent = () => {
 		if (pdfExportComponent.current) {
@@ -125,7 +130,7 @@ function MyRFQs({ buyerRFQs }) {
 						src={share}
 						alt="share"
 						className="mx-4 cursorPointer "
-						// onClick={shareOffer}
+						onClick={shareOffer}
 					/>
 
 					<img
@@ -176,6 +181,15 @@ function MyRFQs({ buyerRFQs }) {
 					rfqId={rfqId}
 					parent="buyerProfile"
 					companyName={companyName}
+				/>
+			)}
+			{rateModal && (
+				<ChooseCompaniesToRateModal
+					onCancel={() => {
+						updateRateModal(false);
+					}}
+					isModalVisible={rateModal}
+					parent="myRFQTable"
 				/>
 			)}
 		</div>

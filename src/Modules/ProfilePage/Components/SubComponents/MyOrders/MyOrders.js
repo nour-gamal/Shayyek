@@ -99,6 +99,7 @@ function MyOrders({ buyerOrders }) {
 						updateRateModal(false);
 					}}
 					isModalVisible={rateModal}
+					parent="myOrdersTable"
 				/>
 			)}
 		</div>

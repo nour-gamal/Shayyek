@@ -232,12 +232,11 @@ html[dir="rtl"] .flip-image {
 	color: #003b6b !important;
 }
 .primary-color-light {
-	color: #bce0fd;
+	color: #bce0fd !important;
 }
 .secondary-color {
 	color: #0370ff !important;
 }
-
 .button-primary,
 .button-secondary {
 	background: #003b6b 0% 0% no-repeat padding-box;
@@ -249,6 +248,10 @@ html[dir="rtl"] .flip-image {
 	padding-right: 32px;
 	border: none;
 	cursor: pointer;
+}
+.button-primary-disabled {
+	background-color: #bce0fd !important;
+	cursor: not-allowed;
 }
 .button-primary.flat,
 .button-secondary.flat {

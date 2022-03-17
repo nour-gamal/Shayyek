@@ -1,0 +1,13 @@
+.ChooseCompaniesToRateModal .ant-modal-body {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+}
+
+.ChooseCompaniesToRateModal .userImgContainer {
+	width: 50px;
+	display: inline-block;
+}
+.ChooseCompaniesToRateModal .userImgContainer > img {
+	width: 100%;
+}

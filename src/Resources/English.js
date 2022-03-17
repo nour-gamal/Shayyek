@@ -145,6 +145,8 @@ export const en = {
 		orderDate: "Order Date",
 		companiesInOrder: "Companies in this order",
 		rateCompany: "Rate Company",
+		selectSuppCont: "Select supplier or contractor to rate",
+		selectSupp: "Select supplier  to rate",
 		date: "Date",
 		total: "Total",
 		addMoreWork: "*Add More Previous Works To Verify Your Account",

@@ -141,6 +141,8 @@ export const ar = {
 		orderDate: "تاريخ الطلب",
 		companiesInOrder: "الشركات الموجوده في الطلب",
 		rateCompany: "قيم الشركه",
+		selectSuppCont: "اختر المورد او المقاول المراد تقييمه",
+		selectSupp: "اختر المورد المراد تقييمه",
 		date: "التاريخ",
 		total: "السعر",
 		addMoreWork: "*اضف اعمال اخري لتوثيق حسابك",
