@@ -1,0 +1,4 @@
+.ChooseCompaniesToRateModal .ant-modal-body {
+	display: flex;
+	justify-content: space-between;
+}

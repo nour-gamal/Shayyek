@@ -3,11 +3,12 @@ import { Table, Dropdown, Menu } from "antd";
 import view from "../../../../../Resources/Assets/View.svg";
 import star from "../../../../../Resources/Assets/star (1).svg";
 import { useSelector } from "react-redux";
+import ChooseCompaniesToRateModal from "../Ratings/ChooseCompaniesToRateModal/ChooseCompaniesToRateModal";
 import "./MyOrders.css";
 function MyOrders({ buyerOrders }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [currentPage, setCurrentPage] = useState(1);
-
+	const [rateModal, updateRateModal] = useState(false);
 	const location = "bottomRight";
 	const menu = (
 		<Menu>
@@ -23,7 +24,7 @@ function MyOrders({ buyerOrders }) {
 			<Menu.Item
 				key="1"
 				onClick={() => {
-					alert("hi 3");
+					updateRateModal(true);
 				}}
 			>
 				<img src={star} alt="deletee" className="mx-1" />
@@ -53,6 +54,9 @@ function MyOrders({ buyerOrders }) {
 			title: currentLocal.profilePage.total,
 			dataIndex: "orderTotalPrice",
 			key: "orderTotalPrice",
+			render: (orderTotalPrice) => {
+				return <>{orderTotalPrice} LE</>;
+			},
 		},
 		{
 			title: currentLocal.profilePage.actionList,
@@ -89,6 +93,14 @@ function MyOrders({ buyerOrders }) {
 					},
 				}}
 			/>
+			{rateModal && (
+				<ChooseCompaniesToRateModal
+					onCancel={() => {
+						updateRateModal(false);
+					}}
+					isModalVisible={rateModal}
+				/>
+			)}
 		</div>
 	);
 }

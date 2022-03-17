@@ -137,6 +137,10 @@ export const ar = {
 	profilePage: {
 		completedPercentage: "٤٠٪ مكتمل",
 		orderIndex: "رقم الطلب",
+		orderNumber: "رقم الطلب",
+		orderDate: "تاريخ الطلب",
+		companiesInOrder: "الشركات الموجوده في الطلب",
+		rateCompany: "قيم الشركه",
 		date: "التاريخ",
 		total: "السعر",
 		addMoreWork: "*اضف اعمال اخري لتوثيق حسابك",

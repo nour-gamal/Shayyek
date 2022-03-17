@@ -16,7 +16,6 @@ function CompanyCard({ companyDetails, sidebar, parent }) {
 		false
 	);
 	const userTypeName = authorType(accountTypeId, userTypeId, roleId);
-
 	return (
 		<>
 			{userTypeName.includes("company_admin") && companyDetails && (

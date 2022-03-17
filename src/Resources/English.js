@@ -141,6 +141,10 @@ export const en = {
 	profilePage: {
 		completedPercentage: "40% Completed",
 		orderIndex: "Order Index",
+		orderNumber: "Order Number",
+		orderDate: "Order Date",
+		companiesInOrder: "Companies in this order",
+		rateCompany: "Rate Company",
 		date: "Date",
 		total: "Total",
 		addMoreWork: "*Add More Previous Works To Verify Your Account",

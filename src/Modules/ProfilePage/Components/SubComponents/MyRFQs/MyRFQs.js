@@ -8,6 +8,13 @@ import chat from "../../../../../Resources/Assets/chat.svg";
 import download from "../../../../../Resources/Assets/direct-download.svg";
 import share from "../../../../../Resources/Assets/share (5).svg";
 import SingleRFQModal from "../SingleRFQModal/SingleRFQModal";
+// import {
+// 	EmailShareButton,
+// 	FacebookShareButton,
+// 	LinkedinShareButton,
+// 	TwitterShareButton,
+// 	WhatsappShareButton,
+// } from "react-share";
 import "./MyRFQs.css";
 
 function MyRFQs({ buyerRFQs }) {
@@ -106,17 +113,19 @@ function MyRFQs({ buyerRFQs }) {
 	const handleCancelRFQModal = () => {
 		updateSingleRFQModal(false);
 	};
-
 	return (
 		<div className="myRFQs my-4">
 			<div className="p-4 d-flex justify-content-between ">
 				<h6 className="title">{currentLocal.profilePage.myRFQs}</h6>
 				<div>
+					{/* <EmailShareButton onClick={() => {}} openShareDialogOnClick url={"x"}>
+					</EmailShareButton> */}
+
 					<img
 						src={share}
 						alt="share"
 						className="mx-4 cursorPointer "
-						onClick={shareOffer}
+						// onClick={shareOffer}
 					/>
 
 					<img
