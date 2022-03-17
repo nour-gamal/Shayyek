@@ -29,7 +29,7 @@ function ChooseCompaniesToRateModal({ isModalVisible, onCancel, parent }) {
 	return (
 		<Modal
 			title="Basic Modal"
-			visible={isModalVisible}
+			visible={true}
 			onCancel={onCancel}
 			className="modal-lg ChooseCompaniesToRateModal"
 		>
