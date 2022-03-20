@@ -21,6 +21,7 @@ function AddProductDetails({
 	getData,
 	data,
 	onCancel,
+	isEdit,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [image, setImage] = useState(null);
@@ -31,9 +32,7 @@ function AddProductDetails({
 	const [modelss, updateModelss] = useState(models);
 	const [langList, updateLangList] = useState([]);
 	const [langValue, updateLangValue] = useState("");
-	const [quantityCount, updateQuantityCount] = useState(
-		data && data.quantityCount ? data.quantityCount : null
-	);
+	const [quantityCount, updateQuantityCount] = useState(0);
 	const [errSign, updateErrSign] = useState(false);
 	const [validImg, isValidImg] = useState(true);
 	const { Option } = Select;
@@ -43,12 +42,10 @@ function AddProductDetails({
 
 	useEffect(() => {
 		if (data && data.specs) updateSpecs(data.specs);
-
 		if (data && data.productName) updateProductName(data.productName);
-
 		if (data && data.price) updatePrice(data.price);
-
 		if (data && data.image) setImage(data.image);
+		if (data && data.quantityCount) updateQuantityCount(data.quantityCount);
 		if (data && data.sizes) updateSizess(data.sizes);
 		if (data && data.models) updateModelss(data.models);
 	}, [data]);
@@ -75,7 +72,7 @@ function AddProductDetails({
 					updateErrSign(true);
 				} else {
 					let finalData = {
-						ProductId: data.ProductId,
+						ProductId: data.id,
 						Price: price,
 						LanguageId: "",
 						AvailabilityInStock: quantityCount,
@@ -381,7 +378,7 @@ function AddProductDetails({
 							step={1}
 						/>
 					</div>
-					{!(data && data.productName) && (
+					{!isEdit && (
 						<div className="inputField form-control d-flex justify-content-between withBorder mb-2">
 							<div className="label">
 								{currentLocal.supplierHome.addDifferentSizes}
@@ -399,7 +396,7 @@ function AddProductDetails({
 						</div>
 					)}
 					<div>
-						{data && data.productName && sizess.length > 0 && (
+						{isEdit && sizess.length > 0 && (
 							<span> {currentLocal.supplierHome.sizes}</span>
 						)}
 						{sizess.map((size) => {
@@ -410,7 +407,7 @@ function AddProductDetails({
 									) : (
 										<div className="capsules">
 											{size[langName]}
-											{!(data && data.productName) && (
+											{!isEdit && (
 												<img
 													src={darkCross}
 													className="mx-1 cursorPointer"
@@ -431,7 +428,7 @@ function AddProductDetails({
 							);
 						})}
 					</div>
-					{!(data && data.productName) && (
+					{!isEdit && (
 						<div className="inputField form-control d-flex justify-content-between withBorder mb-2">
 							<div className="label">
 								{currentLocal.supplierHome.addDifferentModels}
@@ -441,7 +438,7 @@ function AddProductDetails({
 								alt="add"
 								className="cursorPointer"
 								onClick={() => {
-									if (!(data && data.productName)) {
+									if (!isEdit) {
 										onCurrentPageChange("addModels");
 										getData({
 											image,
@@ -457,7 +454,7 @@ function AddProductDetails({
 						</div>
 					)}
 					<div>
-						{data && data.productName && modelss.length > 0 && (
+						{isEdit && modelss.length > 0 && (
 							<span>{currentLocal.supplierHome.models}</span>
 						)}
 
@@ -467,11 +464,8 @@ function AddProductDetails({
 									<></>
 								) : (
 									<div className="capsules">
-										{data && data.productName && (
-											<span> {currentLocal.supplierHome.sizes}</span>
-										)}
 										{model[langName]}
-										{!(data && data.productName) && (
+										{!isEdit && (
 											<img
 												src={darkCross}
 												className="mx-1 cursorPointer"

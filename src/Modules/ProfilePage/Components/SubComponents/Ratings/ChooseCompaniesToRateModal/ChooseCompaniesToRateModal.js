@@ -5,7 +5,7 @@ import RatingModal from "../RatingModal/RatingModal";
 import "./ChooseCompaniesToRateModal.css";
 function ChooseCompaniesToRateModal({ isModalVisible, onCancel, parent }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const [ratingModalState, updateRatingModalState] = useState(false);
+	const [ratingModalState, updateRatingModalState] = useState(true);
 	const [value, setValue] = useState(null);
 
 	const onChange = (e) => {

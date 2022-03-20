@@ -143,8 +143,6 @@ export const ar = {
 		rateCompany: "قيم الشركه",
 		from: "من",
 		to: "الي",
-		didYouWorkWith: " اشتغلت مع شركه",
-		rateIt: "هل يمكنك تقيمها؟",
 		selectSuppCont: "اختر المورد او المقاول المراد تقييمه",
 		selectSupp: "اختر المورد المراد تقييمه",
 		date: "التاريخ",
@@ -210,6 +208,8 @@ export const ar = {
 		inviteToRFQ: "ارسال دعوه لطلب عرض سعر محدد",
 		see: "عرض",
 		marketPlace: "في المتجر",
+		didYouWorkWith: " اشتغلت مع شركه",
+		rateIt: "هل يمكنك تقيمها؟",
 	},
 	offerTable: {
 		name: "الاسم",

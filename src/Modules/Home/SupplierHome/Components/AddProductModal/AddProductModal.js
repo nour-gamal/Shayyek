@@ -5,75 +5,73 @@ import AddProductDetails from "./AddProductDetails/AddProductDetails";
 import AddProductSuccess from "./AddProductSuccess/AddProductSuccess";
 import AddSizes from "./AddSizes/AddSizes";
 import AddModels from "./AddModels/AddModels";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
-import { GetProductDetails } from "../../../network";
+import { GetProductDetailsForEdit } from "../../../network";
 function AddProductModal({
 	isModalVisible,
 	onCancel,
 	IsEditProduct,
 	resetIsEditProduct,
 }) {
-	const [currentPage, updateCurrentPage] = useState(
-		IsEditProduct.currentPage ? IsEditProduct.currentPage : "importOrAdd"
-	);
-	const { currentLanguageId, currentLocal } = useSelector(
-		(state) => state.currentLocal
-	);
+	console.log("IsEditProduct", IsEditProduct);
+	const [currentPage, updateCurrentPage] = useState("importOrAdd");
+	// const { currentLanguageId, currentLocal } = useSelector(
+	// 	(state) => state.currentLocal
+	// );
 	const [sizes, updateSizes] = useState([]);
 	const [models, updateModels] = useState([]);
 	const [lang, updateLang] = useState(null);
 	const [data, updateData] = useState(null);
-	useEffect(() => {
-		if (IsEditProduct && IsEditProduct.product) {
-			const data = {
-				ProductId: IsEditProduct.product.id,
-				languageId: currentLanguageId,
-			};
-			GetProductDetails(
-				data,
-				(success) => {
-					let newData = {
-						specs: {
-							en: currentLocal.language === "English" ? success.data.specs : "",
-							ar: currentLocal.language === "العربيه" ? success.data.specs : "",
-						},
-						productName: {
-							en: currentLocal.language === "English" ? success.data.name : "",
-							ar: currentLocal.language === "العربيه" ? success.data.name : "",
-						},
-						price: {
-							en: currentLocal.language === "English" ? success.data.price : "",
-							ar: currentLocal.language === "العربيه" ? success.data.price : "",
-						},
-						image: success.data.image,
-						sizes: [],
-						models: [],
-						ProductId: success.data.id,
-					};
-					success.data.sizes.forEach((size) => {
-						if (currentLocal.language === "English") {
-							newData.sizes.push({ en: size.name, ar: "" });
-						} else {
-							newData.sizes.push({ en: "", ar: size.name });
-						}
-					});
-					success.data.models.forEach((model) => {
-						if (currentLocal.language === "English") {
-							newData.models.push({ en: model.name, ar: "" });
-						} else {
-							newData.models.push({ en: "", ar: model.name });
-						}
-					});
 
-					updateData(newData);
-				},
-				(fail) => {
-					console.log(fail);
-				}
-			);
-		}
-	}, [IsEditProduct, currentLanguageId, currentLocal.language]);
+	const getProductsForEdit = () => {
+		let data = { productId: IsEditProduct.product.id };
+		updateCurrentPage("AddProductDetails");
+		GetProductDetailsForEdit(
+			data,
+			(success) => {
+				const {
+					imagePath,
+					availabilityInStock,
+					productLocalizations,
+					id,
+				} = success.data;
+
+				let data = {
+					id,
+					image: imagePath,
+					quantityCount: availabilityInStock,
+					specs: { en: "", ar: "" },
+					productName: { en: "", ar: "" },
+					price: { en: "", ar: "" },
+					models: [],
+				};
+
+				productLocalizations.forEach((product) => {
+					//English
+					if (product.languageId === "274c0b77-90cf-4ee3-976e-01e409413057") {
+						data.specs.en = product.specs;
+						data.productName.en = product.productName;
+						data.price.en = product.price;
+					} //Arabic
+					else {
+						data.specs.ar = product.specs;
+						data.productName.ar = product.productName;
+						data.price.ar = product.price;
+					}
+				});
+				updateData(data);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	};
+	useEffect(() => {
+		if (Object.keys(IsEditProduct).length) getProductsForEdit();
+		// eslint-disable-next-line
+	}, [IsEditProduct]);
+
 	return (
 		<Modal
 			title="Basic Modal"
@@ -127,6 +125,7 @@ function AddProductModal({
 						onCancel();
 						resetIsEditProduct();
 					}}
+					isEdit={IsEditProduct.status}
 				/>
 			) : currentPage === "addSizes" ? (
 				<AddSizes

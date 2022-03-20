@@ -1,7 +1,9 @@
-import { useState } from "react";
 import { Modal } from "antd";
+import { useSelector } from "react-redux";
 import "./RatingModal.css";
 function RatingModal({ onCancel, isModalVisible }) {
+	const { currentLocal } = useSelector((state) => state.currentLocal);
+
 	return (
 		<Modal
 			title="Basic Modal"
@@ -9,7 +11,7 @@ function RatingModal({ onCancel, isModalVisible }) {
 			onCancel={onCancel}
 			className="modal-lg ChooseCompaniesToRateModal"
 		>
-			Rating Modals
+			<h4>{currentLocal.profile.didYouWorkWith} </h4>
 		</Modal>
 	);
 }

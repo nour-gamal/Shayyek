@@ -9,6 +9,17 @@ export const getCategories = (
 	const path = `api/Account/GetRFQCategories?language=${languageId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
+
+export const GetProductDetailsForEdit = (
+	data,
+	onSuccess,
+	onFail,
+	reqAuth = true
+) => {
+	const { productId } = data;
+	const path = `api/Product/GetProductDetailsForEdit?productId=${productId}`;
+	GetResource(path, onSuccess, onFail, reqAuth);
+};
 export const searchCompany = (
 	languageId,
 	search,

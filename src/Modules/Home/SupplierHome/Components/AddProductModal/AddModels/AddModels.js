@@ -17,6 +17,7 @@ function AddModels({ getModels, onCurrentPageChange, models, lang }) {
 		getModels(filteredInputs);
 		onCurrentPageChange("AddProductDetails");
 	};
+
 	return (
 		<div className="addModels">
 			<div>

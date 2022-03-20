@@ -92,10 +92,7 @@ function Products({ draftsCount }) {
 									requestAllProducts={requestAllProducts}
 									toggleProductModal={() => {
 										toggleProductModal(!isModalVisible);
-										updateIsEditProduct({
-											currentPage: "AddProductDetails",
-											product,
-										});
+										updateIsEditProduct({ status: true, product });
 									}}
 								/>
 							</Col>
