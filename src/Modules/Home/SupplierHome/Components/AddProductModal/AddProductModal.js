@@ -14,7 +14,6 @@ function AddProductModal({
 	IsEditProduct,
 	resetIsEditProduct,
 }) {
-	console.log("IsEditProduct", IsEditProduct);
 	const [currentPage, updateCurrentPage] = useState("importOrAdd");
 	// const { currentLanguageId, currentLocal } = useSelector(
 	// 	(state) => state.currentLocal
@@ -45,8 +44,16 @@ function AddProductModal({
 					productName: { en: "", ar: "" },
 					price: { en: "", ar: "" },
 					models: [],
+					sizes: [],
 				};
+				console.log(success.data);
 
+				success.data.sizes.forEach((size, sizeIndex) => {
+					sizes.push({ en: "", ar: "" });
+					if (size.languageId === "274c0b77-90cf-4ee3-976e-01e409413057") {
+						// data.sizes.p
+					}
+				});
 				productLocalizations.forEach((product) => {
 					//English
 					if (product.languageId === "274c0b77-90cf-4ee3-976e-01e409413057") {
