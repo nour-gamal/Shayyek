@@ -1,10 +1,10 @@
 .addModels {
 	width: 50%;
-	height: 100%;
+	min-height: calc(80vh - 84px);
 	margin: auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: space-between;
 }
 .addModels input {
 	border: 1px solid #bce0fd;

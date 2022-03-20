@@ -323,7 +323,7 @@ function AddProductDetails({
 							</div>
 						)}
 						<textarea
-							disabled={data && data.specs}
+							disabled={isEdit}
 							placeholder={currentLocal.supplierHome.specs}
 							value={specs[langName]}
 							onChange={(e) => {
@@ -343,7 +343,7 @@ function AddProductDetails({
 							</div>
 						)}
 						<input
-							disabled={data && data.productName}
+							disabled={isEdit}
 							type="text"
 							value={productName[langName]}
 							id="productName"
@@ -528,7 +528,7 @@ function AddProductDetails({
 						handleSave(true);
 					}}
 				>
-					{data && data.productName
+					{isEdit
 						? currentLocal.supplierHome.discardChanges
 						: currentLocal.supplierHome.saveAndAdd}
 				</button>
@@ -538,7 +538,7 @@ function AddProductDetails({
 						handleSave(false);
 					}}
 				>
-					{data && data.productName
+					{isEdit
 						? currentLocal.supplierHome.saveChanges
 						: currentLocal.supplierHome.save}
 				</button>
