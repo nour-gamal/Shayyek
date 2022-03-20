@@ -9,7 +9,7 @@ function RatingModal({ onCancel, isModalVisible }) {
 			onCancel={onCancel}
 			className="modal-lg ChooseCompaniesToRateModal"
 		>
-			Rating Modal
+			Rating Modals
 		</Modal>
 	);
 }
