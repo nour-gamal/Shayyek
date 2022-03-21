@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createRef } from "react";
 import { Table, Dropdown, Menu } from "antd";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { useSelector } from "react-redux";
@@ -8,7 +8,7 @@ import chat from "../../../../../Resources/Assets/chat.svg";
 import download from "../../../../../Resources/Assets/direct-download.svg";
 import share from "../../../../../Resources/Assets/share (5).svg";
 import SingleRFQModal from "../SingleRFQModal/SingleRFQModal";
-//import { useScreenshot } from "use-react-screenshot";
+import { useScreenshot } from "use-react-screenshot";
 
 // import {
 // 	EmailShareButton,
@@ -118,8 +118,11 @@ function MyRFQs({ buyerRFQs }) {
 	const handleCancelRFQModal = () => {
 		updateSingleRFQModal(false);
 	};
+	const ref = createRef(null);
+	const [image, takeScreenshot] = useScreenshot();
+	const getImage = () => takeScreenshot(ref.current);
 	return (
-		<div className="myRFQs my-4">
+		<div className="myRFQs my-4" ref={ref}>
 			<div className="p-4 d-flex justify-content-between ">
 				<h6 className="title">{currentLocal.profilePage.myRFQs}</h6>
 				<div>

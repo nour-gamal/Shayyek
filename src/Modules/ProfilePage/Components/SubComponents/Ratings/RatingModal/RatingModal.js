@@ -11,7 +11,7 @@ function RatingModal({ onCancel, isModalVisible }) {
 			onCancel={onCancel}
 			className="modal-lg ChooseCompaniesToRateModal"
 		>
-			<h4>{currentLocal.profile.didYouWorkWith} </h4>
+			<h4>{currentLocal.profilePage.didYouWorkWith} </h4>
 		</Modal>
 	);
 }

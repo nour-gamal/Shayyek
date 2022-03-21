@@ -62,8 +62,6 @@ export const en = {
 		checkMail: "Check Your Mail to Verify Your Account",
 		or: "Or",
 		verifyMobile: "Verify your Mobile Number",
-		didYouWorkWith: "You have worked with",
-		rateIt: "can you rate it",
 	},
 	footer: {
 		copyRights: "2021 Shayyek. All Rights Reserved",
@@ -212,6 +210,8 @@ export const en = {
 		inviteToRFQ: "Invite to specific RFQ",
 		see: "See",
 		marketPlace: "marketplace",
+		didYouWorkWith: "You have worked with",
+		rateIt: "can you rate it",
 	},
 	offerTable: {
 		name: "Name",
