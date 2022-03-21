@@ -34,6 +34,8 @@ function AddProductModal({
 					availabilityInStock,
 					productLocalizations,
 					id,
+					sizes,
+					models,
 				} = success.data;
 
 				let data = {
@@ -46,14 +48,48 @@ function AddProductModal({
 					models: [],
 					sizes: [],
 				};
-				console.log(success.data);
 
-				success.data.sizes.forEach((size, sizeIndex) => {
-					sizes.push({ en: "", ar: "" });
-					if (size.languageId === "274c0b77-90cf-4ee3-976e-01e409413057") {
-						// data.sizes.p
+				const groupedSizes = sizes.reduce((groups, game) => {
+					const id = game.id;
+					if (!groups[id]) {
+						groups[id] = [];
 					}
+					groups[id].push(game);
+					return groups;
+				}, {});
+				Object.keys(groupedSizes).forEach((size, sizeIndex) => {
+					data.sizes.push({ id: size, en: "", ar: "" });
+					groupedSizes[size].forEach((sizeItem) => {
+						if (
+							sizeItem.languageId === "274c0b77-90cf-4ee3-976e-01e409413057"
+						) {
+							data.sizes[sizeIndex].en = sizeItem.name;
+						} else {
+							data.sizes[sizeIndex].ar = sizeItem.name;
+						}
+					});
 				});
+				const groupedModels = models.reduce((groups, game) => {
+					const id = game.id;
+					if (!groups[id]) {
+						groups[id] = [];
+					}
+					groups[id].push(game);
+					return groups;
+				}, {});
+				Object.keys(groupedModels).forEach((model, modelIndex) => {
+					data.models.push({ id: model, en: "", ar: "" });
+					groupedSizes[model].forEach((modelItem) => {
+						if (
+							modelItem.languageId === "274c0b77-90cf-4ee3-976e-01e409413057"
+						) {
+							data.models[modelIndex].en = modelItem.name;
+						} else {
+							data.models[modelIndex].ar = modelItem.name;
+						}
+					});
+				});
+
 				productLocalizations.forEach((product) => {
 					//English
 					if (product.languageId === "274c0b77-90cf-4ee3-976e-01e409413057") {

@@ -40,15 +40,15 @@ function AddProductDetails({
 		langValue === "274c0b77-90cf-4ee3-976e-01e409413057" ? "en" : "ar";
 	getCurrentLang(langName);
 
-	// useEffect(() => {
-	// 	if (data && data.specs) updateSpecs(data.specs);
-	// 	if (data && data.productName) updateProductName(data.productName);
-	// 	if (data && data.price) updatePrice(data.price);
-	// 	if (data && data.image) setImage(data.image);
-	// 	if (data && data.quantityCount) updateQuantityCount(data.quantityCount);
-	// 	if (data && data.sizes) updateSizess(data.sizes);
-	// 	if (data && data.models) updateModelss(data.models);
-	// }, [data]);
+	useEffect(() => {
+		if (data && data.specs) updateSpecs(data.specs);
+		if (data && data.productName) updateProductName(data.productName);
+		if (data && data.price) updatePrice(data.price);
+		if (data && data.image) setImage(data.image);
+		if (data && data.quantityCount) updateQuantityCount(data.quantityCount);
+		if (data && data.sizes) updateSizess(data.sizes);
+		if (data && data.models) updateModelss(data.models);
+	}, [data]);
 
 	useEffect(() => {
 		GetLanguages(
@@ -63,7 +63,6 @@ function AddProductDetails({
 	}, []);
 
 	const handleSave = (saveAndAdd) => {
-		let isEdit = data && data.productName;
 		if (isEdit) {
 			if (saveAndAdd) {
 				onCancel();
