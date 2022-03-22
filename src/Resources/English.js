@@ -212,6 +212,8 @@ export const en = {
 		marketPlace: "marketplace",
 		didYouWorkWith: "You have worked with",
 		rateIt: "can you rate it",
+		whatsapp: "WhatsApp",
+		copyLink: "Copy link",
 	},
 	offerTable: {
 		name: "Name",

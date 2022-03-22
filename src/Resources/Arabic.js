@@ -210,6 +210,8 @@ export const ar = {
 		marketPlace: "في المتجر",
 		didYouWorkWith: " اشتغلت مع شركه",
 		rateIt: "هل يمكنك تقيمها؟",
+		whatsapp: "واتساب",
+		copyLink: "نسخ الرابط",
 	},
 	offerTable: {
 		name: "الاسم",

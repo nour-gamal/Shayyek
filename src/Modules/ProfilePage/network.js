@@ -117,3 +117,13 @@ export const SupplierContractorProfileForBuyer = (data, onSuccess, onFail) => {
 	const path = `api/Profile/SupplierContractorProfileForBuyer?supplierContractorId=${userId}&languageId=${currentLanguageId}`;
 	GetResource(path, onSuccess, onFail, true);
 };
+export const GetImagePath = (
+	data,
+	onSuccess,
+	onFail,
+	reqAuth = true,
+	formData = true
+) => {
+	const path = "api/Account/GetImagePath";
+	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
+};

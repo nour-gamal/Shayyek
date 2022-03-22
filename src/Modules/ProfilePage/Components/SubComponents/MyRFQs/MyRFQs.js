@@ -1,4 +1,4 @@
-import React, { useState, createRef } from "react";
+import React, { useState, createRef, useEffect } from "react";
 import { Table, Dropdown, Menu } from "antd";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { useSelector } from "react-redux";
@@ -9,16 +9,15 @@ import download from "../../../../../Resources/Assets/direct-download.svg";
 import share from "../../../../../Resources/Assets/share (5).svg";
 import SingleRFQModal from "../SingleRFQModal/SingleRFQModal";
 import { useScreenshot } from "use-react-screenshot";
-
-// import {
-// 	EmailShareButton,
-// 	FacebookShareButton,
-// 	LinkedinShareButton,
-// 	TwitterShareButton,
-// 	WhatsappShareButton,
-// } from "react-share";
-import "./MyRFQs.css";
+import { baseUrl } from "../../../../../Services";
+import Whatsapp from "../../../../../Resources/Assets/whatsapp.svg";
+import CopyLink from "../../../../../Resources/Assets/copyLink.svg";
+import Email from "../../../../../Resources/Assets/email.svg";
 import ChooseCompaniesToRateModal from "../Ratings/ChooseCompaniesToRateModal/ChooseCompaniesToRateModal";
+import { GetImagePath } from "../../../network";
+
+import { EmailShareButton, WhatsappShareButton } from "react-share";
+import "./MyRFQs.css";
 
 function MyRFQs({ buyerRFQs }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -27,11 +26,35 @@ function MyRFQs({ buyerRFQs }) {
 	const [rfqId, updateRfqId] = useState(null);
 	const [companyName, updateCompanyName] = useState("");
 	const [rateModal, updateRateModal] = useState(false);
+	const [image, takeScreenshot] = useScreenshot();
+	const [imageURL, updateImageURL] = useState(null);
 	const pdfExportComponent = React.useRef(null);
-	// const [image, takeScreenshot] = useScreenshot();
-	// const shareOffer = () => takeScreenshot(pdfExportComponent.current);
-	const shareOffer = () => {};
-	//console.log(image);
+	const shareOffer = () => {
+		getImage();
+	};
+	useEffect(() => {
+		if (image) {
+			getBlobImg(image);
+		}
+	}, [image]);
+	const getBlobImg = async (image) => {
+		const blob = await fetch(image).then((res) => res.blob());
+		// const blobUrl = window.URL.createObjectURL(blob);
+		var file = new File([blob], `${new Date().getTime()}.png`);
+
+		const data = new FormData();
+		data.append("image", file);
+
+		GetImagePath(
+			data,
+			(success) => {
+				updateImageURL(baseUrl + success.data);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	};
 	const location = "bottomRight";
 	const liveMenu = (
 		<Menu>
@@ -68,6 +91,43 @@ function MyRFQs({ buyerRFQs }) {
 			>
 				<img src={star} alt="deletee" className="mx-1" />
 				<span className="mx-1">{currentLocal.profilePage.rateNow}</span>
+			</Menu.Item>
+		</Menu>
+	);
+	const shareMenu = (
+		<Menu>
+			<Menu.Item key="1">
+				<WhatsappShareButton
+					url={imageURL}
+					children={
+						<div className="d-flex">
+							<img src={Whatsapp} alt="Whatsapp" />
+							<div className="mx-2">{currentLocal.profilePage.whatsapp}</div>
+						</div>
+					}
+				/>
+			</Menu.Item>
+			<Menu.Item key="2">
+				<EmailShareButton
+					url={imageURL}
+					children={
+						<div className="d-flex">
+							<img src={Email} alt="email" />
+							<div className="mx-2">{currentLocal.profilePage.email}</div>
+						</div>
+					}
+				/>
+			</Menu.Item>
+			<Menu.Item
+				key="3"
+				onClick={() => {
+					navigator.clipboard.writeText(imageURL);
+				}}
+			>
+				<div className="d-flex">
+					<img src={CopyLink} alt="CopyLink" />
+					<div className="mx-2">{currentLocal.profilePage.copyLink}</div>
+				</div>
 			</Menu.Item>
 		</Menu>
 	);
@@ -119,28 +179,25 @@ function MyRFQs({ buyerRFQs }) {
 		updateSingleRFQModal(false);
 	};
 	const ref = createRef(null);
-	const [image, takeScreenshot] = useScreenshot();
+
 	const getImage = () => takeScreenshot(ref.current);
 	return (
 		<div className="myRFQs my-4" ref={ref}>
 			<div className="p-4 d-flex justify-content-between ">
 				<h6 className="title">{currentLocal.profilePage.myRFQs}</h6>
-				<div>
-					{/* <EmailShareButton onClick={() => {}} openShareDialogOnClick url={"x"}>
-					</EmailShareButton> */}
-
-					<img
-						src={share}
-						alt="share"
-						className="mx-4 cursorPointer "
-						onClick={shareOffer}
-					/>
+				<div className="d-flex">
+					<Dropdown.Button
+						overlay={shareMenu}
+						trigger={["click"]}
+						onClick={(e) => e.preventDefault()}
+						icon={<img src={share} alt="share" onClick={shareOffer} />}
+					></Dropdown.Button>
 
 					<img
 						src={download}
 						alt="download"
 						onClick={exportPDFWithComponent}
-						className="cursorPointer"
+						className="cursorPointer mx-4"
 					/>
 				</div>
 			</div>
