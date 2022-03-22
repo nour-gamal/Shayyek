@@ -15,7 +15,6 @@ import CopyLink from "../../../../../Resources/Assets/copyLink.svg";
 import Email from "../../../../../Resources/Assets/email.svg";
 import ChooseCompaniesToRateModal from "../Ratings/ChooseCompaniesToRateModal/ChooseCompaniesToRateModal";
 import { GetImagePath } from "../../../network";
-
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 import "./MyRFQs.css";
 
@@ -27,8 +26,9 @@ function MyRFQs({ buyerRFQs }) {
 	const [companyName, updateCompanyName] = useState("");
 	const [rateModal, updateRateModal] = useState(false);
 	const [image, takeScreenshot] = useScreenshot();
-	const [imageURL, updateImageURL] = useState(null);
 	const pdfExportComponent = React.useRef(null);
+	const [imageURL, updateImageURL] = useState(null);
+
 	const shareOffer = () => {
 		getImage();
 	};
