@@ -72,7 +72,7 @@ function AddProductDetails({
 				} else {
 					let finalData = {
 						ProductId: data.id,
-						Price: price,
+						Price: price.en,
 						LanguageId: "",
 						AvailabilityInStock: quantityCount,
 					};
