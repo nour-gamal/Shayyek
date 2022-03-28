@@ -1,0 +1,23 @@
+.addRFQDetails .input-field {
+	width: unset !important;
+	flex: 1;
+	margin: 0 5px;
+}
+.addRFQDetails .errorSign {
+	color: red;
+}
+.addRFQDetails .field-container {
+	width: 90%;
+}
+.addRFQDetails .ant-select-selector {
+	border: none !important;
+	box-shadow: none !important;
+}
+.addRFQDetails .ant-select-focused {
+	box-shadow: none !important;
+}
+@media (max-width: 576px) {
+	.addRFQDetails .rfq-info-container {
+		flex-direction: column;
+	}
+}

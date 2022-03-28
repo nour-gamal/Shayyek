@@ -13,7 +13,7 @@ import VerifyByEmail from "./Modules/Registration/Components/VerifyByEmail/Verif
 import LoginByMobile from "./Modules/Login/Components/LoginByMobile/LoginByMobile";
 import Login from "./Modules/Login/Login";
 import ResetPassword from "./Modules/ResetPassword/ResetPassword";
-import CreateRFQ from "./Modules/Home/BuyerHome/Components/CreateRFQ/CreateRFQ";
+import CreateRFQ from "./Modules/Home/BuyerHome/CreateRFQ";
 import OffersTable from "./Modules/Home/BuyerHome/Components/OffersTable/OffersTable";
 import ManageCompany from "./Modules/ProfilePage/Components/SubComponents/ManageCompany/ManageCompany";
 import { authorType } from "./helpers/authType";
@@ -36,6 +36,7 @@ function Routes() {
 		var isBuyer = authTypeName.includes("buyer");
 	}
 	const isGuestOrBuyer = !accountTypeId || authTypeName?.includes("buyer");
+
 	return (
 		<Route
 			render={({ location }) => (
@@ -115,24 +116,10 @@ function Routes() {
 							return isAuth ? <Redirect to="/" /> : <ResetPassword />;
 						}}
 					/>
-					{/* <Route
-						path="/createrfq"
-						render={() => {
-							return isAuth &&
-								authorization.userTypeId ===
-									"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
-								<CreateRFQ />
-							) : (
-								<Redirect to="/" />
-							);
-						}}
-					/> */}
 					<Route
-						path="/createrfq/:id"
+						path="/createrfq"
 						render={(props) => {
-							return isAuth &&
-								authorization.userTypeId ===
-									"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
+							return isAuth && authTypeName.includes("buyer") ? (
 								<CreateRFQ {...props} />
 							) : (
 								<Redirect to="/" />

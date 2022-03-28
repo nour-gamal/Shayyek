@@ -17,7 +17,7 @@ import Chat from "../../../Resources/Assets/ChatIcon.png";
 import Notification from "../../../Resources/Assets/Notification Icon.svg";
 import languages from "../../../Resources/Assets/languages.svg";
 import cart from "../../../Resources/Assets/cart.svg";
-import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
+import AllSuppsiers from "../../../Resources/Assets/All_suppliers.svg";
 import userAvatar from "../../../Resources/Assets/people.svg";
 import { getNotifications } from "./../Network";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -104,12 +104,12 @@ function Navbarr({ navState, verifayState, transparent }) {
 			expand="lg"
 			className={
 				transparent
-					? "transparent f-14 ppl ppr"
+					? "transparent f-14 pps ppe"
 					: navState
 					? verifayState
-						? "light f-14 ppl ppr d-flex justify-content-between"
-						: "light f-14 ppl ppr"
-					: "dark f-14 ppl ppr"
+						? "light f-14 pps ppe d-flex justify-content-between"
+						: "light f-14 pps ppe"
+					: "dark f-14 pps ppe"
 			}
 			variant={"dark"}
 			collapseOnSelect={true}
@@ -147,10 +147,10 @@ function Navbarr({ navState, verifayState, transparent }) {
 				<span className="controlIcon d-flex justify-content-end">
 					{isBuyer && (
 						<span className="align-content-center d-flex">
-							<Link to="/suppliers" className="nav-link d-none d-lg-inline">
-								<img src={AllSuppliers} alt="AllSuppliers" />
+							<Link to="/suppsiers" className="nav-link d-none d-lg-inline">
+								<img src={AllSuppsiers} alt="AllSuppsiers" />
 								<span className="color-white mx-1 ">
-									{currentLocal.navbar.AllSuppliers}
+									{currentLocal.navbar.AllSuppsiers}
 								</span>
 							</Link>
 							<Link to="/cart" className="nav-link d-none d-lg-inline">
