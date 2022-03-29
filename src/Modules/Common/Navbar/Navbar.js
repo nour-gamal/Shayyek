@@ -17,7 +17,7 @@ import Chat from "../../../Resources/Assets/ChatIcon.png";
 import Notification from "../../../Resources/Assets/Notification Icon.svg";
 import languages from "../../../Resources/Assets/languages.svg";
 import cart from "../../../Resources/Assets/cart.svg";
-import AllSuppsiers from "../../../Resources/Assets/All_suppliers.svg";
+import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
 import userAvatar from "../../../Resources/Assets/people.svg";
 import { getNotifications } from "./../Network";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -148,9 +148,9 @@ function Navbarr({ navState, verifayState, transparent }) {
 					{isBuyer && (
 						<span className="align-content-center d-flex">
 							<Link to="/suppsiers" className="nav-link d-none d-lg-inline">
-								<img src={AllSuppsiers} alt="AllSuppsiers" />
+								<img src={AllSuppliers} alt="AllSuppsiers" />
 								<span className="color-white mx-1 ">
-									{currentLocal.navbar.AllSuppsiers}
+									{currentLocal.navbar.AllSuppliers}
 								</span>
 							</Link>
 							<Link to="/cart" className="nav-link d-none d-lg-inline">

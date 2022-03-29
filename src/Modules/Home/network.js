@@ -210,7 +210,14 @@ export const GetProductDetails = (data, onSuccess, onFail) => {
 	const path = `api/Product/GetProductDetails?languageId=${languageId}&ProductId=${ProductId}`;
 	GetResource(path, onSuccess, onFail, true);
 };
+
 export const EditProduct = (data, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/Product/EditProduct`;
 	PatchResource(path, data, onSuccess, onFail, reqAuth);
+};
+
+export const GetFavVendor = (data, onSuccess, onFail, reqAuth = true) => {
+	// const { languageId, ProductId } = data;
+	const path = ``;
+	GetResource(path, onSuccess, onFail, true);
 };

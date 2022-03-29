@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { Input, Checkbox, Select } from "antd";
+import { Input, Checkbox, Select, Radio } from "antd";
 import { useSelector } from "react-redux";
-import "./AddRFQDetails.css";
 import { governmentList } from "../../../../Registration/Network";
+import PublicTender from "../PublicTender/PublicTender";
+import PrivateTender from "../PrivateTender/PrivateTender";
+import "./AddRFQDetails.css";
 function AddRFQDetails() {
 	// eslint-disable-next-line
 	const [errorState, updateErrorState] = useState(false);
@@ -25,6 +27,7 @@ function AddRFQDetails() {
 	const { currentLocal, currentLanguageId } = useSelector(
 		(state) => state.currentLocal
 	);
+	const [tenderType, setTenderType] = useState("public");
 	const { Option } = Select;
 
 	useEffect(() => {
@@ -190,6 +193,18 @@ function AddRFQDetails() {
 						</div>
 					</div>
 				</div>
+			</div>
+			<div className="tenderType">
+				<Radio.Group
+					onChange={(e) => setTenderType(e.target.value)}
+					value={tenderType}
+				>
+					<Radio value={"public"}>{currentLocal.buyerHome.publicTender}</Radio>
+					<Radio value={"private"} className="mx-4">
+						{currentLocal.buyerHome.privateTender}
+					</Radio>
+				</Radio.Group>
+				{tenderType === "public" ? <PublicTender /> : <PrivateTender />}
 			</div>
 		</div>
 	);
