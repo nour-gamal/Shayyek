@@ -214,6 +214,8 @@ export const en = {
 		rateIt: "can you rate it",
 		whatsapp: "WhatsApp",
 		copyLink: "Copy link",
+		addToFavVendors: "Add to My Favourite Vendors",
+		addedToFavVendors: "Added to My Favourite Vendors",
 	},
 	offerTable: {
 		name: "Name",
@@ -310,7 +312,7 @@ export const en = {
 		confirm: "Confirm",
 		selectDate: "Select Date",
 		invitedByEmail: "Invited by E-mail",
-		addNewEmail: "Add new email",
+		addNewEmail: "Add new E-Mail",
 		publishToNetwork: "Publish to relevant Shayyek suppliers network",
 		revealPrices: "Reveal prices to bidders",
 		postRFQ: "Post RFQ",

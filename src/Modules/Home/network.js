@@ -216,8 +216,7 @@ export const EditProduct = (data, onSuccess, onFail, reqAuth = true) => {
 	PatchResource(path, data, onSuccess, onFail, reqAuth);
 };
 
-export const GetFavVendor = (data, onSuccess, onFail, reqAuth = true) => {
-	// const { languageId, ProductId } = data;
-	const path = ``;
+export const GetFavVendor = (onSuccess, onFail, reqAuth = true) => {
+	const path = `/api/Profile/FavouriteVendors`;
 	GetResource(path, onSuccess, onFail, true);
 };

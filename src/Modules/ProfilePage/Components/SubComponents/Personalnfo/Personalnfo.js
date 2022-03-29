@@ -5,14 +5,16 @@ import { ProgressBar } from "react-bootstrap";
 import { withRouter, Link } from "react-router-dom";
 // component
 import { baseUrl } from "../../../../../Services";
-import { acceptOrRejectUser } from "../../../network";
+import { acceptOrRejectUser, AddToMyFavVendors } from "../../../network";
 import DraftIcon from "../../../../../Resources/Assets/draft.svg";
 import Plus from "../../../../../Resources/Assets/add (3).svg";
+import Heart from "../../../../../Resources/Assets/heart.svg";
 import defaultImage from "../../../../../Resources/Assets/DefaultProfileImage.png";
 import { authorType } from "../../../../../helpers/authType";
 import DraftsModal from "./../DraftsModal/DraftsModal";
 // style
 import "./Personalnfo.css";
+import { Button } from "antd";
 
 function Personalnfo({
 	parent,
@@ -29,6 +31,9 @@ function Personalnfo({
 		authorization: { accountTypeId, userTypeId, roleId },
 	} = useSelector((state) => state.authorization);
 	const [isActive, setIsActive] = useState(profileDetails?.isActive);
+	const [isAddedToVendors, updateIsAddedToVendors] = useState(
+		profileDetails ? profileDetails.isAddedToVendors : false
+	);
 	const [draftsModalVisible, updateDraftsModalVisible] = useState(false);
 	let authorTypeName = authorType(accountTypeId, userTypeId, roleId);
 	function acceptOrRejectUserAction(isActive) {
@@ -48,6 +53,22 @@ function Personalnfo({
 			updateDraftsModalVisible(true);
 		}
 	}
+	const addToFavVendors = () => {
+		let data = {
+			vendorId: profileDetails.id,
+			status: !isAddedToVendors,
+		};
+		AddToMyFavVendors(
+			data,
+			(success) => {
+				console.log(success);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+		updateIsAddedToVendors(!isAddedToVendors);
+	};
 	return (
 		<div className="PersonalInfo">
 			{adminView ? (
@@ -114,7 +135,7 @@ function Personalnfo({
 								<ReactStars
 									edit={false}
 									count={5}
-									value={3}
+									value={profileDetails.company.rate}
 									size={24}
 									activeColor="#ffd700"
 									classNames={
@@ -131,15 +152,27 @@ function Personalnfo({
 								</div>
 							</div>
 						</div>
-
-						{profileDetails.company && (
-							<div className="profileHeader__info f-14 secondary-color cursorPointer mx-2">
-								<Link to={`supplier/${profileDetails.company.id}`}>
-									{currentLocal.profilePage.see} {profileDetails.company.name}{" "}
-									{currentLocal.profilePage.marketPlace}
-								</Link>
-							</div>
-						)}
+						<div className="d-flex flex-column mx-2">
+							{parent === "buyerSee" && (
+								<Button
+									className="add-vendors-Btn my-2"
+									onClick={addToFavVendors}
+								>
+									<img src={Heart} alt="Heart" />{" "}
+									{isAddedToVendors
+										? currentLocal.profilePage.addedToFavVendors
+										: currentLocal.profilePage.addToFavVendors}
+								</Button>
+							)}
+							{profileDetails.company && (
+								<div className="profileHeader__info f-14 secondary-color cursorPointer">
+									<Link to={`supplier/${profileDetails.company.id}`}>
+										{currentLocal.profilePage.see} {profileDetails.company.name}{" "}
+										{currentLocal.profilePage.marketPlace}
+									</Link>
+								</div>
+							)}
+						</div>
 					</header>
 				)
 			) : (

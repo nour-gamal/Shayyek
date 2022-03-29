@@ -127,3 +127,7 @@ export const GetImagePath = (
 	const path = "api/Account/GetImagePath";
 	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
 };
+export const AddToMyFavVendors = (data, onSuccess, onFail, reqAuth = true) => {
+	const path = "api/Profile/AddToFavouriteVendors";
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};

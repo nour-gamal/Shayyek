@@ -54,7 +54,11 @@ function BuyerSeeProfiles() {
 				{profileDetails && (
 					<Row>
 						<Col lg={18} md={16} xs={24}>
-							<PersonalInfo buyerView={true} profileDetails={profileDetails} />
+							<PersonalInfo
+								buyerView={true}
+								profileDetails={profileDetails}
+								parent={"buyerSee"}
+							/>
 							<Row>
 								<Col md={12} xs={24} className={"px-4"}>
 									<SidePersonalInfo

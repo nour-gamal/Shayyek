@@ -23,7 +23,9 @@ function AddProductDetails({
 	onCancel,
 	isEdit,
 }) {
-	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const { currentLocal, currentLanguageId } = useSelector(
+		(state) => state.currentLocal
+	);
 	const [image, setImage] = useState(null);
 	const [specs, updateSpecs] = useState({ ar: "", en: "" });
 	const [productName, updateProductName] = useState({ ar: "", en: "" });
@@ -72,8 +74,8 @@ function AddProductDetails({
 				} else {
 					let finalData = {
 						ProductId: data.id,
-						Price: price.en,
-						LanguageId: "",
+						Price: parseInt(price.en),
+						LanguageId: currentLanguageId,
 						AvailabilityInStock: quantityCount,
 					};
 					EditProduct(

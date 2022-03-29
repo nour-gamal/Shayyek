@@ -212,6 +212,8 @@ export const ar = {
 		rateIt: "هل يمكنك تقيمها؟",
 		whatsapp: "واتساب",
 		copyLink: "نسخ الرابط",
+		addToFavVendors: "أضافه لقائمه الباعه المفضلين",
+		addedToFavVendors: "مضاف لقائمه الباعه المفضلين",
 	},
 	offerTable: {
 		name: "الاسم",

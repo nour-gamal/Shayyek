@@ -424,6 +424,8 @@ thead:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	max-height: 300px;
+	overflow: auto;
 }
 
 .ant-pagination {
