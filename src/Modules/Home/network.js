@@ -217,6 +217,6 @@ export const EditProduct = (data, onSuccess, onFail, reqAuth = true) => {
 };
 
 export const GetFavVendor = (onSuccess, onFail, reqAuth = true) => {
-	const path = `/api/Profile/FavouriteVendors`;
+	const path = `api/Profile/FavouriteVendors`;
 	GetResource(path, onSuccess, onFail, true);
 };

@@ -13,9 +13,7 @@ function PublicTender() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { Option } = Select;
 	useEffect(() => {
-		let data = {};
 		GetFavVendor(
-			data,
 			(success) => {
 				console.log(success);
 			},
