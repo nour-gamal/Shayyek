@@ -812,71 +812,68 @@ function RegistrationForm() {
 							</Col>
 						</>
 					)}
-					{!(individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") &&
-						roleName.length > 0 && (
-							<Col md={12} xs={24} className="companyName">
-								<p className="alertMsg">
-									{alert && !companyName && (
-										<>{currentLocal.registration.pleaseChooseCompanyName}</>
-									)}
-								</p>
-								{roleId === "4940d4e9-8bfd-467d-a9d9-20f719cdff93" ? (
-									<Dropdown
-										overlay={menu}
-										trigger={["click"]}
-										className={
-											!individual &&
-											buyer !== currentLocal.registration.Supplier
-												? "disableInput input-field"
-												: "input-field"
-										}
-										disabled={
-											!individual &&
-											buyer !== currentLocal.registration.Supplier
-										}
-										onClick={(e) => {
-											setFoucesItem(e.target.id);
-											setFocusIcon(true);
-										}}
-										onBlur={() => setFocusIcon(false)}
-									>
-										<a
-											href="/"
-											id="companyName"
-											className="ant-dropdown-link"
-											onClick={(e) => e.preventDefault()}
-										>
-											{companyName
-												? companyName
-												: currentLocal.registration.companyName}
-											{!individual &&
-											buyer !== currentLocal.registration.Supplier ? (
-												<img src={disableArrow} alt="disableArrow" />
-											) : (
-												<img
-													src={
-														focusIcon && foucesItem === "companyName"
-															? foucesArrow
-															: Arrow
-													}
-													alt="Arrow"
-												/>
-											)}
-										</a>
-									</Dropdown>
-								) : (
-									<input
-										type="text"
-										value={companyName}
-										onChange={(e) => {
-											setCompanyName(e.target.value);
-										}}
-										className="input-field"
-										placeholder={currentLocal.registration.companyName}
-									/>
+					{!userTypeName.includes("individual") && (
+						<Col md={12} xs={24} className="companyName">
+							<p className="alertMsg">
+								{alert && !companyName && (
+									<>{currentLocal.registration.pleaseChooseCompanyName}</>
 								)}
-							</Col>
-						)}
+							</p>
+							{userTypeName.includes("employee") ? (
+								<Dropdown
+									overlay={menu}
+									trigger={["click"]}
+									className={
+										!individual && buyer !== currentLocal.registration.Supplier
+											? "disableInput input-field"
+											: "input-field"
+									}
+									disabled={
+										!individual && buyer !== currentLocal.registration.Supplier
+									}
+									onClick={(e) => {
+										setFoucesItem(e.target.id);
+										setFocusIcon(true);
+									}}
+									onBlur={() => setFocusIcon(false)}
+								>
+									<a
+										href="/"
+										id="companyName"
+										className="ant-dropdown-link"
+										onClick={(e) => e.preventDefault()}
+									>
+										{companyName
+											? companyName
+											: currentLocal.registration.companyName}
+										{!individual &&
+										buyer !== currentLocal.registration.Supplier ? (
+											<img src={disableArrow} alt="disableArrow" />
+										) : (
+											<img
+												src={
+													focusIcon && foucesItem === "companyName"
+														? foucesArrow
+														: Arrow
+												}
+												alt="Arrow"
+											/>
+										)}
+									</a>
+								</Dropdown>
+							) : (
+								<input
+									type="text"
+									value={companyName}
+									onChange={(e) => {
+										setCompanyName(e.target.value);
+									}}
+									className="input-field"
+									placeholder={currentLocal.registration.companyName}
+								/>
+							)}
+						</Col>
+					)}
 					{((individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
 						buyer === currentLocal.registration.Contractor) ||
 						(individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
