@@ -85,17 +85,7 @@ function RegistrationForm() {
 	const [yearOfStartingOperation, updateYearOfStartingOperation] = useState(
 		null
 	);
-	const [volumeOfBusinessList, updateVolumeOfBusinessList] = useState([
-		{
-			id: 0,
-			name: "from 0 to 50",
-		},
-		{
-			id: 1,
-			name: "from 50 to 100",
-		},
-	]);
-
+	const [volumeOfBusinessList, updateVolumeOfBusinessList] = useState([]);
 	const [volumeOfBusiness, updateVolumeOfBusiness] = useState(null);
 	const showState = true;
 	const uploadCompanyLogo = "";
@@ -104,7 +94,6 @@ function RegistrationForm() {
 	useEffect(() => {
 		const userTypeNameVar = authorType(individual, userTypeId, roleId);
 		updateUserTypeName(userTypeNameVar);
-		console.log(userTypeNameVar);
 	}, [individual, userTypeId, roleId]);
 	const onSelectUserType = (val) => {
 		setTimeout(() => {
@@ -112,7 +101,6 @@ function RegistrationForm() {
 		}, 100);
 	};
 	const onVolumeOfBusinessChange = (e) => {
-		console.log("radio checked", e.target.value);
 		updateVolumeOfBusiness(e.target.value);
 	};
 
@@ -211,7 +199,6 @@ function RegistrationForm() {
 		getRole(
 			currentLanguageId,
 			(success) => {
-				// console.log(success.data);
 				setRoleList(success.data);
 			},
 			(fail) => {},
@@ -236,12 +223,13 @@ function RegistrationForm() {
 		getVolumeOfBusiness(
 			currentLanguageId,
 			(success) => {
-				console.log(success);
+				updateVolumeOfBusinessList(success.data);
 			},
 			(fail) => {
 				console.log(fail);
 			}
 		);
+		generateYears();
 		getWork(
 			currentLanguageId,
 			(success) => {
@@ -345,14 +333,10 @@ function RegistrationForm() {
 		</Menu>
 	);
 
-	useEffect(() => {
-		generateYears();
-	}, []);
-
 	const generateYears = () => {
 		let years = [];
 		for (let year = 1900; year <= moment().format("YYYY"); year++) {
-			years.push(year);
+			years.push(year.toString());
 		}
 		updateYearsList(years);
 	};
@@ -461,8 +445,8 @@ function RegistrationForm() {
 			CategoriesRequest: categoriesRequests,
 			Logo: compLogoPath,
 			commercialRecord: comRecPath,
-			YearOfStartingOperation: yearOfStartingOperation,
-			volumeOfBusiness,
+			yearOfStartingOperation: yearOfStartingOperation,
+			volumeOfWork: volumeOfBusiness,
 		};
 		register(
 			data,
@@ -680,7 +664,6 @@ function RegistrationForm() {
 			}
 		}
 	};
-
 	if (redirect) {
 		return <Redirect to="/verifyByEmail" />;
 	}
@@ -779,6 +762,56 @@ function RegistrationForm() {
 							}}
 						/>
 					</Col>
+					{!userTypeName.includes("individual") && (
+						<>
+							<Col md={12} xs={24}>
+								<p className="alertMsg">
+									{alert && !roleName && (
+										<>{currentLocal.registration.pleaseChooseYourRole}</>
+									)}
+								</p>
+								<Dropdown
+									overlay={roleMenu}
+									trigger={["click"]}
+									className={
+										!individual && buyer !== currentLocal.registration.Supplier
+											? "disableInput input-dropdown"
+											: "input-dropdown"
+									}
+									disabled={
+										!individual && buyer !== currentLocal.registration.Supplier
+									}
+									onClick={(e) => {
+										setFoucesItem(e.target.id);
+										setFocusIcon(true);
+									}}
+									onBlur={() => setFocusIcon(false)}
+								>
+									<a
+										href="/"
+										className="ant-dropdown-link"
+										onClick={(e) => e.preventDefault()}
+										id="role"
+									>
+										{roleName ? roleName : currentLocal.registration.role}
+										{!individual &&
+										buyer !== currentLocal.registration.Supplier ? (
+											<img src={disableArrow} alt="disableArrow" />
+										) : (
+											<img
+												src={
+													focusIcon && foucesItem === "role"
+														? foucesArrow
+														: Arrow
+												}
+												alt="Arrow"
+											/>
+										)}
+									</a>
+								</Dropdown>
+							</Col>
+						</>
+					)}
 					{!(individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") &&
 						roleName.length > 0 && (
 							<Col md={12} xs={24} className="companyName">
@@ -844,56 +877,6 @@ function RegistrationForm() {
 								)}
 							</Col>
 						)}
-					{individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin && (
-						<>
-							<Col md={12} xs={24}>
-								<p className="alertMsg">
-									{alert && !roleName && (
-										<>{currentLocal.registration.pleaseChooseYourRole}</>
-									)}
-								</p>
-								<Dropdown
-									overlay={roleMenu}
-									trigger={["click"]}
-									className={
-										!individual && buyer !== currentLocal.registration.Supplier
-											? "disableInput input-dropdown"
-											: "input-dropdown"
-									}
-									disabled={
-										!individual && buyer !== currentLocal.registration.Supplier
-									}
-									onClick={(e) => {
-										setFoucesItem(e.target.id);
-										setFocusIcon(true);
-									}}
-									onBlur={() => setFocusIcon(false)}
-								>
-									<a
-										href="/"
-										className="ant-dropdown-link"
-										onClick={(e) => e.preventDefault()}
-										id="role"
-									>
-										{roleName ? roleName : currentLocal.registration.role}
-										{!individual &&
-										buyer !== currentLocal.registration.Supplier ? (
-											<img src={disableArrow} alt="disableArrow" />
-										) : (
-											<img
-												src={
-													focusIcon && foucesItem === "role"
-														? foucesArrow
-														: Arrow
-												}
-												alt="Arrow"
-											/>
-										)}
-									</a>
-								</Dropdown>
-							</Col>
-						</>
-					)}
 					{((individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
 						buyer === currentLocal.registration.Contractor) ||
 						(individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
@@ -1426,7 +1409,11 @@ function RegistrationForm() {
 										!individual && buyer !== currentLocal.registration.Supplier
 									}
 								>
-									<div>{currentLocal.registration.yearOfStartingOperation}</div>
+									<div>
+										{yearOfStartingOperation
+											? yearOfStartingOperation
+											: currentLocal.registration.yearOfStartingOperation}
+									</div>
 								</Dropdown>
 							</Col>
 						)}
@@ -1434,15 +1421,7 @@ function RegistrationForm() {
 					{userTypeName &&
 						userTypeName.includes("buyer") &&
 						!userTypeName.includes("employee") && (
-							<Col
-								md={12}
-								xs={24}
-								className={
-									userTypeName
-										? "disableInput input-field volumeOfBusiness mt-4"
-										: "input-field volumeOfBusiness mt-4"
-								}
-							>
+							<div>
 								<p className="alertMsg">
 									{alert && !volumeOfBusiness && (
 										<>
@@ -1450,7 +1429,15 @@ function RegistrationForm() {
 										</>
 									)}
 								</p>
-								<div>
+								<Col
+									md={12}
+									xs={24}
+									className={
+										userTypeName
+											? "disableInput input-field volumeOfBusiness mt-4"
+											: "input-field volumeOfBusiness mt-4"
+									}
+								>
 									<div className="f-16">
 										{currentLocal.registration.volumeOfBusiness}
 									</div>
@@ -1467,8 +1454,8 @@ function RegistrationForm() {
 											return <Radio value={choice.id}>{choice.name}</Radio>;
 										})}
 									</Radio.Group>
-								</div>
-							</Col>
+								</Col>
+							</div>
 						)}
 					{admin === false && (
 						<Col md={12} xs={24}>

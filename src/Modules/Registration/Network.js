@@ -77,6 +77,7 @@ export const getVolumeOfBusiness = (
 	onFail,
 	reqAuth = true
 ) => {
-	const path = `api/Company/GetCompanyTypes?languageId=${languageId}`;
-	GetResource(path, onSuccess, onFail, reqAuth);
+	let data = {};
+	const path = `api/Account/GetVolumeOfWork?languageId=${languageId}`;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
