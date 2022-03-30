@@ -55,7 +55,7 @@ function Personalnfo({
 	}
 	const addToFavVendors = () => {
 		let data = {
-			vendorId: profileDetails.id,
+			vendorId: profileDetails.supplierContractorId,
 			isAdded: !isAddedToVendors,
 		};
 		AddToMyFavVendors(

@@ -6,9 +6,7 @@
 .addRFQDetails .errorSign {
 	color: red;
 }
-.addRFQDetails .field-container {
-	width: 90%;
-}
+
 .addRFQDetails .ant-select-selector {
 	border: none !important;
 	box-shadow: none !important;

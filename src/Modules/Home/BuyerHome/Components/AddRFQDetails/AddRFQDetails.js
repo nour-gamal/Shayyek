@@ -48,13 +48,10 @@ function AddRFQDetails() {
 		<div className="pps ppe my-4 addRFQDetails">
 			<div className="d-flex justify-content-between rfq-info-container">
 				<div className="flex-1">
-					<div className="d-flex  my-4 field-container">
+					<div className="d-flex  my-4 field-container flex-1">
 						<label className="f-14 fw-500 d-flex align-items-start mx-2">
 							<span>{currentLocal.buyerHome.projectName}</span>
-
-							{errorState && !projectName.length && (
-								<span className="errorSign">*</span>
-							)}
+							<span className="errorSign">*</span>
 						</label>
 						<Input
 							type="text"
@@ -70,13 +67,11 @@ function AddRFQDetails() {
 						<label className="f-14 fw-500 d-flex align-items-start mx-2">
 							<span>{currentLocal.buyerHome.projectLocation}</span>
 
-							{errorState && !projectName.length && (
-								<span className="errorSign">*</span>
-							)}
+							<span className="errorSign">*</span>
 						</label>
 						<Select
 							placeholder={currentLocal.buyerHome.selectFromCities}
-							className={"input-field"}
+							className="input-field"
 							onChange={(val) => {
 								updateSelectedGov(val);
 							}}
@@ -91,10 +86,7 @@ function AddRFQDetails() {
 					<div className="d-flex my-4 field-container">
 						<label className="f-14 fw-500 d-flex align-items-start mx-2">
 							<span>{currentLocal.buyerHome.projectOwner}</span>
-
-							{errorState && !updateProjectOwner.name.length && (
-								<span className="errorSign">*</span>
-							)}
+							<span className="errorSign">*</span>
 						</label>
 						<div className="d-flex flex-column">
 							<Input
@@ -128,9 +120,7 @@ function AddRFQDetails() {
 						<label className="f-14 fw-500 d-flex align-items-start mx-2">
 							<span>{currentLocal.buyerHome.projectConsultant}</span>
 
-							{errorState && !projectConsultant.name.length && (
-								<span className="errorSign">*</span>
-							)}
+							<span className="errorSign">*</span>
 						</label>
 						<div className="d-flex flex-column">
 							<Input
@@ -162,9 +152,7 @@ function AddRFQDetails() {
 						<label className="f-14 fw-500 d-flex align-items-start mx-2">
 							<span>{currentLocal.buyerHome.projectContractor}</span>
 
-							{errorState && !projectContractor.name.length && (
-								<span className="errorSign">*</span>
-							)}
+							<span className="errorSign">*</span>
 						</label>
 						<div className="d-flex flex-column">
 							<Input
