@@ -70,3 +70,13 @@ export const register = (
 	const path = `api/Account/Register`;
 	PostResource(path, body, onSuccess, onFail, reqAuth, formData);
 };
+
+export const getVolumeOfBusiness = (
+	languageId,
+	onSuccess,
+	onFail,
+	reqAuth = true
+) => {
+	const path = `api/Company/GetCompanyTypes?languageId=${languageId}`;
+	GetResource(path, onSuccess, onFail, reqAuth);
+};

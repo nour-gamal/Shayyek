@@ -57,11 +57,16 @@ export const en = {
 		pleaseFillAddress: "* Please Fill Address",
 		pleaseUploadCommercialRegister: "* Please Upload Commercial Register",
 		pleaseChooseYourRole: "* Please Choose Your Role  ",
+		pleaseChooseYearofStartingOperation:
+			"* Please Choose year of starting operation",
+		pleaseChooseVolumeOfBusiness: "* Please Choose Volume of Business",
 		uploadValidImage: "Please upload a vaild image",
 		regSuccessTitle: "Successfully Registered",
 		checkMail: "Check Your Mail to Verify Your Account",
 		or: "Or",
 		verifyMobile: "Verify your Mobile Number",
+		yearOfStartingOperation: "Year of Starting Operation",
+		volumeOfBusiness: "Volume of Business",
 	},
 	footer: {
 		copyRights: "2021 Shayyek. All Rights Reserved",

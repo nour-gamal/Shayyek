@@ -14,6 +14,7 @@ import {
 	getAccountType,
 	register,
 	addRegisterImage,
+	getVolumeOfBusiness,
 } from "../../Network";
 
 import disableArrow from "../../../../Resources/Assets/disableArrow.svg";
@@ -24,6 +25,8 @@ import disapleUploadImg from "../../../../Resources/Assets/disapleUploadImg.svg"
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import TreeContainer from "../TreeContainer/TreeContainer";
+import { authorType } from "../../../../helpers/authType";
+import moment from "moment";
 import "react-dropdown-tree-select/dist/styles.css";
 import "./RegistrationForm.css";
 
@@ -76,14 +79,41 @@ function RegistrationForm() {
 	const [emailState, setEmailState] = useState("");
 	const [comRecPath, updateComRecPath] = useState(null);
 	const [compLogoPath, updateCompLogoPath] = useState(null);
+	const [companyLogoErr, updateCompanyLogoErr] = useState(false);
+	const [userTypeName, updateUserTypeName] = useState(null);
+	const [yearsList, updateYearsList] = useState([]);
+	const [yearOfStartingOperation, updateYearOfStartingOperation] = useState(
+		null
+	);
+	const [volumeOfBusinessList, updateVolumeOfBusinessList] = useState([
+		{
+			id: 0,
+			name: "from 0 to 50",
+		},
+		{
+			id: 1,
+			name: "from 50 to 100",
+		},
+	]);
+
+	const [volumeOfBusiness, updateVolumeOfBusiness] = useState(null);
 	const showState = true;
 	const uploadCompanyLogo = "";
 	const commercialRecord = "";
-	const [companyLogoErr, updateCompanyLogoErr] = useState(false);
+
+	useEffect(() => {
+		const userTypeNameVar = authorType(individual, userTypeId, roleId);
+		updateUserTypeName(userTypeNameVar);
+		console.log(userTypeNameVar);
+	}, [individual, userTypeId, roleId]);
 	const onSelectUserType = (val) => {
 		setTimeout(() => {
 			setBuyer(val);
 		}, 100);
+	};
+	const onVolumeOfBusinessChange = (e) => {
+		console.log("radio checked", e.target.value);
+		updateVolumeOfBusiness(e.target.value);
 	};
 
 	const toggleValue = (val) => {
@@ -203,7 +233,15 @@ function RegistrationForm() {
 			},
 			(fail) => {}
 		);
-
+		getVolumeOfBusiness(
+			currentLanguageId,
+			(success) => {
+				console.log(success);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
 		getWork(
 			currentLanguageId,
 			(success) => {
@@ -306,6 +344,37 @@ function RegistrationForm() {
 			})}
 		</Menu>
 	);
+
+	useEffect(() => {
+		generateYears();
+	}, []);
+
+	const generateYears = () => {
+		let years = [];
+		for (let year = 1900; year <= moment().format("YYYY"); year++) {
+			years.push(year);
+		}
+		updateYearsList(years);
+	};
+
+	//dropdown forYears
+	const yearsMenu = (
+		<Menu>
+			{yearsList.map((year) => {
+				return (
+					<Menu.Item
+						key={year}
+						onClick={() => {
+							updateYearOfStartingOperation(year);
+						}}
+					>
+						{year}
+					</Menu.Item>
+				);
+			})}
+		</Menu>
+	);
+
 	//dropdown of government
 	const governmentMenu = (
 		<Menu>
@@ -315,7 +384,6 @@ function RegistrationForm() {
 						key={governmentIndex}
 						onClick={(e) => {
 							setGovernmentId(government.id);
-
 							setGovernmentName(government.name); //call api to know if company has admin or not (admin>res.data)
 						}}
 					>
@@ -393,12 +461,13 @@ function RegistrationForm() {
 			CategoriesRequest: categoriesRequests,
 			Logo: compLogoPath,
 			commercialRecord: comRecPath,
+			YearOfStartingOperation: yearOfStartingOperation,
+			volumeOfBusiness,
 		};
 		register(
 			data,
 			(success) => {
 				if (success.success === true) {
-					localStorage.setItem("mobileNumber", mobileNumber);			
 					setRedirect(true);
 				} else if (!success.success && success.data.errorStatus === 2) {
 					//Mobile usedBefore
@@ -411,7 +480,6 @@ function RegistrationForm() {
 			(fail) => console.log(fail)
 		);
 	};
-
 
 	const handleAddCompanyLogo = (e) => {
 		if (e.target.files[0].type.includes("image")) {
@@ -451,11 +519,7 @@ function RegistrationForm() {
 	};
 	const sendData = (e) => {
 		e.preventDefault();
-		if (
-			buyer === currentLocal.registration.buyer &&
-			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-			admin
-		) {
+		if (userTypeName === "buyer_company_admin") {
 			if (
 				!firstName ||
 				!lastName ||
@@ -464,18 +528,15 @@ function RegistrationForm() {
 				!password ||
 				!confirmPassword ||
 				!companyName ||
-				!checked
+				!checked ||
+				!volumeOfBusiness
 			) {
 				setAlert(true);
 			} else {
 				setAlert(false);
 				submitRegister();
 			}
-		} else if (
-			buyer === currentLocal.registration.buyer &&
-			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-			!admin
-		) {
+		} else if (userTypeName === "buyer_company_employee") {
 			if (
 				!firstName ||
 				!lastName ||
@@ -496,10 +557,7 @@ function RegistrationForm() {
 				setAlert(false);
 				submitRegister();
 			}
-		} else if (
-			buyer === currentLocal.registration.buyer &&
-			individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d"
-		) {
+		} else if (userTypeName === "buyer_individual") {
 			if (
 				!firstName ||
 				!lastName ||
@@ -507,18 +565,15 @@ function RegistrationForm() {
 				!email ||
 				!password ||
 				!confirmPassword ||
-				!checked
+				!checked ||
+				!volumeOfBusiness
 			) {
 				setAlert(true);
 			} else {
 				setAlert(false);
 				submitRegister();
 			}
-		} else if (
-			buyer === currentLocal.registration.Contractor &&
-			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-			admin
-		) {
+		} else if (userTypeName === "contractor_company_admin") {
 			if (
 				!firstName ||
 				!lastName ||
@@ -527,20 +582,15 @@ function RegistrationForm() {
 				!password ||
 				!confirmPassword ||
 				!companyName ||
-				!checked
-
-				// !work
+				!checked ||
+				!yearOfStartingOperation
 			) {
 				setAlert(true);
 			} else {
 				setAlert(false);
 				submitRegister();
 			}
-		} else if (
-			buyer === currentLocal.registration.Contractor &&
-			individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-			!admin
-		) {
+		} else if (userTypeName === "contractor_company_employee") {
 			if (
 				!firstName ||
 				!lastName ||
@@ -565,10 +615,7 @@ function RegistrationForm() {
 				setAlert(false);
 				submitRegister();
 			}
-		} else if (
-			buyer === currentLocal.registration.Contractor &&
-			individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d"
-		) {
+		} else if (userTypeName === "contractor_individual") {
 			if (
 				!firstName ||
 				!lastName ||
@@ -579,14 +626,15 @@ function RegistrationForm() {
 				!address ||
 				!countryName ||
 				!governmentName ||
-				!checked
+				!checked ||
+				!yearOfStartingOperation
 			) {
 				setAlert(true);
 			} else {
 				setAlert(false);
 				submitRegister();
 			}
-		} else if (buyer === currentLocal.registration.Supplier && admin) {
+		} else if (userTypeName === "supplier_company_admin") {
 			if (
 				!firstName ||
 				!lastName ||
@@ -598,14 +646,15 @@ function RegistrationForm() {
 				!address ||
 				!countryName ||
 				!governmentName ||
-				!checked
+				!checked ||
+				!yearOfStartingOperation
 			) {
 				setAlert(true);
 			} else {
 				setAlert(false);
 				submitRegister();
 			}
-		} else if (buyer === currentLocal.registration.Supplier && !admin) {
+		} else if (userTypeName === "supplier_company_employee") {
 			if (
 				!firstName ||
 				!lastName ||
@@ -730,7 +779,6 @@ function RegistrationForm() {
 							}}
 						/>
 					</Col>
-
 					{!(individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") &&
 						roleName.length > 0 && (
 							<Col md={12} xs={24} className="companyName">
@@ -958,7 +1006,6 @@ function RegistrationForm() {
 							}}
 						/>
 					</Col>
-
 					<Col md={12} xs={24}>
 						<p className="alertMsg">
 							{alert && !password && (
@@ -983,7 +1030,6 @@ function RegistrationForm() {
 							}}
 						/>
 					</Col>
-
 					<Col md={12} xs={24}>
 						<p className="alertMsg">
 							{alert && !confirmPassword && (
@@ -1355,17 +1401,77 @@ function RegistrationForm() {
 							</Col>
 						</>
 					)}
+					{userTypeName &&
+						(userTypeName.includes("supplier") ||
+							userTypeName.includes("contractor")) &&
+						!userTypeName.includes("employee") && (
+							<Col md={12} xs={24} className="YearsMenu">
+								<p className="alertMsg">
+									{alert && !yearOfStartingOperation && (
+										<>
+											{
+												currentLocal.registration
+													.pleaseChooseYearofStartingOperation
+											}
+										</>
+									)}
+								</p>
+								<Dropdown
+									overlay={yearsMenu}
+									trigger={["click"]}
+									className={
+										userTypeName ? "disableInput input-field" : "input-field"
+									}
+									disabled={
+										!individual && buyer !== currentLocal.registration.Supplier
+									}
+								>
+									<div>{currentLocal.registration.yearOfStartingOperation}</div>
+								</Dropdown>
+							</Col>
+						)}
+					{/* Volume of business */}
+					{userTypeName &&
+						userTypeName.includes("buyer") &&
+						!userTypeName.includes("employee") && (
+							<Col
+								md={12}
+								xs={24}
+								className={
+									userTypeName
+										? "disableInput input-field volumeOfBusiness mt-4"
+										: "input-field volumeOfBusiness mt-4"
+								}
+							>
+								<p className="alertMsg">
+									{alert && !volumeOfBusiness && (
+										<>
+											{currentLocal.registration.pleaseChooseVolumeOfBusiness}
+										</>
+									)}
+								</p>
+								<div>
+									<div className="f-16">
+										{currentLocal.registration.volumeOfBusiness}
+									</div>
+									<Radio.Group
+										onChange={onVolumeOfBusinessChange}
+										value={volumeOfBusiness}
+										className="volumeOfBusinessRadio f-14 d-flex justify-content-between"
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+									>
+										{volumeOfBusinessList.map((choice) => {
+											return <Radio value={choice.id}>{choice.name}</Radio>;
+										})}
+									</Radio.Group>
+								</div>
+							</Col>
+						)}
 					{admin === false && (
 						<Col md={12} xs={24}>
-							{/* <p className="alertMsg">
-                {(alert &&
-                  !fileName &&
-                  individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") ||
-                  buyer !== currentLocal.registration.Supplier ||
-                  (buyer !== currentLocal.registration.userType && (
-                    <>* Please fill commercialRecord </>
-                  ))}
-              </p> */}
 							<p className="alertMsg">
 								{alert &&
 									!fileName &&
