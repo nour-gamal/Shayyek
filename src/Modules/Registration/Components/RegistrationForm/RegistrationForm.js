@@ -762,7 +762,7 @@ function RegistrationForm() {
 							}}
 						/>
 					</Col>
-					{!userTypeName.includes("individual") && (
+					{userTypeName && !userTypeName.includes("individual") && (
 						<>
 							<Col md={12} xs={24}>
 								<p className="alertMsg">
@@ -812,14 +812,14 @@ function RegistrationForm() {
 							</Col>
 						</>
 					)}
-					{!userTypeName.includes("individual") && (
+					{userTypeName && !userTypeName.includes("individual") && (
 						<Col md={12} xs={24} className="companyName">
 							<p className="alertMsg">
 								{alert && !companyName && (
 									<>{currentLocal.registration.pleaseChooseCompanyName}</>
 								)}
 							</p>
-							{userTypeName.includes("employee") ? (
+							{userTypeName && userTypeName.includes("employee") ? (
 								<Dropdown
 									overlay={menu}
 									trigger={["click"]}
