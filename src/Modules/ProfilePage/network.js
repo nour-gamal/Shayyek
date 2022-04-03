@@ -128,6 +128,7 @@ export const GetImagePath = (
 	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
 };
 export const AddToMyFavVendors = (data, onSuccess, onFail, reqAuth = true) => {
-	const path = "api/Profile/AddToFavouriteVendors";
-	PostResource(path, data, onSuccess, onFail, reqAuth);
+	const { vendorId, isAdded } = data;
+	const path = `api/Profile/AddToFavouriteVendors?vendorId=${vendorId}&&isAdded=${isAdded}`;
+	PostResource(path, {}, onSuccess, onFail, reqAuth);
 };

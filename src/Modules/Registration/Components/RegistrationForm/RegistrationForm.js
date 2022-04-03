@@ -1061,18 +1061,21 @@ function RegistrationForm() {
 											<>{currentLocal.registration.pleaseChooseCompanyType}</>
 										)}
 									</p>
+
 									<Dropdown
 										overlay={companyTypeMenu}
 										trigger={["click"]}
 										className={
-											!individual &&
-											buyer !== currentLocal.registration.Supplier
+											userTypeName &&
+											!userTypeName.includes("individual") &&
+											!userTypeName.includes("supplier")
 												? "disableInput input-field"
 												: "input-field"
 										}
 										disabled={
-											!individual &&
-											buyer !== currentLocal.registration.Supplier
+											userTypeName &&
+											!userTypeName.includes("individual") &&
+											!userTypeName.includes("supplier")
 										}
 										onClick={(e) => {
 											setFoucesItem(e.target.id);
@@ -1094,8 +1097,9 @@ function RegistrationForm() {
 											{companyTypeName
 												? companyTypeName
 												: currentLocal.registration.organisationLegalStructure}
-											{!individual &&
-											buyer !== currentLocal.registration.Supplier ? (
+											{userTypeName &&
+											!userTypeName.includes("individual") &&
+											!userTypeName.includes("supplier") ? (
 												<img src={disableArrow} alt="disableArrow" />
 											) : (
 												<img

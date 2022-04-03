@@ -61,13 +61,14 @@ function Personalnfo({
 		AddToMyFavVendors(
 			data,
 			(success) => {
-				console.log(success);
+				if (success.success) {
+					updateIsAddedToVendors(!isAddedToVendors);
+				}
 			},
 			(fail) => {
 				console.log(fail);
 			}
 		);
-		updateIsAddedToVendors(!isAddedToVendors);
 	};
 	return (
 		<div className="PersonalInfo">
