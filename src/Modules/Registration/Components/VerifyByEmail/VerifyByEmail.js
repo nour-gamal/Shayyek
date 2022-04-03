@@ -8,8 +8,7 @@ import VerifyByMobile from "../VerifyByMobile/VerifyByMobile";
 function VerifyByEmail() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [isModalVisible, toggleModalVisible] = useState(false);
-	const mobileNuumberState = localStorage.getItem("mobileNumber");
-	const mobileNumber = mobileNuumberState.slice(8, 11);
+	const mobileNumber = 0;
 
 	return (
 		<section className="verifyByEmail">

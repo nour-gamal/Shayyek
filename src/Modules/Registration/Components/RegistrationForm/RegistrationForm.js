@@ -62,6 +62,7 @@ function RegistrationForm() {
 	const [countriesName, setCountriesName] = useState([]);
 	const [governmentName, setGovernmentName] = useState("");
 	const [countryName, setCountryName] = useState("");
+	const [countryId, setCountryId] = useState(null);
 	const [roleList, setRoleList] = useState([]);
 	const [roleName, setRoleName] = useState("");
 	const [accountList, setAccountList] = useState([[]]);
@@ -313,6 +314,7 @@ function RegistrationForm() {
 						key={countryIndex}
 						onClick={(e) => {
 							setCountryName(country.name);
+							setCountryId(country.id);
 							//   setCountryAlert(false);
 							//call api to know if company has admin or not (admin>res.data)
 							governmentList(
@@ -441,6 +443,7 @@ function RegistrationForm() {
 			CompanyName: companyName,
 			CompanyId: companyId,
 			RoleId: roleId,
+			countryId,
 			GovernmentId: governmentId,
 			CategoriesRequest: categoriesRequests,
 			Logo: compLogoPath,
@@ -1048,117 +1051,126 @@ function RegistrationForm() {
 							}}
 						/>
 					</Col>
-					{individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && !admin && (
-						<>
-							<Col md={12} xs={24} className="companyType">
-								<p className="alertMsg">
-									{alert && !companyTypeName && (
-										<>{currentLocal.registration.pleaseChooseCompanyType}</>
-									)}
-								</p>
-								<Dropdown
-									overlay={companyTypeMenu}
-									trigger={["click"]}
-									className={
-										!individual && buyer !== currentLocal.registration.Supplier
-											? "disableInput input-field"
-											: "input-field"
-									}
-									disabled={
-										!individual && buyer !== currentLocal.registration.Supplier
-									}
-									onClick={(e) => {
-										setFoucesItem(e.target.id);
-										setFocusIcon(true);
-									}}
-									onBlur={() => setFocusIcon(false)}
-								>
-									<a
-										href="/"
-										id="organisationLegalStructure"
+					{userTypeName &&
+						!userTypeName.includes("individual") &&
+						!userTypeName.includes("admin") && (
+							<>
+								<Col md={12} xs={24} className="companyType">
+									<p className="alertMsg">
+										{alert && !companyTypeName && (
+											<>{currentLocal.registration.pleaseChooseCompanyType}</>
+										)}
+									</p>
+									<Dropdown
+										overlay={companyTypeMenu}
+										trigger={["click"]}
 										className={
 											!individual &&
 											buyer !== currentLocal.registration.Supplier
-												? "disableInput ant-dropdown-link"
-												: "ant-dropdown-link"
+												? "disableInput input-field"
+												: "input-field"
 										}
-										onClick={(e) => e.preventDefault()}
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+										onClick={(e) => {
+											setFoucesItem(e.target.id);
+											setFocusIcon(true);
+										}}
+										onBlur={() => setFocusIcon(false)}
 									>
-										{companyTypeName
-											? companyTypeName
-											: currentLocal.registration.organisationLegalStructure}
-										{!individual &&
-										buyer !== currentLocal.registration.Supplier ? (
-											<img src={disableArrow} alt="disableArrow" />
-										) : (
-											<img
-												src={
-													focusIcon &&
-													foucesItem === "organisationLegalStructure"
-														? foucesArrow
-														: Arrow
-												}
-												alt="Arrow"
-											/>
+										<a
+											href="/"
+											id="organisationLegalStructure"
+											className={
+												!individual &&
+												buyer !== currentLocal.registration.Supplier
+													? "disableInput ant-dropdown-link"
+													: "ant-dropdown-link"
+											}
+											onClick={(e) => e.preventDefault()}
+										>
+											{companyTypeName
+												? companyTypeName
+												: currentLocal.registration.organisationLegalStructure}
+											{!individual &&
+											buyer !== currentLocal.registration.Supplier ? (
+												<img src={disableArrow} alt="disableArrow" />
+											) : (
+												<img
+													src={
+														focusIcon &&
+														foucesItem === "organisationLegalStructure"
+															? foucesArrow
+															: Arrow
+													}
+													alt="Arrow"
+												/>
+											)}
+										</a>
+									</Dropdown>
+								</Col>
+
+								<Col md={12} xs={24}>
+									<p className="alertMsg">
+										{alert && !companyPhoneNumber && (
+											<>
+												{currentLocal.registration.pleaseFillCompanyPhoneNumber}
+											</>
 										)}
-									</a>
-								</Dropdown>
-							</Col>
+									</p>
+									<input
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+										type="number"
+										className={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+												? "disableInput input-field"
+												: "input-field"
+										}
+										placeholder={currentLocal.registration.companyPhoneNumber}
+										id="companyPhoneNumber"
+										value={companyPhoneNumber}
+										onChange={(e) => {
+											setCompanyPhoneNumber(e.target.value);
+										}}
+									/>
+								</Col>
 
-							<Col md={12} xs={24}>
-								<p className="alertMsg">
-									{alert && !companyPhoneNumber && (
-										<>
-											{currentLocal.registration.pleaseFillCompanyPhoneNumber}
-										</>
-									)}
-								</p>
-								<input
-									disabled={
-										!individual && buyer !== currentLocal.registration.Supplier
-									}
-									type="number"
-									className={
-										!individual && buyer !== currentLocal.registration.Supplier
-											? "disableInput input-field"
-											: "input-field"
-									}
-									placeholder={currentLocal.registration.companyPhoneNumber}
-									id="companyPhoneNumber"
-									value={companyPhoneNumber}
-									onChange={(e) => {
-										setCompanyPhoneNumber(e.target.value);
-									}}
-								/>
-							</Col>
+								<Col md={12} xs={24}>
+									<p className="alertMsg"></p>
+									<input
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+										type="email"
+										className={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+												? "disableInput input-field"
+												: "input-field"
+										}
+										placeholder={currentLocal.registration.companyMail}
+										id="companyMail"
+										value={companyMail}
+										onChange={(e) => {
+											setCompanyMail(e.target.value);
+										}}
+									/>
+								</Col>
+							</>
+						)}
 
-							<Col md={12} xs={24}>
-								<p className="alertMsg"></p>
-								<input
-									disabled={
-										!individual && buyer !== currentLocal.registration.Supplier
-									}
-									type="email"
-									className={
-										!individual && buyer !== currentLocal.registration.Supplier
-											? "disableInput input-field"
-											: "input-field"
-									}
-									placeholder={currentLocal.registration.companyMail}
-									id="companyMail"
-									value={companyMail}
-									onChange={(e) => {
-										setCompanyMail(e.target.value);
-									}}
-								/>
-							</Col>
-						</>
-					)}
 					{!(
-						buyer === currentLocal.registration.Contractor ||
-						buyer === currentLocal.registration.Supplier ||
-						individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-						admin === true
+						userTypeName.includes("contractor") ||
+						userTypeName.includes("supplier") ||
+						userTypeName.includes("individual") ||
+						userTypeName.includes("admin")
 					) && (
 						<Col md={12} xs={24}>
 							<p className="alertMsg">
@@ -1192,9 +1204,10 @@ function RegistrationForm() {
 							/>
 						</Col>
 					)}
+
 					{!(
-						individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ||
-						admin === true
+						userTypeName.includes("individual") &&
+						userTypeName.includes("admin")
 					) && (
 						<Col md={12} xs={24}>
 							<p className="alertMsg"></p>
@@ -1465,16 +1478,15 @@ function RegistrationForm() {
 								</div>
 							</Col>
 						)}
-					{admin === false && (
+
+					{userTypeName.includes("admin") && (
 						<Col md={12} xs={24}>
 							<p className="alertMsg">
-								{alert &&
-									!fileName &&
-									individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" && (
-										<>
-											{currentLocal.registration.pleaseUploadCommercialRegister}
-										</>
-									)}
+								{alert && !fileName && userTypeName.includes("individual") && (
+									<>
+										{currentLocal.registration.pleaseUploadCommercialRegister}
+									</>
+								)}
 							</p>
 							<div
 								className={
@@ -1493,9 +1505,10 @@ function RegistrationForm() {
 									onChange={handleUploadCommercialRecord}
 									style={{ display: "none" }}
 								/>
+
 								<label htmlFor="file" className="w-100">
-									{buyer !== currentLocal.registration.Supplier &&
-									individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" ? (
+									{!userTypeName.includes("supplier") &&
+									userTypeName.includes("individual") ? (
 										<>
 											<div className="d-flex justify-content-between ">
 												<div>
@@ -1527,14 +1540,17 @@ function RegistrationForm() {
 							</div>
 						</Col>
 					)}
+
 					<Col md={12} xs={24} className={alert && !checked && "requird"}>
 						<p className="alertMsg"></p>
 						<Checkbox
 							disabled={
-								!individual && buyer !== currentLocal.registration.Supplier
+								!userTypeName.includes("individual") &&
+								!userTypeName.includes("supplier")
 							}
 							className={
-								!individual && buyer !== currentLocal.registration.Supplier
+								!userTypeName.includes("individual") &&
+								!userTypeName.includes("supplier")
 									? "disableFiled check-field"
 									: "check-field"
 							}
@@ -1551,11 +1567,13 @@ function RegistrationForm() {
 						<div>
 							<button
 								disabled={
-									!individual && buyer !== currentLocal.registration.Supplier
+									!userTypeName.includes("individual") &&
+									!userTypeName.includes("supplier")
 								}
 								type="submit"
 								className={
-									!individual && buyer !== currentLocal.registration.Supplier
+									!userTypeName.includes("individual") &&
+									!userTypeName.includes("supplier")
 										? "disable button-primary"
 										: "button-primary"
 								}

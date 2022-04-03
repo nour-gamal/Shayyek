@@ -32,7 +32,7 @@ function Personalnfo({
 	} = useSelector((state) => state.authorization);
 	const [isActive, setIsActive] = useState(profileDetails?.isActive);
 	const [isAddedToVendors, updateIsAddedToVendors] = useState(
-		profileDetails ? profileDetails.isAddedToVendors : false
+		profileDetails ? profileDetails.isFavourite : false
 	);
 	const [draftsModalVisible, updateDraftsModalVisible] = useState(false);
 	let authorTypeName = authorType(accountTypeId, userTypeId, roleId);
