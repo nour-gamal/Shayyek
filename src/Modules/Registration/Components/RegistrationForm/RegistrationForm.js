@@ -874,52 +874,59 @@ function RegistrationForm() {
 							)}
 						</Col>
 					)}
-					{((individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-						buyer === currentLocal.registration.Contractor) ||
-						(individual !== "436b77d6-bc46-4527-bc72-ec7fc595e16d" &&
-							!admin)) && (
-						<Col md={12} xs={24} className="work">
-							<p className="alertMsg">
-								{alert && categoriesRequests === null && (
-									<>{currentLocal.registration.PleaseChooseWork}</>
-								)}
-							</p>
-							<TreeContainer
-								data={treeOptions}
-								onChange={onTreeChange}
-								className={
-									!individual && buyer !== currentLocal.registration.Supplier
-										? "bootstrap-demo disableInput input-dropdown"
-										: "bootstrap-demo input-dropdown disabled"
-								}
-								disabled={
-									!individual && buyer !== currentLocal.registration.Supplier
-								}
-							/>
+					{(userTypeName &&
+						userTypeName.includes("individual") &&
+						userTypeName.includes("contractor")) ||
+						(userTypeName &&
+							!userTypeName.includes("individual") &&
+							!userTypeName.includes("admin") && (
+								<Col md={12} xs={24} className="work">
+									<p className="alertMsg">
+										{alert && categoriesRequests === null && (
+											<>{currentLocal.registration.PleaseChooseWork}</>
+										)}
+									</p>
+									<TreeContainer
+										data={treeOptions}
+										onChange={onTreeChange}
+										className={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+												? "bootstrap-demo disableInput input-dropdown"
+												: "bootstrap-demo input-dropdown disabled"
+										}
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+									/>
 
-							{!individual && buyer !== currentLocal.registration.Supplier ? (
-								<img
-									src={disableArrow}
-									alt="disableArrow"
-									className={
-										currentLanguageId === "46f4621f-9f96-46c7-a2d4-94b4c3393914"
-											? "rightIcon "
-											: "dropDownicon"
-									}
-								/>
-							) : (
-								<img
-									src={focusIcon ? foucesArrow : Arrow}
-									alt="Arrow"
-									className={
-										currentLanguageId === "46f4621f-9f96-46c7-a2d4-94b4c3393914"
-											? "rightIcon "
-											: "dropDownicon"
-									}
-								/>
-							)}
-						</Col>
-					)}
+									{!individual &&
+									buyer !== currentLocal.registration.Supplier ? (
+										<img
+											src={disableArrow}
+											alt="disableArrow"
+											className={
+												currentLanguageId ===
+												"46f4621f-9f96-46c7-a2d4-94b4c3393914"
+													? "rightIcon "
+													: "dropDownicon"
+											}
+										/>
+									) : (
+										<img
+											src={focusIcon ? foucesArrow : Arrow}
+											alt="Arrow"
+											className={
+												currentLanguageId ===
+												"46f4621f-9f96-46c7-a2d4-94b4c3393914"
+													? "rightIcon "
+													: "dropDownicon"
+											}
+										/>
+									)}
+								</Col>
+							))}
 					<Col md={12} xs={24}>
 						<p className="alertMsg">
 							{alert && !mobileNumber && (
@@ -1418,23 +1425,19 @@ function RegistrationForm() {
 					{userTypeName &&
 						userTypeName.includes("buyer") &&
 						!userTypeName.includes("employee") && (
-							<div>
-								<p className="alertMsg">
-									{alert && !volumeOfBusiness && (
-										<>
-											{currentLocal.registration.pleaseChooseVolumeOfBusiness}
-										</>
-									)}
-								</p>
-								<Col
-									md={12}
-									xs={24}
+							<Col md={12} xs={24}>
+								<div
 									className={
 										userTypeName
 											? "disableInput input-field volumeOfBusiness mt-4"
 											: "input-field volumeOfBusiness mt-4"
 									}
 								>
+									{alert && !volumeOfBusiness && (
+										<p className="alertMsg">
+											{currentLocal.registration.pleaseChooseVolumeOfBusiness}
+										</p>
+									)}
 									<div className="f-16">
 										{currentLocal.registration.volumeOfBusiness}
 									</div>
@@ -1451,8 +1454,8 @@ function RegistrationForm() {
 											return <Radio value={choice.id}>{choice.name}</Radio>;
 										})}
 									</Radio.Group>
-								</Col>
-							</div>
+								</div>
+							</Col>
 						)}
 					{admin === false && (
 						<Col md={12} xs={24}>
