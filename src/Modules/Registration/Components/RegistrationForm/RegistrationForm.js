@@ -1170,111 +1170,117 @@ function RegistrationForm() {
 							</>
 						)}
 
-					{!(
-						userTypeName.includes("contractor") ||
-						userTypeName.includes("supplier") ||
-						userTypeName.includes("individual") ||
-						userTypeName.includes("admin")
-					) && (
-						<Col md={12} xs={24}>
-							<p className="alertMsg">
-								{(alert && !companyWebsite && !individual) ||
-									buyer === currentLocal.registration.buyer ||
-									(buyer !== currentLocal.registration.userType && (
-										<>{currentLocal.registration.pleaseFillCompanyWebsite}</>
-									))}
-							</p>
-							<input
-								disabled={
-									!individual && buyer !== currentLocal.registration.Supplier
-								}
-								type="text"
-								name="myfile"
-								className={
-									!individual && buyer !== currentLocal.registration.Supplier
-										? "disableInput input-field"
-										: "input-field"
-								}
-								placeholder={
-									!individual || buyer === currentLocal.registration.buyer
-										? currentLocal.registration.companyWebsiteOptional
-										: currentLocal.registration.companyWebsite
-								}
-								id="companyWebsite"
-								value={companyWebsite}
-								onChange={(e) => {
-									setcompanyWebsite(e.target.value);
-								}}
-							/>
-						</Col>
-					)}
-
-					{!(
-						userTypeName.includes("individual") &&
-						userTypeName.includes("admin")
-					) && (
-						<Col md={12} xs={24}>
-							<p className="alertMsg"></p>
-							{companyLogoErr && (
-								<div className="text-red">
-									{currentLocal.registration.uploadValidImage}
-								</div>
-							)}
-
-							<div
-								className={
-									!individual && buyer !== currentLocal.registration.Supplier
-										? "disableInput input-field d-flex justify-content-between align-items-center"
-										: "input-field d-flex justify-content-between align-items-center "
-								}
-								onClick={() => {
-									// setChangeBorder(true)
-								}}
-							>
+					{userTypeName &&
+						!(
+							userTypeName.includes("contractor") ||
+							userTypeName.includes("supplier") ||
+							userTypeName.includes("individual") ||
+							userTypeName.includes("admin")
+						) && (
+							<Col md={12} xs={24}>
+								<p className="alertMsg">
+									{(alert && !companyWebsite && !individual) ||
+										buyer === currentLocal.registration.buyer ||
+										(buyer !== currentLocal.registration.userType && (
+											<>{currentLocal.registration.pleaseFillCompanyWebsite}</>
+										))}
+								</p>
 								<input
 									disabled={
 										!individual && buyer !== currentLocal.registration.Supplier
 									}
-									type="file"
-									id="files"
-									accept="image/png, image/gif, image/jpeg"
-									value={uploadCompanyLogo}
-									onChange={handleAddCompanyLogo}
-									style={{ display: "none" }}
+									type="text"
+									name="myfile"
+									className={
+										!individual && buyer !== currentLocal.registration.Supplier
+											? "disableInput input-field"
+											: "input-field"
+									}
+									placeholder={
+										!individual || buyer === currentLocal.registration.buyer
+											? currentLocal.registration.companyWebsiteOptional
+											: currentLocal.registration.companyWebsite
+									}
+									id="companyWebsite"
+									value={companyWebsite}
+									onChange={(e) => {
+										setcompanyWebsite(e.target.value);
+									}}
 								/>
-								<label htmlFor="files" className="w-100">
-									{!individual &&
-									buyer !== currentLocal.registration.Supplier ? (
-										<>
-											<div className="d-flex justify-content-between ">
-												<div>
-													{logoName
-														? logoName
-														: currentLocal.registration.uploadCompanyLogo}
+							</Col>
+						)}
+
+					{userTypeName &&
+						!(
+							userTypeName.includes("individual") &&
+							userTypeName.includes("admin")
+						) && (
+							<Col md={12} xs={24}>
+								<p className="alertMsg"></p>
+								{companyLogoErr && (
+									<div className="text-red">
+										{currentLocal.registration.uploadValidImage}
+									</div>
+								)}
+
+								<div
+									className={
+										!individual && buyer !== currentLocal.registration.Supplier
+											? "disableInput input-field d-flex justify-content-between align-items-center"
+											: "input-field d-flex justify-content-between align-items-center "
+									}
+									onClick={() => {
+										// setChangeBorder(true)
+									}}
+								>
+									<input
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+										type="file"
+										id="files"
+										accept="image/png, image/gif, image/jpeg"
+										value={uploadCompanyLogo}
+										onChange={handleAddCompanyLogo}
+										style={{ display: "none" }}
+									/>
+									<label htmlFor="files" className="w-100">
+										{!individual &&
+										buyer !== currentLocal.registration.Supplier ? (
+											<>
+												<div className="d-flex justify-content-between ">
+													<div>
+														{logoName
+															? logoName
+															: currentLocal.registration.uploadCompanyLogo}
+													</div>
+													<div>
+														<img
+															src={disapleUploadImg}
+															alt="disapleUploadImg"
+														/>
+													</div>
 												</div>
-												<div>
-													<img src={disapleUploadImg} alt="disapleUploadImg" />
+											</>
+										) : (
+											<>
+												<div className="d-flex justify-content-between align-items-center">
+													<div>
+														{logoName
+															? logoName
+															: currentLocal.registration.uploadCompanyLogo}
+													</div>
+													<div>
+														<img src={uploadImg} alt="uploadImg" />
+													</div>
 												</div>
-											</div>
-										</>
-									) : (
-										<>
-											<div className="d-flex justify-content-between align-items-center">
-												<div>
-													{logoName
-														? logoName
-														: currentLocal.registration.uploadCompanyLogo}
-												</div>
-												<div>
-													<img src={uploadImg} alt="uploadImg" />
-												</div>
-											</div>
-										</>
-									)}
-								</label>
-							</div>
-						</Col>
-					)}
+											</>
+										)}
+									</label>
+								</div>
+							</Col>
+						)}
 
 					{userTypeName &&
 						(!userTypeName.includes("admin") ||
@@ -1483,14 +1489,17 @@ function RegistrationForm() {
 							</Col>
 						)}
 
-					{userTypeName.includes("admin") && (
+					{userTypeName && userTypeName.includes("admin") && (
 						<Col md={12} xs={24}>
 							<p className="alertMsg">
-								{alert && !fileName && userTypeName.includes("individual") && (
-									<>
-										{currentLocal.registration.pleaseUploadCommercialRegister}
-									</>
-								)}
+								{alert &&
+									!fileName &&
+									userTypeName &&
+									userTypeName.includes("individual") && (
+										<>
+											{currentLocal.registration.pleaseUploadCommercialRegister}
+										</>
+									)}
 							</p>
 							<div
 								className={
@@ -1511,7 +1520,8 @@ function RegistrationForm() {
 								/>
 
 								<label htmlFor="file" className="w-100">
-									{!userTypeName.includes("supplier") &&
+									{userTypeName &&
+									!userTypeName.includes("supplier") &&
 									userTypeName.includes("individual") ? (
 										<>
 											<div className="d-flex justify-content-between ">
@@ -1548,16 +1558,19 @@ function RegistrationForm() {
 					<Col md={12} xs={24} className={alert && !checked && "requird"}>
 						<p className="alertMsg"></p>
 						<Checkbox
-							disabled={
-								!userTypeName.includes("individual") &&
-								!userTypeName.includes("supplier")
-							}
-							className={
-								!userTypeName.includes("individual") &&
-								!userTypeName.includes("supplier")
-									? "disableFiled check-field"
-									: "check-field"
-							}
+							// disabled={
+							// 	userTypeName &&
+							// 	!userTypeName.includes("individual") &&
+							// 	!userTypeName.includes("supplier")
+							// }
+							// className={
+							// 	userTypeName &&
+							// 	!userTypeName.includes("individual") &&
+							// 	!userTypeName.includes("supplier")
+							// 		? "disableFiled check-field"
+							// 		: "check-field"
+							// }
+							className="check-field"
 							id="acceptTerms"
 							onChange={(e) => {
 								toggleChecked(e.target.checked);
@@ -1570,17 +1583,20 @@ function RegistrationForm() {
 					<div className="button my-3">
 						<div>
 							<button
-								disabled={
-									!userTypeName.includes("individual") &&
-									!userTypeName.includes("supplier")
-								}
+								// disabled={
+								// 	userTypeName &&
+								// 	!userTypeName.includes("individual") &&
+								// 	!userTypeName.includes("supplier")
+								// }
 								type="submit"
-								className={
-									!userTypeName.includes("individual") &&
-									!userTypeName.includes("supplier")
-										? "disable button-primary"
-										: "button-primary"
-								}
+								// className={
+								// 	userTypeName &&
+								// 	!userTypeName.includes("individual") &&
+								// 	!userTypeName.includes("supplier")
+								// 		? "disable button-primary"
+								// 		: "button-primary"
+								// }
+								className="button-primary"
 							>
 								{currentLocal.registration.register}
 							</button>

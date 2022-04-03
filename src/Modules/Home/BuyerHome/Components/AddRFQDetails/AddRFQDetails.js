@@ -27,7 +27,7 @@ function AddRFQDetails() {
 	const { currentLocal, currentLanguageId } = useSelector(
 		(state) => state.currentLocal
 	);
-	const [tenderType, setTenderType] = useState("public");
+	const [tenderType, setTenderType] = useState("private");
 	const { Option } = Select;
 
 	useEffect(() => {
@@ -47,9 +47,9 @@ function AddRFQDetails() {
 	return (
 		<div className="pps ppe my-4 addRFQDetails">
 			<div className="d-flex justify-content-between rfq-info-container">
-				<div className="flex-1">
-					<div className="d-flex  my-4 field-container flex-1">
-						<label className="f-14 fw-500 d-flex align-items-start mx-2">
+				<div className="flex-1 mx-2">
+					<div className="d-flex  my-4 field-container flex-1 justify-content-between">
+						<label className="f-14 fw-500 d-flex align-items-start">
 							<span>{currentLocal.buyerHome.projectName}</span>
 							<span className="errorSign">*</span>
 						</label>
@@ -63,10 +63,9 @@ function AddRFQDetails() {
 							placeholder={currentLocal.buyerHome.typeProjectName}
 						/>
 					</div>
-					<div className="d-flex  my-4 field-container">
-						<label className="f-14 fw-500 d-flex align-items-start mx-2">
+					<div className="d-flex  my-4 field-container justify-content-between">
+						<label className="f-14 fw-500 d-flex align-items-start">
 							<span>{currentLocal.buyerHome.projectLocation}</span>
-
 							<span className="errorSign">*</span>
 						</label>
 						<Select
@@ -83,12 +82,12 @@ function AddRFQDetails() {
 							))}
 						</Select>
 					</div>
-					<div className="d-flex my-4 field-container">
-						<label className="f-14 fw-500 d-flex align-items-start mx-2">
+					<div className="d-flex my-4 field-container justify-content-between">
+						<label className="f-14 fw-500 d-flex align-items-start ">
 							<span>{currentLocal.buyerHome.projectOwner}</span>
 							<span className="errorSign">*</span>
 						</label>
-						<div className="d-flex flex-column">
+						<div>
 							<Input
 								type="text"
 								className="input-field"
@@ -115,14 +114,14 @@ function AddRFQDetails() {
 						</div>
 					</div>
 				</div>
-				<div className="flex-1">
-					<div className="d-flex my-4 field-container">
-						<label className="f-14 fw-500 d-flex align-items-start mx-2">
+				<div className="flex-1 mx-2">
+					<div className="d-flex my-4 field-container justify-content-between">
+						<label className="f-14 fw-500 d-flex align-items-start">
 							<span>{currentLocal.buyerHome.projectConsultant}</span>
 
 							<span className="errorSign">*</span>
 						</label>
-						<div className="d-flex flex-column">
+						<div className="d-flex flex-column flex-1">
 							<Input
 								type="text"
 								className="input-field"
@@ -148,13 +147,13 @@ function AddRFQDetails() {
 							</Checkbox>
 						</div>
 					</div>
-					<div className="d-flex my-4 field-container">
-						<label className="f-14 fw-500 d-flex align-items-start mx-2">
+					<div className="d-flex my-4 field-container justify-content-between flex-1">
+						<label className="f-14 fw-500 d-flex align-items-start">
 							<span>{currentLocal.buyerHome.projectContractor}</span>
 
 							<span className="errorSign">*</span>
 						</label>
-						<div className="d-flex flex-column">
+						<div className="d-flex flex-column flex-1 ">
 							<Input
 								type="text"
 								className="input-field"
@@ -187,10 +186,10 @@ function AddRFQDetails() {
 					onChange={(e) => setTenderType(e.target.value)}
 					value={tenderType}
 				>
-					<Radio value={"public"}>{currentLocal.buyerHome.publicTender}</Radio>
 					<Radio value={"private"} className="mx-4">
 						{currentLocal.buyerHome.privateTender}
 					</Radio>
+					<Radio value={"public"}>{currentLocal.buyerHome.publicTender}</Radio>
 				</Radio.Group>
 				{tenderType === "public" ? <PublicTender /> : <PrivateTender />}
 			</div>

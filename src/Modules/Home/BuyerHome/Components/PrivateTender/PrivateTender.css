@@ -1,0 +1,9 @@
+
+@media (max-width: 769px) {
+	.privateTender {
+		flex-direction: column;
+	}
+	.privateTender .orTitle {
+		text-align: center;
+	}
+}
