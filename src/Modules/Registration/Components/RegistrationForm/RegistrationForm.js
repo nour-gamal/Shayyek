@@ -1258,136 +1258,144 @@ function RegistrationForm() {
 							</div>
 						</Col>
 					)}
-					{((admin === false &&
-						individual === "d23f2c1e-1ed3-4066-96d6-66a970e39a7f") ||
-						(buyer === currentLocal.registration.Contractor &&
-							individual === "436b77d6-bc46-4527-bc72-ec7fc595e16d") ||
-						buyer === currentLocal.registration.Supplier) && (
-						<>
-							<Col md={12} xs={24} className="country">
-								<p className="alertMsg">
-									{alert && !countryName && (
-										<>{currentLocal.registration.pleaseFillCountry}</>
-									)}
-								</p>
-								<Dropdown
-									overlay={countryMenu}
-									trigger={["click"]}
-									className={
-										!individual && buyer !== currentLocal.registration.Supplier
-											? "disableInput input-field"
-											: "input-field"
-									}
-									disabled={
-										!individual && buyer !== currentLocal.registration.Supplier
-									}
-									onClick={(e) => {
-										setFoucesItem(e.target.id);
-										setFocusIcon(true);
-									}}
-									onBlur={() => setFocusIcon(false)}
-								>
-									<a
-										id="country"
-										href="/"
-										className="ant-dropdown-link"
-										onClick={(e) => e.preventDefault()}
-									>
-										{countryName
-											? countryName
-											: currentLocal.registration.country}
-										{!individual &&
-										buyer !== currentLocal.registration.Supplier ? (
-											<img src={disableArrow} alt="disableArrow" />
-										) : (
-											<img
-												src={
-													focusIcon && foucesItem === "country"
-														? foucesArrow
-														: Arrow
-												}
-												alt="Arrow"
-											/>
-										)}
-									</a>
-								</Dropdown>
-							</Col>
-							<Col md={12} xs={24} className="government">
-								<p className="alertMsg">
-									{alert && !governmentName && (
-										<>{currentLocal.registration.pleaseChooseGovernorate}</>
-									)}
-								</p>
-								<Dropdown
-									overlay={governmentMenu}
-									trigger={["click"]}
-									className={
-										!individual && buyer !== currentLocal.registration.Supplier
-											? "disableInput input-field"
-											: "input-field"
-									}
-									disabled={
-										!individual && buyer !== currentLocal.registration.Supplier
-									}
-									onClick={(e) => {
-										setFoucesItem(e.target.id);
-										setFocusIcon(true);
-									}}
-									onBlur={() => setFocusIcon(false)}
-								>
-									<a
-										id="government"
-										href="/"
-										className="ant-dropdown-link"
-										onClick={(e) => e.preventDefault()}
-									>
-										{governmentName
-											? governmentName
-											: currentLocal.registration.governorate}
-										{!individual &&
-										buyer !== currentLocal.registration.Supplier ? (
-											<img src={disableArrow} alt="disableArrow" />
-										) : (
-											// <img src={Arrow} alt="Arrow" />
-											<img
-												src={
-													focusIcon && foucesItem === "government"
-														? foucesArrow
-														: Arrow
-												}
-												alt="Arrow"
-											/>
-										)}
-									</a>
-								</Dropdown>
-							</Col>
 
-							<Col md={12} xs={24}>
-								<p className="alertMsg">
-									{alert && !address && (
-										<>{currentLocal.registration.pleaseFillAddress}</>
-									)}
-								</p>{" "}
-								<input
-									disabled={
-										!individual && buyer !== currentLocal.registration.Supplier
-									}
-									type="text"
-									className={
-										!individual && buyer !== currentLocal.registration.Supplier
-											? "disableInput input-field"
-											: "input-field"
-									}
-									placeholder={currentLocal.registration.address}
-									id="address"
-									value={address}
-									onChange={(e) => {
-										setAddress(e.target.value);
-									}}
-								/>
-							</Col>
-						</>
-					)}
+					{userTypeName &&
+						(!userTypeName.includes("admin") ||
+							userTypeName.includes("company") ||
+							(userTypeName.includes("contractor") &&
+								userTypeName.includes("individual")) ||
+							userTypeName.includes("supplier")) && (
+							<>
+								<Col md={12} xs={24} className="country">
+									<p className="alertMsg">
+										{alert && !countryName && (
+											<>{currentLocal.registration.pleaseFillCountry}</>
+										)}
+									</p>
+									<Dropdown
+										overlay={countryMenu}
+										trigger={["click"]}
+										className={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+												? "disableInput input-field"
+												: "input-field"
+										}
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+										onClick={(e) => {
+											setFoucesItem(e.target.id);
+											setFocusIcon(true);
+										}}
+										onBlur={() => setFocusIcon(false)}
+									>
+										<a
+											id="country"
+											href="/"
+											className="ant-dropdown-link"
+											onClick={(e) => e.preventDefault()}
+										>
+											{countryName
+												? countryName
+												: currentLocal.registration.country}
+											{!individual &&
+											buyer !== currentLocal.registration.Supplier ? (
+												<img src={disableArrow} alt="disableArrow" />
+											) : (
+												<img
+													src={
+														focusIcon && foucesItem === "country"
+															? foucesArrow
+															: Arrow
+													}
+													alt="Arrow"
+												/>
+											)}
+										</a>
+									</Dropdown>
+								</Col>
+								<Col md={12} xs={24} className="government">
+									<p className="alertMsg">
+										{alert && !governmentName && (
+											<>{currentLocal.registration.pleaseChooseGovernorate}</>
+										)}
+									</p>
+									<Dropdown
+										overlay={governmentMenu}
+										trigger={["click"]}
+										className={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+												? "disableInput input-field"
+												: "input-field"
+										}
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+										onClick={(e) => {
+											setFoucesItem(e.target.id);
+											setFocusIcon(true);
+										}}
+										onBlur={() => setFocusIcon(false)}
+									>
+										<a
+											id="government"
+											href="/"
+											className="ant-dropdown-link"
+											onClick={(e) => e.preventDefault()}
+										>
+											{governmentName
+												? governmentName
+												: currentLocal.registration.governorate}
+											{!individual &&
+											buyer !== currentLocal.registration.Supplier ? (
+												<img src={disableArrow} alt="disableArrow" />
+											) : (
+												// <img src={Arrow} alt="Arrow" />
+												<img
+													src={
+														focusIcon && foucesItem === "government"
+															? foucesArrow
+															: Arrow
+													}
+													alt="Arrow"
+												/>
+											)}
+										</a>
+									</Dropdown>
+								</Col>
+
+								<Col md={12} xs={24}>
+									<p className="alertMsg">
+										{alert && !address && (
+											<>{currentLocal.registration.pleaseFillAddress}</>
+										)}
+									</p>{" "}
+									<input
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+										type="text"
+										className={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+												? "disableInput input-field"
+												: "input-field"
+										}
+										placeholder={currentLocal.registration.address}
+										id="address"
+										value={address}
+										onChange={(e) => {
+											setAddress(e.target.value);
+										}}
+									/>
+								</Col>
+							</>
+						)}
 					{userTypeName &&
 						(userTypeName.includes("supplier") ||
 							userTypeName.includes("contractor")) &&
