@@ -449,7 +449,7 @@ function RegistrationForm() {
 			CategoriesRequest: categoriesRequests,
 			Logo: compLogoPath,
 			commercialRecord: comRecPath,
-			yearOfStartingOperation: parseInt(yearOfStartingOperation),
+			yearOfStartingOperation: yearOfStartingOperation,
 			volumeOfWork: volumeOfBusiness,
 		};
 		register(
@@ -519,7 +519,12 @@ function RegistrationForm() {
 				!companyName ||
 				!checked ||
 				!volumeOfBusiness ||
-				!isValidMobile
+				!isValidMobile ||
+				!fileName ||
+				!companyPhoneNumber ||
+				!companyTypeId ||
+				!roleName ||
+				!categoriesRequests
 			) {
 				setAlert(true);
 			} else {
@@ -561,7 +566,7 @@ function RegistrationForm() {
 				setAlert(false);
 				submitRegister();
 			}
-		} else if (userTypeName === "contractor_company_admin") {
+		} else if (userTypeName === "contractor_company_employee") {
 			if (
 				!firstName ||
 				!lastName ||
@@ -571,7 +576,6 @@ function RegistrationForm() {
 				!confirmPassword ||
 				!companyName ||
 				!checked ||
-				!yearOfStartingOperation ||
 				!isValidMobile
 			) {
 				setAlert(true);
@@ -579,7 +583,7 @@ function RegistrationForm() {
 				setAlert(false);
 				submitRegister();
 			}
-		} else if (userTypeName === "contractor_company_employee") {
+		} else if (userTypeName === "contractor_company_admin") {
 			if (
 				!firstName ||
 				!lastName ||
@@ -597,7 +601,9 @@ function RegistrationForm() {
 				!address ||
 				!checked ||
 				!categoriesRequests ||
-				!isValidMobile
+				!isValidMobile ||
+				!yearOfStartingOperation
+
 				// !work
 			) {
 				setAlert(true);
@@ -878,59 +884,54 @@ function RegistrationForm() {
 							)}
 						</Col>
 					)}
-					{(userTypeName &&
-						userTypeName.includes("individual") &&
-						userTypeName.includes("contractor")) ||
-						(userTypeName &&
-							!userTypeName.includes("individual") &&
-							userTypeName.includes("admin") && (
-								<Col md={12} xs={24} className="work">
-									<p className="alertMsg">
-										{alert && categoriesRequests === null && (
-											<>{currentLocal.registration.PleaseChooseWork}</>
-										)}
-									</p>
-									<TreeContainer
-										data={treeOptions}
-										onChange={onTreeChange}
+					{userTypeName &&
+						(userTypeName.includes("admin") ||
+							(userTypeName.includes("individual") &&
+								userTypeName.includes("contractor"))) && (
+							<Col md={12} xs={24} className="work">
+								<p className="alertMsg">
+									{alert && categoriesRequests === null && (
+										<>{currentLocal.registration.PleaseChooseWork}</>
+									)}
+								</p>
+								<TreeContainer
+									data={treeOptions}
+									onChange={onTreeChange}
+									className={
+										!individual && buyer !== currentLocal.registration.Supplier
+											? "bootstrap-demo disableInput input-dropdown"
+											: "bootstrap-demo input-dropdown disabled"
+									}
+									disabled={
+										!individual && buyer !== currentLocal.registration.Supplier
+									}
+								/>
+
+								{!individual && buyer !== currentLocal.registration.Supplier ? (
+									<img
+										src={disableArrow}
+										alt="disableArrow"
 										className={
-											!individual &&
-											buyer !== currentLocal.registration.Supplier
-												? "bootstrap-demo disableInput input-dropdown"
-												: "bootstrap-demo input-dropdown disabled"
-										}
-										disabled={
-											!individual &&
-											buyer !== currentLocal.registration.Supplier
+											currentLanguageId ===
+											"46f4621f-9f96-46c7-a2d4-94b4c3393914"
+												? "rightIcon "
+												: "dropDownicon"
 										}
 									/>
-
-									{!individual &&
-									buyer !== currentLocal.registration.Supplier ? (
-										<img
-											src={disableArrow}
-											alt="disableArrow"
-											className={
-												currentLanguageId ===
-												"46f4621f-9f96-46c7-a2d4-94b4c3393914"
-													? "rightIcon "
-													: "dropDownicon"
-											}
-										/>
-									) : (
-										<img
-											src={focusIcon ? foucesArrow : Arrow}
-											alt="Arrow"
-											className={
-												currentLanguageId ===
-												"46f4621f-9f96-46c7-a2d4-94b4c3393914"
-													? "rightIcon "
-													: "dropDownicon"
-											}
-										/>
-									)}
-								</Col>
-							))}
+								) : (
+									<img
+										src={focusIcon ? foucesArrow : Arrow}
+										alt="Arrow"
+										className={
+											currentLanguageId ===
+											"46f4621f-9f96-46c7-a2d4-94b4c3393914"
+												? "rightIcon "
+												: "dropDownicon"
+										}
+									/>
+								)}
+							</Col>
+						)}
 					<Col md={12} xs={24}>
 						<p className="alertMsg">
 							{alert && !isValidMobile && (
@@ -1164,12 +1165,7 @@ function RegistrationForm() {
 					{userTypeName &&
 						userTypeName.includes("buyer") &&
 						userTypeName.includes("admin") && (
-							<Col md={12} xs={24}>
-								<p className="alertMsg">
-									{alert && !companyWebsite && (
-										<>{currentLocal.registration.pleaseFillCompanyWebsite}</>
-									)}
-								</p>
+							<Col md={12} xs={24} className="my-4">
 								<input
 									disabled={
 										!individual && buyer !== currentLocal.registration.Supplier

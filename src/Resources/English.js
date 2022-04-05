@@ -59,6 +59,7 @@ export const en = {
 		pleaseChooseYourRole: "* Please Choose Your Role  ",
 		pleaseChooseYearofStartingOperation:
 			"* Please Choose year of starting operation",
+		pleaseFillCompanyPhoneNumber: "* Please fill company phone number",
 		pleaseChooseVolumeOfBusiness: "* Please Choose Volume of Business",
 		uploadValidImage: "Please upload a vaild image",
 		regSuccessTitle: "Successfully Registered",

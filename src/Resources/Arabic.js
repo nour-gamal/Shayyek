@@ -58,6 +58,7 @@ export const ar = {
 		pleaseChooseYourRole: "* برجاء اختار الوظيفة  ",
 		pleaseChooseYearofStartingOperation: "* برجاء اختر سنه بدايه العمل  ",
 		pleaseChooseVolumeOfBusiness: "* برجاء اختر حجم العمل  ",
+		pleaseFillCompanyPhoneNumber: "* برجاء ادخال رقم الشركه",
 		uploadValidImage: "من فضلك اضف صوره صحيحه",
 		regSuccessTitle: "تم التسجيل بنجاح",
 		checkMail: "افحص بريدك الالكتروني لتوثيق الحساب",
