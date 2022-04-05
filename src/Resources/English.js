@@ -46,7 +46,7 @@ export const en = {
 		pleaseFillLastName: "* Please fill last name",
 		pleaseChooseCompanyName: "* Please Choose Company name",
 		PleaseChooseWork: "* Please Choose Work",
-		pleaseFillmobileNumber: "* Please Fill mobile number",
+		pleaseFillmobileNumber: "* Please enter valid phone number",
 		pleaseFillEmail: "* please Fill Email",
 		pleaseFillPassword: "* please Fill Password",
 		pleaseFillConfirmPassword: "* Please Fill Confirm Password",

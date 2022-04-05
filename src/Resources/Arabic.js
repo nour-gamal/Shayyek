@@ -45,7 +45,7 @@ export const ar = {
 		pleaseFillLastName: "* برجاء املئ الاسم الاخير",
 		pleaseChooseCompanyName: "* برجاء اختار اسم الشركة",
 		pleaseChooseWork: "* برجاء اختار مجالات العمل ",
-		pleaseFillmobileNumber: "* برجاء املئ رقم الهاتف ",
+		pleaseFillmobileNumber: "* برجاء املئ رقم الهاتف صحيح ",
 		pleaseFillEmail: "* برجاء املئ  البريد الالكتروني ",
 		pleaseFillPassword: "* برجاء املئ كلمة السر ",
 		pleaseFillConfirmPassword: "* برجاء املئ تأكيد كلمة السر ",

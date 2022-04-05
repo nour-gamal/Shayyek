@@ -449,7 +449,7 @@ function RegistrationForm() {
 			CategoriesRequest: categoriesRequests,
 			Logo: compLogoPath,
 			commercialRecord: comRecPath,
-			yearOfStartingOperation: yearOfStartingOperation,
+			yearOfStartingOperation: parseInt(yearOfStartingOperation),
 			volumeOfWork: volumeOfBusiness,
 		};
 		register(
@@ -506,7 +506,6 @@ function RegistrationForm() {
 	};
 	const isValidMobile =
 		mobileNumber.length === 11 && mobileNumber.startsWith("01");
-	console.log(isValidMobile);
 	const sendData = (e) => {
 		e.preventDefault();
 		if (userTypeName === "buyer_company_admin") {
@@ -537,11 +536,7 @@ function RegistrationForm() {
 				!confirmPassword ||
 				!companyName ||
 				!checked ||
-				!fileName ||
-				!companyPhoneNumber ||
-				!companyTypeId ||
 				!roleName ||
-				!categoriesRequests ||
 				!isValidMobile
 			) {
 				setAlert(true);
@@ -661,14 +656,7 @@ function RegistrationForm() {
 				!email ||
 				!password ||
 				!confirmPassword ||
-				!companyTypeId ||
-				!companyPhoneNumber ||
-				!countryName ||
-				!governmentName ||
-				!address ||
-				!fileName ||
 				!checked ||
-				!categoriesRequests ||
 				!isValidMobile
 			) {
 				setAlert(true);
@@ -1172,13 +1160,9 @@ function RegistrationForm() {
 								</Col>
 								<Col md={12} xs={24}>
 									<p className="alertMsg">
-										{(alert && !companyWebsite && !individual) ||
-											buyer === currentLocal.registration.buyer ||
-											(buyer !== currentLocal.registration.userType && (
-												<>
-													{currentLocal.registration.pleaseFillCompanyWebsite}
-												</>
-											))}
+										{alert && !companyWebsite && (
+											<>{currentLocal.registration.pleaseFillCompanyWebsite}</>
+										)}
 									</p>
 									<input
 										disabled={
@@ -1208,82 +1192,73 @@ function RegistrationForm() {
 							</>
 						)}
 
-					{userTypeName &&
-						!(
-							userTypeName.includes("individual") &&
-							userTypeName.includes("admin")
-						) && (
-							<Col md={12} xs={24}>
-								<p className="alertMsg"></p>
-								{companyLogoErr && (
-									<div className="text-red">
-										{currentLocal.registration.uploadValidImage}
-									</div>
-								)}
-
-								<div
-									className={
-										!individual && buyer !== currentLocal.registration.Supplier
-											? "disableInput input-field d-flex justify-content-between align-items-center"
-											: "input-field d-flex justify-content-between align-items-center "
-									}
-									onClick={() => {
-										// setChangeBorder(true)
-									}}
-								>
-									<input
-										disabled={
-											!individual &&
-											buyer !== currentLocal.registration.Supplier
-										}
-										type="file"
-										id="files"
-										accept="image/png, image/gif, image/jpeg"
-										value={uploadCompanyLogo}
-										onChange={handleAddCompanyLogo}
-										style={{ display: "none" }}
-									/>
-									<label htmlFor="files" className="w-100">
-										{!individual &&
-										buyer !== currentLocal.registration.Supplier ? (
-											<>
-												<div className="d-flex justify-content-between ">
-													<div>
-														{logoName
-															? logoName
-															: currentLocal.registration.uploadCompanyLogo}
-													</div>
-													<div>
-														<img
-															src={disapleUploadImg}
-															alt="disapleUploadImg"
-														/>
-													</div>
-												</div>
-											</>
-										) : (
-											<>
-												<div className="d-flex justify-content-between align-items-center">
-													<div>
-														{logoName
-															? logoName
-															: currentLocal.registration.uploadCompanyLogo}
-													</div>
-													<div>
-														<img src={uploadImg} alt="uploadImg" />
-													</div>
-												</div>
-											</>
-										)}
-									</label>
+					{userTypeName && userTypeName.includes("admin") && (
+						<Col md={12} xs={24}>
+							<p className="alertMsg"></p>
+							{companyLogoErr && (
+								<div className="text-red">
+									{currentLocal.registration.uploadValidImage}
 								</div>
-							</Col>
-						)}
+							)}
+
+							<div
+								className={
+									!individual && buyer !== currentLocal.registration.Supplier
+										? "disableInput input-field d-flex justify-content-between align-items-center"
+										: "input-field d-flex justify-content-between align-items-center "
+								}
+								onClick={() => {
+									// setChangeBorder(true)
+								}}
+							>
+								<input
+									disabled={
+										!individual && buyer !== currentLocal.registration.Supplier
+									}
+									type="file"
+									id="files"
+									accept="image/png, image/gif, image/jpeg"
+									value={uploadCompanyLogo}
+									onChange={handleAddCompanyLogo}
+									style={{ display: "none" }}
+								/>
+								<label htmlFor="files" className="w-100">
+									{!individual &&
+									buyer !== currentLocal.registration.Supplier ? (
+										<>
+											<div className="d-flex justify-content-between ">
+												<div>
+													{logoName
+														? logoName
+														: currentLocal.registration.uploadCompanyLogo}
+												</div>
+												<div>
+													<img src={disapleUploadImg} alt="disapleUploadImg" />
+												</div>
+											</div>
+										</>
+									) : (
+										<>
+											<div className="d-flex justify-content-between align-items-center">
+												<div>
+													{logoName
+														? logoName
+														: currentLocal.registration.uploadCompanyLogo}
+												</div>
+												<div>
+													<img src={uploadImg} alt="uploadImg" />
+												</div>
+											</div>
+										</>
+									)}
+								</label>
+							</div>
+						</Col>
+					)}
 
 					{userTypeName &&
-						(userTypeName.includes("contractor") ||
-							(userTypeName.includes("supplier") &&
-								userTypeName.includes("admin"))) && (
+						(userTypeName.includes("individual") ||
+							userTypeName.includes("admin")) && (
 							<>
 								<Col md={12} xs={24} className="country">
 									<p className="alertMsg">
@@ -1450,71 +1425,80 @@ function RegistrationForm() {
 						)}
 					{/* Volume of business */}
 
-					{userTypeName && userTypeName.includes("admin") && (
-						<Col md={12} xs={24}>
-							<p className="alertMsg">
-								{alert &&
-									!fileName &&
-									userTypeName &&
-									userTypeName.includes("individual") && (
-										<>
-											{currentLocal.registration.pleaseUploadCommercialRegister}
-										</>
-									)}
-							</p>
-							<div
-								className={
-									!individual && buyer !== currentLocal.registration.Supplier
-										? "disableInput input-field d-flex justify-content-between align-items-center"
-										: "input-field d-flex justify-content-between align-items-center"
-								}
-							>
-								<input
-									disabled={
+					{userTypeName &&
+						(userTypeName.includes("admin") ||
+							userTypeName.includes("individual")) && (
+							<Col md={12} xs={24}>
+								<p className="alertMsg">
+									{alert &&
+										!fileName &&
+										userTypeName &&
+										userTypeName.includes("individual") && (
+											<>
+												{
+													currentLocal.registration
+														.pleaseUploadCommercialRegister
+												}
+											</>
+										)}
+								</p>
+								<div
+									className={
 										!individual && buyer !== currentLocal.registration.Supplier
+											? "disableInput input-field d-flex justify-content-between align-items-center"
+											: "input-field d-flex justify-content-between align-items-center"
 									}
-									type="file"
-									id="file"
-									value={commercialRecord}
-									onChange={handleUploadCommercialRecord}
-									style={{ display: "none" }}
-								/>
+								>
+									<input
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+										type="file"
+										id="file"
+										value={commercialRecord}
+										onChange={handleUploadCommercialRecord}
+										style={{ display: "none" }}
+									/>
 
-								<label htmlFor="file" className="w-100">
-									{userTypeName &&
-									!userTypeName.includes("supplier") &&
-									userTypeName.includes("individual") ? (
-										<>
-											<div className="d-flex justify-content-between ">
-												<div>
-													{fileName
-														? fileName
-														: currentLocal.registration
-																.commercialRecordOptional}
+									<label htmlFor="file" className="w-100">
+										{userTypeName &&
+										!userTypeName.includes("supplier") &&
+										userTypeName.includes("individual") ? (
+											<>
+												<div className="d-flex justify-content-between ">
+													<div>
+														{fileName
+															? fileName
+															: currentLocal.registration
+																	.commercialRecordOptional}
+													</div>
+													<div>
+														<img
+															src={disapleUploadImg}
+															alt="disapleUploadImg"
+														/>
+													</div>
 												</div>
-												<div>
-													<img src={disapleUploadImg} alt="disapleUploadImg" />
+											</>
+										) : (
+											<>
+												<div className="d-flex justify-content-between align-items-center">
+													<div>
+														{fileName
+															? fileName
+															: currentLocal.registration.commercialRegister}
+													</div>
+													<div>
+														<img src={uploadImg} alt="uploadImg" />{" "}
+													</div>
 												</div>
-											</div>
-										</>
-									) : (
-										<>
-											<div className="d-flex justify-content-between align-items-center">
-												<div>
-													{fileName
-														? fileName
-														: currentLocal.registration.commercialRegister}
-												</div>
-												<div>
-													<img src={uploadImg} alt="uploadImg" />{" "}
-												</div>
-											</div>
-										</>
-									)}
-								</label>
-							</div>
-						</Col>
-					)}
+											</>
+										)}
+									</label>
+								</div>
+							</Col>
+						)}
 					{userTypeName &&
 						userTypeName.includes("buyer") &&
 						!userTypeName.includes("employee") && (
