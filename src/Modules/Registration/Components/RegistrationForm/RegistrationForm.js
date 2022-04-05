@@ -1158,40 +1158,42 @@ function RegistrationForm() {
 										}}
 									/>
 								</Col>
-								<Col md={12} xs={24}>
-									<p className="alertMsg">
-										{alert && !companyWebsite && (
-											<>{currentLocal.registration.pleaseFillCompanyWebsite}</>
-										)}
-									</p>
-									<input
-										disabled={
-											!individual &&
-											buyer !== currentLocal.registration.Supplier
-										}
-										type="text"
-										name="myfile"
-										className={
-											!individual &&
-											buyer !== currentLocal.registration.Supplier
-												? "disableInput input-field"
-												: "input-field"
-										}
-										placeholder={
-											!individual || buyer === currentLocal.registration.buyer
-												? currentLocal.registration.companyWebsiteOptional
-												: currentLocal.registration.companyWebsite
-										}
-										id="companyWebsite"
-										value={companyWebsite}
-										onChange={(e) => {
-											setcompanyWebsite(e.target.value);
-										}}
-									/>
-								</Col>
 							</>
 						)}
 
+					{userTypeName &&
+						userTypeName.includes("buyer") &&
+						userTypeName.includes("admin") && (
+							<Col md={12} xs={24}>
+								<p className="alertMsg">
+									{alert && !companyWebsite && (
+										<>{currentLocal.registration.pleaseFillCompanyWebsite}</>
+									)}
+								</p>
+								<input
+									disabled={
+										!individual && buyer !== currentLocal.registration.Supplier
+									}
+									type="text"
+									name="myfile"
+									className={
+										!individual && buyer !== currentLocal.registration.Supplier
+											? "disableInput input-field"
+											: "input-field"
+									}
+									placeholder={
+										!individual || buyer === currentLocal.registration.buyer
+											? currentLocal.registration.companyWebsiteOptional
+											: currentLocal.registration.companyWebsite
+									}
+									id="companyWebsite"
+									value={companyWebsite}
+									onChange={(e) => {
+										setcompanyWebsite(e.target.value);
+									}}
+								/>
+							</Col>
+						)}
 					{userTypeName && userTypeName.includes("admin") && (
 						<Col md={12} xs={24}>
 							<p className="alertMsg"></p>
