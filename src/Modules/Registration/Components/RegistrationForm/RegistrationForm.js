@@ -75,7 +75,6 @@ function RegistrationForm() {
 	const [fileName, setFileName] = useState("");
 	const [treeOptions, updateTreeOptions] = useState([]);
 	const [foucesItem, setFoucesItem] = useState("");
-	const [mobileState, setMobileState] = useState("");
 	const [categoriesRequests, setcategoriesRequests] = useState(null);
 	const [emailState, setEmailState] = useState("");
 	const [comRecPath, updateComRecPath] = useState(null);
@@ -96,11 +95,13 @@ function RegistrationForm() {
 		const userTypeNameVar = authorType(individual, userTypeId, roleId);
 		updateUserTypeName(userTypeNameVar);
 	}, [individual, userTypeId, roleId]);
+
 	const onSelectUserType = (val) => {
 		setTimeout(() => {
 			setBuyer(val);
 		}, 100);
 	};
+
 	const onVolumeOfBusinessChange = (e) => {
 		updateVolumeOfBusiness(e.target.value);
 	};
@@ -458,7 +459,6 @@ function RegistrationForm() {
 					setRedirect(true);
 				} else if (!success.success && success.data.errorStatus === 2) {
 					//Mobile usedBefore
-					setMobileState(success.message);
 				} else if (!success.success && success.data.errorStatus === 1) {
 					//Mobile usedBefore
 					setEmailState(success.message);
@@ -504,6 +504,9 @@ function RegistrationForm() {
 			}
 		);
 	};
+	const isValidMobile =
+		mobileNumber.length === 11 && mobileNumber.startsWith("01");
+	console.log(isValidMobile);
 	const sendData = (e) => {
 		e.preventDefault();
 		if (userTypeName === "buyer_company_admin") {
@@ -516,7 +519,8 @@ function RegistrationForm() {
 				!confirmPassword ||
 				!companyName ||
 				!checked ||
-				!volumeOfBusiness
+				!volumeOfBusiness ||
+				!isValidMobile
 			) {
 				setAlert(true);
 			} else {
@@ -537,7 +541,8 @@ function RegistrationForm() {
 				!companyPhoneNumber ||
 				!companyTypeId ||
 				!roleName ||
-				!categoriesRequests
+				!categoriesRequests ||
+				!isValidMobile
 			) {
 				setAlert(true);
 			} else {
@@ -553,7 +558,8 @@ function RegistrationForm() {
 				!password ||
 				!confirmPassword ||
 				!checked ||
-				!volumeOfBusiness
+				!volumeOfBusiness ||
+				!isValidMobile
 			) {
 				setAlert(true);
 			} else {
@@ -570,7 +576,8 @@ function RegistrationForm() {
 				!confirmPassword ||
 				!companyName ||
 				!checked ||
-				!yearOfStartingOperation
+				!yearOfStartingOperation ||
+				!isValidMobile
 			) {
 				setAlert(true);
 			} else {
@@ -594,7 +601,8 @@ function RegistrationForm() {
 				!governmentName ||
 				!address ||
 				!checked ||
-				!categoriesRequests
+				!categoriesRequests ||
+				!isValidMobile
 				// !work
 			) {
 				setAlert(true);
@@ -614,7 +622,8 @@ function RegistrationForm() {
 				!countryName ||
 				!governmentName ||
 				!checked ||
-				!yearOfStartingOperation
+				!yearOfStartingOperation ||
+				!isValidMobile
 			) {
 				setAlert(true);
 			} else {
@@ -634,7 +643,8 @@ function RegistrationForm() {
 				!countryName ||
 				!governmentName ||
 				!checked ||
-				!yearOfStartingOperation
+				!yearOfStartingOperation ||
+				!isValidMobile
 			) {
 				setAlert(true);
 			} else {
@@ -658,7 +668,8 @@ function RegistrationForm() {
 				!address ||
 				!fileName ||
 				!checked ||
-				!categoriesRequests
+				!categoriesRequests ||
+				!isValidMobile
 			) {
 				setAlert(true);
 			} else {
@@ -667,6 +678,7 @@ function RegistrationForm() {
 			}
 		}
 	};
+
 	if (redirect) {
 		return <Redirect to="/verifyByEmail" />;
 	}
@@ -707,6 +719,7 @@ function RegistrationForm() {
 									}}
 									disabled={buyer === currentLocal.registration.userType}
 									value={account.id}
+									checked={individual === account.id}
 								>
 									{account.name}
 								</Radio>
@@ -778,8 +791,8 @@ function RegistrationForm() {
 									trigger={["click"]}
 									className={
 										!individual && buyer !== currentLocal.registration.Supplier
-											? "disableInput input-dropdown"
-											: "input-dropdown"
+											? "disableInput bootstrap-demo input-dropdown"
+											: "input-dropdown bootstrap-demo"
 									}
 									disabled={
 										!individual && buyer !== currentLocal.registration.Supplier
@@ -882,7 +895,7 @@ function RegistrationForm() {
 						userTypeName.includes("contractor")) ||
 						(userTypeName &&
 							!userTypeName.includes("individual") &&
-							!userTypeName.includes("admin") && (
+							userTypeName.includes("admin") && (
 								<Col md={12} xs={24} className="work">
 									<p className="alertMsg">
 										{alert && categoriesRequests === null && (
@@ -932,10 +945,9 @@ function RegistrationForm() {
 							))}
 					<Col md={12} xs={24}>
 						<p className="alertMsg">
-							{alert && !mobileNumber && (
+							{alert && !isValidMobile && (
 								<>{currentLocal.registration.pleaseFillmobileNumber}</>
 							)}
-							{mobileState && mobileState}
 						</p>
 						<input
 							className={
@@ -952,7 +964,6 @@ function RegistrationForm() {
 							}
 							onChange={(e) => {
 								setMobileNumber(e.target.value);
-								setMobileState("");
 							}}
 						/>
 						<Checkbox
@@ -1053,7 +1064,7 @@ function RegistrationForm() {
 					</Col>
 					{userTypeName &&
 						!userTypeName.includes("individual") &&
-						!userTypeName.includes("admin") && (
+						userTypeName.includes("admin") && (
 							<>
 								<Col md={12} xs={24} className="companyType">
 									<p className="alertMsg">
@@ -1066,17 +1077,9 @@ function RegistrationForm() {
 										overlay={companyTypeMenu}
 										trigger={["click"]}
 										className={
-											userTypeName &&
-											!userTypeName.includes("individual") &&
-											!userTypeName.includes("supplier")
-												? "disableInput input-field"
-												: "input-field"
+											!individual ? "disableInput input-field" : "input-field"
 										}
-										disabled={
-											userTypeName &&
-											!userTypeName.includes("individual") &&
-											!userTypeName.includes("supplier")
-										}
+										disabled={!individual}
 										onClick={(e) => {
 											setFoucesItem(e.target.id);
 											setFocusIcon(true);
@@ -1167,47 +1170,42 @@ function RegistrationForm() {
 										}}
 									/>
 								</Col>
+								<Col md={12} xs={24}>
+									<p className="alertMsg">
+										{(alert && !companyWebsite && !individual) ||
+											buyer === currentLocal.registration.buyer ||
+											(buyer !== currentLocal.registration.userType && (
+												<>
+													{currentLocal.registration.pleaseFillCompanyWebsite}
+												</>
+											))}
+									</p>
+									<input
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+										type="text"
+										name="myfile"
+										className={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+												? "disableInput input-field"
+												: "input-field"
+										}
+										placeholder={
+											!individual || buyer === currentLocal.registration.buyer
+												? currentLocal.registration.companyWebsiteOptional
+												: currentLocal.registration.companyWebsite
+										}
+										id="companyWebsite"
+										value={companyWebsite}
+										onChange={(e) => {
+											setcompanyWebsite(e.target.value);
+										}}
+									/>
+								</Col>
 							</>
-						)}
-
-					{userTypeName &&
-						!(
-							userTypeName.includes("contractor") ||
-							userTypeName.includes("supplier") ||
-							userTypeName.includes("individual") ||
-							userTypeName.includes("admin")
-						) && (
-							<Col md={12} xs={24}>
-								<p className="alertMsg">
-									{(alert && !companyWebsite && !individual) ||
-										buyer === currentLocal.registration.buyer ||
-										(buyer !== currentLocal.registration.userType && (
-											<>{currentLocal.registration.pleaseFillCompanyWebsite}</>
-										))}
-								</p>
-								<input
-									disabled={
-										!individual && buyer !== currentLocal.registration.Supplier
-									}
-									type="text"
-									name="myfile"
-									className={
-										!individual && buyer !== currentLocal.registration.Supplier
-											? "disableInput input-field"
-											: "input-field"
-									}
-									placeholder={
-										!individual || buyer === currentLocal.registration.buyer
-											? currentLocal.registration.companyWebsiteOptional
-											: currentLocal.registration.companyWebsite
-									}
-									id="companyWebsite"
-									value={companyWebsite}
-									onChange={(e) => {
-										setcompanyWebsite(e.target.value);
-									}}
-								/>
-							</Col>
 						)}
 
 					{userTypeName &&
@@ -1283,11 +1281,9 @@ function RegistrationForm() {
 						)}
 
 					{userTypeName &&
-						(!userTypeName.includes("admin") ||
-							userTypeName.includes("company") ||
-							(userTypeName.includes("contractor") &&
-								userTypeName.includes("individual")) ||
-							userTypeName.includes("supplier")) && (
+						(userTypeName.includes("contractor") ||
+							(userTypeName.includes("supplier") &&
+								userTypeName.includes("admin"))) && (
 							<>
 								<Col md={12} xs={24} className="country">
 									<p className="alertMsg">
@@ -1453,41 +1449,6 @@ function RegistrationForm() {
 							</Col>
 						)}
 					{/* Volume of business */}
-					{userTypeName &&
-						userTypeName.includes("buyer") &&
-						!userTypeName.includes("employee") && (
-							<Col md={12} xs={24}>
-								<div
-									className={
-										userTypeName
-											? "disableInput input-field volumeOfBusiness mt-4"
-											: "input-field volumeOfBusiness mt-4"
-									}
-								>
-									{alert && !volumeOfBusiness && (
-										<p className="alertMsg">
-											{currentLocal.registration.pleaseChooseVolumeOfBusiness}
-										</p>
-									)}
-									<div className="f-16">
-										{currentLocal.registration.volumeOfBusiness}
-									</div>
-									<Radio.Group
-										onChange={onVolumeOfBusinessChange}
-										value={volumeOfBusiness}
-										className="volumeOfBusinessRadio f-14 d-flex justify-content-between"
-										disabled={
-											!individual &&
-											buyer !== currentLocal.registration.Supplier
-										}
-									>
-										{volumeOfBusinessList.map((choice) => {
-											return <Radio value={choice.id}>{choice.name}</Radio>;
-										})}
-									</Radio.Group>
-								</div>
-							</Col>
-						)}
 
 					{userTypeName && userTypeName.includes("admin") && (
 						<Col md={12} xs={24}>
@@ -1554,6 +1515,41 @@ function RegistrationForm() {
 							</div>
 						</Col>
 					)}
+					{userTypeName &&
+						userTypeName.includes("buyer") &&
+						!userTypeName.includes("employee") && (
+							<Col md={12} xs={24}>
+								<div
+									className={
+										userTypeName
+											? "disableInput input-field volumeOfBusiness mt-4"
+											: "input-field volumeOfBusiness mt-4"
+									}
+								>
+									{alert && !volumeOfBusiness && (
+										<p className="alertMsg">
+											{currentLocal.registration.pleaseChooseVolumeOfBusiness}
+										</p>
+									)}
+									<div className="f-16">
+										{currentLocal.registration.volumeOfBusiness}
+									</div>
+									<Radio.Group
+										onChange={onVolumeOfBusinessChange}
+										value={volumeOfBusiness}
+										className="volumeOfBusinessRadio f-14 d-flex justify-content-between"
+										disabled={
+											!individual &&
+											buyer !== currentLocal.registration.Supplier
+										}
+									>
+										{volumeOfBusinessList.map((choice) => {
+											return <Radio value={choice.id}>{choice.name}</Radio>;
+										})}
+									</Radio.Group>
+								</div>
+							</Col>
+						)}
 
 					<Col md={12} xs={24} className={alert && !checked && "requird"}>
 						<p className="alertMsg"></p>
@@ -1583,20 +1579,11 @@ function RegistrationForm() {
 					<div className="button my-3">
 						<div>
 							<button
-								// disabled={
-								// 	userTypeName &&
-								// 	!userTypeName.includes("individual") &&
-								// 	!userTypeName.includes("supplier")
-								// }
+								disabled={!individual}
 								type="submit"
-								// className={
-								// 	userTypeName &&
-								// 	!userTypeName.includes("individual") &&
-								// 	!userTypeName.includes("supplier")
-								// 		? "disable button-primary"
-								// 		: "button-primary"
-								// }
-								className="button-primary"
+								className={
+									!individual ? "disable button-primary" : "button-primary"
+								}
 							>
 								{currentLocal.registration.register}
 							</button>
