@@ -340,6 +340,8 @@ export const en = {
 		inviteByEmail: "Invite by E-Mail",
 		enterEmail: "Enter Email",
 		or: "Or",
+		inviteByWhatsapp: "Invite by WhatsApp number",
+		inviteByWhatsappNote: "You will select the numbers after posting the RFQ",
 		selectFromVendors: "Select from favourite vendors",
 		selectFromMyFavVendors: "Select from my favourite vendors",
 		invite: "Invite",

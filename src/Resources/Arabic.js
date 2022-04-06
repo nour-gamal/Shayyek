@@ -284,6 +284,8 @@ export const ar = {
 		inviteByEmail: "ارسل دعوه بالايميل",
 		enterEmail: "ادخل الايميل",
 		or: "او",
+		inviteByWhatsapp: "ارسل دعوه بواتساب",
+		inviteByWhatsappNote: "سوف تتمكن من اختيار الارقام بعد نشر طلب عرض السعر",
 		selectFromVendors: "اختر من الباعه المفضلين",
 		selectFromMyFavVendors: "اختر من بائعيني المفضلين",
 		invite: "ارسل دعوه",

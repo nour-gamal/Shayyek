@@ -8,16 +8,24 @@
 }
 
 
-@media (max-width: 768px) {
-	.privateTender>div {
-		flex-direction: column;
+.privateTender .privateTender-container {
+	margin-top: 55px !important;
+}
+.privateTender .inviteByWhatsappNote{
+	color:#707070
+}
+
+@media (max-width:768px){
+	.privateTender>div,.privateTender .inviteByEmailContainer,.privateTender .selectFavVendorsContainer {
+		flex-direction: column !important;
 	}
+
 	.privateTender .orTitle {
 		text-align: center;
+		margin: 20px 0;
 	}
-}
-@media (min-width:769px){
 	.privateTender .privateTender-container {
-		margin-top: 55px !important;
+		margin-top: 20px !important;
 	}
+
 }

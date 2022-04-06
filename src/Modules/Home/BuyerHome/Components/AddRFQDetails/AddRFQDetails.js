@@ -16,6 +16,7 @@ function AddRFQDetails() {
 		name: "",
 		makeNotVisibleToVendors: false,
 	});
+	const [revealPrices, updateRevealPrices] = useState(false);
 	const [projectConsultant, updateProjectConsultant] = useState({
 		name: "",
 		makeNotVisibleToVendors: false,
@@ -190,13 +191,21 @@ function AddRFQDetails() {
 					onChange={(e) => setTenderType(e.target.value)}
 					value={tenderType}
 				>
-					<Radio value={"private"} className="mx-4">
+					<Radio value={"private"} className="mx-2">
 						{currentLocal.buyerHome.privateTender}
 					</Radio>
 					<Radio value={"public"}>{currentLocal.buyerHome.publicTender}</Radio>
 				</Radio.Group>
 				{tenderType === "public" ? <PublicTender /> : <PrivateTender />}
 			</div>
+			<Checkbox
+				className="m-4"
+				onChange={() => {
+					updateRevealPrices(!revealPrices);
+				}}
+			>
+				{currentLocal.buyerHome.revealPrices}
+			</Checkbox>
 
 			{/* <div className="d-flex">
 				<div className="flex-1">
