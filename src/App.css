@@ -465,6 +465,13 @@ thead:hover {
 	margin: 5px;
 	cursor: pointer;
 }
+.orangeCapsule {
+	background: #fd978e;
+	padding: 10px;
+	border-radius: 60px;
+	color: #fff;
+}
+
 .quantityCount {
 	width: 71px;
 	height: 32px;

@@ -1,9 +1,14 @@
 
-@media (max-width: 769px) {
+@media (max-width: 768px) {
 	.privateTender {
 		flex-direction: column;
 	}
 	.privateTender .orTitle {
 		text-align: center;
+	}
+}
+@media (min-width:769px){
+	.privateTender .inviteByEmailContainer{
+		margin-top: 55px !important;
 	}
 }
