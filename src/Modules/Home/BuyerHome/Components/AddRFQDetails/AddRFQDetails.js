@@ -48,46 +48,50 @@ function AddRFQDetails() {
 		<div className="pps ppe my-4 addRFQDetails">
 			<div className="d-flex justify-content-between rfq-info-container">
 				<div className="flex-1 mx-2">
-					<div className="d-flex  my-4 field-container flex-1 justify-content-between">
-						<label className="f-14 fw-500 d-flex align-items-start">
+					<div className="d-flex  my-4 field-container flex-1">
+						<label className="f-14 fw-500 d-flex align-items-start label">
 							<span>{currentLocal.buyerHome.projectName}</span>
 							<span className="errorSign">*</span>
 						</label>
-						<Input
-							type="text"
-							className="input-field"
-							value={projectName}
-							onChange={(e) => {
-								updateProjectName(e.target.value);
-							}}
-							placeholder={currentLocal.buyerHome.typeProjectName}
-						/>
+						<div className="d-flex flex-1">
+							<Input
+								type="text"
+								className="input-field"
+								value={projectName}
+								onChange={(e) => {
+									updateProjectName(e.target.value);
+								}}
+								placeholder={currentLocal.buyerHome.typeProjectName}
+							/>
+						</div>
 					</div>
-					<div className="d-flex  my-4 field-container justify-content-between">
-						<label className="f-14 fw-500 d-flex align-items-start">
+					<div className="d-flex  my-4 field-container">
+						<label className="f-14 fw-500 d-flex align-items-start label">
 							<span>{currentLocal.buyerHome.projectLocation}</span>
 							<span className="errorSign">*</span>
 						</label>
-						<Select
-							placeholder={currentLocal.buyerHome.selectFromCities}
-							className="input-field"
-							onChange={(val) => {
-								updateSelectedGov(val);
-							}}
-						>
-							{govList.map((gov) => (
-								<Option value={gov.id} key={gov.id}>
-									{gov.name}
-								</Option>
-							))}
-						</Select>
+						<div className="d-flex flex-1">
+							<Select
+								placeholder={currentLocal.buyerHome.selectFromCities}
+								className="input-field"
+								onChange={(val) => {
+									updateSelectedGov(val);
+								}}
+							>
+								{govList.map((gov) => (
+									<Option value={gov.id} key={gov.id}>
+										{gov.name}
+									</Option>
+								))}
+							</Select>
+						</div>
 					</div>
-					<div className="d-flex my-4 field-container justify-content-between">
-						<label className="f-14 fw-500 d-flex align-items-start ">
+					<div className="d-flex my-4 field-container">
+						<label className="f-14 fw-500 d-flex align-items-start label ">
 							<span>{currentLocal.buyerHome.projectOwner}</span>
 							<span className="errorSign">*</span>
 						</label>
-						<div>
+						<div className="flex-1">
 							<Input
 								type="text"
 								className="input-field"
@@ -115,8 +119,8 @@ function AddRFQDetails() {
 					</div>
 				</div>
 				<div className="flex-1 mx-2">
-					<div className="d-flex my-4 field-container justify-content-between">
-						<label className="f-14 fw-500 d-flex align-items-start">
+					<div className="d-flex my-4 field-container">
+						<label className="f-14 fw-500 d-flex align-items-start label">
 							<span>{currentLocal.buyerHome.projectConsultant}</span>
 
 							<span className="errorSign">*</span>
@@ -147,8 +151,8 @@ function AddRFQDetails() {
 							</Checkbox>
 						</div>
 					</div>
-					<div className="d-flex my-4 field-container justify-content-between flex-1">
-						<label className="f-14 fw-500 d-flex align-items-start">
+					<div className="d-flex my-4 field-container flex-1">
+						<label className="f-14 fw-500 d-flex align-items-start label">
 							<span>{currentLocal.buyerHome.projectContractor}</span>
 
 							<span className="errorSign">*</span>
@@ -193,6 +197,24 @@ function AddRFQDetails() {
 				</Radio.Group>
 				{tenderType === "public" ? <PublicTender /> : <PrivateTender />}
 			</div>
+
+			{/* <div className="d-flex">
+				<div className="flex-1">
+					<div className="my-2 d-flex">
+						<label>test111</label>
+						<input type="text" className="input-field" />
+					</div>
+					<div className="my-2 d-flex">
+						<label>tes</label>
+						<input type="text" className="input-field" />
+					</div>
+				</div>
+				<div className="flex-1">
+					<div>
+						<input type="text" className="input-field" />
+					</div>
+				</div>
+			</div> */}
 		</div>
 	);
 }

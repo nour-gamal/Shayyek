@@ -1,13 +1,12 @@
-.addRFQDetails .input-field {
-	margin: 0 5px;
-	width:50%;
+.addRFQDetails .label{
+	width:130px;
 }
 .addRFQDetails .errorSign {
 	color: red;
 }
-.addRFQDetails .field-container>label{
+/* .addRFQDetails .field-container>label{
 	max-width: 25%;
-}
+} */
 .addRFQDetails .ant-select-selector {
 	border: none !important;
 	box-shadow: none !important;
@@ -19,7 +18,7 @@
 	background-color: #f5f5f5;
 	padding: 18px;
 }
-@media (max-width: 576px) {
+@media (max-width: 768px) {
 	.addRFQDetails .rfq-info-container {
 		flex-direction: column;
 	}
