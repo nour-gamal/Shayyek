@@ -1,6 +1,15 @@
+.privateTender .addMailSumbitBtn{
+	display: block;
+	border: none;
+	outline: none;
+}
+.privateTender .capsulesContainer{
+	width: 30%;
+}
+
 
 @media (max-width: 768px) {
-	.privateTender {
+	.privateTender>div {
 		flex-direction: column;
 	}
 	.privateTender .orTitle {
@@ -8,7 +17,7 @@
 	}
 }
 @media (min-width:769px){
-	.privateTender .inviteByEmailContainer{
+	.privateTender .privateTender-container {
 		margin-top: 55px !important;
 	}
 }

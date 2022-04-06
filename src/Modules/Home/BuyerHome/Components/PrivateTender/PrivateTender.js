@@ -29,61 +29,66 @@ function PrivateTender() {
 		updateEmail("");
 	};
 	return (
-		<div className="privateTender d-flex justify-content-between align-items-center">
-			<div className="d-flex  my-4 inviteByEmailContainer">
-				<label className="f-14 fw-500 d-flex align-items-start my-2 f-14">
-					<span>{currentLocal.buyerHome.inviteByEmail}</span>
-				</label>
-				<div className="mx-2">
-					<Input
-						type="email"
-						placeholder={currentLocal.buyerHome.enterEmail}
-						value={email}
-						onChange={(e) => {
-							updateEmail(e.target.value);
-						}}
-						style={{ width: "240px" }}
-					/>
-					<div
-						className="my-2 cursorPointer"
-						onClick={() => {
+		<div className="privateTender">
+			<div className="d-flex justify-content-between privateTender-container">
+				<div className="d-flex  my-4 inviteByEmailContainer">
+					<label className="f-14 fw-500 d-flex align-items-start my-2 f-14">
+						<span>{currentLocal.buyerHome.inviteByEmail}</span>
+					</label>
+					<form
+						className="mx-2"
+						onSubmit={(e) => {
+							e.preventDefault();
 							handleAddNewEmails(email);
 						}}
 					>
-						<img src={PlusCircle} alt="PlusCircle" />
-						<span className="mx-2">{currentLocal.buyerHome.addNewEmail}</span>
-					</div>
-
-					<div className="capsulesContainer">
-						{emailList.map((email) => (
-							<span className="orangeCapsule">{email}</span>
-						))}
-					</div>
+						<Input
+							type="email"
+							placeholder={currentLocal.buyerHome.enterEmail}
+							value={email}
+							onChange={(e) => {
+								updateEmail(e.target.value);
+							}}
+							style={{ width: "240px" }}
+						/>
+						<button
+							type={"submit"}
+							className="my-2 cursorPointer addMailSumbitBtn"
+						>
+							<img src={PlusCircle} alt="PlusCircle" />
+							<span className="mx-2">{currentLocal.buyerHome.addNewEmail}</span>
+						</button>
+						<div className="capsulesContainer" style={{ width: "300px" }}>
+							{emailList.map((email) => (
+								<span className="orangeCapsule m-2">{email}</span>
+							))}
+						</div>
+					</form>
 				</div>
-			</div>
-			<span className="f-18 fw-500  orTitle mx-2">
-				{currentLocal.buyerHome.or}
-			</span>
-			<div className="d-flex   my-4 align-items-center">
-				<label className="f-14 fw-500 d-flex align-items-start mx-2 f-14">
-					<span>{currentLocal.buyerHome.selectFromVendors}</span>
-				</label>
+				<span className="f-18 fw-500  orTitle mx-2 my-4">
+					{currentLocal.buyerHome.or}
+				</span>
+				<div className="d-flex   my-4">
+					<label className="f-14 fw-500 d-flex align-items-start mx-2 f-14">
+						<span>{currentLocal.buyerHome.selectFromVendors}</span>
+					</label>
 
-				<Select
-					placeholder={currentLocal.buyerHome.selectFromMyFavVendors}
-					onChange={(val) => {
-						updateFavVendor(val);
-					}}
-					mode="multiple"
-					allowClear
-					style={{ width: "240px" }}
-				>
-					{favVendorsList.map((vendor) => (
-						<Option value={vendor.userId} key={vendor.userId}>
-							{vendor.email}
-						</Option>
-					))}
-				</Select>
+					<Select
+						placeholder={currentLocal.buyerHome.selectFromMyFavVendors}
+						onChange={(val) => {
+							updateFavVendor(val);
+						}}
+						mode="multiple"
+						allowClear
+						style={{ width: "240px" }}
+					>
+						{favVendorsList.map((vendor) => (
+							<Option value={vendor.userId} key={vendor.userId}>
+								{vendor.email}
+							</Option>
+						))}
+					</Select>
+				</div>
 			</div>
 		</div>
 	);
