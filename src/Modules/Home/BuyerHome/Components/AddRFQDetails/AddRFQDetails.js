@@ -45,7 +45,6 @@ function AddRFQDetails() {
 			}
 		);
 	}, [currentLanguageId]);
-
 	const getPublicTenderData = (data) => {
 		console.log(data);
 	};
