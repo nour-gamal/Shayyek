@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Checkbox, Radio } from "antd";
 import "./PublicTender.css";
-function PublicTender() {
+function PublicTender({ getPublicTenderData }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [verifiedByShayyek, updateVerifiedByShayyek] = useState(false);
 	const [sameVendorLocation, updateSameVendorLocation] = useState(false);
@@ -10,9 +10,37 @@ function PublicTender() {
 		false
 	);
 	const [moreThan5Years, updateMoreThan5Years] = useState(false);
+	const [publishOrFilter, updatePublishOrFilter] = useState("publish");
+
+	useEffect(() => {
+		let data = {
+			isPublishToSuppliersNetwork: publishOrFilter === "publish",
+			publicTenderFilter: {
+				verifiedByShayyek: verifiedByShayyek,
+				relevantVolumeOfWork: relevantVolumeOfBusiness,
+				plus5YearsOfExperience: moreThan5Years,
+				sameVendorLocation: sameVendorLocation,
+			},
+		};
+		getPublicTenderData(data);
+	}, [
+		getPublicTenderData,
+		publishOrFilter,
+		moreThan5Years,
+		relevantVolumeOfBusiness,
+		sameVendorLocation,
+		verifiedByShayyek,
+	]);
+
 	return (
 		<div className="publicTender my-4">
-			<Radio.Group name="radiogroup" defaultValue={"publish"}>
+			<Radio.Group
+				name="radiogroup"
+				defaultValue={"publish"}
+				onChange={(e) => {
+					updatePublishOrFilter(e.target.value);
+				}}
+			>
 				<Radio value={"publish"}>
 					{currentLocal.buyerHome.publishToNetwork}
 				</Radio>
@@ -30,6 +58,7 @@ function PublicTender() {
 									updateVerifiedByShayyek(!verifiedByShayyek);
 								}}
 								className="my-2"
+								disabled={publishOrFilter === "publish"}
 							>
 								{currentLocal.buyerHome.verifiedByShayyek}
 							</Checkbox>
@@ -38,6 +67,7 @@ function PublicTender() {
 									updateSameVendorLocation(!sameVendorLocation);
 								}}
 								className="my-2"
+								disabled={publishOrFilter === "publish"}
 							>
 								{currentLocal.buyerHome.sameVendorLocation}
 							</Checkbox>
@@ -48,6 +78,7 @@ function PublicTender() {
 									updateRelevantVolumeOfBusiness(!relevantVolumeOfBusiness);
 								}}
 								className="my-2"
+								disabled={publishOrFilter === "publish"}
 							>
 								{currentLocal.buyerHome.relevantVolumeOfBusiness}
 							</Checkbox>
@@ -56,6 +87,7 @@ function PublicTender() {
 									updateMoreThan5Years(!moreThan5Years);
 								}}
 								className="my-2"
+								disabled={publishOrFilter === "publish"}
 							>
 								{currentLocal.buyerHome.moreThan5Years}
 							</Checkbox>

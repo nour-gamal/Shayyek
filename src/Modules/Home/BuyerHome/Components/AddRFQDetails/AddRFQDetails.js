@@ -11,7 +11,6 @@ function AddRFQDetails() {
 	const [projectName, updateProjectName] = useState("");
 	const [govList, updateGovList] = useState([]);
 	const [alert, updateAlert] = useState(false);
-	// eslint-disable-next-line
 	const [selectedGov, updateSelectedGov] = useState(null);
 	const [projectOwner, updateProjectOwner] = useState({
 		name: "",
@@ -29,7 +28,8 @@ function AddRFQDetails() {
 	const { currentLocal, currentLanguageId } = useSelector(
 		(state) => state.currentLocal
 	);
-	const [tenderType, setTenderType] = useState("public");
+	const [tenderType, setTenderType] = useState("private");
+
 	const { Option } = Select;
 
 	useEffect(() => {
@@ -46,8 +46,26 @@ function AddRFQDetails() {
 		);
 	}, [currentLanguageId]);
 
+	const getPublicTenderData = (data) => {
+		console.log(data);
+	};
+	const getPrivateTenderData = (data) => {
+		console.log(data);
+	};
+
 	const handleSubmit = () => {
-		let data = {};
+		let data = {
+			projectName: projectName,
+			projectLocationId: selectedGov,
+			projectOwner: projectOwner.name,
+			isShownProjectOwner: projectOwner.makeNotVisibleToVendors,
+			projectConsultant: projectConsultant.name,
+			isShownProjectConsultant: projectConsultant.makeNotVisibleToVendors,
+			projectContractor: projectContractor.name,
+			isShownProjectContractor: projectContractor.makeNotVisibleToVendors,
+			publicTender: tenderType === "public" ? true : false,
+			isRevealPricesToBidders: revealPrices,
+		};
 		if (
 			!projectName.length ||
 			!selectedGov ||
@@ -220,7 +238,11 @@ function AddRFQDetails() {
 						{currentLocal.buyerHome.publicTender}
 					</Radio>
 				</Radio.Group>
-				{tenderType === "public" ? <PublicTender /> : <PrivateTender />}
+				{tenderType === "public" ? (
+					<PublicTender getPublicTenderData={getPublicTenderData} />
+				) : (
+					<PrivateTender getPrivateTenderData={getPrivateTenderData} />
+				)}
 			</div>
 			<Checkbox
 				className="m-4"

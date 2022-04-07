@@ -5,13 +5,12 @@ import { GetFavVendor } from "../../../network";
 import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import CloseIcon from "../../../../../Resources/Assets/whiteCross.svg";
 import "./PrivateTender.css";
-function PrivateTender() {
+function PrivateTender({ getPrivateTenderData }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [email, updateEmail] = useState("");
 	const [emailList, updateEmailList] = useState([]);
 	const [favVendorsList, updateFavVendorsList] = useState([]);
-	// eslint-disable-next-line
-	const [favVendor, updateFavVendor] = useState("");
+	const [favVendor, updateFavVendor] = useState([]);
 	const [inviteByWhatsapp, updateInviteByWhatsapp] = useState(false);
 	const { Option } = Select;
 	useEffect(() => {
@@ -24,6 +23,15 @@ function PrivateTender() {
 			}
 		);
 	}, []);
+
+	useEffect(() => {
+		let data = {
+			invitedEmails: emailList,
+			favouriteVendors: favVendor,
+			inviteByWhatsapp,
+		};
+		getPrivateTenderData(data);
+	}, [emailList, getPrivateTenderData, favVendor, inviteByWhatsapp]);
 
 	const handleAddNewEmails = (newEmail) => {
 		let Emails = [...emailList];
