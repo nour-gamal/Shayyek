@@ -19,7 +19,8 @@
 	padding: 18px;
 }
 @media (max-width: 768px) {
-	.addRFQDetails .rfq-info-container {
+	.addRFQDetails .rfq-info-container ,.addRFQDetails .field-container{
 		flex-direction: column;
 	}
+
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Input, Checkbox, Select, Radio } from "antd";
+import { Input, Checkbox, Select, Radio, Button } from "antd";
 import { useSelector } from "react-redux";
 import { governmentList } from "../../../../Registration/Network";
 import PublicTender from "../PublicTender/PublicTender";
@@ -191,10 +191,12 @@ function AddRFQDetails() {
 					onChange={(e) => setTenderType(e.target.value)}
 					value={tenderType}
 				>
-					<Radio value={"private"} className="mx-2">
+					<Radio value={"private"} className="mx-1">
 						{currentLocal.buyerHome.privateTender}
 					</Radio>
-					<Radio value={"public"}>{currentLocal.buyerHome.publicTender}</Radio>
+					<Radio value={"public"} className="mx-1">
+						{currentLocal.buyerHome.publicTender}
+					</Radio>
 				</Radio.Group>
 				{tenderType === "public" ? <PublicTender /> : <PrivateTender />}
 			</div>
@@ -206,24 +208,11 @@ function AddRFQDetails() {
 			>
 				{currentLocal.buyerHome.revealPrices}
 			</Checkbox>
-
-			{/* <div className="d-flex">
-				<div className="flex-1">
-					<div className="my-2 d-flex">
-						<label>test111</label>
-						<input type="text" className="input-field" />
-					</div>
-					<div className="my-2 d-flex">
-						<label>tes</label>
-						<input type="text" className="input-field" />
-					</div>
-				</div>
-				<div className="flex-1">
-					<div>
-						<input type="text" className="input-field" />
-					</div>
-				</div>
-			</div> */}
+			<div className="text-center">
+				<Button className="button-primary">
+					{currentLocal.buyerHome.confirm}
+				</Button>
+			</div>
 		</div>
 	);
 }
