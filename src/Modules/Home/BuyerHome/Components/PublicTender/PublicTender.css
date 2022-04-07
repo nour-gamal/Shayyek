@@ -4,7 +4,10 @@
 }
 .publicTender .filter-container{
     border: 1px solid #7FB2F0;
-    padding: 5px;
+    padding: 10px;
+}
+.publicTender .ant-checkbox-wrapper + .ant-checkbox-wrapper{
+    margin-left: 0;
 }
 @media (max-width:768px){
     .publicTender .ant-radio-group.ant-radio-group-outline{
@@ -14,5 +17,8 @@
     .publicTender .orTitle{
         margin: 10px 0;
         text-align: center;
+    }
+    .publicTender .filter-container{
+     flex-direction: column !important;
     }
 }

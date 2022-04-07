@@ -1,3 +1,4 @@
+import { Alert } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Input, Checkbox, Select, Radio, Button } from "antd";
 import { useSelector } from "react-redux";
@@ -5,9 +6,11 @@ import { governmentList } from "../../../../Registration/Network";
 import PublicTender from "../PublicTender/PublicTender";
 import PrivateTender from "../PrivateTender/PrivateTender";
 import "./AddRFQDetails.css";
+
 function AddRFQDetails() {
 	const [projectName, updateProjectName] = useState("");
 	const [govList, updateGovList] = useState([]);
+	const [alert, updateAlert] = useState(false);
 	// eslint-disable-next-line
 	const [selectedGov, updateSelectedGov] = useState(null);
 	const [projectOwner, updateProjectOwner] = useState({
@@ -43,8 +46,29 @@ function AddRFQDetails() {
 		);
 	}, [currentLanguageId]);
 
+	const handleSubmit = () => {
+		let data = {};
+		if (
+			!projectName.length ||
+			!selectedGov ||
+			!projectOwner.name.length ||
+			!projectConsultant.name ||
+			!projectContractor.name
+		) {
+			updateAlert(true);
+		} else {
+			updateAlert(false);
+			console.log(data);
+		}
+	};
+
 	return (
 		<div className="pps ppe my-4 addRFQDetails">
+			{alert && (
+				<Alert variant={"danger"} className="text-center">
+					Please
+				</Alert>
+			)}
 			<div className="d-flex justify-content-between rfq-info-container">
 				<div className="flex-1 mx-2">
 					<div className="d-flex  my-4 field-container flex-1">
@@ -207,7 +231,7 @@ function AddRFQDetails() {
 				{currentLocal.buyerHome.revealPrices}
 			</Checkbox>
 			<div className="text-center">
-				<Button className="button-primary">
+				<Button className="button-primary" onClick={handleSubmit}>
 					{currentLocal.buyerHome.confirm}
 				</Button>
 			</div>

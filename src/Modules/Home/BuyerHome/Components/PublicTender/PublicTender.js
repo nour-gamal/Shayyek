@@ -29,6 +29,7 @@ function PublicTender() {
 								onChange={() => {
 									updateVerifiedByShayyek(!verifiedByShayyek);
 								}}
+								className="my-2"
 							>
 								{currentLocal.buyerHome.verifiedByShayyek}
 							</Checkbox>
@@ -36,6 +37,7 @@ function PublicTender() {
 								onChange={() => {
 									updateSameVendorLocation(!sameVendorLocation);
 								}}
+								className="my-2"
 							>
 								{currentLocal.buyerHome.sameVendorLocation}
 							</Checkbox>
@@ -45,6 +47,7 @@ function PublicTender() {
 								onChange={() => {
 									updateRelevantVolumeOfBusiness(!relevantVolumeOfBusiness);
 								}}
+								className="my-2"
 							>
 								{currentLocal.buyerHome.relevantVolumeOfBusiness}
 							</Checkbox>
@@ -52,6 +55,7 @@ function PublicTender() {
 								onChange={() => {
 									updateMoreThan5Years(!moreThan5Years);
 								}}
+								className="my-2"
 							>
 								{currentLocal.buyerHome.moreThan5Years}
 							</Checkbox>
