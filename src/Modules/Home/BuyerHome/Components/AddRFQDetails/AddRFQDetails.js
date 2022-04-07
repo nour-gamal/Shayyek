@@ -6,8 +6,6 @@ import PublicTender from "../PublicTender/PublicTender";
 import PrivateTender from "../PrivateTender/PrivateTender";
 import "./AddRFQDetails.css";
 function AddRFQDetails() {
-	// eslint-disable-next-line
-	const [errorState, updateErrorState] = useState(false);
 	const [projectName, updateProjectName] = useState("");
 	const [govList, updateGovList] = useState([]);
 	// eslint-disable-next-line
@@ -28,7 +26,7 @@ function AddRFQDetails() {
 	const { currentLocal, currentLanguageId } = useSelector(
 		(state) => state.currentLocal
 	);
-	const [tenderType, setTenderType] = useState("private");
+	const [tenderType, setTenderType] = useState("public");
 	const { Option } = Select;
 
 	useEffect(() => {

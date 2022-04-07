@@ -319,7 +319,14 @@ export const en = {
 		selectDate: "Select Date",
 		invitedByEmail: "Invited by E-mail",
 		addNewEmail: "Add new E-Mail",
-		publishToNetwork: "Publish to relevant Shayyek suppliers network",
+		publishToNetwork:
+			"Publish to relevant Shayyek suppliers & contractors network",
+		filterForPreQual: "Filter for pre-qualification",
+		verifiedByShayyek: "Verified by Shayyek",
+		relevantVolumeOfBusiness: "Relevant volume of business",
+		sameVendorLocation:
+			"Vendor location same city as my location or project location",
+		moreThan5Years: "5+ years of experience",
 		revealPrices: "Reveal prices to bidders",
 		postRFQ: "Post RFQ",
 		selectSupplierEmail: "Select supplier E-mail",

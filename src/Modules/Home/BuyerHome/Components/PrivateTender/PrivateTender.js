@@ -6,13 +6,13 @@ import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import CloseIcon from "../../../../../Resources/Assets/whiteCross.svg";
 import "./PrivateTender.css";
 function PrivateTender() {
+	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [email, updateEmail] = useState("");
 	const [emailList, updateEmailList] = useState([]);
 	const [favVendorsList, updateFavVendorsList] = useState([]);
 	// eslint-disable-next-line
 	const [favVendor, updateFavVendor] = useState("");
 	const [inviteByWhatsapp, updateInviteByWhatsapp] = useState(false);
-	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { Option } = Select;
 	useEffect(() => {
 		GetFavVendor(
