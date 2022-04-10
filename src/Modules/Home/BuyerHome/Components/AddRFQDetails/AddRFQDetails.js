@@ -1,13 +1,15 @@
 import { Alert } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { Input, Checkbox, Select, Radio, Button } from "antd";
+import { Input, Checkbox, Select, Radio } from "antd";
 import { useSelector } from "react-redux";
 import { governmentList } from "../../../../Registration/Network";
 import PublicTender from "../PublicTender/PublicTender";
 import PrivateTender from "../PrivateTender/PrivateTender";
+import { useDispatch } from "react-redux";
+import { addRFQDetails } from "../../../../../Redux/RFQ";
 import "./AddRFQDetails.css";
 
-function AddRFQDetails() {
+function AddRFQDetails({ getRFQPageName }) {
 	const [projectName, updateProjectName] = useState("");
 	const [govList, updateGovList] = useState([]);
 	const [alert, updateAlert] = useState(false);
@@ -32,6 +34,7 @@ function AddRFQDetails() {
 	const [publicTenderData, updatePublicTenderData] = useState({});
 	const [privateTenderData, updatePrivateTenderData] = useState({});
 	const { Option } = Select;
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const countryId = "ab534c08-ddc1-4389-8d5c-2e3a88cb5417";
@@ -76,7 +79,8 @@ function AddRFQDetails() {
 			updateAlert(true);
 		} else {
 			updateAlert(false);
-			console.log(data);
+			dispatch(addRFQDetails(data));
+			getRFQPageName("rfqTable");
 		}
 	};
 
@@ -84,7 +88,7 @@ function AddRFQDetails() {
 		<div className="pps ppe my-4 addRFQDetails">
 			{alert && (
 				<Alert variant={"danger"} className="text-center">
-					Please
+					{currentLocal.registration.pleaseFillAllRequiredFields}
 				</Alert>
 			)}
 			<div className="d-flex justify-content-between rfq-info-container">
