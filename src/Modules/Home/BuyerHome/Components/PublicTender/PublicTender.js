@@ -31,7 +31,7 @@ function PublicTender({ getPublicTenderData }) {
 				verifiedByShayyek: verifiedByShayyek,
 				relevantVolumeOfWork: relevantVolumeOfBusiness,
 				plus5YearsOfExperience: moreThan5Years,
-				sameVendorLocation: sameVendorLocation,
+				relevantVendorLocation: sameVendorLocation,
 			},
 		};
 		getPublicTenderData(data);
