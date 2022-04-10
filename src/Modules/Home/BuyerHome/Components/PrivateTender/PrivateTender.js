@@ -31,7 +31,8 @@ function PrivateTender({ getPrivateTenderData }) {
 			inviteByWhatsapp,
 		};
 		getPrivateTenderData(data);
-	}, [emailList, getPrivateTenderData, favVendor, inviteByWhatsapp]);
+		// eslint-disable-next-line
+	}, [emailList, favVendor, inviteByWhatsapp]);
 
 	const handleAddNewEmails = (newEmail) => {
 		let Emails = [...emailList];

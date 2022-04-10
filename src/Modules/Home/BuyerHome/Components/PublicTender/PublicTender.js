@@ -12,6 +12,18 @@ function PublicTender({ getPublicTenderData }) {
 	const [moreThan5Years, updateMoreThan5Years] = useState(false);
 	const [publishOrFilter, updatePublishOrFilter] = useState("publish");
 
+	// const sendPublicTenderDataToParent = () => {
+	// 	let data = {
+	// 		isPublishToSuppliersNetwork: publishOrFilter === "publish",
+	// 		publicTenderFilter: {
+	// 			verifiedByShayyek: verifiedByShayyek,
+	// 			relevantVolumeOfWork: relevantVolumeOfBusiness,
+	// 			plus5YearsOfExperience: moreThan5Years,
+	// 			sameVendorLocation: sameVendorLocation,
+	// 		},
+	// 	};
+	// 	getPublicTenderData(data);
+	// };
 	useEffect(() => {
 		let data = {
 			isPublishToSuppliersNetwork: publishOrFilter === "publish",
@@ -23,8 +35,8 @@ function PublicTender({ getPublicTenderData }) {
 			},
 		};
 		getPublicTenderData(data);
+		// eslint-disable-next-line
 	}, [
-		getPublicTenderData,
 		publishOrFilter,
 		moreThan5Years,
 		relevantVolumeOfBusiness,

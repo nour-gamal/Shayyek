@@ -29,7 +29,8 @@ function AddRFQDetails() {
 		(state) => state.currentLocal
 	);
 	const [tenderType, setTenderType] = useState("private");
-
+	const [publicTenderData, updatePublicTenderData] = useState({});
+	const [privateTenderData, updatePrivateTenderData] = useState({});
 	const { Option } = Select;
 
 	useEffect(() => {
@@ -46,12 +47,11 @@ function AddRFQDetails() {
 		);
 	}, [currentLanguageId]);
 	const getPublicTenderData = (data) => {
-		console.log(data);
+		updatePublicTenderData(data);
 	};
 	const getPrivateTenderData = (data) => {
-		console.log(data);
+		updatePrivateTenderData(data);
 	};
-
 	const handleSubmit = () => {
 		let data = {
 			projectName: projectName,
@@ -65,6 +65,7 @@ function AddRFQDetails() {
 			publicTender: tenderType === "public" ? true : false,
 			isRevealPricesToBidders: revealPrices,
 		};
+		data = { ...data, ...publicTenderData, ...privateTenderData };
 		if (
 			!projectName.length ||
 			!selectedGov ||
@@ -252,9 +253,9 @@ function AddRFQDetails() {
 				{currentLocal.buyerHome.revealPrices}
 			</Checkbox>
 			<div className="text-center">
-				<Button className="button-primary" onClick={handleSubmit}>
+				<button className="button-primary" onClick={handleSubmit}>
 					{currentLocal.buyerHome.confirm}
-				</Button>
+				</button>
 			</div>
 		</div>
 	);

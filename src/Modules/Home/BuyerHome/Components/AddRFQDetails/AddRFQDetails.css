@@ -18,9 +18,9 @@
 	background-color: #f5f5f5;
 	padding: 18px;
 }
+
 @media (max-width: 768px) {
 	.addRFQDetails .rfq-info-container ,.addRFQDetails .field-container{
 		flex-direction: column;
 	}
-
 }
