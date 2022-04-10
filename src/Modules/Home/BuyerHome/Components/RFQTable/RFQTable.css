@@ -5,8 +5,8 @@
 .actionsContainer > div > div img {
 	cursor: pointer;
 }
-.createRFQ textarea,
-.createRFQ input[type="number"] {
+.RFQTable textarea,
+.RFQTable input[type="number"] {
 	background: #f5f5f5 !important;
 	resize: none !important;
 	border: none !important;
@@ -14,52 +14,52 @@
 	scrollbar-width: none;
 	height: 20px;
 }
-.createRFQ textarea::-webkit-scrollbar {
+.RFQTable textarea::-webkit-scrollbar {
 	display: none;
 }
 
-.createRFQ input::-webkit-outer-spin-button,
-.createRFQ input::-webkit-inner-spin-button {
+.RFQTable input::-webkit-outer-spin-button,
+.RFQTable input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
 
 /* Firefox */
-.createRFQ input[type="number"] {
+.RFQTable input[type="number"] {
 	-moz-appearance: textfield;
 }
-.createRFQ .ant-select-selection-placeholder {
+.RFQTable .ant-select-selection-placeholder {
 	color: #000;
 }
-.createRFQ .addressBar {
+.RFQTable .addressBar {
 	width: 50%;
 }
-.createRFQ .addressBar.border {
+.RFQTable .addressBar.border {
 	border: 1px solid #99cffd;
 }
-.createRFQ .button-primary.native {
+.RFQTable .button-primary.native {
 	width: 270px;
 	margin: auto !important;
 }
-.createRFQ table {
+.RFQTable table {
 	width: max-content !important;
 }
 
-.createRFQ .ant-radio-wrapper span {
+.RFQTable .ant-radio-wrapper span {
 	color: #99cffd !important;
 }
-.createRFQ .datePicker {
+.RFQTable .datePicker {
 	border: 1px solid #99cffd;
 }
 
-.createRFQ .ant-picker.datePicker {
+.RFQTable .ant-picker.datePicker {
 	justify-content: space-between;
 }
-.createRFQ .showGarbage {
+.RFQTable .showGarbage {
 	opacity: 1;
 	transition: all 0.4s ease-in-out;
 }
-.createRFQ .hideGarbage {
+.RFQTable .hideGarbage {
 	opacity: 0;
 	transition: all 0.4s ease-in-out;
 }
@@ -69,7 +69,7 @@
 }
 
 @media (max-width: 768px) {
-	.createRFQ .ant-table-cell {
+	.RFQTable .ant-table-cell {
 		font-size: 13px !important;
 	}
 }

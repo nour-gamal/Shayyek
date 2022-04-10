@@ -1,11 +1,10 @@
 import { Alert } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Input, Checkbox, Select, Radio } from "antd";
-import { useSelector } from "react-redux";
 import { governmentList } from "../../../../Registration/Network";
 import PublicTender from "../PublicTender/PublicTender";
 import PrivateTender from "../PrivateTender/PrivateTender";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addRFQDetails } from "../../../../../Redux/RFQ";
 import "./AddRFQDetails.css";
 
@@ -30,6 +29,7 @@ function AddRFQDetails({ getRFQPageName }) {
 	const { currentLocal, currentLanguageId } = useSelector(
 		(state) => state.currentLocal
 	);
+	const { rfqData } = useSelector((state) => state.rfq);
 	const [tenderType, setTenderType] = useState("private");
 	const [publicTenderData, updatePublicTenderData] = useState({});
 	const [privateTenderData, updatePrivateTenderData] = useState({});
@@ -49,6 +49,15 @@ function AddRFQDetails({ getRFQPageName }) {
 			}
 		);
 	}, [currentLanguageId]);
+	useEffect(() => {
+		if (rfqData) {
+			console.log(rfqData);
+			updateProjectName(rfqData.projectName);
+			//govList.filter((gov) => gov.id === rfqData.projectLocationId);
+			updateSelectedGov(rfqData.projectLocationId);
+		}
+	}, []);
+
 	const getPublicTenderData = (data) => {
 		updatePublicTenderData(data);
 	};
@@ -122,12 +131,15 @@ function AddRFQDetails({ getRFQPageName }) {
 								onChange={(val) => {
 									updateSelectedGov(val);
 								}}
+								defaultValue={selectedGov}
 							>
-								{govList.map((gov) => (
-									<Option value={gov.id} key={gov.id}>
-										{gov.name}
-									</Option>
-								))}
+								{govList.map((gov) => {
+									return (
+										<Option value={gov.id} key={gov.id}>
+											{gov.name}
+										</Option>
+									);
+								})}
 							</Select>
 						</div>
 					</div>
