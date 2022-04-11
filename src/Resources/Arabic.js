@@ -242,6 +242,7 @@ export const ar = {
 	buyerHome: {
 		importExcelFile: "اضف من ملف اكسيل",
 		addNewItem: "اضف بند جديد",
+		addNewPackage: "اضف حزمه مختلفه للمشروع",
 		ccCollugues: "شارك زملائك",
 		item: "البند",
 		description: "الوصف",

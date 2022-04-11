@@ -82,6 +82,7 @@ function AddRFQDetails({ getRFQPageName }) {
 			updatePrivateTenderData(privateTenderDataa);
 			updatePublicTenderData(publicTenderDataa);
 		}
+		// eslint-disable-next-line
 	}, []);
 
 	const getPublicTenderData = (data) => {
@@ -103,6 +104,7 @@ function AddRFQDetails({ getRFQPageName }) {
 			isShownProjectContractor: projectContractor.makeNotVisibleToVendors,
 			publicTender: tenderType === "public" ? true : false,
 			isRevealPricesToBidders: revealPrices,
+			rfqPages: "rfqTable",
 		};
 		data = { ...data, ...publicTenderData, ...privateTenderData };
 		if (

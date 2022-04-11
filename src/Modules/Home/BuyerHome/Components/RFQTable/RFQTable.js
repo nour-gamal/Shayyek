@@ -10,10 +10,7 @@ import { ExcelRenderer } from "react-excel-renderer";
 import { Alert } from "react-bootstrap";
 import moment from "moment";
 import { Select, Checkbox, DatePicker, Radio } from "antd";
-import {
-	getCategories,
-	getDeliverdOptions,
-} from "../../../network";
+import { getCategories, getDeliverdOptions } from "../../../network";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import "./RFQTable.css";
 
@@ -38,10 +35,15 @@ function CreateRFQ(props) {
 	const [installAll, updateInstallAll] = useState(false);
 	const [deliveredToOptions, updateDeliveryOptions] = useState([]);
 	const [modalType, updateModalType] = useState("post");
+	// eslint-disable-next-line
 	const [ccList, updateCCList] = useState([]);
+	// eslint-disable-next-line
 	const [invitedEmails, updateInvitedEmails] = useState([]);
+	// eslint-disable-next-line
 	const [projectName, updateProjectName] = useState("");
+	// eslint-disable-next-line
 	const [revealPrice, updateRevealPrice] = useState(false);
+	// eslint-disable-next-line
 	const [publishToRelevant, updatePublishToRelevant] = useState(false);
 	const [hoveredRow, updateHoveredRow] = useState(null);
 	const [isDeleteRowModal, updateDeleteRowModal] = useState(false);
@@ -513,7 +515,7 @@ function CreateRFQ(props) {
 	];
 
 	return (
-		<div className="ppl ppr f-16 my-4 RFQTable">
+		<div className="ppl ppr my-4 RFQTable">
 			<div className="actionsContainer">
 				<div>
 					<div className="mb-3">
@@ -529,6 +531,12 @@ function CreateRFQ(props) {
 						</label>
 
 						<label>{currentLocal.buyerHome.importExcelFile}</label>
+					</div>
+					<div className="mb-3">
+						<img src={addIcon} alt="addIcon" className="mx-3" />
+						<label className="primary-color">
+							{currentLocal.buyerHome.addNewPackage}
+						</label>
 					</div>
 					<div className="mb-3">
 						<img

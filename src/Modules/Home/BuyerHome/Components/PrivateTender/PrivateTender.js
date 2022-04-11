@@ -35,6 +35,7 @@ function PrivateTender({
 			updateInviteByWhatsapp(privateTenderData.inviteByWhatsapp);
 			updateFavVendor(privateTenderData.favouriteVendors);
 		}
+		// eslint-disable-next-line
 	}, [isListNotEmpty]);
 	useEffect(() => {
 		let data = {

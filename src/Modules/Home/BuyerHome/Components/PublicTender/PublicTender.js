@@ -66,6 +66,7 @@ function PublicTender({
 				publicTenderData.publicTenderFilter.plus5YearsOfExperience
 			);
 		}
+		// eslint-disable-next-line
 	}, [isListNotEmpty]);
 
 	return (

@@ -298,6 +298,7 @@ export const en = {
 	buyerHome: {
 		importExcelFile: "Import Excel File",
 		addNewItem: "Add New Item",
+		addNewPackage: "Add different Package in this project",
 		ccCollugues: "CC Collugues",
 		item: "Item No",
 		unit: "Unit",
