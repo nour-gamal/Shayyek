@@ -52,7 +52,6 @@ function AddRFQDetails({ getRFQPageName }) {
 
 	useEffect(() => {
 		if (rfqData) {
-			console.log(rfqData);
 			updateProjectName(rfqData.projectName);
 			updateSelectedGov(rfqData.projectLocationId);
 			updateProjectOwner({

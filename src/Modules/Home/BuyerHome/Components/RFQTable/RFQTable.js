@@ -12,7 +12,10 @@ import moment from "moment";
 import { Select, Checkbox, DatePicker, Radio } from "antd";
 import { getCategories, getDeliverdOptions } from "../../../network";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import documents from "../../../../../Resources/Assets/paperClip.svg";
 import "./RFQTable.css";
+import { GetImagePath } from "../../../../ProfilePage/network";
+import { baseUrl } from "../../../../../Services";
 
 function CreateRFQ(props) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -149,6 +152,7 @@ function CreateRFQ(props) {
 				preferredBrands: "",
 				includeInstallation: false,
 				actionStatus: 1,
+				itemDocuments: "",
 			},
 		]);
 		updateIndexState(true);
@@ -282,6 +286,7 @@ function CreateRFQ(props) {
 													: name[index.quantity],
 											includeInstallation: false,
 											preferredBrands: null,
+											itemDocuments: "",
 										},
 									]);
 								}
@@ -306,6 +311,7 @@ function CreateRFQ(props) {
 				unit: "",
 				preferredBrands: "",
 				includeInstallation: false,
+				itemDocuments: "",
 			});
 		}
 		updateIndexState(true);
@@ -332,6 +338,24 @@ function CreateRFQ(props) {
 			updateDataSource(tableData);
 		}
 	}, [indexState, dataSource]);
+
+	const handleUploadItemDoc = (e) => {
+		const documentfile = e.target.files[0];
+		let file = new FormData();
+		file.append("image", documentfile);
+		GetImagePath(
+			file,
+			(success) => {
+				let tableData = [...dataSource];
+				tableData[hoveredRow].itemDocuments = success.data;
+				updateDataSource(tableData);
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	};
+
 	const columns = [
 		{
 			title: currentLocal.buyerHome.item,
@@ -490,6 +514,37 @@ function CreateRFQ(props) {
 						}}
 						checked={includeInstallation}
 					/>
+				);
+			},
+		},
+		{
+			title: currentLocal.buyerHome.itemDocuments,
+			dataIndex: "itemDocuments",
+			key: "itemDocuments",
+			render: (itemDocuments, item) => {
+				return (
+					<div>
+						{itemDocuments.length ? (
+							<a href={baseUrl + itemDocuments}>
+								{itemDocuments.split(" ")[1]}
+							</a>
+						) : (
+							<div>
+								<input
+									type={"file"}
+									className="d-none"
+									id="itemDocument"
+									onChange={(e) => {
+										handleUploadItemDoc(e);
+									}}
+								/>
+								<label className="d-flex cursorPointer" htmlFor="itemDocument">
+									<div className="mx-2">{currentLocal.buyerHome.addFile}</div>
+									<img src={documents} alt="documents" />
+								</label>
+							</div>
+						)}
+					</div>
 				);
 			},
 		},

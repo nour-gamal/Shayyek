@@ -251,6 +251,8 @@ export const ar = {
 		preferredBrands: "العملات التجاريه المفضله",
 		categories: "التصنيف",
 		includeInstallation: "شامل التركيب",
+		itemDocuments: "مستندات البند",
+		addFile: "اضف مستند",
 		notes: "ملحوظات",
 		selectCategory: "اختر نوع المنتج",
 		category: "المنتج",

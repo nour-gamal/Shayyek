@@ -307,6 +307,8 @@ export const en = {
 		preferredBrands: "Preferred Brands",
 		categories: "Categories",
 		includeInstallation: "Include Installation",
+		itemDocuments: "Item Documents",
+		addFile: "Add File",
 		notes: "Notes",
 		selectCategory: "Select Category",
 		category: "Category",
