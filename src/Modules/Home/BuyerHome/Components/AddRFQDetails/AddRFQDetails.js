@@ -75,8 +75,12 @@ function AddRFQDetails({ getRFQPageName }) {
 				inviteByWhatsapp: rfqData.inviteByWhatsapp,
 				favouriteVendors: rfqData.favouriteVendors,
 			};
-			// updateInvitedEmails(rfqData.invitedEmails);
+			let publicTenderDataa = {
+				isPublishToSuppliersNetwork: rfqData.isPublishToSuppliersNetwork,
+				publicTenderFilter: rfqData.publicTenderFilter,
+			};
 			updatePrivateTenderData(privateTenderDataa);
+			updatePublicTenderData(publicTenderDataa);
 		}
 	}, []);
 
@@ -285,11 +289,18 @@ function AddRFQDetails({ getRFQPageName }) {
 					</Radio>
 				</Radio.Group>
 				{tenderType === "public" ? (
-					<PublicTender getPublicTenderData={getPublicTenderData} />
+					<PublicTender
+						getPublicTenderData={getPublicTenderData}
+						publicTenderData={publicTenderData}
+						isListNotEmpty={Object.keys(publicTenderData).length ? true : false}
+					/>
 				) : (
 					<PrivateTender
 						getPrivateTenderData={getPrivateTenderData}
 						privateTenderData={privateTenderData}
+						isListNotEmpty={
+							Object.keys(privateTenderData).length ? true : false
+						}
 					/>
 				)}
 			</div>

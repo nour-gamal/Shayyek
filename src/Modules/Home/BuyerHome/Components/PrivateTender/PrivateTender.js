@@ -5,7 +5,11 @@ import { GetFavVendor } from "../../../network";
 import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import CloseIcon from "../../../../../Resources/Assets/whiteCross.svg";
 import "./PrivateTender.css";
-function PrivateTender({ getPrivateTenderData, privateTenderData }) {
+function PrivateTender({
+	getPrivateTenderData,
+	privateTenderData,
+	isListNotEmpty,
+}) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [email, updateEmail] = useState("");
 	const [emailList, updateEmailList] = useState([]);
@@ -24,13 +28,14 @@ function PrivateTender({ getPrivateTenderData, privateTenderData }) {
 		);
 	}, []);
 	useEffect(() => {
-		let isPrivateTenderDataEmpty = !Object.keys(privateTenderData).length;
-		if (!isPrivateTenderDataEmpty) {
-			updateEmailList(privateTenderData.invitedEmails);
+		if (isListNotEmpty) {
+			updateEmailList(
+				privateTenderData.invitedEmails ? privateTenderData.invitedEmails : []
+			);
 			updateInviteByWhatsapp(privateTenderData.inviteByWhatsapp);
 			updateFavVendor(privateTenderData.favouriteVendors);
 		}
-	}, [privateTenderData]);
+	}, [isListNotEmpty]);
 	useEffect(() => {
 		let data = {
 			invitedEmails: emailList,
@@ -52,7 +57,6 @@ function PrivateTender({ getPrivateTenderData, privateTenderData }) {
 		Emails.splice(emailIndex, 1);
 		updateEmailList(Emails);
 	};
-	console.log("favVendor", favVendor);
 	return (
 		<div className="privateTender">
 			<div className="d-flex justify-content-between privateTender-container">
