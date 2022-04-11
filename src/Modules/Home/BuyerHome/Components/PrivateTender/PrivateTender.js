@@ -5,7 +5,7 @@ import { GetFavVendor } from "../../../network";
 import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import CloseIcon from "../../../../../Resources/Assets/whiteCross.svg";
 import "./PrivateTender.css";
-function PrivateTender({ getPrivateTenderData }) {
+function PrivateTender({ getPrivateTenderData, privateTenderData }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [email, updateEmail] = useState("");
 	const [emailList, updateEmailList] = useState([]);
@@ -23,7 +23,14 @@ function PrivateTender({ getPrivateTenderData }) {
 			}
 		);
 	}, []);
-
+	useEffect(() => {
+		let isPrivateTenderDataEmpty = !Object.keys(privateTenderData).length;
+		if (!isPrivateTenderDataEmpty) {
+			updateEmailList(privateTenderData.invitedEmails);
+			updateInviteByWhatsapp(privateTenderData.inviteByWhatsapp);
+			updateFavVendor(privateTenderData.favouriteVendors);
+		}
+	}, [privateTenderData]);
 	useEffect(() => {
 		let data = {
 			invitedEmails: emailList,
@@ -45,6 +52,7 @@ function PrivateTender({ getPrivateTenderData }) {
 		Emails.splice(emailIndex, 1);
 		updateEmailList(Emails);
 	};
+	console.log("favVendor", favVendor);
 	return (
 		<div className="privateTender">
 			<div className="d-flex justify-content-between privateTender-container">
@@ -117,6 +125,8 @@ function PrivateTender({ getPrivateTenderData }) {
 						mode="multiple"
 						allowClear
 						style={{ width: "240px" }}
+						defaultValue={favVendor}
+						key={favVendor}
 					>
 						{favVendorsList.map((vendor) => (
 							<Option value={vendor.userId} key={vendor.userId}>
@@ -132,6 +142,8 @@ function PrivateTender({ getPrivateTenderData }) {
 				onChange={() => {
 					updateInviteByWhatsapp(!inviteByWhatsapp);
 				}}
+				defaultChecked={inviteByWhatsapp}
+				key={inviteByWhatsapp}
 			>
 				{currentLocal.buyerHome.inviteByWhatsapp}
 				<div className="f-12 inviteByWhatsappNote">

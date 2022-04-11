@@ -49,12 +49,34 @@ function AddRFQDetails({ getRFQPageName }) {
 			}
 		);
 	}, [currentLanguageId]);
+
 	useEffect(() => {
 		if (rfqData) {
 			console.log(rfqData);
 			updateProjectName(rfqData.projectName);
-			//govList.filter((gov) => gov.id === rfqData.projectLocationId);
 			updateSelectedGov(rfqData.projectLocationId);
+			updateProjectOwner({
+				name: rfqData.projectOwner,
+				makeNotVisibleToVendors: rfqData.isShownProjectOwner,
+			});
+			updateProjectConsultant({
+				name: rfqData.projectConsultant,
+				makeNotVisibleToVendors: rfqData.isShownProjectConsultant,
+			});
+			updateProjectContractor({
+				name: rfqData.projectContractor,
+				makeNotVisibleToVendors: rfqData.isShownProjectContractor,
+			});
+
+			setTenderType(rfqData.publicTender ? "public" : "private");
+			updateRevealPrices(rfqData.isRevealPricesToBidders);
+			let privateTenderDataa = {
+				invitedEmails: rfqData.invitedEmails,
+				inviteByWhatsapp: rfqData.inviteByWhatsapp,
+				favouriteVendors: rfqData.favouriteVendors,
+			};
+			// updateInvitedEmails(rfqData.invitedEmails);
+			updatePrivateTenderData(privateTenderDataa);
 		}
 	}, []);
 
@@ -64,6 +86,7 @@ function AddRFQDetails({ getRFQPageName }) {
 	const getPrivateTenderData = (data) => {
 		updatePrivateTenderData(data);
 	};
+
 	const handleSubmit = () => {
 		let data = {
 			projectName: projectName,
@@ -132,6 +155,7 @@ function AddRFQDetails({ getRFQPageName }) {
 									updateSelectedGov(val);
 								}}
 								defaultValue={selectedGov}
+								key={selectedGov}
 							>
 								{govList.map((gov) => {
 									return (
@@ -155,7 +179,7 @@ function AddRFQDetails({ getRFQPageName }) {
 								value={projectOwner.name}
 								onChange={(e) => {
 									updateProjectOwner({
-										projectOwner,
+										...projectOwner,
 										name: e.target.value,
 									});
 								}}
@@ -164,11 +188,13 @@ function AddRFQDetails({ getRFQPageName }) {
 							<Checkbox
 								onChange={(e) => {
 									updateProjectOwner({
-										projectOwner,
+										...projectOwner,
 										makeNotVisibleToVendors: e.target.checked,
 									});
 								}}
 								className="my-2"
+								defaultChecked={projectOwner.makeNotVisibleToVendors}
+								key={projectOwner.makeNotVisibleToVendors}
 							>
 								{currentLocal.buyerHome.makeNotVisibleToVendors}
 							</Checkbox>
@@ -189,7 +215,7 @@ function AddRFQDetails({ getRFQPageName }) {
 								value={projectConsultant.name}
 								onChange={(e) => {
 									updateProjectConsultant({
-										projectConsultant,
+										...projectConsultant,
 										name: e.target.value,
 									});
 								}}
@@ -198,11 +224,13 @@ function AddRFQDetails({ getRFQPageName }) {
 							<Checkbox
 								onChange={(e) => {
 									updateProjectConsultant({
-										projectConsultant,
+										...projectConsultant,
 										makeNotVisibleToVendors: e.target.checked,
 									});
 								}}
 								className="my-2"
+								defaultChecked={projectConsultant.makeNotVisibleToVendors}
+								key={projectConsultant.makeNotVisibleToVendors}
 							>
 								{currentLocal.buyerHome.makeNotVisibleToVendors}
 							</Checkbox>
@@ -221,7 +249,7 @@ function AddRFQDetails({ getRFQPageName }) {
 								value={projectContractor.name}
 								onChange={(e) => {
 									updateProjectContractor({
-										projectContractor,
+										...projectContractor,
 										name: e.target.value,
 									});
 								}}
@@ -230,11 +258,13 @@ function AddRFQDetails({ getRFQPageName }) {
 							<Checkbox
 								onChange={(e) => {
 									updateProjectContractor({
-										projectContractor,
+										...projectContractor,
 										makeNotVisibleToVendors: e.target.checked,
 									});
 								}}
 								className="my-2"
+								defaultChecked={projectContractor.makeNotVisibleToVendors}
+								key={projectContractor.makeNotVisibleToVendors}
 							>
 								{currentLocal.buyerHome.makeNotVisibleToVendors}
 							</Checkbox>
@@ -257,7 +287,10 @@ function AddRFQDetails({ getRFQPageName }) {
 				{tenderType === "public" ? (
 					<PublicTender getPublicTenderData={getPublicTenderData} />
 				) : (
-					<PrivateTender getPrivateTenderData={getPrivateTenderData} />
+					<PrivateTender
+						getPrivateTenderData={getPrivateTenderData}
+						privateTenderData={privateTenderData}
+					/>
 				)}
 			</div>
 			<Checkbox
@@ -265,6 +298,8 @@ function AddRFQDetails({ getRFQPageName }) {
 				onChange={() => {
 					updateRevealPrices(!revealPrices);
 				}}
+				defaultChecked={revealPrices}
+				key={revealPrices}
 			>
 				{currentLocal.buyerHome.revealPrices}
 			</Checkbox>
