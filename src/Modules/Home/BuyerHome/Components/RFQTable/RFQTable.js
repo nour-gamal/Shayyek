@@ -751,9 +751,17 @@ function CreateRFQ(props) {
 							<label className=" primary-color">
 								{currentLocal.buyerHome.attachProjectDocument}
 							</label>
-							<div className="uploadContainer">
+							<input
+								type={"file"}
+								className="d-none"
+								id="projectFilesUploader"
+							/>
+							<label
+								htmlFor="projectFilesUploader"
+								className="uploadContainer d-flex justify-content-end align-items-center p-2 cursorPointer"
+							>
 								<img src={documents} alt="documents" />
-							</div>
+							</label>
 						</div>
 					</div>
 					<div className="text-center">

@@ -51,7 +51,8 @@
 }
 .RFQTable .uploadContainer{
 	border: 1px solid #dee2e6;
-	width: 100%;
+	width: 152px;
+	height: 41px;
 }
 .RFQTable .button-secondary{
 	border-color: #003B6B;
