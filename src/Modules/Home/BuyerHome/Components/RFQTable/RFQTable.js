@@ -16,6 +16,7 @@ import documents from "../../../../../Resources/Assets/paperClip.svg";
 import "./RFQTable.css";
 import { GetImagePath } from "../../../../ProfilePage/network";
 import { baseUrl } from "../../../../../Services";
+import FileErrorModal from "../FileErrorModal/FileErrorModal";
 
 function CreateRFQ(props) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -53,6 +54,7 @@ function CreateRFQ(props) {
 	const [deletedIndex, updateDeletedIndex] = useState(null);
 	const [deletedRowsList, updateDeleteRowsList] = useState([]);
 	const [indexState, updateIndexState] = useState(false);
+	const [fileErrorModalState, updateFileErrorModalState] = useState(false);
 	useEffect(() => {
 		let options = [];
 		getDeliverdOptions(
@@ -145,7 +147,6 @@ function CreateRFQ(props) {
 			{
 				key,
 				item: null,
-				notes: "",
 				description: "",
 				quantity: 1,
 				unit: "",
@@ -251,12 +252,6 @@ function CreateRFQ(props) {
 							break;
 						}
 
-						case "notes":
-						case "الملاحظات":
-						case "ملاحظات": {
-							index.notes = itemIndex;
-							break;
-						}
 						default: {
 							break;
 						}
@@ -276,7 +271,6 @@ function CreateRFQ(props) {
 										{
 											key: Math.ceil(Math.random() * 111111111),
 											item: name[index.item],
-											notes: name[index.notes],
 											description: name[index.description],
 											unit: name[index.unit],
 											quantity:
@@ -305,7 +299,6 @@ function CreateRFQ(props) {
 			data.push({
 				key: index,
 				item: "",
-				notes: "",
 				description: "",
 				quantity: 1,
 				unit: "",
@@ -340,12 +333,22 @@ function CreateRFQ(props) {
 	}, [indexState, dataSource]);
 
 	const handleUploadItemDoc = (e) => {
+		var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|dwg|DOC|PDF/.test(
+			e.target.files[0].type
+		);
+		if (!isValidExtensions) {
+			updateFileErrorModalState(true);
+			return 0;
+		}
+
+		setLoading(true);
 		const documentfile = e.target.files[0];
 		let file = new FormData();
 		file.append("image", documentfile);
 		GetImagePath(
 			file,
 			(success) => {
+				setLoading(false);
 				let tableData = [...dataSource];
 				tableData[hoveredRow].itemDocuments = success.data;
 				updateDataSource(tableData);
@@ -545,25 +548,6 @@ function CreateRFQ(props) {
 							</div>
 						)}
 					</div>
-				);
-			},
-		},
-		{
-			title: currentLocal.buyerHome.notes,
-			dataIndex: "notes",
-			key: "notes",
-			render: (notes, record) => {
-				return (
-					<textarea
-						type="text"
-						onChange={(e) => {
-							let data = [...dataSource];
-							data[selectedRow].notes = e.target.value;
-							updateDataSource(data);
-						}}
-						className="form-control"
-						value={notes}
-					/>
 				);
 			},
 		},
@@ -775,6 +759,12 @@ function CreateRFQ(props) {
 							onDeleteRow={onDeleteRow}
 						/>
 					)}
+					<FileErrorModal
+						isModalVisible={fileErrorModalState}
+						onCancel={() => {
+							updateFileErrorModalState(!fileErrorModalState);
+						}}
+					/>
 				</div>
 			</div>
 		</div>
