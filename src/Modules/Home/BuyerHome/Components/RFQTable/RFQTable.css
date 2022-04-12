@@ -31,15 +31,31 @@
 .RFQTable .ant-select-selection-placeholder {
 	color: #000;
 }
-.RFQTable .addressBar {
+.RFQTable .address-bar {
 	width: 50%;
+	margin: 10px !important;
 }
-.RFQTable .addressBar.border {
+.RFQTable .notes-bar{
+	height: 150px;
+	width: 50%;
+	margin: 10px !important;
+	background-color: #fff !important;
+	border: 1px solid #DEE2E6 !important;
+}
+.RFQTable .address-bar.border {
 	border: 1px solid #99cffd;
 }
-.RFQTable .button-primary.native {
-	width: 270px;
-	margin: auto !important;
+.RFQTable .button-primary.native,.RFQTable .button-secondary.native {
+	width: 220px;
+	margin: 10px !important;
+}
+.RFQTable .uploadContainer{
+	border: 1px solid #dee2e6;
+	width: 100%;
+}
+.RFQTable .button-secondary{
+	border-color: #003B6B;
+	color: #003B6B;
 }
 .RFQTable table {
 	width: max-content !important;

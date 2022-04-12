@@ -3,7 +3,7 @@ import { Table } from "antd";
 import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import Garbage from "../../../../../Resources/Assets/garbage.svg";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PostRFQModal from "../PostRFQModal/PostRFQModal";
 import datePickerSuffix from "../../../../../Resources/Assets/datePickerSuffix.svg";
 import { ExcelRenderer } from "react-excel-renderer";
@@ -13,10 +13,11 @@ import { Select, Checkbox, DatePicker, Radio } from "antd";
 import { getCategories, getDeliverdOptions } from "../../../network";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import documents from "../../../../../Resources/Assets/paperClip.svg";
-import "./RFQTable.css";
+import { addRFQDetails } from "../../../../../Redux/RFQ";
 import { GetImagePath } from "../../../../ProfilePage/network";
 import { baseUrl } from "../../../../../Services";
 import FileErrorModal from "../FileErrorModal/FileErrorModal";
+import "./RFQTable.css";
 
 function CreateRFQ(props) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -27,6 +28,7 @@ function CreateRFQ(props) {
 	const [deliveredTo, updateDeliveredTo] = useState(
 		"a9c83c89-4aeb-46b8-b245-a144276d927f"
 	);
+	const [notes, updateNotes] = useState("");
 	const [alert, setAlert] = useState(false);
 	const [selectedRow, updateSelectedRow] = useState(null);
 	const [address, updateAddress] = useState("");
@@ -55,6 +57,9 @@ function CreateRFQ(props) {
 	const [deletedRowsList, updateDeleteRowsList] = useState([]);
 	const [indexState, updateIndexState] = useState(false);
 	const [fileErrorModalState, updateFileErrorModalState] = useState(false);
+	const { rfqData } = useSelector((state) => state.rfq);
+	const dispatch = useDispatch();
+
 	useEffect(() => {
 		let options = [];
 		getDeliverdOptions(
@@ -649,6 +654,18 @@ function CreateRFQ(props) {
 			<div className="container">
 				<div className="row">
 					<div className="col-md-8 col-12">
+						<div className="d-flex">
+							<label className="mx-2 my-3 primary-color">
+								{currentLocal.buyerHome.notes}
+							</label>
+							<textarea
+								className="form-control notes-bar"
+								onChange={(e) => {
+									updateNotes(e.target.value);
+								}}
+								value={notes}
+							/>
+						</div>
 						<div>
 							<label className="mx-2 my-3 primary-color">
 								{currentLocal.buyerHome.deliveredTo}
@@ -668,8 +685,8 @@ function CreateRFQ(props) {
 								type="text"
 								className={
 									alert && address.length === 0
-										? "form-control addressBar  alertSign"
-										: "form-control addressBar border"
+										? "form-control address-bar  alertSign"
+										: "form-control address-bar border"
 								}
 								onChange={(e) => {
 									updateAddress(e.target.value);
@@ -730,10 +747,31 @@ function CreateRFQ(props) {
 								/>
 							)}
 						</div>
+						<div className="my-3 datePickerContainer">
+							<label className=" primary-color">
+								{currentLocal.buyerHome.attachProjectDocument}
+							</label>
+							<div className="uploadContainer">
+								<img src={documents} alt="documents" />
+							</div>
+						</div>
 					</div>
-					<button className="button-primary native" onClick={handleConfirm}>
-						{currentLocal.buyerHome.confirm}
-					</button>
+					<div className="text-center">
+						<button
+							className="button-secondary native"
+							onClick={() => {
+								dispatch(
+									addRFQDetails({ ...rfqData, rfqPages: "addRFQDetails" })
+								);
+							}}
+						>
+							{currentLocal.buyerHome.back}
+						</button>
+						<button className="button-primary native" onClick={handleConfirm}>
+							{currentLocal.buyerHome.postRFQ}
+						</button>
+					</div>
+
 					<PostRFQModal
 						isModalVisible={isModalVisible}
 						onCancel={() => toggleModal(!isModalVisible)}

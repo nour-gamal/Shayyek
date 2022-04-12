@@ -107,7 +107,7 @@ function AddRFQDetails({ getRFQPageName }) {
 		};
 		data = { ...data, ...publicTenderData, ...privateTenderData };
 		if (
-			projectName !== "undefined" ||
+			projectName === undefined ||
 			!projectName.length ||
 			!selectedGov ||
 			!projectOwner.name.length ||
