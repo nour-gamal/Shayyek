@@ -694,15 +694,6 @@ function CreateRFQ(props) {
 								value={address}
 							/>
 						</div>
-						<div className="my-3 cursorPointer">
-							<img
-								src={addIcon}
-								alt="addIcon"
-								className="mx-3"
-								onClick={openCCModal}
-							/>
-							<label>{currentLocal.buyerHome.ccCollugues}</label>
-						</div>
 					</div>
 					<div className="col-md-4 col-12 ">
 						<div className="my-3 datePickerContainer">
@@ -762,6 +753,15 @@ function CreateRFQ(props) {
 							>
 								<img src={documents} alt="documents" />
 							</label>
+						</div>
+						<div className="my-3 cursorPointer">
+							<img
+								src={addIcon}
+								alt="addIcon"
+								className="mx-3"
+								onClick={openCCModal}
+							/>
+							<label>{currentLocal.buyerHome.ccCollugues}</label>
 						</div>
 					</div>
 					<div className="text-center">
