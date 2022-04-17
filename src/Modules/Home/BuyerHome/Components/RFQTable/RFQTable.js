@@ -204,12 +204,12 @@ function CreateRFQ(props) {
 				rfqPackages: [
 					{
 						rfqPackageDetailsRequests: [...dataSource],
-						packageName: "string",
-						notes: "string",
-						receivingOffersDeadline: "2022-04-17T08:12:22.648Z",
-						deliveryDate: "2022-04-17T08:12:22.648Z",
-						address: "string",
-						deliveryToId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+						packageName: packageName,
+						notes: notes,
+						receivingOffersDeadline: recievingOffersDate,
+						deliveryDate: deliveryDate,
+						address: address,
+						deliveryToId: deliveredTo,
 						packageCCColleagues: ["3fa85f64-5717-4562-b3fc-2c963f66afa6"],
 						packageFiles: ["string"],
 					},
@@ -860,7 +860,9 @@ function CreateRFQ(props) {
 						onCancel={() => {
 							updateIsAddPackModalVis(!isAddPackModalVis);
 						}}
-						getPackageName={(val) => {updatePackageName(val)}}
+						getPackageName={(val) => {
+							updatePackageName(val);
+						}}
 					/>
 				</div>
 			</div>

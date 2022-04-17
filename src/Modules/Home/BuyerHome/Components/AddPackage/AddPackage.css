@@ -10,12 +10,18 @@
 .addPackageModal .packageNameField{
     width: 60%;
 }
-
+.addPackageModal .button-secondary{
+    color: #003B6B;
+    border-color: #003B6B;
+}
 @media (max-width:768px){
     .addPackageModal .button-container{
         flex-direction: column;
     }
     .addPackageModal .button-container>button{
         margin: 10px auto;
+    }
+    .addPackageModal .packageNameField{
+        width: 90%;
     }
 }
