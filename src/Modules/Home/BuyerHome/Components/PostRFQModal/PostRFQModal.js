@@ -7,9 +7,8 @@ import { Redirect } from "react-router-dom";
 import AddEmailModal from "../AddEmailModal/AddEmailModal";
 import Fuse from "fuse.js";
 import {
-	getCCEmails,
+	getCCEmailsList,
 	GetSupplierAndContractorEmails,
-	postRFQ,
 } from "../../../network";
 import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import WhiteCross from "../../../../../Resources/Assets/whiteCross.svg";
@@ -31,6 +30,7 @@ function PostRFQModal({
 	revealPriceProp,
 	id,
 	deletedRowsList,
+	getCCEmails,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
@@ -155,54 +155,8 @@ function PostRFQModal({
 		}
 	}
 	function handleSubmit() {
-		if (modalType === "post") {
-			if (projectName.length > 0 && (publishToRelevent || invited.length > 0)) {
-				const invitedEmails = [];
-				const ccEmails = [];
-				invited.forEach((email) => {
-					invitedEmails.push(email.name ? email.name : email);
-				});
-				ccCollugues.forEach((email) => {
-					ccEmails.push(email.name ? email.name : email);
-				});
-
-				let data = {
-					isPublishToSuppliersNetwork: publishToRelevent,
-					isRevealPricesToBidders: revealPrice,
-					address: address,
-					deadlineDate,
-					deliveryDate,
-					deliveryToId: deliveredTo,
-					rfqDetails,
-					invitedEmails: invitedEmails,
-					cC_Colleagues: ccEmails,
-					projectName,
-				};
-				if (id !== "new") {
-					data = {
-						...data,
-						rfqHeaderId: id,
-						isEdit: true,
-						deletedRFQDetails: deletedRowsList,
-					};
-				}
-				postRFQ(
-					data,
-					(success) => {
-						console.log(success);
-					},
-					(fail) => {
-						console.log(fail);
-					}
-				);
-				setRedirect(true);
-				// onCancel();
-			} else {
-				setAlert(true);
-			}
-		} else {
-			onCancel();
-		}
+		getCCEmails(ccCollugues);
+		onCancel();
 	}
 	if (redirect) {
 		return <Redirect to="/" />;

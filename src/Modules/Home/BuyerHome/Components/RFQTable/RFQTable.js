@@ -61,7 +61,7 @@ function CreateRFQ(props) {
 	const [fileErrorModalState, updateFileErrorModalState] = useState(false);
 	const { rfqData } = useSelector((state) => state.rfq);
 	const [packageName, updatePackageName] = useState("");
-
+	const [ccEmails, updateCCEmails] = useState([]);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -210,7 +210,7 @@ function CreateRFQ(props) {
 						deliveryDate: deliveryDate,
 						address: address,
 						deliveryToId: deliveredTo,
-						packageCCColleagues: ["3fa85f64-5717-4562-b3fc-2c963f66afa6"],
+						packageCCColleagues: [...ccEmails],
 						packageFiles: ["string"],
 					},
 				],
@@ -839,6 +839,9 @@ function CreateRFQ(props) {
 						revealPriceProp={revealPrice}
 						publishToReleventProp={publishToRelevant}
 						deletedRowsList={deletedRowsList}
+						getCCEmails={(val) => {
+							updateCCEmails(val);
+						}}
 					/>
 					{isDeleteRowModal && (
 						<DeleteModal

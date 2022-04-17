@@ -50,7 +50,7 @@ export const getDeliverdOptions = (
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
 
-export const getCCEmails = (companyId, onSuccess, onFail, reqAuth = true) => {
+export const getCCEmailsList = (companyId, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/RFQ/GetEmailsOfTheSameBuyerCompany?companyId=${companyId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
