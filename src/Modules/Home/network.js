@@ -65,7 +65,7 @@ export const GetSupplierAndContractorEmails = (
 };
 
 export const postRFQ = (data, onSuccess, onFail, reqAuth = true) => {
-	const path = `api/RFQ/AddOrEditRFQ`;
+	const path = `api/RFQ/AddRFQ`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
 export const ContactUs = (data, onSuccess, onFail, reqAuth = true) => {

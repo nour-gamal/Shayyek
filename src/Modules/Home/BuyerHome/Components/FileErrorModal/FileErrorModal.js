@@ -7,7 +7,7 @@ function FileErrorModal({ isModalVisible, onCancel }) {
 			title="Basic Modal"
 			visible={isModalVisible}
 			onCancel={onCancel}
-			className="modal-sm successModal"
+			className="modal-sm fileErrorModal"
 		>
 			fileErrorModal
 		</Modal>

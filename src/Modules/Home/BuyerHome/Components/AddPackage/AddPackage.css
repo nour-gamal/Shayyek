@@ -1,0 +1,21 @@
+.addPackageModal{
+    padding: 550px auto !important;
+}
+.addPackageModal .closeIconFig{
+    width: 5px !important;
+}
+.addPackageModal .closeIconFig>img{
+    width: 100% !important;
+}
+.addPackageModal .packageNameField{
+    width: 60%;
+}
+
+@media (max-width:768px){
+    .addPackageModal .button-container{
+        flex-direction: column;
+    }
+    .addPackageModal .button-container>button{
+        margin: 10px auto;
+    }
+}

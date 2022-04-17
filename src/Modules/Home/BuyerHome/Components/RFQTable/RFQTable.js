@@ -10,13 +10,14 @@ import { ExcelRenderer } from "react-excel-renderer";
 import { Alert } from "react-bootstrap";
 import moment from "moment";
 import { Select, Checkbox, DatePicker, Radio } from "antd";
-import { getCategories, getDeliverdOptions } from "../../../network";
+import { getCategories, getDeliverdOptions, postRFQ } from "../../../network";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import documents from "../../../../../Resources/Assets/paperClip.svg";
 import { addRFQDetails } from "../../../../../Redux/RFQ";
 import { GetImagePath } from "../../../../ProfilePage/network";
 import { baseUrl } from "../../../../../Services";
 import FileErrorModal from "../FileErrorModal/FileErrorModal";
+import AddPackage from "../AddPackage/AddPackage";
 import "./RFQTable.css";
 
 function CreateRFQ(props) {
@@ -29,6 +30,7 @@ function CreateRFQ(props) {
 		"a9c83c89-4aeb-46b8-b245-a144276d927f"
 	);
 	const [notes, updateNotes] = useState("");
+	const [isAddPackModalVis, updateIsAddPackModalVis] = useState(false);
 	const [alert, setAlert] = useState(false);
 	const [selectedRow, updateSelectedRow] = useState(null);
 	const [address, updateAddress] = useState("");
@@ -58,6 +60,8 @@ function CreateRFQ(props) {
 	const [indexState, updateIndexState] = useState(false);
 	const [fileErrorModalState, updateFileErrorModalState] = useState(false);
 	const { rfqData } = useSelector((state) => state.rfq);
+	const [packageName, updatePackageName] = useState("");
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -128,7 +132,7 @@ function CreateRFQ(props) {
 			updateInstallAll(false);
 		}
 
-		data[rowIndex].includeInstallation = e.target.checked;
+		data[rowIndex].isInstallSupplierAndContructor = e.target.checked;
 		updateDataSource(data);
 	}
 	function handleInstallAll(e) {
@@ -136,7 +140,7 @@ function CreateRFQ(props) {
 
 		let data = [...dataSource];
 		data.forEach((row, rowIndex) => {
-			data[rowIndex].includeInstallation = e.target.checked;
+			data[rowIndex].isInstallSupplierAndContructor = e.target.checked;
 			updateDataSource(data);
 		});
 		updateDataSource(data);
@@ -156,9 +160,9 @@ function CreateRFQ(props) {
 				quantity: 1,
 				unit: "",
 				preferredBrands: "",
-				includeInstallation: false,
+				isInstallSupplierAndContructor: false,
 				actionStatus: 1,
-				itemDocuments: "",
+				filePath: "",
 			},
 		]);
 		updateIndexState(true);
@@ -195,7 +199,33 @@ function CreateRFQ(props) {
 		) {
 			setAlert(true);
 		} else {
-			toggleModal(true);
+			let data = {
+				...rfqData,
+				rfqPackages: [
+					{
+						rfqPackageDetailsRequests: [...dataSource],
+						packageName: "string",
+						notes: "string",
+						receivingOffersDeadline: "2022-04-17T08:12:22.648Z",
+						deliveryDate: "2022-04-17T08:12:22.648Z",
+						address: "string",
+						deliveryToId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+						packageCCColleagues: ["3fa85f64-5717-4562-b3fc-2c963f66afa6"],
+						packageFiles: ["string"],
+					},
+				],
+			};
+			console.log(dataSource);
+
+			// 	postRFQ(
+			// 		data,
+			// 		(success) => {
+			// 			console.log(success);
+			// 		},
+			// 		(fail) => {
+			// 			console.log(fail);
+			// 		}
+			// 	);
 		}
 	}
 	function openCCModal() {
@@ -283,9 +313,9 @@ function CreateRFQ(props) {
 												name[index.quantity] === undefined
 													? 1
 													: name[index.quantity],
-											includeInstallation: false,
+											isInstallSupplierAndContructor: false,
 											preferredBrands: null,
-											itemDocuments: "",
+											filePath: "",
 										},
 									]);
 								}
@@ -308,8 +338,8 @@ function CreateRFQ(props) {
 				quantity: 1,
 				unit: "",
 				preferredBrands: "",
-				includeInstallation: false,
-				itemDocuments: "",
+				isInstallSupplierAndContructor: false,
+				filePath: "",
 			});
 		}
 		updateIndexState(true);
@@ -355,13 +385,20 @@ function CreateRFQ(props) {
 			(success) => {
 				setLoading(false);
 				let tableData = [...dataSource];
-				tableData[hoveredRow].itemDocuments = success.data;
+				tableData[hoveredRow].filePath = success.data;
 				updateDataSource(tableData);
 			},
 			(fail) => {
 				console.log(fail);
 			}
 		);
+	};
+
+	const handleAddProjectFiles = (e) => {
+		let filesData = new FormData();
+		e.target.files.forEach((file, index) => {
+			filesData.append(`image ${index}`, file);
+		});
 	};
 
 	const columns = [
@@ -512,30 +549,28 @@ function CreateRFQ(props) {
 		},
 		{
 			title: currentLocal.buyerHome.includeInstallation,
-			dataIndex: "includeInstallation",
-			key: "includeInstallation",
-			render: (includeInstallation, record, rowIndex) => {
+			dataIndex: "isInstallSupplierAndContructor",
+			key: "isInstallSupplierAndContructor",
+			render: (isInstallSupplierAndContructor, record, rowIndex) => {
 				return (
 					<Checkbox
 						onChange={(checkVal) => {
 							handleIncludeInstallation(checkVal, rowIndex);
 						}}
-						checked={includeInstallation}
+						checked={isInstallSupplierAndContructor}
 					/>
 				);
 			},
 		},
 		{
 			title: currentLocal.buyerHome.itemDocuments,
-			dataIndex: "itemDocuments",
-			key: "itemDocuments",
-			render: (itemDocuments, item) => {
+			dataIndex: "filePath",
+			key: "filePath",
+			render: (filePath, item) => {
 				return (
 					<div>
-						{itemDocuments.length ? (
-							<a href={baseUrl + itemDocuments}>
-								{itemDocuments.split(" ")[1]}
-							</a>
+						{filePath.length ? (
+							<a href={baseUrl + filePath}>{filePath.split(" ")[1]}</a>
 						) : (
 							<div>
 								<input
@@ -577,7 +612,14 @@ function CreateRFQ(props) {
 						<label>{currentLocal.buyerHome.importExcelFile}</label>
 					</div>
 					<div className="mb-3">
-						<img src={addIcon} alt="addIcon" className="mx-3" />
+						<img
+							src={addIcon}
+							alt="addIcon"
+							className="mx-3"
+							onClick={() => {
+								updateIsAddPackModalVis(!isAddPackModalVis);
+							}}
+						/>
 						<label className="primary-color">
 							{currentLocal.buyerHome.addNewPackage}
 						</label>
@@ -746,6 +788,8 @@ function CreateRFQ(props) {
 								type={"file"}
 								className="d-none"
 								id="projectFilesUploader"
+								onChange={handleAddProjectFiles}
+								multiple
 							/>
 							<label
 								htmlFor="projectFilesUploader"
@@ -810,6 +854,13 @@ function CreateRFQ(props) {
 						onCancel={() => {
 							updateFileErrorModalState(!fileErrorModalState);
 						}}
+					/>
+					<AddPackage
+						isModalVisible={isAddPackModalVis}
+						onCancel={() => {
+							updateIsAddPackModalVis(!isAddPackModalVis);
+						}}
+						getPackageName={(val) => {updatePackageName(val)}}
 					/>
 				</div>
 			</div>

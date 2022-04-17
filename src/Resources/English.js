@@ -377,6 +377,9 @@ export const en = {
 		toSeeCompanies: "you can edit your work/field to see related companies",
 		relatedMarketPlace: "Related MarketPlace",
 		confirmDeleteRow: "Are you sure you want to delete the selected row?",
+		addPackageName: "Add Package Name",
+		typePackageName: "Type Package Name in Project",
+		submit: "Submit",
 	},
 	home: {
 		shayek: "Shayyek",

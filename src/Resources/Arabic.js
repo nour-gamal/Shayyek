@@ -319,6 +319,9 @@ export const ar = {
 		relatedMarketPlace: "الشركات ذات الصلة",
 		viewOffers: "اظهر العروض",
 		confirmDeleteRow: "هل انت متاكد من ازاله الصف المختار؟",
+		addPackageName: "اضف اسم الحزمه",
+		typePackageName: "اضف اسم حزمه للمشروع",
+		submit: "ارسال",
 	},
 	supplierHome: {
 		addNewProduct: "أضف منتج جديد",
