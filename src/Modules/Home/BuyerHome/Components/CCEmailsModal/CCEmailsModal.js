@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import AddEmailModal from "../AddEmailModal/AddEmailModal";
 import Fuse from "fuse.js";
 import { getCCEmailsList } from "../../../network";
-import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
+//import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import WhiteCross from "../../../../../Resources/Assets/whiteCross.svg";
 import "./CCEmailsModal.css";
 
@@ -104,7 +104,7 @@ function CCEmailsModal({ isModalVisible, onCancel, getCCEmails, ccEmails }) {
 						search={true}
 						placeholder={currentLocal.buyerHome.selectSupplierEmail}
 					/>
-					<span
+					{/* <span
 						className="cursorPointer"
 						onClick={() => {
 							toggleEmailModal(!isEmailModVisible);
@@ -114,7 +114,7 @@ function CCEmailsModal({ isModalVisible, onCancel, getCCEmails, ccEmails }) {
 						<label className="primary-color cursorPointer">
 							{currentLocal.buyerHome.addNewEmail}
 						</label>
-					</span>
+					</span> */}
 				</div>
 
 				<div className="capsulesContainer my-4 ">
@@ -146,7 +146,7 @@ function CCEmailsModal({ isModalVisible, onCancel, getCCEmails, ccEmails }) {
 				onCancel={() => toggleEmailModal(!isEmailModVisible)}
 				getEmail={(email) => {
 					let ccOptions = ccCollugues;
-					ccOptions.push(email);
+					ccOptions.push({ name: email, value: 0, typed: true });
 					updateCcCollugues(ccOptions);
 				}}
 			/>
