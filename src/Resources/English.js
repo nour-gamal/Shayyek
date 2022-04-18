@@ -382,7 +382,9 @@ export const en = {
 		submit: "Submit",
 		fileError:
 			"Unknown File! Please attach file in one of these extensions: PDF, Word, Excel or AutoCAD",
-		ok:'OK'
+		ok: "OK",
+		postedSuccess: "RFQ was Posted Successfully.",
+		addAnotherPackage: "Do You Want Add Another Package",
 	},
 	home: {
 		shayek: "Shayyek",

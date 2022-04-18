@@ -19,6 +19,7 @@ import { baseUrl } from "../../../../../Services";
 import FileErrorModal from "../FileErrorModal/FileErrorModal";
 import AddPackage from "../AddPackage/AddPackage";
 import "./RFQTable.css";
+import PostRFQSuccessModal from "../PostRFQSuccessModal/PostRFQSuccessModal";
 
 function CreateRFQ(props) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -51,6 +52,8 @@ function CreateRFQ(props) {
 	const { rfqData } = useSelector((state) => state.rfq);
 	const [packageName, updatePackageName] = useState("");
 	const [ccEmails, updateCCEmails] = useState([]);
+	const [isSuccessModalvis, updateSuccessModalVis] = useState(false);
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -202,17 +205,16 @@ function CreateRFQ(props) {
 					},
 				],
 			};
-			console.log(data);
 
-			// 	postRFQ(
-			// 		data,
-			// 		(success) => {
-			// 			console.log(success);
-			// 		},
-			// 		(fail) => {
-			// 			console.log(fail);
-			// 		}
-			// 	);
+			postRFQ(
+				data,
+				(success) => {
+					console.log(success);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
 		}
 	}
 	function openCCModal() {
@@ -809,7 +811,6 @@ function CreateRFQ(props) {
 							{currentLocal.buyerHome.postRFQ}
 						</button>
 					</div>
-
 					{isModalVisible && (
 						<CCEmailsModal
 							isModalVisible={isModalVisible}
@@ -842,6 +843,12 @@ function CreateRFQ(props) {
 						}}
 						getPackageName={(val) => {
 							updatePackageName(val);
+						}}
+					/>
+					<PostRFQSuccessModal
+						isModalVisible={isSuccessModalvis}
+						onCancel={() => {
+							updateSuccessModalVis(!isSuccessModalvis);
 						}}
 					/>
 				</div>
