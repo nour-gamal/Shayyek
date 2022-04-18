@@ -322,6 +322,9 @@ export const ar = {
 		addPackageName: "اضف اسم الحزمه",
 		typePackageName: "اضف اسم حزمه للمشروع",
 		submit: "ارسال",
+		fileError:
+			"ملف غير معروف! من فضلك ارفق ملف من واحده من هذه الامتدادات:PDD,Word,Excel او AutoCAD",
+		ok: "تم",
 	},
 	supplierHome: {
 		addNewProduct: "أضف منتج جديد",

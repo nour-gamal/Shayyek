@@ -1,16 +1,22 @@
-.postRFQModal .modal-container {
+.ccModal .modal-container {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
 	justify-content: space-between;
 }
-.postRFQModal #searchValue {
+.ccModal .ant-modal-body{
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+}
+
+.ccModal #searchValue {
 	width: 60%;
 	height: 35px;
 	padding: 5px 20px;
 	border: 1px solid #bce0fd;
 }
-.postRFQModal #searchValue::placeholder {
+.ccModal #searchValue::placeholder {
 	color: #bce0fd;
 }
 
@@ -22,12 +28,12 @@
 	padding: 20px 30px;
 }
 
-.postRFQModal .button-primary {
+.ccModal .button-primary {
 	display: block;
 	margin: auto;
 	margin-top: 20px;
 }
-.postRFQModal .projectNameContainer input {
+.ccModal .projectNameContainer input {
 	width: 63%;
 	margin-left: 5%;
 }
@@ -73,7 +79,7 @@
 .select-search {
 	display: inline;
 }
-.postRFQModal .select-search {
+.ccModal .select-search {
 	width: 70%;
 }
 .select-search__input {
@@ -257,15 +263,15 @@
 		flex-direction: column;
 		padding: 20px;
 	}
-	.postRFQModal .projectNameContainer,
-	.postRFQModal .emailContainer {
+	.ccModal .projectNameContainer,
+	.ccModal .emailContainer {
 		flex-direction: column;
 	}
 	.select-search__value {
 		width: 100%;
 		margin: 10px 0;
 	}
-	.postRFQModal .projectNameContainer input {
+	.ccModal .projectNameContainer input {
 		width: 70%;
 		margin: 0;
 	}

@@ -4,7 +4,7 @@ import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import Garbage from "../../../../../Resources/Assets/garbage.svg";
 import { useSelector, useDispatch } from "react-redux";
-import PostRFQModal from "../PostRFQModal/PostRFQModal";
+import CCEmailsModal from "../CCEmailsModal/CCEmailsModal";
 import datePickerSuffix from "../../../../../Resources/Assets/datePickerSuffix.svg";
 import { ExcelRenderer } from "react-excel-renderer";
 import { Alert } from "react-bootstrap";
@@ -42,17 +42,6 @@ function CreateRFQ(props) {
 	const [notContainCategory, updateNotContainCategory] = useState(false);
 	const [installAll, updateInstallAll] = useState(false);
 	const [deliveredToOptions, updateDeliveryOptions] = useState([]);
-	const [modalType, updateModalType] = useState("post");
-	// eslint-disable-next-line
-	const [ccList, updateCCList] = useState([]);
-	// eslint-disable-next-line
-	const [invitedEmails, updateInvitedEmails] = useState([]);
-	// eslint-disable-next-line
-	const [projectName, updateProjectName] = useState("");
-	// eslint-disable-next-line
-	const [revealPrice, updateRevealPrice] = useState(false);
-	// eslint-disable-next-line
-	const [publishToRelevant, updatePublishToRelevant] = useState(false);
 	const [hoveredRow, updateHoveredRow] = useState(null);
 	const [isDeleteRowModal, updateDeleteRowModal] = useState(false);
 	const [deletedIndex, updateDeletedIndex] = useState(null);
@@ -181,8 +170,6 @@ function CreateRFQ(props) {
 		);
 	}
 	function handleConfirm() {
-		updateModalType("post");
-
 		const hasNoCat = dataSource.every((data) => {
 			return data.categoryId === undefined;
 		});
@@ -215,7 +202,7 @@ function CreateRFQ(props) {
 					},
 				],
 			};
-			console.log(dataSource);
+			console.log(data);
 
 			// 	postRFQ(
 			// 		data,
@@ -229,7 +216,6 @@ function CreateRFQ(props) {
 		}
 	}
 	function openCCModal() {
-		updateModalType("cc");
 		toggleModal(true);
 	}
 
@@ -824,25 +810,16 @@ function CreateRFQ(props) {
 						</button>
 					</div>
 
-					<PostRFQModal
-						isModalVisible={isModalVisible}
-						onCancel={() => toggleModal(!isModalVisible)}
-						modalType={modalType}
-						deadlineDate={recievingOffersDate}
-						deliveryDate={deliveryDate}
-						deliveredTo={deliveredTo}
-						rfqDetails={dataSource}
-						address={address}
-						ccColluguesProp={ccList}
-						invitedEmailsProp={invitedEmails}
-						projectNameProp={projectName}
-						revealPriceProp={revealPrice}
-						publishToReleventProp={publishToRelevant}
-						deletedRowsList={deletedRowsList}
-						getCCEmails={(val) => {
-							updateCCEmails(val);
-						}}
-					/>
+					{isModalVisible && (
+						<CCEmailsModal
+							isModalVisible={isModalVisible}
+							onCancel={() => toggleModal(!isModalVisible)}
+							getCCEmails={(val) => {
+								updateCCEmails(val);
+							}}
+							ccEmails={ccEmails}
+						/>
+					)}
 					{isDeleteRowModal && (
 						<DeleteModal
 							isModalVisible={isDeleteRowModal}

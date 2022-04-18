@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Input, Modal } from "antd";
 import { useSelector } from "react-redux";
 import "./AddPackage.css";

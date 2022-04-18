@@ -380,6 +380,9 @@ export const en = {
 		addPackageName: "Add Package Name",
 		typePackageName: "Type Package Name in Project",
 		submit: "Submit",
+		fileError:
+			"Unknown File! Please attach file in one of these extensions: PDF, Word, Excel or AutoCAD",
+		ok:'OK'
 	},
 	home: {
 		shayek: "Shayyek",
