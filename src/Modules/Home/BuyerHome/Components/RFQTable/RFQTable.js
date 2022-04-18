@@ -846,7 +846,7 @@ function CreateRFQ(props) {
 						}}
 					/>
 					<PostRFQSuccessModal
-						isModalVisible={isSuccessModalvis}
+						isModalVisible={true}
 						onCancel={() => {
 							updateSuccessModalVis(!isSuccessModalvis);
 						}}

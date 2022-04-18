@@ -385,6 +385,7 @@ export const en = {
 		ok: "OK",
 		postedSuccess: "RFQ was Posted Successfully.",
 		addAnotherPackage: "Do You Want Add Another Package",
+		addPackage: "Add Package",
 	},
 	home: {
 		shayek: "Shayyek",
