@@ -80,6 +80,20 @@
 	opacity: 0;
 	transition: all 0.4s ease-in-out;
 }
+.RFQTable .documents-list-area .fileName{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100px;
+}
+.RFQTable .documents-list-area .fileSizeBox .fileSize{
+	overflow: hidden;
+	width: 59px;
+}
+.RFQTable .documents-list-area{
+	overflow: auto;
+	flex: 1;
+}
 .datePickerContainer {
 	display: flex;
 	justify-content: space-between;

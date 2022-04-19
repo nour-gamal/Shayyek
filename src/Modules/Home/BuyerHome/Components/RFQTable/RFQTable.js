@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "antd";
 import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import Garbage from "../../../../../Resources/Assets/garbage.svg";
@@ -9,8 +8,13 @@ import datePickerSuffix from "../../../../../Resources/Assets/datePickerSuffix.s
 import { ExcelRenderer } from "react-excel-renderer";
 import { Alert } from "react-bootstrap";
 import moment from "moment";
-import { Select, Checkbox, DatePicker, Radio } from "antd";
-import { getCategories, getDeliverdOptions, postRFQ } from "../../../network";
+import { Table, Spin, Select, Checkbox, DatePicker, Radio } from "antd";
+import {
+	getCategories,
+	getDeliverdOptions,
+	postRFQ,
+	AddDocumentList,
+} from "../../../network";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import documents from "../../../../../Resources/Assets/paperClip.svg";
 import { addRFQDetails } from "../../../../../Redux/RFQ";
@@ -18,8 +22,13 @@ import { GetImagePath } from "../../../../ProfilePage/network";
 import { baseUrl } from "../../../../../Services";
 import FileErrorModal from "../FileErrorModal/FileErrorModal";
 import AddPackage from "../AddPackage/AddPackage";
-import "./RFQTable.css";
 import PostRFQSuccessModal from "../PostRFQSuccessModal/PostRFQSuccessModal";
+import pdfIcon from "../../../../../Resources/Assets/pdfs.png";
+import docIcon from "../../../../../Resources/Assets/doc.svg";
+import excel from "../../../../../Resources/Assets/excel.svg";
+import autocad from "../../../../../Resources/Assets/autocad.svg";
+import close from "../../../../../Resources/Assets/tip-close.svg";
+import "./RFQTable.css";
 
 function CreateRFQ(props) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -53,7 +62,8 @@ function CreateRFQ(props) {
 	const [packageName, updatePackageName] = useState("");
 	const [ccEmails, updateCCEmails] = useState([]);
 	const [isSuccessModalvis, updateSuccessModalVis] = useState(false);
-
+	const [documentsList, updateDocumentsList] = useState([]);
+	const [docLoadingState, updateDocLoadingState] = useState(false);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -368,6 +378,7 @@ function CreateRFQ(props) {
 		const documentfile = e.target.files[0];
 		let file = new FormData();
 		file.append("image", documentfile);
+		file.append("status", 4);
 		GetImagePath(
 			file,
 			(success) => {
@@ -383,10 +394,32 @@ function CreateRFQ(props) {
 	};
 
 	const handleAddProjectFiles = (e) => {
-		let filesData = new FormData();
-		e.target.files.forEach((file, index) => {
-			filesData.append(`image ${index}`, file);
-		});
+		let files = [...e.target.files];
+		let regex = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|dwg|DOC|doc|PDF|pdf/;
+		var validFiles = files.filter((file) => regex.test(file.type));
+
+		if (!validFiles.length) {
+			updateFileErrorModalState(true);
+			return 0;
+		} else {
+			updateDocLoadingState(true);
+			let filesData = new FormData();
+			files.forEach((file, index) => {
+				console.log(file);
+				filesData.append(`image ${index}`, file);
+			});
+			AddDocumentList(
+				filesData,
+				(success) => {
+					console.log(success.data);
+					updateDocumentsList(files);
+					updateDocLoadingState(false);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
+		}
 	};
 
 	const columns = [
@@ -786,6 +819,44 @@ function CreateRFQ(props) {
 								<img src={documents} alt="documents" />
 							</label>
 						</div>
+						<div className="documents-list-area d-flex justify-content-center">
+							{docLoadingState ? (
+								<div className="example">
+									<Spin />
+								</div>
+							) : (
+								documentsList.map((doc) => {
+									let type = doc.type.includes("pdf")
+										? pdfIcon
+										: doc.type.includes("dwg")
+										? autocad
+										: doc.type.includes("doc")
+										? docIcon
+										: excel;
+									return (
+										<div className="d-flex m-2">
+											<img src={type} alt="pdf" className="mx-2" />
+											<div>
+												<div className="fileName">{doc.name}</div>
+												<div className="fileSizeBox d-flex align-items-center justify-content-between">
+													<div>
+														<span className="fileSize">
+															{(doc.size / (1024 * 1024)).toFixed(3)}
+														</span>
+														<span>MB</span>
+													</div>
+													<img
+														src={close}
+														alt="close"
+														className="cursorPointer"
+													/>
+												</div>
+											</div>
+										</div>
+									);
+								})
+							)}
+						</div>
 						<div className="my-3 cursorPointer">
 							<img
 								src={addIcon}
@@ -846,7 +917,7 @@ function CreateRFQ(props) {
 						}}
 					/>
 					<PostRFQSuccessModal
-						isModalVisible={true}
+						isModalVisible={isSuccessModalvis}
 						onCancel={() => {
 							updateSuccessModalVis(!isSuccessModalvis);
 						}}

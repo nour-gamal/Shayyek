@@ -50,7 +50,12 @@ export const getDeliverdOptions = (
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
 
-export const getCCEmailsList = (companyId, onSuccess, onFail, reqAuth = true) => {
+export const getCCEmailsList = (
+	companyId,
+	onSuccess,
+	onFail,
+	reqAuth = true
+) => {
 	const path = `api/RFQ/GetEmailsOfTheSameBuyerCompany?companyId=${companyId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
@@ -219,4 +224,15 @@ export const EditProduct = (data, onSuccess, onFail, reqAuth = true) => {
 export const GetFavVendor = (onSuccess, onFail, reqAuth = true) => {
 	const path = `api/Profile/FavouriteVendors`;
 	GetResource(path, onSuccess, onFail, true);
+};
+
+export const AddDocumentList = (
+	data,
+	onSuccess,
+	onFail,
+	reqAuth = true,
+	formData = true
+) => {
+	const path = "api/Account/DocumentList";
+	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
 };
