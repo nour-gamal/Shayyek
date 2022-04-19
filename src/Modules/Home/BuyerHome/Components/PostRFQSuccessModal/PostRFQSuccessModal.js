@@ -18,7 +18,7 @@ function PostRFQSuccessModal({ isModalVisible, onCancel }) {
 			<div className="text-center my-4">
 				<div className="my-4">{currentLocal.buyerHome.fileError}</div>
 				<button
-					className="button-secondary"
+					className="button-secondary flat m-2"
 					onClick={() => {
 						onCancel();
 					}}
@@ -26,7 +26,7 @@ function PostRFQSuccessModal({ isModalVisible, onCancel }) {
 					{currentLocal.buyerHome.cancel}
 				</button>
 				<button
-					className="button-primary "
+					className="button-primary flat m-2"
 					onClick={() => {
 						onCancel();
 					}}

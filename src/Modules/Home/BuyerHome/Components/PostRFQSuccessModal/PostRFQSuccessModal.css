@@ -4,3 +4,7 @@
     align-items: center;
     flex-direction: column;
 }
+.postRFQSuccessModal .button-secondary{
+    color:#003b6b;
+    border: 1px solid #003b6b;
+}
