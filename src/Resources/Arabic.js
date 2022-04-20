@@ -325,6 +325,7 @@ export const ar = {
 		fileError:
 			"ملف غير معروف! من فضلك ارفق ملف من واحده من هذه الامتدادات:PDD,Word,Excel او AutoCAD",
 		ok: "تم",
+		done: "تم",
 		postedSuccess: "تم ارسال طلب عرض السعر!",
 		addAnotherPackage: "هل تريد اضافه حزمه اخري.",
 		addPackage: "اضف حزمه",

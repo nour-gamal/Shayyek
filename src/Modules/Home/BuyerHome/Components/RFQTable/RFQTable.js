@@ -64,6 +64,7 @@ function CreateRFQ(props) {
 	const [isSuccessModalvis, updateSuccessModalVis] = useState(false);
 	const [documentsList, updateDocumentsList] = useState([]);
 	const [docLoadingState, updateDocLoadingState] = useState(false);
+	// const [rfqId, updateRFQId] = useState(null);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -215,16 +216,16 @@ function CreateRFQ(props) {
 					},
 				],
 			};
-
-			postRFQ(
-				data,
-				(success) => {
-					console.log(success);
-				},
-				(fail) => {
-					console.log(fail);
-				}
-			);
+			updateSuccessModalVis(!isSuccessModalvis);
+			// postRFQ(
+			// 	data,
+			// 	(success) => {
+			// 		console.log(success);
+			// 	},
+			// 	(fail) => {
+			// 		console.log(fail);
+			// 	}
+			// );
 		}
 	}
 	function openCCModal() {
@@ -868,16 +869,18 @@ function CreateRFQ(props) {
 						</div>
 					</div>
 					<div className="text-center">
-						<button
-							className="button-secondary native"
-							onClick={() => {
-								dispatch(
-									addRFQDetails({ ...rfqData, rfqPages: "addRFQDetails" })
-								);
-							}}
-						>
-							{currentLocal.buyerHome.back}
-						</button>
+						{props.state && !props.state.addAnotherPackage && (
+							<button
+								className="button-secondary native"
+								onClick={() => {
+									dispatch(
+										addRFQDetails({ ...rfqData, rfqPages: "addRFQDetails" })
+									);
+								}}
+							>
+								{currentLocal.buyerHome.back}
+							</button>
+						)}
 						<button className="button-primary native" onClick={handleConfirm}>
 							{currentLocal.buyerHome.postRFQ}
 						</button>
@@ -917,11 +920,11 @@ function CreateRFQ(props) {
 						}}
 					/>
 					<PostRFQSuccessModal
-						// isModalVisible={isSuccessModalvis}
-						isModalVisible={true}
+						isModalVisible={isSuccessModalvis}
 						onCancel={() => {
 							updateSuccessModalVis(!isSuccessModalvis);
 						}}
+						alreadyHasPackage={packageName.length ? true : false}
 					/>
 				</div>
 			</div>

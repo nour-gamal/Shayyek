@@ -383,6 +383,7 @@ export const en = {
 		fileError:
 			"Unknown File! Please attach file in one of these extensions: PDF, Word, Excel or AutoCAD",
 		ok: "OK",
+		done: "Done",
 		postedSuccess: "RFQ was Posted Successfully.",
 		addAnotherPackage: "Do You Want Add Another Package",
 		addPackage: "Add Package",
