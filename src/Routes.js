@@ -21,6 +21,7 @@ import AdminViewSupplier from "./Modules/ProfilePage/Components/SubComponents/Ad
 import Cart from "./Modules/Cart/Cart";
 import Checkout from "./Modules/Cart/Checkout";
 import Messages from "./Modules/Messages/Messages";
+import { getToken } from "./Services";
 // import Login from "./Modules/Login/Login";
 //import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
 function Routes() {
@@ -37,6 +38,7 @@ function Routes() {
 	}
 	const isGuestOrBuyer = !accountTypeId || authTypeName?.includes("buyer");
 
+	getToken(authorization?.token);
 	return (
 		<Route
 			render={({ location }) => (

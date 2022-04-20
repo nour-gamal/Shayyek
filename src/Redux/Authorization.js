@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getToken } from "../Services";
 
 export const authorizationSlice = createSlice({
 	name: "authorization",
@@ -24,6 +25,7 @@ export const authorizationSlice = createSlice({
 		},
 		logout: (state, action) => {
 			state.authorization = {};
+			getToken(null);
 		},
 	},
 });
