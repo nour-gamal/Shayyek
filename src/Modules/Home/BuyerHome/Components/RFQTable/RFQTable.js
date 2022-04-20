@@ -64,6 +64,7 @@ function CreateRFQ(props) {
 	const [isSuccessModalvis, updateSuccessModalVis] = useState(false);
 	const [documentsList, updateDocumentsList] = useState([]);
 	const [docLoadingState, updateDocLoadingState] = useState(false);
+	const [packageFiles, updatePackageFiles] = useState([]);
 	// const [rfqId, updateRFQId] = useState(null);
 	const dispatch = useDispatch();
 
@@ -212,20 +213,20 @@ function CreateRFQ(props) {
 						address: address,
 						deliveryToId: deliveredTo,
 						packageCCColleagues: [...ccEmails],
-						packageFiles: ["string"],
+						packageFiles,
 					},
 				],
 			};
-			updateSuccessModalVis(!isSuccessModalvis);
-			// postRFQ(
-			// 	data,
-			// 	(success) => {
-			// 		console.log(success);
-			// 	},
-			// 	(fail) => {
-			// 		console.log(fail);
-			// 	}
-			// );
+			//updateSuccessModalVis(!isSuccessModalvis);
+			postRFQ(
+				data,
+				(success) => {
+					console.log(success);
+				},
+				(fail) => {
+					console.log(fail);
+				}
+			);
 		}
 	}
 	function openCCModal() {
@@ -407,12 +408,12 @@ function CreateRFQ(props) {
 			let filesData = new FormData();
 			files.forEach((file, index) => {
 				console.log(file);
-				filesData.append(`image ${index}`, file);
+				filesData.append(`documents`, file);
 			});
 			AddDocumentList(
 				filesData,
 				(success) => {
-					console.log(success.data);
+					updatePackageFiles(success.data);
 					updateDocumentsList(files);
 					updateDocLoadingState(false);
 				},
