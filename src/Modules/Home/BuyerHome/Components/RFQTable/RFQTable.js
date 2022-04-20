@@ -362,7 +362,7 @@ function CreateRFQ(props) {
 			updateIndexState(false);
 			let tableData = dataSource;
 			tableData.forEach((data, dataIndex) => {
-				data.item = dataIndex;
+				data.item = "dataIndex";
 			});
 			updateDataSource(tableData);
 		}
