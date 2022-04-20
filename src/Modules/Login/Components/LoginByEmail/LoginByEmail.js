@@ -5,7 +5,6 @@ import { IsUserAdmin, loginApi } from "../../network";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import { login } from "../../../../Redux/Authorization";
-import { getToken } from "../../../../Services";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import "./LoginByEmail.css";
@@ -61,7 +60,6 @@ function LoginByEmail({ signinByEmail, rejection, holding }) {
 					if (success.success) {
 						const { id, fullName } = success.data;
 						dispatch(login(success.data));
-						//getToken(success.data.token);
 						setUserFBData(id, fullName);
 						setRedirect(true);
 					} else if (!success.success && success.data.errorStatus === 1) {
