@@ -63,8 +63,8 @@ function CreateRFQ(props) {
 	const [ccEmails, updateCCEmails] = useState([]);
 	const [isSuccessModalvis, updateSuccessModalVis] = useState(false);
 	const [documentsList, updateDocumentsList] = useState([]);
-	const [docLoadingState, updateDocLoadingState] = useState(false);
 	const [packageFiles, updatePackageFiles] = useState([]);
+	const [docLoadingState, updateDocLoadingState] = useState(false);
 	// const [rfqId, updateRFQId] = useState(null);
 	const dispatch = useDispatch();
 
@@ -217,11 +217,12 @@ function CreateRFQ(props) {
 					},
 				],
 			};
-			//updateSuccessModalVis(!isSuccessModalvis);
 			postRFQ(
 				data,
 				(success) => {
-					console.log(success);
+					if (success.data) {
+						updateSuccessModalVis(!isSuccessModalvis);
+					}
 				},
 				(fail) => {
 					console.log(fail);
@@ -616,6 +617,18 @@ function CreateRFQ(props) {
 		},
 	];
 
+	const handleDeleteDoc = (deletedIndex) => {
+		let documentsListArr = [...documentsList];
+		let packageFilesArr = [...packageFiles];
+
+		documentsListArr.splice(deletedIndex, 1);
+		packageFilesArr.splice(deletedIndex, 1);
+		updateDocumentsList(documentsListArr);
+		updatePackageFiles(packageFilesArr);
+		// const [documentsList, updateDocumentsList] = useState([]);
+		// const [packageFiles, updatePackageFiles] = useState([]);
+	};
+
 	return (
 		<div className="ppl ppr my-4 RFQTable">
 			<div className="actionsContainer">
@@ -827,7 +840,7 @@ function CreateRFQ(props) {
 									<Spin />
 								</div>
 							) : (
-								documentsList.map((doc) => {
+								documentsList.map((doc, docIndex) => {
 									let type = doc.type.includes("pdf")
 										? pdfIcon
 										: doc.type.includes("dwg")
@@ -851,6 +864,9 @@ function CreateRFQ(props) {
 														src={close}
 														alt="close"
 														className="cursorPointer"
+														onClick={() => {
+															handleDeleteDoc(docIndex);
+														}}
 													/>
 												</div>
 											</div>
