@@ -105,7 +105,12 @@ function AddRFQDetails({ getRFQPageName }) {
 			isRevealPricesToBidders: revealPrices,
 			rfqPages: "rfqTable",
 		};
-		data = { ...data, ...publicTenderData, ...privateTenderData };
+		data = {
+			...data,
+			...publicTenderData,
+			...privateTenderData,
+			rfqPackages: [],
+		};
 		if (
 			projectName === undefined ||
 			!projectName.length ||

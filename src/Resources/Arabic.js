@@ -327,8 +327,10 @@ export const ar = {
 		ok: "تم",
 		done: "تم",
 		postedSuccess: "تم ارسال طلب عرض السعر!",
-		addAnotherPackage: "هل تريد اضافه حزمه اخري.",
-		addPackage: "اضف حزمه",
+		beforeSumbit: "قبل ارسال طلب عرض السعر",
+		addAnotherPackage: "هل تريد اضافه حزمه اخري ؟",
+		addPackage: "اضف حزمه اخري",
+		readyToSubmit: "هل انت مستعد لارسال طلب عرض السعر؟",
 	},
 	supplierHome: {
 		addNewProduct: "أضف منتج جديد",

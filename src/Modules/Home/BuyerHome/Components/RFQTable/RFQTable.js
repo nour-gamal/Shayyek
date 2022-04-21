@@ -12,7 +12,6 @@ import { Table, Spin, Select, Checkbox, DatePicker, Radio } from "antd";
 import {
 	getCategories,
 	getDeliverdOptions,
-	postRFQ,
 	AddDocumentList,
 } from "../../../network";
 import DeleteModal from "../DeleteModal/DeleteModal";
@@ -201,35 +200,25 @@ function CreateRFQ(props) {
 		) {
 			setAlert(true);
 		} else {
-			let data = {
-				...rfqData,
-				rfqPackages: [
-					{
-						rfqPackageDetailsRequests: [...dataSource],
-						packageName: packageName,
-						notes: notes,
-						receivingOffersDeadline: recievingOffersDate,
-						deliveryDate: deliveryDate,
-						address: address,
-						deliveryToId: deliveredTo,
-						packageCCColleagues: [...ccEmails],
-						packageFiles,
-					},
-				],
-			};
-			postRFQ(
-				data,
-				(success) => {
-					if (success.data) {
-						updateSuccessModalVis(!isSuccessModalvis);
-					}
-				},
-				(fail) => {
-					console.log(fail);
-				}
-			);
+			addPackageToStore();
 		}
 	}
+	const addPackageToStore = () => {
+		const rfqPackages = [...rfqData.rfqPackages];
+		rfqPackages.push({
+			rfqPackageDetailsRequests: [...dataSource],
+			packageName: packageName,
+			notes: notes,
+			receivingOffersDeadline: recievingOffersDate,
+			deliveryDate: deliveryDate,
+			address: address,
+			deliveryToId: deliveredTo,
+			packageCCColleagues: [...ccEmails],
+			packageFiles,
+		});
+		dispatch(addRFQDetails({ ...rfqData, rfqPackages }));
+	};
+
 	function openCCModal() {
 		toggleModal(true);
 	}
@@ -362,7 +351,7 @@ function CreateRFQ(props) {
 			updateIndexState(false);
 			let tableData = dataSource;
 			tableData.forEach((data, dataIndex) => {
-				data.item = "dataIndex";
+				data.item = dataIndex.toString();
 			});
 			updateDataSource(tableData);
 		}
@@ -937,7 +926,8 @@ function CreateRFQ(props) {
 						}}
 					/>
 					<PostRFQSuccessModal
-						isModalVisible={isSuccessModalvis}
+						// isModalVisible={isSuccessModalvis}
+						isModalVisible={true}
 						onCancel={() => {
 							updateSuccessModalVis(!isSuccessModalvis);
 						}}

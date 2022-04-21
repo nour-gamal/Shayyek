@@ -385,8 +385,10 @@ export const en = {
 		ok: "OK",
 		done: "Done",
 		postedSuccess: "RFQ was Posted Successfully.",
-		addAnotherPackage: "Do You Want Add Another Package",
-		addPackage: "Add Package",
+		beforeSumbit: "Before submitting your RFQ",
+		addAnotherPackage: "Do You Want Add Another Package?",
+		addPackage: "Add Another Package",
+		readyToSubmit: "Are you sure you want to submit your RFQ?",
 	},
 	home: {
 		shayek: "Shayyek",
