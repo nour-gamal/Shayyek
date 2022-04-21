@@ -201,6 +201,7 @@ function CreateRFQ(props) {
 			setAlert(true);
 		} else {
 			addPackageToStore();
+			updateSuccessModalVis(!isSuccessModalvis);
 		}
 	}
 	const addPackageToStore = () => {
@@ -216,6 +217,7 @@ function CreateRFQ(props) {
 			packageCCColleagues: [...ccEmails],
 			packageFiles,
 		});
+
 		dispatch(addRFQDetails({ ...rfqData, rfqPackages }));
 	};
 
@@ -926,8 +928,7 @@ function CreateRFQ(props) {
 						}}
 					/>
 					<PostRFQSuccessModal
-						// isModalVisible={isSuccessModalvis}
-						isModalVisible={true}
+						isModalVisible={isSuccessModalvis}
 						onCancel={() => {
 							updateSuccessModalVis(!isSuccessModalvis);
 						}}
