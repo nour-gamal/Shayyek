@@ -8,6 +8,9 @@ import {
 	fillRFQ,
 	BuyerAcceptRFQ,
 } from "../../../../Home/network";
+import QAndADropdown from "../QAndADropdown/QAndADropdown";
+import Lottie from "react-lottie-player";
+import questionImg from "../../../../../Resources/Assets/questions.json";
 import "./SingleRFQModal.css";
 
 function SingleRFQModal({
@@ -272,22 +275,42 @@ function SingleRFQModal({
 				/>
 			</figure>
 			<div className="d-flex singleRFQModal flex-1">
-				<div className="info d-flex align-items-center">
-					<div>{currentLocal.offerTable.buyerName} : test</div>
-					<div>{currentLocal.offerTable.projectOwner} : test</div>
-					<div>{currentLocal.offerTable.projectContractor} : test</div>
-					<div className="qAndAWall d-flexjustify-content-end">
-						{currentLocal.offerTable.QANDAWALL}
+				<div className="d-flex">
+					<div className="info d-flex align-items-center">
+						<div className="mx-4">
+							{currentLocal.offerTable.buyerName} : test
+						</div>
+						<div className="mx-4">
+							{currentLocal.offerTable.projectOwner} : test
+						</div>
+						<div className="mx-4">
+							{currentLocal.offerTable.projectContractor} : test
+						</div>
+						<div className="mx-4">
+							{currentLocal.offerTable.projectName} : test
+						</div>
+						<div className="mx-4">
+							{currentLocal.offerTable.projectConsultant} : test
+						</div>
+						<div className="mx-4">
+							{currentLocal.offerTable.deliveryDate} : test
+						</div>
+						<div className="mx-4">
+							{currentLocal.offerTable.deliveryAddress} : test
+						</div>
+					</div>
+					<div className="qAndAWall d-flex justify-content-end">
+						<figure>
+							<Lottie loop animationData={questionImg} play />
+						</figure>
+						<div className="text">{currentLocal.offerTable.QANDAWALL}</div>
 						<div className="invitations_number mx-2">2</div>
 					</div>
-					<div>{currentLocal.offerTable.projectName} : test</div>
-					<div>{currentLocal.offerTable.projectConsultant} : test</div>
-					<div>{currentLocal.offerTable.deliveryDate} : test</div>
-					<div>{currentLocal.offerTable.deliveryAddress} : test</div>
+					<QAndADropdown />
 				</div>
 
 				<div>
-					{/* <Table
+					<Table
 						// key={rfqDetails}
 						key={rfqDetails}
 						indentSize={300}
@@ -300,7 +323,7 @@ function SingleRFQModal({
 							pageSize: 5,
 							hideOnSinglePage: true,
 						}}
-					/> */}
+					/>
 				</div>
 				<div>
 					{parent === "supplierHome" ? (

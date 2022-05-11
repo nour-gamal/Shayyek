@@ -25,8 +25,8 @@
 .singleRFQContainer .closeIconFigure{
 	width: 20px;
 	position: absolute;
-	top:20px;
-	left: 20px;
+	top:10px;
+	left: 10px;
 }
 .singleRFQContainer .closeIconFigure img{
 	width: 100%;
@@ -42,8 +42,17 @@
 .singleRFQContainer .qAndAWall{
 	background-color: #D2E5FF;
 	padding: 10px 0;
-	padding-inline-start: 40px;
 	padding-inline-end: 10px;
+	height: fit-content;
+	color: #0370FF;
+	font-weight: 500;
+}
+.singleRFQContainer .qAndAWall figure{
+	width: 25px;
+	margin: 0 10px;
+}
+.singleRFQContainer .qAndAWall .text{
+	width: max-content;
 }
 @media (max-width: 768px) {
 	.singleRFQModal .btn-container {
