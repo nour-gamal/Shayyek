@@ -3,10 +3,8 @@
 	justify-content: space-between;
 	height: 100%;
 }
-.singleRFQModal .btn-container {
-	justify-content: center;
-	width: 100%;
-}
+
+
 .singleRFQModal .button-primary {
 	padding: 2px 50px;
 }
@@ -23,6 +21,29 @@
 	display: flex;
 	flex-grow: 1;
 	flex-direction: column;
+}
+.singleRFQContainer .closeIconFigure{
+	width: 20px;
+	position: absolute;
+	top:20px;
+	left: 20px;
+}
+.singleRFQContainer .closeIconFigure img{
+	width: 100%;
+}
+.singleRFQModal .btn-container {
+	justify-content: center;
+	width: 100%;
+}
+.singleRFQContainer .info{
+	flex-wrap: wrap;
+}
+
+.singleRFQContainer .qAndAWall{
+	background-color: #D2E5FF;
+	padding: 10px 0;
+	padding-inline-start: 40px;
+	padding-inline-end: 10px;
 }
 @media (max-width: 768px) {
 	.singleRFQModal .btn-container {

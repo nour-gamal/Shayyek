@@ -22,7 +22,10 @@ function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage }) {
 			(success) => {
 				if (success.data) {
 					if (rfqData.inviteByWhatsapp) {
-						window.open(`https://api.whatsapp.com/send?text=dd`, "_blank");
+						window.open(
+							`https://api.whatsapp.com/send?text=${success.data.data}`,
+							"_blank"
+						);
 					}
 					clearRFQStore();
 					updateRedirectTo("/");

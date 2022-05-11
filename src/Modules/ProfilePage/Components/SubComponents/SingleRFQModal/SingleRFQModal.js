@@ -2,15 +2,12 @@ import { useEffect, useState } from "react";
 import { Modal, Table, Select } from "antd";
 import { useSelector } from "react-redux";
 import { DatePicker } from "antd";
+import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
 import {
-	GetBuyerRFQ,
 	getCategories,
 	fillRFQ,
-	GetFilledRFQOfferDetails,
 	BuyerAcceptRFQ,
 } from "../../../../Home/network";
-import { getRFQDraftedForSupplierAndContractor } from "../../../network";
-
 import "./SingleRFQModal.css";
 
 function SingleRFQModal({
@@ -28,58 +25,6 @@ function SingleRFQModal({
 	);
 	const [rfqDetails, updateRFQDetails] = useState([]);
 	const [categoriesOption, setCategoriesOption] = useState([]);
-	const [buyerName, updateBuyerName] = useState("");
-	const [companyAddress, updateAddress] = useState("");
-	const [deliveryDate, updateDeliveryDate] = useState("");
-	// const [isSubmitClicked, updateSubmitClicked] = useState(false);
-	const [companyNamee, updateCompanyNamee] = useState("");
-
-	useEffect(() => {}, [fillRFQId]);
-
-	useEffect(() => {
-		if (parent === "supplierHome" && !fillRFQId) {
-			console.log("supplierHome here");
-			GetBuyerRFQ(
-				rfqId,
-				(success) => {
-					updateRFQDetails(success.data.rfqDetails);
-					updateAddress(success.data.address);
-					updateDeliveryDate(success.data.deliveryDate);
-					updateBuyerName(success.data.buyerName);
-				},
-				(fail) => {
-					console.log(fail);
-				}
-			);
-		} else if (parent === "offersTable") {
-			let body = {
-				languageId: currentLanguageId,
-				fillRFQHeaderId: fillRFQId,
-			};
-			GetFilledRFQOfferDetails(
-				body,
-				(success) => {
-					updateRFQDetails(success.data.filledAndRFQDetails);
-					updateAddress(success.data.deliveryAddress);
-					updateDeliveryDate(success.data.deliveryDate);
-					updateBuyerName(success.data.supplierContractorName);
-					updateCompanyNamee(success.data.companyName);
-				},
-				(fail) => {
-					console.log(fail);
-				}
-			);
-		} else if (fillRFQId) {
-			getRFQDraftedForSupplierAndContractor(fillRFQId, (success) => {
-				if (success.success) {
-					updateRFQDetails(success.data.rfqDraftedDetails);
-					updateAddress(success.data.address);
-					updateDeliveryDate(success.data.deliveryDate);
-					updateBuyerName(success.data.buyerName);
-				}
-			});
-		}
-	}, [rfqId, parent, currentLanguageId, fillRFQId]);
 
 	useEffect(() => {
 		getCategories(
@@ -318,55 +263,31 @@ function SingleRFQModal({
 			onCancel={onCancel}
 			className="modal-lg singleRFQContainer"
 		>
+			<figure className="closeIconFigure">
+				<img
+					src={closeIcon}
+					alt="closeIcon"
+					className="cursorPointer"
+					onClick={onCancel}
+				/>
+			</figure>
 			<div className="d-flex singleRFQModal flex-1">
-				<div>
-					<div className="d-flex justify-content-between f-14 primary-color actionsSection">
-						<div>
-							<div className="my-2">
-								{parent === "buyerProfile" || parent === "supplierHome"
-									? currentLocal.profilePage.buyerName
-									: currentLocal.profilePage.supplierContractorName}
-								:{" "}
-								{parent === "supplierHome" || parent === "offersTable"
-									? buyerName
-									: rfqDetails.supplierContractorName}
-							</div>
-
-							{parent === "supplierHome" ? (
-								<div className="my-2 d-flex">
-									{currentLocal.supplierHome.paymentTerms} {" : "}
-									<input
-										type="text"
-										className="form-control"
-										onChange={(e) => {
-											let rfqArr = [...rfqDetails];
-											rfqArr.forEach((detail, detailIndex) => {
-												rfqArr[detailIndex].paymentTerms = e.target.value;
-											});
-											updateRFQDetails(rfqArr);
-										}}
-									/>
-								</div>
-							) : (
-								<div className="my-2">
-									{currentLocal.profilePage.companyName} {" : "}
-									{parent === "offersTable" ? companyNamee : companyName}
-								</div>
-							)}
-						</div>
-						<div>
-							<div className="my-2">
-								{currentLocal.profilePage.deliveryDate} {": "}
-								{deliveryDate}
-							</div>
-							<div className="my-2">
-								{currentLocal.profilePage.deliveryAddress} {": "}{" "}
-								{companyAddress}
-							</div>
-						</div>
+				<div className="info d-flex align-items-center">
+					<div>{currentLocal.offerTable.buyerName} : test</div>
+					<div>{currentLocal.offerTable.projectOwner} : test</div>
+					<div>{currentLocal.offerTable.projectContractor} : test</div>
+					<div className="qAndAWall d-flexjustify-content-end">
+						{currentLocal.offerTable.QANDAWALL}
+						<div className="invitations_number mx-2">2</div>
 					</div>
+					<div>{currentLocal.offerTable.projectName} : test</div>
+					<div>{currentLocal.offerTable.projectConsultant} : test</div>
+					<div>{currentLocal.offerTable.deliveryDate} : test</div>
+					<div>{currentLocal.offerTable.deliveryAddress} : test</div>
+				</div>
 
-					<Table
+				<div>
+					{/* <Table
 						// key={rfqDetails}
 						key={rfqDetails}
 						indentSize={300}
@@ -379,7 +300,7 @@ function SingleRFQModal({
 							pageSize: 5,
 							hideOnSinglePage: true,
 						}}
-					/>
+					/> */}
 				</div>
 				<div>
 					{parent === "supplierHome" ? (
