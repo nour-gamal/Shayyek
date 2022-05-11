@@ -934,6 +934,7 @@ function CreateRFQ(props) {
 						}}
 						alreadyHasPackage={packageName.length ? true : false}
 					/>
+					
 				</div>
 			</div>
 		</div>

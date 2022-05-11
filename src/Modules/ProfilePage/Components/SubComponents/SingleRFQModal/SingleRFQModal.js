@@ -1,61 +1,53 @@
 import { useEffect, useState } from "react";
-import { Modal, Table, Select } from "antd";
+import { Input, Modal, Row, Col, Table, Radio } from "antd";
 import { useSelector } from "react-redux";
-import { DatePicker } from "antd";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
-import {
-	getCategories,
-	fillRFQ,
-	BuyerAcceptRFQ,
-} from "../../../../Home/network";
-import QAndADropdown from "../QAndADropdown/QAndADropdown";
+import { fillRFQ, BuyerAcceptRFQ } from "../../../../Home/network";
+import { GetImagePath } from "../../../../ProfilePage/network";
 import Lottie from "react-lottie-player";
 import questionImg from "../../../../../Resources/Assets/questions.json";
+import download from "../../../../../Resources/Assets/direct-download.svg";
+import documents from "../../../../../Resources/Assets/paperClip.svg";
+import { saveAs } from "file-saver";
+import { baseUrl } from "../../../../../Services";
+import FileErrorModal from "../../../../Home/BuyerHome/Components/FileErrorModal/FileErrorModal";
 import "./SingleRFQModal.css";
-
 function SingleRFQModal({
 	isModalVisible,
 	onCancel,
 	rfqId,
 	fillRFQId,
-	parent,
-	companyName,
 	recallGetRFQ,
 }) {
-	const { Option } = Select;
+	const [loading, setLoading] = useState(false);
+	const [radioValue, setRadioValue] = useState("yes");
+
 	const { currentLocal, currentLanguageId } = useSelector(
 		(state) => state.currentLocal
 	);
-	const [rfqDetails, updateRFQDetails] = useState([]);
-	const [categoriesOption, setCategoriesOption] = useState([]);
-
-	useEffect(() => {
-		getCategories(
-			currentLanguageId,
-			(success) => {
-				setCategoriesOption(success.data);
-			},
-			(fail) => {
-				console.log(fail);
-			}
-		);
-	}, [currentLanguageId]);
-
+	const [fileErrorModalState, updateFileErrorModalState] = useState(false);
+	const [paymentTerms, updatePaymentTerms] = useState("");
+	const [rfqDetails, updateRFQDetails] = useState([
+		{
+			itemDocuments:
+				"https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F_400x400.jpg",
+			uploadDocuments: "",
+			notes: "",
+		},
+	]);
+	const onRadioChange = (e) => {
+		setRadioValue(e.target.value);
+	};
 	var columns = [
 		{
 			title: currentLocal.buyerHome.item,
-			dataIndex: parent === "offersTable" ? "itemProductName" : "item",
-			key: parent === "offersTable" ? "itemProductName" : "item",
+			dataIndex: "item",
+			key: "item",
 		},
 		{
 			title: currentLocal.buyerHome.description,
 			dataIndex: "description",
 			key: "description",
-		},
-		{
-			title: currentLocal.buyerHome.unit,
-			dataIndex: "unit",
-			key: "unit",
 		},
 		{
 			title: currentLocal.buyerHome.quantity,
@@ -68,158 +60,128 @@ function SingleRFQModal({
 			key: "preferredBrands",
 		},
 		{
-			title: currentLocal.buyerHome.categories,
-			dataIndex: "categoryId",
-			key: "categoryId",
-			render: (categoryId, record, rowIndex) => {
+			title: currentLocal.offerTable.unitPrice,
+			dataIndex: "unitPrice",
+			key: "unitPrice",
+			render: (unitPrice, record, index) => {
 				return (
-					<Select
-						style={{ width: "100%" }}
-						defaultValue={categoryId}
-						className="selectCategory"
-						disabled={true}
-					>
-						{categoriesOption.map((category, key) => {
-							return (
-								<Option value={category.id} key={key}>
-									{category.name}
-								</Option>
-							);
-						})}
-					</Select>
+					<Input
+						type="number"
+						onChange={(e) => {
+							let rfqDetailss = [...rfqDetails];
+							rfqDetails[index].unitPrice = e.target.value;
+							updateRFQDetails(rfqDetailss);
+						}}
+					/>
 				);
 			},
 		},
 		{
-			title: currentLocal.buyerHome.includeInstallation,
-			dataIndex: "includeInstallation",
-			key: "includeInstallation",
+			title: currentLocal.offerTable.totalPrice,
+			dataIndex: "totalPrice",
+			key: "totalPrice",
+			render: (totalPrice, record) => {
+				return <>{record.unitPrice * record.quantity}</>;
+			},
+		},
+		{
+			title: currentLocal.offerTable.itemDocuments,
+			dataIndex: "itemDocuments",
+			key: "itemDocuments",
+			render: (itemDocuments, record) => {
+				return (
+					<>
+						<img
+							src={download}
+							alt="download"
+							onClick={() => {
+								saveAs(itemDocuments);
+							}}
+						/>
+					</>
+				);
+			},
+		},
+		{
+			title: currentLocal.offerTable.uploadDocuments,
+			dataIndex: "uploadDocuments",
+			key: "uploadDocuments",
+			render: (uploadDocuments, record, index) => {
+				return (
+					<div>
+						{uploadDocuments.length ? (
+							<a href={baseUrl + uploadDocuments}>
+								{uploadDocuments.split(" ")[1]}
+							</a>
+						) : (
+							<div className="text-center">
+								<input
+									type={"file"}
+									className="d-none"
+									id="itemDocument"
+									onChange={(e) => {
+										handleUploadItemDoc(e, index);
+									}}
+								/>
+								<label className="d-flex cursorPointer" htmlFor="itemDocument">
+									<div className="mx-2">{currentLocal.buyerHome.addFile}</div>
+									<img src={documents} alt="documents" />
+								</label>
+							</div>
+						)}
+					</div>
+				);
+			},
 		},
 		{
 			title: currentLocal.buyerHome.notes,
-			dataIndex: parent === "offersTable" ? "filledNotes" : "notes",
-			key: parent === "offersTable" ? "filledNotes" : "notes",
+			dataIndex: "notes",
+			key: "notes",
+			render: (notes, record, index) => {
+				return (
+					<Input
+						type="text"
+						onChange={(e) => {
+							let rfqDetailss = [...rfqDetails];
+							rfqDetailss[index].notes = e.target.value;
+							updateRFQDetails(rfqDetailss);
+						}}
+					/>
+				);
+			},
 		},
 	];
 
 	function disabledOffersDate(current) {
 		return current && current.valueOf() < Date.now();
 	}
-	if (
-		(parent === "supplierHome" && rfqDetails.length > 0) ||
-		(parent === "offersTable" && rfqDetails.length > 0)
-	) {
-		columns = columns.filter(
-			(column) =>
-				column.dataIndex !== "unit" &&
-				column.dataIndex !== "categoryId" &&
-				column.dataIndex !== "includeInstallation"
+	const handleUploadItemDoc = (e, index) => {
+		var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|dwg|DOC|PDF/.test(
+			e.target.files[0].type
 		);
-		columns = [
-			...columns,
-			{
-				title: currentLocal.supplierHome.unitPrice,
-				dataIndex: "unitPrice",
-				key: "unitPrice",
-				render: (unitPrice, record, rowIndex) => {
-					if (parent === "offersTable") {
-						return <div>{unitPrice}</div>;
-					} else {
-						return (
-							<input
-								type="number"
-								className="form-control"
-								onChange={(e) => {
-									var rfqArr = [...rfqDetails];
-									rfqArr[rowIndex] = {
-										...rfqArr[rowIndex],
-										unitPrice: parseInt(e.target.value),
-									};
-									updateRFQDetails(rfqArr);
-								}}
-							/>
-						);
-					}
-				},
+		if (!isValidExtensions) {
+			updateFileErrorModalState(true);
+			return 0;
+		}
+
+		setLoading(true);
+		const documentfile = e.target.files[0];
+		let file = new FormData();
+		file.append("image", documentfile);
+		file.append("status", 4);
+		GetImagePath(
+			file,
+			(success) => {
+				setLoading(false);
+				let tableData = [...rfqDetails];
+				tableData[index].uploadDocuments = success.data;
+				updateRFQDetails(tableData);
 			},
-			{
-				title: currentLocal.supplierHome.totalPrice,
-				dataIndex: "totalPrice",
-				key: "totalPrice",
-				render: (totalPrice, record, rowIndex) => {
-					if (parent === "offersTable") {
-						return <div>{totalPrice}</div>;
-					} else {
-						return (
-							<input
-								type="number"
-								className="form-control"
-								onChange={(e) => {
-									var rfqArr = [...rfqDetails];
-									rfqArr[rowIndex] = {
-										...rfqArr[rowIndex],
-										totalPrice: parseInt(e.target.value),
-									};
-									updateRFQDetails(rfqArr);
-								}}
-							/>
-						);
-					}
-				},
-			},
-			{
-				title: currentLocal.supplierHome.deliveryDate,
-				dataIndex: "deliveryDate",
-				key: "deliveryDate",
-				render: (deliveryDate, record, rowIndex) => {
-					if (parent === "offersTable") {
-						return <div>{deliveryDate}</div>;
-					} else {
-						return (
-							<DatePicker
-								onChange={(date, dateString) => {
-									var rfqArr = [...rfqDetails];
-									rfqArr[rowIndex] = {
-										...rfqArr[rowIndex],
-										deliveryDate: dateString,
-									};
-									updateRFQDetails(rfqArr);
-								}}
-								className="form-control"
-								disabledDate={disabledOffersDate}
-							/>
-						);
-					}
-				},
-			},
-			{
-				title: currentLocal.supplierHome.paymentTerms,
-				dataIndex: "paymentTerms",
-				key: "paymentTerms",
-				render: (paymentTerms, record, rowIndex) => {
-					if (parent === "offersTable") {
-						return <div>{paymentTerms}</div>;
-					} else {
-						return (
-							<input
-								type="text"
-								className="form-control"
-								value={paymentTerms}
-								onChange={(e) => {
-									var rfqArr = [...rfqDetails];
-									rfqArr[rowIndex] = {
-										...rfqArr[rowIndex],
-										paymentTerms: e.target.value,
-									};
-									updateRFQDetails(rfqArr);
-								}}
-							/>
-						);
-					}
-				},
-			},
-		];
-	}
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	};
 
 	const submitRFQ = (isDraft) => {
 		// updateSubmitClicked(true);
@@ -306,7 +268,7 @@ function SingleRFQModal({
 						<div className="text">{currentLocal.offerTable.QANDAWALL}</div>
 						<div className="invitations_number mx-2">2</div>
 					</div>
-					<QAndADropdown />
+					{/* <QAndADropdown /> */}
 				</div>
 
 				<div>
@@ -323,44 +285,72 @@ function SingleRFQModal({
 							pageSize: 5,
 							hideOnSinglePage: true,
 						}}
+						loading={loading}
 					/>
+					<Row>
+						<Col xs={24} md={16}>
+							<div className="d-flex my-4">
+								<label className="label">{currentLocal.offerTable.notes}</label>
+								<div className="mx-2">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+									corporis veritatis obcaecati necessitatibus amet voluptate
+									debitis, delectus eaque illum perspiciatis vel sed nam quam
+									explicabo dolores ex? Dicta, dolores nam?
+								</div>
+							</div>
+							<div className="d-flex my-4">
+								<label className="label">
+									{currentLocal.offerTable.priceIncludingVAT}
+								</label>
+								<div className="mx-2">
+									<Radio.Group onChange={onRadioChange} value={radioValue}>
+										<Radio value={"yes"} className="mx-2">
+											{currentLocal.offerTable.yes}
+										</Radio>
+										<Radio value={"no"} className="mx-2">
+											{currentLocal.offerTable.no}
+										</Radio>
+									</Radio.Group>
+								</div>
+							</div>
+							<div className="d-flex my-4">
+								<label className="label">
+									{currentLocal.offerTable.paymentTerms}
+								</label>
+								<Input
+									className="mx-2"
+									type={"text"}
+									onChange={(e) => {
+										updatePaymentTerms(e.target.value);
+									}}
+								/>
+							</div>
+						</Col>
+						<Col xs={24} md={8}>
+							test
+						</Col>
+					</Row>
 				</div>
 				<div>
-					{parent === "supplierHome" ? (
-						<div className="btn-container mt-2 d-flex">
-							<button
-								className="button-secondary mx-1"
-								onClick={() => submitRFQ(true)}
-							>
-								{currentLocal.supplierHome.saveAsDraft}
-							</button>
-							<button
-								className="button-primary mx-1"
-								onClick={() => submitRFQ(false)}
-							>
-								{currentLocal.supplierHome.submit}
-							</button>
-						</div>
-					) : (
-						parent === "offersTable" && (
-							<div className="btn-container  d-flex">
-								<button
-									className="button-secondary mx-1"
-									onClick={() => onCancel()}
-								>
-									{currentLocal.offerTable.cancel}
-								</button>
-								<button
-									className="button-primary mx-1"
-									onClick={handleAcceptOffer}
-								>
-									{currentLocal.offerTable.acceptOffer}
-								</button>
-							</div>
-						)
-					)}
+					<div className="btn-container  d-flex">
+						<button
+							className="button-secondary mx-1"
+							onClick={() => onCancel()}
+						>
+							{currentLocal.offerTable.saveAsDraft}
+						</button>
+						<button className="button-primary mx-1" onClick={handleAcceptOffer}>
+							{currentLocal.offerTable.submit}
+						</button>
+					</div>
 				</div>
 			</div>
+			<FileErrorModal
+				isModalVisible={fileErrorModalState}
+				onCancel={() => {
+					updateFileErrorModalState(!fileErrorModalState);
+				}}
+			/>
 		</Modal>
 	);
 }

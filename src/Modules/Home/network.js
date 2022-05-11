@@ -78,7 +78,7 @@ export const ContactUs = (data, onSuccess, onFail, reqAuth = true) => {
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
 export const BuyerRFQ = (onSuccess, onFail, reqAuth = true) => {
-	const path = `api/RFQ/GetBuyerRFQs`;
+	const path = `api/RFQ/GetBuyerRFQsNew`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
 export const getBuyerCompany = (

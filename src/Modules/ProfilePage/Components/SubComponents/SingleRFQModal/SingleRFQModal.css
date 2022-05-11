@@ -54,6 +54,7 @@
 .singleRFQContainer .qAndAWall .text{
 	width: max-content;
 }
+.singleRFQContainer .label{color:#003B6B;font-weight: 500;}
 @media (max-width: 768px) {
 	.singleRFQModal .btn-container {
 		flex-direction: column;
