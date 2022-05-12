@@ -411,6 +411,8 @@ export const en = {
 		addAnotherPackage: "Do You Want Add Another Package?",
 		addPackage: "Add Another Package",
 		readyToSubmit: "Are you sure you want to submit your RFQ?",
+		addNewQuestion: "Add New Question",
+		addQuestion: "Add Question",
 	},
 	home: {
 		shayek: "Shayyek",

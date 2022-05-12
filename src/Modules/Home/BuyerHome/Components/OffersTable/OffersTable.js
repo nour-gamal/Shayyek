@@ -327,6 +327,7 @@ function OfferTable(props) {
 				}}
 			/>
 		);
+
 	return (
 		<section className="OfferTable">
 			<Navbar />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
 	Input,
 	Modal,
@@ -13,7 +13,6 @@ import {
 } from "antd";
 import { useSelector } from "react-redux";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
-import { fillRFQ, BuyerAcceptRFQ } from "../../../../Home/network";
 import { GetImagePath } from "../../../../ProfilePage/network";
 import Lottie from "react-lottie-player";
 import questionImg from "../../../../../Resources/Assets/questions.json";
@@ -27,7 +26,7 @@ import pdfIcon from "../../../../../Resources/Assets/pdfs.png";
 import docIcon from "../../../../../Resources/Assets/doc.svg";
 import excel from "../../../../../Resources/Assets/excel.svg";
 import autocad from "../../../../../Resources/Assets/autocad.svg";
-
+import plus from "../../../../../Resources/Assets/plus (2).svg";
 import "./SingleRFQModal.css";
 function SingleRFQModal({
 	isModalVisible,
@@ -39,24 +38,32 @@ function SingleRFQModal({
 	const [loading, setLoading] = useState(false);
 	const [radioValue, setRadioValue] = useState("yes");
 
-	const { currentLocal, currentLanguageId } = useSelector(
-		(state) => state.currentLocal
-	);
+	const { currentLocal } = useSelector((state) => state.currentLocal);
+	// eslint-disable-next-line
 	const [documentsList, updateDocumentsList] = useState([]);
 	const [fileErrorModalState, updateFileErrorModalState] = useState(false);
 	const [paymentTerms, updatePaymentTerms] = useState("");
 	const [rfqDetails, updateRFQDetails] = useState([]);
+	// eslint-disable-next-line
 	const [deliveryDate, updateDeliveryDate] = useState("");
+	// eslint-disable-next-line
 	const [validityOfferDate, updateValidityOfferDate] = useState("");
 	const onRadioChange = (e) => {
 		setRadioValue(e.target.value);
 	};
 
 	const QAndAMenu = (
-		<Menu>
-			<Menu.Item>item 1</Menu.Item>
-			<Menu.Item>item 2</Menu.Item>
-			<Menu.Item>item 3</Menu.Item>
+		<Menu className="px-2 py-4">
+			<Menu.Item
+				onSelect={(itemKey, keyPath, selectedKeys, e) => {
+					e.preventDefault();
+				}}
+			>
+				<Button className="button-primary">
+					<img src={plus} alt="plus" className="mx-2" />{" "}
+					{currentLocal.buyerHome.addNewQuestion}
+				</Button>
+			</Menu.Item>
 		</Menu>
 	);
 	var columns = [
@@ -226,43 +233,6 @@ function SingleRFQModal({
 	const onOfferValidityChange = (date, dateString) => {
 		updateValidityOfferDate(dateString);
 	};
-	const submitRFQ = (isDraft) => {
-		// updateSubmitClicked(true);
-		let data = {
-			isDraft: isDraft,
-			rfqId: rfqId,
-			rfqDetailsRequests: rfqDetails,
-		};
-		fillRFQ(
-			data,
-			(success) => {
-				if (success.success) {
-					onCancel();
-					recallGetRFQ();
-				}
-			},
-			(fail) => {
-				console.log(fail);
-			}
-		);
-	};
-	const handleAcceptOffer = () => {
-		let body = {
-			RFQId: rfqId,
-			filledRFQId: fillRFQId,
-		};
-		BuyerAcceptRFQ(
-			body,
-			(success) => {
-				if (success.success) {
-					onCancel();
-				}
-			},
-			(fail) => {
-				console.log(fail);
-			}
-		);
-	};
 
 	return (
 		<Modal
@@ -309,7 +279,8 @@ function SingleRFQModal({
 						overlay={QAndAMenu}
 						placement="bottomLeft"
 						trigger={["click"]}
-						popupClassName="QAndAMenu"
+						popupClassName={"QAndAMenu"}
+						className={"test"}
 					>
 						<div className="qAndAWall d-flex justify-content-end">
 							<figure>
@@ -456,7 +427,7 @@ function SingleRFQModal({
 						>
 							{currentLocal.offerTable.saveAsDraft}
 						</button>
-						<button className="button-primary mx-1" onClick={handleAcceptOffer}>
+						<button className="button-primary mx-1">
 							{currentLocal.offerTable.submit}
 						</button>
 					</div>

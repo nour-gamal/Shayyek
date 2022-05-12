@@ -353,6 +353,8 @@ export const ar = {
 		addAnotherPackage: "هل تريد اضافه حزمه اخري ؟",
 		addPackage: "اضف حزمه اخري",
 		readyToSubmit: "هل انت مستعد لارسال طلب عرض السعر؟",
+		addNewQuestion: "اضف سؤال جديد",
+		addQuestion: "اضف سؤال",
 	},
 	supplierHome: {
 		addNewProduct: "أضف منتج جديد",

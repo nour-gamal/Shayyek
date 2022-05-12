@@ -39,7 +39,7 @@
 	flex-wrap: wrap;
 }
 
-.singleRFQContainer .qAndAWall{
+.singleRFQContainer .qAndAWall,.singleRFQContainer .qAndAWall:hover{
 	background-color: #D2E5FF;
 	padding: 10px 0;
 	padding-inline-end: 10px;
@@ -55,6 +55,7 @@
 	width: max-content;
 }
 .singleRFQContainer .label{color:#003B6B;font-weight: 500;}
+
 @media (max-width: 768px) {
 	.singleRFQModal .btn-container {
 		flex-direction: column;
