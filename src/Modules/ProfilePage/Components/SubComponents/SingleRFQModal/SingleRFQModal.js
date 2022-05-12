@@ -1,5 +1,16 @@
 import { useEffect, useState } from "react";
-import { Input, Modal, Row, Col, Table, Radio, DatePicker } from "antd";
+import {
+	Input,
+	Modal,
+	Row,
+	Col,
+	Table,
+	Radio,
+	DatePicker,
+	Menu,
+	Dropdown,
+	Button,
+} from "antd";
 import { useSelector } from "react-redux";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
 import { fillRFQ, BuyerAcceptRFQ } from "../../../../Home/network";
@@ -16,6 +27,7 @@ import pdfIcon from "../../../../../Resources/Assets/pdfs.png";
 import docIcon from "../../../../../Resources/Assets/doc.svg";
 import excel from "../../../../../Resources/Assets/excel.svg";
 import autocad from "../../../../../Resources/Assets/autocad.svg";
+
 import "./SingleRFQModal.css";
 function SingleRFQModal({
 	isModalVisible,
@@ -39,6 +51,14 @@ function SingleRFQModal({
 	const onRadioChange = (e) => {
 		setRadioValue(e.target.value);
 	};
+
+	const QAndAMenu = (
+		<Menu>
+			<Menu.Item>item 1</Menu.Item>
+			<Menu.Item>item 2</Menu.Item>
+			<Menu.Item>item 3</Menu.Item>
+		</Menu>
+	);
 	var columns = [
 		{
 			title: currentLocal.buyerHome.item,
@@ -284,13 +304,21 @@ function SingleRFQModal({
 							{currentLocal.offerTable.deliveryAddress} : test
 						</div>
 					</div>
-					<div className="qAndAWall d-flex justify-content-end">
-						<figure>
-							<Lottie loop animationData={questionImg} play />
-						</figure>
-						<div className="text">{currentLocal.offerTable.QANDAWALL}</div>
-						<div className="invitations_number mx-2">2</div>
-					</div>
+
+					<Dropdown
+						overlay={QAndAMenu}
+						placement="bottomLeft"
+						trigger={["click"]}
+						popupClassName="QAndAMenu"
+					>
+						<div className="qAndAWall d-flex justify-content-end">
+							<figure>
+								<Lottie loop animationData={questionImg} play />
+							</figure>
+							<div className="text">{currentLocal.offerTable.QANDAWALL}</div>
+							<div className="invitations_number mx-2">2</div>
+						</div>
+					</Dropdown>
 					{/* <QAndADropdown /> */}
 				</div>
 

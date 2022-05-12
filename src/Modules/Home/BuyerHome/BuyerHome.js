@@ -10,8 +10,8 @@ function BuyerHome() {
 	useEffect(() => {
 		BuyerRFQ(
 			(success) => {
-				updateInvitationsCount(success.data.rfqCount);
-				updateRFQDetails(success.data.rfqInvitationDetails);
+				updateInvitationsCount(success.data.length);
+				updateRFQDetails(success.data);
 			},
 			(fail) => {
 				console.log(fail);
@@ -21,15 +21,14 @@ function BuyerHome() {
 	const updateRFQsList = () => {
 		BuyerRFQ(
 			(success) => {
-				updateInvitationsCount(success.data.rfqCount);
-				updateRFQDetails(success.data.rfqInvitationDetails);
+				updateInvitationsCount(success.data.length);
+				updateRFQDetails(success.data);
 			},
 			(fail) => {
 				console.log(fail);
 			}
 		);
 	};
-
 	return (
 		<div>
 			<Row>

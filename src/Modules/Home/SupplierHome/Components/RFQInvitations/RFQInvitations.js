@@ -4,45 +4,44 @@ import RFQInvitation from "../../../../Common/RFQInvitation/RFQInvitation";
 import NoRFQs from "../../../../../Resources/Assets/noRFQs.svg";
 import "./RFQInvitations.css";
 function RFQInvitations({
-  invitationCount,
-  rfqDetails,
-  parent,
-  updateRFQsList,
-  recallGetRFQ,
+	invitationCount,
+	rfqDetails,
+	parent,
+	updateRFQsList,
+	recallGetRFQ,
 }) {
-  const { currentLocal } = useSelector((state) => state.currentLocal);
-
-  return (
-    <div className="RFQInvitations">
-      <div className="title section">
-        <div className="d-flex flex-1 align-items-center">
-          <img src={RFQIcon} alt="RFQIcon" className="RFQIcon mx-2" />
-          <span>{currentLocal.supplierHome.rfqInvitations}</span>
-        </div>
-        <div className="invitations_number f-12">{invitationCount}</div>
-      </div>
-      {rfqDetails.length === 0 ? (
-        <div className="text-center my-4">
-          <img src={NoRFQs} alt="NoRFQs" />
-          <div className="noRFqs">{currentLocal.supplierHome.noRFQs}</div>
-        </div>
-      ) : (
-        rfqDetails.map((details, rfqIndex) => {
-          return (
-            <div className="section" key={rfqIndex}>
-              <RFQInvitation
-                revealPrices={details.isBidders}
-                parent={parent}
-                rfqDetails={details}
-                updateRFQsList={updateRFQsList}
-                recallGetRFQ={recallGetRFQ}
-              />
-            </div>
-          );
-        })
-      )}
-    </div>
-  );
+	const { currentLocal } = useSelector((state) => state.currentLocal);
+	return (
+		<div className="RFQInvitations">
+			<div className="title section">
+				<div className="d-flex flex-1 align-items-center">
+					<img src={RFQIcon} alt="RFQIcon" className="RFQIcon mx-2" />
+					<span>{currentLocal.supplierHome.rfqInvitations}</span>
+				</div>
+				<div className="invitations_number f-12">{invitationCount}</div>
+			</div>
+			{rfqDetails.length === 0 ? (
+				<div className="text-center my-4">
+					<img src={NoRFQs} alt="NoRFQs" />
+					<div className="noRFqs">{currentLocal.supplierHome.noRFQs}</div>
+				</div>
+			) : (
+				rfqDetails.map((details, rfqIndex) => {
+					return (
+						<div className="section" key={rfqIndex}>
+							<RFQInvitation
+								revealPrices={details.isBidders}
+								parent={parent}
+								rfqDetails={details}
+								updateRFQsList={updateRFQsList}
+								recallGetRFQ={recallGetRFQ}
+							/>
+						</div>
+					);
+				})
+			)}
+		</div>
+	);
 }
 
 export default RFQInvitations;
