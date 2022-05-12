@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Input, Modal, Row, Col, Table, Radio } from "antd";
+import { Input, Modal, Row, Col, Table, Radio, DatePicker } from "antd";
 import { useSelector } from "react-redux";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
 import { fillRFQ, BuyerAcceptRFQ } from "../../../../Home/network";
@@ -10,7 +10,12 @@ import download from "../../../../../Resources/Assets/direct-download.svg";
 import documents from "../../../../../Resources/Assets/paperClip.svg";
 import { saveAs } from "file-saver";
 import { baseUrl } from "../../../../../Services";
+import moment from "moment";
 import FileErrorModal from "../../../../Home/BuyerHome/Components/FileErrorModal/FileErrorModal";
+import pdfIcon from "../../../../../Resources/Assets/pdfs.png";
+import docIcon from "../../../../../Resources/Assets/doc.svg";
+import excel from "../../../../../Resources/Assets/excel.svg";
+import autocad from "../../../../../Resources/Assets/autocad.svg";
 import "./SingleRFQModal.css";
 function SingleRFQModal({
 	isModalVisible,
@@ -25,16 +30,12 @@ function SingleRFQModal({
 	const { currentLocal, currentLanguageId } = useSelector(
 		(state) => state.currentLocal
 	);
+	const [documentsList, updateDocumentsList] = useState([]);
 	const [fileErrorModalState, updateFileErrorModalState] = useState(false);
 	const [paymentTerms, updatePaymentTerms] = useState("");
-	const [rfqDetails, updateRFQDetails] = useState([
-		{
-			itemDocuments:
-				"https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F_400x400.jpg",
-			uploadDocuments: "",
-			notes: "",
-		},
-	]);
+	const [rfqDetails, updateRFQDetails] = useState([]);
+	const [deliveryDate, updateDeliveryDate] = useState("");
+	const [validityOfferDate, updateValidityOfferDate] = useState("");
 	const onRadioChange = (e) => {
 		setRadioValue(e.target.value);
 	};
@@ -152,8 +153,25 @@ function SingleRFQModal({
 		},
 	];
 
-	function disabledOffersDate(current) {
-		return current && current.valueOf() < Date.now();
+	function disabledDeliveryDateOffersDate(current) {
+		return (
+			current &&
+			(current.valueOf() < Date.now() ||
+				current.valueOf() >
+					moment()
+						.add(4, "days")
+						.valueOf())
+		);
+	}
+	function disabledOfferValidityDate(current) {
+		return (
+			current &&
+			(current.valueOf() < Date.now() ||
+				current.valueOf() >
+					moment()
+						.add(4, "days")
+						.valueOf())
+		);
 	}
 	const handleUploadItemDoc = (e, index) => {
 		var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|dwg|DOC|PDF/.test(
@@ -182,7 +200,12 @@ function SingleRFQModal({
 			}
 		);
 	};
-
+	const onDeliveryDateChange = (date, dateString) => {
+		updateDeliveryDate(dateString);
+	};
+	const onOfferValidityChange = (date, dateString) => {
+		updateValidityOfferDate(dateString);
+	};
 	const submitRFQ = (isDraft) => {
 		// updateSubmitClicked(true);
 		let data = {
@@ -323,13 +346,79 @@ function SingleRFQModal({
 									onChange={(e) => {
 										updatePaymentTerms(e.target.value);
 									}}
+									value={paymentTerms}
 								/>
 							</div>
 						</Col>
 						<Col xs={24} md={8}>
-							test
+							<div className="d-flex align-items-center my-2">
+								<label className="label">
+									{currentLocal.offerTable.deliveryDate}
+								</label>
+								<div className="mx-2 flex-1">
+									<DatePicker
+										onChange={onDeliveryDateChange}
+										className="form-control"
+										disabledDate={disabledDeliveryDateOffersDate}
+									/>
+								</div>
+							</div>
+							<div className="d-flex align-items-center my-2">
+								<label className="label">
+									{currentLocal.offerTable.offerValidity}
+								</label>
+								<div className="mx-2 flex-1">
+									<DatePicker
+										onChange={onOfferValidityChange}
+										className="form-control"
+										disabledDate={disabledOfferValidityDate}
+									/>
+								</div>
+							</div>
 						</Col>
 					</Row>
+				</div>
+				<div className="d-flex align-items-center">
+					{documentsList.length > 0 && (
+						<label className="label">
+							{currentLocal.offerTable.projectDocuments}
+						</label>
+					)}
+					<div className="documents-list-area d-flex px-2">
+						{documentsList.map((doc, docIndex) => {
+							let type = doc.type.includes("pdf")
+								? pdfIcon
+								: doc.type.includes("dwg")
+								? autocad
+								: doc.type.includes("doc")
+								? docIcon
+								: excel;
+							return (
+								<div className="d-flex m-2">
+									<img src={type} alt="pdf" className="mx-2" />
+									<div>
+										<div className="fileName">{doc.name}</div>
+										<div className="fileSizeBox d-flex align-items-center justify-content-between">
+											<div>
+												<span className="fileSize">
+													{(doc.size / (1024 * 1024)).toFixed(3)}
+												</span>
+												<span>MB</span>
+											</div>
+											<img
+												src={download}
+												alt="download"
+												className="cursorPointer mx-1"
+												onClick={() => {
+													saveAs(doc.url);
+												}}
+											/>
+										</div>
+									</div>
+								</div>
+							);
+						})}
+					</div>
 				</div>
 				<div>
 					<div className="btn-container  d-flex">
