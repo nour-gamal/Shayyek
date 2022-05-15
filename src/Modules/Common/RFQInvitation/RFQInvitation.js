@@ -7,7 +7,7 @@ import deletee from "../../../Resources/Assets/deletee.svg";
 import { Redirect } from "react-router-dom";
 import { DeleteRFQ } from "../../../Modules/Home/network";
 import SingleRFQModal from "../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
-
+import moment from 'moment';
 import "./RFQInvitation.css";
 function RFQInvitation({
 	revealPrices,
@@ -19,8 +19,8 @@ function RFQInvitation({
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [redirectTo, updateRedirectTo] = useState(null);
 	const [isRFQModalVisible, toggleRFQModal] = useState(false);
-	console.log(rfqDetails);
-
+	const packages = rfqDetails.rfqPackageDetails
+	console.log(rfqDetails, packages)
 	function handleMenuClick(e) {
 		switch (e.key) {
 			case "1":
@@ -76,46 +76,57 @@ function RFQInvitation({
 						</div>
 					);
 				})}
+			{packages.map((packageItem) => {
+				return (
+					<div className="package-container">
+						<div className="d-flex justify-content-between flex-wrap">
 
-			{parent === "buyer" && (
-				<div className="text-right my-1">
-					<Dropdown.Button overlay={menu} trigger={["click"]}></Dropdown.Button>
-				</div>
-			)}
-			<div className="d-flex justify-content-between rfqInvContainer ">
-				<ul className="list-unstyled">
-					<li>{currentLocal.supplierHome.noOfQuotations} </li>
-					<li className="primary-color">{rfqDetails.noOfQuotations}</li>
-					<li>{currentLocal.supplierHome.deadline}</li>
-					<li className="primary-color">{rfqDetails.deadline}</li>
-				</ul>
-				{revealPrices && (
-					<div className="d-flex priceBox">
-						<div className="mt-2 mx-2">
-							<div className="redball"></div>
-							<div className="greenball"></div>
+							<div className="packageName f-14 fw-500">{packageItem.packageName}</div>
+							{parent === "buyer" && (
+								<div>
+									<Dropdown.Button overlay={menu} trigger={["click"]}></Dropdown.Button>
+								</div>
+							)}
 						</div>
-						<div>
-							<label>{currentLocal.supplierHome.maxPrice}</label>
-							<div className="primary-color">EGP {rfqDetails.maxPrice}</div>
-							<label>{currentLocal.supplierHome.minPrice}</label>
-							<div className="primary-color">EGP {rfqDetails.minPrice}</div>
+
+						<div className="d-flex justify-content-between rfqInvContainer ">
+							<ul className="list-unstyled">
+								<li>{currentLocal.supplierHome.noOfQuotations} </li>
+								<li className="primary-color">{packageItem.noOfQuotations}</li>
+								<li>{currentLocal.supplierHome.deadline}</li>
+								<li className="primary-color">{moment(packageItem.deadline).format('DD-MM-YYYY')}</li>
+							</ul>
+							{revealPrices && (
+								<div className="d-flex priceBox">
+									<div className="mt-2 mx-2">
+										<div className="redball"></div>
+										<div className="greenball"></div>
+									</div>
+									<div>
+										<label>{currentLocal.supplierHome.maxPrice}</label>
+										<div className="primary-color">EGP 20</div>
+										<label>{currentLocal.supplierHome.minPrice}</label>
+										<div className="primary-color">EGP 5000</div>
+									</div>
+								</div>
+							)}
+							{parent === "supplier" && (
+								<div className="text-center my-2">
+									<button
+										className="popup-button-primary"
+										onClick={() => {
+											toggleRFQModal(true);
+										}}
+									>
+										{currentLocal.supplierHome.fillSheet}
+									</button>
+								</div>
+							)}
 						</div>
-					</div>
-				)}
-			</div>
-			{parent === "supplier" && (
-				<div className="text-center my-2">
-					<button
-						className="popup-button-primary"
-						onClick={() => {
-							toggleRFQModal(true);
-						}}
-					>
-						{currentLocal.supplierHome.fillSheet}
-					</button>
-				</div>
-			)}
+					</div>)
+
+			})}
+
 			{isRFQModalVisible && (
 				<SingleRFQModal
 					isModalVisible={isRFQModalVisible}
@@ -123,9 +134,6 @@ function RFQInvitation({
 						toggleRFQModal(false);
 					}}
 					rfqId={rfqDetails.rfqHeaderId}
-					parent="supplierHome"
-					recallGetRFQ={recallGetRFQ}
-					fillRFQId={rfqDetails.fillId}
 				/>
 			)}
 		</div>
