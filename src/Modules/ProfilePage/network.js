@@ -132,3 +132,29 @@ export const AddToMyFavVendors = (data, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/Profile/AddToFavouriteVendors?vendorId=${vendorId}&&isAdded=${isAdded}`;
 	PostResource(path, {}, onSuccess, onFail, reqAuth);
 };
+export const getSingleRFQData = (
+	data,
+	onSuccess,
+	onFail
+) => {
+	const path = ``;
+	GetResource(path, onSuccess, onFail, true);
+};
+export const getQuestionsList = (
+	data,
+	onSuccess,
+	onFail
+) => {
+	const path = ``;
+	GetResource(path, onSuccess, onFail, true);
+};
+export const AddQuestion = (data, onSuccess, onFail, reqAuth = true) => {
+	const path = ``;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};
+
+export const fillRFQ = (data, onSuccess, onFail, reqAuth = true) => {
+	const path = ``;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};
+

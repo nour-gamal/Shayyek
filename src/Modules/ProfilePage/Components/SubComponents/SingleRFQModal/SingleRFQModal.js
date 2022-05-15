@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	Input,
 	Modal,
@@ -9,7 +9,6 @@ import {
 	DatePicker,
 	Menu,
 	Dropdown,
-	Button,
 } from "antd";
 import { useSelector } from "react-redux";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
@@ -21,6 +20,7 @@ import documents from "../../../../../Resources/Assets/paperClip.svg";
 import { saveAs } from "file-saver";
 import { baseUrl } from "../../../../../Services";
 import moment from "moment";
+import { getQuestionsList, AddQuestion, getSingleRFQData, fillRFQ } from '../../../network'
 import FileErrorModal from "../../../../Home/BuyerHome/Components/FileErrorModal/FileErrorModal";
 import pdfIcon from "../../../../../Resources/Assets/pdfs.png";
 import docIcon from "../../../../../Resources/Assets/doc.svg";
@@ -32,8 +32,6 @@ function SingleRFQModal({
 	isModalVisible,
 	onCancel,
 	rfqId,
-	fillRFQId,
-	recallGetRFQ,
 }) {
 	const [loading, setLoading] = useState(false);
 	const [radioValue, setRadioValue] = useState("yes");
@@ -48,21 +46,67 @@ function SingleRFQModal({
 	const [deliveryDate, updateDeliveryDate] = useState("");
 	// eslint-disable-next-line
 	const [validityOfferDate, updateValidityOfferDate] = useState("");
+	const [question, updateQuestion] = useState("");
+	// eslint-disable-next-line
+	const [questionsList, updateQuestionsList] = useState([1, 2, 3, 4, 5]);
+	const [addQuestBtnState, updateAddQuestBtnState] = useState(true)
+
+
+	useEffect(() => {
+		let questionsData = {};
+		let rfqData = {}
+		getQuestionsList(questionsData, success => {
+			console.log(success)
+		}, fail => {
+			console.log(fail)
+		})
+		getSingleRFQData(rfqData, success => {
+			console.log(success)
+		}, fail => {
+			console.log(fail)
+		})
+	}, [])
 	const onRadioChange = (e) => {
 		setRadioValue(e.target.value);
 	};
+	const handleAddQuestion = () => {
+		if (question.length) {
+			updateAddQuestBtnState(true)
+			let data = { question }
+			AddQuestion(data, success => { console.log(success) }, fail => { console.log(fail) })
+		}
+	}
 
 	const QAndAMenu = (
 		<Menu className="px-2 py-4">
 			<Menu.Item
-				onSelect={(itemKey, keyPath, selectedKeys, e) => {
-					e.preventDefault();
-				}}
+				disabled={true}
 			>
-				<Button className="button-primary">
-					<img src={plus} alt="plus" className="mx-2" />{" "}
-					{currentLocal.buyerHome.addNewQuestion}
-				</Button>
+				<div className="d-flex flex-column">
+					<button className={addQuestBtnState ? "button-primary" : "button-primary disabled"} onClick={() => { updateAddQuestBtnState(false) }}>
+						<img src={plus} alt="plus" className="mx-2" />{" "}
+						{currentLocal.buyerHome.addNewQuestion}
+					</button>
+					<div className={addQuestBtnState ? "d-none" : "questionArea form-control m-2"}>
+						<textarea value={question} onChange={(e) => { updateQuestion(e.target.value) }} />
+						<div className="addQuestionBtn f-14" onClick={handleAddQuestion}>
+							{currentLocal.buyerHome.addQuestion}
+						</div>
+					</div>
+					<div className="questionsList">
+						{questionsList.map((question, index) => {
+							console.log(question)
+							return <div className={index % 2 === 0 ? "questionBlock my-2 p-2" : "questionBlock my-2 grayBackground p-2"}>
+								<div className="f-14 fw-600 question">question?</div>
+								<div className="info d-flex">
+									<div>Ahmed {currentLocal.buyerHome.asked} </div>
+									<div className="date">{moment().format('LLL')}</div>
+								</div>
+								<div className="questionAnswer">Answer</div>
+							</div>
+						})}
+					</div>
+				</div>
 			</Menu.Item>
 		</Menu>
 	);
@@ -185,9 +229,9 @@ function SingleRFQModal({
 			current &&
 			(current.valueOf() < Date.now() ||
 				current.valueOf() >
-					moment()
-						.add(4, "days")
-						.valueOf())
+				moment()
+					.add(4, "days")
+					.valueOf())
 		);
 	}
 	function disabledOfferValidityDate(current) {
@@ -195,10 +239,17 @@ function SingleRFQModal({
 			current &&
 			(current.valueOf() < Date.now() ||
 				current.valueOf() >
-					moment()
-						.add(4, "days")
-						.valueOf())
+				moment()
+					.add(4, "days")
+					.valueOf())
 		);
+	}
+	const handleFillRFQ = (isDrafted) => {
+		let data = { isDrafted }
+		fillRFQ(data, success => {
+			console.log(success)
+			onCancel()
+		}, fail => { console.log(fail) })
 	}
 	const handleUploadItemDoc = (e, index) => {
 		var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|dwg|DOC|PDF/.test(
@@ -250,7 +301,7 @@ function SingleRFQModal({
 				/>
 			</figure>
 			<div className="d-flex singleRFQModal flex-1">
-				<div className="d-flex">
+				<div className="d-flex infoContainer">
 					<div className="info d-flex align-items-center">
 						<div className="mx-4">
 							{currentLocal.offerTable.buyerName} : test
@@ -279,18 +330,17 @@ function SingleRFQModal({
 						overlay={QAndAMenu}
 						placement="bottomLeft"
 						trigger={["click"]}
-						popupClassName={"QAndAMenu"}
-						className={"test"}
+						overlayClassName={"QAndAMenu"}
 					>
 						<div className="qAndAWall d-flex justify-content-end">
 							<figure>
 								<Lottie loop animationData={questionImg} play />
 							</figure>
 							<div className="text">{currentLocal.offerTable.QANDAWALL}</div>
-							<div className="invitations_number mx-2">2</div>
+							<div className="invitations_number mx-2">{questionsList.length}</div>
 						</div>
 					</Dropdown>
-					{/* <QAndADropdown /> */}
+
 				</div>
 
 				<div>
@@ -388,10 +438,10 @@ function SingleRFQModal({
 							let type = doc.type.includes("pdf")
 								? pdfIcon
 								: doc.type.includes("dwg")
-								? autocad
-								: doc.type.includes("doc")
-								? docIcon
-								: excel;
+									? autocad
+									: doc.type.includes("doc")
+										? docIcon
+										: excel;
 							return (
 								<div className="d-flex m-2">
 									<img src={type} alt="pdf" className="mx-2" />
@@ -423,11 +473,11 @@ function SingleRFQModal({
 					<div className="btn-container  d-flex">
 						<button
 							className="button-secondary mx-1"
-							onClick={() => onCancel()}
+							onClick={() => { handleFillRFQ(true) }}
 						>
 							{currentLocal.offerTable.saveAsDraft}
 						</button>
-						<button className="button-primary mx-1">
+						<button className="button-primary mx-1" onClick={() => { handleFillRFQ(false) }}>
 							{currentLocal.offerTable.submit}
 						</button>
 					</div>

@@ -413,6 +413,8 @@ export const en = {
 		readyToSubmit: "Are you sure you want to submit your RFQ?",
 		addNewQuestion: "Add New Question",
 		addQuestion: "Add Question",
+		asked: 'Asked',
+		answered: 'Answered'
 	},
 	home: {
 		shayek: "Shayyek",

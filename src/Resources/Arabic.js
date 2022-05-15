@@ -355,6 +355,8 @@ export const ar = {
 		readyToSubmit: "هل انت مستعد لارسال طلب عرض السعر؟",
 		addNewQuestion: "اضف سؤال جديد",
 		addQuestion: "اضف سؤال",
+		asked: 'يسأل',
+		answered: 'يجيب'
 	},
 	supplierHome: {
 		addNewProduct: "أضف منتج جديد",

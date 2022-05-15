@@ -56,7 +56,63 @@
 }
 .singleRFQContainer .label{color:#003B6B;font-weight: 500;}
 
-@media (max-width: 768px) {
+ .QAndAMenu .ant-dropdown-menu-item.ant-dropdown-menu-item-only-child:hover{
+	background-color: #fff !important;
+}
+.QAndAMenu .questionArea{
+	height: 100px;
+	position: relative;
+	border-radius: 4px;
+	cursor: none;
+}
+.QAndAMenu .addQuestionBtn{
+	position: absolute;
+	bottom:5px;
+	right:5px;
+	color: #0370FF;
+	cursor: pointer;
+}
+.QAndAMenu .button-primary.disabled{
+	background-color: #C9C9C9 !important;
+	color: #8E8E8E !important;
+}
+.QAndAMenu .button-primary.disabled>img{
+	filter: invert(0.4);
+	}
+.QAndAMenu .questionArea > textarea{
+	height: 80px;
+	overflow: auto;
+	resize: none;
+	outline: none;
+	border: none;
+}
+
+.QAndAMenu .questionArea > textarea::-webkit-scrollbar {
+	display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .QAndAMenu .questionArea > textarea {
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+  }
+.QAndAMenu .questionBlock .questionAnswer,.qAndAWall .questionBlock .questionAnswer:hover{
+	color:#505050;
+}
+.QAndAMenu .questionBlock.grayBackground{
+	background: #F7F7F7;
+}
+.QAndAMenu .questionBlock .info{
+	color:#BCBCBC;
+}
+.QAndAMenu .ant-dropdown-menu-item-disabled, .QAndAMenu .ant-dropdown-menu-submenu-title-disabled {
+	color:unset !important;
+    cursor:default !important;
+}
+.QAndAMenu .date{
+	margin-inline-start:20px;
+}
+  @media (max-width: 768px) {
 	.singleRFQModal .btn-container {
 		flex-direction: column;
 	}
@@ -65,5 +121,11 @@
 	}
 	.singleRFQModal .actionsSection {
 		flex-direction: column;
+	}
+	.singleRFQModal .infoContainer{
+	flex-direction: column-reverse;
+	}
+	.qAndAWall{
+	margin-top: 30px;
 	}
 }
