@@ -298,7 +298,7 @@ export const ar = {
 		attachProjectDocument: "الحاق مستندات المشروع",
 		postRFQ: "ارسل طلب السعر",
 		back: "الرجوع",
-		selectSupplierEmail: "اختر البريد الالكتروني للمورد",
+		selectSupplierEmail: "اختر البريد الالكتروني لزملائك",
 		newItemAdded: "تم اضافه بند جديد",
 		projectName: "اسم المشروع",
 		typeProjectName: "اكتب اسم المشروع",

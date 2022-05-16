@@ -356,7 +356,7 @@ export const en = {
 		attachProjectDocument: "Attach Project Documents",
 		postRFQ: "Post RFQ",
 		back: "Back",
-		selectSupplierEmail: "Select supplier E-mail",
+		selectSupplierEmail: "Select colleagues E-mail",
 		newItemAdded: "New item added",
 		projectName: "Project Name",
 		typeProjectName: "Type Project Name",

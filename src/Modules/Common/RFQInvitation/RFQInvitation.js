@@ -8,19 +8,22 @@ import { Redirect } from "react-router-dom";
 import { DeleteRFQ } from "../../../Modules/Home/network";
 import SingleRFQModal from "../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
 import moment from 'moment';
+import { authorType } from "../../../helpers/authType";
 import "./RFQInvitation.css";
 function RFQInvitation({
 	revealPrices,
 	rfqDetails,
-	parent,
 	updateRFQsList,
 	recallGetRFQ,
 }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [redirectTo, updateRedirectTo] = useState(null);
 	const [isRFQModalVisible, toggleRFQModal] = useState(false);
+	const { authorization } = useSelector((state) => state.authorization);
 	const packages = rfqDetails.rfqPackageDetails
-	console.log(rfqDetails, packages)
+
+	const userType = authorType(authorization.accountTypeId, authorization.userTypeId, authorization.roleId)
+
 	function handleMenuClick(e) {
 		switch (e.key) {
 			case "1":
@@ -65,29 +68,19 @@ function RFQInvitation({
 		return <Redirect to={`/createrfq/${rfqDetails.rfqHeaderId}`} />;
 	return (
 		<div className="rfqInvitation">
-			<div className="projectName f-14 my-1">{rfqDetails.projectName}</div>
-			{rfqDetails.rfqPackageDetails &&
-				rfqDetails.rfqPackageDetails.map((rfqPackage) => {
-					return (
-						<div>
-							<div className="projectName f-14 my-1">
-								{rfqPackage.packageName}
-							</div>
-						</div>
-					);
-				})}
+			<div className="d-flex flex-wrap justify-content-between">
+				<div className="projectName f-14 my-1">{rfqDetails.projectName}</div>
+				{userType.includes('buyer') && (
+					<div>
+						<Dropdown.Button overlay={menu} trigger={["click"]}></Dropdown.Button>
+					</div>
+				)}
+			</div>
 			{packages.map((packageItem) => {
 				return (
 					<div className="package-container">
-						<div className="d-flex justify-content-between flex-wrap">
 
-							<div className="packageName f-14 fw-500">{packageItem.packageName}</div>
-							{parent === "buyer" && (
-								<div>
-									<Dropdown.Button overlay={menu} trigger={["click"]}></Dropdown.Button>
-								</div>
-							)}
-						</div>
+						<div className="packageName f-14 fw-500">{packageItem.packageName}</div>
 
 						<div className="d-flex justify-content-between rfqInvContainer ">
 							<ul className="list-unstyled">
@@ -110,18 +103,20 @@ function RFQInvitation({
 									</div>
 								</div>
 							)}
-							{parent === "supplier" && (
-								<div className="text-center my-2">
-									<button
-										className="popup-button-primary"
-										onClick={() => {
-											toggleRFQModal(true);
-										}}
-									>
-										{currentLocal.supplierHome.fillSheet}
-									</button>
-								</div>
-							)}
+							{
+								userType.includes("supplier") && (
+									<div className="text-center my-2">
+										<button
+											className="popup-button-primary"
+											onClick={() => {
+												toggleRFQModal(true);
+											}}
+										>
+											{currentLocal.supplierHome.fillSheet}
+										</button>
+									</div>
+								)
+							}
 						</div>
 					</div>)
 
