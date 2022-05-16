@@ -46,7 +46,9 @@ function Navbarr({ navState, verifayState, transparent }) {
 			const userDocRef = doc(db, "users", authorization.id);
 
 			onSnapshot(userDocRef, (doc) => {
-				updateUnreadMsgCount(doc.data().unreadMsgCount);
+				if (doc.data()) {
+					updateUnreadMsgCount(doc.data().unreadMsgCount);
+				}
 			});
 		}
 	}, [unreadMsgCount, authorization.id]);
@@ -60,7 +62,7 @@ function Navbarr({ navState, verifayState, transparent }) {
 					setUserNotifications(notifications);
 				}
 			},
-			(fail) => {}
+			(fail) => { }
 		);
 	}, [currentLanguageId, setUserNotifications]);
 
@@ -106,10 +108,10 @@ function Navbarr({ navState, verifayState, transparent }) {
 				transparent
 					? "transparent f-14 pps ppe"
 					: navState
-					? verifayState
-						? "light f-14 pps ppe d-flex justify-content-between"
-						: "light f-14 pps ppe"
-					: "dark f-14 pps ppe"
+						? verifayState
+							? "light f-14 pps ppe d-flex justify-content-between"
+							: "light f-14 pps ppe"
+						: "dark f-14 pps ppe"
 			}
 			variant={"dark"}
 			collapseOnSelect={true}

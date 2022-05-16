@@ -302,7 +302,7 @@ function CreateRFQ(props) {
 											unit: name[index.unit],
 											quantity:
 												typeof name[index.quantity] === "string" ||
-												name[index.quantity] === undefined
+													name[index.quantity] === undefined
 													? 1
 													: name[index.quantity],
 											isInstallSupplierAndContructor: false,
@@ -363,6 +363,7 @@ function CreateRFQ(props) {
 		var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|dwg|DOC|PDF/.test(
 			e.target.files[0].type
 		);
+
 		if (!isValidExtensions) {
 			updateFileErrorModalState(true);
 			return 0;
@@ -835,10 +836,10 @@ function CreateRFQ(props) {
 									let type = doc.type.includes("pdf")
 										? pdfIcon
 										: doc.type.includes("dwg")
-										? autocad
-										: doc.type.includes("doc")
-										? docIcon
-										: excel;
+											? autocad
+											: doc.type.includes("doc")
+												? docIcon
+												: excel;
 									return (
 										<div className="d-flex m-2">
 											<img src={type} alt="pdf" className="mx-2" />
@@ -934,7 +935,7 @@ function CreateRFQ(props) {
 						}}
 						alreadyHasPackage={packageName.length ? true : false}
 					/>
-					
+
 				</div>
 			</div>
 		</div>

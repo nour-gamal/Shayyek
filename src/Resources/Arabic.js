@@ -465,4 +465,7 @@ export const ar = {
 		viewProfile: "عرض الصفحه الشخصيه",
 		deleteConversation: "حذف الرسائل",
 	},
+	rfqSummary: {
+		procSteps: 'Your Procurement Steps'
+	}
 };

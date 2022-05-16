@@ -22,6 +22,7 @@ import Cart from "./Modules/Cart/Cart";
 import Checkout from "./Modules/Cart/Checkout";
 import Messages from "./Modules/Messages/Messages";
 import { getToken } from "./Services";
+import RFQSummary from "./Modules/Home/BuyerHome/Components/RFQSummary/RFQSummary";
 // import Login from "./Modules/Login/Login";
 //import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
 function Routes() {
@@ -133,13 +134,24 @@ function Routes() {
 						render={(props) => {
 							return isAuth &&
 								authorization.userTypeId ===
-									"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
+								"4dbe2854-fee8-4466-a9f0-aacf394a5b7e" ? (
 								<OffersTable {...props} />
 							) : (
 								<Redirect to="/" />
 							);
 						}}
-					/>{" "}
+					/>
+					<Route
+						path="/RFQSummary/:id"
+						render={(props) => {
+							return isAuth &&
+								authTypeName && authTypeName.includes('buyer') ? (
+								<RFQSummary {...props} />
+							) : (
+								<Redirect to="/" />
+							);
+						}}
+					/>
 					<Route
 						path="/suppliercontractorprofiles"
 						render={(props) =>

@@ -27,7 +27,7 @@ function RFQInvitation({
 	function handleMenuClick(e) {
 		switch (e.key) {
 			case "1":
-				updateRedirectTo("offers");
+				updateRedirectTo("RFQSummary");
 				break;
 			case "2":
 				updateRedirectTo("edit");
@@ -62,8 +62,8 @@ function RFQInvitation({
 		</Menu>
 	);
 
-	if (redirectTo === "offers") {
-		return <Redirect to={`/offerstable/${rfqDetails.rfqHeaderId}`} />;
+	if (redirectTo === "RFQSummary") {
+		return <Redirect to={`/RFQSummary/${rfqDetails.rfqHeaderId}`} />;
 	} else if (redirectTo === "edit")
 		return <Redirect to={`/createrfq/${rfqDetails.rfqHeaderId}`} />;
 	return (

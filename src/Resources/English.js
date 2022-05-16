@@ -468,4 +468,7 @@ export const en = {
 		viewProfile: "View Profile",
 		deleteConversation: "Delete Conversation",
 	},
+	rfqSummary: {
+		procSteps: 'Your Procurement Steps'
+	}
 };
