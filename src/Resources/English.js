@@ -469,6 +469,15 @@ export const en = {
 		deleteConversation: "Delete Conversation",
 	},
 	rfqSummary: {
-		procSteps: 'Your Procurement Steps'
+		procSteps: 'Your Procurement Steps',
+		Prequalification: 'Prequalification',
+		technicalComparison: 'Technical Comparison',
+		commercialComparison: 'Commercial Comparison',
+		projectName: 'Project Name',
+		projectOwner: "Project Owner",
+		projectContractor: 'Project Contractor',
+		deliveryDate: "Delivery Date",
+		deliveryAddress: 'Delivery Address',
+		projectPackages: 'Project Packages'
 	}
 };

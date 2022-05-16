@@ -466,6 +466,15 @@ export const ar = {
 		deleteConversation: "حذف الرسائل",
 	},
 	rfqSummary: {
-		procSteps: 'Your Procurement Steps'
+		procSteps: 'خطوات التحصيل الخاصه بك',
+		Prequalification: 'التأهيل المسبق',
+		technicalComparison: 'Technical Comparison',
+		commercialComparison: 'Commercial Comparison',
+		projectName: 'Project Name',
+		projectOwner: "Project Owner",
+		projectContractor: 'Project Contractor',
+		deliveryDate: "Delivery Date",
+		deliveryAddress: 'Delivery Address',
+		projectPackages: 'Project Packages'
 	}
 };
