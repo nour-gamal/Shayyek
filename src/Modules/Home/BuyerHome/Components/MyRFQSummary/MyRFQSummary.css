@@ -1,0 +1,63 @@
+.myRFQSummary .procurementSteps{
+    background: #D3E6FF;
+    padding: 25px 0;
+}
+.myRFQSummary .procurementSteps .title{
+    color:#003B6B
+}
+.myRFQSummary .procurementSteps .white-capsules{
+    background:#fff;
+    border: 2px solid #BCE0FD;
+    border-radius: 20px;
+}
+.myRFQSummary .procurementSteps .white-capsules .text{
+    padding:7px 20px;    
+}
+.myRFQSummary .procurementSteps .white-capsules .stepsRight{
+ padding-inline-end: 5px;
+}
+
+.myRFQSummary .procurementSteps .white-capsules:nth-of-type(1){
+    transform: translateX(40px); 
+    position: relative;
+    z-index: 3;  
+}   
+ .myRFQSummary .procurementSteps .white-capsules:nth-of-type(2){
+    transform: translateX(20px); 
+}  
+.myRFQSummary .white-capsules-container {
+    align-items: center !important;
+}.myRFQSummary .packageInfo{
+    width: 64px;
+}
+.myRFQSummary .packages-container .title{
+    color:#2699FB;
+}
+.myRFQSummary .packageInfo .packageName{
+    color:#003B6B;
+    border-bottom: 3px solid #003B6B;    
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.myRFQSummary .packageInfo .packageName.disabled{
+    color: #8E8E8E;
+    border: none;
+}
+
+@media (max-width:850px){
+  .myRFQSummary .white-capsules-container {
+      flex-direction: column;
+      /* align-items: flex-start !important; */
+  }
+  .myRFQSummary .procurementSteps{
+    flex-direction: column;
+}
+  .myRFQSummary .procurementSteps .white-capsules:nth-of-type(1){
+    transform: translateX(0px); 
+}   
+ .myRFQSummary .procurementSteps .white-capsules:nth-of-type(2){
+    transform: translateX(0px); 
+}
+}

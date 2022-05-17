@@ -264,7 +264,7 @@ export const ar = {
 	buyerHome: {
 		importExcelFile: "اضف من ملف اكسيل",
 		addNewItem: "اضف بند جديد",
-		addNewPackage: "اضف حزمه مختلفه للمشروع",
+		addNewPackage: "اضف عمل مختلفه للمشروع",
 		ccCollugues: "شارك زملائك",
 		item: "البند",
 		description: "الوصف",
@@ -311,7 +311,7 @@ export const ar = {
 		projectContractor: "مقاول المشروع",
 		typeProjectContractorName: "اكتب اسم مقاول المشروع",
 		makeNotVisibleToVendors: "اجعلها غير مرئية للبائعين",
-		privateTender: "مناقصه خاصه",
+		privateTender: "مناقصه محدودة ",
 		publicTender: "مناقصه عامه",
 		inviteByEmail: "ارسل دعوه بالايميل",
 		enterEmail: "ادخل الايميل",
@@ -341,8 +341,8 @@ export const ar = {
 		relatedMarketPlace: "الشركات ذات الصلة",
 		viewOffers: "اظهر العروض",
 		confirmDeleteRow: "هل انت متاكد من ازاله الصف المختار؟",
-		addPackageName: "اضف اسم الحزمه",
-		typePackageName: "اضف اسم حزمه للمشروع",
+		addPackageName: "اضف اسم العمل",
+		typePackageName: "اضف اسم عمل للمشروع",
 		submit: "ارسال",
 		fileError:
 			"ملف غير معروف! من فضلك ارفق ملف من واحده من هذه الامتدادات:PDD,Word,Excel او AutoCAD",
@@ -350,8 +350,8 @@ export const ar = {
 		done: "تم",
 		postedSuccess: "تم ارسال طلب عرض السعر!",
 		beforeSumbit: "قبل ارسال طلب عرض السعر",
-		addAnotherPackage: "هل تريد اضافه حزمه اخري ؟",
-		addPackage: "اضف حزمه اخري",
+		addAnotherPackage: "هل تريد اضافه عمل اخري ؟",
+		addPackage: "اضف عمل اخري",
 		readyToSubmit: "هل انت مستعد لارسال طلب عرض السعر؟",
 		addNewQuestion: "اضف سؤال جديد",
 		addQuestion: "اضف سؤال",
@@ -468,13 +468,15 @@ export const ar = {
 	rfqSummary: {
 		procSteps: 'خطوات التحصيل الخاصه بك',
 		Prequalification: 'التأهيل المسبق',
-		technicalComparison: 'Technical Comparison',
-		commercialComparison: 'Commercial Comparison',
-		projectName: 'Project Name',
-		projectOwner: "Project Owner",
-		projectContractor: 'Project Contractor',
-		deliveryDate: "Delivery Date",
-		deliveryAddress: 'Delivery Address',
-		projectPackages: 'Project Packages'
+		technicalComparison: 'المقارنه الفنيه',
+		commercialComparison: 'المقارنه التجاريه',
+		projectName: 'اسم المشروع',
+		projectOwner: "صاحب المشروع",
+		projectContractor: 'مقاول المشروع',
+		deliveryDate: "تاريخ التسليم ",
+		deliveryAddress: 'مكان التسليم',
+		projectPackages: 'اعمال المشروع',
+		mySummary: "ملخصي",
+		acceptAndNotifyVendors: "وافق و بلغ الباعه"
 	}
 };

@@ -478,6 +478,8 @@ export const en = {
 		projectContractor: 'Project Contractor',
 		deliveryDate: "Delivery Date",
 		deliveryAddress: 'Delivery Address',
-		projectPackages: 'Project Packages'
+		projectPackages: 'Project Packages',
+		mySummary: "My Summary",
+		acceptAndNotifyVendors: 'Accept & Notify Vendors'
 	}
 };
