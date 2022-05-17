@@ -20,7 +20,7 @@ function RFQInvitation({
 	const [redirectTo, updateRedirectTo] = useState(null);
 	const [isRFQModalVisible, toggleRFQModal] = useState(false);
 	const { authorization } = useSelector((state) => state.authorization);
-	const packages = rfqDetails.rfqPackageDetails
+	const packages = rfqDetails.rfqPackageDetails ? rfqDetails.rfqPackageDetails : []
 
 	const userType = authorType(authorization.accountTypeId, authorization.userTypeId, authorization.roleId)
 
