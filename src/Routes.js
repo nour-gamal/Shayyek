@@ -120,7 +120,7 @@ function Routes() {
 						}}
 					/>
 					<Route
-						path="/createrfq"
+						path="/createrfq/:id"
 						render={(props) => {
 							return isAuth && authTypeName.includes("buyer") ? (
 								<CreateRFQ {...props} />

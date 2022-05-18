@@ -20,7 +20,7 @@ import documents from "../../../../../Resources/Assets/paperClip.svg";
 import { saveAs } from "file-saver";
 import { baseUrl } from "../../../../../Services";
 import moment from "moment";
-import { getQuestionsList, AddQuestion, getSingleRFQData, fillRFQ } from '../../../network'
+import { getQuestionsList, AddQuestion, GetRFQPackageToFill, fillRFQ } from '../../../network'
 import FileErrorModal from "../../../../Home/BuyerHome/Components/FileErrorModal/FileErrorModal";
 import pdfIcon from "../../../../../Resources/Assets/pdfs.png";
 import docIcon from "../../../../../Resources/Assets/doc.svg";
@@ -31,11 +31,10 @@ import "./SingleRFQModal.css";
 function SingleRFQModal({
 	isModalVisible,
 	onCancel,
-	rfqId,
+	rfqPackageId,
 }) {
 	const [loading, setLoading] = useState(false);
 	const [radioValue, setRadioValue] = useState("yes");
-
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	// eslint-disable-next-line
 	const [documentsList, updateDocumentsList] = useState([]);
@@ -50,22 +49,24 @@ function SingleRFQModal({
 	// eslint-disable-next-line
 	const [questionsList, updateQuestionsList] = useState([1, 2, 3, 4, 5]);
 	const [addQuestBtnState, updateAddQuestBtnState] = useState(true)
-
+	const [packageDetails, updatePackageDetails] = useState({})
 
 	useEffect(() => {
 		let questionsData = {};
-		let rfqData = {}
 		getQuestionsList(questionsData, success => {
 			console.log(success)
 		}, fail => {
 			console.log(fail)
 		})
-		getSingleRFQData(rfqData, success => {
-			console.log(success)
+		let data = { rfqPackageId }
+		GetRFQPackageToFill(data, success => {
+			updatePackageDetails(success.data)
+			updateRFQDetails(success.data.rfqDetails)
 		}, fail => {
 			console.log(fail)
 		})
-	}, [])
+	}, [rfqPackageId])
+
 	const onRadioChange = (e) => {
 		setRadioValue(e.target.value);
 	};
@@ -95,7 +96,6 @@ function SingleRFQModal({
 					</div>
 					<div className="questionsList">
 						{questionsList.map((question, index) => {
-							console.log(question)
 							return <div className={index % 2 === 0 ? "questionBlock my-2 p-2" : "questionBlock my-2 grayBackground p-2"}>
 								<div className="f-14 fw-600 question">question?</div>
 								<div className="info d-flex">
@@ -144,6 +144,7 @@ function SingleRFQModal({
 							rfqDetails[index].unitPrice = e.target.value;
 							updateRFQDetails(rfqDetailss);
 						}}
+						defaultValue={0}
 					/>
 				);
 			},
@@ -181,7 +182,7 @@ function SingleRFQModal({
 			render: (uploadDocuments, record, index) => {
 				return (
 					<div>
-						{uploadDocuments.length ? (
+						{uploadDocuments && uploadDocuments.length ? (
 							<a href={baseUrl + uploadDocuments}>
 								{uploadDocuments.split(" ")[1]}
 							</a>
@@ -304,25 +305,25 @@ function SingleRFQModal({
 				<div className="d-flex infoContainer">
 					<div className="info d-flex align-items-center">
 						<div className="mx-4">
-							{currentLocal.offerTable.buyerName} : test
+							{currentLocal.offerTable.buyerName} : {packageDetails.buyerName}
 						</div>
 						<div className="mx-4">
-							{currentLocal.offerTable.projectOwner} : test
+							{currentLocal.offerTable.projectOwner} : {packageDetails.buyerName}
+						</div>
+						{packageDetails.supplierOrContractorName && <div className="mx-4">
+							{currentLocal.offerTable.projectContractor} : {packageDetails.supplierOrContractorName}
+						</div>}
+						<div className="mx-4">
+							{currentLocal.offerTable.projectName} : {packageDetails.projectName}
+						</div>
+						{packageDetails.projectConsultant && <div className="mx-4">
+							{currentLocal.offerTable.projectConsultant} : {packageDetails.projectConsultant}
+						</div>}
+						<div className="mx-4">
+							{currentLocal.offerTable.deliveryDate} : {moment(packageDetails.deliveryDate).format('LL')}
 						</div>
 						<div className="mx-4">
-							{currentLocal.offerTable.projectContractor} : test
-						</div>
-						<div className="mx-4">
-							{currentLocal.offerTable.projectName} : test
-						</div>
-						<div className="mx-4">
-							{currentLocal.offerTable.projectConsultant} : test
-						</div>
-						<div className="mx-4">
-							{currentLocal.offerTable.deliveryDate} : test
-						</div>
-						<div className="mx-4">
-							{currentLocal.offerTable.deliveryAddress} : test
+							{currentLocal.offerTable.deliveryAddress} : {packageDetails.address}
 						</div>
 					</div>
 
@@ -345,7 +346,6 @@ function SingleRFQModal({
 
 				<div>
 					<Table
-						// key={rfqDetails}
 						key={rfqDetails}
 						indentSize={300}
 						columns={columns}
@@ -489,7 +489,7 @@ function SingleRFQModal({
 					updateFileErrorModalState(!fileErrorModalState);
 				}}
 			/>
-		</Modal>
+		</Modal >
 	);
 }
 

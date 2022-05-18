@@ -236,3 +236,9 @@ export const AddDocumentList = (
 	const path = "api/Account/DocumentList";
 	PostResource(path, data, onSuccess, onFail, reqAuth, formData);
 };
+export const GetSuppliersAndContratorsThatFilledRFQ = (data, onSuccess, onFail, reqAuth = true) => {
+	const { rfqId } = data
+	const path = `api/Session/GetSuppliersAndContratorsThatFilledRFQ?rfqId=${rfqId}`;
+	GetResource(path, onSuccess, onFail, true);
+};
+

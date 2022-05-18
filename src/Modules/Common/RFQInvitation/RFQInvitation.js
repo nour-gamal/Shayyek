@@ -20,6 +20,7 @@ function RFQInvitation({
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [redirectTo, updateRedirectTo] = useState(null);
 	const [isRFQModalVisible, toggleRFQModal] = useState(false);
+	const [selectedRfqPackageId, updateSelectedRfqPackageId] = useState(null)
 	// const packages = userType.includes('buyer') ? rfqDetails.rfqPackageDetails : rfqDetails.rfqPackageInvitationDetails
 	const packages = userType.includes('buyer') ? rfqDetails.rfqPackageDetails ? rfqDetails.rfqPackageDetails : [] : rfqDetails.rfqPackageInvitationDetails ? rfqDetails.rfqPackageInvitationDetails : []
 
@@ -76,20 +77,27 @@ function RFQInvitation({
 					</div>
 				)}
 			</div>
+
 			{packages.map((packageItem) => {
 				return (
 					<div className="package-container">
-
 						<div className="packageName f-14 fw-500">{packageItem.packageName}</div>
-
-						<div className="d-flex justify-content-between rfqInvContainer ">
+						<div className="d-flex justify-content-between rfqInvContainer">
 							<ul className="list-unstyled">
-								<li>{currentLocal.supplierHome.noOfQuotations} </li>
-								<li className="primary-color">{packageItem.noOfQuotations}</li>
+								{packageItem.isBidders ?
+									<div>
+										<li>{currentLocal.supplierHome.noOfQuotations} </li>
+										<li className="primary-color">{packageItem.noOfQuotations}</li>
+									</div>
+									:
+									<div>
+										<li>{currentLocal.supplierHome.address} </li>
+										<li className="primary-color">{packageItem.address}</li>
+									</div>}
 								<li>{currentLocal.supplierHome.deadline}</li>
 								<li className="primary-color">{moment(packageItem.deadline).format('DD-MM-YYYY')}</li>
 							</ul>
-							{revealPrices && (
+							{packageItem.isBidders && (
 								<div className="d-flex priceBox">
 									<div className="mt-2 mx-2">
 										<div className="redball"></div>
@@ -97,27 +105,27 @@ function RFQInvitation({
 									</div>
 									<div>
 										<label>{currentLocal.supplierHome.maxPrice}</label>
-										<div className="primary-color">EGP 20</div>
+										<div className="primary-color">EGP {packageItem.maxPrice}</div>
 										<label>{currentLocal.supplierHome.minPrice}</label>
-										<div className="primary-color">EGP 5000</div>
+										<div className="primary-color">EGP {packageItem.minPrice}</div>
 									</div>
 								</div>
 							)}
-							{
-								userType.includes("supplier") && (
-									<div className="text-center my-2">
-										<button
-											className="popup-button-primary"
-											onClick={() => {
-												toggleRFQModal(true);
-											}}
-										>
-											{currentLocal.supplierHome.fillSheet}
-										</button>
-									</div>
-								)
-							}
 						</div>
+						{userType.includes("supplier") && (
+							<div className="text-center my-2">
+								<button
+									className="popup-button-primary"
+									onClick={() => {
+										toggleRFQModal(true);
+										updateSelectedRfqPackageId(packageItem.rfqPackageId)
+									}}
+								>
+									{currentLocal.supplierHome.fillSheet}
+								</button>
+							</div>
+						)
+						}
 					</div>)
 
 			})}
@@ -128,7 +136,7 @@ function RFQInvitation({
 					onCancel={() => {
 						toggleRFQModal(false);
 					}}
-					rfqId={rfqDetails.rfqHeaderId}
+					rfqPackageId={selectedRfqPackageId}
 				/>
 			)}
 		</div>

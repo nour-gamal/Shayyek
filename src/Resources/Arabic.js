@@ -413,6 +413,7 @@ export const ar = {
 			"مثال: شهادة الأداء / العقد / أمر الشراء / الفاتورة إلخ ...",
 		projectNameFieldRequired: "* أسم المشروع مطلوب",
 		descriptionFieldRequired: "* الوصف مطلوب",
+		address: "العنوان"
 	},
 	home: {
 		shayek: "شيّك",

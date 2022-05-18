@@ -157,4 +157,9 @@ export const fillRFQ = (data, onSuccess, onFail, reqAuth = true) => {
 	const path = ``;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
+export const GetRFQPackageToFill = (data, onSuccess, onFail, reqAuth = true) => {
+	const { rfqPackageId } = data
+	const path = `api/RFQ/GetRFQPackage?rfqPackageId=${rfqPackageId}`;
+	GetResource(path, onSuccess, onFail, true);
+};
 

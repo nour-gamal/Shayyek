@@ -316,6 +316,7 @@ export const en = {
 			"Example: Certificate of Performance / Contract / PO / Invoice etc...",
 		projectNameFieldRequired: "* Project name field is required",
 		descriptionFieldRequired: "* Description field required",
+		address: "Address"
 	},
 	buyerHome: {
 		importExcelFile: "Import Excel File",
