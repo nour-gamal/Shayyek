@@ -14,15 +14,15 @@ function RFQInvitation({
 	revealPrices,
 	rfqDetails,
 	updateRFQsList,
-	recallGetRFQ,
 }) {
+	const { authorization } = useSelector((state) => state.authorization);
+	const userType = authorType(authorization.accountTypeId, authorization.userTypeId, authorization.roleId)
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [redirectTo, updateRedirectTo] = useState(null);
 	const [isRFQModalVisible, toggleRFQModal] = useState(false);
-	const { authorization } = useSelector((state) => state.authorization);
-	const packages = rfqDetails.rfqPackageDetails ? rfqDetails.rfqPackageDetails : []
+	// const packages = userType.includes('buyer') ? rfqDetails.rfqPackageDetails : rfqDetails.rfqPackageInvitationDetails
+	const packages = userType.includes('buyer') ? rfqDetails.rfqPackageDetails ? rfqDetails.rfqPackageDetails : [] : rfqDetails.rfqPackageInvitationDetails ? rfqDetails.rfqPackageInvitationDetails : []
 
-	const userType = authorType(authorization.accountTypeId, authorization.userTypeId, authorization.roleId)
 
 	function handleMenuClick(e) {
 		switch (e.key) {

@@ -91,7 +91,7 @@ export const getBuyerCompany = (
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
 export const getRFQ = (isDrafted, onSuccess, onFail, reqAuth = true) => {
-	const path = `api/RFQ/GetSupplierContractorRFQInvitations?isDrafted=${isDrafted}`;
+	const path = `api/RFQ/GetSupplierContractorRFQInvitationsNew?isDrafted=${isDrafted}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
 };
 
@@ -162,7 +162,7 @@ export const GetBuyerRFQ = (RFQId, onSuccess, onFail, reqAuth = true) => {
 };
 
 export const DeleteRFQ = (RFQId, onSuccess, onFail, reqAuth = true) => {
-	const path = `api/RFQ/DeleteRFQ?RFQId=${RFQId}`;
+	const path = `api/RFQ/DeleteRFQNew?RFQId=${RFQId}`;
 	deleteResource(path, onSuccess, onFail, reqAuth);
 };
 
