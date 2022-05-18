@@ -130,6 +130,16 @@ function Routes() {
 						}}
 					/>
 					<Route
+						path="/createrfq"
+						render={(props) => {
+							return isAuth && authTypeName.includes("buyer") ? (
+								<CreateRFQ {...props} />
+							) : (
+								<Redirect to="/" />
+							);
+						}}
+					/>
+					<Route
 						path="/offerstable/:id"
 						render={(props) => {
 							return isAuth &&
