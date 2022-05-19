@@ -58,6 +58,7 @@ function SingleRFQModal({
 		GetRFQPackageToFill(data, success => {
 			updatePackageDetails(success.data);
 			updateRFQDetails(success.data.rfqDetails);
+			// updateDocumentsList(success.data.documentfile)
 		}, fail => {
 			console.log(fail)
 		})
@@ -190,14 +191,14 @@ function SingleRFQModal({
 		},
 		{
 			title: currentLocal.offerTable.uploadDocuments,
-			dataIndex: "uploadDocuments",
-			key: "uploadDocuments",
-			render: (uploadDocuments, record, index) => {
+			dataIndex: "filePath",
+			key: "filePath",
+			render: (filePath, record, index) => {
 				return (
 					<div>
-						{uploadDocuments && uploadDocuments.length ? (
-							<a href={baseUrl + uploadDocuments}>
-								{uploadDocuments.split(" ")[1]}
+						{filePath && filePath.length ? (
+							<a href={baseUrl + filePath}>
+								{filePath.split(" ")[1]}
 							</a>
 						) : (
 							<div className="text-center">
@@ -291,7 +292,7 @@ function SingleRFQModal({
 			(success) => {
 				setLoading(false);
 				let tableData = [...rfqDetails];
-				tableData[index].uploadDocuments = success.data;
+				tableData[index].filePath = success.data;
 				updateRFQDetails(tableData);
 			},
 			(fail) => {
