@@ -1,61 +1,172 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import stepsRight from "../../../../../Resources/Assets/stepsRight.svg"
-import Package from "../../../../../Resources/Assets/package.svg"
-import PackageDisabled from "../../../../../Resources/Assets/packageDisabled.svg"
+import { Dropdown, Menu } from "antd";
+import Lottie from "react-lottie-player";
+import moment from "moment";
 import ReactTooltip from "react-tooltip";
-import './MyRFQSummary.css'
-import SummaryTable from '../SummaryTable/SummaryTable';
+import stepsRight from "../../../../../Resources/Assets/stepsRight.svg";
+import Package from "../../../../../Resources/Assets/package.svg";
+import PackageDisabled from "../../../../../Resources/Assets/packageDisabled.svg";
+import plusIcon from "../../../../../Resources/Assets/plus (2).svg";
+import questionImg from "../../../../../Resources/Assets/questions.json";
+import SummaryTable from "../SummaryTable/SummaryTable";
+import AllQuotaionsRecievedForRFQ from "../AllQuotationsRecievedTable/AllQuotationsRecievedTable";
+
+import "./MyRFQSummary.css";
+
 function MyRFQSummary() {
-    const { currentLocal } = useSelector((state) => state.currentLocal);
-    const [currentPackageId, updateCurrentPackageId] = useState(null);
-    const [rfqDetails, updateRFQDetails] = useState({ packages: [1, 2, 3] })
-    useEffect(() => {
-    }, [])
-    return (
-        <div className='myRFQSummary'>
-            <div className='procurementSteps d-flex align-items-center justify-content-center'>
-                <div className='title fw-500 mx-2'>{currentLocal.rfqSummary.procSteps}:</div>
-                <div className='d-flex  white-capsules-container'>
-                    <div className='white-capsules d-flex'>
-                        <div className='text'>{currentLocal.rfqSummary.Prequalification}</div>
-                        <img src={stepsRight} alt='stepsRight' className='stepsRight' />
-                    </div>
-                    <div className='white-capsules d-flex'>
-                        <div className='text'>{currentLocal.rfqSummary.technicalComparison}</div>
-                        <img src={stepsRight} alt='stepsRight' className='stepsRight' />
-                    </div>
-                    <div className='white-capsules d-flex'>
-                        <div className='text'>{currentLocal.rfqSummary.commercialComparison}</div>
-                        <img src={stepsRight} alt='stepsRight' className='stepsRight' />
-                    </div>
+  const [currentPackageId, updateCurrentPackageId] = useState(null);
+  const [questionsList, updateQuestionsList] = useState([1, 2, 3, 4, 5]);
+  const [rfqDetails, updateRFQDetails] = useState({ packages: [1, 2, 3] });
+  const [addQuestBtnState, updateAddQuestBtnState] = useState(false);
+  const [question, updateQuestion] = useState("");
+  const { currentLocal } = useSelector((state) => state.currentLocal);
+  function handleAddQuestion() {}
+  const QAndAMenu = (
+    <Menu className="px-2 py-4">
+      <Menu.Item disabled={true}>
+        <div className="d-flex flex-column">
+          <div className="questionsList">
+            {questionsList.map((question, index) => {
+              return (
+                <div
+                  className={
+                    index % 2 === 0
+                      ? "questionBlock my-2 p-2"
+                      : "questionBlock my-2 grayBackground p-2"
+                  }
+                >
+                  <div className="f-14 fw-600 question">question?</div>
+
+                  <div className="info d-flex">
+                    <div>Ahmed {currentLocal.buyerHome.asked} </div>
+                    <div className="date">{moment().format("LLL")}</div>
+                  </div>
+                  {index % 2 ? (
+                    <>
+                      <div className="info addAnswer d-flex justify-content-end">
+                        Add Answer
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="questionAnswer">The Answer</div>
+                      <div className="info d-flex">
+                        <div>You {currentLocal.buyerHome.answered} </div>
+                        <div className="date">{moment().format("LLL")}</div>
+                      </div>
+                    </>
+                  )}
                 </div>
+              );
+            })}
+          </div>
+        </div>
+      </Menu.Item>
+    </Menu>
+  );
+
+  useEffect(() => {}, []);
+
+  return (
+    <div className="myRFQSummary">
+      <div className="procurementSteps ppe pps d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-center">
+          <div className="title fw-500 mx-2">
+            {currentLocal.rfqSummary.procSteps}:
+          </div>
+          <div className="d-flex  white-capsules-container">
+            <div className="white-capsules d-flex">
+              <div className="text">
+                {currentLocal.rfqSummary.Prequalification}
+              </div>
+              <img src={stepsRight} alt="stepsRight" className="stepsRight" />
             </div>
-            <div className='pps ppe'>
-                <div className='d-flex my-2 justify-content-between flex-wrap'>
-                    <div className='mx-3'>{currentLocal.rfqSummary.projectName}:test</div>
-                    <div className='mx-3'>{currentLocal.rfqSummary.projectOwner}:test</div>
-                    <div className='mx-3'>{currentLocal.rfqSummary.projectContractor}:test</div>
-                    <div className='mx-3'>{currentLocal.rfqSummary.deliveryDate}:test</div>
-                    <div className='mx-3'>{currentLocal.rfqSummary.deliveryAddress}:test</div>
-                    <div className='mx-3'>{currentLocal.rfqSummary.projectPackages}:test</div>
-                </div>
-                <div className="d-flex packages-container align-items-center my-4">
-                    <div className="title mx-3 fw-500">{currentLocal.rfqSummary.projectPackages}</div>
-                    {rfqDetails.packages.map((packageItem) => {
-                        return (
-                            <div className="packageInfo mx-4 cursorPointer">
-                                <img src={currentPackageId === true ? Package : PackageDisabled} alt='Package' />
-                                <div className={currentPackageId === true ? "packageName p-2 fw-500 flex-wrap" : "packageName p-2 fw-500 flex-wrap disabled"} data-tip="packageName">packageName</div>
-                                <ReactTooltip />
-                            </div>
-                        )
-                    })}
-                </div>
+            <div className="white-capsules d-flex">
+              <div className="text">
+                {currentLocal.rfqSummary.technicalComparison}
+              </div>
+              <img src={stepsRight} alt="stepsRight" className="stepsRight" />
             </div>
-            <SummaryTable />
-        </div >
-    )
+            <div className="white-capsules d-flex">
+              <div className="text">
+                {currentLocal.rfqSummary.commercialComparison}
+              </div>
+              <img src={stepsRight} alt="stepsRight" className="stepsRight" />
+            </div>
+          </div>
+        </div>
+        <div>
+          <Dropdown
+            overlay={QAndAMenu}
+            placement="bottomLeft"
+            trigger={["click"]}
+            overlayClassName={"QAndAMenu cursor-pointer"}
+          >
+            <div
+              className="qAndAWall d-flex justify-content-end"
+              role={"button"}
+            >
+              <figure>
+                <Lottie loop animationData={questionImg} play />
+              </figure>
+              <div className="text">{currentLocal.offerTable.QANDAWALL}</div>
+              <div className="invitations_number mx-2">
+                {questionsList.length}
+              </div>
+            </div>
+          </Dropdown>
+        </div>
+      </div>
+      <div className="pps ppe">
+        <div className="d-flex my-2 justify-content-between flex-wrap">
+          <div className="mx-3">{currentLocal.rfqSummary.projectName}:test</div>
+          <div className="mx-3">
+            {currentLocal.rfqSummary.projectOwner}:test
+          </div>
+          <div className="mx-3">
+            {currentLocal.rfqSummary.projectContractor}:test
+          </div>
+          <div className="mx-3">
+            {currentLocal.rfqSummary.deliveryDate}:test
+          </div>
+          <div className="mx-3">
+            {currentLocal.rfqSummary.deliveryAddress}:test
+          </div>
+          <div className="mx-3">
+            {currentLocal.rfqSummary.projectPackages}:test
+          </div>
+        </div>
+        <div className="d-flex packages-container align-items-center my-4">
+          <div className="title mx-3 fw-500">
+            {currentLocal.rfqSummary.projectPackages}
+          </div>
+          {rfqDetails.packages.map((packageItem) => {
+            return (
+              <div className="packageInfo mx-4 cursorPointer">
+                <img
+                  src={currentPackageId === true ? Package : PackageDisabled}
+                  alt="Package"
+                />
+                <div
+                  className={
+                    currentPackageId === true
+                      ? "packageName p-2 fw-500 flex-wrap"
+                      : "packageName p-2 fw-500 flex-wrap disabled"
+                  }
+                  data-tip="packageName"
+                >
+                  packageName
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <SummaryTable dataSourceProp={false} />
+      <AllQuotaionsRecievedForRFQ dataSourceProp={false} />
+    </div>
+  );
 }
 
-export default MyRFQSummary
+export default MyRFQSummary;

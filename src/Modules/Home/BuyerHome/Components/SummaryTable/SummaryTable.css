@@ -1,8 +1,17 @@
 .summaryTable {
-    background-color: #FAFAFA;
+  background-color: #fafafa;
 }
 
-.summaryTable .title{
-    color:#2699FB
-    
+.summaryTable .title {
+  color: #2699fb;
+  display: flex;
+  align-items: center;
+}
+
+button.ant-dropdown-trigger.filterDropdown {
+  padding: 0.5rem;
+  background: white;
+  border: 1px solid #2699fb;
+  border-radius: 5px;
+  min-width: 130px;
 }

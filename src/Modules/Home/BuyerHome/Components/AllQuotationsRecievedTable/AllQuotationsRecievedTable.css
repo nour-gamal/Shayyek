@@ -1,0 +1,13 @@
+.hideTableBtn {
+  color: #003b6b;
+  font-size: 1rem;
+  font-weight: 400;
+  background-color: transparent;
+  border: none;
+}
+.hideTableBtn:hover,
+.hideTableBtn:active {
+  color: black;
+  outline: none !important;
+  box-shadow: none !important;
+}

@@ -1,63 +1,171 @@
-.myRFQSummary .procurementSteps{
-    background: #D3E6FF;
-    padding: 25px 0;
+.myRFQSummary .procurementSteps {
+  background: #d3e6ff;
+  padding: 25px 0;
 }
-.myRFQSummary .procurementSteps .title{
-    color:#003B6B
+.myRFQSummary .procurementSteps .title {
+  color: #003b6b;
 }
-.myRFQSummary .procurementSteps .white-capsules{
-    background:#fff;
-    border: 2px solid #BCE0FD;
-    border-radius: 20px;
+.myRFQSummary .procurementSteps .white-capsules {
+  background: #fff;
+  border: 2px solid #bce0fd;
+  border-radius: 20px;
 }
-.myRFQSummary .procurementSteps .white-capsules .text{
-    padding:7px 20px;    
+.myRFQSummary .procurementSteps .white-capsules .text {
+  padding: 7px 20px;
 }
-.myRFQSummary .procurementSteps .white-capsules .stepsRight{
- padding-inline-end: 5px;
+.myRFQSummary .procurementSteps .white-capsules .stepsRight {
+  padding-inline-end: 5px;
 }
 
-.myRFQSummary .procurementSteps .white-capsules:nth-of-type(1){
-    transform: translateX(40px); 
-    position: relative;
-    z-index: 3;  
-}   
- .myRFQSummary .procurementSteps .white-capsules:nth-of-type(2){
-    transform: translateX(20px); 
-}  
+.myRFQSummary .procurementSteps .white-capsules:nth-of-type(1) {
+  transform: translateX(40px);
+  position: relative;
+  z-index: 3;
+}
+.myRFQSummary .procurementSteps .white-capsules:nth-of-type(2) {
+  transform: translateX(20px);
+}
 .myRFQSummary .white-capsules-container {
-    align-items: center !important;
-}.myRFQSummary .packageInfo{
-    width: 64px;
+  align-items: center !important;
 }
-.myRFQSummary .packages-container .title{
-    color:#2699FB;
+.myRFQSummary .packageInfo {
+  width: 64px;
 }
-.myRFQSummary .packageInfo .packageName{
-    color:#003B6B;
-    border-bottom: 3px solid #003B6B;    
-    text-overflow: ellipsis;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
+.myRFQSummary .packages-container .title {
+  color: #2699fb;
 }
-.myRFQSummary .packageInfo .packageName.disabled{
-    color: #8E8E8E;
-    border: none;
+.myRFQSummary .packageInfo .packageName {
+  color: #003b6b;
+  border-bottom: 3px solid #003b6b;
+  text-overflow: ellipsis;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.myRFQSummary .packageInfo .packageName.disabled {
+  color: #8e8e8e;
+  border: none;
 }
 
-@media (max-width:850px){
+@media (max-width: 850px) {
   .myRFQSummary .white-capsules-container {
-      flex-direction: column;
-      /* align-items: flex-start !important; */
-  }
-  .myRFQSummary .procurementSteps{
     flex-direction: column;
+    /* align-items: flex-start !important; */
+  }
+  .myRFQSummary .procurementSteps {
+    flex-direction: column;
+  }
+  .myRFQSummary .procurementSteps .white-capsules:nth-of-type(1) {
+    transform: translateX(0px);
+  }
+  .myRFQSummary .procurementSteps .white-capsules:nth-of-type(2) {
+    transform: translateX(0px);
+  }
 }
-  .myRFQSummary .procurementSteps .white-capsules:nth-of-type(1){
-    transform: translateX(0px); 
-}   
- .myRFQSummary .procurementSteps .white-capsules:nth-of-type(2){
-    transform: translateX(0px); 
+
+/* Start qAndAwall */
+.myRFQSummary .qAndAWall,
+.myRFQSummary .qAndAWall:hover {
+  background-color: #aed1ff;
+  border-radius: 3px;
+  padding: 10px 0;
+  padding-inline-end: 10px;
+  height: fit-content;
+  color: #0370ff;
+  font-weight: 500;
+  cursor: pointer;
 }
+
+.myRFQSummary .qAndAWall figure {
+  width: 25px;
+  margin: 0 10px;
+}
+.myRFQSummary .qAndAWall .text {
+  width: max-content;
+}
+.myRFQSummary .label {
+  color: #003b6b;
+  font-weight: 500;
+}
+
+.QAndAMenu .ant-dropdown-menu-item.ant-dropdown-menu-item-only-child:hover {
+  background-color: #fff !important;
+}
+.QAndAMenu .questionArea {
+  height: 100px;
+  position: relative;
+  border-radius: 4px;
+  cursor: none;
+}
+.QAndAMenu .addQuestionBtn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: #0370ff;
+  cursor: pointer;
+}
+.QAndAMenu .button-primary.disabled {
+  background-color: #c9c9c9 !important;
+  color: #8e8e8e !important;
+}
+.QAndAMenu .button-primary.disabled > img {
+  filter: invert(0.4);
+}
+.QAndAMenu .questionArea > textarea {
+  height: 80px;
+  overflow: auto;
+  resize: none;
+  outline: none;
+  border: none;
+}
+
+.QAndAMenu .questionArea > textarea::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.QAndAMenu .questionArea > textarea {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.QAndAMenu .questionBlock .questionAnswer,
+.qAndAWall .questionBlock .questionAnswer:hover {
+  color: #505050;
+}
+.QAndAMenu .questionBlock.grayBackground {
+  background: #f7f7f7;
+}
+.QAndAMenu .questionBlock .info {
+  color: #bcbcbc;
+}
+.QAndAMenu .ant-dropdown-menu-item-disabled,
+.QAndAMenu .ant-dropdown-menu-submenu-title-disabled {
+  color: unset !important;
+  cursor: default !important;
+}
+.QAndAMenu .date {
+  margin-inline-start: 20px;
+}
+.QAndAMenu .addAnswer {
+  font-size: 0.78rem;
+  color: #003b6b !important;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+@media (max-width: 768px) {
+  .singleRFQModal .btn-container {
+    flex-direction: column;
+  }
+  .singleRFQModal .btn-container > button {
+    margin-top: 10px;
+  }
+  .singleRFQModal .actionsSection {
+    flex-direction: column;
+  }
+  .singleRFQModal .infoContainer {
+    flex-direction: column-reverse;
+  }
+  .qAndAWall {
+    margin-top: 30px;
+  }
 }
