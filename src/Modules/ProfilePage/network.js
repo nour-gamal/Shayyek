@@ -145,16 +145,21 @@ export const getQuestionsList = (
 	onSuccess,
 	onFail
 ) => {
-	const path = ``;
+	const path = `api/QuestionsWall/QuestionWall?PackageId=${data.rfqPackageId}`;
 	GetResource(path, onSuccess, onFail, true);
 };
 export const AddQuestion = (data, onSuccess, onFail, reqAuth = true) => {
-	const path = ``;
+	const path = `api/QuestionsWall/QuestionWall`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
 
 export const fillRFQ = (data, onSuccess, onFail, reqAuth = true) => {
-	const path = ``;
+	const path = `api/RFQ/FillRFQPackage`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
+};
+export const GetRFQPackageToFill = (data, onSuccess, onFail, reqAuth = true) => {
+	const { rfqPackageId } = data
+	const path = `api/RFQ/GetRFQPackage?rfqPackageId=${rfqPackageId}`;
+	GetResource(path, onSuccess, onFail, true);
 };
 

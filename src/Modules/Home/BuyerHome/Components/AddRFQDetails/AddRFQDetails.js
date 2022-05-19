@@ -115,9 +115,9 @@ function AddRFQDetails({ getRFQPageName }) {
 			projectName === undefined ||
 			!projectName.length ||
 			!selectedGov ||
-			!projectOwner.name.length ||
-			!projectConsultant.name ||
-			!projectContractor.name
+			!projectOwner.name.length
+			// !projectConsultant.name ||
+			//!projectContractor.name
 		) {
 			updateAlert(true);
 		} else {
@@ -216,8 +216,7 @@ function AddRFQDetails({ getRFQPageName }) {
 					<div className="d-flex my-4 field-container">
 						<label className="f-14 fw-500 d-flex align-items-start label">
 							<span>{currentLocal.buyerHome.projectConsultant}</span>
-
-							<span className="errorSign">*</span>
+							{/* <span className="errorSign">*</span> */}
 						</label>
 						<div className="d-flex flex-column flex-1">
 							<Input
@@ -250,8 +249,7 @@ function AddRFQDetails({ getRFQPageName }) {
 					<div className="d-flex my-4 field-container flex-1">
 						<label className="f-14 fw-500 d-flex align-items-start label">
 							<span>{currentLocal.buyerHome.projectContractor}</span>
-
-							<span className="errorSign">*</span>
+							{/* <span className="errorSign">*</span> */}
 						</label>
 						<div className="d-flex flex-column flex-1 ">
 							<Input
