@@ -260,6 +260,7 @@ export const ar = {
 		no: "لا",
 		saveAsDraft: "سجل في المسوده",
 		submit: "تم",
+		noAvailbleDocument: "لا يوجد مستند"
 	},
 	buyerHome: {
 		importExcelFile: "اضف من ملف اكسيل",

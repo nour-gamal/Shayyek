@@ -261,6 +261,7 @@ export const en = {
 		no: "No",
 		saveAsDraft: "Save as Draft",
 		submit: "Submit",
+		noAvailbleDocument: "No Available Document"
 	},
 	supplierHome: {
 		addNewProduct: "Add New Product",
