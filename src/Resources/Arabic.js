@@ -265,6 +265,8 @@ export const ar = {
 		allQuotationsRecivedForThisRFQ: "كافة عروض الأسعار لهذا الطلب",
 		hide: "إخفاء",
 		show: "إظهار",
+		Company: "شركه",
+		noAvailbleDocument: 'لا يوجد مستند متاج'
 	},
 	buyerHome: {
 		importExcelFile: "اضف من ملف اكسيل",

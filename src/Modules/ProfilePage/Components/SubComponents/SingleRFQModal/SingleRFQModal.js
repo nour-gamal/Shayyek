@@ -58,7 +58,7 @@ function SingleRFQModal({
 		GetRFQPackageToFill(data, success => {
 			updatePackageDetails(success.data);
 			updateRFQDetails(success.data.rfqDetails);
-			// updateDocumentsList(success.data.documentfile)
+			// updateDocumentsList(success.data.packageFiles)
 		}, fail => {
 			console.log(fail)
 		})
@@ -173,16 +173,16 @@ function SingleRFQModal({
 		},
 		{
 			title: currentLocal.offerTable.itemDocuments,
-			dataIndex: "itemDocuments",
-			key: "itemDocuments",
-			render: (itemDocuments, record) => {
+			dataIndex: "itemDocument",
+			key: "itemDocument",
+			render: (itemDocument, record) => {
 				return (
-					<>{itemDocuments ?
+					<>{itemDocument ?
 						<img
 							src={download}
 							alt="download"
 							onClick={() => {
-								saveAs(itemDocuments);
+								saveAs(`${baseUrl}${itemDocument}`);
 							}}
 						/> : <>{currentLocal.offerTable.noAvailbleDocument}</>}
 					</>
@@ -307,6 +307,7 @@ function SingleRFQModal({
 		updateValidityOfferDate(dateString);
 	};
 
+
 	return (
 		<Modal
 			title="Basic Modal"
@@ -382,15 +383,13 @@ function SingleRFQModal({
 					/>
 					<Row>
 						<Col xs={24} md={16}>
-							<div className="d-flex my-4">
-								<label className="label">{currentLocal.offerTable.notes}</label>
-								<div className="mx-2">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
-									corporis veritatis obcaecati necessitatibus amet voluptate
-									debitis, delectus eaque illum perspiciatis vel sed nam quam
-									explicabo dolores ex? Dicta, dolores nam?
-								</div>
-							</div>
+							{packageDetails.notes &&
+								<div className="d-flex my-4">
+									<label className="label">{currentLocal.offerTable.notes}</label>
+									<div className="mx-2">
+										{packageDetails.notes}
+									</div>
+								</div>}
 							<div className="d-flex my-4">
 								<label className="label">
 									{currentLocal.offerTable.priceIncludingVAT}
