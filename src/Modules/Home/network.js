@@ -91,13 +91,8 @@ export const getBuyerCompany = (
   GetResource(path, onSuccess, onFail, reqAuth);
 };
 export const getRFQ = (isDrafted, onSuccess, onFail, reqAuth = true) => {
-<<<<<<< HEAD
-  const path = `api/RFQ/GetSupplierContractorRFQInvitations?isDrafted=${isDrafted}`;
+  const path = `api/RFQ/GetSupplierContractorRFQInvitationsNew?isDrafted=${isDrafted}`;
   GetResource(path, onSuccess, onFail, reqAuth);
-=======
-	const path = `api/RFQ/GetSupplierContractorRFQInvitationsNew?isDrafted=${isDrafted}`;
-	GetResource(path, onSuccess, onFail, reqAuth);
->>>>>>> 76a1b4d9b204f736b06a9039dc83089626a5de96
 };
 
 export const ImportProductsAsExcelSheet = (
@@ -167,13 +162,8 @@ export const GetBuyerRFQ = (RFQId, onSuccess, onFail, reqAuth = true) => {
 };
 
 export const DeleteRFQ = (RFQId, onSuccess, onFail, reqAuth = true) => {
-<<<<<<< HEAD
-  const path = `api/RFQ/DeleteRFQ?RFQId=${RFQId}`;
+  const path = `api/RFQ/DeleteRFQNew?RFQId=${RFQId}`;
   deleteResource(path, onSuccess, onFail, reqAuth);
-=======
-	const path = `api/RFQ/DeleteRFQNew?RFQId=${RFQId}`;
-	deleteResource(path, onSuccess, onFail, reqAuth);
->>>>>>> 76a1b4d9b204f736b06a9039dc83089626a5de96
 };
 
 export const fillRFQ = (data, onSuccess, onFail, reqAuth = true) => {
@@ -246,7 +236,6 @@ export const AddDocumentList = (
   const path = "api/Account/DocumentList";
   PostResource(path, data, onSuccess, onFail, reqAuth, formData);
 };
-<<<<<<< HEAD
 
 export const getQuestionWall = (onScuccess, onFail) => {
   const path = "api/QuestionsWall/QuestionWall";
@@ -257,11 +246,13 @@ export function postQuestionWall(onSuccess, onFail) {
   const path = "api/QuestionsWall/AnswerQuestionWall";
   PostResource(path, onSuccess, onFail);
 }
-=======
-export const GetSuppliersAndContratorsThatFilledRFQ = (data, onSuccess, onFail, reqAuth = true) => {
-	const { rfqId } = data
-	const path = `api/Session/GetSuppliersAndContratorsThatFilledRFQ?rfqId=${rfqId}`;
-	GetResource(path, onSuccess, onFail, true);
+export const GetSuppliersAndContratorsThatFilledRFQ = (
+  data,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) => {
+  const { rfqId } = data;
+  const path = `api/Session/GetSuppliersAndContratorsThatFilledRFQ?rfqId=${rfqId}`;
+  GetResource(path, onSuccess, onFail, true);
 };
-
->>>>>>> 76a1b4d9b204f736b06a9039dc83089626a5de96

@@ -419,6 +419,7 @@ export const en = {
     readyToSubmit: "Are you sure you want to submit your RFQ?",
     addNewQuestion: "Add New Question",
     addQuestion: "Add Question",
+    addAnswer: "Add Answer",
     asked: "Asked",
     answered: "Answered",
   },

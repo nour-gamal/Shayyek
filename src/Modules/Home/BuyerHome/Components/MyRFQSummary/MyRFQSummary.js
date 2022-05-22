@@ -3,11 +3,9 @@ import { useSelector } from "react-redux";
 import { Dropdown, Menu } from "antd";
 import Lottie from "react-lottie-player";
 import moment from "moment";
-import ReactTooltip from "react-tooltip";
 import stepsRight from "../../../../../Resources/Assets/stepsRight.svg";
 import Package from "../../../../../Resources/Assets/package.svg";
 import PackageDisabled from "../../../../../Resources/Assets/packageDisabled.svg";
-import plusIcon from "../../../../../Resources/Assets/plus (2).svg";
 import questionImg from "../../../../../Resources/Assets/questions.json";
 import SummaryTable from "../SummaryTable/SummaryTable";
 import AllQuotaionsRecievedForRFQ from "../AllQuotationsRecievedTable/AllQuotationsRecievedTable";
@@ -19,7 +17,8 @@ function MyRFQSummary() {
   const [questionsList, updateQuestionsList] = useState([1, 2, 3, 4, 5]);
   const [rfqDetails, updateRFQDetails] = useState({ packages: [1, 2, 3] });
   const [addQuestBtnState, updateAddQuestBtnState] = useState(false);
-  const [question, updateQuestion] = useState("");
+  const [openAnswer, setOpenAnswer] = useState(false);
+  const [answer, setAnswer] = useState(null);
   const { currentLocal } = useSelector((state) => state.currentLocal);
   function handleAddQuestion() {}
   const QAndAMenu = (
@@ -44,8 +43,32 @@ function MyRFQSummary() {
                   </div>
                   {index % 2 ? (
                     <>
-                      <div className="info addAnswer d-flex justify-content-end">
-                        Add Answer
+                      <div
+                        className={
+                          openAnswer
+                            ? "questionArea form-control m-2"
+                            : "d-none"
+                        }
+                      >
+                        <textarea
+                          value={answer}
+                          onChange={(e) => {
+                            setAnswer(e.target.value);
+                          }}
+                        />
+                        <div
+                          className={openAnswer ? "addQuestionBtn f-14 " : "d-none"}
+                          onClick={handleAddQuestion}
+                          role="button"
+                        >
+                          {currentLocal.buyerHome.addAnswer}
+                        </div>
+                      </div>
+                      <div
+                        className="info addAnswer d-flex justify-content-end"
+                        onClick={() => setOpenAnswer((state) => !state)}
+                      >
+                        {currentLocal.buyerHome.addAnswer}
                       </div>
                     </>
                   ) : (
