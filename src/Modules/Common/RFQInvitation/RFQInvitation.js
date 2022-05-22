@@ -148,6 +148,68 @@ function RFQInvitation({ revealPrices, rfqDetails, updateRFQsList, parent }) {
         );
       })}
 
+      {packages.map((packageItem) => {
+        return (
+          <div className="package-container">
+            <div className="packageName f-14 fw-500">
+              {packageItem.packageName}
+            </div>
+            <div className="d-flex justify-content-between rfqInvContainer">
+              <ul className="list-unstyled">
+                {packageItem.isBidders || rfqDetails.isBidder ? (
+                  <div>
+                    <li>{currentLocal.supplierHome.noOfQuotations} </li>
+                    <li className="primary-color">
+                      {packageItem.noOfQuotations}
+                    </li>
+                  </div>
+                ) : (
+                  <div>
+                    <li>{currentLocal.supplierHome.address} </li>
+                    <li className="primary-color">{packageItem.address}</li>
+                  </div>
+                )}
+                <li>{currentLocal.supplierHome.deadline}</li>
+                <li className="primary-color">
+                  {moment(packageItem.deadline).format("DD-MM-YYYY")}
+                </li>
+              </ul>
+              {packageItem.isBidders && (
+                <div className="d-flex priceBox">
+                  <div className="mt-2 mx-2">
+                    <div className="redball"></div>
+                    <div className="greenball"></div>
+                  </div>
+                  <div>
+                    <label>{currentLocal.supplierHome.maxPrice}</label>
+                    <div className="primary-color">
+                      EGP {packageItem.maxPrice}
+                    </div>
+                    <label>{currentLocal.supplierHome.minPrice}</label>
+                    <div className="primary-color">
+                      EGP {packageItem.minPrice}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+            {userType.includes("supplier") && (
+              <div className="text-center my-2">
+                <button
+                  className="popup-button-primary"
+                  onClick={() => {
+                    toggleRFQModal(true);
+                    updateSelectedRfqPackageId(packageItem.rfqPackageId);
+                  }}
+                >
+                  {currentLocal.supplierHome.fillSheet}
+                </button>
+              </div>
+            )}
+          </div>
+        );
+      })}
+
       {isRFQModalVisible && (
         <SingleRFQModal
           isModalVisible={isRFQModalVisible}
