@@ -328,9 +328,9 @@ function SingleRFQModal({
 						<div className="mx-4">
 							{currentLocal.offerTable.buyerName} : {packageDetails.buyerName}
 						</div>
-						<div className="mx-4">
+						{packageDetails.projectOwner && <div className="mx-4">
 							{currentLocal.offerTable.projectOwner} : {packageDetails.projectOwner}
-						</div>
+						</div>}
 						{packageDetails.supplierOrContractorName && <div className="mx-4">
 							{currentLocal.offerTable.projectContractor} : {packageDetails.supplierOrContractorName}
 						</div>}
