@@ -455,18 +455,18 @@ function SingleRFQModal({
 					)}
 					<div className="documents-list-area d-flex px-2">
 						{documentsList.map((doc, docIndex) => {
-							let type = doc.type.includes("pdf")
+							let type = doc.contentType.includes("pdf")
 								? pdfIcon
-								: doc.type.includes("dwg")
+								: doc.contentType.includes("dwg")
 									? autocad
-									: doc.type.includes("doc")
+									: doc.contentType.includes("doc")
 										? docIcon
 										: excel;
 							return (
 								<div className="d-flex m-2">
 									<img src={type} alt="pdf" className="mx-2" />
 									<div>
-										<div className="fileName">{doc.name}</div>
+										<div className="fileName">{doc.fileName}</div>
 										<div className="fileSizeBox d-flex align-items-center justify-content-between">
 											<div>
 												<span className="fileSize">
@@ -479,7 +479,7 @@ function SingleRFQModal({
 												alt="download"
 												className="cursorPointer mx-1"
 												onClick={() => {
-													saveAs(doc.url);
+													saveAs(`${baseUrl}${doc.path}`);
 												}}
 											/>
 										</div>
