@@ -22,8 +22,10 @@ function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage }) {
       (success) => {
         if (success.data) {
           if (rfqData.inviteByWhatsapp) {
+            console.log();
             window.open(
-              `https://api.whatsapp.com/send?text=${success.data.data}`,
+              `https://api.whatsapp.com/send?text=${"localhost:3000?packageId=" +
+                success.data}`,
               "_blank"
             );
           }
