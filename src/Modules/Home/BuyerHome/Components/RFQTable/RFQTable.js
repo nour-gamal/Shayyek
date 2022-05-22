@@ -58,7 +58,7 @@ function CreateRFQ(props) {
 	const [indexState, updateIndexState] = useState(false);
 	const [fileErrorModalState, updateFileErrorModalState] = useState(false);
 	const { rfqData } = useSelector((state) => state.rfq);
-	const [packageName, updatePackageName] = useState("");
+	const [packageName, updatePackageName] = useState("Default");
 	const [ccEmails, updateCCEmails] = useState([]);
 	const [isSuccessModalvis, updateSuccessModalVis] = useState(false);
 	const [documentsList, updateDocumentsList] = useState([]);
@@ -200,7 +200,7 @@ function CreateRFQ(props) {
 		) {
 			setAlert(true);
 		} else {
-			addPackageToStore();
+			// addPackageToStore();
 			updateSuccessModalVis(!isSuccessModalvis);
 		}
 	}
@@ -620,7 +620,7 @@ function CreateRFQ(props) {
 		// const [documentsList, updateDocumentsList] = useState([]);
 		// const [packageFiles, updatePackageFiles] = useState([]);
 	};
-
+	console.log(rfqData.rfqPackages)
 	return (
 		<div className="ppl ppr my-4 RFQTable">
 			<div className="actionsContainer">
@@ -878,13 +878,14 @@ function CreateRFQ(props) {
 						</div>
 					</div>
 					<div className="text-center">
-						{props.state && !props.state.addAnotherPackage && (
+						{rfqData.rfqPackages.length < 1 && (
 							<button
 								className="button-secondary native"
 								onClick={() => {
-									dispatch(
-										addRFQDetails({ ...rfqData, rfqPages: "addRFQDetails" })
-									);
+									// dispatch(
+									// 	addRFQDetails({ ...rfqData, rfqPages: "addRFQDetails" })
+									// );
+									props.getRFQPageName('addRFQDetails')
 								}}
 							>
 								{currentLocal.buyerHome.back}
@@ -933,7 +934,8 @@ function CreateRFQ(props) {
 						onCancel={() => {
 							updateSuccessModalVis(!isSuccessModalvis);
 						}}
-						alreadyHasPackage={packageName.length ? true : false}
+						addPackageToStore={addPackageToStore}
+						alreadyHasPackage={rfqData.rfqPackages && rfqData.rfqPackages.length > 1 ? true : false}
 					/>
 
 				</div>

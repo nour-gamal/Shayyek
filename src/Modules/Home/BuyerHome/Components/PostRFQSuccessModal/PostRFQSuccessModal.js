@@ -8,7 +8,7 @@ import { addRFQDetails } from "../../../../../Redux/RFQ";
 import { postRFQ } from "../../../network";
 import "./PostRFQSuccessModal.css";
 
-function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage }) {
+function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, addPackageToStore }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { rfqData } = useSelector((state) => state.rfq);
   const [redirectTo, updateRedirectTo] = useState(null);
@@ -17,15 +17,15 @@ function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage }) {
     let data = {
       ...rfqData,
     };
+    addPackageToStore()
     postRFQ(
       data,
       (success) => {
         if (success.data) {
           if (rfqData.inviteByWhatsapp) {
-            console.log();
             window.open(
               `https://api.whatsapp.com/send?text=${"localhost:3000?packageId=" +
-                success.data}`,
+              success.data}`,
               "_blank"
             );
           }

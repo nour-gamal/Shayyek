@@ -58,7 +58,7 @@ function SingleRFQModal({
 		GetRFQPackageToFill(data, success => {
 			updatePackageDetails(success.data);
 			updateRFQDetails(success.data.rfqDetails);
-			// updateDocumentsList(success.data.packageFiles)
+			updateDocumentsList(success.data.packageFiles)
 		}, fail => {
 			console.log(fail)
 		})

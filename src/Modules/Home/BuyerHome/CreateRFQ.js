@@ -32,7 +32,7 @@ function CreateRFQ(props) {
 			{rfqPages === "addRFQDetails" ? (
 				<AddRFQDetails getRFQPageName={getRFQPageName} />
 			) : rfqPages === "rfqTable" ? (
-				<RFQTable />
+				<RFQTable getRFQPageName={getRFQPageName} />
 			) : (
 				<></>
 			)}
