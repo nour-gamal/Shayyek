@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import Garbage from "../../../../../Resources/Assets/garbage.svg";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import CCEmailsModal from "../CCEmailsModal/CCEmailsModal";
 import datePickerSuffix from "../../../../../Resources/Assets/datePickerSuffix.svg";
 import { ExcelRenderer } from "react-excel-renderer";
@@ -16,7 +16,6 @@ import {
 } from "../../../network";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import documents from "../../../../../Resources/Assets/paperClip.svg";
-import { addRFQDetails } from "../../../../../Redux/RFQ";
 import { GetImagePath } from "../../../../ProfilePage/network";
 import { baseUrl } from "../../../../../Services";
 import FileErrorModal from "../FileErrorModal/FileErrorModal";
@@ -58,14 +57,13 @@ function CreateRFQ(props) {
 	const [indexState, updateIndexState] = useState(false);
 	const [fileErrorModalState, updateFileErrorModalState] = useState(false);
 	const { rfqData } = useSelector((state) => state.rfq);
-	const [packageName, updatePackageName] = useState("Default");
+	const [packageName, updatePackageName] = useState("");
 	const [ccEmails, updateCCEmails] = useState([]);
 	const [isSuccessModalvis, updateSuccessModalVis] = useState(false);
 	const [documentsList, updateDocumentsList] = useState([]);
 	const [packageFiles, updatePackageFiles] = useState([]);
 	const [docLoadingState, updateDocLoadingState] = useState(false);
-	// const [rfqId, updateRFQId] = useState(null);
-	const dispatch = useDispatch();
+	const [rfqDetails, updateRFQDetails] = useState({})
 
 	useEffect(() => {
 		let options = [];
@@ -153,7 +151,6 @@ function CreateRFQ(props) {
 	}
 	const addNewItem = () => {
 		const key = Math.ceil(Math.random() * 999999999);
-
 		updateDataSource([
 			...dataSource,
 			{
@@ -183,6 +180,7 @@ function CreateRFQ(props) {
 			current && current.valueOf() < new Date(recievingOffersDate).valueOf()
 		);
 	}
+
 	function handleConfirm() {
 		const hasNoCat = dataSource.every((data) => {
 			return data.categoryId === undefined;
@@ -200,26 +198,28 @@ function CreateRFQ(props) {
 		) {
 			setAlert(true);
 		} else {
-			// addPackageToStore();
+			let allData = {
+				...rfqData, rfqPackages: [
+					...rfqData.rfqPackages, {
+						rfqPackageDetailsRequests: [...dataSource],
+						packageName: packageName.length ? packageName : "Default",
+						notes: notes,
+						receivingOffersDeadline: recievingOffersDate,
+						deliveryDate: deliveryDate,
+						address: address,
+						deliveryToId: deliveredTo,
+						packageCCColleagues: [...ccEmails],
+						packageFiles
+					}]
+			}
+
+
+			updateRFQDetails(allData)
 			updateSuccessModalVis(!isSuccessModalvis);
 		}
 	}
-	const addPackageToStore = () => {
-		const rfqPackages = [...rfqData.rfqPackages];
-		rfqPackages.push({
-			rfqPackageDetailsRequests: [...dataSource],
-			packageName: packageName,
-			notes: notes,
-			receivingOffersDeadline: recievingOffersDate,
-			deliveryDate: deliveryDate,
-			address: address,
-			deliveryToId: deliveredTo,
-			packageCCColleagues: [...ccEmails],
-			packageFiles,
-		});
+	console.log('rfqData', rfqData)
 
-		dispatch(addRFQDetails({ ...rfqData, rfqPackages }));
-	};
 
 	function openCCModal() {
 		toggleModal(true);
@@ -620,7 +620,6 @@ function CreateRFQ(props) {
 		// const [documentsList, updateDocumentsList] = useState([]);
 		// const [packageFiles, updatePackageFiles] = useState([]);
 	};
-	console.log(rfqData.rfqPackages)
 	return (
 		<div className="ppl ppr my-4 RFQTable">
 			<div className="actionsContainer">
@@ -882,9 +881,6 @@ function CreateRFQ(props) {
 							<button
 								className="button-secondary native"
 								onClick={() => {
-									// dispatch(
-									// 	addRFQDetails({ ...rfqData, rfqPages: "addRFQDetails" })
-									// );
 									props.getRFQPageName('addRFQDetails')
 								}}
 							>
@@ -934,8 +930,8 @@ function CreateRFQ(props) {
 						onCancel={() => {
 							updateSuccessModalVis(!isSuccessModalvis);
 						}}
-						addPackageToStore={addPackageToStore}
-						alreadyHasPackage={rfqData.rfqPackages && rfqData.rfqPackages.length > 1 ? true : false}
+						alreadyHasPackage={packageName.length || rfqData.rfqPackages.length > 0 ? true : false}
+						rfqDetails={rfqDetails}
 					/>
 
 				</div>

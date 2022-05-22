@@ -8,18 +8,20 @@ import { addRFQDetails } from "../../../../../Redux/RFQ";
 import { postRFQ } from "../../../network";
 import "./PostRFQSuccessModal.css";
 
-function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, addPackageToStore }) {
+function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, rfqDetails }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { rfqData } = useSelector((state) => state.rfq);
   const [redirectTo, updateRedirectTo] = useState(null);
   const dispatch = useDispatch();
+  const handleAddAnotherPackage = () => {
+    dispatch(addRFQDetails(rfqDetails));
+    setTimeout(() => {
+      window.location.reload();
+    }, 200);
+  }
   const handleSubmit = () => {
-    let data = {
-      ...rfqData,
-    };
-    addPackageToStore()
     postRFQ(
-      data,
+      rfqDetails,
       (success) => {
         if (success.data) {
           if (rfqData.inviteByWhatsapp) {
@@ -29,8 +31,8 @@ function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, addP
               "_blank"
             );
           }
-          clearRFQStore();
           updateRedirectTo("/");
+          clearRFQStore();
         }
       },
       (fail) => {
@@ -66,9 +68,7 @@ function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, addP
           <div>
             <button
               className="button-secondary flat m-2"
-              onClick={() => {
-                window.location.reload();
-              }}
+              onClick={handleAddAnotherPackage}
             >
               {currentLocal.buyerHome.addPackage}
             </button>
