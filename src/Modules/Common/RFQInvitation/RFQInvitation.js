@@ -84,7 +84,7 @@ function RFQInvitation({
 						<div className="packageName f-14 fw-500">{packageItem.packageName}</div>
 						<div className="d-flex justify-content-between rfqInvContainer">
 							<ul className="list-unstyled">
-								{packageItem.isBidders ?
+								{(packageItem.isBidders || rfqDetails.isBidder) ?
 									<div>
 										<li>{currentLocal.supplierHome.noOfQuotations} </li>
 										<li className="primary-color">{packageItem.noOfQuotations}</li>
