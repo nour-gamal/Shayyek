@@ -269,8 +269,9 @@ function SingleRFQModal({
 			rfqPackageDetailsRequests: rfqDetails
 		}
 		fillRFQ(data, success => {
-			console.log(success)
-			// onCancel()
+			if (success.data) {
+				onCancel()
+			}
 		}, fail => { console.log(fail) })
 	}
 	const handleUploadItemDoc = (e, index) => {
@@ -410,7 +411,7 @@ function SingleRFQModal({
 									{currentLocal.offerTable.paymentTerms}
 								</label>
 								<Input
-									className="mx-2"
+									className="mx-2 paymentTermsField"
 									type={"text"}
 									onChange={(e) => {
 										updatePaymentTerms(e.target.value);

@@ -112,6 +112,10 @@
 .QAndAMenu .date{
 	margin-inline-start:20px;
 }
+.singleRFQModal .paymentTermsField{
+	width: 75%;
+	align-items: center;
+}
   @media (max-width: 768px) {
 	.singleRFQModal .btn-container {
 		flex-direction: column;
