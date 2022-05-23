@@ -263,5 +263,5 @@ export function assignRfqToSupplierContractor(packageId, onSuccess, onFail) {
 }
 export function GetBuyerRFQForEdit(rfqId, onSucces, onFail) {
   const path = `api/RFQ/GetBuyerRFQForEdit?rfqId=${rfqId}`;
-  GetResource(path, onSucces, onFail);
+  GetResource(path, onSucces, onFail, true);
 }
