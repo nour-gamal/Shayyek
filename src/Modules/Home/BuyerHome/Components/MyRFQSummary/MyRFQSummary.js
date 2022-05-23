@@ -11,22 +11,36 @@ import SummaryTable from "../SummaryTable/SummaryTable";
 import AllQuotaionsRecievedForRFQ from "../AllQuotationsRecievedTable/AllQuotationsRecievedTable";
 
 import "./MyRFQSummary.css";
+import { getQuestionsList } from "../../../../ProfilePage/network";
 
 function MyRFQSummary() {
   const [currentPackageId, updateCurrentPackageId] = useState(null);
-  const [questionsList, updateQuestionsList] = useState([1, 2, 3, 4, 5]);
+  const [questionsList, updateQuestionsList] = useState([]);
   const [rfqDetails, updateRFQDetails] = useState({ packages: [1, 2, 3] });
   const [addQuestBtnState, updateAddQuestBtnState] = useState(false);
   const [openAnswer, setOpenAnswer] = useState(false);
   const [answer, setAnswer] = useState(null);
   const { currentLocal } = useSelector((state) => state.currentLocal);
-  function handleAddQuestion() {}
+  function handleAddQuestion() { }
+
+  useEffect(() => {
+    let data = {
+      PackageId: ''
+    }
+    getQuestionsList(data, success => {
+      updateQuestionsList(success.data)
+    }, fail => {
+      console.log(fail)
+    })
+  }, [])
+
   const QAndAMenu = (
     <Menu className="px-2 py-4">
       <Menu.Item disabled={true}>
         <div className="d-flex flex-column">
           <div className="questionsList">
             {questionsList.map((question, index) => {
+              console.log(question)
               return (
                 <div
                   className={
@@ -89,7 +103,7 @@ function MyRFQSummary() {
     </Menu>
   );
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <div className="myRFQSummary">

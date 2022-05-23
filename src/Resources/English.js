@@ -246,7 +246,7 @@ export const en = {
     projectContractor: "Project Contractor",
     projectName: "Project Name",
     projectConsultant: "Project Consultant",
-    deliveryDate: "Delivery Date",
+    deliveryDate: "Delivery Period",
     deliveryAddress: "Delivery Address",
     QANDAWALL: "Q And A Wall",
     unitPrice: "Unit Price",
