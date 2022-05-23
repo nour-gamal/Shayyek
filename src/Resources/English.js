@@ -486,6 +486,7 @@ export const en = {
     projectName: "Project Name",
     projectOwner: "Project Owner",
     projectContractor: "Project Contractor",
+    projectConsultant: "Project consultant",
     deliveryDate: "Delivery Date",
     deliveryAddress: "Delivery Address",
     projectPackages: "Project Packages",

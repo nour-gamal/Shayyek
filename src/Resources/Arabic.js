@@ -483,6 +483,7 @@ export const ar = {
 		projectName: "اسم المشروع",
 		projectOwner: "صاحب المشروع",
 		projectContractor: "مقاول المشروع",
+		projectConsultant: "استشاري المشروع",
 		deliveryDate: "تاريخ التسليم ",
 		deliveryAddress: "مكان التسليم",
 		projectPackages: "اعمال المشروع",

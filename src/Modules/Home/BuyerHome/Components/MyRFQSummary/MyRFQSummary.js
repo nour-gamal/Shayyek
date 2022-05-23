@@ -16,11 +16,12 @@ import { getQuestionsList } from "../../../../ProfilePage/network";
 function MyRFQSummary(props) {
   const [currentPackageId, updateCurrentPackageId] = useState(null);
   const [questionsList, updateQuestionsList] = useState([]);
-  const [rfqDetails, updateRFQDetails] = useState({ packages: [1, 2, 3] });
+  const [rfqPackages, updateRfqPackages] = useState([]);
   const [addQuestBtnState, updateAddQuestBtnState] = useState(false);
   const [openAnswer, setOpenAnswer] = useState(false);
   const [answer, setAnswer] = useState(null);
   const { currentLocal } = useSelector((state) => state.currentLocal);
+  const [rfqData, updateRFQData] = useState({})
   function handleAddQuestion() { }
 
   useEffect(() => {
@@ -34,11 +35,13 @@ function MyRFQSummary(props) {
     // })
     let rfqId = props.rfqId;
     GetRFQSummary(rfqId, success => {
-      console.log(success)
+      updateRFQData(success.data);
+      updateRfqPackages(success.data.rfqPackages);
     }, fail => {
       console.log(fail)
     })
   }, [])
+  console.log(rfqData)
 
   const QAndAMenu = (
     <Menu className="px-2 py-4">
@@ -162,30 +165,30 @@ function MyRFQSummary(props) {
       </div>
       <div className="pps ppe">
         <div className="d-flex my-2 justify-content-between flex-wrap">
-          <div className="mx-3">{currentLocal.rfqSummary.projectName}:test</div>
+          <div className="mx-3">{currentLocal.rfqSummary.projectName}:{rfqData.projectName}</div>
           <div className="mx-3">
-            {currentLocal.rfqSummary.projectOwner}:test
+            {currentLocal.rfqSummary.projectOwner}:{rfqData.projectOwner}
           </div>
           <div className="mx-3">
-            {currentLocal.rfqSummary.projectContractor}:test
+            {currentLocal.rfqSummary.projectConsultant}:{rfqData.projectConsultant}
           </div>
           <div className="mx-3">
-            {currentLocal.rfqSummary.deliveryDate}:test
+            {currentLocal.rfqSummary.projectContractor}:{rfqData.projectContractor}
           </div>
           <div className="mx-3">
-            {currentLocal.rfqSummary.deliveryAddress}:test
+            {currentLocal.rfqSummary.deliveryDate}:{rfqData.projectContractor}
           </div>
           <div className="mx-3">
-            {currentLocal.rfqSummary.projectPackages}:test
+            {currentLocal.rfqSummary.deliveryAddress}:{rfqData.projectAddress}
           </div>
         </div>
         <div className="d-flex packages-container align-items-center my-4">
           <div className="title mx-3 fw-500">
             {currentLocal.rfqSummary.projectPackages}
           </div>
-          {rfqDetails.packages.map((packageItem) => {
+          {rfqPackages.map((packageItem, packageIndex) => {
             return (
-              <div className="packageInfo mx-4 cursorPointer">
+              <div className="packageInfo mx-4 cursorPointer" key={packageIndex} onClick={() => { updateCurrentPackageId() }}>
                 <img
                   src={currentPackageId === true ? Package : PackageDisabled}
                   alt="Package"
@@ -198,7 +201,7 @@ function MyRFQSummary(props) {
                   }
                   data-tip="packageName"
                 >
-                  packageName
+                  {packageItem.packageName}
                 </div>
               </div>
             );
