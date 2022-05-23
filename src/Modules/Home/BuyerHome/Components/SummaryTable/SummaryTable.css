@@ -7,6 +7,24 @@
   display: flex;
   align-items: center;
 }
+.summaryTable .itemContainer{
+  position: relative;
+}
+.summaryTable .itemContainer .overlayedItemPage{
+  box-shadow: 0px 3px 6px #00000029;
+  position: absolute;
+  top:50%;
+  left:60%;
+  border-radius: 10px;
+  background: #fff;
+  width: max-content;
+  text-align: left;
+  z-index: 10 !important;
+}
+.summaryTable .itemContainer .overlayedItemPage .item .name{
+  color: #2699fb;
+  padding:0 20px;
+}
 
 button.ant-dropdown-trigger.filterDropdown {
   padding: 0.5rem;

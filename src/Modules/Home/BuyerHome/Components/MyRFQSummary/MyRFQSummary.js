@@ -40,7 +40,6 @@ function MyRFQSummary() {
         <div className="d-flex flex-column">
           <div className="questionsList">
             {questionsList.map((question, index) => {
-              console.log(question)
               return (
                 <div
                   className={

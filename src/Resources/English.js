@@ -492,5 +492,7 @@ export const en = {
     mySummary: "My Summary",
     acceptAndNotifyVendors: "Accept & Notify Vendors",
     covertToReverseAuction: "Convert To Reverse Auction",
+    viewQuotation: 'View Quotation',
+    AddToMySummary: "Add To My Summary"
   },
 };
