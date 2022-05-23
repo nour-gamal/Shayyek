@@ -423,6 +423,8 @@ export const en = {
     addAnswer: "Add Answer",
     asked: "Asked",
     answered: "Answered",
+    me: 'Me',
+    otherVendor: "Other Vendor",
   },
   home: {
     shayek: "Shayyek",

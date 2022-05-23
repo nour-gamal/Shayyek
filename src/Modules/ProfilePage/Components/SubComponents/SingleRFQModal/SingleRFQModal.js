@@ -104,7 +104,7 @@ function SingleRFQModal({
 							return <div className={index % 2 === 0 ? "questionBlock my-2 p-2" : "questionBlock my-2 grayBackground p-2"}>
 								<div className="f-14 fw-600 question">{question.question}</div>
 								<div className="info d-flex">
-									<div>Ahmed {currentLocal.buyerHome.asked} </div>
+									<div>{question.isYourQuestion ? currentLocal.buyerHome.me : currentLocal.buyerHome.otherVendor} {currentLocal.buyerHome.asked} </div>
 									<div className="date">{moment(question.questionDate).format('LLL')}</div>
 								</div>
 								{question.answer &&

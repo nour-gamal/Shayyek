@@ -365,6 +365,8 @@ export const ar = {
 		addAnswer: "أضف إجابة",
 		asked: "يسأل",
 		answered: "يجيب",
+		me: 'انا',
+		otherVendor: "بائع اخر",
 	},
 	supplierHome: {
 		addNewProduct: "أضف منتج جديد",
