@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import CCEmailsModal from "../CCEmailsModal/CCEmailsModal";
 import datePickerSuffix from "../../../../../Resources/Assets/datePickerSuffix.svg";
 import { ExcelRenderer } from "react-excel-renderer";
+import PackageIcon from "../../../../../Resources/Assets/package-with-bg.jsx";
 import { Alert } from "react-bootstrap";
 import moment from "moment";
 import { Table, Spin, Select, Checkbox, DatePicker, Radio } from "antd";
@@ -58,7 +59,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [deletedRowsList, updateDeleteRowsList] = useState([]);
   const [indexState, updateIndexState] = useState(false);
   const [fileErrorModalState, updateFileErrorModalState] = useState(false);
-  const { rfqData } = useSelector((state) => state.rfq);
   const [packageName, updatePackageName] = useState("");
   const [ccEmails, updateCCEmails] = useState([]);
   const [isSuccessModalvis, updateSuccessModalVis] = useState(false);
@@ -66,14 +66,17 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [packageFiles, updatePackageFiles] = useState([]);
   const [docLoadingState, updateDocLoadingState] = useState(false);
   const [rfqDetails, updateRFQDetails] = useState({});
+  const [activePackgeId, setActivePackgeId] = useState(null);
+	const [rfqForEdit, setRfqForEdit] = useState(null)
+  const { rfqData } = useSelector((state) => state.rfq);
 
   useEffect(() => {
-    console.log("data here: ", rfqId);
     if (rfqId) {
       GetBuyerRFQForEdit(
         rfqId,
         (success) => {
           if (success.success) {
+            setRfqForEdit(success.data);
             console.log(success.data);
           }
         },
@@ -192,6 +195,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   function disabledOffersDate(current) {
     return current && current.valueOf() < Date.now();
   }
+
   function disabledDeliveryDate(current) {
     return (
       current && current.valueOf() < new Date(recievingOffersDate).valueOf()
@@ -237,7 +241,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       updateSuccessModalVis(!isSuccessModalvis);
     }
   }
-  console.log("rfqData", rfqData);
 
   function openCCModal() {
     toggleModal(true);
@@ -481,7 +484,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       render: (description, record) => {
         return (
           <textarea
-            type="text"
             onChange={(e) => {
               let data = [...dataSource];
               data[selectedRow].description = e.target.value;
@@ -642,33 +644,53 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     <div className="ppl ppr my-4 RFQTable">
       <div className="actionsContainer">
         <div>
-          <div className="mb-3">
-            <input
-              type="file"
-              id="actual-btn"
-              onChange={fileHandler}
-              className="d-none"
-            />
+          {!rfqId ? (
+            <>
+              <div className="mb-3">
+                <input
+                  type="file"
+                  id="actual-btn"
+                  onChange={fileHandler}
+                  className="d-none"
+                />
 
-            <label htmlFor="actual-btn" className="primary-color">
-              <img src={importIcon} alt="importIcon" className="mx-3" />
-            </label>
+                <label htmlFor="actual-btn" className="primary-color">
+                  <img src={importIcon} alt="importIcon" className="mx-3" />
+                </label>
 
-            <label>{currentLocal.buyerHome.importExcelFile}</label>
-          </div>
-          <div className="mb-3">
-            <img
-              src={addIcon}
-              alt="addIcon"
-              className="mx-3"
-              onClick={() => {
-                updateIsAddPackModalVis(!isAddPackModalVis);
-              }}
-            />
-            <label className="primary-color">
-              {currentLocal.buyerHome.addNewPackage}
-            </label>
-          </div>
+                <label>{currentLocal.buyerHome.importExcelFile}</label>
+              </div>
+              <div className="mb-3">
+                <img
+                  src={addIcon}
+                  alt="addIcon"
+                  className="mx-3"
+                  onClick={() => {
+                    updateIsAddPackModalVis(!isAddPackModalVis);
+                  }}
+                />
+                <label className="primary-color">
+                  {currentLocal.buyerHome.addNewPackage}
+                </label>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="d-flex align-items-center projectPackages">
+                <h5 className="projectPackages-header">project Packages</h5>
+                <div className="d-flex">
+									{
+
+                  <div className="item" fill={activePackgeId === }>
+                    <PackageIcon />
+                    <h6>Package Name</h6>
+                  </div>
+									}
+                </div>
+              </div>
+            </>
+          )}
+
           <div className="mb-3">
             <img
               src={addIcon}
@@ -682,34 +704,36 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           </div>
         </div>
 
-        <div>
-          <div className="mb-2">
-            <label className="mx-2 primary-color">
-              {currentLocal.buyerHome.category}
-            </label>
-            <Select
-              placeholder={currentLocal.buyerHome.selectCategory}
-              onChange={(optionId, record) => {
-                changeCategoryForAll(optionId, record.children);
-              }}
-              className={notContainCategory ? "alertSign" : ""}
-            >
-              {categoriesOption.map((category, key) => {
-                return (
-                  <Option value={category.id} key={key}>
-                    {category.name}
-                  </Option>
-                );
-              })}
-            </Select>
-          </div>
+        {!rfqId ? (
           <div>
-            <label className="mx-2 primary-color">
-              {currentLocal.buyerHome.installAll}
-            </label>
-            <Checkbox onChange={handleInstallAll} checked={installAll} />
+            <div className="mb-2">
+              <label className="mx-2 primary-color">
+                {currentLocal.buyerHome.category}
+              </label>
+              <Select
+                placeholder={currentLocal.buyerHome.selectCategory}
+                onChange={(optionId, record) => {
+                  changeCategoryForAll(optionId, record.children);
+                }}
+                className={notContainCategory ? "alertSign" : ""}
+              >
+                {categoriesOption.map((category, key) => {
+                  return (
+                    <Option value={category.id} key={key}>
+                      {category.name}
+                    </Option>
+                  );
+                })}
+              </Select>
+            </div>
+            <div>
+              <label className="mx-2 primary-color">
+                {currentLocal.buyerHome.installAll}
+              </label>
+              <Checkbox onChange={handleInstallAll} checked={installAll} />
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
       {newItemAdded && (
         <Alert className="text-center">
