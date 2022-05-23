@@ -256,3 +256,12 @@ export const GetSuppliersAndContratorsThatFilledRFQ = (
   const path = `api/Session/GetSuppliersAndContratorsThatFilledRFQ?rfqId=${rfqId}`;
   GetResource(path, onSuccess, onFail, true);
 };
+
+export function assignRfqToSupplierContractor(packageId, onSuccess, onFail) {
+  const path = `api/RFQ/AssignRFQToSupplierContractor?rfqId=${packageId}`;
+  PostResource(path, null, onSuccess, onFail, true);
+}
+export function GetBuyerRFQForEdit(rfqId, onSucces, onFail) {
+  const path = `api/RFQ/GetBuyerRFQForEdit?rfqId=${rfqId}`;
+  GetResource(path, onSucces, onFail);
+}

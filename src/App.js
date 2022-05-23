@@ -8,7 +8,7 @@ import { getMessaging, getToken } from "firebase/messaging";
 import { login, getDeviceId } from "./Redux/Authorization";
 import { GetLanguages } from "./Network";
 import { changeLocal } from "./Redux/Localization";
-import { createPackageId, deletePackageId } from "./Redux/packageId";
+import { createPackageId } from "./Redux/packageId";
 import "./firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
@@ -23,8 +23,6 @@ function App() {
   useEffect(() => {
     if (packageId) {
       dispatch(createPackageId(packageId));
-    } else {
-      dispatch(deletePackageId());
     }
   }, [packageId, dispatch]);
 
