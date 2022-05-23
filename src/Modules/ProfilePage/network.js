@@ -162,4 +162,19 @@ export const GetRFQPackageToFill = (data, onSuccess, onFail, reqAuth = true) => 
 	const path = `api/RFQ/GetRFQPackage?rfqPackageId=${rfqPackageId}`;
 	GetResource(path, onSuccess, onFail, true);
 };
+export const AnswerQuestionWall = (data, onSuccess, onFail, reqAuth = true) => {
+	const { QuestionWallId, answer } = data
+	const path = `api/QuestionsWall/AnswerQuestionWall?QuestionWallId=${QuestionWallId}&answer=${answer}`;
+	PostResource(path, {}, onSuccess, onFail, reqAuth);
+};
+export const GetSummaryFilter = (onSuccess, onFail, reqAuth = true) => {
+	const path = `api/RFQ/GetSummaryFilter`;
+	GetResource(path, onSuccess, onFail, true);
+};
+
+export const FilterPackageOffer = (data, onSuccess, onFail, reqAuth = true) => {
+	const { PackageId, FilterId } = data
+	const path = `api/RFQ/FilterPackageOffer?PackageId=${PackageId}&FilterId=${FilterId}`;
+	GetResource(path, onSuccess, onFail, true);
+};
 

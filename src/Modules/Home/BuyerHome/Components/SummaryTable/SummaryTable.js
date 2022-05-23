@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { Table, Menu, Dropdown, Radio } from "antd";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
-import { GetImagePath } from "../../../../ProfilePage/network";
+import { FilterPackageOffer, GetImagePath, GetSummaryFilter } from "../../../../ProfilePage/network";
 import Whatsapp from "../../../../../Resources/Assets/whatsapp.svg";
 import CopyLink from "../../../../../Resources/Assets/copyLink.svg";
 import Email from "../../../../../Resources/Assets/email.svg";
@@ -15,18 +15,19 @@ import arrowDropdown from "../../../../../Resources/Assets/arrowDropDown.svg";
 import { useScreenshot } from "use-react-screenshot";
 import download from "../../../../../Resources/Assets/direct-download.svg";
 import { baseUrl } from "../../../../../Services";
+import moment from 'moment'
 import "./SummaryTable.css";
 
-function SummaryTable({ dataSourceProp }) {
+function SummaryTable({ dataSourceList, currentPackageId }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   // eslint-disable-next-line
   const [loading, updateLoading] = useState(false);
   const [imageURL, updateImageURL] = useState(null);
+  const [dataSource, updateDataSource] = useState([])
   const [image, takeScreenshot] = useScreenshot();
-  const [checkedRadioFilterMenu, setCheckedRadioFilterMenu] = useState("1");
   const [otherVendorsItems, updateOtherVendorsItems] = useState([1, 2, 3]);
   const [hoveredRow, updateHoveredRow] = useState(null);
-  const dataSource = [{ item: '1' }, { item: '2' }, { item: '3' }];
+  const [filterListItems, updateFilterListItems] = useState([])
   const ref = createRef(null);
   const getBlobImg = async (image) => {
     const blob = await fetch(image).then((res) => res.blob());
@@ -45,6 +46,15 @@ function SummaryTable({ dataSourceProp }) {
     );
   };
   useEffect(() => {
+    updateDataSource([...dataSourceList])
+    GetSummaryFilter(success => {
+      updateFilterListItems(success.data)
+    }, fail => {
+      console.log(fail)
+    })
+
+  }, [dataSourceList])
+  useEffect(() => {
     if (image) {
       getBlobImg(image);
     }
@@ -53,29 +63,31 @@ function SummaryTable({ dataSourceProp }) {
   const filterMenu = (
     <Menu>
       <Radio.Group
-        defaultValue={checkedRadioFilterMenu}
-        onChange={(e) => setCheckedRadioFilterMenu(e.target.value)}
+        defaultValue={0}
+        onChange={(e) => {
+          let data = { PackageId: currentPackageId, FilterId: filterListItems[e.target.value].id }
+          FilterPackageOffer(data, success => {
+            updateDataSource(success.data)
+          }, fail => {
+            console.log(fail)
+          })
+        }
+        }
       >
-        <Menu.Item key="1">
-          <div className="d-flex">
-            <Radio value={"1"}></Radio>
-            <div className="fliter-menu-item">item 1</div>
-          </div>
-        </Menu.Item>
-        <Menu.Item key="2">
-          <div className="d-flex">
-            <Radio value={"2"}></Radio>
-            <div className="fliter-menu-item">item 2</div>
-          </div>
-        </Menu.Item>
-        <Menu.Item key="3">
-          <div className="d-flex">
-            <Radio value={"3"}></Radio>
-            <div className="fliter-menu-item">item 3</div>
-          </div>
-        </Menu.Item>
+        {
+          filterListItems.map((item, itemIndex) => {
+            return <Menu.Item key={itemIndex}>
+              <div className="d-flex">
+                <Radio value={itemIndex}>
+                  <div className="fliter-menu-item">{item.name}</div>
+                </Radio>
+              </div>
+            </Menu.Item>
+          })
+        }
+
       </Radio.Group>
-    </Menu>
+    </Menu >
   );
 
   const shareMenu = (
@@ -182,11 +194,14 @@ function SummaryTable({ dataSourceProp }) {
       title: currentLocal.offerTable.deliveryDate,
       dataIndex: "deliveryDate",
       key: "deliveryDate",
+      render: (deliveryDate) => {
+        return moment(deliveryDate).format('DD-MM-YYYY')
+      }
     },
     {
       title: currentLocal.offerTable.paymentTerms,
-      dataIndex: "deliveryDate",
-      key: "deliveryDate",
+      dataIndex: "paymentTerms",
+      key: "paymentTerms",
     },
   ];
 
