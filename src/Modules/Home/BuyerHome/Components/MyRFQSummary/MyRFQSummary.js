@@ -9,11 +9,11 @@ import PackageDisabled from "../../../../../Resources/Assets/packageDisabled.svg
 import questionImg from "../../../../../Resources/Assets/questions.json";
 import SummaryTable from "../SummaryTable/SummaryTable";
 import AllQuotaionsRecievedForRFQ from "../AllQuotationsRecievedTable/AllQuotationsRecievedTable";
-
+import { GetRFQSummary } from "../../../network"
 import "./MyRFQSummary.css";
 import { getQuestionsList } from "../../../../ProfilePage/network";
 
-function MyRFQSummary() {
+function MyRFQSummary(props) {
   const [currentPackageId, updateCurrentPackageId] = useState(null);
   const [questionsList, updateQuestionsList] = useState([]);
   const [rfqDetails, updateRFQDetails] = useState({ packages: [1, 2, 3] });
@@ -24,11 +24,17 @@ function MyRFQSummary() {
   function handleAddQuestion() { }
 
   useEffect(() => {
-    let data = {
-      PackageId: ''
-    }
-    getQuestionsList(data, success => {
-      updateQuestionsList(success.data)
+    // let data = {
+    //   PackageId: ''
+    // }
+    // getQuestionsList(data, success => {
+    //   updateQuestionsList(success.data)
+    // }, fail => {
+    //   console.log(fail)
+    // })
+    let rfqId = props.rfqId;
+    GetRFQSummary(rfqId, success => {
+      console.log(success)
     }, fail => {
       console.log(fail)
     })

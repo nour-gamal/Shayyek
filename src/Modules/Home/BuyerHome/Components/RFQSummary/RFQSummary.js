@@ -3,11 +3,12 @@ import Footer from '../../../../Common/Footer/Footer'
 import Navbarr from '../../../../Common/Navbar/Navbar'
 import MyRFQSummary from '../MyRFQSummary/MyRFQSummary'
 import './RFQSummary.css'
-function RFQSummary() {
+function RFQSummary(props) {
+    const rfqId = props.match.params.id;
     return (
         <section>
             <Navbarr />
-            <MyRFQSummary />
+            <MyRFQSummary rfqId={rfqId} />
             <Footer />
         </section>
     )

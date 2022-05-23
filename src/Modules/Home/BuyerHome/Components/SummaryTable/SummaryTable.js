@@ -12,7 +12,6 @@ import share from "../../../../../Resources/Assets/share (5).svg";
 import filterIcon from "../../../../../Resources/Assets/filterIcon.svg";
 import exclamationIcon from "../../../../../Resources/Assets/exclamation-mark.svg";
 import arrowDropdown from "../../../../../Resources/Assets/arrowDropDown.svg";
-
 import { useScreenshot } from "use-react-screenshot";
 import download from "../../../../../Resources/Assets/direct-download.svg";
 import { baseUrl } from "../../../../../Services";
@@ -25,7 +24,9 @@ function SummaryTable({ dataSourceProp }) {
   const [imageURL, updateImageURL] = useState(null);
   const [image, takeScreenshot] = useScreenshot();
   const [checkedRadioFilterMenu, setCheckedRadioFilterMenu] = useState("1");
-  const dataSource = [{ item: '1' }];
+  const [otherVendorsItems, updateOtherVendorsItems] = useState([1, 2, 3]);
+  const [hoveredRow, updateHoveredRow] = useState(null);
+  const dataSource = [{ item: '1' }, { item: '2' }, { item: '3' }];
   const ref = createRef(null);
   const getBlobImg = async (image) => {
     const blob = await fetch(image).then((res) => res.blob());
@@ -33,7 +34,6 @@ function SummaryTable({ dataSourceProp }) {
     var file = new File([blob], `${new Date().getTime()}.png`);
     const data = new FormData();
     data.append("image", file);
-
     GetImagePath(
       data,
       (success) => {
@@ -121,23 +121,30 @@ function SummaryTable({ dataSourceProp }) {
       title: currentLocal.buyerHome.item,
       dataIndex: "item",
       key: "item",
-      render: (item) => {
-        return <div className='itemContainer'>
+      render: (item, record, index) => {
+        return <div className='itemContainer cursorPointer'
+          onMouseEnter={() => {
+            updateHoveredRow(index);
+          }} onMouseLeave={() => {
+            updateHoveredRow(null);
+          }}>
           <div>{item}</div>
-          <div className='overlayedItemPage'>
-            <div className="item">
-              <div className='name'>Company x</div>
-              <div className='d-flex justify-content-between'>
-                <div className="price mx-2">{currentLocal.offerTable.price}: 300LE</div>
-                <div className="deliveryDate mx-2">{currentLocal.offerTable.deliveryDate}:22/4/6</div>
-                <div className="paymentTerms mx-2">{currentLocal.offerTable.paymentTerms}:paymentTerms</div>
+          {hoveredRow === index && <div className='overlayedItemPage'>
+            {otherVendorsItems.map(item => {
+              return <div className="item">
+                <div className='name'>Company x</div>
+                <div className='d-flex justify-content-between info'>
+                  <div className="price mx-2">{currentLocal.offerTable.price}: 300LE</div>
+                  <div className="deliveryDate mx-2">{currentLocal.offerTable.deliveryDate}:22/4/6</div>
+                  <div className="paymentTerms mx-2">{currentLocal.offerTable.paymentTerms}:paymentTerms</div>
+                </div>
+                <div className="d-flex justify-content-end my-2">
+                  <button className='button-secondary mx-2'>{currentLocal.rfqSummary.viewQuotation}</button>
+                  <button className='button-primary mx-2'>{currentLocal.rfqSummary.AddToMySummary}</button>
+                </div>
               </div>
-              <div className="d-flex">
-                <button className='button-primary'>{currentLocal.offerTable.viewQuotation}</button>
-                <button className='button-secondary'>{currentLocal.offerTable.AddToMySummary}</button>
-              </div>
-            </div>
-          </div>
+            })}
+          </div>}
         </div>
       }
     },

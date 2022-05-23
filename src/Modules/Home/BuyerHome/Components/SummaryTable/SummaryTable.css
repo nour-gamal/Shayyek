@@ -21,9 +21,30 @@
   text-align: left;
   z-index: 10 !important;
 }
+.summaryTable .itemContainer .overlayedItemPage {
+  border-bottom: 1px solid #EBEBEB;
+  padding:2px 20px;
+  max-height: 250px;
+  overflow-y: auto ;
+}
 .summaryTable .itemContainer .overlayedItemPage .item .name{
   color: #2699fb;
-  padding:0 20px;
+}
+.summaryTable .itemContainer .overlayedItemPage .item .info{
+  color:#707070;
+}
+
+.summaryTable .itemContainer .overlayedItemPage .item .button-secondary,
+.summaryTable .itemContainer .overlayedItemPage .item .button-primary{
+  padding: 1px 20px;
+  margin: 0;
+  height: fit-content;
+  border: 1px solid;
+  font-weight: 500 !important;
+}
+.summaryTable .itemContainer .overlayedItemPage .item .button-secondary{
+  border-color:#003B6B;
+  color:#003B6B;
 }
 
 button.ant-dropdown-trigger.filterDropdown {
