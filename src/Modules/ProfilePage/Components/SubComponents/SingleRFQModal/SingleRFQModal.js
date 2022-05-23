@@ -27,7 +27,9 @@ import docIcon from "../../../../../Resources/Assets/doc.svg";
 import excel from "../../../../../Resources/Assets/excel.svg";
 import autocad from "../../../../../Resources/Assets/autocad.svg";
 import plus from "../../../../../Resources/Assets/plus (2).svg";
+import { Alert } from "react-bootstrap";
 import "./SingleRFQModal.css";
+
 function SingleRFQModal({
 	isModalVisible,
 	onCancel,
@@ -46,7 +48,7 @@ function SingleRFQModal({
 	const [questionsList, updateQuestionsList] = useState([]);
 	const [addQuestBtnState, updateAddQuestBtnState] = useState(true)
 	const [packageDetails, updatePackageDetails] = useState({})
-
+	const [alertState, updateAlert] = useState(false)
 	useEffect(() => {
 		let data = { rfqPackageId }
 
@@ -259,20 +261,25 @@ function SingleRFQModal({
 		);
 	}
 	const handleFillRFQ = (isDrafted) => {
-		let data = {
-			isDraft: isDrafted,
-			rfqPackageId,
-			paymentTerms,
-			offerValidty: validityOfferDate,
-			deiveryDate: deliveryDate,
-			includeVat: radioValue,
-			rfqPackageDetailsRequests: rfqDetails
-		}
-		fillRFQ(data, success => {
-			if (success.data) {
-				onCancel()
+		if (deliveryDate) {
+			updateAlert(false)
+			let data = {
+				isDraft: isDrafted,
+				rfqPackageId,
+				paymentTerms,
+				offerValidty: validityOfferDate,
+				deiveryDate: deliveryDate,
+				includeVat: radioValue,
+				rfqPackageDetailsRequests: rfqDetails
 			}
-		}, fail => { console.log(fail) })
+			fillRFQ(data, success => {
+				if (success.data) {
+					onCancel()
+				}
+			}, fail => { console.log(fail) })
+		} else {
+			updateAlert(true)
+		}
 	}
 	const handleUploadItemDoc = (e, index) => {
 		var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|dwg|DOC|PDF/.test(
@@ -316,6 +323,7 @@ function SingleRFQModal({
 			onCancel={onCancel}
 			className="modal-lg singleRFQContainer"
 		>
+			{alertState && <Alert variant={'danger'} className='text-center'>{currentLocal.registration.pleaseFillAllRequiredFields}</Alert>}
 			<figure className="closeIconFigure">
 				<img
 					src={closeIcon}
@@ -343,7 +351,7 @@ function SingleRFQModal({
 							{currentLocal.offerTable.projectConsultant} : {packageDetails.projectConsultant}
 						</div>}
 						<div className="mx-4">
-							{currentLocal.offerTable.deliveryDate} : {moment(packageDetails.deliveryDate).format('LL')}
+							{currentLocal.offerTable.deliveryDate}*: {moment(packageDetails.deliveryDate).format('LL')}
 						</div>
 						<div className="mx-4">
 							{currentLocal.offerTable.deliveryAddress} : {packageDetails.address}
