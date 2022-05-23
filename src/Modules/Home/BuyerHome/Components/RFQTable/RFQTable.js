@@ -67,7 +67,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [docLoadingState, updateDocLoadingState] = useState(false);
   const [rfqDetails, updateRFQDetails] = useState({});
   const [activePackgeId, setActivePackgeId] = useState(null);
-	const [rfqForEdit, setRfqForEdit] = useState(null)
+  const [rfqForEdit, setRfqForEdit] = useState(null);
   const { rfqData } = useSelector((state) => state.rfq);
 
   useEffect(() => {
@@ -679,13 +679,13 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
               <div className="d-flex align-items-center projectPackages">
                 <h5 className="projectPackages-header">project Packages</h5>
                 <div className="d-flex">
-									{
+                  {/* {
 
-                  <div className="item" fill={activePackgeId === }>
+                  // <div className="item" fill={activePackgeId === }>
                     <PackageIcon />
                     <h6>Package Name</h6>
                   </div>
-									}
+									} */}
                 </div>
               </div>
             </>
