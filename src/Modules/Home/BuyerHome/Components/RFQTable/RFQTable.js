@@ -86,7 +86,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             setActivePackgeId(rfqPackages[0]?.packageId);
           }
         },
-        (fail) => {}
+        (fail) => { }
       );
     }
   }, [rfqId]);
@@ -329,7 +329,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                       unit: name[index.unit],
                       quantity:
                         typeof name[index.quantity] === "string" ||
-                        name[index.quantity] === undefined
+                          name[index.quantity] === undefined
                           ? 1
                           : name[index.quantity],
                       isInstallSupplierAndContructor: false,
@@ -387,8 +387,9 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   }, [indexState, dataSource]);
 
   const handleUploadItemDoc = (e) => {
-    var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|dwg|DOC|PDF/.test(
-      e.target.files[0].type
+    console.log(e.target.files[0])
+    var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|ms-excel|dwg|DWG|DOC|doc|PDF|pdf/.test(
+      e.target.files[0].type || e.target.files[0].name
     );
 
     if (!isValidExtensions) {
@@ -417,8 +418,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
   const handleAddProjectFiles = (e) => {
     let files = [...e.target.files];
-    let regex = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|dwg|DOC|doc|PDF|pdf/;
-    var validFiles = files.filter((file) => regex.test(file.type));
+    let regex = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|ms-excel|dwg|DWG|DOC|doc|PDF|pdf/;
+    var validFiles = files.filter((file) => regex.test(file.type || file.name));
 
     if (!validFiles.length) {
       updateFileErrorModalState(true);
@@ -995,10 +996,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                   let type = fileType.includes("pdf")
                     ? pdfIcon
                     : fileType.includes("dwg")
-                    ? autocad
-                    : fileType.includes("doc")
-                    ? docIcon
-                    : excel;
+                      ? autocad
+                      : fileType.includes("doc")
+                        ? docIcon
+                        : excel;
                   return (
                     <div className="d-flex m-2">
                       <img src={type} alt="pdf" className="mx-2" />
