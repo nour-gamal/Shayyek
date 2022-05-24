@@ -52,29 +52,42 @@ function SingleRFQModal({
 	const [addQuestBtnState, updateAddQuestBtnState] = useState(true)
 	const [packageDetails, updatePackageDetails] = useState({})
 	const [alertState, updateAlert] = useState(false)
+	const [vendorNotes, updateVendorNotes] = useState('');
+	const [address, updateAddress] = useState('');
+	const [packageName, updatePackageName] = useState('');
+	const [includeVat, updateIncludeVat] = useState('')
 	useEffect(() => {
 		if (mode === 'ViewRFQDetails') {
 			let data = { FilledItemId: rfqDetailId }
 			ViewPackageQuotation(data, success => {
-				console.log(success)
-			}, fail => {
-				console.log(fail)
-			})
-		} else {
-			let data = { rfqPackageId }
-			getQuestionsList(data, success => {
-				updateQuestionsList(success.data)
-			}, fail => {
-				console.log(fail)
-			})
-			GetRFQPackageToFill(data, success => {
-				updatePackageDetails(success.data);
-				updateRFQDetails(success.data.rfqDetails);
-				updateDocumentsList(success.data.packageFiles)
+				updateVendorNotes(success.data.notes);
+				updateAddress(success.data.address);
+				updatePackageName(success.data.packageName);
+				updateDeliveryDate(success.data.deliveryDate);
+				updateRFQDetails(success.data.rfqPackageDetails);
+				updateValidityOfferDate(success.data.receivingOffersDeadline);
+				updateDocumentsList(success.data.packageFiles);
+				updatePaymentTerms(success.data.paymentTerms);
+				updateIncludeVat(success.data.includeVat);
 			}, fail => {
 				console.log(fail)
 			})
 		}
+	}, [mode, rfqDetailId])
+	useEffect(() => {
+		let data = { rfqPackageId }
+		getQuestionsList(data, success => {
+			updateQuestionsList(success.data)
+		}, fail => {
+			console.log(fail)
+		})
+		GetRFQPackageToFill(data, success => {
+			updatePackageDetails(success.data);
+			updateRFQDetails(success.data.rfqDetails);
+			updateDocumentsList(success.data.packageFiles)
+		}, fail => {
+			console.log(fail)
+		})
 
 	}, [rfqPackageId])
 
@@ -163,17 +176,20 @@ function SingleRFQModal({
 			key: "unitPrice",
 			render: (unitPrice, record, index) => {
 				return (
-					<Input
-						type="number"
-						onChange={(e) => {
-							let rfqDetailss = [...rfqDetails];
-							rfqDetails[index].unitPrice = e.target.value;
-							rfqDetails[index].totalPrice = e.target.value * rfqDetails[index].quantity;
-							updateRFQDetails(rfqDetailss);
-						}}
-						defaultValue={0}
-						className='text-center'
-					/>
+					<>
+						{mode === 'ViewRFQDetails' ? <>{unitPrice}</> :
+							<Input
+								type="number"
+								onChange={(e) => {
+									let rfqDetailss = [...rfqDetails];
+									rfqDetails[index].unitPrice = e.target.value;
+									rfqDetails[index].totalPrice = e.target.value * rfqDetails[index].quantity;
+									updateRFQDetails(rfqDetailss);
+								}}
+								defaultValue={0}
+								className='text-center'
+							/>}
+					</>
 				);
 			},
 		},
@@ -210,26 +226,37 @@ function SingleRFQModal({
 			render: (filePath, record, index) => {
 				return (
 					<div>
-						{filePath && filePath.length ? (
-							<a href={baseUrl + filePath}>
-								{filePath.split(" ")[1]}
-							</a>
-						) : (
-							<div className="text-center">
-								<input
-									type={"file"}
-									className="d-none"
-									id="itemDocument"
-									onChange={(e) => {
-										handleUploadItemDoc(e, index);
-									}}
-								/>
-								<label className="d-flex cursorPointer" htmlFor="itemDocument">
-									<div className="mx-2">{currentLocal.buyerHome.addFile}</div>
-									<img src={documents} alt="documents" />
-								</label>
+						{mode === 'ViewRFQDetails' ?
+							<div>
+								{filePath && filePath.length ? (
+									<a href={baseUrl + filePath}>
+										{filePath.split(" ")[1]}
+									</a>
+								) : <>{currentLocal.offerTable.noAvailbleDocument}</>}
+							</div> :
+							<div>
+								{filePath && filePath.length ? (
+									<a href={baseUrl + filePath}>
+										{filePath.split(" ")[1]}
+									</a>
+								) : (
+									<div className="text-center">
+										<input
+											type={"file"}
+											className="d-none"
+											id="itemDocument"
+											onChange={(e) => {
+												handleUploadItemDoc(e, index);
+											}}
+										/>
+										<label className="d-flex cursorPointer" htmlFor="itemDocument">
+											<div className="mx-2">{currentLocal.buyerHome.addFile}</div>
+											<img src={documents} alt="documents" />
+										</label>
+									</div>
+								)}
 							</div>
-						)}
+						}
 					</div>
 				);
 			},
@@ -240,14 +267,18 @@ function SingleRFQModal({
 			key: "notes",
 			render: (notes, record, index) => {
 				return (
-					<Input
-						type="text"
-						onChange={(e) => {
-							let rfqDetailss = [...rfqDetails];
-							rfqDetailss[index].notes = e.target.value;
-							updateRFQDetails(rfqDetailss);
-						}}
-					/>
+					<>
+						{mode === 'ViewRFQDetails' ?
+							<>{notes}</> :
+							<Input
+								type="text"
+								onChange={(e) => {
+									let rfqDetailss = [...rfqDetails];
+									rfqDetailss[index].notes = e.target.value;
+									updateRFQDetails(rfqDetailss);
+								}}
+							/>}
+					</>
 				);
 			},
 		},
@@ -349,12 +380,12 @@ function SingleRFQModal({
 					{mode === 'ViewRFQDetails' ? <div className="d-flex justify-content-between flex-1">
 						<div className="d-flex">
 							<div className="mx-4">
-								<div>{currentLocal.offerTable.vendorNotes}:</div>
-								<div>{currentLocal.offerTable.package}:</div>
+								<div>{currentLocal.offerTable.vendorNotes}:{vendorNotes}</div>
+								<div>{currentLocal.offerTable.package}:{packageName}</div>
 							</div>
 							<div className="mx-4">
-								<div>{currentLocal.offerTable.deliveryDate}:</div>
-								<div>{currentLocal.offerTable.deliveryAddress}:</div>
+								<div>{currentLocal.offerTable.deliveryDate}:{deliveryDate}</div>
+								<div>{currentLocal.offerTable.deliveryAddress}:{address}</div>
 							</div>
 						</div>
 						<button className="button-secondary favVendorBtn">
@@ -429,7 +460,7 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.priceIncludingVAT}
 								</label>
-								{mode === 'ViewRFQDetails' ? <div className="mx-2">Yes</div> : <div className="mx-2">
+								{mode === 'ViewRFQDetails' ? <div className="mx-2">{includeVat}</div> : <div className="mx-2">
 									<Radio.Group onChange={onRadioChange} value={radioValue}>
 										<Radio value={true} className="mx-2">
 											{currentLocal.offerTable.yes}
@@ -444,7 +475,7 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.paymentTerms}
 								</label>
-								{mode === 'ViewRFQDetails' ? <div className="mx-2">Hello</div> : <Input
+								{mode === 'ViewRFQDetails' ? <div className="mx-2">{paymentTerms}</div> : <Input
 									className="mx-2 paymentTermsField"
 									type={"text"}
 									onChange={(e) => {
@@ -459,7 +490,7 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.deliveryDate}
 								</label>
-								{mode === 'ViewRFQDetails' ? <div className='mx-2'>22/2</div> : <div className="mx-2 flex-1">
+								{mode === 'ViewRFQDetails' ? <div className='mx-2'>{deliveryDate}</div> : <div className="mx-2 flex-1">
 									<DatePicker
 										onChange={onDeliveryDateChange}
 										className="form-control"
@@ -471,7 +502,7 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.offerValidity}
 								</label>
-								{mode === 'ViewRFQDetails' ? <div className='mx-2'>22/2</div> : <div className="mx-2 flex-1">
+								{mode === 'ViewRFQDetails' ? <div className='mx-2'>{validityOfferDate}</div> : <div className="mx-2 flex-1">
 									<DatePicker
 										onChange={onOfferValidityChange}
 										className="form-control"

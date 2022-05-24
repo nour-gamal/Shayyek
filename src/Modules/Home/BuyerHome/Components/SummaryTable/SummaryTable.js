@@ -171,7 +171,7 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
                   <div className="d-flex justify-content-end my-2">
                     <button className='button-secondary mx-2' onClick={() => {
                       updateViewQuotationModal(true);
-                      updateRfqDetailId(item.rfqPackageDetailId)
+                      updateRfqDetailId(item.filledDetailedId)
                     }}>{currentLocal.rfqSummary.viewQuotation}</button>
                     <button className='button-primary mx-2' onClick={() => { handleAddItemToSummary(index, otherVendorsItems[newItemIndex]) }}>{currentLocal.rfqSummary.AddToMySummary}</button>
                   </div>
@@ -311,14 +311,14 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
           {currentLocal.rfqSummary.acceptAndNotifyVendors}
         </button>
       </div>
-      <SingleRFQModal
+      {ViewQuotationModal && <SingleRFQModal
         isModalVisible={ViewQuotationModal}
         onCancel={() => {
           updateViewQuotationModal(false)
         }}
         mode={'ViewRFQDetails'}
         rfqDetailId={rfqDetailId}
-      />
+      />}
     </div>
   );
 }
