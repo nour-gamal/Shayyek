@@ -16,6 +16,7 @@ import {
   AddDocumentList,
   editRfqForSupplier,
   GetBuyerRFQForEdit,
+  editRFQPackage,
 } from "../../../network";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import documents from "../../../../../Resources/Assets/paperClip.svg";
@@ -68,8 +69,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [rfqDetails, updateRFQDetails] = useState({});
   const [activePackgeId, setActivePackgeId] = useState(null);
   const [rfqForEdit, setRfqForEdit] = useState(null);
+  const [filledPackagesForEdit, setFilledPackagesForEdit] = useState([]);
   const { rfqData } = useSelector((state) => state.rfq);
 
+  // edit rfq
   useEffect(() => {
     if (rfqId) {
       GetBuyerRFQForEdit(
@@ -77,7 +80,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         (success) => {
           if (success.success) {
             setRfqForEdit(success.data);
-            console.log(success.data);
+            const rfqPackages = success.data?.rfqPackageRequests;
+            let arr = new Array(rfqPackages.length);
+            setFilledPackagesForEdit(arr);
+            setActivePackgeId(rfqPackages[0]?.packageId);
           }
         },
         (fail) => {}
@@ -484,6 +490,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       render: (description, record) => {
         return (
           <textarea
+            disabled={rfqId}
             onChange={(e) => {
               let data = [...dataSource];
               data[selectedRow].description = e.target.value;
@@ -502,6 +509,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       render: (unit, record) => {
         return (
           <textarea
+            disabled={rfqId}
             type="text"
             onChange={(e) => {
               let data = [...dataSource];
@@ -521,6 +529,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       render: (quantity, record) => {
         return (
           <input
+            disabled={rfqId}
             type="number"
             alt="quantity"
             onChange={(e) => {
@@ -541,6 +550,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       render: (preferredBrands, record) => {
         return (
           <textarea
+            disabled={rfqId}
             type="text"
             onChange={(e) => {
               let data = [...dataSource];
@@ -558,10 +568,14 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       dataIndex: "categoryId",
       key: "categoryId",
       render: (categoryId, record, rowIndex) => {
+        const props = {};
+        if (rfqId) props.value = categoryId;
+        else props.defaultValue = categoryId;
         return (
           <Select
+            disabled={rfqId}
             style={{ width: "100%" }}
-            defaultValue={categoryId}
+            {...props}
             placeholder={
               allCategoryName
                 ? allCategoryName
@@ -590,10 +604,11 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       render: (isInstallSupplierAndContructor, record, rowIndex) => {
         return (
           <Checkbox
+            disabled={rfqId}
+            checked={isInstallSupplierAndContructor}
             onChange={(checkVal) => {
               handleIncludeInstallation(checkVal, rowIndex);
             }}
-            checked={isInstallSupplierAndContructor}
           />
         );
       },
@@ -610,6 +625,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             ) : (
               <div>
                 <input
+                  disabled={rfqId}
                   type={"file"}
                   className="d-none"
                   id="itemDocument"
@@ -617,7 +633,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                     handleUploadItemDoc(e);
                   }}
                 />
-                <label className="d-flex cursorPointer" htmlFor="itemDocument">
+                <label
+                  className={`d-flex ${rfqId ? "" : "cursorPointer"}`}
+                  htmlFor="itemDocument"
+                >
                   <div className="mx-2">{currentLocal.buyerHome.addFile}</div>
                   <img src={documents} alt="documents" />
                 </label>
@@ -640,6 +659,79 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     // const [documentsList, updateDocumentsList] = useState([]);
     // const [packageFiles, updatePackageFiles] = useState([]);
   };
+
+  function selectPackageToEdit(packageId) {
+    let selectedPackage = rfqForEdit?.rfqPackageRequests?.filter(
+      (item) => item.packageId === packageId
+    );
+
+    const {
+      rfqPackageDetailsRequests,
+      receivingOffersDeadline,
+      deliveryDate,
+      notes,
+      address,
+      deliveryToId,
+      packageFiles,
+      packageName,
+      packageCCColleagues,
+    } = selectedPackage[0];
+
+    setActivePackgeId(packageId);
+    updateDataSource(rfqPackageDetailsRequests);
+    setDeliveryDate(receivingOffersDeadline);
+    setOffersDate(deliveryDate);
+    updateNotes(notes);
+    updateAddress(address);
+    updateDeliveredTo(deliveryToId);
+    updateDocumentsList(packageFiles);
+    updatePackageFiles(packageFiles);
+    updatePackageName(packageName);
+    updateCCEmails(packageCCColleagues);
+  }
+
+  function saveEditInPackage() {
+    const payload = {
+      rfqPackage: {
+        rfqPackageDetailsRequests: dataSource,
+        packageName,
+        notes,
+        receivingOffersDeadline: recievingOffersDate,
+        deliveryDate,
+        address,
+        deliveryToId: deliveredTo,
+        packageCCColleagues: [...ccEmails],
+        packageFiles: packageFiles.map((item) => item.path),
+        packageId: activePackgeId,
+      },
+    };
+    editRFQPackage(
+      payload,
+      (success) => {
+        if (success.success) {
+          setFilledPackagesForEdit(
+            (prevState) => (prevState[activePackgeId] = activePackgeId)
+          );
+        } else {
+        }
+      },
+      (fail) => {
+        console.log(fail);
+      }
+    );
+    console.log(payload);
+  }
+
+  function discardEditPackage() {
+    console.log(activePackgeId);
+  }
+
+  useEffect(() => {
+    if (activePackgeId !== null) {
+      selectPackageToEdit(activePackgeId);
+    }
+  }, [activePackgeId]);
+
   return (
     <div className="ppl ppr my-4 RFQTable">
       <div className="actionsContainer">
@@ -653,11 +745,9 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                   onChange={fileHandler}
                   className="d-none"
                 />
-
                 <label htmlFor="actual-btn" className="primary-color">
                   <img src={importIcon} alt="importIcon" className="mx-3" />
                 </label>
-
                 <label>{currentLocal.buyerHome.importExcelFile}</label>
               </div>
               <div className="mb-3">
@@ -679,13 +769,36 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
               <div className="d-flex align-items-center projectPackages">
                 <h5 className="projectPackages-header">project Packages</h5>
                 <div className="d-flex">
-                  {/* {
-
-                  // <div className="item" fill={activePackgeId === }>
-                    <PackageIcon />
-                    <h6>Package Name</h6>
-                  </div>
-									} */}
+                  {rfqForEdit?.rfqPackageRequests?.map((item, index) => (
+                    <div
+                      key={index}
+                      className="item"
+                      role="button"
+                      onClick={() => selectPackageToEdit(item.packageId)}
+                    >
+                      <PackageIcon
+                        fill={
+                          activePackgeId === item.packageId
+                            ? "#003B6B"
+                            : undefined
+                        }
+                      />
+                      <h6
+                        style={{
+                          color:
+                            activePackgeId === item.packageId
+                              ? "#003B6B"
+                              : "#C2C2C2",
+                          borderColor:
+                            activePackgeId === item.packageId
+                              ? "#003B6B"
+                              : "#C2C2C2",
+                        }}
+                      >
+                        {item.packageName}
+                      </h6>
+                    </div>
+                  ))}
                 </div>
               </div>
             </>
@@ -873,19 +986,21 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                   <Spin />
                 </div>
               ) : (
-                documentsList.map((doc, docIndex) => {
-                  let type = doc.type.includes("pdf")
+                documentsList?.map((doc, docIndex) => {
+                  let fileType = !doc.type ? doc.contentType : doc.type;
+                  let fileName = !doc.name ? doc.fileName : doc.name;
+                  let type = fileType.includes("pdf")
                     ? pdfIcon
-                    : doc.type.includes("dwg")
+                    : fileType.includes("dwg")
                     ? autocad
-                    : doc.type.includes("doc")
+                    : fileType.includes("doc")
                     ? docIcon
                     : excel;
                   return (
                     <div className="d-flex m-2">
                       <img src={type} alt="pdf" className="mx-2" />
                       <div>
-                        <div className="fileName">{doc.name}</div>
+                        <div className="fileName">{fileName}</div>
                         <div className="fileSizeBox d-flex align-items-center justify-content-between">
                           <div>
                             <span className="fileSize">
@@ -919,19 +1034,44 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             </div>
           </div>
           <div className="text-center">
-            {rfqData?.rfqPackages?.length < 1 && (
-              <button
-                className="button-secondary native"
-                onClick={() => {
-                  getRFQPageName("addRFQDetails");
-                }}
-              >
-                {currentLocal.buyerHome.back}
-              </button>
+            {!rfqId ? (
+              <>
+                {rfqData?.rfqPackages?.length < 1 && (
+                  <button
+                    className="button-secondary native"
+                    onClick={() => {
+                      getRFQPageName("addRFQDetails");
+                    }}
+                  >
+                    {currentLocal.buyerHome.back}
+                  </button>
+                )}
+                <button
+                  className="button-primary native"
+                  onClick={handleConfirm}
+                >
+                  {currentLocal.buyerHome.postRFQ}
+                </button>
+              </>
+            ) : (
+              <div className="d-flex justify-content-center align-items-center">
+                <button
+                  className="button-primary native"
+                  style={{
+                    backgroundColor: "#FC6B5E",
+                  }}
+                  onClick={discardEditPackage}
+                >
+                  {currentLocal.supplierHome.discardChanges}
+                </button>
+                <button
+                  className="button-primary native"
+                  onClick={saveEditInPackage}
+                >
+                  {currentLocal.supplierHome.saveChanges}
+                </button>
+              </div>
             )}
-            <button className="button-primary native" onClick={handleConfirm}>
-              {currentLocal.buyerHome.postRFQ}
-            </button>
           </div>
           {isModalVisible && (
             <CCEmailsModal
