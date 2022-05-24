@@ -91,6 +91,7 @@ function AddRFQDetails({ getRFQPageName }) {
 		updatePrivateTenderData(data);
 	};
 
+	console.log((tenderType === 'private', privateTenderData.favouriteVendors, privateTenderData.inviteByWhatsapp, privateTenderData.invitedEmails))
 	const handleSubmit = () => {
 		let data = {
 			projectName: projectName,
@@ -116,9 +117,7 @@ function AddRFQDetails({ getRFQPageName }) {
 			!projectName.length ||
 			!selectedGov ||
 			!projectOwner.name.length
-			// !projectConsultant.name ||
-			//!projectContractor.name
-		) {
+			|| tenderType === 'private' && ((!data.favouriteVendors || data.favouriteVendors.length === 0) && !data.inviteByWhatsapp && (!data.invitedEmails || data.invitedEmails.length === 0))) {
 			updateAlert(true);
 		} else {
 			updateAlert(false);
@@ -287,7 +286,7 @@ function AddRFQDetails({ getRFQPageName }) {
 					value={tenderType}
 				>
 					<Radio value={"private"} className="mx-1">
-						{currentLocal.buyerHome.privateTender}
+						{currentLocal.buyerHome.privateTender}*
 					</Radio>
 					<Radio value={"public"} className="mx-1">
 						{currentLocal.buyerHome.publicTender}
