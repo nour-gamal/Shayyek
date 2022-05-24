@@ -269,7 +269,8 @@ export const en = {
     Company: "Company",
     noAvailbleDocument: 'No available document',
     vendorNotes: 'Vendor Notes',
-    package: "Package"
+    package: "Package",
+    acceptOffer: 'Accept offer'
   },
   supplierHome: {
     addNewProduct: "Add New Product",

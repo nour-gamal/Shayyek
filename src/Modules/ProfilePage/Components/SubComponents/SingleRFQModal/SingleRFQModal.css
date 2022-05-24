@@ -13,6 +13,11 @@
 	border-color: #fc6b5e;
 	color: #fff;
 }
+.singleRFQContainer .button-secondary.favVendorBtn{
+	background-color: #fff;
+	border-color: #003B6B;
+	color: #003B6B;
+}
 .singleRFQModal input,
 .singleRFQModal .ant-picker {
 	min-width: 100px;

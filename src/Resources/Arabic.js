@@ -268,7 +268,8 @@ export const ar = {
 		Company: "شركه",
 		noAvailbleDocument: 'لا يوجد مستند متاج',
 		vendorNotes: 'ملاحظات البائع',
-		package: "حزمه"
+		package: "حزمه",
+		acceptOffer: "اقبل العرض"
 	},
 	buyerHome: {
 		importExcelFile: "اضف من ملف اكسيل",

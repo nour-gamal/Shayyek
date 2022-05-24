@@ -28,6 +28,7 @@ import excel from "../../../../../Resources/Assets/excel.svg";
 import autocad from "../../../../../Resources/Assets/autocad.svg";
 import plus from "../../../../../Resources/Assets/plus (2).svg";
 import { Alert } from "react-bootstrap";
+import heart from "../../../../../Resources/Assets/heart.svg";
 import "./SingleRFQModal.css";
 
 function SingleRFQModal({
@@ -335,7 +336,7 @@ function SingleRFQModal({
 			</figure>
 			<div className="d-flex singleRFQModal flex-1">
 				<div className="d-flex infoContainer">
-					{mode === 'ViewRFQDetails' ? <div className="d-flex justify-content-between">
+					{mode === 'ViewRFQDetails' ? <div className="d-flex justify-content-between flex-1">
 						<div className="d-flex">
 							<div className="mx-4">
 								<div>{currentLocal.offerTable.vendorNotes}:</div>
@@ -346,7 +347,9 @@ function SingleRFQModal({
 								<div>{currentLocal.offerTable.deliveryAddress}:</div>
 							</div>
 						</div>
-						<button className="button-secondary">{currentLocal.profilePage.addToFavVendors}</button>
+						<button className="button-secondary favVendorBtn">
+							<img src={heart} alt='heart' />
+							<span>{currentLocal.profilePage.addToFavVendors}</span></button>
 					</div> : <div className="info d-flex align-items-center">
 						<div className="mx-4">
 							{currentLocal.offerTable.buyerName} : {packageDetails.buyerName}
@@ -416,7 +419,7 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.priceIncludingVAT}
 								</label>
-								<div className="mx-2">
+								{mode === 'ViewRFQDetails' ? <div className="mx-2">Yes</div> : <div className="mx-2">
 									<Radio.Group onChange={onRadioChange} value={radioValue}>
 										<Radio value={true} className="mx-2">
 											{currentLocal.offerTable.yes}
@@ -425,20 +428,20 @@ function SingleRFQModal({
 											{currentLocal.offerTable.no}
 										</Radio>
 									</Radio.Group>
-								</div>
+								</div>}
 							</div>
 							<div className="d-flex my-4">
 								<label className="label">
 									{currentLocal.offerTable.paymentTerms}
 								</label>
-								<Input
+								{mode === 'ViewRFQDetails' ? <div className="mx-2">Hello</div> : <Input
 									className="mx-2 paymentTermsField"
 									type={"text"}
 									onChange={(e) => {
 										updatePaymentTerms(e.target.value);
 									}}
 									value={paymentTerms}
-								/>
+								/>}
 							</div>
 						</Col>
 						<Col xs={24} md={8}>
@@ -446,25 +449,25 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.deliveryDate}
 								</label>
-								<div className="mx-2 flex-1">
+								{mode === 'ViewRFQDetails' ? <div className='mx-2'>22/2</div> : <div className="mx-2 flex-1">
 									<DatePicker
 										onChange={onDeliveryDateChange}
 										className="form-control"
 										disabledDate={disabledDeliveryDateOffersDate}
 									/>
-								</div>
+								</div>}
 							</div>
 							<div className="d-flex align-items-center my-2">
 								<label className="label">
 									{currentLocal.offerTable.offerValidity}
 								</label>
-								<div className="mx-2 flex-1">
+								{mode === 'ViewRFQDetails' ? <div className='mx-2'>22/2</div> : <div className="mx-2 flex-1">
 									<DatePicker
 										onChange={onOfferValidityChange}
 										className="form-control"
 										disabledDate={disabledOfferValidityDate}
 									/>
-								</div>
+								</div>}
 							</div>
 						</Col>
 					</Row>
@@ -512,17 +515,30 @@ function SingleRFQModal({
 					</div>
 				</div>
 				<div>
-					<div className="btn-container  d-flex">
-						<button
-							className="button-secondary mx-1"
-							onClick={() => { handleFillRFQ(true) }}
-						>
-							{currentLocal.offerTable.saveAsDraft}
-						</button>
-						<button className="button-primary mx-1" onClick={() => { handleFillRFQ(false) }}>
-							{currentLocal.offerTable.submit}
-						</button>
-					</div>
+					{mode === 'ViewRFQDetails' ?
+						<div className="btn-container  d-flex">
+							<button
+								className="button-secondary mx-1 favVendorBtn"
+
+							>
+								{currentLocal.profilePage.addToFavVendors}
+							</button>
+							<button className="button-primary mx-1" >
+								{currentLocal.offerTable.acceptOffer}
+							</button>
+						</div>
+						:
+						<div className="btn-container  d-flex">
+							<button
+								className="button-secondary mx-1"
+								onClick={() => { handleFillRFQ(true) }}
+							>
+								{currentLocal.offerTable.saveAsDraft}
+							</button>
+							<button className="button-primary mx-1" onClick={() => { handleFillRFQ(false) }}>
+								{currentLocal.offerTable.submit}
+							</button>
+						</div>}
 				</div>
 			</div>
 			<FileErrorModal
