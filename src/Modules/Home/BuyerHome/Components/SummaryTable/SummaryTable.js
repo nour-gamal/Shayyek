@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { Table, Menu, Dropdown, Radio } from "antd";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
-import { FilterPackageOffer, GetImagePath, GetItemOffers, GetSummaryFilter } from "../../../../ProfilePage/network";
+import { BuyerAcceptPackageItems, FilterPackageOffer, GetImagePath, GetItemOffers, GetSummaryFilter } from "../../../../ProfilePage/network";
 import Whatsapp from "../../../../../Resources/Assets/whatsapp.svg";
 import CopyLink from "../../../../../Resources/Assets/copyLink.svg";
 import Email from "../../../../../Resources/Assets/email.svg";
@@ -30,7 +30,8 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
   const [otherVendorsItems, updateOtherVendorsItems] = useState([]);
   const [hoveredRow, updateHoveredRow] = useState(null);
   const [filterListItems, updateFilterListItems] = useState([]);
-  const [ViewQuotationModal, updateViewQuotationModal] = useState(false)
+  const [ViewQuotationModal, updateViewQuotationModal] = useState(false);
+  const [rfqDetailId, updateRfqDetailId] = useState(null)
   const ref = createRef(null);
   const getBlobImg = async (image) => {
     const blob = await fetch(image).then((res) => res.blob());
@@ -169,7 +170,8 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
                   </div>
                   <div className="d-flex justify-content-end my-2">
                     <button className='button-secondary mx-2' onClick={() => {
-                      updateViewQuotationModal(true)
+                      updateViewQuotationModal(true);
+                      updateRfqDetailId(item.filledDetailedId)
                     }}>{currentLocal.rfqSummary.viewQuotation}</button>
                     <button className='button-primary mx-2' onClick={() => { handleAddItemToSummary(index, otherVendorsItems[newItemIndex]) }}>{currentLocal.rfqSummary.AddToMySummary}</button>
                   </div>
@@ -238,6 +240,25 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
       pdfExportComponent.current.save();
     }
   };
+  const acceptOffer = () => {
+    let itemIds = []
+
+    dataSource.forEach(item => {
+      itemIds.push(item.rfqPackageDetailId)
+    })
+
+
+    let data = {
+      filledItemIds: itemIds
+    }
+    BuyerAcceptPackageItems(data, success => {
+      if (success.success) {
+        alert('Offer accepted')
+      }
+    }, fail => {
+      console.log(fail)
+    })
+  }
 
   return (
     <div className="pps ppe summaryTable mb-3" ref={ref}>
@@ -305,18 +326,18 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
         />
       </PDFExport>
       <div className="text-center">
-        <button className="button-primary flat my-2">
+        <button className="button-primary flat my-2" onClick={acceptOffer}>
           {currentLocal.rfqSummary.acceptAndNotifyVendors}
         </button>
       </div>
-      <SingleRFQModal
-        // isModalVisible={ViewQuotationModal}
-        isModalVisible={true}
+      {ViewQuotationModal && <SingleRFQModal
+        isModalVisible={ViewQuotationModal}
         onCancel={() => {
           updateViewQuotationModal(false)
         }}
         mode={'ViewRFQDetails'}
-      />
+        rfqDetailId={rfqDetailId}
+      />}
     </div>
   );
 }

@@ -12,7 +12,7 @@ import {
 } from "antd";
 import { useSelector } from "react-redux";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
-import { GetImagePath } from "../../../../ProfilePage/network";
+import { AddToMyFavVendors, BuyerAcceptPackageItems, GetImagePath, ViewPackageQuotation } from "../../../../ProfilePage/network";
 import Lottie from "react-lottie-player";
 import questionImg from "../../../../../Resources/Assets/questions.json";
 import download from "../../../../../Resources/Assets/direct-download.svg";
@@ -35,7 +35,8 @@ function SingleRFQModal({
 	isModalVisible,
 	onCancel,
 	rfqPackageId,
-	mode
+	mode,
+	rfqDetailId
 }) {
 	const [loading, setLoading] = useState(false);
 	const [radioValue, setRadioValue] = useState(true);
@@ -51,23 +52,83 @@ function SingleRFQModal({
 	const [addQuestBtnState, updateAddQuestBtnState] = useState(true)
 	const [packageDetails, updatePackageDetails] = useState({})
 	const [alertState, updateAlert] = useState(false)
+	const [vendorNotes, updateVendorNotes] = useState('');
+	const [address, updateAddress] = useState('');
+	const [packageName, updatePackageName] = useState('');
+	const [includeVat, updateIncludeVat] = useState('');
+	const [vendorId, updateVendorId] = useState(null)
 	useEffect(() => {
-		let data = { rfqPackageId }
+		if (mode === 'ViewRFQDetails') {
+			let data = { FilledItemId: rfqDetailId }
+			ViewPackageQuotation(data, success => {
+				updateVendorNotes(success.data.notes);
+				updateAddress(success.data.address);
+				updatePackageName(success.data.packageName);
+				updateDeliveryDate(success.data.deliveryDate);
+				updateRFQDetails(success.data.rfqPackageDetails);
+				updateValidityOfferDate(success.data.receivingOffersDeadline);
+				updateDocumentsList(success.data.packageFiles);
+				updatePaymentTerms(success.data.paymentTerms);
+				updateIncludeVat(success.data.includeVat ? 'Yes' : 'No');
+				updateVendorId(success.data.vendorId)
+			}, fail => {
+				console.log(fail)
+			})
+		}
+		else {
+			let data = { rfqPackageId }
+			getQuestionsList(data, success => {
+				updateQuestionsList(success.data)
+			}, fail => {
+				console.log(fail)
+			})
+			GetRFQPackageToFill(data, success => {
+				updatePackageDetails(success.data);
+				updateRFQDetails(success.data.rfqDetails);
+				updateDocumentsList(success.data.packageFiles)
+			}, fail => {
+				console.log(fail)
+			})
+		}
+	}, [rfqPackageId, mode, rfqDetailId])
 
-		getQuestionsList(data, success => {
-			updateQuestionsList(success.data)
+	const handleAddToMyFavVend = () => {
+		let data = {
+			vendorId,
+			isAdded: true,
+		};
+		AddToMyFavVendors(
+			data,
+			(success) => {
+				if (success.success) {
+					onCancel()
+				}
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	}
+
+	const acceptOffer = () => {
+		let itemIds = []
+
+		rfqDetails.forEach(item => {
+			itemIds.push(item.rfqPackageDetailId)
+		})
+
+
+		let data = {
+			filledItemIds: itemIds
+		}
+		BuyerAcceptPackageItems(data, success => {
+			if (success.success) {
+				onCancel()
+			}
 		}, fail => {
 			console.log(fail)
 		})
-		GetRFQPackageToFill(data, success => {
-			updatePackageDetails(success.data);
-			updateRFQDetails(success.data.rfqDetails);
-			updateDocumentsList(success.data.packageFiles)
-		}, fail => {
-			console.log(fail)
-		})
-	}, [rfqPackageId])
-
+	}
 	const onRadioChange = (e) => {
 		setRadioValue(e.target.value);
 	};
@@ -153,17 +214,20 @@ function SingleRFQModal({
 			key: "unitPrice",
 			render: (unitPrice, record, index) => {
 				return (
-					<Input
-						type="number"
-						onChange={(e) => {
-							let rfqDetailss = [...rfqDetails];
-							rfqDetails[index].unitPrice = e.target.value;
-							rfqDetails[index].totalPrice = e.target.value * rfqDetails[index].quantity;
-							updateRFQDetails(rfqDetailss);
-						}}
-						defaultValue={0}
-						className='text-center'
-					/>
+					<>
+						{mode === 'ViewRFQDetails' ? <>{unitPrice}</> :
+							<Input
+								type="number"
+								onChange={(e) => {
+									let rfqDetailss = [...rfqDetails];
+									rfqDetails[index].unitPrice = e.target.value;
+									rfqDetails[index].totalPrice = e.target.value * rfqDetails[index].quantity;
+									updateRFQDetails(rfqDetailss);
+								}}
+								defaultValue={0}
+								className='text-center'
+							/>}
+					</>
 				);
 			},
 		},
@@ -200,26 +264,37 @@ function SingleRFQModal({
 			render: (filePath, record, index) => {
 				return (
 					<div>
-						{filePath && filePath.length ? (
-							<a href={baseUrl + filePath}>
-								{filePath.split(" ")[1]}
-							</a>
-						) : (
-							<div className="text-center">
-								<input
-									type={"file"}
-									className="d-none"
-									id="itemDocument"
-									onChange={(e) => {
-										handleUploadItemDoc(e, index);
-									}}
-								/>
-								<label className="d-flex cursorPointer" htmlFor="itemDocument">
-									<div className="mx-2">{currentLocal.buyerHome.addFile}</div>
-									<img src={documents} alt="documents" />
-								</label>
+						{mode === 'ViewRFQDetails' ?
+							<div>
+								{filePath && filePath.length ? (
+									<a href={baseUrl + filePath}>
+										{filePath.split(" ")[1]}
+									</a>
+								) : <>{currentLocal.offerTable.noAvailbleDocument}</>}
+							</div> :
+							<div>
+								{filePath && filePath.length ? (
+									<a href={baseUrl + filePath}>
+										{filePath.split(" ")[1]}
+									</a>
+								) : (
+									<div className="text-center">
+										<input
+											type={"file"}
+											className="d-none"
+											id="itemDocument"
+											onChange={(e) => {
+												handleUploadItemDoc(e, index);
+											}}
+										/>
+										<label className="d-flex cursorPointer" htmlFor="itemDocument">
+											<div className="mx-2">{currentLocal.buyerHome.addFile}</div>
+											<img src={documents} alt="documents" />
+										</label>
+									</div>
+								)}
 							</div>
-						)}
+						}
 					</div>
 				);
 			},
@@ -230,14 +305,18 @@ function SingleRFQModal({
 			key: "notes",
 			render: (notes, record, index) => {
 				return (
-					<Input
-						type="text"
-						onChange={(e) => {
-							let rfqDetailss = [...rfqDetails];
-							rfqDetailss[index].notes = e.target.value;
-							updateRFQDetails(rfqDetailss);
-						}}
-					/>
+					<>
+						{mode === 'ViewRFQDetails' ?
+							<>{notes}</> :
+							<Input
+								type="text"
+								onChange={(e) => {
+									let rfqDetailss = [...rfqDetails];
+									rfqDetailss[index].notes = e.target.value;
+									updateRFQDetails(rfqDetailss);
+								}}
+							/>}
+					</>
 				);
 			},
 		},
@@ -339,15 +418,15 @@ function SingleRFQModal({
 					{mode === 'ViewRFQDetails' ? <div className="d-flex justify-content-between flex-1">
 						<div className="d-flex">
 							<div className="mx-4">
-								<div>{currentLocal.offerTable.vendorNotes}:</div>
-								<div>{currentLocal.offerTable.package}:</div>
+								<div>{currentLocal.offerTable.vendorNotes}:{vendorNotes}</div>
+								<div>{currentLocal.offerTable.package}:{packageName}</div>
 							</div>
 							<div className="mx-4">
-								<div>{currentLocal.offerTable.deliveryDate}:</div>
-								<div>{currentLocal.offerTable.deliveryAddress}:</div>
+								<div>{currentLocal.offerTable.deliveryDate}:{deliveryDate}</div>
+								<div>{currentLocal.offerTable.deliveryAddress}:{address}</div>
 							</div>
 						</div>
-						<button className="button-secondary favVendorBtn">
+						<button className="button-secondary favVendorBtn" onClick={handleAddToMyFavVend}>
 							<img src={heart} alt='heart' />
 							<span>{currentLocal.profilePage.addToFavVendors}</span></button>
 					</div> : <div className="info d-flex align-items-center">
@@ -419,7 +498,7 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.priceIncludingVAT}
 								</label>
-								{mode === 'ViewRFQDetails' ? <div className="mx-2">Yes</div> : <div className="mx-2">
+								{mode === 'ViewRFQDetails' ? <div className="mx-2">{includeVat}</div> : <div className="mx-2">
 									<Radio.Group onChange={onRadioChange} value={radioValue}>
 										<Radio value={true} className="mx-2">
 											{currentLocal.offerTable.yes}
@@ -434,7 +513,7 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.paymentTerms}
 								</label>
-								{mode === 'ViewRFQDetails' ? <div className="mx-2">Hello</div> : <Input
+								{mode === 'ViewRFQDetails' ? <div className="mx-2">{paymentTerms}</div> : <Input
 									className="mx-2 paymentTermsField"
 									type={"text"}
 									onChange={(e) => {
@@ -449,7 +528,7 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.deliveryDate}
 								</label>
-								{mode === 'ViewRFQDetails' ? <div className='mx-2'>22/2</div> : <div className="mx-2 flex-1">
+								{mode === 'ViewRFQDetails' ? <div className='mx-2'>{moment(deliveryDate).format('DD-MM-YYYY')}</div> : <div className="mx-2 flex-1">
 									<DatePicker
 										onChange={onDeliveryDateChange}
 										className="form-control"
@@ -461,7 +540,7 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.offerValidity}
 								</label>
-								{mode === 'ViewRFQDetails' ? <div className='mx-2'>22/2</div> : <div className="mx-2 flex-1">
+								{mode === 'ViewRFQDetails' ? <div className='mx-2'>{moment(validityOfferDate).format('DD-MM-YYYY')}</div> : <div className="mx-2 flex-1">
 									<DatePicker
 										onChange={onOfferValidityChange}
 										className="form-control"
@@ -519,11 +598,11 @@ function SingleRFQModal({
 						<div className="btn-container  d-flex">
 							<button
 								className="button-secondary mx-1 favVendorBtn"
-
+								onClick={handleAddToMyFavVend}
 							>
 								{currentLocal.profilePage.addToFavVendors}
 							</button>
-							<button className="button-primary mx-1" >
+							<button className="button-primary mx-1" onClick={acceptOffer}>
 								{currentLocal.offerTable.acceptOffer}
 							</button>
 						</div>
