@@ -17,6 +17,7 @@ import download from "../../../../../Resources/Assets/direct-download.svg";
 import { baseUrl } from "../../../../../Services";
 import moment from 'moment'
 import "./SummaryTable.css";
+import { countBy } from "lodash";
 
 function SummaryTable({ dataSourceList, currentPackageId }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -126,6 +127,14 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
       </Menu.Item>
     </Menu>
   );
+  const handleAddItemToSummary = (itemIndex, newItem) => {
+    let newDataSource = [...dataSource]
+    newDataSource[itemIndex].unitPrice = newItem.unitPrice;
+    newDataSource[itemIndex].totalPrice = newItem.totalPrice;
+    newDataSource[itemIndex].paymentTerms = newItem.paymentTerms
+    newDataSource[itemIndex].rfqPackageDetailId = newItem.filledDetailedId
+    updateDataSource(newDataSource)
+  }
 
   const columns = [
     {
@@ -146,23 +155,25 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
             updateHoveredRow(null);
           }}>
           <div>{item}</div>
-          {hoveredRow === index && otherVendorsItems.length > 0 && <div className='overlayedItemPage'>
-            {otherVendorsItems.map(item => {
-              return <div className="item">
-                <div className='name'>{item.companyOrIndvidualName}</div>
-                <div className='d-flex justify-content-between info'>
-                  <div className="price mx-2">{currentLocal.offerTable.price}: {item.totalPrice}LE</div>
-                  <div className="deliveryDate mx-2">{currentLocal.offerTable.deliveryDate}:{item.deliveryDate}</div>
-                  <div className="paymentTerms mx-2">{currentLocal.offerTable.paymentTerms}:{item.paymentTerms}</div>
+          {
+            hoveredRow === index && otherVendorsItems.length > 0 && <div className='overlayedItemPage'>
+              {otherVendorsItems.map((item, newItemIndex) => {
+                return <div className="item">
+                  <div className='name'>{item.companyOrIndvidualName}</div>
+                  <div className='d-flex justify-content-between info'>
+                    <div className="price mx-2">{currentLocal.offerTable.price}: {item.totalPrice}LE</div>
+                    <div className="deliveryDate mx-2">{currentLocal.offerTable.deliveryDate}:{item.deliveryDate}</div>
+                    <div className="paymentTerms mx-2">{currentLocal.offerTable.paymentTerms}:{item.paymentTerms}</div>
+                  </div>
+                  <div className="d-flex justify-content-end my-2">
+                    <button className='button-secondary mx-2'>{currentLocal.rfqSummary.viewQuotation}</button>
+                    <button className='button-primary mx-2' onClick={() => { handleAddItemToSummary(index, otherVendorsItems[newItemIndex]) }}>{currentLocal.rfqSummary.AddToMySummary}</button>
+                  </div>
                 </div>
-                <div className="d-flex justify-content-end my-2">
-                  <button className='button-secondary mx-2'>{currentLocal.rfqSummary.viewQuotation}</button>
-                  <button className='button-primary mx-2'>{currentLocal.rfqSummary.AddToMySummary}</button>
-                </div>
-              </div>
-            })}
-          </div>}
-        </div>
+              })}
+            </div>
+          }
+        </div >
       }
     },
     {
