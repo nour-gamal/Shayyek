@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
@@ -12,6 +13,7 @@ import { createPackageId } from "./Redux/packageId";
 import "./firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 function App() {
@@ -109,6 +111,7 @@ function App() {
   return (
     <div className="App">
       <Routes />
+      <ToastContainer />
     </div>
   );
 }

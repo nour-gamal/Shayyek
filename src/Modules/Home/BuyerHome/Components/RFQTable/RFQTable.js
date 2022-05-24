@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { isEqual, isObject } from "lodash";
 import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import Garbage from "../../../../../Resources/Assets/garbage.svg";
@@ -31,6 +32,7 @@ import excel from "../../../../../Resources/Assets/excel.svg";
 import autocad from "../../../../../Resources/Assets/autocad.svg";
 import close from "../../../../../Resources/Assets/tip-close.svg";
 import "./RFQTable.css";
+import { toast } from "react-toastify";
 
 function CreateRFQ({ getRFQPageName, rfqId }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -86,7 +88,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             setActivePackgeId(rfqPackages[0]?.packageId);
           }
         },
-        (fail) => { }
+        (fail) => {}
       );
     }
   }, [rfqId]);
@@ -329,7 +331,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                       unit: name[index.unit],
                       quantity:
                         typeof name[index.quantity] === "string" ||
-                          name[index.quantity] === undefined
+                        name[index.quantity] === undefined
                           ? 1
                           : name[index.quantity],
                       isInstallSupplierAndContructor: false,
@@ -387,7 +389,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   }, [indexState, dataSource]);
 
   const handleUploadItemDoc = (e) => {
-    console.log(e.target.files[0])
+    console.log(e.target.files[0]);
     var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|ms-excel|dwg|DWG|DOC|doc|PDF|pdf/.test(
       e.target.files[0].type || e.target.files[0].name
     );
@@ -665,67 +667,31 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     let selectedPackage = rfqForEdit?.rfqPackageRequests?.filter(
       (item) => item.packageId === packageId
     );
-
-    const {
-      rfqPackageDetailsRequests,
-      receivingOffersDeadline,
-      deliveryDate,
-      notes,
-      address,
-      deliveryToId,
-      packageFiles,
-      packageName,
-      packageCCColleagues,
-    } = selectedPackage[0];
-
     setActivePackgeId(packageId);
-    updateDataSource(rfqPackageDetailsRequests);
-    setDeliveryDate(receivingOffersDeadline);
-    setOffersDate(deliveryDate);
-    updateNotes(notes);
-    updateAddress(address);
-    updateDeliveredTo(deliveryToId);
-    updateDocumentsList(packageFiles);
-    updatePackageFiles(packageFiles);
-    updatePackageName(packageName);
-    updateCCEmails(packageCCColleagues);
-  }
+    updateDataSource(selectedPackage[0].rfqPackageDetailsRequests);
+    setDeliveryDate(selectedPackage[0].deliveryDate);
+    setOffersDate(selectedPackage[0].receivingOffersDeadline);
+    updateNotes(selectedPackage[0].notes);
+    updateAddress(selectedPackage[0].address);
+    updateDeliveredTo(selectedPackage[0].deliveryToId);
 
-  function saveEditInPackage() {
-    const payload = {
-      rfqPackage: {
-        rfqDetails: dataSource,
-        packageName,
-        notes,
-        receivingOffersDeadline: recievingOffersDate,
-        deliveryDate,
-        address,
-        deliveryToId: deliveredTo,
-        packageCCColleagues: [...ccEmails],
-        packageFiles: packageFiles.map((item) => item.path),
-        packageId: activePackgeId,
-      },
-    };
-
-    // editRFQPackage(
-    //   payload,
-    //   (success) => {
-    //     if (success.success) {
-    //       setFilledPackagesForEdit(
-    //         (prevState) => (prevState[activePackgeId] = activePackgeId)
-    //       );
-    //     } else {
-    //     }
-    //   },
-    //   (fail) => {
-    //     console.log(fail);
-    //   }
-    // );
-    console.log(payload);
-  }
-
-  function discardEditPackage() {
-    console.log(activePackgeId);
+    updateDocumentsList(selectedPackage[0].packageFiles);
+    updatePackageFiles(selectedPackage[0].packageFiles);
+    updatePackageName(selectedPackage[0].packageName);
+    updateCCEmails(selectedPackage[0].packageCCColleagues);
+    // if (
+    //   deliveryDate !== selectedPackage[0].deliveryDate ||
+    //   recievingOffersDate !== selectedPackage[0].receivingOffersDeadline ||
+    //   notes !== selectedPackage[0].notes ||
+    //   address !== selectedPackage[0].address ||
+    //   deliveredTo !== selectedPackage[0].deliveryToId ||
+    //   !isEqual(dataSource, selectedPackage[0].rfqPackageDetailsRequests) ||
+    //   !isEqual(packageFiles, selectedPackage[0].packageFiles) ||
+    //   !isEqual(ccEmails, selectedPackage[0].packageCCColleagues)
+    // ) {
+    //   console.log("are you sure you want to discard changes");
+    // } else {
+    // }
   }
 
   useEffect(() => {
@@ -733,6 +699,74 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       selectPackageToEdit(activePackgeId);
     }
   }, [activePackgeId]);
+
+  function saveEditInPackage() {
+    let sentPackageFiles = packageFiles.map((item) =>
+      isObject(item) ? item.path : item
+    );
+
+    const payload = {
+      rfqPackage: {
+        rfqPackageDetailsRequests: dataSource,
+        packageName,
+        notes,
+        receivingOffersDeadline: recievingOffersDate,
+        deliveryDate,
+        address,
+        deliveryToId: deliveredTo,
+        packageCCColleagues: [...ccEmails],
+        packageFiles: sentPackageFiles,
+        packageId: activePackgeId,
+        DeletedRFQPackageDetails: [],
+      },
+    };
+
+    editRFQPackage(
+      payload,
+      (success) => {
+        if (success.success) {
+          toast.success(success.message, {
+            position: "bottom-right",
+          });
+          GetBuyerRFQForEdit(
+            rfqId,
+            (success) => {
+              if (success.success) {
+                setRfqForEdit(success.data);
+              }
+            },
+            (fail) => {}
+          );
+        } else {
+          toast.error(success.message, {
+            position: "bottom-right",
+          });
+        }
+      },
+      (fail) => {
+        toast.error(fail.data.message, {
+          position: "bottom-right",
+        });
+      }
+    );
+  }
+
+  function discardEditPackage(packageId) {
+    console.log("discard");
+    GetBuyerRFQForEdit(
+      rfqId,
+      (success) => {
+        if (success.success) {
+          setRfqForEdit(success.data);
+          const rfqPackages = success.data?.rfqPackageRequests;
+          let arr = new Array(rfqPackages.length);
+          setFilledPackagesForEdit(arr);
+          selectPackageToEdit(activePackgeId);
+        }
+      },
+      (fail) => {}
+    );
+  }
 
   return (
     <div className="ppl ppr my-4 RFQTable">
@@ -996,10 +1030,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                   let type = fileType.includes("pdf")
                     ? pdfIcon
                     : fileType.includes("dwg")
-                      ? autocad
-                      : fileType.includes("doc")
-                        ? docIcon
-                        : excel;
+                    ? autocad
+                    : fileType.includes("doc")
+                    ? docIcon
+                    : excel;
                   return (
                     <div className="d-flex m-2">
                       <img src={type} alt="pdf" className="mx-2" />
