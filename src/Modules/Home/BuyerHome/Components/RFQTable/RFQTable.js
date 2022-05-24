@@ -62,6 +62,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [fileErrorModalState, updateFileErrorModalState] = useState(false);
   const [packageName, updatePackageName] = useState("");
   const [ccEmails, updateCCEmails] = useState([]);
+  const [ccEmailsIDs, updateCCEmailsIDs] = useState([])
   const [isSuccessModalvis, updateSuccessModalVis] = useState(false);
   const [documentsList, updateDocumentsList] = useState([]);
   const [packageFiles, updatePackageFiles] = useState([]);
@@ -237,7 +238,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             deliveryDate: deliveryDate,
             address: address,
             deliveryToId: deliveredTo,
-            packageCCColleagues: [...ccEmails],
+            packageCCColleagues: [...ccEmailsIDs],
             packageFiles,
           },
         ],
@@ -1087,6 +1088,9 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                 updateCCEmails(val);
               }}
               ccEmails={ccEmails}
+              getCCEmailsIds={(val) => {
+                updateCCEmailsIDs(val)
+              }}
             />
           )}
           {isDeleteRowModal && (
