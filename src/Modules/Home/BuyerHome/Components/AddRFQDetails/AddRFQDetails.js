@@ -286,7 +286,7 @@ function AddRFQDetails({ getRFQPageName }) {
 					value={tenderType}
 				>
 					<Radio value={"private"} className="mx-1">
-						{currentLocal.buyerHome.privateTender}*
+						{currentLocal.buyerHome.privateTender} 	<span className="errorSign">*</span>
 					</Radio>
 					<Radio value={"public"} className="mx-1">
 						{currentLocal.buyerHome.publicTender}
