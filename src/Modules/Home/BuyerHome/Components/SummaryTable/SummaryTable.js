@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { Table, Menu, Dropdown, Radio } from "antd";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
-import { FilterPackageOffer, GetImagePath, GetSummaryFilter } from "../../../../ProfilePage/network";
+import { FilterPackageOffer, GetImagePath, GetItemOffers, GetSummaryFilter } from "../../../../ProfilePage/network";
 import Whatsapp from "../../../../../Resources/Assets/whatsapp.svg";
 import CopyLink from "../../../../../Resources/Assets/copyLink.svg";
 import Email from "../../../../../Resources/Assets/email.svg";
@@ -25,7 +25,7 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
   const [imageURL, updateImageURL] = useState(null);
   const [dataSource, updateDataSource] = useState([])
   const [image, takeScreenshot] = useScreenshot();
-  const [otherVendorsItems, updateOtherVendorsItems] = useState([1, 2, 3]);
+  const [otherVendorsItems, updateOtherVendorsItems] = useState([]);
   const [hoveredRow, updateHoveredRow] = useState(null);
   const [filterListItems, updateFilterListItems] = useState([])
   const ref = createRef(null);
@@ -52,7 +52,6 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
     }, fail => {
       console.log(fail)
     })
-
   }, [dataSourceList])
   useEffect(() => {
     if (image) {
@@ -137,18 +136,24 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
         return <div className='itemContainer cursorPointer'
           onMouseEnter={() => {
             updateHoveredRow(index);
+            let data = { ItemId: record.rfqPackageDetailId }
+            GetItemOffers(data, success => {
+              updateOtherVendorsItems(success.data)
+            }, fail => {
+              console.log(fail)
+            })
           }} onMouseLeave={() => {
             updateHoveredRow(null);
           }}>
           <div>{item}</div>
-          {hoveredRow === index && <div className='overlayedItemPage'>
+          {hoveredRow === index && otherVendorsItems.length > 0 && <div className='overlayedItemPage'>
             {otherVendorsItems.map(item => {
               return <div className="item">
-                <div className='name'>Company x</div>
+                <div className='name'>{item.companyOrIndvidualName}</div>
                 <div className='d-flex justify-content-between info'>
-                  <div className="price mx-2">{currentLocal.offerTable.price}: 300LE</div>
-                  <div className="deliveryDate mx-2">{currentLocal.offerTable.deliveryDate}:22/4/6</div>
-                  <div className="paymentTerms mx-2">{currentLocal.offerTable.paymentTerms}:paymentTerms</div>
+                  <div className="price mx-2">{currentLocal.offerTable.price}: {item.totalPrice}LE</div>
+                  <div className="deliveryDate mx-2">{currentLocal.offerTable.deliveryDate}:{item.deliveryDate}</div>
+                  <div className="paymentTerms mx-2">{currentLocal.offerTable.paymentTerms}:{item.paymentTerms}</div>
                 </div>
                 <div className="d-flex justify-content-end my-2">
                   <button className='button-secondary mx-2'>{currentLocal.rfqSummary.viewQuotation}</button>
@@ -176,7 +181,7 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
       key: "preferredBrands",
     },
     {
-      title: currentLocal.buyerHome.notes,
+      title: currentLocal.rfqSummary.vendorNotes,
       dataIndex: "notes",
       key: "notes",
     },

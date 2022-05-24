@@ -494,6 +494,7 @@ export const en = {
     acceptAndNotifyVendors: "Accept & Notify Vendors",
     covertToReverseAuction: "Convert To Reverse Auction",
     viewQuotation: 'View Quotation',
-    AddToMySummary: "Add To My Summary"
+    AddToMySummary: "Add To My Summary",
+    vendorNotes: "Vendor notes"
   },
 };

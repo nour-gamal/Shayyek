@@ -178,3 +178,8 @@ export const FilterPackageOffer = (data, onSuccess, onFail, reqAuth = true) => {
 	GetResource(path, onSuccess, onFail, true);
 };
 
+export const GetItemOffers = (data, onSuccess, onFail, reqAuth = true) => {
+	const { ItemId } = data
+	const path = `api/RFQ/GetItemOffers?ItemId=${ItemId}`;
+	GetResource(path, onSuccess, onFail, true);
+};

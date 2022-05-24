@@ -491,6 +491,7 @@ export const ar = {
 		acceptAndNotifyVendors: "وافق و بلغ الباعه",
 		covertToReverseAuction: "اعمل ممارسه",
 		viewQuotation: 'عرض الطلب',
-		AddToMySummary: "اضف الي ملخصي"
+		AddToMySummary: "اضف الي ملخصي",
+		vendorNotes: "ملاحظات البائع"
 	},
 };
