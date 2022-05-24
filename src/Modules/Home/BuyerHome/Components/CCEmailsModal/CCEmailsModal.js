@@ -4,12 +4,12 @@ import SelectSearch from "react-select-search";
 import { useSelector } from "react-redux";
 import AddEmailModal from "../AddEmailModal/AddEmailModal";
 import Fuse from "fuse.js";
-import { getCCEmailsList } from "../../../network";
+import { GetCCColleagues } from "../../../network";
 //import PlusCircle from "../../../../../Resources/Assets/plusCircle.svg";
 import WhiteCross from "../../../../../Resources/Assets/whiteCross.svg";
 import "./CCEmailsModal.css";
 
-function CCEmailsModal({ isModalVisible, onCancel, getCCEmails, ccEmails }) {
+function CCEmailsModal({ isModalVisible, onCancel, getCCEmails, ccEmails, getCCEmailsIds }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
@@ -20,13 +20,20 @@ function CCEmailsModal({ isModalVisible, onCancel, getCCEmails, ccEmails }) {
 		updateCcCollugues(ccEmails);
 	}, [ccEmails]);
 
+	console.log(ccCollugues)
 	useEffect(() => {
-		getCCEmailsList(
-			authorization.companyId,
+		const ccColluguesIds = [];
+		ccEmails.forEach(account => {
+			ccColluguesIds.push(account.id);
+		})
+
+		GetCCColleagues(
 			(success) => {
 				let options = [];
 				success.data.forEach((data, dataIndex) => {
-					options.push({ name: data, value: dataIndex });
+					if (!ccColluguesIds.includes(data.id)) {
+						options.push({ name: data.name, id: data.id, value: data.id });
+					}
 				});
 				updateOptions(options);
 			},
@@ -54,12 +61,10 @@ function CCEmailsModal({ isModalVisible, onCancel, getCCEmails, ccEmails }) {
 
 	function onSelectChange(optionId, selectedOption) {
 		let filteredOptions = options;
-
 		filteredOptions = options.filter((option) => option.value !== optionId);
-
 		updateOptions(filteredOptions);
 		let ccArr = ccCollugues;
-		ccArr.push(selectedOption);
+		ccArr.push({ id: selectedOption.id, name: selectedOption.name });
 		updateCcCollugues(ccArr);
 	}
 	function onRemoveSelected(e) {
@@ -70,7 +75,7 @@ function CCEmailsModal({ isModalVisible, onCancel, getCCEmails, ccEmails }) {
 		let removedOption = ccList.filter((option) => option.name === e.target.id);
 
 		if (removedOption[0].typed !== true) {
-			optionsList.push(removedOption[0]);
+			optionsList.push({ ...removedOption[0], value: removedOption[0].id });
 			updateOptions(optionsList);
 		}
 		ccList = ccList.filter((option) => option.name !== e.target.id);
@@ -78,6 +83,11 @@ function CCEmailsModal({ isModalVisible, onCancel, getCCEmails, ccEmails }) {
 		updateCcCollugues(ccList);
 	}
 	function handleSubmit() {
+		const ccColluguesIds = [];
+		ccCollugues.map(account => {
+			ccColluguesIds.push(account.id);
+		})
+		getCCEmailsIds(ccColluguesIds);
 		getCCEmails(ccCollugues);
 		onCancel();
 	}
@@ -122,7 +132,7 @@ function CCEmailsModal({ isModalVisible, onCancel, getCCEmails, ccEmails }) {
 						return (
 							<span className="orangeCapsule m-2 f-14" key={selectedIndex}>
 								<span className="mx-2">
-									{ccOptions.name ? ccOptions.name : ccOptions}
+									{ccOptions.name}
 								</span>
 								<img
 									id={ccOptions.name ? ccOptions.name : ccOptions}

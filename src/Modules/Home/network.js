@@ -60,6 +60,15 @@ export const getCCEmailsList = (
   GetResource(path, onSuccess, onFail, reqAuth);
 };
 
+export const GetCCColleagues = (
+  onSuccess,
+  onFail,
+  reqAuth = true
+) => {
+  const path = `api/RFQ/GetCCColleagues`;
+  GetResource(path, onSuccess, onFail, reqAuth);
+};
+
 export const GetSupplierAndContractorEmails = (
   onSuccess,
   onFail,
