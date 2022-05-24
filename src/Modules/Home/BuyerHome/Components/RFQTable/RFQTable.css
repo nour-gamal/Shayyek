@@ -103,6 +103,12 @@
 .projectPackages {
   margin-bottom: 2rem;
 }
+.btn.packageBtnContainer:active,
+.btn.packageBtnContainer:focus,
+.btn.packageBtnContainer:hover {
+  box-shadow: none !important;
+  border: 0 !important;
+}
 .projectPackages .item {
   margin-inline-start: 1rem;
   margin-inline-end: 1rem;
