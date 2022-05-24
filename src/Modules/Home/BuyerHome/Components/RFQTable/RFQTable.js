@@ -693,7 +693,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   function saveEditInPackage() {
     const payload = {
       rfqPackage: {
-        rfqPackageDetailsRequests: dataSource,
+        rfqDetails: dataSource,
         packageName,
         notes,
         receivingOffersDeadline: recievingOffersDate,
@@ -705,20 +705,21 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         packageId: activePackgeId,
       },
     };
-    editRFQPackage(
-      payload,
-      (success) => {
-        if (success.success) {
-          setFilledPackagesForEdit(
-            (prevState) => (prevState[activePackgeId] = activePackgeId)
-          );
-        } else {
-        }
-      },
-      (fail) => {
-        console.log(fail);
-      }
-    );
+
+    // editRFQPackage(
+    //   payload,
+    //   (success) => {
+    //     if (success.success) {
+    //       setFilledPackagesForEdit(
+    //         (prevState) => (prevState[activePackgeId] = activePackgeId)
+    //       );
+    //     } else {
+    //     }
+    //   },
+    //   (fail) => {
+    //     console.log(fail);
+    //   }
+    // );
     console.log(payload);
   }
 
@@ -770,34 +771,36 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                 <h5 className="projectPackages-header">project Packages</h5>
                 <div className="d-flex">
                   {rfqForEdit?.rfqPackageRequests?.map((item, index) => (
-                    <div
+                    <button
+                      className={"btn packageBtnContainer"}
+                      disabled={filledPackagesForEdit.includes(item.packageId)}
                       key={index}
-                      className="item"
-                      role="button"
                       onClick={() => selectPackageToEdit(item.packageId)}
                     >
-                      <PackageIcon
-                        fill={
-                          activePackgeId === item.packageId
-                            ? "#003B6B"
-                            : undefined
-                        }
-                      />
-                      <h6
-                        style={{
-                          color:
+                      <div className="item">
+                        <PackageIcon
+                          fill={
                             activePackgeId === item.packageId
                               ? "#003B6B"
-                              : "#C2C2C2",
-                          borderColor:
-                            activePackgeId === item.packageId
-                              ? "#003B6B"
-                              : "#C2C2C2",
-                        }}
-                      >
-                        {item.packageName}
-                      </h6>
-                    </div>
+                              : undefined
+                          }
+                        />
+                        <h6
+                          style={{
+                            color:
+                              activePackgeId === item.packageId
+                                ? "#003B6B"
+                                : "#C2C2C2",
+                            borderColor:
+                              activePackgeId === item.packageId
+                                ? "#003B6B"
+                                : "#C2C2C2",
+                          }}
+                        >
+                          {item.packageName}
+                        </h6>
+                      </div>
+                    </button>
                   ))}
                 </div>
               </div>
