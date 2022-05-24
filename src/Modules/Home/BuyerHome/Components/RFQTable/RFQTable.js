@@ -260,6 +260,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       if (err) {
         console.log(err);
       } else {
+
         //Loop to indicate the index of each row
         resp.rows[0].forEach((item, itemIndex) => {
           switch (item.toLowerCase().trim()) {
@@ -310,14 +311,15 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
               break;
             }
           }
+
           if (resp.rows[0].length - 1 === itemIndex) {
             setLoading(false);
           }
         });
 
         resp.rows[0].forEach((item) => {
-          columns.forEach((col) => {
-            if (item.toLowerCase() === col.dataIndex) {
+          columns.forEach((col, colIndex) => {
+            if (item.toLowerCase() === col.dataIndex && colIndex === 0) {
               resp.rows.forEach((name, rowIndex) => {
                 if (rowIndex !== 0) {
                   updateDataSource((oldDataSource) => [
