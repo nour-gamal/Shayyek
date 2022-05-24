@@ -18,6 +18,7 @@ import { baseUrl } from "../../../../../Services";
 import moment from 'moment'
 import "./SummaryTable.css";
 import { countBy } from "lodash";
+import SingleRFQModal from "../../../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
 
 function SummaryTable({ dataSourceList, currentPackageId }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -28,7 +29,8 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
   const [image, takeScreenshot] = useScreenshot();
   const [otherVendorsItems, updateOtherVendorsItems] = useState([]);
   const [hoveredRow, updateHoveredRow] = useState(null);
-  const [filterListItems, updateFilterListItems] = useState([])
+  const [filterListItems, updateFilterListItems] = useState([]);
+  const [ViewQuotationModal, updateViewQuotationModal] = useState(false)
   const ref = createRef(null);
   const getBlobImg = async (image) => {
     const blob = await fetch(image).then((res) => res.blob());
@@ -166,7 +168,9 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
                     <div className="paymentTerms mx-2">{currentLocal.offerTable.paymentTerms}:{item.paymentTerms}</div>
                   </div>
                   <div className="d-flex justify-content-end my-2">
-                    <button className='button-secondary mx-2'>{currentLocal.rfqSummary.viewQuotation}</button>
+                    <button className='button-secondary mx-2' onClick={() => {
+                      updateViewQuotationModal(true)
+                    }}>{currentLocal.rfqSummary.viewQuotation}</button>
                     <button className='button-primary mx-2' onClick={() => { handleAddItemToSummary(index, otherVendorsItems[newItemIndex]) }}>{currentLocal.rfqSummary.AddToMySummary}</button>
                   </div>
                 </div>
@@ -305,6 +309,14 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
           {currentLocal.rfqSummary.acceptAndNotifyVendors}
         </button>
       </div>
+      <SingleRFQModal
+        // isModalVisible={ViewQuotationModal}
+        isModalVisible={true}
+        onCancel={() => {
+          updateViewQuotationModal(false)
+        }}
+        mode={'ViewRFQDetails'}
+      />
     </div>
   );
 }

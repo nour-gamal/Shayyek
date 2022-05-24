@@ -266,7 +266,9 @@ export const ar = {
 		hide: "إخفاء",
 		show: "إظهار",
 		Company: "شركه",
-		noAvailbleDocument: 'لا يوجد مستند متاج'
+		noAvailbleDocument: 'لا يوجد مستند متاج',
+		vendorNotes: 'ملاحظات البائع',
+		package: "حزمه"
 	},
 	buyerHome: {
 		importExcelFile: "اضف من ملف اكسيل",

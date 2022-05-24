@@ -267,7 +267,9 @@ export const en = {
     hide: "Hide",
     show: "Show",
     Company: "Company",
-    noAvailbleDocument: 'No available document'
+    noAvailbleDocument: 'No available document',
+    vendorNotes: 'Vendor Notes',
+    package: "Package"
   },
   supplierHome: {
     addNewProduct: "Add New Product",

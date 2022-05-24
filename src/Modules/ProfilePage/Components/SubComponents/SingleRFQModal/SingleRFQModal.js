@@ -34,6 +34,7 @@ function SingleRFQModal({
 	isModalVisible,
 	onCancel,
 	rfqPackageId,
+	mode
 }) {
 	const [loading, setLoading] = useState(false);
 	const [radioValue, setRadioValue] = useState(true);
@@ -334,7 +335,19 @@ function SingleRFQModal({
 			</figure>
 			<div className="d-flex singleRFQModal flex-1">
 				<div className="d-flex infoContainer">
-					<div className="info d-flex align-items-center">
+					{mode === 'ViewRFQDetails' ? <div className="d-flex justify-content-between">
+						<div className="d-flex">
+							<div className="mx-4">
+								<div>{currentLocal.offerTable.vendorNotes}:</div>
+								<div>{currentLocal.offerTable.package}:</div>
+							</div>
+							<div className="mx-4">
+								<div>{currentLocal.offerTable.deliveryDate}:</div>
+								<div>{currentLocal.offerTable.deliveryAddress}:</div>
+							</div>
+						</div>
+						<button className="button-secondary">{currentLocal.profilePage.addToFavVendors}</button>
+					</div> : <div className="info d-flex align-items-center">
 						<div className="mx-4">
 							{currentLocal.offerTable.buyerName} : {packageDetails.buyerName}
 						</div>
@@ -356,9 +369,9 @@ function SingleRFQModal({
 						<div className="mx-4">
 							{currentLocal.offerTable.deliveryAddress} : {packageDetails.address}
 						</div>
-					</div>
+					</div>}
 
-					<Dropdown
+					{mode !== 'ViewRFQDetails' && <Dropdown
 						overlay={QAndAMenu}
 						placement="bottomLeft"
 						trigger={["click"]}
@@ -371,7 +384,7 @@ function SingleRFQModal({
 							<div className="text">{currentLocal.offerTable.QANDAWALL}</div>
 							<div className="invitations_number mx-2">{questionsList.length}</div>
 						</div>
-					</Dropdown>
+					</Dropdown>}
 
 				</div>
 
