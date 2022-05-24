@@ -12,7 +12,7 @@ import {
 } from "antd";
 import { useSelector } from "react-redux";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
-import { GetImagePath } from "../../../../ProfilePage/network";
+import { GetImagePath, ViewPackageQuotation } from "../../../../ProfilePage/network";
 import Lottie from "react-lottie-player";
 import questionImg from "../../../../../Resources/Assets/questions.json";
 import download from "../../../../../Resources/Assets/direct-download.svg";
@@ -35,7 +35,8 @@ function SingleRFQModal({
 	isModalVisible,
 	onCancel,
 	rfqPackageId,
-	mode
+	mode,
+	rfqDetailId
 }) {
 	const [loading, setLoading] = useState(false);
 	const [radioValue, setRadioValue] = useState(true);
@@ -52,20 +53,29 @@ function SingleRFQModal({
 	const [packageDetails, updatePackageDetails] = useState({})
 	const [alertState, updateAlert] = useState(false)
 	useEffect(() => {
-		let data = { rfqPackageId }
+		if (mode === 'ViewRFQDetails') {
+			let data = { FilledItemId: rfqDetailId }
+			ViewPackageQuotation(data, success => {
+				console.log(success)
+			}, fail => {
+				console.log(fail)
+			})
+		} else {
+			let data = { rfqPackageId }
+			getQuestionsList(data, success => {
+				updateQuestionsList(success.data)
+			}, fail => {
+				console.log(fail)
+			})
+			GetRFQPackageToFill(data, success => {
+				updatePackageDetails(success.data);
+				updateRFQDetails(success.data.rfqDetails);
+				updateDocumentsList(success.data.packageFiles)
+			}, fail => {
+				console.log(fail)
+			})
+		}
 
-		getQuestionsList(data, success => {
-			updateQuestionsList(success.data)
-		}, fail => {
-			console.log(fail)
-		})
-		GetRFQPackageToFill(data, success => {
-			updatePackageDetails(success.data);
-			updateRFQDetails(success.data.rfqDetails);
-			updateDocumentsList(success.data.packageFiles)
-		}, fail => {
-			console.log(fail)
-		})
 	}, [rfqPackageId])
 
 	const onRadioChange = (e) => {

@@ -183,3 +183,8 @@ export const GetItemOffers = (data, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/RFQ/GetItemOffers?ItemId=${ItemId}`;
 	GetResource(path, onSuccess, onFail, true);
 };
+export const ViewPackageQuotation = (data, onSuccess, onFail, reqAuth = true) => {
+	const { FilledItemId } = data
+	const path = `api/RFQ/ViewPackageQuotation?FilledItemId=${FilledItemId}`;
+	GetResource(path, onSuccess, onFail, true);
+};

@@ -270,3 +270,6 @@ export function GetRFQSummary(rfqId, onSucces, onFail, reqAuth = true) {
   const path = `api/RFQ/GetRFQSummary?rfqId=${rfqId}`;
   GetResource(path, onSucces, onFail, reqAuth);
 }
+
+
+

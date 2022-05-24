@@ -30,7 +30,8 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
   const [otherVendorsItems, updateOtherVendorsItems] = useState([]);
   const [hoveredRow, updateHoveredRow] = useState(null);
   const [filterListItems, updateFilterListItems] = useState([]);
-  const [ViewQuotationModal, updateViewQuotationModal] = useState(false)
+  const [ViewQuotationModal, updateViewQuotationModal] = useState(false);
+  const [rfqDetailId, updateRfqDetailId] = useState(null)
   const ref = createRef(null);
   const getBlobImg = async (image) => {
     const blob = await fetch(image).then((res) => res.blob());
@@ -169,7 +170,8 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
                   </div>
                   <div className="d-flex justify-content-end my-2">
                     <button className='button-secondary mx-2' onClick={() => {
-                      updateViewQuotationModal(true)
+                      updateViewQuotationModal(true);
+                      updateRfqDetailId(item.rfqPackageDetailId)
                     }}>{currentLocal.rfqSummary.viewQuotation}</button>
                     <button className='button-primary mx-2' onClick={() => { handleAddItemToSummary(index, otherVendorsItems[newItemIndex]) }}>{currentLocal.rfqSummary.AddToMySummary}</button>
                   </div>
@@ -310,12 +312,12 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
         </button>
       </div>
       <SingleRFQModal
-        // isModalVisible={ViewQuotationModal}
-        isModalVisible={true}
+        isModalVisible={ViewQuotationModal}
         onCancel={() => {
           updateViewQuotationModal(false)
         }}
         mode={'ViewRFQDetails'}
+        rfqDetailId={rfqDetailId}
       />
     </div>
   );
