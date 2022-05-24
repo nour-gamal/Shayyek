@@ -12,7 +12,7 @@ import {
 } from "antd";
 import { useSelector } from "react-redux";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
-import { GetImagePath, ViewPackageQuotation } from "../../../../ProfilePage/network";
+import { AddToMyFavVendors, BuyerAcceptPackageItems, GetImagePath, ViewPackageQuotation } from "../../../../ProfilePage/network";
 import Lottie from "react-lottie-player";
 import questionImg from "../../../../../Resources/Assets/questions.json";
 import download from "../../../../../Resources/Assets/direct-download.svg";
@@ -55,7 +55,8 @@ function SingleRFQModal({
 	const [vendorNotes, updateVendorNotes] = useState('');
 	const [address, updateAddress] = useState('');
 	const [packageName, updatePackageName] = useState('');
-	const [includeVat, updateIncludeVat] = useState('')
+	const [includeVat, updateIncludeVat] = useState('');
+	const [vendorId, updateVendorId] = useState(null)
 	useEffect(() => {
 		if (mode === 'ViewRFQDetails') {
 			let data = { FilledItemId: rfqDetailId }
@@ -68,29 +69,54 @@ function SingleRFQModal({
 				updateValidityOfferDate(success.data.receivingOffersDeadline);
 				updateDocumentsList(success.data.packageFiles);
 				updatePaymentTerms(success.data.paymentTerms);
-				updateIncludeVat(success.data.includeVat);
+				updateIncludeVat(success.data.includeVat ? 'Yes' : 'No');
+				updateVendorId(success.data.vendorId)
 			}, fail => {
 				console.log(fail)
 			})
 		}
-	}, [mode, rfqDetailId])
-	useEffect(() => {
-		let data = { rfqPackageId }
-		getQuestionsList(data, success => {
-			updateQuestionsList(success.data)
+		else {
+			let data = { rfqPackageId }
+			getQuestionsList(data, success => {
+				updateQuestionsList(success.data)
+			}, fail => {
+				console.log(fail)
+			})
+			GetRFQPackageToFill(data, success => {
+				updatePackageDetails(success.data);
+				updateRFQDetails(success.data.rfqDetails);
+				updateDocumentsList(success.data.packageFiles)
+			}, fail => {
+				console.log(fail)
+			})
+		}
+	}, [rfqPackageId, mode, rfqDetailId])
+
+	const handleAddToMyFavVend = () => {
+		let data = {
+			vendorId,
+			isAdded: true,
+		};
+		AddToMyFavVendors(
+			data,
+			(success) => {
+				if (success.success) {
+					onCancel()
+				}
+			},
+			(fail) => {
+				console.log(fail);
+			}
+		);
+	}
+	const acceptOffer = () => {
+		let data = {}
+		BuyerAcceptPackageItems(data, success => {
+			console.log(success)
 		}, fail => {
 			console.log(fail)
 		})
-		GetRFQPackageToFill(data, success => {
-			updatePackageDetails(success.data);
-			updateRFQDetails(success.data.rfqDetails);
-			updateDocumentsList(success.data.packageFiles)
-		}, fail => {
-			console.log(fail)
-		})
-
-	}, [rfqPackageId])
-
+	}
 	const onRadioChange = (e) => {
 		setRadioValue(e.target.value);
 	};
@@ -388,7 +414,7 @@ function SingleRFQModal({
 								<div>{currentLocal.offerTable.deliveryAddress}:{address}</div>
 							</div>
 						</div>
-						<button className="button-secondary favVendorBtn">
+						<button className="button-secondary favVendorBtn" onClick={handleAddToMyFavVend}>
 							<img src={heart} alt='heart' />
 							<span>{currentLocal.profilePage.addToFavVendors}</span></button>
 					</div> : <div className="info d-flex align-items-center">
@@ -490,7 +516,7 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.deliveryDate}
 								</label>
-								{mode === 'ViewRFQDetails' ? <div className='mx-2'>{deliveryDate}</div> : <div className="mx-2 flex-1">
+								{mode === 'ViewRFQDetails' ? <div className='mx-2'>{moment(deliveryDate).format('DD-MM-YYYY')}</div> : <div className="mx-2 flex-1">
 									<DatePicker
 										onChange={onDeliveryDateChange}
 										className="form-control"
@@ -502,7 +528,7 @@ function SingleRFQModal({
 								<label className="label">
 									{currentLocal.offerTable.offerValidity}
 								</label>
-								{mode === 'ViewRFQDetails' ? <div className='mx-2'>{validityOfferDate}</div> : <div className="mx-2 flex-1">
+								{mode === 'ViewRFQDetails' ? <div className='mx-2'>{moment(validityOfferDate).format('DD-MM-YYYY')}</div> : <div className="mx-2 flex-1">
 									<DatePicker
 										onChange={onOfferValidityChange}
 										className="form-control"
@@ -560,11 +586,11 @@ function SingleRFQModal({
 						<div className="btn-container  d-flex">
 							<button
 								className="button-secondary mx-1 favVendorBtn"
-
+								onClick={handleAddToMyFavVend}
 							>
 								{currentLocal.profilePage.addToFavVendors}
 							</button>
-							<button className="button-primary mx-1" >
+							<button className="button-primary mx-1" onClick={acceptOffer}>
 								{currentLocal.offerTable.acceptOffer}
 							</button>
 						</div>

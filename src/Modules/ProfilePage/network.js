@@ -188,3 +188,8 @@ export const ViewPackageQuotation = (data, onSuccess, onFail, reqAuth = true) =>
 	const path = `api/RFQ/ViewPackageQuotation?FilledItemId=${FilledItemId}`;
 	GetResource(path, onSuccess, onFail, true);
 };
+
+export const BuyerAcceptPackageItems = (data, onSuccess, onFail, reqAuth = true) => {
+	const path = `api/RFQ/BuyerAcceptPackageItems`;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};
