@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { Table, Menu, Dropdown, Radio } from "antd";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
-import { FilterPackageOffer, GetImagePath, GetItemOffers, GetSummaryFilter } from "../../../../ProfilePage/network";
+import { BuyerAcceptPackageItems, FilterPackageOffer, GetImagePath, GetItemOffers, GetSummaryFilter } from "../../../../ProfilePage/network";
 import Whatsapp from "../../../../../Resources/Assets/whatsapp.svg";
 import CopyLink from "../../../../../Resources/Assets/copyLink.svg";
 import Email from "../../../../../Resources/Assets/email.svg";
@@ -240,6 +240,25 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
       pdfExportComponent.current.save();
     }
   };
+  const acceptOffer = () => {
+    let itemIds = []
+
+    dataSource.forEach(item => {
+      itemIds.push(item.rfqPackageDetailId)
+    })
+
+
+    let data = {
+      filledItemIds: itemIds
+    }
+    BuyerAcceptPackageItems(data, success => {
+      if (success.success) {
+        alert('Offer accepted')
+      }
+    }, fail => {
+      console.log(fail)
+    })
+  }
 
   return (
     <div className="pps ppe summaryTable mb-3" ref={ref}>
@@ -307,7 +326,7 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
         />
       </PDFExport>
       <div className="text-center">
-        <button className="button-primary flat my-2">
+        <button className="button-primary flat my-2" onClick={acceptOffer}>
           {currentLocal.rfqSummary.acceptAndNotifyVendors}
         </button>
       </div>

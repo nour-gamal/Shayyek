@@ -109,10 +109,22 @@ function SingleRFQModal({
 			}
 		);
 	}
+
 	const acceptOffer = () => {
-		let data = {}
+		let itemIds = []
+
+		rfqDetails.forEach(item => {
+			itemIds.push(item.rfqPackageDetailId)
+		})
+
+
+		let data = {
+			filledItemIds: itemIds
+		}
 		BuyerAcceptPackageItems(data, success => {
-			console.log(success)
+			if (success.success) {
+				onCancel()
+			}
 		}, fail => {
 			console.log(fail)
 		})
