@@ -193,7 +193,7 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
                         </div>
                         <div className="deliveryDate mx-2">
                           {currentLocal.offerTable.deliveryDate}:
-                          {item.deliveryDate}
+                          {moment(item.deliveryDate).format('DD-MM-YYYY')}
                         </div>
                         <div className="paymentTerms mx-2">
                           {currentLocal.offerTable.paymentTerms}:
