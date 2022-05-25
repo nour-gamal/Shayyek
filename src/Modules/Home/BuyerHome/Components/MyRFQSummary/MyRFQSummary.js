@@ -190,8 +190,6 @@ function MyRFQSummary({ rfqId }) {
     </Menu>
   );
 
-  useEffect(() => {}, []);
-
   return (
     <div className="myRFQSummary">
       <div className="procurementSteps ppe pps d-flex align-items-center justify-content-between">
@@ -244,26 +242,43 @@ function MyRFQSummary({ rfqId }) {
       </div>
       <div className="pps ppe">
         <div className="d-flex my-2 justify-content-between flex-wrap">
-          <div className="mx-3">
-            {currentLocal.rfqSummary.projectName}:{rfqData.projectName}
-          </div>
-          <div className="mx-3">
-            {currentLocal.rfqSummary.projectOwner}:{rfqData.projectOwner}
-          </div>
-          <div className="mx-3">
-            {currentLocal.rfqSummary.projectConsultant}:
-            {rfqData.projectConsultant}
-          </div>
-          <div className="mx-3">
-            {currentLocal.rfqSummary.projectContractor}:
-            {rfqData.projectContractor}
-          </div>
-          <div className="mx-3">
-            {currentLocal.rfqSummary.deliveryDate}:{rfqData.projectContractor}
-          </div>
-          <div className="mx-3">
-            {currentLocal.rfqSummary.deliveryAddress}:{rfqData.projectAddress}
-          </div>
+          {rfqData.projectName && (
+            <div className="mx-3">
+              {currentLocal.rfqSummary.projectName}:{rfqData.projectName}
+            </div>
+          )}
+          {rfqData.projectOwner && (
+            <div className="mx-3">
+              {currentLocal.rfqSummary.projectOwner}:{rfqData.projectOwner}
+            </div>
+          )}
+          {rfqData.projectConsultant && (
+            <div className="mx-3">
+              {currentLocal.rfqSummary.projectConsultant}:
+              {rfqData.projectConsultant}
+            </div>
+          )}
+          {rfqData.projectContractor && (
+            <div className="mx-3">
+              {currentLocal.rfqSummary.projectContractor}:
+              {rfqData.projectContractor}
+            </div>
+          )}
+          {currentPackageId && (
+            <div className="mx-3">
+              {currentLocal.rfqSummary.deliveryDate}:
+              {moment(
+                rfqPackages.filter(
+                  (packagee) => packagee.packageId === currentPackageId
+                )[0].deliveryDate
+              ).format("DD-MM-YYYY")}
+            </div>
+          )}
+          {rfqData.projectAddress && (
+            <div className="mx-3">
+              {currentLocal.rfqSummary.deliveryAddress}:{rfqData.projectAddress}
+            </div>
+          )}
         </div>
         <div className="d-flex packages-container align-items-center my-4">
           <div className="title mx-3 fw-500">
