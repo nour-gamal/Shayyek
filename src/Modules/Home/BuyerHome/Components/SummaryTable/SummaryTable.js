@@ -180,7 +180,7 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
             }}
           >
             <div>{item}</div>
-            {hoveredRow === index && otherVendorsItems.length > 0 && (
+            {hoveredRow === index && otherVendorsItems?.length > 0 && (
               <div className="overlayedItemPage">
                 {otherVendorsItems.map((item, newItemIndex) => {
                   return (

@@ -1,38 +1,54 @@
 import React, { useState, createRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Table, Menu, Dropdown, Radio } from "antd";
+import { Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useScreenshot } from "use-react-screenshot";
+import { Table, Menu, Dropdown } from "antd";
 import {
+  BuyerAcceptPackageItems,
   GetImagePath,
-  ViewPackageQuotation,
 } from "../../../../ProfilePage/network";
 import { PDFExport } from "@progress/kendo-react-pdf";
-import { useScreenshot } from "use-react-screenshot";
 import addIcon from "../../../../../Resources/Assets/plusGray.svg";
 import heartIcon from "../../../../../Resources/Assets/heartGray.svg";
+import heartRemoveIcon from "../../../../../Resources/Assets/heartRemove.svg";
 import acceptOfferIcon from "../../../../../Resources/Assets/acceptOffer.svg";
 import viewIcon from "../../../../../Resources/Assets/View.svg";
 import chatIcon from "../../../../../Resources/Assets/chat.svg";
 import deleteIcon from "../../../../../Resources/Assets/deletee.svg";
 
+import { setDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { db } from "../../../../../firebase";
+
 import { baseUrl } from "../../../../../Services";
 import actionListIcon from "../../../../../Resources/Assets/actionList.svg";
 import "./AllQuotationsRecievedTable.css";
 import SingleRFQModal from "../../../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
+import {
+  addDeleteFavVendors,
+  deletePackage,
+  ViewPackageQuotationForSupplier,
+} from "./../../../network";
 
 function AllQuotaionsRecievedForRFQ({
   quotaionsDataSource,
-  summaryDataSource,
   setQuotationsDataSource,
   updateSummaryDataSource,
 }) {
-  const { currentLocal } = useSelector((state) => state.currentLocal);
-  // eslint-disable-next-line
   const [loading, updateLoading] = useState(false);
   const [imageURL, updateImageURL] = useState(null);
   const [image, takeScreenshot] = useScreenshot();
   const [hideTable, setHideTable] = useState(false);
   const [viewQuotationModal, setViewQuotationModal] = useState(false);
   const [selectedFilledPackageId, setSelectedFilledPackageId] = useState(null);
+  const [redirectState, updateRedirectState] = useState(null);
+  const [
+    selectedVendorForConversation,
+    setSelectedVendorForConversation,
+  ] = useState(null);
+
+  const { currentLocal } = useSelector((state) => state.currentLocal);
+  const { authorization } = useSelector((state) => state.authorization);
   const ref = createRef(null);
 
   const getBlobImg = async (image) => {
@@ -60,6 +76,138 @@ function AllQuotaionsRecievedForRFQ({
     }
   }, [image]);
 
+  function addFavVendor(vendorId, isFav) {
+    addDeleteFavVendors(
+      vendorId,
+      isFav,
+      (success) => {
+        if (success.success) {
+          setQuotationsDataSource(() => {
+            const data = quotaionsDataSource.map((item) => {
+              if (item.vendorId === vendorId) {
+                item.isFavourite = isFav;
+              }
+              return item;
+            });
+            console.log(data);
+            return data;
+          });
+        } else {
+          toast.error(success.message, {
+            position: "bottom-right",
+            rtl: true,
+          });
+        }
+      },
+      (fail) => {
+        toast.error(fail.data.message, {
+          position: "bottom-right",
+          rtl: true,
+        });
+      }
+    );
+  }
+
+  const addNewChat = async (roomId, friendId) => {
+    const roomsDocRef = doc(db, "rooms", roomId);
+    await setDoc(roomsDocRef, {
+      messages: [],
+    });
+
+    const userDocRef = doc(db, "users", authorization.id);
+    await updateDoc(userDocRef, {
+      friends: arrayUnion({
+        roomId,
+        friendId,
+      }),
+    });
+    setSelectedVendorForConversation(friendId);
+    updateRedirectState("/chat");
+  };
+
+  const acceptOffer = (filledPackageDetailsIds, item) => {
+    let data = {
+      filledItemIds: filledPackageDetailsIds,
+    };
+    BuyerAcceptPackageItems(
+      data,
+      (success) => {
+        if (success.success) {
+          toast.success(success.message, {
+            position: "bottom-right",
+            rtl: true,
+          });
+        } else {
+          toast.error(success.message, {
+            position: "bottom-right",
+            rtl: true,
+          });
+        }
+      },
+      (fail) => {
+        toast.error(fail.data.message, {
+          position: "bottom-right",
+          rtl: true,
+        });
+      }
+    );
+  };
+
+  function removePackage(filledPackageId) {
+    deletePackage(
+      filledPackageId,
+      (success) => {
+        if (success.success) {
+          setQuotationsDataSource((prevState) =>
+            prevState.filter((item) => item.filledPackageId !== filledPackageId)
+          );
+          toast.success(success.message, {
+            position: "bottom-right",
+            rtl: true,
+          });
+        } else {
+          toast.error(success.message, {
+            position: "bottom-right",
+            rtl: true,
+          });
+        }
+      },
+      (fail) => {
+        toast.error(fail.data.message, {
+          position: "bottom-right",
+          rtl: true,
+        });
+      }
+    );
+  }
+
+  function addToMySummary(filledPackageId) {
+    ViewPackageQuotationForSupplier(
+      filledPackageId,
+      (success) => {
+        if (success.success) {
+          const { data } = success;
+          console.log(data.rfqPackageDetails);
+          updateSummaryDataSource((prevState) => [...data.rfqPackageDetails]);
+          toast.success(success.message, {
+            position: "bottom-right",
+            rtl: true,
+          });
+        } else {
+          toast.error(success.message, {
+            position: "bottom-right",
+            rtl: true,
+          });
+        }
+      },
+      (fail) => {
+        toast.error(fail.data.message, {
+          position: "bottom-right",
+          rtl: true,
+        });
+      }
+    );
+  }
   const actionMenu = (data) => {
     return (
       <Menu>
@@ -76,26 +224,51 @@ function AllQuotaionsRecievedForRFQ({
             <div className="mx-2">{currentLocal.profilePage.view}</div>
           </div>
         </Menu.Item>
-        <Menu.Item
-          style={{
-            display: data.isFavourite ? "none" : "block",
-          }}
-        >
-          <div className="d-flex" role={"button"}>
-            <img src={heartIcon} alt="heart icon" />
-            <div className="mx-2">
-              {currentLocal.profilePage.addToFavVendors}
-            </div>
+        <Menu.Item>
+          <div
+            className="d-flex"
+            role={"button"}
+            onClick={() => {
+              addFavVendor(data.vendorId, !data.isFavourite);
+            }}
+          >
+            {!data.isFavourite ? (
+              <>
+                <img src={heartIcon} alt="heart icon" />
+                <div className="mx-2">
+                  {currentLocal.profilePage.addToFavVendors}
+                </div>
+              </>
+            ) : (
+              <>
+                <img src={heartRemoveIcon} alt="delte icon" />
+                <div className="mx-2">
+                  {currentLocal.profilePage.deleteFavVendors}
+                </div>
+              </>
+            )}
           </div>
         </Menu.Item>
         <Menu.Item>
-          <div className="d-flex">
+          <div
+            className="d-flex"
+            role={"button"}
+            onClick={() => {
+              acceptOffer(data.filledPackageDetailsIds);
+            }}
+          >
             <img src={acceptOfferIcon} alt="accept offer" />
             <div className="mx-2">{currentLocal.profilePage.acceptOffer}</div>
           </div>
         </Menu.Item>
         <Menu.Item>
-          <div className="d-flex">
+          <div
+            className="d-flex"
+            role={"button"}
+            onClick={() => {
+              addToMySummary(data.filledPackageId);
+            }}
+          >
             <img src={addIcon} alt="add icon" />
             <div className="mx-2">
               {currentLocal.profilePage.addToMySummary}
@@ -103,23 +276,28 @@ function AllQuotaionsRecievedForRFQ({
           </div>
         </Menu.Item>
         <Menu.Item>
-          <div className="d-flex">
+          <div
+            className="d-flex"
+            role={"button"}
+            onClick={() => {
+              const roomId = `${authorization.id}-${data.vendorId}`;
+              addNewChat(roomId, data.vendorId);
+            }}
+          >
             <img src={chatIcon} alt="conversation icon" />
             <div className="mx-2">
               {currentLocal.offerTable.startConversation}
             </div>
           </div>
         </Menu.Item>
-        <Menu.Item
-          style={{
-            display: !data.isFavourite ? "none" : "block",
-          }}
-        >
-          <div className="d-flex" role={"button"}>
+        <Menu.Item>
+          <div
+            className="d-flex"
+            role={"button"}
+            onClick={() => removePackage(data.filledPackageId)}
+          >
             <img src={deleteIcon} alt="delete icon" />
-            <div className="mx-2">
-              {currentLocal.profilePage.deleteFavVendors}
-            </div>
+            <div className="mx-2">{currentLocal.offerTable.delete}</div>
           </div>
         </Menu.Item>
       </Menu>
@@ -135,11 +313,6 @@ function AllQuotaionsRecievedForRFQ({
       title: currentLocal.registration.company,
       dataIndex: "company",
       key: "company",
-    },
-    {
-      title: currentLocal.supplierHome.price,
-      dataIndex: "price",
-      key: "price",
     },
     {
       title: currentLocal.offerTable.city,
@@ -198,10 +371,20 @@ function AllQuotaionsRecievedForRFQ({
   function handleHideTable() {
     setHideTable((prevState) => !prevState);
   }
+
+  if (redirectState)
+    return (
+      <Redirect
+        to={{
+          pathname: redirectState,
+          state: selectedVendorForConversation,
+        }}
+      />
+    );
   return (
     <div className="pps ppe summaryTable mb-3" ref={ref}>
       <div className="d-flex justify-content-between align-items-end">
-        <div className="title fw-500 mx-3">
+        <div className="title f-18 fw-500 mx-3">
           {currentLocal.offerTable.allQuotationsRecivedForThisRFQ}
         </div>
         <button className="hideTableBtn" onClick={handleHideTable}>

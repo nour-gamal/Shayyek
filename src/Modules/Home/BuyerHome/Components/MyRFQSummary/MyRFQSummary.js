@@ -335,9 +335,9 @@ function MyRFQSummary({ rfqId }) {
       />
       <AllQuotaionsRecievedForRFQ
         quotaionsDataSource={quotaionsDataSource}
-        setQuotationsDataSource={() => setQuotationsDataSource()}
+        setQuotationsDataSource={setQuotationsDataSource}
         summaryDataSource={summaryDataSource}
-        updateSummaryDataSource={() => updateSummaryDataSource()}
+        updateSummaryDataSource={updateSummaryDataSource}
       />
     </div>
   );

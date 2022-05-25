@@ -301,3 +301,23 @@ export function ViewPackageQuotationForSupplier(
   GetResource(path, onSuccess, onFail, reqAuth);
 }
 //
+export function addDeleteFavVendors(
+  vendorId,
+  isAdded,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) {
+  const path = `api/Profile/AddToFavouriteVendors?vendorId=${vendorId}&isAdded=${isAdded}`;
+  PostResource(path, null, onSuccess, onFail, reqAuth);
+}
+
+export function deletePackage(
+  filledPackageId,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) {
+  const path = `api/RFQ/PackageOffer?FilldPackageId=${filledPackageId}`;
+  deleteResource(path, onSuccess, onFail, reqAuth);
+}
