@@ -15,7 +15,6 @@ import {
   getCategories,
   getDeliverdOptions,
   AddDocumentList,
-  editRfqForSupplier,
   GetBuyerRFQForEdit,
   editRFQPackage,
 } from "../../../network";
@@ -64,7 +63,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [fileErrorModalState, updateFileErrorModalState] = useState(false);
   const [packageName, updatePackageName] = useState("");
   const [ccEmails, updateCCEmails] = useState([]);
-  const [ccEmailsIDs, updateCCEmailsIDs] = useState([])
+  const [ccEmailsIDs, updateCCEmailsIDs] = useState([]);
   const [isSuccessModalvis, updateSuccessModalVis] = useState(false);
   const [documentsList, updateDocumentsList] = useState([]);
   const [packageFiles, updatePackageFiles] = useState([]);
@@ -95,23 +94,25 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   }, [rfqId]);
 
   useEffect(() => {
-    let options = [];
-    getDeliverdOptions(
-      currentLanguageId,
-      (success) => {
-        success.data.forEach((data) => {
-          options.push({
-            label: data.name,
-            value: data.id,
+    if (!rfqId) {
+      let options = [];
+      getDeliverdOptions(
+        currentLanguageId,
+        (success) => {
+          success.data.forEach((data) => {
+            options.push({
+              label: data.name,
+              value: data.id,
+            });
           });
-        });
-        updateDeliveryOptions(options);
-      },
-      (fail) => {
-        console.log(fail);
-      }
-    );
-  }, [currentLanguageId]);
+          updateDeliveryOptions(options);
+        },
+        (fail) => {
+          console.log(fail);
+        }
+      );
+    }
+  }, [currentLanguageId, rfqId]);
 
   var index = {
     item: null,
@@ -263,7 +264,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       if (err) {
         console.log(err);
       } else {
-
         //Loop to indicate the index of each row
         resp.rows[0].forEach((item, itemIndex) => {
           switch (item.toLowerCase().trim()) {
@@ -670,6 +670,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     let selectedPackage = rfqForEdit?.rfqPackageRequests?.filter(
       (item) => item.packageId === packageId
     );
+
     setActivePackgeId(packageId);
     updateDataSource(selectedPackage[0].rfqPackageDetailsRequests);
     setDeliveryDate(selectedPackage[0].deliveryDate);
@@ -677,24 +678,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     updateNotes(selectedPackage[0].notes);
     updateAddress(selectedPackage[0].address);
     updateDeliveredTo(selectedPackage[0].deliveryToId);
-
     updateDocumentsList(selectedPackage[0].packageFiles);
     updatePackageFiles(selectedPackage[0].packageFiles);
     updatePackageName(selectedPackage[0].packageName);
     updateCCEmails(selectedPackage[0].packageCCColleagues);
-    // if (
-    //   deliveryDate !== selectedPackage[0].deliveryDate ||
-    //   recievingOffersDate !== selectedPackage[0].receivingOffersDeadline ||
-    //   notes !== selectedPackage[0].notes ||
-    //   address !== selectedPackage[0].address ||
-    //   deliveredTo !== selectedPackage[0].deliveryToId ||
-    //   !isEqual(dataSource, selectedPackage[0].rfqPackageDetailsRequests) ||
-    //   !isEqual(packageFiles, selectedPackage[0].packageFiles) ||
-    //   !isEqual(ccEmails, selectedPackage[0].packageCCColleagues)
-    // ) {
-    //   console.log("are you sure you want to discard changes");
-    // } else {
-    // }
   }
 
   useEffect(() => {
@@ -755,7 +742,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   }
 
   function discardEditPackage(packageId) {
-    console.log("discard");
     GetBuyerRFQForEdit(
       rfqId,
       (success) => {
@@ -765,6 +751,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           let arr = new Array(rfqPackages.length);
           setFilledPackagesForEdit(arr);
           selectPackageToEdit(activePackgeId);
+        } else {
         }
       },
       (fail) => {}
@@ -1123,7 +1110,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
               }}
               ccEmails={ccEmails}
               getCCEmailsIds={(val) => {
-                updateCCEmailsIDs(val)
+                updateCCEmailsIDs(val);
               }}
             />
           )}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { Dropdown, Menu } from "antd";
 import Lottie from "react-lottie-player";
@@ -9,11 +10,15 @@ import PackageDisabled from "../../../../../Resources/Assets/packageDisabled.svg
 import questionImg from "../../../../../Resources/Assets/questions.json";
 import SummaryTable from "../SummaryTable/SummaryTable";
 import AllQuotaionsRecievedForRFQ from "../AllQuotationsRecievedTable/AllQuotationsRecievedTable";
-import { GetRFQSummary } from "../../../network"
-import { getQuestionsList, AnswerQuestionWall } from "../../../../ProfilePage/network";
+import { GetRFQSummary } from "../../../network";
+import {
+  getQuestionsList,
+  AnswerQuestionWall,
+} from "../../../../ProfilePage/network";
+import { getAllQuotationsRecievedForRfq } from "./../../../network";
 import "./MyRFQSummary.css";
 
-function MyRFQSummary(props) {
+function MyRFQSummary({ rfqId }) {
   const [currentPackageId, updateCurrentPackageId] = useState(null);
   const [questionsList, updateQuestionsList] = useState([]);
   const [rfqPackages, updateRfqPackages] = useState([]);
@@ -22,44 +27,84 @@ function MyRFQSummary(props) {
   const [answer, setAnswer] = useState(null);
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [rfqData, updateRFQData] = useState({});
-  const [dataSource, updateDataSource] = useState([])
+  const [summaryDataSource, updateSummaryDataSource] = useState([]);
+  const [quotaionsDataSource, setQuotationsDataSource] = useState([]);
+
   function handleAddAnswer(QuestionWallId) {
     if (answer) {
-      let data = { QuestionWallId, answer }
-      AnswerQuestionWall(data, success => {
-        setAnswer("")
-        setOpenAnswer((state) => !state)
-        getQuestionsList({ rfqPackageId: currentPackageId }, success => {
-          updateQuestionsList(success.data);
-        }, fail => {
-          console.log(fail)
-        })
-      }, fail => {
-        console.log(fail)
-      })
+      let data = { QuestionWallId, answer };
+      AnswerQuestionWall(
+        data,
+        (success) => {
+          setAnswer("");
+          setOpenAnswer((state) => !state);
+          getQuestionsList(
+            { rfqPackageId: currentPackageId },
+            (success) => {
+              updateQuestionsList(success.data);
+            },
+            (fail) => {
+              console.log(fail);
+            }
+          );
+        },
+        (fail) => {
+          console.log(fail);
+        }
+      );
     }
   }
 
   useEffect(() => {
-    let rfqId = props.rfqId;
-    GetRFQSummary(rfqId, success => {
-      updateRFQData(success.data);
-      updateRfqPackages(success.data.rfqPackages);
-      updateCurrentPackageId(success.data.rfqPackages[0].packageId)
-      updateDataSource(success.data.rfqPackages[0].rfqPackageDetails)
-      let data = {
-        rfqPackageId: success.data.rfqPackages[0].packageId
+    GetRFQSummary(
+      rfqId,
+      (success) => {
+        updateRFQData(success.data);
+        updateRfqPackages(success.data.rfqPackages);
+        updateCurrentPackageId(success.data.rfqPackages[0].packageId);
+        updateSummaryDataSource(success.data.rfqPackages[0].rfqPackageDetails);
+        let data = {
+          rfqPackageId: success.data.rfqPackages[0].packageId,
+        };
+        getQuestionsList(
+          data,
+          (success) => {
+            updateQuestionsList(success.data);
+          },
+          (fail) => {
+            console.log(fail);
+          }
+        );
+      },
+      (fail) => {
+        console.log(fail);
       }
-      getQuestionsList(data, success => {
-        updateQuestionsList(success.data);
-      }, fail => {
-        console.log(fail)
-      })
-    }, fail => {
-      console.log(fail)
-    })
-  }, [])
+    );
+  }, [rfqId]);
 
+  useEffect(() => {
+    if (currentPackageId) {
+      getAllQuotationsRecievedForRfq(
+        currentPackageId,
+        (success) => {
+          if (success.success) {
+            setQuotationsDataSource(success.data);
+          } else {
+            toast.error(success.message, {
+              position: "bottom-right",
+              rtl: true,
+            });
+          }
+        },
+        (fail) => {
+          toast.error(fail.data.message, {
+            position: "bottom-right",
+            rtl: true,
+          });
+        }
+      );
+    }
+  }, [currentPackageId]);
 
   const QAndAMenu = (
     <Menu className="px-2 py-4">
@@ -76,11 +121,18 @@ function MyRFQSummary(props) {
                       : "questionBlock my-2 grayBackground p-2"
                   }
                 >
-                  <div className="f-14 fw-600 question">{question.question}</div>
+                  <div className="f-14 fw-600 question">
+                    {question.question}
+                  </div>
 
                   <div className="info d-flex">
-                    <div>{question.sUpplierContractorName} {currentLocal.buyerHome.asked} </div>
-                    <div className="date">{moment(question.questionDate).format("LLL")}</div>
+                    <div>
+                      {question.sUpplierContractorName}{" "}
+                      {currentLocal.buyerHome.asked}{" "}
+                    </div>
+                    <div className="date">
+                      {moment(question.questionDate).format("LLL")}
+                    </div>
                   </div>
                   {!question.answer ? (
                     <>
@@ -98,15 +150,21 @@ function MyRFQSummary(props) {
                           }}
                         />
                         <div
-                          className={openAnswer ? "addQuestionBtn f-14 " : "d-none"}
-                          onClick={() => { handleAddAnswer(question.questionWallId) }}
+                          className={
+                            openAnswer ? "addQuestionBtn f-14 " : "d-none"
+                          }
+                          onClick={() => {
+                            handleAddAnswer(question.questionWallId);
+                          }}
                           role="button"
                         >
                           {currentLocal.buyerHome.addAnswer}
                         </div>
                       </div>
                       <div
-                        className={`info addAnswer d-flex justify-content-end ${openAnswer ? "d-none" : ""}`}
+                        className={`info addAnswer d-flex justify-content-end ${
+                          openAnswer ? "d-none" : ""
+                        }`}
                         onClick={() => setOpenAnswer((state) => !state)}
                       >
                         {currentLocal.buyerHome.addAnswer}
@@ -117,7 +175,9 @@ function MyRFQSummary(props) {
                       <div className="questionAnswer">{question.answer}</div>
                       <div className="info d-flex">
                         <div>You {currentLocal.buyerHome.answered} </div>
-                        <div className="date">{moment(question.answerDate).format("LLL")}</div>
+                        <div className="date">
+                          {moment(question.answerDate).format("LLL")}
+                        </div>
                       </div>
                     </>
                   )}
@@ -127,10 +187,10 @@ function MyRFQSummary(props) {
           </div>
         </div>
       </Menu.Item>
-    </Menu >
+    </Menu>
   );
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="myRFQSummary">
@@ -184,15 +244,19 @@ function MyRFQSummary(props) {
       </div>
       <div className="pps ppe">
         <div className="d-flex my-2 justify-content-between flex-wrap">
-          <div className="mx-3">{currentLocal.rfqSummary.projectName}:{rfqData.projectName}</div>
+          <div className="mx-3">
+            {currentLocal.rfqSummary.projectName}:{rfqData.projectName}
+          </div>
           <div className="mx-3">
             {currentLocal.rfqSummary.projectOwner}:{rfqData.projectOwner}
           </div>
           <div className="mx-3">
-            {currentLocal.rfqSummary.projectConsultant}:{rfqData.projectConsultant}
+            {currentLocal.rfqSummary.projectConsultant}:
+            {rfqData.projectConsultant}
           </div>
           <div className="mx-3">
-            {currentLocal.rfqSummary.projectContractor}:{rfqData.projectContractor}
+            {currentLocal.rfqSummary.projectContractor}:
+            {rfqData.projectContractor}
           </div>
           <div className="mx-3">
             {currentLocal.rfqSummary.deliveryDate}:{rfqData.projectContractor}
@@ -207,21 +271,32 @@ function MyRFQSummary(props) {
           </div>
           {rfqPackages.map((packageItem, packageIndex) => {
             return (
-              <div className="packageInfo mx-4 cursorPointer" key={packageIndex} onClick={() => {
-                updateCurrentPackageId(packageItem.packageId);
-                updateDataSource(packageItem.rfqPackageDetails);
-                let data = {
-                  rfqPackageId: packageItem.packageId
-                }
-                getQuestionsList(data, success => {
-                  updateQuestionsList(success.data);
-                }, fail => {
-                  console.log(fail)
-                })
-              }}>
-
+              <div
+                className="packageInfo mx-4 cursorPointer"
+                key={packageIndex}
+                onClick={() => {
+                  updateCurrentPackageId(packageItem.packageId);
+                  updateSummaryDataSource(packageItem.rfqPackageDetails);
+                  let data = {
+                    rfqPackageId: packageItem.packageId,
+                  };
+                  getQuestionsList(
+                    data,
+                    (success) => {
+                      updateQuestionsList(success.data);
+                    },
+                    (fail) => {
+                      console.log(fail);
+                    }
+                  );
+                }}
+              >
                 <img
-                  src={currentPackageId === packageItem.packageId ? Package : PackageDisabled}
+                  src={
+                    currentPackageId === packageItem.packageId
+                      ? Package
+                      : PackageDisabled
+                  }
                   alt="Package"
                 />
                 <div
@@ -239,8 +314,16 @@ function MyRFQSummary(props) {
           })}
         </div>
       </div>
-      <SummaryTable currentPackageId={currentPackageId} dataSourceList={dataSource} />
-      <AllQuotaionsRecievedForRFQ dataSourceProp={false} />
+      <SummaryTable
+        currentPackageId={currentPackageId}
+        dataSourceList={summaryDataSource}
+      />
+      <AllQuotaionsRecievedForRFQ
+        quotaionsDataSource={quotaionsDataSource}
+        setQuotationsDataSource={() => setQuotationsDataSource()}
+        summaryDataSource={summaryDataSource}
+        updateSummaryDataSource={() => updateSummaryDataSource()}
+      />
     </div>
   );
 }

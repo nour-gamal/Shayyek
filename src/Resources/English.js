@@ -221,6 +221,7 @@ export const en = {
     whatsapp: "WhatsApp",
     copyLink: "Copy link",
     addToFavVendors: "Add to My Favourite Vendors",
+    deleteFavVendors: "Delete From My Favourite Vendors",
     addToMySummary: "Add to My Summary",
     addedToFavVendors: "Added to My Favourite Vendors",
   },
@@ -267,8 +268,8 @@ export const en = {
     hide: "Hide",
     show: "Show",
     Company: "Company",
-    noAvailbleDocument: 'No available document',
-    vendorNotes: 'Vendor Notes',
+    noAvailbleDocument: "No available document",
+    vendorNotes: "Vendor Notes",
     package: "Package",
   },
   supplierHome: {
@@ -425,7 +426,7 @@ export const en = {
     addAnswer: "Add Answer",
     asked: "Asked",
     answered: "Answered",
-    me: 'Me',
+    me: "Me",
     otherVendor: "Other Vendor",
   },
   home: {
@@ -495,8 +496,8 @@ export const en = {
     mySummary: "My Summary",
     acceptAndNotifyVendors: "Accept & Notify Vendors",
     covertToReverseAuction: "Convert To Reverse Auction",
-    viewQuotation: 'View Quotation',
+    viewQuotation: "View Quotation",
     AddToMySummary: "Add To My Summary",
-    vendorNotes: "Vendor notes"
+    vendorNotes: "Vendor notes",
   },
 };

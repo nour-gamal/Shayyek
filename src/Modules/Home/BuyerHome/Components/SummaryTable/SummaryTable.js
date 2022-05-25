@@ -4,7 +4,13 @@ import { useSelector } from "react-redux";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { Table, Menu, Dropdown, Radio } from "antd";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
-import { BuyerAcceptPackageItems, FilterPackageOffer, GetImagePath, GetItemOffers, GetSummaryFilter } from "../../../../ProfilePage/network";
+import {
+  BuyerAcceptPackageItems,
+  FilterPackageOffer,
+  GetImagePath,
+  GetItemOffers,
+  GetSummaryFilter,
+} from "../../../../ProfilePage/network";
 import Whatsapp from "../../../../../Resources/Assets/whatsapp.svg";
 import CopyLink from "../../../../../Resources/Assets/copyLink.svg";
 import Email from "../../../../../Resources/Assets/email.svg";
@@ -15,9 +21,8 @@ import arrowDropdown from "../../../../../Resources/Assets/arrowDropDown.svg";
 import { useScreenshot } from "use-react-screenshot";
 import download from "../../../../../Resources/Assets/direct-download.svg";
 import { baseUrl } from "../../../../../Services";
-import moment from 'moment'
+import moment from "moment";
 import "./SummaryTable.css";
-import { countBy } from "lodash";
 import SingleRFQModal from "../../../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
 
 function SummaryTable({ dataSourceList, currentPackageId }) {
@@ -25,13 +30,13 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
   // eslint-disable-next-line
   const [loading, updateLoading] = useState(false);
   const [imageURL, updateImageURL] = useState(null);
-  const [dataSource, updateDataSource] = useState([])
+  const [dataSource, updateDataSource] = useState([]);
   const [image, takeScreenshot] = useScreenshot();
   const [otherVendorsItems, updateOtherVendorsItems] = useState([]);
   const [hoveredRow, updateHoveredRow] = useState(null);
   const [filterListItems, updateFilterListItems] = useState([]);
   const [ViewQuotationModal, updateViewQuotationModal] = useState(false);
-  const [rfqDetailId, updateRfqDetailId] = useState(null)
+  const [rfqDetailId, updateRfqDetailId] = useState(null);
   const ref = createRef(null);
   const getBlobImg = async (image) => {
     const blob = await fetch(image).then((res) => res.blob());
@@ -49,14 +54,18 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
       }
     );
   };
+
   useEffect(() => {
-    updateDataSource([...dataSourceList])
-    GetSummaryFilter(success => {
-      updateFilterListItems(success.data)
-    }, fail => {
-      console.log(fail)
-    })
-  }, [dataSourceList])
+    updateDataSource([...dataSourceList]);
+    GetSummaryFilter(
+      (success) => {
+        updateFilterListItems(success.data);
+      },
+      (fail) => {
+        console.log(fail);
+      }
+    );
+  }, [dataSourceList]);
   useEffect(() => {
     if (image) {
       getBlobImg(image);
@@ -68,29 +77,34 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
       <Radio.Group
         defaultValue={0}
         onChange={(e) => {
-          let data = { PackageId: currentPackageId, FilterId: filterListItems[e.target.value].id }
-          FilterPackageOffer(data, success => {
-            updateDataSource(success.data)
-          }, fail => {
-            console.log(fail)
-          })
-        }
-        }
+          let data = {
+            PackageId: currentPackageId,
+            FilterId: filterListItems[e.target.value].id,
+          };
+          FilterPackageOffer(
+            data,
+            (success) => {
+              updateDataSource(success.data);
+            },
+            (fail) => {
+              console.log(fail);
+            }
+          );
+        }}
       >
-        {
-          filterListItems.map((item, itemIndex) => {
-            return <Menu.Item key={itemIndex}>
+        {filterListItems.map((item, itemIndex) => {
+          return (
+            <Menu.Item key={itemIndex}>
               <div className="d-flex">
                 <Radio value={itemIndex}>
                   <div className="fliter-menu-item">{item.name}</div>
                 </Radio>
               </div>
             </Menu.Item>
-          })
-        }
-
+          );
+        })}
       </Radio.Group>
-    </Menu >
+    </Menu>
   );
 
   const shareMenu = (
@@ -131,13 +145,13 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
     </Menu>
   );
   const handleAddItemToSummary = (itemIndex, newItem) => {
-    let newDataSource = [...dataSource]
+    let newDataSource = [...dataSource];
     newDataSource[itemIndex].unitPrice = newItem.unitPrice;
     newDataSource[itemIndex].totalPrice = newItem.totalPrice;
-    newDataSource[itemIndex].paymentTerms = newItem.paymentTerms
-    newDataSource[itemIndex].rfqPackageDetailId = newItem.filledDetailedId
-    updateDataSource(newDataSource)
-  }
+    newDataSource[itemIndex].paymentTerms = newItem.paymentTerms;
+    newDataSource[itemIndex].rfqPackageDetailId = newItem.filledDetailedId;
+    updateDataSource(newDataSource);
+  };
 
   const columns = [
     {
@@ -145,42 +159,76 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
       dataIndex: "item",
       key: "item",
       render: (item, record, index) => {
-        return <div className='itemContainer cursorPointer'
-          onMouseEnter={() => {
-            updateHoveredRow(index);
-            let data = { ItemId: record.rfqPackageDetailId }
-            GetItemOffers(data, success => {
-              updateOtherVendorsItems(success.data)
-            }, fail => {
-              console.log(fail)
-            })
-          }} onMouseLeave={() => {
-            updateHoveredRow(null);
-          }}>
-          <div>{item}</div>
-          {
-            hoveredRow === index && otherVendorsItems.length > 0 && <div className='overlayedItemPage'>
-              {otherVendorsItems.map((item, newItemIndex) => {
-                return <div className="item">
-                  <div className='name'>{item.companyOrIndvidualName}</div>
-                  <div className='d-flex justify-content-between info'>
-                    <div className="price mx-2">{currentLocal.offerTable.price}: {item.totalPrice}LE</div>
-                    <div className="deliveryDate mx-2">{currentLocal.offerTable.deliveryDate}:{item.deliveryDate}</div>
-                    <div className="paymentTerms mx-2">{currentLocal.offerTable.paymentTerms}:{item.paymentTerms}</div>
-                  </div>
-                  <div className="d-flex justify-content-end my-2">
-                    <button className='button-secondary mx-2' onClick={() => {
-                      updateViewQuotationModal(true);
-                      updateRfqDetailId(item.filledDetailedId)
-                    }}>{currentLocal.rfqSummary.viewQuotation}</button>
-                    <button className='button-primary mx-2' onClick={() => { handleAddItemToSummary(index, otherVendorsItems[newItemIndex]) }}>{currentLocal.rfqSummary.AddToMySummary}</button>
-                  </div>
-                </div>
-              })}
-            </div>
-          }
-        </div >
-      }
+        return (
+          <div
+            className="itemContainer cursorPointer"
+            onMouseEnter={() => {
+              updateHoveredRow(index);
+              let data = { ItemId: record.rfqPackageDetailId };
+              GetItemOffers(
+                data,
+                (success) => {
+                  updateOtherVendorsItems(success.data);
+                },
+                (fail) => {
+                  console.log(fail);
+                }
+              );
+            }}
+            onMouseLeave={() => {
+              updateHoveredRow(null);
+            }}
+          >
+            <div>{item}</div>
+            {hoveredRow === index && otherVendorsItems.length > 0 && (
+              <div className="overlayedItemPage">
+                {otherVendorsItems.map((item, newItemIndex) => {
+                  return (
+                    <div className="item">
+                      <div className="name">{item.companyOrIndvidualName}</div>
+                      <div className="d-flex justify-content-between info">
+                        <div className="price mx-2">
+                          {currentLocal.offerTable.price}: {item.totalPrice}LE
+                        </div>
+                        <div className="deliveryDate mx-2">
+                          {currentLocal.offerTable.deliveryDate}:
+                          {item.deliveryDate}
+                        </div>
+                        <div className="paymentTerms mx-2">
+                          {currentLocal.offerTable.paymentTerms}:
+                          {item.paymentTerms}
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-end my-2">
+                        <button
+                          className="button-secondary mx-2"
+                          onClick={() => {
+                            updateViewQuotationModal(true);
+                            updateRfqDetailId(item.filledDetailedId);
+                          }}
+                        >
+                          {currentLocal.rfqSummary.viewQuotation}
+                        </button>
+                        <button
+                          className="button-primary mx-2"
+                          onClick={() => {
+                            handleAddItemToSummary(
+                              index,
+                              otherVendorsItems[newItemIndex]
+                            );
+                          }}
+                        >
+                          {currentLocal.rfqSummary.AddToMySummary}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        );
+      },
     },
     {
       title: currentLocal.buyerHome.description,
@@ -217,8 +265,8 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
       dataIndex: "deliveryDate",
       key: "deliveryDate",
       render: (deliveryDate) => {
-        return moment(deliveryDate).format('DD-MM-YYYY')
-      }
+        return moment(deliveryDate).format("DD-MM-YYYY");
+      },
     },
     {
       title: currentLocal.offerTable.paymentTerms,
@@ -241,24 +289,27 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
     }
   };
   const acceptOffer = () => {
-    let itemIds = []
+    let itemIds = [];
 
-    dataSource.forEach(item => {
-      itemIds.push(item.rfqPackageDetailId)
-    })
-
+    dataSource.forEach((item) => {
+      itemIds.push(item.rfqPackageDetailId);
+    });
 
     let data = {
-      filledItemIds: itemIds
-    }
-    BuyerAcceptPackageItems(data, success => {
-      if (success.success) {
-        alert('Offer accepted')
+      filledItemIds: itemIds,
+    };
+    BuyerAcceptPackageItems(
+      data,
+      (success) => {
+        if (success.success) {
+          alert("Offer accepted");
+        }
+      },
+      (fail) => {
+        console.log(fail);
       }
-    }, fail => {
-      console.log(fail)
-    })
-  }
+    );
+  };
 
   return (
     <div className="pps ppe summaryTable mb-3" ref={ref}>
@@ -330,14 +381,16 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
           {currentLocal.rfqSummary.acceptAndNotifyVendors}
         </button>
       </div>
-      {ViewQuotationModal && <SingleRFQModal
-        isModalVisible={ViewQuotationModal}
-        onCancel={() => {
-          updateViewQuotationModal(false)
-        }}
-        mode={'ViewRFQDetails'}
-        rfqDetailId={rfqDetailId}
-      />}
+      {ViewQuotationModal && (
+        <SingleRFQModal
+          isModalVisible={ViewQuotationModal}
+          onCancel={() => {
+            updateViewQuotationModal(false);
+          }}
+          mode={"ViewRFQDetails"}
+          rfqDetailId={rfqDetailId}
+        />
+      )}
     </div>
   );
 }

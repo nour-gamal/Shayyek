@@ -1,7 +1,10 @@
 import React, { useState, createRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Table, Menu, Dropdown, Radio } from "antd";
-import { GetImagePath } from "../../../../ProfilePage/network";
+import {
+  GetImagePath,
+  ViewPackageQuotation,
+} from "../../../../ProfilePage/network";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { useScreenshot } from "use-react-screenshot";
 import addIcon from "../../../../../Resources/Assets/plusGray.svg";
@@ -14,40 +17,24 @@ import deleteIcon from "../../../../../Resources/Assets/deletee.svg";
 import { baseUrl } from "../../../../../Services";
 import actionListIcon from "../../../../../Resources/Assets/actionList.svg";
 import "./AllQuotationsRecievedTable.css";
+import SingleRFQModal from "../../../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
 
-function AllQuotaionsRecievedForRFQ({ dataSourceProp }) {
+function AllQuotaionsRecievedForRFQ({
+  quotaionsDataSource,
+  summaryDataSource,
+  setQuotationsDataSource,
+  updateSummaryDataSource,
+}) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   // eslint-disable-next-line
   const [loading, updateLoading] = useState(false);
   const [imageURL, updateImageURL] = useState(null);
   const [image, takeScreenshot] = useScreenshot();
   const [hideTable, setHideTable] = useState(false);
-
-  const dataSource = [
-    {
-      name: "name",
-      company: "company",
-      price: "price",
-      city: "city",
-      paymentConditions: "paymentConditions",
-      rating: "rating",
-      volumeOfWorkFromShyeek: "volumeOfWorkFromShyeek",
-      notes: "notes",
-      actionList: "actionList",
-    },
-    {
-      name: "name",
-      company: "company",
-      price: "price",
-      city: "city",
-      paymentConditions: "paymentConditions",
-      rating: "rating",
-      volumeOfWorkFromShyeek: "volumeOfWorkFromShyeek",
-      notes: "notes",
-      actionList: "actionList",
-    },
-  ];
+  const [viewQuotationModal, setViewQuotationModal] = useState(false);
+  const [selectedFilledPackageId, setSelectedFilledPackageId] = useState(null);
   const ref = createRef(null);
+
   const getBlobImg = async (image) => {
     const blob = await fetch(image).then((res) => res.blob());
     // const blobUrl = window.URL.createObjectURL(blob);
@@ -66,55 +53,78 @@ function AllQuotaionsRecievedForRFQ({ dataSourceProp }) {
       }
     );
   };
+
   useEffect(() => {
     if (image) {
       getBlobImg(image);
     }
   }, [image]);
 
-  const actionMenu = (
-    <Menu>
-      <Menu.Item key="4">
-        <div className="d-flex">
-          <img src={viewIcon} alt="CopyLink" />
-          <div className="mx-2">{currentLocal.profilePage.view}</div>
-        </div>
-      </Menu.Item>
-      <Menu.Item key="3">
-        <div className="d-flex">
-          <img src={heartIcon} alt="heart icon" />
-          <div className="mx-2">{currentLocal.profilePage.addToFavVendors}</div>
-        </div>
-      </Menu.Item>
-      <Menu.Item key="4">
-        <div className="d-flex">
-          <img src={acceptOfferIcon} alt="accept offer" />
-          <div className="mx-2">{currentLocal.profilePage.acceptOffer}</div>
-        </div>
-      </Menu.Item>
-      <Menu.Item key="3">
-        <div className="d-flex">
-          <img src={addIcon} alt="add icon" />
-          <div className="mx-2">{currentLocal.profilePage.addToMySummary}</div>
-        </div>
-      </Menu.Item>
-      <Menu.Item key="4">
-        <div className="d-flex">
-          <img src={chatIcon} alt="conversation icon" />
-          <div className="mx-2">
-            {currentLocal.offerTable.startConversation}
+  const actionMenu = (data) => {
+    return (
+      <Menu>
+        <Menu.Item>
+          <div
+            className="d-flex"
+            role={"button"}
+            onClick={() => {
+              setSelectedFilledPackageId(data.filledPackageId);
+              setViewQuotationModal(true);
+            }}
+          >
+            <img src={viewIcon} alt="CopyLink" />
+            <div className="mx-2">{currentLocal.profilePage.view}</div>
           </div>
-        </div>
-      </Menu.Item>
-      <Menu.Item key="3">
-        <div className="d-flex">
-          <img src={deleteIcon} alt="delete icon" />
-          <div className="mx-2">{currentLocal.profilePage.addToFavVendors}</div>
-        </div>
-      </Menu.Item>
-    </Menu>
-  );
-
+        </Menu.Item>
+        <Menu.Item
+          style={{
+            display: data.isFavourite ? "none" : "block",
+          }}
+        >
+          <div className="d-flex" role={"button"}>
+            <img src={heartIcon} alt="heart icon" />
+            <div className="mx-2">
+              {currentLocal.profilePage.addToFavVendors}
+            </div>
+          </div>
+        </Menu.Item>
+        <Menu.Item>
+          <div className="d-flex">
+            <img src={acceptOfferIcon} alt="accept offer" />
+            <div className="mx-2">{currentLocal.profilePage.acceptOffer}</div>
+          </div>
+        </Menu.Item>
+        <Menu.Item>
+          <div className="d-flex">
+            <img src={addIcon} alt="add icon" />
+            <div className="mx-2">
+              {currentLocal.profilePage.addToMySummary}
+            </div>
+          </div>
+        </Menu.Item>
+        <Menu.Item>
+          <div className="d-flex">
+            <img src={chatIcon} alt="conversation icon" />
+            <div className="mx-2">
+              {currentLocal.offerTable.startConversation}
+            </div>
+          </div>
+        </Menu.Item>
+        <Menu.Item
+          style={{
+            display: !data.isFavourite ? "none" : "block",
+          }}
+        >
+          <div className="d-flex" role={"button"}>
+            <img src={deleteIcon} alt="delete icon" />
+            <div className="mx-2">
+              {currentLocal.profilePage.deleteFavVendors}
+            </div>
+          </div>
+        </Menu.Item>
+      </Menu>
+    );
+  };
   const columns = [
     {
       title: currentLocal.suppliers.name,
@@ -148,8 +158,8 @@ function AllQuotaionsRecievedForRFQ({ dataSourceProp }) {
     },
     {
       title: currentLocal.offerTable.volumeOfWorkFromShyeek,
-      dataIndex: "volumeOfWorkFromShyeek",
-      key: "volumeOfWorkFromShyeek",
+      dataIndex: "volumeOfWork",
+      key: "volumeOfWork",
     },
     {
       title: currentLocal.offerTable.notes,
@@ -160,13 +170,15 @@ function AllQuotaionsRecievedForRFQ({ dataSourceProp }) {
       title: currentLocal.profilePage.actionList,
       dataIndex: "actionList",
       key: "actionList",
-      render: () => (
-        <Dropdown.Button
-          overlay={actionMenu}
-          trigger={["click"]}
-          icon={<img src={actionListIcon} alt="share" onClick={shareOffer} />}
-        ></Dropdown.Button>
-      ),
+      render: (none, data) => {
+        return (
+          <Dropdown.Button
+            overlay={() => actionMenu(data)}
+            trigger={["click"]}
+            icon={<img src={actionListIcon} alt="share" onClick={shareOffer} />}
+          ></Dropdown.Button>
+        );
+      },
     },
   ];
 
@@ -208,22 +220,36 @@ function AllQuotaionsRecievedForRFQ({ dataSourceProp }) {
         author="shayyek"
       >
         <Table
-          key={dataSource}
+          dataSource={quotaionsDataSource}
           style={{
             display: `${hideTable ? "none" : "block"}`,
           }}
           indentSize={300}
           columns={columns}
-          dataSource={dataSource}
           loading={loading}
           className="my-4"
         />
       </PDFExport>
-      <div className="text-center">
+      <div
+        className="text-center"
+        style={{
+          display: `${hideTable ? "none" : "block"}`,
+        }}
+      >
         <button className="button-primary flat my-2">
           {currentLocal.rfqSummary.covertToReverseAuction}
         </button>
       </div>
+      {viewQuotationModal && (
+        <SingleRFQModal
+          isModalVisible={viewQuotationModal}
+          onCancel={() => {
+            setViewQuotationModal(false);
+          }}
+          mode={"ViewRFQDetails"}
+          filledPackageId={selectedFilledPackageId}
+        />
+      )}
     </div>
   );
 }

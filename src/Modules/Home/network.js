@@ -60,11 +60,7 @@ export const getCCEmailsList = (
   GetResource(path, onSuccess, onFail, reqAuth);
 };
 
-export const GetCCColleagues = (
-  onSuccess,
-  onFail,
-  reqAuth = true
-) => {
+export const GetCCColleagues = (onSuccess, onFail, reqAuth = true) => {
   const path = `api/RFQ/GetCCColleagues`;
   GetResource(path, onSuccess, onFail, reqAuth);
 };
@@ -284,3 +280,24 @@ export function editRFQPackage(data, onSuccess, onFail, reqAuth = true) {
   const path = `api/RFQ/EditRFQ`;
   PostResource(path, data, onSuccess, onFail, reqAuth);
 }
+
+export function getAllQuotationsRecievedForRfq(
+  packageId,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) {
+  const path = `api/RFQ/AllQuotationsByPackage?packageId=${packageId}`;
+  GetResource(path, onSuccess, onFail, reqAuth);
+}
+
+export function ViewPackageQuotationForSupplier(
+  filledPackageId,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) {
+  const path = `api/RFQ/ViewPackageQuotationForSupplier?FilldPackageId=${filledPackageId}`;
+  GetResource(path, onSuccess, onFail, reqAuth);
+}
+//
