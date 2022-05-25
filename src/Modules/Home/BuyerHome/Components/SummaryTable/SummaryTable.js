@@ -24,6 +24,7 @@ import { baseUrl } from "../../../../../Services";
 import moment from "moment";
 import "./SummaryTable.css";
 import SingleRFQModal from "../../../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
+import { toast } from "react-toastify";
 
 function SummaryTable({ dataSourceList, currentPackageId }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -302,7 +303,10 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
       data,
       (success) => {
         if (success.success) {
-          alert("Offer accepted");
+          toast.success("Offer accepted!", {
+            position: "bottom-right",
+            rtl: true,
+          });
         }
       },
       (fail) => {
@@ -315,7 +319,7 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
     <div className="pps ppe summaryTable mb-3" ref={ref}>
       <div className="d-flex justify-content-between">
         <div className="d-flex align-items-center">
-          <div className="title fw-500 mx-3">
+          <div className="title fw-500 mx-3 f-18">
             <div>{currentLocal.rfqSummary.mySummary}</div>
           </div>
           <img

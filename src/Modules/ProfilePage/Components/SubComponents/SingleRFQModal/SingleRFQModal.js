@@ -40,8 +40,8 @@ import autocad from "../../../../../Resources/Assets/autocad.svg";
 import plus from "../../../../../Resources/Assets/plus (2).svg";
 import { Alert } from "react-bootstrap";
 import heart from "../../../../../Resources/Assets/heart.svg";
-import "./SingleRFQModal.css";
 import { toast } from "react-toastify";
+import "./SingleRFQModal.css";
 
 function SingleRFQModal({
   isModalVisible,
@@ -70,6 +70,7 @@ function SingleRFQModal({
   const [packageName, updatePackageName] = useState("");
   const [includeVat, updateIncludeVat] = useState("");
   const [vendorId, updateVendorId] = useState(null);
+  const [isAddedToFavVendor, updateIsAddedToFavVendor] = useState(true)
   useEffect(() => {
     if (mode === "ViewRFQDetails" && rfqDetailId) {
       let data = { FilledItemId: rfqDetailId };
@@ -84,8 +85,9 @@ function SingleRFQModal({
           updateValidityOfferDate(success.data.receivingOffersDeadline);
           updateDocumentsList(success.data.packageFiles);
           updatePaymentTerms(success.data.paymentTerms);
-          updateIncludeVat(success.data.includeVat ? "Yes" : "No");
+          updateIncludeVat(success.data.includingVAT ? "Yes" : "No");
           updateVendorId(success.data.vendorId);
+          updateIsAddedToFavVendor(!success.data.isFavourite)
         },
         (fail) => {
           console.log(fail);
@@ -102,7 +104,6 @@ function SingleRFQModal({
             updateVendorNotes(data.notes);
             updateAddress(data.address);
             updatePackageName(data.packageName);
-            updateDeliveryDate(data.deliveryDate);
             updateRFQDetails(data.rfqPackageDetails);
             updateValidityOfferDate(data.receivingOffersDeadline);
             updateDocumentsList(data.packageFiles);
@@ -151,13 +152,14 @@ function SingleRFQModal({
   const handleAddToMyFavVend = () => {
     let data = {
       vendorId,
-      isAdded: true,
+      isAdded: isAddedToFavVendor,
     };
     AddToMyFavVendors(
       data,
       (success) => {
         if (success.success) {
-          onCancel();
+          updateIsAddedToFavVendor(!isAddedToFavVendor)
+          // onCancel();
         }
       },
       (fail) => {
@@ -362,17 +364,33 @@ function SingleRFQModal({
       render: (itemDocument, record) => {
         return (
           <>
-            {itemDocument ? (
-              <img
-                src={download}
-                alt="download"
-                onClick={() => {
-                  saveAs(`${baseUrl}${itemDocument}`);
-                }}
-              />
-            ) : (
-              <>{currentLocal.offerTable.noAvailbleDocument}</>
-            )}
+            {mode === "ViewRFQDetails" ? <>
+              {record.itemFilePath ? (
+                <img
+                  src={download}
+                  alt="download"
+                  onClick={() => {
+                    saveAs(`${baseUrl}${record.itemFilePath}`);
+                  }}
+                  className='cursorPointer'
+                />
+              ) : (
+                <>{currentLocal.offerTable.noAvailbleDocument}</>
+              )}
+            </> :
+              <>
+                {itemDocument ? (
+                  <img
+                    src={download}
+                    alt="download"
+                    onClick={() => {
+                      saveAs(`${baseUrl}${itemDocument}`);
+                    }}
+                    className='cursorPointer'
+                  />
+                ) : (
+                  <>{currentLocal.offerTable.noAvailbleDocument}</>
+                )}</>}
           </>
         );
       },
@@ -386,8 +404,8 @@ function SingleRFQModal({
           <div>
             {mode === "ViewRFQDetails" ? (
               <div>
-                {filePath && filePath.length ? (
-                  <a href={baseUrl + filePath}>{filePath.split(" ")[1]}</a>
+                {record.filledFilePath && record.filledFilePath.length ? (
+                  <a href={baseUrl + record.filledFilePath}>{record.filledFilePath.split(" ")[1]}</a>
                 ) : (
                   <>{currentLocal.offerTable.noAvailbleDocument}</>
                 )}
@@ -460,9 +478,9 @@ function SingleRFQModal({
       current &&
       (current.valueOf() < Date.now() ||
         current.valueOf() >
-          moment()
-            .add(4, "days")
-            .valueOf())
+        moment()
+          .add(4, "days")
+          .valueOf())
     );
   }
   const handleFillRFQ = (isDrafted) => {
@@ -552,16 +570,16 @@ function SingleRFQModal({
             <div className="d-flex justify-content-between flex-1">
               <div className="d-flex">
                 <div className="mx-4">
-                  <div>
+                  {vendorNotes && <div>
                     {currentLocal.offerTable.vendorNotes}:{vendorNotes}
-                  </div>
+                  </div>}
                   <div>
                     {currentLocal.offerTable.package}:{packageName}
                   </div>
                 </div>
                 <div className="mx-4">
                   <div>
-                    {currentLocal.offerTable.deliveryDate}:{deliveryDate}
+                    {currentLocal.offerTable.deliveryDate}:{moment(deliveryDate).format('DD-MM-YYYY')}
                   </div>
                   <div>
                     {currentLocal.offerTable.deliveryAddress}:{address}
@@ -573,7 +591,7 @@ function SingleRFQModal({
                 onClick={handleAddToMyFavVend}
               >
                 <img src={heart} alt="heart" />
-                <span>{currentLocal.profilePage.addToFavVendors}</span>
+                <span>{isAddedToFavVendor ? currentLocal.profilePage.addToFavVendors : currentLocal.profilePage.deleteFavVendors}</span>
               </button>
             </div>
           ) : (
@@ -747,10 +765,10 @@ function SingleRFQModal({
               let type = doc.contentType.includes("pdf")
                 ? pdfIcon
                 : doc.contentType.includes("dwg")
-                ? autocad
-                : doc.contentType.includes("doc")
-                ? docIcon
-                : excel;
+                  ? autocad
+                  : doc.contentType.includes("doc")
+                    ? docIcon
+                    : excel;
               return (
                 <div className="d-flex m-2">
                   <img src={type} alt="pdf" className="mx-2" />
@@ -785,7 +803,7 @@ function SingleRFQModal({
                 className="button-secondary mx-1 favVendorBtn"
                 onClick={handleAddToMyFavVend}
               >
-                {currentLocal.profilePage.addToFavVendors}
+                {isAddedToFavVendor ? currentLocal.profilePage.addToFavVendors : currentLocal.profilePage.deleteFavVendors}
               </button>
               <button className="button-primary mx-1" onClick={acceptOffer}>
                 {currentLocal.offerTable.acceptOffer}
