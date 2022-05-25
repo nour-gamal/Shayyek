@@ -70,7 +70,7 @@ function SingleRFQModal({
   const [packageName, updatePackageName] = useState("");
   const [includeVat, updateIncludeVat] = useState("");
   const [vendorId, updateVendorId] = useState(null);
-  const [isAddedToFavVendor, updateIsAddedToFavVendor] = useState(true)
+  const [isAddedToFavVendor, updateIsAddedToFavVendor] = useState(true);
   useEffect(() => {
     if (mode === "ViewRFQDetails" && rfqDetailId) {
       let data = { FilledItemId: rfqDetailId };
@@ -87,7 +87,7 @@ function SingleRFQModal({
           updatePaymentTerms(success.data.paymentTerms);
           updateIncludeVat(success.data.includingVAT ? "Yes" : "No");
           updateVendorId(success.data.vendorId);
-          updateIsAddedToFavVendor(!success.data.isFavourite)
+          updateIsAddedToFavVendor(!success.data.isFavourite);
         },
         (fail) => {
           console.log(fail);
@@ -147,6 +147,7 @@ function SingleRFQModal({
         }
       );
     }
+    // eslint-disable-next-line
   }, [rfqPackageId, mode, rfqDetailId]);
 
   const handleAddToMyFavVend = () => {
@@ -158,7 +159,7 @@ function SingleRFQModal({
       data,
       (success) => {
         if (success.success) {
-          updateIsAddedToFavVendor(!isAddedToFavVendor)
+          updateIsAddedToFavVendor(!isAddedToFavVendor);
           // onCancel();
         }
       },
@@ -364,20 +365,22 @@ function SingleRFQModal({
       render: (itemDocument, record) => {
         return (
           <>
-            {mode === "ViewRFQDetails" ? <>
-              {record.itemFilePath ? (
-                <img
-                  src={download}
-                  alt="download"
-                  onClick={() => {
-                    saveAs(`${baseUrl}${record.itemFilePath}`);
-                  }}
-                  className='cursorPointer'
-                />
-              ) : (
-                <>{currentLocal.offerTable.noAvailbleDocument}</>
-              )}
-            </> :
+            {mode === "ViewRFQDetails" ? (
+              <>
+                {record.itemFilePath ? (
+                  <img
+                    src={download}
+                    alt="download"
+                    onClick={() => {
+                      saveAs(`${baseUrl}${record.itemFilePath}`);
+                    }}
+                    className="cursorPointer"
+                  />
+                ) : (
+                  <>{currentLocal.offerTable.noAvailbleDocument}</>
+                )}
+              </>
+            ) : (
               <>
                 {itemDocument ? (
                   <img
@@ -386,11 +389,13 @@ function SingleRFQModal({
                     onClick={() => {
                       saveAs(`${baseUrl}${itemDocument}`);
                     }}
-                    className='cursorPointer'
+                    className="cursorPointer"
                   />
                 ) : (
                   <>{currentLocal.offerTable.noAvailbleDocument}</>
-                )}</>}
+                )}
+              </>
+            )}
           </>
         );
       },
@@ -405,7 +410,9 @@ function SingleRFQModal({
             {mode === "ViewRFQDetails" ? (
               <div>
                 {record.filledFilePath && record.filledFilePath.length ? (
-                  <a href={baseUrl + record.filledFilePath}>{record.filledFilePath.split(" ")[1]}</a>
+                  <a href={baseUrl + record.filledFilePath}>
+                    {record.filledFilePath.split(" ")[1]}
+                  </a>
                 ) : (
                   <>{currentLocal.offerTable.noAvailbleDocument}</>
                 )}
@@ -478,9 +485,9 @@ function SingleRFQModal({
       current &&
       (current.valueOf() < Date.now() ||
         current.valueOf() >
-        moment()
-          .add(4, "days")
-          .valueOf())
+          moment()
+            .add(4, "days")
+            .valueOf())
     );
   }
   const handleFillRFQ = (isDrafted) => {
@@ -570,16 +577,19 @@ function SingleRFQModal({
             <div className="d-flex justify-content-between flex-1">
               <div className="d-flex">
                 <div className="mx-4">
-                  {vendorNotes && <div>
-                    {currentLocal.offerTable.vendorNotes}:{vendorNotes}
-                  </div>}
+                  {vendorNotes && (
+                    <div>
+                      {currentLocal.offerTable.vendorNotes}:{vendorNotes}
+                    </div>
+                  )}
                   <div>
                     {currentLocal.offerTable.package}:{packageName}
                   </div>
                 </div>
                 <div className="mx-4">
                   <div>
-                    {currentLocal.offerTable.deliveryDate}:{moment(deliveryDate).format('DD-MM-YYYY')}
+                    {currentLocal.offerTable.deliveryDate}:
+                    {moment(deliveryDate).format("DD-MM-YYYY")}
                   </div>
                   <div>
                     {currentLocal.offerTable.deliveryAddress}:{address}
@@ -591,7 +601,11 @@ function SingleRFQModal({
                 onClick={handleAddToMyFavVend}
               >
                 <img src={heart} alt="heart" />
-                <span>{isAddedToFavVendor ? currentLocal.profilePage.addToFavVendors : currentLocal.profilePage.deleteFavVendors}</span>
+                <span>
+                  {isAddedToFavVendor
+                    ? currentLocal.profilePage.addToFavVendors
+                    : currentLocal.profilePage.deleteFavVendors}
+                </span>
               </button>
             </div>
           ) : (
@@ -765,10 +779,10 @@ function SingleRFQModal({
               let type = doc.contentType.includes("pdf")
                 ? pdfIcon
                 : doc.contentType.includes("dwg")
-                  ? autocad
-                  : doc.contentType.includes("doc")
-                    ? docIcon
-                    : excel;
+                ? autocad
+                : doc.contentType.includes("doc")
+                ? docIcon
+                : excel;
               return (
                 <div className="d-flex m-2">
                   <img src={type} alt="pdf" className="mx-2" />
@@ -803,7 +817,9 @@ function SingleRFQModal({
                 className="button-secondary mx-1 favVendorBtn"
                 onClick={handleAddToMyFavVend}
               >
-                {isAddedToFavVendor ? currentLocal.profilePage.addToFavVendors : currentLocal.profilePage.deleteFavVendors}
+                {isAddedToFavVendor
+                  ? currentLocal.profilePage.addToFavVendors
+                  : currentLocal.profilePage.deleteFavVendors}
               </button>
               <button className="button-primary mx-1" onClick={acceptOffer}>
                 {currentLocal.offerTable.acceptOffer}

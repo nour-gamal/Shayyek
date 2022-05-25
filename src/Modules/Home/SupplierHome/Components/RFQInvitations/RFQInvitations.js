@@ -52,6 +52,7 @@ function RFQInvitations({
       push("/");
       dispatch(deletePackageId());
     }
+    // eslint-disable-next-line
   }, [dispatch, packageId, push]);
 
   return (

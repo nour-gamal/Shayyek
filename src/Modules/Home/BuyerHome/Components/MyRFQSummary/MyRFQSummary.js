@@ -22,7 +22,6 @@ function MyRFQSummary({ rfqId }) {
   const [currentPackageId, updateCurrentPackageId] = useState(null);
   const [questionsList, updateQuestionsList] = useState([]);
   const [rfqPackages, updateRfqPackages] = useState([]);
-  // const [addQuestBtnState, updateAddQuestBtnState] = useState(false);
   const [openAnswer, setOpenAnswer] = useState(false);
   const [answer, setAnswer] = useState(null);
   const { currentLocal } = useSelector((state) => state.currentLocal);

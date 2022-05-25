@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { isEqual, isObject } from "lodash";
+import { isObject } from "lodash";
 import importIcon from "../../../../../Resources/Assets/import.svg";
 import addIcon from "../../../../../Resources/Assets/addIcon.svg";
 import Garbage from "../../../../../Resources/Assets/garbage.svg";
@@ -688,6 +688,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     if (activePackgeId !== null) {
       selectPackageToEdit(activePackgeId);
     }
+    // eslint-disable-next-line
   }, [activePackgeId]);
 
   function saveEditInPackage() {

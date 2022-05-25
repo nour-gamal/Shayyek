@@ -35,7 +35,9 @@ function AllQuotaionsRecievedForRFQ({
   setQuotationsDataSource,
   updateSummaryDataSource,
 }) {
+  // eslint-disable-next-line
   const [loading, updateLoading] = useState(false);
+  // eslint-disable-next-line
   const [imageURL, updateImageURL] = useState(null);
   const [image, takeScreenshot] = useScreenshot();
   const [hideTable, setHideTable] = useState(false);
@@ -363,6 +365,7 @@ function AllQuotaionsRecievedForRFQ({
 
   const pdfExportComponent = React.useRef(null);
 
+  // eslint-disable-next-line
   const exportPDFWithComponent = () => {
     if (pdfExportComponent.current) {
       pdfExportComponent.current.save();
