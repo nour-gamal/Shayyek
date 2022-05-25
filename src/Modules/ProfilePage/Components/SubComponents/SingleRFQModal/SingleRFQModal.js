@@ -84,7 +84,7 @@ function SingleRFQModal({
           updateValidityOfferDate(success.data.receivingOffersDeadline);
           updateDocumentsList(success.data.packageFiles);
           updatePaymentTerms(success.data.paymentTerms);
-          updateIncludeVat(success.data.includeVat ? "Yes" : "No");
+          updateIncludeVat(success.data.includingVAT ? "Yes" : "No");
           updateVendorId(success.data.vendorId);
         },
         (fail) => {
@@ -361,17 +361,33 @@ function SingleRFQModal({
       render: (itemDocument, record) => {
         return (
           <>
-            {itemDocument ? (
-              <img
-                src={download}
-                alt="download"
-                onClick={() => {
-                  saveAs(`${baseUrl}${itemDocument}`);
-                }}
-              />
-            ) : (
-              <>{currentLocal.offerTable.noAvailbleDocument}</>
-            )}
+            {mode === "ViewRFQDetails" ? <>
+              {record.itemFilePath ? (
+                <img
+                  src={download}
+                  alt="download"
+                  onClick={() => {
+                    saveAs(`${baseUrl}${record.itemFilePath}`);
+                  }}
+                  className='cursorPointer'
+                />
+              ) : (
+                <>{currentLocal.offerTable.noAvailbleDocument}</>
+              )}
+            </> :
+              <>
+                {itemDocument ? (
+                  <img
+                    src={download}
+                    alt="download"
+                    onClick={() => {
+                      saveAs(`${baseUrl}${itemDocument}`);
+                    }}
+                    className='cursorPointer'
+                  />
+                ) : (
+                  <>{currentLocal.offerTable.noAvailbleDocument}</>
+                )}</>}
           </>
         );
       },
@@ -385,8 +401,8 @@ function SingleRFQModal({
           <div>
             {mode === "ViewRFQDetails" ? (
               <div>
-                {filePath && filePath.length ? (
-                  <a href={baseUrl + filePath}>{filePath.split(" ")[1]}</a>
+                {record.filledFilePath && record.filledFilePath.length ? (
+                  <a href={baseUrl + record.filledFilePath}>{record.filledFilePath.split(" ")[1]}</a>
                 ) : (
                   <>{currentLocal.offerTable.noAvailbleDocument}</>
                 )}
@@ -459,9 +475,9 @@ function SingleRFQModal({
       current &&
       (current.valueOf() < Date.now() ||
         current.valueOf() >
-          moment()
-            .add(4, "days")
-            .valueOf())
+        moment()
+          .add(4, "days")
+          .valueOf())
     );
   }
   const handleFillRFQ = (isDrafted) => {
@@ -551,9 +567,9 @@ function SingleRFQModal({
             <div className="d-flex justify-content-between flex-1">
               <div className="d-flex">
                 <div className="mx-4">
-                  <div>
+                  {vendorNotes && <div>
                     {currentLocal.offerTable.vendorNotes}:{vendorNotes}
-                  </div>
+                  </div>}
                   <div>
                     {currentLocal.offerTable.package}:{packageName}
                   </div>
@@ -746,10 +762,10 @@ function SingleRFQModal({
               let type = doc.contentType.includes("pdf")
                 ? pdfIcon
                 : doc.contentType.includes("dwg")
-                ? autocad
-                : doc.contentType.includes("doc")
-                ? docIcon
-                : excel;
+                  ? autocad
+                  : doc.contentType.includes("doc")
+                    ? docIcon
+                    : excel;
               return (
                 <div className="d-flex m-2">
                   <img src={type} alt="pdf" className="mx-2" />
