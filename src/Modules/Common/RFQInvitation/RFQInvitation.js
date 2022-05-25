@@ -27,8 +27,8 @@ function RFQInvitation({ revealPrices, rfqDetails, updateRFQsList, parent }) {
       ? rfqDetails.rfqPackageDetails
       : []
     : rfqDetails.rfqPackageInvitationDetails
-    ? rfqDetails.rfqPackageInvitationDetails
-    : [];
+      ? rfqDetails.rfqPackageInvitationDetails
+      : [];
 
   function handleMenuClick(e) {
     switch (e.key) {
@@ -67,6 +67,7 @@ function RFQInvitation({ revealPrices, rfqDetails, updateRFQsList, parent }) {
       </Menu.Item>
     </Menu>
   );
+
 
   if (redirectTo === "RFQSummary") {
     return <Redirect to={`/RFQSummary/${rfqDetails.rfqHeaderId}`} />;
@@ -147,7 +148,7 @@ function RFQInvitation({ revealPrices, rfqDetails, updateRFQsList, parent }) {
           </div>
         );
       })}
-
+      {/* 
       {packages.map((packageItem) => {
         return (
           <div className="package-container">
@@ -208,7 +209,7 @@ function RFQInvitation({ revealPrices, rfqDetails, updateRFQsList, parent }) {
             )}
           </div>
         );
-      })}
+      })} */}
 
       {isRFQModalVisible && (
         <SingleRFQModal
