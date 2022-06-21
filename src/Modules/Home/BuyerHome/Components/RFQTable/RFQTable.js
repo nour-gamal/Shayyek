@@ -18,6 +18,9 @@ import {
   GetBuyerRFQForEdit,
   editRFQPackage,
 } from "../../../network";
+import closeIcon from "../../../../../Resources/Assets/tip-close.svg";
+import PackageEnabled from "../../../../../Resources/Assets/PackageEnabled_Dark.svg";
+import PackageDisabled from "../../../../../Resources/Assets/packageDisabled.svg";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import documents from "../../../../../Resources/Assets/paperClip.svg";
 import { GetImagePath } from "../../../../ProfilePage/network";
@@ -30,8 +33,8 @@ import docIcon from "../../../../../Resources/Assets/doc.svg";
 import excel from "../../../../../Resources/Assets/excel.svg";
 import autocad from "../../../../../Resources/Assets/autocad.svg";
 import close from "../../../../../Resources/Assets/tip-close.svg";
-import "./RFQTable.css";
 import { toast } from "react-toastify";
+import "./RFQTable.css";
 
 function CreateRFQ({ getRFQPageName, rfqId }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -70,6 +73,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [docLoadingState, updateDocLoadingState] = useState(false);
   const [rfqDetails, updateRFQDetails] = useState({});
   const [activePackgeId, setActivePackgeId] = useState(null);
+  const [createdActivePackId, updateCreatedActivePackId] = useState(null)
   const [rfqForEdit, setRfqForEdit] = useState(null);
   const [filledPackagesForEdit, setFilledPackagesForEdit] = useState([]);
   const { rfqData } = useSelector((state) => state.rfq);
@@ -88,10 +92,19 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             setActivePackgeId(rfqPackages[0]?.packageId);
           }
         },
-        (fail) => {}
+        (fail) => { }
       );
     }
   }, [rfqId]);
+
+
+  useEffect(()=>{
+if(createdActivePackId){
+  
+}
+
+
+  },[createdActivePackId])
 
   useEffect(() => {
     if (!rfqId) {
@@ -243,6 +256,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             deliveryToId: deliveredTo,
             packageCCColleagues: [...ccEmailsIDs],
             packageFiles,
+            packageTempId: new Date().getTime()
           },
         ],
       };
@@ -334,7 +348,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                       unit: name[index.unit],
                       quantity:
                         typeof name[index.quantity] === "string" ||
-                        name[index.quantity] === undefined
+                          name[index.quantity] === undefined
                           ? 1
                           : name[index.quantity],
                       isInstallSupplierAndContructor: false,
@@ -726,7 +740,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                 setRfqForEdit(success.data);
               }
             },
-            (fail) => {}
+            (fail) => { }
           );
         } else {
           toast.error(success.message, {
@@ -755,7 +769,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         } else {
         }
       },
-      (fail) => {}
+      (fail) => { }
     );
   }
 
@@ -777,7 +791,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                 </label>
                 <label>{currentLocal.buyerHome.importExcelFile}</label>
               </div>
-              <div className="mb-3">
+              {rfqData.rfqPackages.length === 0 && <div className="mb-3">
                 <img
                   src={addIcon}
                   alt="addIcon"
@@ -789,7 +803,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                 <label className="primary-color">
                   {currentLocal.buyerHome.addNewPackage}
                 </label>
-              </div>
+              </div>}
             </>
           ) : (
             <>
@@ -833,6 +847,24 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             </>
           )}
 
+          {rfqData.rfqPackages.length > 0 && <div className="m-3 d-flex align-items-center">
+            <label className="secondary-color-light fw-600">
+              {currentLocal.buyerHome.projectPackages}
+            </label>
+            {rfqData.rfqPackages.map(rfq => {
+              return <div className='mx-4 packageContainer'>
+                <img src={closeIcon} alt='closeIcon' className='closeIcon' />
+                <div onClick={() => {
+                  updateCreatedActivePackId(rfq.packageTempId)
+                }}>
+                  {createdActivePackId === rfq.packageTempId ?
+                    <img src={PackageEnabled} alt='PackageEnabled' /> :
+                    <img src={PackageDisabled} alt='PackageDisabled' />}
+                  <div className={`text-center ${createdActivePackId === rfq.packageTempId ? `packageName` : `packageNameDisabled`}  my-2 fw-600 f-14`}>{rfq.packageName}</div>
+                </div>
+              </div>
+            })}
+          </div>}
           <div className="mb-3">
             <img
               src={addIcon}
@@ -1021,10 +1053,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                   let type = fileType.includes("pdf")
                     ? pdfIcon
                     : fileType.includes("dwg")
-                    ? autocad
-                    : fileType.includes("doc")
-                    ? docIcon
-                    : excel;
+                      ? autocad
+                      : fileType.includes("doc")
+                        ? docIcon
+                        : excel;
                   return (
                     <div className="d-flex m-2">
                       <img src={type} alt="pdf" className="mx-2" />

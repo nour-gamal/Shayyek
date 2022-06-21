@@ -237,6 +237,9 @@ html[dir="rtl"] .flip-image {
 .secondary-color {
 	color: #0370ff !important;
 }
+.secondary-color-light {
+	color: #2699FB !important;
+}
 .button-primary,
 .button-secondary {
 	background: #003b6b 0% 0% no-repeat padding-box;

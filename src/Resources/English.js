@@ -331,6 +331,7 @@ export const en = {
     importExcelFile: "Import Excel File",
     addNewItem: "Add New Item",
     addNewPackage: "Add different Package in this project",
+    projectPackages: "Project Packages",
     ccCollugues: "CC Collugues",
     item: "Item No",
     unit: "Unit",

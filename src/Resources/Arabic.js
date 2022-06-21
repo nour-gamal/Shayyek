@@ -277,6 +277,7 @@ export const ar = {
     addNewPackage: "اضف عمل مختلفه للمشروع",
     ccCollugues: "شارك زملائك",
     item: "البند",
+    projectPackages: "حزم المشروع",
     description: "الوصف",
     unit: "الوحده",
     quantity: "الكميه",

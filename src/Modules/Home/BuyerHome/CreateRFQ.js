@@ -34,7 +34,6 @@ function CreateRFQ(props) {
     }
   }, [rfqData.rfqPages]);
 
-  console.log("rfq to edit: ", rfqId);
 
   return (
     <section>

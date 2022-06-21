@@ -91,12 +91,6 @@ function AddRFQDetails({ getRFQPageName }) {
     updatePrivateTenderData(data);
   };
 
-  console.log(
-    (tenderType === "private",
-    privateTenderData.favouriteVendors,
-    privateTenderData.inviteByWhatsapp,
-    privateTenderData.invitedEmails)
-  );
   const handleSubmit = () => {
     let data = {
       projectName: projectName,
@@ -125,8 +119,8 @@ function AddRFQDetails({ getRFQPageName }) {
       // eslint-disable-next-line
       (tenderType === "private" &&
         (!data.favouriteVendors || data.favouriteVendors.length === 0) &&
-          !data.inviteByWhatsapp &&
-          (!data.invitedEmails || data.invitedEmails.length === 0))
+        !data.inviteByWhatsapp &&
+        (!data.invitedEmails || data.invitedEmails.length === 0))
     ) {
       updateAlert(true);
     } else {
