@@ -10,7 +10,7 @@ import { ExcelRenderer } from "react-excel-renderer";
 import PackageIcon from "../../../../../Resources/Assets/package-with-bg.jsx";
 import { Alert } from "react-bootstrap";
 import moment from "moment";
-import { addRFQDetails } from "../../../../../Redux/RFQ";
+import { UPDATEPACKAGE } from "../../../../../Redux/RFQ";
 import { useDispatch } from "react-redux";
 import { Table, Spin, Select, Checkbox, DatePicker, Radio } from "antd";
 import {
@@ -514,7 +514,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           <textarea
             disabled={rfqId}
             onChange={(e) => {
-              let data = [...dataSource];
+              let data = [];
+              dataSource.forEach((obj) => {
+                data.push({ ...obj })
+              })
               data[selectedRow].description = e.target.value;
               updateDataSource(data);
             }}
@@ -534,7 +537,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             disabled={rfqId}
             type="text"
             onChange={(e) => {
-              let data = [...dataSource];
+              let data = [];
+              dataSource.forEach((obj) => {
+                data.push({ ...obj })
+              })
               data[selectedRow].unit = e.target.value;
               updateDataSource(data);
             }}
@@ -555,7 +561,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             type="number"
             alt="quantity"
             onChange={(e) => {
-              let data = [...dataSource];
+              let data = [];
+              dataSource.forEach((obj) => {
+                data.push({ ...obj })
+              })
               data[selectedRow].quantity = e.target.value;
               updateDataSource(data);
             }}
@@ -575,7 +584,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             disabled={rfqId}
             type="text"
             onChange={(e) => {
-              let data = [...dataSource];
+              let data = [];
+              dataSource.forEach((obj) => {
+                data.push({ ...obj })
+              })
               data[selectedRow].preferredBrands = e.target.value;
               updateDataSource(data);
             }}
@@ -708,10 +720,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   }, [activePackgeId]);
 
   const handleSwitchPackage = (rfq, index) => {
-    let rfqNewData = { ...rfqData };
-    rfqNewData.rfqPackages[createdActivePackIndex].rfqPackageDetailsRequests = dataSource
-  
-    dispatch(addRFQDetails(rfqNewData))
+    dispatch(UPDATEPACKAGE({ index: createdActivePackIndex, dataSource }))
     updateCreatedActivePackId(rfq.packageTempId)
     updateCreatedActivePackIndex(index)
   }
