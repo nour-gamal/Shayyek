@@ -10,6 +10,8 @@ import { ExcelRenderer } from "react-excel-renderer";
 import PackageIcon from "../../../../../Resources/Assets/package-with-bg.jsx";
 import { Alert } from "react-bootstrap";
 import moment from "moment";
+import { addRFQDetails } from "../../../../../Redux/RFQ";
+import { useDispatch } from "react-redux";
 import { Table, Spin, Select, Checkbox, DatePicker, Radio } from "antd";
 import {
   getCategories,
@@ -74,10 +76,11 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [rfqDetails, updateRFQDetails] = useState({});
   const [activePackgeId, setActivePackgeId] = useState(null);
   const [createdActivePackId, updateCreatedActivePackId] = useState(null)
+  const [createdActivePackIndex, updateCreatedActivePackIndex] = useState(0)
   const [rfqForEdit, setRfqForEdit] = useState(null);
   const [filledPackagesForEdit, setFilledPackagesForEdit] = useState([]);
   const { rfqData } = useSelector((state) => state.rfq);
-
+  const dispatch = useDispatch();
   // edit rfq
   useEffect(() => {
     if (rfqId) {
@@ -98,13 +101,12 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   }, [rfqId]);
 
 
-  useEffect(()=>{
-if(createdActivePackId){
-  
-}
-
-
-  },[createdActivePackId])
+  useEffect(() => {
+    if (createdActivePackId) {
+      const currentPackageData = rfqData.rfqPackages.filter(pack => pack.packageTempId === createdActivePackId)[0]
+      updateDataSource(currentPackageData.rfqPackageDetailsRequests)
+    }
+  }, [rfqData, createdActivePackId])
 
   useEffect(() => {
     if (!rfqId) {
@@ -705,6 +707,14 @@ if(createdActivePackId){
     // eslint-disable-next-line
   }, [activePackgeId]);
 
+  const handleSwitchPackage = (rfq, index) => {
+    let rfqNewData = { ...rfqData };
+    rfqNewData.rfqPackages[createdActivePackIndex].rfqPackageDetailsRequests = dataSource
+  
+    dispatch(addRFQDetails(rfqNewData))
+    updateCreatedActivePackId(rfq.packageTempId)
+    updateCreatedActivePackIndex(index)
+  }
   function saveEditInPackage() {
     let sentPackageFiles = packageFiles.map((item) =>
       isObject(item) ? item.path : item
@@ -791,7 +801,7 @@ if(createdActivePackId){
                 </label>
                 <label>{currentLocal.buyerHome.importExcelFile}</label>
               </div>
-              {rfqData.rfqPackages.length === 0 && <div className="mb-3">
+              {/*rfqData.rfqPackages.length === 0 &&*/} < div className="mb-3">
                 <img
                   src={addIcon}
                   alt="addIcon"
@@ -803,7 +813,7 @@ if(createdActivePackId){
                 <label className="primary-color">
                   {currentLocal.buyerHome.addNewPackage}
                 </label>
-              </div>}
+              </div>
             </>
           ) : (
             <>
@@ -851,12 +861,10 @@ if(createdActivePackId){
             <label className="secondary-color-light fw-600">
               {currentLocal.buyerHome.projectPackages}
             </label>
-            {rfqData.rfqPackages.map(rfq => {
-              return <div className='mx-4 packageContainer'>
+            {rfqData.rfqPackages.map((rfq, index) => {
+              return <div className='mx-4 packageContainer' key={index}>
                 <img src={closeIcon} alt='closeIcon' className='closeIcon' />
-                <div onClick={() => {
-                  updateCreatedActivePackId(rfq.packageTempId)
-                }}>
+                <div onClick={() => handleSwitchPackage(rfq, index)}>
                   {createdActivePackId === rfq.packageTempId ?
                     <img src={PackageEnabled} alt='PackageEnabled' /> :
                     <img src={PackageDisabled} alt='PackageDisabled' />}
@@ -909,11 +917,13 @@ if(createdActivePackId){
           </div>
         ) : null}
       </div>
-      {newItemAdded && (
-        <Alert className="text-center">
-          {currentLocal.buyerHome.newItemAdded}
-        </Alert>
-      )}
+      {
+        newItemAdded && (
+          <Alert className="text-center">
+            {currentLocal.buyerHome.newItemAdded}
+          </Alert>
+        )
+      }
       <Table
         key={dataSource}
         indentSize={300}
@@ -1185,7 +1195,7 @@ if(createdActivePackId){
           />
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
