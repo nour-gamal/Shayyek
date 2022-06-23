@@ -23,6 +23,7 @@ import Checkout from "./Modules/Cart/Checkout";
 import Messages from "./Modules/Messages/Messages";
 import { getToken } from "./Services";
 import RFQSummary from "./Modules/Home/BuyerHome/Components/RFQSummary/RFQSummary";
+import Rerender from "./Modules/Common/Rerender/Rerender";
 // import Login from "./Modules/Login/Login";
 //import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
 function Routes() {
@@ -107,6 +108,11 @@ function Routes() {
 							return isAuth ? <Redirect to="/" /> : <ForgetPassword />;
 						}}
 					/>
+					<Route
+						path="/rerender"
+						render={(props) => {
+							return <Rerender {...props} />;
+						}} />
 					<Route
 						path="/loginByEmail"
 						render={() => {

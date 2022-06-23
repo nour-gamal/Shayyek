@@ -411,6 +411,9 @@ export const en = {
     relatedMarketPlace: "Related MarketPlace",
     confirmDeleteRow: "Are you sure you want to delete the selected row?",
     addPackageName: "Add Package Name",
+    addPack: "Add Package",
+    name: 'Name',
+    addPackAlert: "Please fill all the required fields before adding new package",
     typePackageName: "Type Package Name in Project",
     submit: "Submit",
     fileError:

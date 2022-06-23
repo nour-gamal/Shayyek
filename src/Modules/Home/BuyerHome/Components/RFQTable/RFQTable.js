@@ -80,7 +80,9 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [rfqForEdit, setRfqForEdit] = useState(null);
   const [filledPackagesForEdit, setFilledPackagesForEdit] = useState([]);
   const { rfqData } = useSelector((state) => state.rfq);
+  const [addPackageAlert, updateAddPackageAlert] = useState(false)
   const dispatch = useDispatch();
+
   // edit rfq
   useEffect(() => {
     if (rfqId) {
@@ -227,7 +229,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     );
   }
 
-  function handleConfirm() {
+  function handleConfirm(mode) {
     const hasNoCat = dataSource.every((data) => {
       return data.categoryId === undefined;
     });
@@ -243,14 +245,19 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       hasNoCat
     ) {
       setAlert(true);
+      if (mode === 'addPackage') {
+        updateAddPackageAlert(true)
+      }
     } else {
+      updateAddPackageAlert(false)
+      setAlert(false)
       let allData = {
         ...rfqData,
         rfqPackages: [
           ...rfqData.rfqPackages,
           {
             rfqPackageDetailsRequests: [...dataSource],
-            packageName: packageName.length ? packageName : "Default",
+            packageName: packageName,
             notes: notes,
             receivingOffersDeadline: recievingOffersDate,
             deliveryDate: deliveryDate,
@@ -262,9 +269,12 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           },
         ],
       };
-
       updateRFQDetails(allData);
-      updateSuccessModalVis(!isSuccessModalvis);
+      if (mode === 'addPackage') {
+        updateIsAddPackModalVis(!isAddPackModalVis);
+      } else {
+        updateSuccessModalVis(!isSuccessModalvis);
+      }
     }
   }
 
@@ -408,7 +418,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   }, [indexState, dataSource]);
 
   const handleUploadItemDoc = (e) => {
-    console.log(e.target.files[0]);
     var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|ms-excel|dwg|DWG|DOC|doc|PDF|pdf/.test(
       e.target.files[0].type || e.target.files[0].name
     );
@@ -794,6 +803,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
   return (
     <div className="ppl ppr my-4 RFQTable">
+      {addPackageAlert &&
+        <Alert variant="danger" className="text-center">
+          {currentLocal.buyerHome.addPackAlert}
+        </Alert>}
       <div className="actionsContainer">
         <div>
           {!rfqId ? (
@@ -816,7 +829,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                   alt="addIcon"
                   className="mx-3"
                   onClick={() => {
-                    updateIsAddPackModalVis(!isAddPackModalVis);
+                    handleConfirm('addPackage')
                   }}
                 />
                 <label className="primary-color">
@@ -1189,6 +1202,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             getPackageName={(val) => {
               updatePackageName(val);
             }}
+            rfqDetails={rfqDetails}
           />
           <PostRFQSuccessModal
             isModalVisible={isSuccessModalvis}
