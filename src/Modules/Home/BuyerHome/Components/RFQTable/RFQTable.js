@@ -82,6 +82,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const { rfqData } = useSelector((state) => state.rfq);
   const [addPackageAlert, updateAddPackageAlert] = useState(false)
   const dispatch = useDispatch();
+  const hasOldPackages = rfqData.rfqPackages.length > 0;
 
   // edit rfq
   useEffect(() => {
@@ -102,13 +103,16 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     }
   }, [rfqId]);
 
-
+  console.log(rfqData)
   useEffect(() => {
-    if (createdActivePackId) {
-      const currentPackageData = rfqData.rfqPackages.filter(pack => pack.packageTempId === createdActivePackId)[0]
+    if (hasOldPackages) {
+      const currentPackageData = createdActivePackId ?
+        rfqData.rfqPackages.filter(pack => pack.packageTempId === createdActivePackId)[0]
+        :
+        rfqData.rfqPackages[rfqData.rfqPackages.length - 1]
       updateDataSource(currentPackageData.rfqPackageDetailsRequests)
     }
-  }, [rfqData, createdActivePackId])
+  }, [rfqData, createdActivePackId, hasOldPackages])
 
   useEffect(() => {
     if (!rfqId) {
@@ -257,7 +261,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           ...rfqData.rfqPackages,
           {
             rfqPackageDetailsRequests: [...dataSource],
-            packageName: packageName,
+            packageName: rfqData.nextPackageName ? rfqData.nextPackageName : '',
             notes: notes,
             receivingOffersDeadline: recievingOffersDate,
             deliveryDate: deliveryDate,
@@ -380,21 +384,22 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
   useEffect(() => {
     let data = [];
-    for (let index = 0; index <= 4; index++) {
-      data.push({
-        key: index,
-        item: "",
-        description: "",
-        quantity: 1,
-        unit: "",
-        preferredBrands: "",
-        isInstallSupplierAndContructor: false,
-        filePath: "",
-      });
+    if (!hasOldPackages) {
+      for (let index = 0; index <= 4; index++) {
+        data.push({
+          key: index,
+          item: "",
+          description: "",
+          quantity: 1,
+          unit: "",
+          preferredBrands: "",
+          isInstallSupplierAndContructor: false,
+          filePath: "",
+        });
+      }
+      updateIndexState(true);
+      updateDataSource(data);
     }
-    updateIndexState(true);
-    updateDataSource(data);
-
     getCategories(
       currentLanguageId,
       (success) => {
@@ -404,7 +409,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         console.log(fail);
       }
     );
-  }, [currentLanguageId]);
+  }, [currentLanguageId, hasOldPackages]);
 
   useEffect(() => {
     if (indexState) {

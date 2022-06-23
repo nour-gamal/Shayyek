@@ -15,7 +15,6 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
 	const dispatch = useDispatch();
 	const [reset, updateReset] = useState(false)
 	const hasOldPackages = rfqData.rfqPackages.length > 0;
-
 	window.addEventListener("resize", () => {
 		updateIsMobile(!mq.matches);
 	});
@@ -26,17 +25,42 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
 	// }, [rfqDetails])
 
 	const handleAddPackage = () => {
-		if (hasOldPackages) {
-			rfqDetails.nextPackageName = packagesName[0]
-		} else {
+		var data = []
+		for (let index = 0; index <= 4; index++) {
+			data.push({
+				key: index,
+				item: "",
+				description: "",
+				quantity: 1,
+				unit: "",
+				preferredBrands: "",
+				isInstallSupplierAndContructor: false,
+				filePath: "",
+			});
+		}
+		if (!hasOldPackages) {
 			if (packagesName[0].length && packagesName[1].length) {
 				rfqDetails.rfqPackages[rfqDetails.rfqPackages.length - 1].packageName = packagesName[0];
-				rfqDetails.nextPackageName = packagesName[1];
-				dispatch(addRFQDetails(rfqDetails));
-				updateReset(true)
-				onCancel()
+			} else {
+				return;
 			}
 		}
+		rfqDetails.rfqPackages.push({
+			packageName: hasOldPackages ? packagesName[0] : packagesName[1],
+			rfqPackageDetailsRequests: data,
+			notes: "",
+			receivingOffersDeadline: null,
+			deliveryDate: null,
+			address: "",
+			deliveryToId: null,
+			packageCCColleagues: [],
+			packageFiles: [],
+			packageTempId: new Date().getTime()
+		});
+
+		dispatch(addRFQDetails(rfqDetails));
+		updateReset(true)
+		onCancel()
 	}
 	if (reset) {
 		return <Redirect to='/rerender' />
@@ -50,7 +74,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
 		>
 			<div className='my-4'>
 				<div className="f-14">
-					{currentLocal.buyerHome.addPack} {rfqData.rfqPackages.length + 1} {currentLocal.buyerHome.name}
+					{currentLocal.buyerHome.addPack} {hasOldPackages ? rfqData.rfqPackages.length + 2 : rfqData.rfqPackages.length + 1} {currentLocal.buyerHome.name}
 					<span className='text-danger'> *</span>
 				</div>
 				<div className="text-center">
@@ -70,7 +94,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
 			{!hasOldPackages &&
 				<div className='my-2'>
 					<div className="f-14">
-						{currentLocal.buyerHome.addPack} {rfqData.rfqPackages.length + 2} {currentLocal.buyerHome.name}
+						{currentLocal.buyerHome.addPack}  {rfqData.rfqPackages.length + 2} {currentLocal.buyerHome.name}
 						<span className='text-danger'> *</span>
 					</div>
 					<div className="text-center">
