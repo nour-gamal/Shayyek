@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Input, Modal } from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { addRFQDetails } from "../../../../../Redux/RFQ";
+import { ADDNEWPACKAGE } from "../../../../../Redux/RFQ";
 import "./AddPackage.css";
 import { Redirect } from "react-router-dom";
 
@@ -45,7 +45,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
 				return;
 			}
 		}
-		rfqDetails.rfqPackages.push({
+		let newPackageData = {
 			packageName: hasOldPackages ? packagesName[0] : packagesName[1],
 			rfqPackageDetailsRequests: data,
 			notes: "",
@@ -56,9 +56,9 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
 			packageCCColleagues: [],
 			packageFiles: [],
 			packageTempId: new Date().getTime()
-		});
+		};
 
-		dispatch(addRFQDetails(rfqDetails));
+		dispatch(ADDNEWPACKAGE({ newPackageData }));
 		updateReset(true)
 		onCancel()
 	}
@@ -74,7 +74,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
 		>
 			<div className='my-4'>
 				<div className="f-14">
-					{currentLocal.buyerHome.addPack} {hasOldPackages ? rfqData.rfqPackages.length + 2 : rfqData.rfqPackages.length + 1} {currentLocal.buyerHome.name}
+					{currentLocal.buyerHome.addPack} {rfqData.rfqPackages.length + 1} {currentLocal.buyerHome.name}
 					<span className='text-danger'> *</span>
 				</div>
 				<div className="text-center">

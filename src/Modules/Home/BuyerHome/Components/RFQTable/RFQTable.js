@@ -10,7 +10,7 @@ import { ExcelRenderer } from "react-excel-renderer";
 import PackageIcon from "../../../../../Resources/Assets/package-with-bg.jsx";
 import { Alert } from "react-bootstrap";
 import moment from "moment";
-import { UPDATEPACKAGE } from "../../../../../Redux/RFQ";
+import { UPDATEPACKAGE, DELETEPACKAGE } from "../../../../../Redux/RFQ";
 import { useDispatch } from "react-redux";
 import { Table, Spin, Select, Checkbox, DatePicker, Radio } from "antd";
 import {
@@ -103,14 +103,21 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     }
   }, [rfqId]);
 
-  console.log(rfqData)
+  console.log('rfqData', rfqData)
   useEffect(() => {
     if (hasOldPackages) {
       const currentPackageData = createdActivePackId ?
         rfqData.rfqPackages.filter(pack => pack.packageTempId === createdActivePackId)[0]
         :
         rfqData.rfqPackages[rfqData.rfqPackages.length - 1]
-      updateDataSource(currentPackageData.rfqPackageDetailsRequests)
+      updateDataSource(currentPackageData.rfqPackageDetailsRequests);
+      updateAddress(currentPackageData.address);
+      updateNotes(currentPackageData.notes);
+      updateDeliveredTo(currentPackageData.deliveryToId);
+      setDeliveryDate(currentPackageData.deliveryDate);
+      updateCCEmails(currentPackageData.packageCCColleagues);
+      updatePackageFiles(currentPackageData.packageFiles);
+      setOffersDate(currentPackageData.receivingOffersDeadline)
     }
   }, [rfqData, createdActivePackId, hasOldPackages])
 
@@ -463,7 +470,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       updateDocLoadingState(true);
       let filesData = new FormData();
       files.forEach((file, index) => {
-        console.log(file);
         filesData.append(`documents`, file);
       });
       AddDocumentList(
@@ -704,8 +710,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     packageFilesArr.splice(deletedIndex, 1);
     updateDocumentsList(documentsListArr);
     updatePackageFiles(packageFilesArr);
-    // const [documentsList, updateDocumentsList] = useState([]);
-    // const [packageFiles, updatePackageFiles] = useState([]);
   };
 
   function selectPackageToEdit(packageId) {
@@ -733,10 +737,28 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     // eslint-disable-next-line
   }, [activePackgeId]);
 
+
+
+
   const handleSwitchPackage = (rfq, index) => {
-    dispatch(UPDATEPACKAGE({ index: createdActivePackIndex, dataSource }))
+    let data = {
+      index: createdActivePackIndex,
+      dataSource,
+      address,
+      notes,
+      receivingOffersDeadline: recievingOffersDate,
+      deliveryDate,
+      deliveryToId: deliveredTo,
+      packageCCColleagues: ccEmails,
+      packageFiles,
+    }
+    dispatch(UPDATEPACKAGE({ ...data }))
     updateCreatedActivePackId(rfq.packageTempId)
     updateCreatedActivePackIndex(index)
+  }
+
+  const handleDeletePackage = (index) => {
+    dispatch(DELETEPACKAGE(index))
   }
   function saveEditInPackage() {
     let sentPackageFiles = packageFiles.map((item) =>
@@ -805,6 +827,13 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       (fail) => { }
     );
   }
+  useEffect(() => {
+    if (rfqData.rfqPackages.length) {
+      updateCreatedActivePackId(rfqData.rfqPackages[0].packageTempId)
+      updateCreatedActivePackIndex(0)
+    }
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <div className="ppl ppr my-4 RFQTable">
@@ -828,7 +857,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                 </label>
                 <label>{currentLocal.buyerHome.importExcelFile}</label>
               </div>
-              {/*rfqData.rfqPackages.length === 0 &&*/} < div className="mb-3">
+              {rfqData.rfqPackages.length === 0 && <div className="mb-3">
                 <img
                   src={addIcon}
                   alt="addIcon"
@@ -840,7 +869,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                 <label className="primary-color">
                   {currentLocal.buyerHome.addNewPackage}
                 </label>
-              </div>
+              </div>}
             </>
           ) : (
             <>
@@ -890,7 +919,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             </label>
             {rfqData.rfqPackages.map((rfq, index) => {
               return <div className='mx-4 packageContainer' key={index}>
-                <img src={closeIcon} alt='closeIcon' className='closeIcon' />
+                <img src={closeIcon} alt='closeIcon' className='closeIcon' onClick={() => { handleDeletePackage(index) }} />
                 <div onClick={() => handleSwitchPackage(rfq, index)}>
                   {createdActivePackId === rfq.packageTempId ?
                     <img src={PackageEnabled} alt='PackageEnabled' /> :
@@ -1220,6 +1249,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                 : false
             }
             rfqDetails={rfqDetails}
+            handleAddAnotherPackage={() => {
+              updateSuccessModalVis(!isSuccessModalvis);
+              updateIsAddPackModalVis(!isAddPackModalVis);
+            }}
           />
         </div>
       </div>

@@ -8,17 +8,11 @@ import { addRFQDetails } from "../../../../../Redux/RFQ";
 import { postRFQ } from "../../../network";
 import "./PostRFQSuccessModal.css";
 
-function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, rfqDetails }) {
+function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, rfqDetails, handleAddAnotherPackage }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { rfqData } = useSelector((state) => state.rfq);
   const [redirectTo, updateRedirectTo] = useState(null);
   const dispatch = useDispatch();
-  const handleAddAnotherPackage = () => {
-    dispatch(addRFQDetails(rfqDetails));
-    setTimeout(() => {
-      window.location.reload();
-    }, 200);
-  }
   const handleSubmit = () => {
     postRFQ(
       rfqDetails,
