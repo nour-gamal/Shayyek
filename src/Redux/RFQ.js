@@ -9,8 +9,10 @@ export const RFQSlice = createSlice({
 			state.rfqData = action.payload;
 		},
 		ADDNEWPACKAGE: (state, action) => {
-			// state.rfqData.rfqPackages = [...state.rfqData.rfqPackages, action.payload.newPackageData]
-			console.log(action.payload)
+			state.rfqData.rfqPackages = [...state.rfqData.rfqPackages, action.payload.newPackageData]
+			if (action.payload.oldPackageData) {
+				state.rfqData.rfqPackages.push(action.payload.oldPackageData)
+			}
 		},
 		UPDATEPACKAGE: (state, action) => {
 			state.rfqData.rfqPackages[action.payload.index].rfqPackageDetailsRequests = action.payload.dataSource

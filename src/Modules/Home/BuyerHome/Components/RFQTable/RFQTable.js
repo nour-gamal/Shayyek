@@ -73,7 +73,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [documentsList, updateDocumentsList] = useState([]);
   const [packageFiles, updatePackageFiles] = useState([]);
   const [docLoadingState, updateDocLoadingState] = useState(false);
-  const [rfqDetails, updateRFQDetails] = useState({});
+  const [rfqDetails, updateRFQDetails] = useState(null);
   const [activePackgeId, setActivePackgeId] = useState(null);
   const [createdActivePackId, updateCreatedActivePackId] = useState(null)
   const [createdActivePackIndex, updateCreatedActivePackIndex] = useState(0)
@@ -103,7 +103,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     }
   }, [rfqId]);
 
-  console.log('rfqData', rfqData)
+
   useEffect(() => {
     if (hasOldPackages) {
       const currentPackageData = createdActivePackId ?
@@ -171,14 +171,15 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
   function handleCategoriesChange(optionId, rowIndex) {
     let data = [...dataSource];
-    data[rowIndex].categoryId = optionId;
+    JSON.parse(JSON.stringify(data[rowIndex])).categoryId = optionId;
     updateDataSource(data);
   }
 
   function changeCategoryForAll(optionId, optionName) {
     let data = [...dataSource];
     data.forEach((row) => {
-      row.categoryId = optionId;
+      var newRow = JSON.parse(JSON.stringify(row));
+      newRow.categoryId = optionId;
     });
 
     updateDataSource(data);
@@ -187,6 +188,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
   function handleIncludeInstallation(e, rowIndex) {
     let data = [...dataSource];
+
     if (installAll && !e.target.checked) {
       updateInstallAll(false);
     }
@@ -199,7 +201,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
     let data = [...dataSource];
     data.forEach((row, rowIndex) => {
-      data[rowIndex].isInstallSupplierAndContructor = e.target.checked;
+      var newRow = JSON.parse(JSON.stringify(row));
+      newRow.isInstallSupplierAndContructor = e.target.checked;
       updateDataSource(data);
     });
     updateDataSource(data);
@@ -759,6 +762,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
   const handleDeletePackage = (index) => {
     dispatch(DELETEPACKAGE(index))
+    updateCreatedActivePackId(rfqData.rfqPackages[index - 1].packageTempId)
+    updateCreatedActivePackIndex(index - 1)
   }
   function saveEditInPackage() {
     let sentPackageFiles = packageFiles.map((item) =>
@@ -1236,7 +1241,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             getPackageName={(val) => {
               updatePackageName(val);
             }}
-            rfqDetails={rfqDetails}
+            rfqDetails={!hasOldPackages && rfqDetails ? rfqDetails.rfqPackages[0] : null}
           />
           <PostRFQSuccessModal
             isModalVisible={isSuccessModalvis}

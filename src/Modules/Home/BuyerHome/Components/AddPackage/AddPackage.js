@@ -19,32 +19,29 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
 		updateIsMobile(!mq.matches);
 	});
 
-	// useEffect(() => {
-	// 	// dispatch(addRFQDetails(rfqDetails));
-
-	// }, [rfqDetails])
-
 	const handleAddPackage = () => {
 		var data = []
 		for (let index = 0; index <= 4; index++) {
 			data.push({
 				key: index,
-				item: "",
+				item: index,
 				description: "",
 				quantity: 1,
 				unit: "",
 				preferredBrands: "",
 				isInstallSupplierAndContructor: false,
 				filePath: "",
+				categoryId: null
 			});
 		}
 		if (!hasOldPackages) {
 			if (packagesName[0].length && packagesName[1].length) {
-				rfqDetails.rfqPackages[rfqDetails.rfqPackages.length - 1].packageName = packagesName[0];
+				rfqDetails.packageName = packagesName[0];
 			} else {
 				return;
 			}
 		}
+
 		let newPackageData = {
 			packageName: hasOldPackages ? packagesName[0] : packagesName[1],
 			rfqPackageDetailsRequests: data,
@@ -52,13 +49,16 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
 			receivingOffersDeadline: null,
 			deliveryDate: null,
 			address: "",
-			deliveryToId: null,
+			deliveryToId: "a9c83c89-4aeb-46b8-b245-a144276d927f",
 			packageCCColleagues: [],
 			packageFiles: [],
+			categoryId: null,
 			packageTempId: new Date().getTime()
 		};
 
-		dispatch(ADDNEWPACKAGE({ newPackageData }));
+		dispatch(ADDNEWPACKAGE({
+			newPackageData, oldPackageData: rfqDetails
+		}));
 		updateReset(true)
 		onCancel()
 	}
