@@ -56,7 +56,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) 
 		};
 
 		dispatch(ADDNEWPACKAGE({
-			newPackageData, oldPackageData: rfqDetails
+			oldPackageData: rfqDetails, newPackageData
 		}));
 		updateReset(true)
 		switchToLastPack(newPackageData.packageTempId, rfqData.rfqPackages.length)

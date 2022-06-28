@@ -116,7 +116,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       setDeliveryDate(currentPackageData.deliveryDate);
       updateCCEmails(currentPackageData.packageCCColleagues);
       updatePackageFiles(currentPackageData.packageFiles);
-      setOffersDate(currentPackageData.receivingOffersDeadline)
+      setOffersDate(currentPackageData.receivingOffersDeadline);
+      updateExcelSheet(currentPackageData.excelSheet);
     }
   }, [createdActivePackId, createdActivePackIndex, hasOldPackages, rfqData.rfqPackages])
 
@@ -195,6 +196,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     data.forEach((row, rowIndex) => {
       var newRow = JSON.parse(JSON.stringify(row));
       newRow.isInstallSupplierAndContructor = e.target.checked;
+      data[rowIndex] = newRow
       updateDataSource(data);
     });
     updateDataSource(data);
@@ -271,9 +273,11 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             deliveryToId: deliveredTo,
             packageCCColleagues: [...ccEmailsIDs],
             packageFiles,
+            excelSheet,
             packageTempId: new Date().getTime()
           },
         ],
+        excelSheet
       };
       updateRFQDetails(allData);
       if (mode === 'addPackage') {
