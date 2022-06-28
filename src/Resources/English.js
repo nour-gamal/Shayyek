@@ -418,7 +418,7 @@ export const en = {
     typePackageName: "Type Package Name in Project",
     submit: "Submit",
     fileError:
-      "Unknown File! Please attach file in one of these extensions: PDF, Word, Excel or AutoCAD",
+      "Unknown File! Please attach file in one of these extensions: ",
     ok: "OK",
     done: "Done",
     postedSuccess: "RFQ was Posted Successfully.",

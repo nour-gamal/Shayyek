@@ -10,13 +10,13 @@ function FileErrorModal({ isModalVisible, onCancel }) {
 	return (
 		<Modal
 			title="Basic Modal"
-			visible={isModalVisible}
+			visible={isModalVisible.state}
 			onCancel={onCancel}
 			className="modal-sm fileErrorModal"
 		>
 			<img src={errorFile} alt="errorFile" />
 			<div className="text-center my-4">
-				<div className="my-4">{currentLocal.buyerHome.fileError}</div>
+				<div className="my-4">{currentLocal.buyerHome.fileError}{isModalVisible.message}</div>
 				<button
 					className="button-primary "
 					onClick={() => {

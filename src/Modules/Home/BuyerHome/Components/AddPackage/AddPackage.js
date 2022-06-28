@@ -6,7 +6,7 @@ import { ADDNEWPACKAGE } from "../../../../../Redux/RFQ";
 import "./AddPackage.css";
 import { Redirect } from "react-router-dom";
 
-function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
+function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [packagesName, updatePackagesName] = useState(["", ""]);
 	const [isMobile, updateIsMobile] = useState(false);
@@ -31,7 +31,6 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
 				preferredBrands: "",
 				isInstallSupplierAndContructor: false,
 				filePath: "",
-				categoryId: null
 			});
 		}
 		if (!hasOldPackages) {
@@ -60,6 +59,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails }) {
 			newPackageData, oldPackageData: rfqDetails
 		}));
 		updateReset(true)
+		switchToLastPack(newPackageData.packageTempId, rfqData.rfqPackages.length)
 		onCancel()
 	}
 	if (reset) {

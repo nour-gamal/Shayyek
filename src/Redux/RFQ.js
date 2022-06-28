@@ -8,6 +8,9 @@ export const RFQSlice = createSlice({
 		addRFQDetails: (state, action) => {
 			state.rfqData = action.payload;
 		},
+		DELETERFQ: (state, action) => {
+			state.rfqData = {}
+		},
 		ADDNEWPACKAGE: (state, action) => {
 			state.rfqData.rfqPackages = [...state.rfqData.rfqPackages, action.payload.newPackageData]
 			if (action.payload.oldPackageData) {
@@ -25,10 +28,10 @@ export const RFQSlice = createSlice({
 			state.rfqData.rfqPackages[action.payload.index].packageFiles = action.payload.packageFiles
 		},
 		DELETEPACKAGE: (state, action) => {
-			state.rfqData.rfqPackages.splice(action.payload.index, 1)
+			state.rfqData.rfqPackages.splice(action.payload, 1)
 		}
 	},
 });
-export const { addRFQDetails, UPDATEPACKAGE, DELETEPACKAGE, ADDNEWPACKAGE } = RFQSlice.actions;
+export const { addRFQDetails, UPDATEPACKAGE, DELETEPACKAGE, ADDNEWPACKAGE, DELETERFQ } = RFQSlice.actions;
 
 export default RFQSlice.reducer;

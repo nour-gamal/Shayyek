@@ -3,8 +3,16 @@ import { Modal } from "antd";
 import { useSelector } from "react-redux";
 import deleteIcon from "../../../../../Resources/Assets/delete_large.png";
 import "./DeleteModal.css";
-function DeleteModal({ isModalVisible, onCancel, onDeleteRow, deleteMode }) {
+function DeleteModal({ isModalVisible, onCancel, onDeleteRow, deleteMode, onDeletePackage }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const handleDelete = () => {
+		if (deleteMode === 'package') {
+			onDeletePackage()
+		} else {
+			onDeleteRow()
+		}
+		onCancel()
+	}
 	return (
 		<Modal
 			title="Basic Modal"
@@ -20,7 +28,7 @@ function DeleteModal({ isModalVisible, onCancel, onDeleteRow, deleteMode }) {
 				<button className="button-secondary primary-color" onClick={onCancel}>
 					{currentLocal.buyerHome.cancel}
 				</button>
-				<button className="button-primary" onClick={onDeleteRow}>
+				<button className="button-primary" onClick={handleDelete}>
 					{currentLocal.buyerHome.delete}
 				</button>
 			</div>

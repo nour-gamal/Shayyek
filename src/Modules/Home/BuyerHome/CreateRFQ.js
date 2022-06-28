@@ -10,7 +10,6 @@ function CreateRFQ(props) {
   const [rfqPages, updateRFQPages] = useState("addRFQDetails");
   const { rfqData } = useSelector((state) => state.rfq);
   const rfqId = props.match.params.id;
-
   if (rfqId) {
     let data = {
       rfqId,
