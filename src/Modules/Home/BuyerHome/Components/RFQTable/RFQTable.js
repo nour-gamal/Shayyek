@@ -277,7 +277,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             packageTempId: new Date().getTime()
           },
         ],
-        excelSheet
       };
       updateRFQDetails(allData);
       if (mode === 'addPackage') {
@@ -513,9 +512,11 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       dataIndex: "categoryId",
       key: "categoryId",
       render: (categoryId, record, rowIndex) => {
-        const props = {};
-        if (rfqId) props.value = categoryId;
-        else props.defaultValue = categoryId;
+        const props = { value: categoryId, defaultValue: categoryId };
+
+        // if (rfqId) props.value = categoryId;
+        // else props.defaultValue = categoryId;
+        console.log(props)
         return (
           <Select
             disabled={rfqId}
@@ -685,6 +686,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       history.push("/")
     }
   }
+
   function saveEditInPackage() {
     let sentPackageFiles = packageFiles.map((item) =>
       isObject(item) ? item.path : item
