@@ -352,6 +352,7 @@ export const ar = {
     relatedMarketPlace: "الشركات ذات الصلة",
     viewOffers: "اظهر العروض",
     confirmDeleteRow: "هل انت متاكد من ازاله الصف المختار؟",
+    confirmDeletePackage: "هل انت متاكد من ازاله الباقه المختاره؟",
     addPackageName: "اضف اسم العمل",
     addPack: "اضف اسم حزمه رقم",
     addPackAlert: "من فضلك املاء كل الخانات المطلوبه لاضافه حزمه جديده",

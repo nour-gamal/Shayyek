@@ -410,6 +410,7 @@ export const en = {
     toSeeCompanies: "you can edit your work/field to see related companies",
     relatedMarketPlace: "Related MarketPlace",
     confirmDeleteRow: "Are you sure you want to delete the selected row?",
+    confirmDeletePackage: "Are you sure you want to delete the selected package?",
     addPackageName: "Add Package Name",
     addPack: "Add Package",
     name: 'Name',

@@ -16,6 +16,8 @@ function PrivateTender({
 	const [favVendorsList, updateFavVendorsList] = useState([]);
 	const [favVendor, updateFavVendor] = useState([]);
 	const [inviteByWhatsapp, updateInviteByWhatsapp] = useState(false);
+	const [emailInsertIndex, updateEmailInsertIndex] = useState(0);
+	const [isValidEmail, updateIsValidEmail] = useState(true)
 	const { Option } = Select;
 	useEffect(() => {
 		GetFavVendor(
@@ -42,21 +44,43 @@ function PrivateTender({
 			invitedEmails: emailList,
 			favouriteVendors: favVendor,
 			inviteByWhatsapp,
+			isValidEmail
 		};
 		getPrivateTenderData(data);
 		// eslint-disable-next-line
 	}, [emailList, favVendor, inviteByWhatsapp]);
 
 	const handleAddNewEmails = (newEmail) => {
-		let Emails = [...emailList];
-		Emails.push(newEmail);
-		updateEmailList(Emails);
-		updateEmail("");
+		const isValidEmailVar = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email);
+		if (isValidEmailVar) {
+			let Emails = [...emailList];
+			Emails.push(newEmail);
+			let uniqueEmails = [...new Set(Emails)];
+			updateEmailList(uniqueEmails);
+			updateEmailInsertIndex(emailInsertIndex + 1)
+			updateEmail("");
+		}
 	};
+	const handleAddEmailOnType = (email) => {
+		let Emails = [...emailList]
+		Emails[emailInsertIndex] = email
+		const isValidEmailVar = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email);
+		if (isValidEmailVar) {
+			updateIsValidEmail(true)
+		} else {
+			updateIsValidEmail(false)
+			if (email.length === 0) {
+				updateIsValidEmail(true)
+				Emails.splice(Emails.length - 1, 1)
+			}
+		}
+		updateEmailList(Emails);
+	}
 	const removeEmail = (emailIndex) => {
 		let Emails = [...emailList];
 		Emails.splice(emailIndex, 1);
 		updateEmailList(Emails);
+		updateEmailInsertIndex(emailInsertIndex - 1)
 	};
 	return (
 		<div className="privateTender">
@@ -80,9 +104,11 @@ function PrivateTender({
 							value={email}
 							onChange={(e) => {
 								updateEmail(e.target.value);
+								handleAddEmailOnType(e.target.value);
 							}}
 							style={{ width: "240px", maxWidth: "66%" }}
 							required
+							className={!isValidEmail ? "border-danger" : ""}
 						/>
 						<button
 							type={"submit"}

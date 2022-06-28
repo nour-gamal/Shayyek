@@ -80,7 +80,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [rfqForEdit, setRfqForEdit] = useState(null);
   const [filledPackagesForEdit, setFilledPackagesForEdit] = useState([]);
   const { rfqData } = useSelector((state) => state.rfq);
-  const [addPackageAlert, updateAddPackageAlert] = useState(false)
+  const [addPackageAlert, updateAddPackageAlert] = useState(false);
+  const [deleteMode, updateDeleteMode] = useState(null)
   const dispatch = useDispatch();
   const hasOldPackages = rfqData.rfqPackages.length > 0;
 
@@ -924,7 +925,11 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             </label>
             {rfqData.rfqPackages.map((rfq, index) => {
               return <div className='mx-4 packageContainer' key={index}>
-                <img src={closeIcon} alt='closeIcon' className='closeIcon' onClick={() => { handleDeletePackage(index) }} />
+                <img src={closeIcon} alt='closeIcon' className='closeIcon' onClick={
+                  () => {
+                    updateDeleteMode('package')
+                    updateDeleteRowModal(true)
+                  }} />
                 <div onClick={() => handleSwitchPackage(rfq, index)}>
                   {createdActivePackId === rfq.packageTempId ?
                     <img src={PackageEnabled} alt='PackageEnabled' /> :
@@ -1225,6 +1230,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                 updateDeleteRowModal(false);
               }}
               onDeleteRow={onDeleteRow}
+              onDeletePackage={handleDeletePackage}
+              deleteMode={deleteMode}
             />
           )}
           <FileErrorModal

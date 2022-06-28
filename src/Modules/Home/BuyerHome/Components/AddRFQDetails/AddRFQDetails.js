@@ -121,7 +121,7 @@ function AddRFQDetails({ getRFQPageName }) {
         (!data.favouriteVendors || data.favouriteVendors.length === 0) &&
         !data.inviteByWhatsapp &&
         (!data.invitedEmails || data.invitedEmails.length === 0))
-    ) {
+      || !privateTenderData.isValidEmail) {
       updateAlert(true);
     } else {
       updateAlert(false);

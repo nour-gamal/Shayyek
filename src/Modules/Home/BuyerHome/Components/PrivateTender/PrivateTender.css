@@ -14,6 +14,9 @@
 .privateTender .inviteByWhatsappNote{
 	color:#707070
 }
+.privateTender .border-danger{
+	border: 2px solid red;
+}
 
 @media (max-width:768px){
 	.privateTender>div,.privateTender .inviteByEmailContainer,.privateTender .selectFavVendorsContainer {

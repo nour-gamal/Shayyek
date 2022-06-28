@@ -3,7 +3,7 @@ import { Modal } from "antd";
 import { useSelector } from "react-redux";
 import deleteIcon from "../../../../../Resources/Assets/delete_large.png";
 import "./DeleteModal.css";
-function DeleteModal({ isModalVisible, onCancel, onDeleteRow }) {
+function DeleteModal({ isModalVisible, onCancel, onDeleteRow, deleteMode }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	return (
 		<Modal
@@ -14,7 +14,7 @@ function DeleteModal({ isModalVisible, onCancel, onDeleteRow }) {
 		>
 			<img src={deleteIcon} alt="deleteIcon" />
 			<div className="primary-color my-4">
-				{currentLocal.buyerHome.confirmDeleteRow}
+				{deleteMode === "package" ? <>{currentLocal.buyerHome.confirmDeletePackage}</> : <>{currentLocal.buyerHome.confirmDeleteRow}</>}
 			</div>
 			<div className="d-flex justify-content-center buttonContainer">
 				<button className="button-secondary primary-color" onClick={onCancel}>
