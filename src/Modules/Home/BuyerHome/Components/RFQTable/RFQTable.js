@@ -145,7 +145,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const { Option } = Select;
 
   const onDeleteRow = () => {
-    let tableData = dataSource;
+    let tableData = [...dataSource];
 
     if (tableData[deletedIndex].rfqDetailId) {
       updateDeleteRowsList([
@@ -154,7 +154,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       ]);
     }
     tableData.splice(deletedIndex, 1);
-
     updateDataSource(tableData);
     updateDeleteRowModal(false);
     updateIndexState(true);
@@ -273,11 +272,26 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             deliveryToId: deliveredTo,
             packageCCColleagues: [...ccEmailsIDs],
             packageFiles,
-            excelSheet,
+            ImportedSheet: excelSheet,
             packageTempId: new Date().getTime()
           },
         ],
       };
+      let data = {
+        index: createdActivePackIndex,
+        dataSource,
+        address,
+        notes,
+        receivingOffersDeadline: recievingOffersDate,
+        deliveryDate,
+        deliveryToId: deliveredTo,
+        packageCCColleagues: ccEmails,
+        packageFiles,
+        ImportedSheet: excelSheet
+      }
+      if (rfqData.rfqPackages.length) {
+        dispatch(UPDATEPACKAGE(data))
+      }
       updateRFQDetails(allData);
       if (mode === 'addPackage') {
         updateIsAddPackModalVis(!isAddPackModalVis);
@@ -298,7 +312,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       for (let index = 0; index <= 4; index++) {
         data.push({
           key: index,
-          item: "",
+          item: index,
           description: "",
           quantity: 1,
           unit: "",
@@ -321,16 +335,16 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     );
   }, [currentLanguageId, hasOldPackages]);
 
-  useEffect(() => {
-    if (indexState) {
-      updateIndexState(false);
-      let tableData = dataSource;
-      tableData.forEach((data, dataIndex) => {
-        data.item = dataIndex.toString();
-      });
-      updateDataSource(tableData);
-    }
-  }, [indexState, dataSource]);
+  // useEffect(() => {
+  //   if (indexState) {
+  //     updateIndexState(false);
+  //     let tableData = [...dataSource];
+  //     tableData.forEach((data, dataIndex) => {
+  //       data.item = dataIndex.toString();
+  //     });
+  //     updateDataSource(tableData);
+  //   }
+  // }, [indexState, dataSource]);
 
   const handleUploadItemDoc = (e) => {
     var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|ms-excel|dwg|DWG|DOC|doc|PDF|pdf/.test(
@@ -406,11 +420,12 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                   : "cursorPointer hideGarbage"
               }
               onClick={() => {
+                updateDeleteMode('row')
                 updateDeleteRowModal(true);
                 updateDeletedIndex(index);
               }}
             />
-            <div>{parseInt(item) + 1}</div>
+            <div>{index + 1}</div>
           </div>
         );
       },
@@ -425,7 +440,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             disabled={rfqId}
             onChange={(e) => {
               let data = [];
-              dataSource.forEach((obj) => {
+              let dataSourceVar = [...dataSource]
+              dataSourceVar.forEach((obj) => {
                 data.push({ ...obj })
               })
               data[selectedRow].description = e.target.value;
@@ -516,7 +532,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
         // if (rfqId) props.value = categoryId;
         // else props.defaultValue = categoryId;
-        console.log(props)
         return (
           <Select
             disabled={rfqId}
@@ -641,6 +656,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
     let file = new FormData();
     file.append("image", excelSheet);
+    file.append("status", 5)
     GetImagePath(
       file,
       (success) => {
@@ -666,6 +682,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       deliveryToId: deliveredTo,
       packageCCColleagues: ccEmails,
       packageFiles,
+      ImportedSheet: excelSheet
     }
     dispatch(UPDATEPACKAGE({ ...data }))
     updateCreatedActivePackId(rfq.packageTempId)
@@ -686,7 +703,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       history.push("/")
     }
   }
-
   function saveEditInPackage() {
     let sentPackageFiles = packageFiles.map((item) =>
       isObject(item) ? item.path : item
@@ -754,14 +770,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       (fail) => { }
     );
   }
-  // useEffect(() => {
-  //   if (rfqData.rfqPackages.length) {
-  //     updateCreatedActivePackId(rfqData.rfqPackages[0].packageTempId)
-  //     updateCreatedActivePackIndex(0)
-  //   }
-  //   // eslint-disable-next-line
-  // }, [])
-
   return (
     <div className="ppl ppr my-4 RFQTable">
       {addPackageAlert &&

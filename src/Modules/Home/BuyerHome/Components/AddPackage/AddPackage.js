@@ -18,6 +18,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) 
 	window.addEventListener("resize", () => {
 		updateIsMobile(!mq.matches);
 	});
+	console.log(rfqDetails)
 
 	const handleAddPackage = () => {
 		var data = []
@@ -52,12 +53,19 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) 
 			packageCCColleagues: [],
 			packageFiles: [],
 			categoryId: null,
-			packageTempId: new Date().getTime()
+			packageTempId: new Date().getTime(),
+			ImportedSheet: null
 		};
+		if (hasOldPackages) {
+			dispatch(ADDNEWPACKAGE({
+				newPackageData
+			}));
 
-		dispatch(ADDNEWPACKAGE({
-			oldPackageData: rfqDetails, newPackageData
-		}));
+		} else {
+			dispatch(ADDNEWPACKAGE({
+				oldPackageData: rfqDetails, newPackageData
+			}));
+		}
 		updateReset(true)
 		switchToLastPack(newPackageData.packageTempId, rfqData.rfqPackages.length)
 		onCancel()

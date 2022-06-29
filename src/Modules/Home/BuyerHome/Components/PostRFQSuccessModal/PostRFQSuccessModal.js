@@ -14,8 +14,9 @@ function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, rfqD
   const [redirectTo, updateRedirectTo] = useState(null);
   const dispatch = useDispatch();
   const handleSubmit = () => {
+    const data = alreadyHasPackage ? rfqData : rfqDetails
     postRFQ(
-      rfqDetails,
+      data,
       (success) => {
         if (success.data) {
           if (rfqData.inviteByWhatsapp) {
