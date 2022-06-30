@@ -25,7 +25,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) 
 		for (let index = 0; index <= 4; index++) {
 			data.push({
 				key: index,
-				item: index,
+				item: index.toString(),
 				description: "",
 				quantity: 1,
 				unit: "",

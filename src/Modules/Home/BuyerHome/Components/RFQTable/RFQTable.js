@@ -34,6 +34,7 @@ import pdfIcon from "../../../../../Resources/Assets/pdfs.png";
 import docIcon from "../../../../../Resources/Assets/doc.svg";
 import excel from "../../../../../Resources/Assets/excel.svg";
 import autocad from "../../../../../Resources/Assets/autocad.svg";
+import imageIcon from "../../../../../Resources/Assets/images.png";
 import close from "../../../../../Resources/Assets/tip-close.svg";
 import { toast } from "react-toastify";
 import "./RFQTable.css";
@@ -47,7 +48,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [deliveredTo, updateDeliveredTo] = useState(
     "a9c83c89-4aeb-46b8-b245-a144276d927f"
   );
-  const [excelSheet, updateExcelSheet] = useState(null);
+  const [ImportedSheet, updateImportedSheet] = useState(null);
   const [notes, updateNotes] = useState("");
   const [isAddPackModalVis, updateIsAddPackModalVis] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -73,6 +74,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [documentsList, updateDocumentsList] = useState([]);
   const [packageFiles, updatePackageFiles] = useState([]);
   const [docLoadingState, updateDocLoadingState] = useState(false);
+  const [excelLoadingState, updateExcelLoadingState] = useState(false)
   const [rfqDetails, updateRFQDetails] = useState(null);
   const [activePackgeId, setActivePackgeId] = useState(null);
   const { rfqData } = useSelector((state) => state.rfq);
@@ -115,8 +117,9 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       setDeliveryDate(currentPackageData.deliveryDate);
       updateCCEmails(currentPackageData.packageCCColleagues);
       updatePackageFiles(currentPackageData.packageFiles);
+      updateDocumentsList(currentPackageData.documentsList)
       setOffersDate(currentPackageData.receivingOffersDeadline);
-      updateExcelSheet(currentPackageData.excelSheet);
+      updateImportedSheet(currentPackageData.ImportedSheet);
     }
   }, [createdActivePackId, createdActivePackIndex, hasOldPackages, rfqData.rfqPackages])
 
@@ -207,7 +210,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       ...dataSource,
       {
         key,
-        item: null,
+        item: dataSource.length.toString(),
         description: "",
         quantity: 1,
         unit: "",
@@ -277,7 +280,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             deliveryToId: deliveredTo,
             packageCCColleagues: [...ccEmailsIDs],
             packageFiles,
-            ImportedSheet: excelSheet,
+            ImportedSheet,
             packageTempId: new Date().getTime()
           },
         ],
@@ -291,8 +294,9 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         deliveryDate,
         deliveryToId: deliveredTo,
         packageCCColleagues: ccEmails,
+        documentsList,
         packageFiles,
-        ImportedSheet: excelSheet
+        ImportedSheet
       }
       if (rfqData.rfqPackages.length) {
         dispatch(UPDATEPACKAGE(data))
@@ -317,7 +321,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       for (let index = 0; index <= 4; index++) {
         data.push({
           key: index,
-          item: index,
+          item: index.toString(),
           description: "",
           quantity: 1,
           unit: "",
@@ -638,7 +642,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   }, [activePackgeId]);
 
   const importExcelFile = (e) => {
-    const excelSheet = e.target.files[0];
+    const ImportedSheet = e.target.files[0];
     var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|ms-excel|DOC|doc|PDF|pdf/.test(
       e.target.files[0].type || e.target.files[0].name
     );
@@ -647,14 +651,16 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       updateFileErrorModalState({ message: ' PDF, Word , Excel', state: true });
       return 0;
     }
+    updateExcelLoadingState(true);
 
     let file = new FormData();
-    file.append("image", excelSheet);
+    file.append("image", ImportedSheet);
     file.append("status", 5)
     GetImagePath(
       file,
       (success) => {
-        updateExcelSheet(success.data)
+        updateImportedSheet(success.data)
+        updateExcelLoadingState(false);
       },
       (fail) => {
         console.log(fail);
@@ -678,7 +684,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         deliveryToId: deliveredTo,
         packageCCColleagues: ccEmails,
         packageFiles,
-        ImportedSheet: excelSheet
+        documentsList,
+        ImportedSheet: ImportedSheet
       }
       dispatch(UPDATEPACKAGE({ ...data }))
       updateCreatedActivePackId(rfq.packageTempId)
@@ -782,31 +789,36 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         <div>
           {!rfqId ? (
             <>
-              <div className="mb-3">
-                <input
-                  type="file"
-                  id="actual-btn"
-                  onChange={importExcelFile}
-                  className="d-none"
-                />
-                <label htmlFor={excelSheet ? "" : "actual-btn"} className="primary-color">
-                  <img src={importIcon} alt="importIcon" className="mx-3" />
-                </label>
-                {excelSheet ? <>
-                  <a href={baseUrl + excelSheet} rel="noreferrer" target={'_blank'}>
-                    {excelSheet.split(" ")[1]}
-                  </a>
-                  <img
-                    src={closeIcon}
-                    alt='closeIcon'
-                    className={'closeIcon mx-2'}
-                    onClick={() => {
-                      updateExcelSheet(null)
-                    }} />
-                </> : <label>
-                  {currentLocal.buyerHome.importExcelFile}
-                </label>}
-              </div>
+              {excelLoadingState ? (
+                <div className="example text-center">
+                  <Spin />
+                </div>
+              ) : (
+                <div className="mb-3">
+                  <input
+                    type="file"
+                    id="actual-btn"
+                    onChange={importExcelFile}
+                    className="d-none"
+                  />
+                  <label htmlFor={ImportedSheet ? "" : "actual-btn"} className="primary-color">
+                    <img src={importIcon} alt="importIcon" className="mx-3" />
+                  </label>
+                  {ImportedSheet ? <>
+                    <a href={baseUrl + ImportedSheet} rel="noreferrer" target={'_blank'}>
+                      {ImportedSheet.split(" ")[1]}
+                    </a>
+                    <img
+                      src={closeIcon}
+                      alt='closeIcon'
+                      className={'closeIcon mx-2'}
+                      onClick={() => {
+                        updateImportedSheet(null)
+                      }} />
+                  </> : <label>
+                    {currentLocal.buyerHome.importExcelFile}
+                  </label>}
+                </div>)}
               {rfqData.rfqPackages.length === 0 && <div className="mb-3">
                 <img
                   src={addIcon}
@@ -1076,8 +1088,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                     : fileType.includes("dwg")
                       ? autocad
                       : fileType.includes("doc")
-                        ? docIcon
-                        : excel;
+                        ? docIcon : fileType.includes("image") ? imageIcon
+                          : excel;
                   return (
                     <div className="d-flex m-2">
                       <img src={type} alt="pdf" className="mx-2" />

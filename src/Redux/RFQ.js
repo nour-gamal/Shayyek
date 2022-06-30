@@ -27,6 +27,8 @@ export const RFQSlice = createSlice({
 			state.rfqData.rfqPackages[action.payload.index].deliveryDate = action.payload.deliveryDate
 			state.rfqData.rfqPackages[action.payload.index].packageCCColleagues = action.payload.packageCCColleagues
 			state.rfqData.rfqPackages[action.payload.index].packageFiles = action.payload.packageFiles
+			state.rfqData.rfqPackages[action.payload.index].documentsList = action.payload.documentsList
+			state.rfqData.rfqPackages[action.payload.index].ImportedSheet = action.payload.ImportedSheet
 		},
 		DELETEPACKAGE: (state, action) => {
 			state.rfqData.rfqPackages.splice(action.payload, 1)
