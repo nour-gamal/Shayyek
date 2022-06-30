@@ -65,7 +65,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [isDeleteRowModal, updateDeleteRowModal] = useState(false);
   const [deletedIndex, updateDeletedIndex] = useState(null);
   const [deletedRowsList, updateDeleteRowsList] = useState([]);
-  const [indexState, updateIndexState] = useState(false);
   const [fileErrorModalState, updateFileErrorModalState] = useState(false);
   const [packageName, updatePackageName] = useState("");
   const [ccEmails, updateCCEmails] = useState([]);
@@ -77,8 +76,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [rfqDetails, updateRFQDetails] = useState(null);
   const [activePackgeId, setActivePackgeId] = useState(null);
   const { rfqData } = useSelector((state) => state.rfq);
-  const [createdActivePackId, updateCreatedActivePackId] = useState(rfqData.rfqPackages.length ? rfqData.rfqPackages[0].packageTempId : null)
-  const [createdActivePackIndex, updateCreatedActivePackIndex] = useState(0)
+  const [createdActivePackId, updateCreatedActivePackId] = useState(rfqData.rfqPackages.length ? rfqData.rfqPackages[rfqData.rfqPackages.length - 1].packageTempId : null)
+  const [createdActivePackIndex, updateCreatedActivePackIndex] = useState(rfqData.rfqPackages.length ? rfqData.rfqPackages.length - 1 : 0)
   const [rfqForEdit, setRfqForEdit] = useState(null);
   const [filledPackagesForEdit, setFilledPackagesForEdit] = useState([]);
   const [addPackageAlert, updateAddPackageAlert] = useState(false);
@@ -156,7 +155,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     tableData.splice(deletedIndex, 1);
     updateDataSource(tableData);
     updateDeleteRowModal(false);
-    updateIndexState(true);
   };
 
   function handleCategoriesChange(optionId, rowIndex) {
@@ -219,7 +217,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         filePath: "",
       },
     ]);
-    updateIndexState(true);
     updateItemAdded(true);
     setTimeout(() => {
       updateItemAdded(false);
@@ -236,7 +233,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     );
   }
 
-  function handleConfirm(mode) {
+  const isValidRFQ = () => {
     const hasNoCat = dataSource.every((data) => {
       return data.categoryId === undefined;
     });
@@ -251,6 +248,14 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       deliveryDate === null ||
       hasNoCat
     ) {
+      return false
+    } else {
+      return true;
+    }
+  }
+  function handleConfirm(mode) {
+    const isValidRFQVar = isValidRFQ()
+    if (!isValidRFQVar) {
       setAlert(true);
       if (mode === 'addPackage') {
         updateAddPackageAlert(true)
@@ -321,7 +326,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           filePath: "",
         });
       }
-      updateIndexState(true);
       updateDataSource(data);
     }
     getCategories(
@@ -335,24 +339,14 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     );
   }, [currentLanguageId, hasOldPackages]);
 
-  // useEffect(() => {
-  //   if (indexState) {
-  //     updateIndexState(false);
-  //     let tableData = [...dataSource];
-  //     tableData.forEach((data, dataIndex) => {
-  //       data.item = dataIndex.toString();
-  //     });
-  //     updateDataSource(tableData);
-  //   }
-  // }, [indexState, dataSource]);
 
   const handleUploadItemDoc = (e) => {
-    var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|ms-excel|dwg|DWG|DOC|doc|PDF|pdf/.test(
+    var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|png|jpg|jpeg|ms-excel|dwg|DWG|DOC|doc|PDF|pdf/.test(
       e.target.files[0].type || e.target.files[0].name
     );
 
     if (!isValidExtensions) {
-      updateFileErrorModalState({ message: ' PDF, Word, Excel , AutoCAD', state: true });
+      updateFileErrorModalState({ message: ' PDF, Word, Excel , AutoCAD,JPG,JPEG,PNG', state: true });
       return 0;
     }
 
@@ -377,11 +371,11 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
   const handleAddProjectFiles = (e) => {
     let files = [...e.target.files];
-    let regex = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|ms-excel|dwg|DWG|DOC|doc|PDF|pdf/;
+    let regex = /xlsx|xlsm|xlsb|jpg|jpeg|png|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|ms-excel|dwg|DWG|DOC|doc|PDF|pdf/;
     var validFiles = files.filter((file) => regex.test(file.type || file.name));
 
     if (!validFiles.length) {
-      updateFileErrorModalState({ message: ' PDF, Word, Excel , AutoCAD', state: true });
+      updateFileErrorModalState({ message: 'PDF, Word, Excel , AutoCAD, JPG, JPEG, PNG', state: true });
       return 0;
     } else {
       updateDocLoadingState(true);
@@ -672,21 +666,29 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
 
   const handleSwitchPackage = (rfq, index) => {
-    let data = {
-      index: createdActivePackIndex,
-      dataSource,
-      address,
-      notes,
-      receivingOffersDeadline: recievingOffersDate,
-      deliveryDate,
-      deliveryToId: deliveredTo,
-      packageCCColleagues: ccEmails,
-      packageFiles,
-      ImportedSheet: excelSheet
+    const isValidRFQVar = isValidRFQ();
+    if (isValidRFQVar) {
+      let data = {
+        index: createdActivePackIndex,
+        dataSource,
+        address,
+        notes,
+        receivingOffersDeadline: recievingOffersDate,
+        deliveryDate,
+        deliveryToId: deliveredTo,
+        packageCCColleagues: ccEmails,
+        packageFiles,
+        ImportedSheet: excelSheet
+      }
+      dispatch(UPDATEPACKAGE({ ...data }))
+      updateCreatedActivePackId(rfq.packageTempId)
+      updateCreatedActivePackIndex(index);
+      setAlert(false);
+      updateAddPackageAlert(false);
+    } else {
+      setAlert(true);
+      updateAddPackageAlert(true);
     }
-    dispatch(UPDATEPACKAGE({ ...data }))
-    updateCreatedActivePackId(rfq.packageTempId)
-    updateCreatedActivePackIndex(index)
   }
 
   const handleDeletePackage = () => {

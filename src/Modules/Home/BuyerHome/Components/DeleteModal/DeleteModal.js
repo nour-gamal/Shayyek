@@ -5,6 +5,8 @@ import deleteIcon from "../../../../../Resources/Assets/delete_large.png";
 import "./DeleteModal.css";
 function DeleteModal({ isModalVisible, onCancel, onDeleteRow, deleteMode, onDeletePackage }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const { rfqData } = useSelector((state) => state.rfq);
+
 	const handleDelete = () => {
 		if (deleteMode === 'package') {
 			onDeletePackage()
@@ -22,7 +24,7 @@ function DeleteModal({ isModalVisible, onCancel, onDeleteRow, deleteMode, onDele
 		>
 			<img src={deleteIcon} alt="deleteIcon" />
 			<div className="primary-color my-4">
-				{deleteMode === "package" ? <>{currentLocal.buyerHome.confirmDeletePackage}</> : <>{currentLocal.buyerHome.confirmDeleteRow}</>}
+				{deleteMode === "package" ? rfqData.rfqPackages.length !== 1 ? <>{currentLocal.buyerHome.confirmDeletePackage}</> : <>{currentLocal.buyerHome.confirmDeleteRFQ}</> : <>{currentLocal.buyerHome.confirmDeleteRow}</>}
 			</div>
 			<div className="d-flex justify-content-center buttonContainer">
 				<button className="button-secondary primary-color" onClick={onCancel}>

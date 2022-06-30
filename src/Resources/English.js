@@ -411,6 +411,7 @@ export const en = {
     relatedMarketPlace: "Related MarketPlace",
     confirmDeleteRow: "Are you sure you want to delete the selected row?",
     confirmDeletePackage: "Are you sure you want to delete the selected package?",
+    confirmDeleteRFQ: "Are you sure you want to delete the RFQ?",
     addPackageName: "Add Package Name",
     addPack: "Add Package",
     name: 'Name',

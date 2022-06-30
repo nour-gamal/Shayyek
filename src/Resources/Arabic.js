@@ -353,6 +353,7 @@ export const ar = {
     viewOffers: "اظهر العروض",
     confirmDeleteRow: "هل انت متاكد من ازاله الصف المختار؟",
     confirmDeletePackage: "هل انت متاكد من ازاله الباقه المختاره؟",
+    confirmDeleteRFQ: "هل انت متاكد من ازاله طلب عرض السعر ؟",
     addPackageName: "اضف اسم العمل",
     addPack: "اضف اسم حزمه رقم",
     addPackAlert: "من فضلك املاء كل الخانات المطلوبه لاضافه حزمه جديده",

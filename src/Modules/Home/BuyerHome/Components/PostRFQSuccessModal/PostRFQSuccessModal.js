@@ -60,9 +60,9 @@ function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, rfqD
           )}
         </div>
         {alreadyHasPackage ? (
-          <div>
+          <div className='d-flex'>
             <button
-              className="button-secondary flat m-2"
+              className="button-secondary m-2"
               onClick={handleAddAnotherPackage}
             >
               {currentLocal.buyerHome.addPackage}

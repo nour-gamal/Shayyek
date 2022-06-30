@@ -18,7 +18,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) 
 	window.addEventListener("resize", () => {
 		updateIsMobile(!mq.matches);
 	});
-	console.log(rfqDetails)
+
 
 	const handleAddPackage = () => {
 		var data = []
@@ -60,14 +60,14 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) 
 			dispatch(ADDNEWPACKAGE({
 				newPackageData
 			}));
-
 		} else {
 			dispatch(ADDNEWPACKAGE({
 				oldPackageData: rfqDetails, newPackageData
 			}));
 		}
-		updateReset(true)
+
 		switchToLastPack(newPackageData.packageTempId, rfqData.rfqPackages.length)
+		updateReset(true)
 		onCancel()
 	}
 	if (reset) {
