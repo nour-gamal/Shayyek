@@ -1,0 +1,28 @@
+.categoryDropDown{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    width:250px;
+}
+.categoryDropDown .dropdownHeader{
+    background-color: #F5F5F5;
+    border-radius: 5px;
+    padding:10px;
+}
+.categoryDropDown .listArea{
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+    background-color: red;
+    width: 100%;
+    z-index: 1;
+}
+.categoryDropDown .searchContainer{
+    position: relative;
+}
+.categoryDropDown .searchContainer img{
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translate(0,-50%);
+}

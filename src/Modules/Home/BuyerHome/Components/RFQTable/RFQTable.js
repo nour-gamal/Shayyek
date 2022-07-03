@@ -38,6 +38,7 @@ import imageIcon from "../../../../../Resources/Assets/images.png";
 import close from "../../../../../Resources/Assets/tip-close.svg";
 import { toast } from "react-toastify";
 import "./RFQTable.css";
+import CategoriesList from "../CategoriesList/CategoriesList";
 
 function CreateRFQ({ getRFQPageName, rfqId }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -926,7 +927,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
               <label className="mx-2 primary-color">
                 {currentLocal.buyerHome.category}
               </label>
-              <Select
+              {/* <Select
                 placeholder={currentLocal.buyerHome.selectCategory}
                 onChange={(optionId, record) => {
                   changeCategoryForAll(optionId, record.children);
@@ -940,7 +941,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                     </Option>
                   );
                 })}
-              </Select>
+              </Select> */}
+              <CategoriesList />
             </div>
             <div>
               <label className="mx-2 primary-color">
