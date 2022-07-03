@@ -299,6 +299,7 @@ export const ar = {
     selectDate: "اختر التاريخ",
     invitedByEmail: "مدعوين عن طريق البريد الالكتروني",
     interestedInVolumeOfBusiness: 'مهتم فقط بالباعه اصحاب احجام العمل :',
+    fillDescriptionError: "من فضلك املئ مواصفات جميع البنود",
     addNewEmail: "اضف بريد الكتروني جديد",
     publishToNetwork: "انشر علي شبكه موردي و مقاولي شيك ذات الصله",
     filterForPreQual: "فلتر عن طريق المؤهلات",

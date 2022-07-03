@@ -84,6 +84,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [filledPackagesForEdit, setFilledPackagesForEdit] = useState([]);
   const [addPackageAlert, updateAddPackageAlert] = useState(false);
   const [deleteMode, updateDeleteMode] = useState(null);
+  const [errorMessage, updateErrorMessage] = useState(null)
   const dispatch = useDispatch();
   const hasOldPackages = rfqData.rfqPackages.length > 0;
   let history = useHistory();
@@ -240,16 +241,23 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     const hasNoCat = dataSource.every((data) => {
       return data.categoryId === undefined;
     });
+    const hasAtLeastEmptyDescription = dataSource.some((data) => data.description.length === 0)
     if (hasNoCat) {
       updateNotContainCategory(true);
     } else {
       updateNotContainCategory(false);
     }
+    if (hasAtLeastEmptyDescription) {
+      updateErrorMessage(currentLocal.buyerHome.fillDescriptionError)
+    } else {
+      updateErrorMessage(null)
+    }
     if (
       address.length === 0 ||
       recievingOffersDate === null ||
       deliveryDate === null ||
-      hasNoCat
+      hasNoCat ||
+      hasAtLeastEmptyDescription
     ) {
       return false
     } else {
@@ -785,6 +793,9 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         <Alert variant="danger" className="text-center">
           {currentLocal.buyerHome.addPackAlert}
         </Alert>}
+      {errorMessage && <Alert variant="danger" className="text-center">
+        {errorMessage}
+      </Alert>}
       <div className="actionsContainer">
         <div>
           {!rfqId ? (
