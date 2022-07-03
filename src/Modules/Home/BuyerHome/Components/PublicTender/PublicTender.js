@@ -1,74 +1,55 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Checkbox, Radio } from "antd";
+import { getPublicTenderFilters } from "../../../network";
+
 import "./PublicTender.css";
+import { getVolumeOfBusiness } from "../../../../Registration/Network";
 function PublicTender({
 	getPublicTenderData,
-	publicTenderData,
-	isListNotEmpty,
 }) {
-	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const [verifiedByShayyek, updateVerifiedByShayyek] = useState(false);
-	const [sameVendorLocation, updateSameVendorLocation] = useState(false);
-	const [relevantVolumeOfBusiness, updateRelevantVolumeOfBusiness] = useState(
-		false
-	);
-	const [moreThan5Years, updateMoreThan5Years] = useState(false);
+	const { currentLocal, currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [publishOrFilter, updatePublishOrFilter] = useState("publish");
+	const [preQualificationsFilters, updatepreQualificationsFilters] = useState([]);
+	const [publicTenderFilterDraft, updatePublicTenderFilterDraft] = useState([]);
+	const [volumeOfBusinessList, updateVolumeOfBusinessList] = useState([])
+	const [selectedVolumeOfBusiness, updateSelectedVolumeOfBusiness] = useState(null);
+	const [isVolOfBussOpened, updateIsVolOfBussOpened] = useState(false)
+	const onSpecificBusinessChange = (e) => {
+		updateSelectedVolumeOfBusiness(e.target.value);
+	};
+	useEffect(() => {
+		getPublicTenderFilters(currentLanguageId, success => {
+			updatepreQualificationsFilters(success.data);
+			let selectedFilters = []
+			success.data.forEach(filter => {
+				selectedFilters.push({ filterId: filter.id, isSelected: false })
+			})
+			updatePublicTenderFilterDraft(selectedFilters);
+		}, fail => {
+			console.log(fail)
+		})
+		getVolumeOfBusiness(currentLanguageId, success => {
+			updateVolumeOfBusinessList(success.data);
+			updateSelectedVolumeOfBusiness(success.data[0].id)
+		}, fail => {
+			console.log(fail)
+		})
+	}, [currentLanguageId])
 
-	// const sendPublicTenderDataToParent = () => {
-	// 	let data = {
-	// 		isPublishToSuppliersNetwork: publishOrFilter === "publish",
-	// 		publicTenderFilter: {
-	// 			verifiedByShayyek: verifiedByShayyek,
-	// 			relevantVolumeOfWork: relevantVolumeOfBusiness,
-	// 			plus5YearsOfExperience: moreThan5Years,
-	// 			sameVendorLocation: sameVendorLocation,
-	// 		},
-	// 	};
-	// 	getPublicTenderData(data);
-	// };
+
 	useEffect(() => {
 		let data = {
 			isPublishToSuppliersNetwork: publishOrFilter === "publish",
-			publicTenderFilter: {
-				verifiedByShayyek: verifiedByShayyek,
-				relevantVolumeOfWork: relevantVolumeOfBusiness,
-				plus5YearsOfExperience: moreThan5Years,
-				relevantVendorLocation: sameVendorLocation,
-			},
+			publicTenderFilterDraft,
+			volumeOfBusinessFilter: isVolOfBussOpened ? selectedVolumeOfBusiness : null
 		};
 		getPublicTenderData(data);
 		// eslint-disable-next-line
 	}, [
 		publishOrFilter,
-		moreThan5Years,
-		relevantVolumeOfBusiness,
-		sameVendorLocation,
-		verifiedByShayyek,
+		publicTenderFilterDraft
 	]);
-	useEffect(() => {
-		if (publicTenderData.publicTenderFilter) {
-			updatePublishOrFilter(
-				publicTenderData.isPublishToSuppliersNetwork ? "publish" : "filter"
-			);
-
-			updateVerifiedByShayyek(
-				publicTenderData.publicTenderFilter.verifiedByShayyek
-			);
-			updateRelevantVolumeOfBusiness(
-				publicTenderData.publicTenderFilter.relevantVolumeOfWork
-			);
-			updateSameVendorLocation(
-				publicTenderData.publicTenderFilter.relevantVendorLocation
-			);
-			updateMoreThan5Years(
-				publicTenderData.publicTenderFilter.plus5YearsOfExperience
-			);
-		}
-		// eslint-disable-next-line
-	}, [isListNotEmpty]);
-
 	return (
 		<div className="publicTender my-4">
 			<Radio.Group
@@ -78,62 +59,44 @@ function PublicTender({
 					updatePublishOrFilter(e.target.value);
 				}}
 				key={publishOrFilter}
+				className='d-flex justify-content-between'
 			>
 				<Radio value={"publish"}>
 					{currentLocal.buyerHome.publishToNetwork}
 				</Radio>
-				<span className="f-18 fw-500  orTitle mx-2">
+				<span className="f-18 fw-500  orTitle">
 					{currentLocal.buyerHome.or}
 				</span>
-				<span>
+				<span className='preQualificationsContainer'>
 					<Radio value={"filter"}>
 						{currentLocal.buyerHome.filterForPreQual}
 					</Radio>
-					<div className="my-2 filter-container d-flex">
-						<div className="d-flex flex-column">
-							<Checkbox
-								onChange={() => {
-									updateVerifiedByShayyek(!verifiedByShayyek);
+					<div className="my-2 filter-container d-flex flex-wrap">
+						{preQualificationsFilters.map((preQualification, index) => {
+							return <Checkbox
+								onChange={(e) => {
+									let allSelectedQualifications = [...publicTenderFilterDraft];
+									allSelectedQualifications[index].isSelected = e.target.checked
+									updatePublicTenderFilterDraft(allSelectedQualifications);
+									if (preQualification.id === 'cd736b5f-fd33-42f5-813f-dbafe87ea336') {
+										updateIsVolOfBussOpened(e.target.checked)
+									}
 								}}
-								className="my-2"
+								className="my-2 d-flex preQualItem"
 								disabled={publishOrFilter === "publish"}
-								defaultChecked={verifiedByShayyek}
 							>
-								{currentLocal.buyerHome.verifiedByShayyek}
+								{preQualification.name}
 							</Checkbox>
-							<Checkbox
-								onChange={() => {
-									updateSameVendorLocation(!sameVendorLocation);
-								}}
-								className="my-2"
-								disabled={publishOrFilter === "publish"}
-								defaultChecked={sameVendorLocation}
-							>
-								{currentLocal.buyerHome.sameVendorLocation}
-							</Checkbox>
-						</div>
-						<div className="d-flex flex-column">
-							<Checkbox
-								onChange={() => {
-									updateRelevantVolumeOfBusiness(!relevantVolumeOfBusiness);
-								}}
-								className="my-2"
-								disabled={publishOrFilter === "publish"}
-								defaultChecked={relevantVolumeOfBusiness}
-							>
-								{currentLocal.buyerHome.relevantVolumeOfBusiness}
-							</Checkbox>
-							<Checkbox
-								onChange={() => {
-									updateMoreThan5Years(!moreThan5Years);
-								}}
-								className="my-2"
-								disabled={publishOrFilter === "publish"}
-								defaultChecked={moreThan5Years}
-							>
-								{currentLocal.buyerHome.moreThan5Years}
-							</Checkbox>
-						</div>
+						})}
+						{isVolOfBussOpened && <div className='customVolumeOfBusiness preQualItem p-2'>
+							<div>{currentLocal.buyerHome.interestedInVolumeOfBusiness}</div>
+							<Radio.Group
+								onChange={onSpecificBusinessChange}
+								value={selectedVolumeOfBusiness}
+								className='d-flex flex-column'>
+								{volumeOfBusinessList.map(volume => <Radio className='my-2' value={volume.id}>{volume.name}</Radio>)}
+							</Radio.Group>
+						</div>}
 					</div>
 				</span>
 			</Radio.Group>

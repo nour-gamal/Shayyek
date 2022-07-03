@@ -210,7 +210,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       ...dataSource,
       {
         key,
-        item: dataSource.length.toString(),
+        item: dataSource.length,
         description: "",
         quantity: 1,
         unit: "",
@@ -321,7 +321,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       for (let index = 0; index <= 4; index++) {
         data.push({
           key: index,
-          item: index.toString(),
+          item: index,
           description: "",
           quantity: 1,
           unit: "",

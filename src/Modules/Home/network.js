@@ -300,7 +300,7 @@ export function ViewPackageQuotationForSupplier(
   const path = `api/RFQ/ViewPackageQuotationForSupplier?FilldPackageId=${filledPackageId}`;
   GetResource(path, onSuccess, onFail, reqAuth);
 }
-//
+
 export function addDeleteFavVendors(
   vendorId,
   isAdded,
@@ -321,3 +321,16 @@ export function deletePackage(
   const path = `api/RFQ/PackageOffer?FilldPackageId=${filledPackageId}`;
   deleteResource(path, onSuccess, onFail, reqAuth);
 }
+
+
+export function getPublicTenderFilters(
+  languageId,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) {
+  const path = `api/Account/PublicTenderFilter?languageId=${languageId}`;
+  GetResource(path, onSuccess, onFail, reqAuth);
+}
+
+

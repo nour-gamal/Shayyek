@@ -390,6 +390,7 @@ export const en = {
     selectFromVendors: "Select from favourite vendors",
     selectFromMyFavVendors: "Select from my favourite vendors",
     invite: "Invite",
+    interestedInVolumeOfBusiness: 'I’m only interested in vendors with volume of business:',
     addValidEmail: "Please add a valid email",
     addEmail: "Add email",
     postRFQAlert:

@@ -3,22 +3,31 @@
     justify-content: space-between;
 }
 .publicTender .filter-container{
-    border: 1px solid #7FB2F0;
+    border: 1px solid #C7E4FB;
     padding: 10px;
 }
 .publicTender .ant-checkbox-wrapper + .ant-checkbox-wrapper{
     margin-left: 0;
 }
-@media (max-width:768px){
-    .publicTender .ant-radio-group.ant-radio-group-outline{
-     flex-direction: column;
-    }   
-
+.publicTender .preQualificationsContainer{
+    flex-basis: 40%;
+}
+.publicTender .preQualItem{
+    flex-basis: 50%;
+    font-size: 14px;
+}
+.publicTender .customVolumeOfBusiness{
+    background-color: #EAE8E8;
+}
+@media (max-width:991px){
     .publicTender .orTitle{
         margin: 10px 0;
         text-align: center;
     }
-    .publicTender .filter-container{
-     flex-direction: column !important;
-    }
+    .publicTender .ant-radio-group.ant-radio-group-outline{
+        flex-direction: column;
+       }  
+       .publicTender .filter-container{
+        flex-direction: column !important;
+       }
 }

@@ -21,7 +21,7 @@ function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, rfqD
         if (success.data) {
           if (rfqData.inviteByWhatsapp) {
             window.open(
-              `https://api.whatsapp.com/send?text=${"https://shayyek.co?packageId=" +
+              `https://api.whatsapp.com/send?text=${"You have been invited to fill The RFQ in the link below: https://shayyek.co?packageId=" +
               success.data}`,
               "_blank"
             );
