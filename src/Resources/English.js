@@ -392,6 +392,9 @@ export const en = {
     invite: "Invite",
     interestedInVolumeOfBusiness: 'I’m only interested in vendors with volume of business:',
     fillDescriptionError: "Please fill the description of all items!",
+    categorySearch: 'Search in categories or sub',
+    mostFrequentlyUsed: "Most frequently used",
+    allCategories: "All Categories",
     addValidEmail: "Please add a valid email",
     addEmail: "Add email",
     postRFQAlert:
