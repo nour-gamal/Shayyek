@@ -333,4 +333,13 @@ export function getPublicTenderFilters(
   GetResource(path, onSuccess, onFail, reqAuth);
 }
 
+export function getCategoriesWithSubCategories(
+  languageId,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) {
+  const path = `api/Account/CategoriesWithSubCategories?languageId=${languageId}`;
+  GetResource(path, onSuccess, onFail, reqAuth);
+}
 

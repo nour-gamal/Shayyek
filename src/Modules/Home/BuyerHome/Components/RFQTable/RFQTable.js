@@ -35,6 +35,7 @@ import excel from "../../../../../Resources/Assets/excel.svg";
 import autocad from "../../../../../Resources/Assets/autocad.svg";
 import imageIcon from "../../../../../Resources/Assets/images.png";
 import close from "../../../../../Resources/Assets/tip-close.svg";
+import { getCategoriesWithSubCategories } from '../../../network';
 import { toast } from "react-toastify";
 import "./RFQTable.css";
 import CategoriesList from "../CategoriesList/CategoriesList";
@@ -81,11 +82,62 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [filledPackagesForEdit, setFilledPackagesForEdit] = useState([]);
   const [addPackageAlert, updateAddPackageAlert] = useState(false);
   const [deleteMode, updateDeleteMode] = useState(null);
-  const [errorMessage, updateErrorMessage] = useState(null)
+  const [errorMessage, updateErrorMessage] = useState(null);
+  const [categoriesListArr, updateCategoriesListArr] = useState({})
+
   const dispatch = useDispatch();
   const hasOldPackages = rfqData.rfqPackages.length > 0;
   let history = useHistory();
   // edit rfq
+
+
+  useEffect(() => {
+    getCategoriesWithSubCategories(currentLanguageId,
+      success => {
+        var allCategories = [];
+        var frequentlyUsedCategories = [];
+        success.data.allCategories.forEach((category, index) => {
+          allCategories.push({
+            title: category.categoryName,
+            key: category.categoryId,
+            originalChildren: [],
+            children: []
+          })
+          category.subCategories.forEach((subCat) => {
+            allCategories[index].originalChildren.push({
+              title: subCat.name,
+              key: subCat.id
+            })
+            allCategories[index].children.push({
+              title: subCat.name,
+              key: subCat.id
+            })
+          })
+        })
+
+        success.data.mostFrequentlyUsedCategories.forEach((category, index) => {
+          frequentlyUsedCategories.push({
+            title: category.categoryName,
+            key: category.categoryId,
+            originalChildren: [],
+            children: []
+          })
+          category.subCategories.forEach((subCat) => {
+            frequentlyUsedCategories[index].originalChildren.push({
+              title: subCat.name,
+              key: subCat.id
+            })
+            frequentlyUsedCategories[index].children.push({
+              title: subCat.name,
+              key: subCat.id
+            })
+          })
+        })
+        updateCategoriesListArr({ allCategories, frequentlyUsedCategories })
+      }, fail => {
+        console.log(fail)
+      })
+  }, [currentLanguageId])
   useEffect(() => {
     if (rfqId) {
       GetBuyerRFQForEdit(
@@ -505,7 +557,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       key: "categoryId",
       render: (categoryId, record, rowIndex) => {
         return (
-          <CategoriesList />
+          <CategoriesList categoriesListArr={categoriesListArr} />
         );
       },
     },
@@ -886,7 +938,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                   );
                 })}
               </Select> */}
-              <CategoriesList />
+              <CategoriesList categoriesListArr={categoriesListArr} />
             </div>
             <div>
               <label className="mx-2 primary-color">
