@@ -2,7 +2,7 @@
     position: relative;
     display: inline-block;
     cursor: pointer;
-    width:250px;
+    min-width:200px;
 }
 .categoryDropDown .dropdownHeader{
     background-color: #F5F5F5;

@@ -3,6 +3,8 @@ import { Row, Col } from "antd";
 import { BuyerRFQ } from "./../network";
 import RFQInvitations from "./../SupplierHome/Components/RFQInvitations/RFQInvitations";
 import RelatedMarket from "./Components/RelatedMarket/RelatedMarket";
+import Drafts from "../../../Resources/Assets/draft.svg";
+
 function BuyerHome() {
 	const [invitationCount, updateInvitationsCount] = useState(0);
 	const [rfqDetails, updateRFQDetails] = useState(null);

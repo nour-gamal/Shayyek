@@ -6,10 +6,12 @@ import CompanyCard from "../CompanyCard/CompanyCard";
 import { Row, Col } from "antd";
 import { getBuyerCompany } from "../../../network";
 import noSign from "../../../../../Resources/Assets/noRFQs.svg";
+import Drafts from "../../../../../Resources/Assets/draft.svg";
 import "./RelatedMarket.css";
 function RelatedMarket() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
+	const [draftsCount, updateDraftsCount] = useState(0)
 	const [companies, updateCompanies] = useState(null);
 	useEffect(() => {
 		getBuyerCompany(
@@ -24,12 +26,24 @@ function RelatedMarket() {
 	}, [currentLanguageId]);
 	return (
 		<div className={currentLocal.language === "English" ? "ppl" : "ppr"}>
-			<Link to="/createrfq">
-				<button className="orange_btn">
-					<img src={Plus} alt="Plus" className="mx-2" />
-					<span>{currentLocal.buyerHome.addRfq}</span>
-				</button>
-			</Link>
+			<div className='d-flex justify-content-between'>
+				<Link to="/createrfq">
+					<button className="orange_btn">
+						<img src={Plus} alt="Plus" className="mx-2" />
+						<span>{currentLocal.buyerHome.addRfq}</span>
+					</button>
+				</Link>
+				<Link>
+					<div
+						className="mx-2 d-flex align-items-center justify-content-end cursorPointer"
+					>
+						<img src={Drafts} alt="Drafts" className="mx-2" />
+						<span>{currentLocal.supplierHome.drafts}</span>
+						<div className="invitations_number mx-2">{draftsCount}</div>
+					</div>
+				</Link>
+
+			</div>
 			<div className="relatedMarket my-2">
 				<h6 className="f-16 fw-600 my-4">
 					{currentLocal.buyerHome.relatedMarketPlace}

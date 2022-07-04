@@ -3,7 +3,6 @@ import { Input, Tree } from 'antd';
 import { useSelector } from "react-redux";
 import searchGlass from "../../../../../Resources/Assets/searchGlass.svg";
 import dropdownRectangle from "../../../../../Resources/Assets/dropdownRectangle.svg"
-import checkMark from "../../../../../Resources/Assets/checkMark.svg"
 import './CategoriesList.css'
 function CategoriesList() {
     const { currentLocal } = useSelector((state) => state.currentLocal);

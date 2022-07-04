@@ -11,10 +11,9 @@ import { Alert } from "react-bootstrap";
 import moment from "moment";
 import { DELETERFQ, UPDATEPACKAGE, DELETEPACKAGE } from "../../../../../Redux/RFQ";
 import { useDispatch } from "react-redux";
-import { Table, Spin, Select, Checkbox, DatePicker, Radio } from "antd";
+import { Table, Spin, Checkbox, DatePicker, Radio } from "antd";
 import { useHistory } from "react-router-dom";
 import {
-  getCategories,
   getDeliverdOptions,
   AddDocumentList,
   GetBuyerRFQForEdit,
@@ -43,9 +42,7 @@ import CategoriesList from "../CategoriesList/CategoriesList";
 function CreateRFQ({ getRFQPageName, rfqId }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { currentLanguageId } = useSelector((state) => state.currentLocal);
-  const [categoriesOption, setCategoriesOption] = useState([]);
   const [dataSource, updateDataSource] = useState([]);
-  const [allCategoryName, setAllCategoryName] = useState(null);
   const [deliveredTo, updateDeliveredTo] = useState(
     "a9c83c89-4aeb-46b8-b245-a144276d927f"
   );
@@ -60,7 +57,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [loading, setLoading] = useState(false);
   const [newItemAdded, updateItemAdded] = useState(false);
   const [isModalVisible, toggleModal] = useState(false);
-  const [notContainCategory, updateNotContainCategory] = useState(false);
   const [installAll, updateInstallAll] = useState(false);
   const [deliveredToOptions, updateDeliveryOptions] = useState([]);
   const [hoveredRow, updateHoveredRow] = useState(null);
@@ -146,7 +142,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     }
   }, [currentLanguageId, rfqId]);
 
-  const { Option } = Select;
 
   const onDeleteRow = () => {
     let tableData = [...dataSource];
@@ -162,24 +157,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     updateDeleteRowModal(false);
   };
 
-  function handleCategoriesChange(optionId, rowIndex) {
-    let data = [...dataSource];
-    const newRow = JSON.parse(JSON.stringify(data[rowIndex]))
-    newRow.categoryId = optionId;
-    data[rowIndex] = newRow
-    updateDataSource(data);
-  }
 
-  function changeCategoryForAll(optionId, optionName) {
-    let data = [...dataSource];
-    data.forEach((row, index) => {
-      var newRow = JSON.parse(JSON.stringify(row));
-      newRow.categoryId = optionId;
-      data[index] = newRow
-    });
-    updateDataSource(data);
-    setAllCategoryName(optionName);
-  }
 
   function handleIncludeInstallation(e, rowIndex) {
     let data = [...dataSource];
@@ -243,11 +221,11 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       return data.categoryId === undefined;
     });
     const hasAtLeastEmptyDescription = dataSource.some((data) => data.description.length === 0)
-    if (hasNoCat) {
-      updateNotContainCategory(true);
-    } else {
-      updateNotContainCategory(false);
-    }
+    // if (hasNoCat) {
+    //   updateNotContainCategory(true);
+    // } else {
+    //   updateNotContainCategory(false);
+    // }
     if (hasAtLeastEmptyDescription) {
       updateErrorMessage(currentLocal.buyerHome.fillDescriptionError)
     } else {
@@ -341,15 +319,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       }
       updateDataSource(data);
     }
-    getCategories(
-      currentLanguageId,
-      (success) => {
-        setCategoriesOption(success.data);
-      },
-      (fail) => {
-        console.log(fail);
-      }
-    );
   }, [currentLanguageId, hasOldPackages]);
 
 
@@ -535,33 +504,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       dataIndex: "categoryId",
       key: "categoryId",
       render: (categoryId, record, rowIndex) => {
-        const props = { value: categoryId, defaultValue: categoryId };
-
-        // if (rfqId) props.value = categoryId;
-        // else props.defaultValue = categoryId;
         return (
-          <Select
-            disabled={rfqId}
-            style={{ width: "100%" }}
-            {...props}
-            placeholder={
-              allCategoryName
-                ? allCategoryName
-                : currentLocal.buyerHome.selectCategory
-            }
-            onChange={(optionId, x) => {
-              handleCategoriesChange(optionId, rowIndex);
-            }}
-            className="selectCategory"
-          >
-            {categoriesOption.map((category, key) => {
-              return (
-                <Option value={category.id} key={key}>
-                  {category.name}
-                </Option>
-              );
-            })}
-          </Select>
+          <CategoriesList />
         );
       },
     },
