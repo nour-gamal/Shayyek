@@ -2,7 +2,7 @@ import React, { useState, createRef, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 import { useSelector } from "react-redux";
 import { PDFExport } from "@progress/kendo-react-pdf";
-import { Table, Menu, Dropdown, Radio } from "antd";
+import { Table, Menu, Dropdown, Radio, Button } from "antd";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 import {
   BuyerAcceptPackageItems,
@@ -22,9 +22,10 @@ import { useScreenshot } from "use-react-screenshot";
 import download from "../../../../../Resources/Assets/direct-download.svg";
 import { baseUrl } from "../../../../../Services";
 import moment from "moment";
-import "./SummaryTable.css";
 import SingleRFQModal from "../../../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
 import { toast } from "react-toastify";
+
+import "./SummaryTable.css";
 
 function SummaryTable({ dataSourceList, currentPackageId }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -293,7 +294,7 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
     let itemIds = [];
 
     dataSource.forEach((item) => {
-      itemIds.push(item.rfqPackageDetailId);
+      itemIds.push(item.filledRFQPackageDetailId);
     });
 
     let data = {
@@ -380,11 +381,12 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
           className="my-4"
         />
       </PDFExport>
-      <div className="text-center">
-        <button className="button-primary flat my-2" onClick={acceptOffer}>
-          {currentLocal.rfqSummary.acceptAndNotifyVendors}
-        </button>
-      </div>
+      {dataSource.length > 0 &&
+        <div className="text-center">
+          <button className="button-primary flat my-2" onClick={acceptOffer}>
+            {currentLocal.rfqSummary.acceptAndNotifyVendors}
+          </button>
+        </div>}
       {ViewQuotationModal && (
         <SingleRFQModal
           isModalVisible={ViewQuotationModal}
