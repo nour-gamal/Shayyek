@@ -430,6 +430,7 @@ export const ar = {
     unitPrice: "سعر الوحده",
     totalPrice: "السعر الكلي",
     deliveryDate: "تاريخ التسليم",
+    deliveryPeriod: "مده التسليم",
     sizeOfContract: "حجم العقد",
     uploadDocuments: "أرفع الملفات",
     uploadDocumentsExample:

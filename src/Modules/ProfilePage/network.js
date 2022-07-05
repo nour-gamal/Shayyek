@@ -200,3 +200,15 @@ export const BuyerAcceptPackageItems = (
   const path = `api/RFQ/BuyerAcceptPackageItems`;
   PostResource(path, data, onSuccess, onFail, reqAuth);
 };
+
+export const getDeliveryPeriod = (
+  languageId,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) => {
+  const path = `api/Account/DeliveryPeriod?languageId=${languageId}`;
+  GetResource(path, onSuccess, onFail, true);
+};
+
+

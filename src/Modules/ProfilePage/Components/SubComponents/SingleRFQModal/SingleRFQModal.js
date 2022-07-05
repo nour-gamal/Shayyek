@@ -9,12 +9,14 @@ import {
   DatePicker,
   Menu,
   Dropdown,
+  Select
 } from "antd";
 import { useSelector } from "react-redux";
 import closeIcon from "../../../../../Resources/Assets/closeIcon.svg";
 import {
   AddToMyFavVendors,
   BuyerAcceptPackageItems,
+  getDeliveryPeriod,
   GetImagePath,
   ViewPackageQuotation,
 } from "../../../../ProfilePage/network";
@@ -53,12 +55,12 @@ function SingleRFQModal({
 }) {
   const [loading, setLoading] = useState(false);
   const [radioValue, setRadioValue] = useState(true);
-  const { currentLocal } = useSelector((state) => state.currentLocal);
+  const { currentLocal, currentLanguageId } = useSelector((state) => state.currentLocal);
   const [documentsList, updateDocumentsList] = useState([]);
   const [fileErrorModalState, updateFileErrorModalState] = useState(false);
   const [paymentTerms, updatePaymentTerms] = useState("");
   const [rfqDetails, updateRFQDetails] = useState([]);
-  const [deliveryDate, updateDeliveryDate] = useState("");
+  const [deliveryPeriodId, updateDeliveryPeriodId] = useState(null);
   const [validityOfferDate, updateValidityOfferDate] = useState("");
   const [question, updateQuestion] = useState("");
   const [questionsList, updateQuestionsList] = useState([]);
@@ -70,7 +72,10 @@ function SingleRFQModal({
   const [packageName, updatePackageName] = useState("");
   const [includeVat, updateIncludeVat] = useState("");
   const [vendorId, updateVendorId] = useState(null);
+  const [deliveryPeriodList, updateDeliveryPeriodList] = useState([])
   const [isAddedToFavVendor, updateIsAddedToFavVendor] = useState(true);
+  const { Option } = Select;
+
   useEffect(() => {
     if (mode === "ViewRFQDetails" && rfqDetailId) {
       let data = { FilledItemId: rfqDetailId };
@@ -80,7 +85,7 @@ function SingleRFQModal({
           updateVendorNotes(success.data.notes);
           updateAddress(success.data.address);
           updatePackageName(success.data.packageName);
-          updateDeliveryDate(success.data.deliveryDate);
+          updateDeliveryPeriodId(success.data.deliveryPeriod);
           updateRFQDetails(success.data.rfqPackageDetails);
           updateValidityOfferDate(success.data.receivingOffersDeadline);
           updateDocumentsList(success.data.packageFiles);
@@ -100,7 +105,7 @@ function SingleRFQModal({
           if (success.success) {
             const { data } = success;
             updateAddress(data.address);
-            updateDeliveryDate(data.deliveryDate);
+            updateDeliveryPeriodId(data.deliveryDate);
             updateVendorNotes(data.notes);
             updateAddress(data.address);
             updatePackageName(data.packageName);
@@ -150,6 +155,15 @@ function SingleRFQModal({
     // eslint-disable-next-line
   }, [rfqPackageId, mode, rfqDetailId]);
 
+
+  useEffect(() => {
+    getDeliveryPeriod(currentLanguageId, success => {
+      updateDeliveryPeriodList(success.data)
+    }, fail => { console.log(fail) }, [currentLanguageId])
+  })
+  const handleDeliveryPeriod = (value) => {
+    updateDeliveryPeriodId(value)
+  }
   const handleAddToMyFavVend = () => {
     let data = {
       vendorId,
@@ -294,6 +308,7 @@ function SingleRFQModal({
       </Menu.Item>
     </Menu>
   );
+
   var columns = [
     {
       title: currentLocal.buyerHome.item,
@@ -325,19 +340,27 @@ function SingleRFQModal({
             {mode === "ViewRFQDetails" ? (
               <>{unitPrice}</>
             ) : (
+
               <Input
-                type="number"
+                type="text"
                 onChange={(e) => {
                   let rfqDetailss = [...rfqDetails];
-                  rfqDetails[index].unitPrice = e.target.value;
+                  const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                  const removeNonNumeric = num => num.toString().replace(/[^0-9]/g, "");
+                  const decodedNum = num => parseInt(num.toString().replace(/(,)/g, ""))
+                  rfqDetails[index].unitPrice = addCommas(removeNonNumeric(e.target.value));
                   rfqDetails[index].totalPrice =
-                    e.target.value * rfqDetails[index].quantity;
+                    decodedNum(e.target.value) * rfqDetails[index].quantity;
+                  rfqDetails[index].totalPrice = addCommas(rfqDetails[index].totalPrice)
                   updateRFQDetails(rfqDetailss);
                 }}
+                value={rfqDetails[index].unitPrice}
                 defaultValue={0}
                 className="text-center"
               />
+
             )}
+
           </>
         );
       },
@@ -350,7 +373,7 @@ function SingleRFQModal({
         return (
           <>
             {record.unitPrice ? (
-              <>{record.unitPrice * record.quantity}</>
+              <>{totalPrice}</>
             ) : (
               <>0</>
             )}
@@ -473,32 +496,19 @@ function SingleRFQModal({
     },
   ];
 
-  function disabledDeliveryDateOffersDate(current) {
-    return (
-      current &&
-      (current.valueOf() < Date.now() ||
-        current.valueOf() > moment(packageDetails.deliveryDate).valueOf())
-    );
-  }
   function disabledOfferValidityDate(current) {
-    return (
-      current &&
-      (current.valueOf() < Date.now() ||
-        current.valueOf() >
-          moment()
-            .add(4, "days")
-            .valueOf())
-    );
+    return current?.valueOf() < Date.now()
+
   }
   const handleFillRFQ = (isDrafted) => {
-    if (deliveryDate) {
+    if (deliveryPeriodId) {
       updateAlert(false);
       let data = {
         isDraft: isDrafted,
         rfqPackageId,
         paymentTerms,
         offerValidty: validityOfferDate,
-        deiveryDate: deliveryDate,
+        deliveryPeriodId,
         includeVat: radioValue,
         rfqPackageDetailsRequests: rfqDetails,
       };
@@ -544,9 +554,7 @@ function SingleRFQModal({
       }
     );
   };
-  const onDeliveryDateChange = (date, dateString) => {
-    updateDeliveryDate(dateString);
-  };
+
   const onOfferValidityChange = (date, dateString) => {
     updateValidityOfferDate(dateString);
   };
@@ -589,7 +597,7 @@ function SingleRFQModal({
                 <div className="mx-4">
                   <div>
                     {currentLocal.offerTable.deliveryDate}:
-                    {moment(deliveryDate).format("DD-MM-YYYY")}
+                    {deliveryPeriodId}
                   </div>
                   <div>
                     {currentLocal.offerTable.deliveryAddress}:{address}
@@ -694,6 +702,7 @@ function SingleRFQModal({
               <div className="d-flex my-4">
                 <label className="label">
                   {currentLocal.offerTable.priceIncludingVAT}
+                  {mode !== "ViewRFQDetails" && <span className='text-danger'>*</span>}
                 </label>
                 {mode === "ViewRFQDetails" ? (
                   <div className="mx-2">{includeVat}</div>
@@ -731,24 +740,6 @@ function SingleRFQModal({
             <Col xs={24} md={8}>
               <div className="d-flex align-items-center my-2">
                 <label className="label">
-                  {currentLocal.offerTable.deliveryDate}
-                </label>
-                {mode === "ViewRFQDetails" ? (
-                  <div className="mx-2">
-                    {moment(deliveryDate).format("DD-MM-YYYY")}
-                  </div>
-                ) : (
-                  <div className="mx-2 flex-1">
-                    <DatePicker
-                      onChange={onDeliveryDateChange}
-                      className="form-control"
-                      disabledDate={disabledDeliveryDateOffersDate}
-                    />
-                  </div>
-                )}
-              </div>
-              <div className="d-flex align-items-center my-2">
-                <label className="label">
                   {currentLocal.offerTable.offerValidity}
                 </label>
                 {mode === "ViewRFQDetails" ? (
@@ -762,6 +753,31 @@ function SingleRFQModal({
                       className="form-control"
                       disabledDate={disabledOfferValidityDate}
                     />
+                  </div>
+                )}
+              </div>
+              <div className="d-flex align-items-center my-2">
+                <label className="label">
+                  {currentLocal.offerTable.deliveryDate}
+                  {mode !== "ViewRFQDetails" && <span className='text-danger'>*</span>}
+                </label>
+                {mode === "ViewRFQDetails" ? (
+                  <div className="mx-2">
+                    {deliveryPeriodId}
+                  </div>
+                ) : (
+                  <div className="mx-2 flex-1">
+                    <Select
+                      onChange={handleDeliveryPeriod}
+                      style={{
+                        width: '100%',
+                      }}
+                    >{deliveryPeriodList.map((period) => {
+                      return <Option value={period.id}>{period.name}</Option>
+
+                    })
+                      }
+                    </Select>
                   </div>
                 )}
               </div>
@@ -779,10 +795,10 @@ function SingleRFQModal({
               let type = doc.contentType.includes("pdf")
                 ? pdfIcon
                 : doc.contentType.includes("dwg")
-                ? autocad
-                : doc.contentType.includes("doc")
-                ? docIcon
-                : excel;
+                  ? autocad
+                  : doc.contentType.includes("doc")
+                    ? docIcon
+                    : excel;
               return (
                 <div className="d-flex m-2">
                   <img src={type} alt="pdf" className="mx-2" />

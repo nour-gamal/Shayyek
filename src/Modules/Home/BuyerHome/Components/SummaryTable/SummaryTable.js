@@ -2,7 +2,7 @@ import React, { useState, createRef, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 import { useSelector } from "react-redux";
 import { PDFExport } from "@progress/kendo-react-pdf";
-import { Table, Menu, Dropdown, Radio, Button } from "antd";
+import { Table, Menu, Dropdown, Radio } from "antd";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 import {
   BuyerAcceptPackageItems,
