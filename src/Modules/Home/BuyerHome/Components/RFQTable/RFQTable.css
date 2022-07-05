@@ -145,6 +145,10 @@
   font-weight: bold;
   margin-inline-end: 2rem;
 }
+.RFQTable .ant-table-content{
+  overflow: auto !important;
+  background-color: #F5F5F5 !important;
+}
 
 @media (max-width: 768px) {
   .RFQTable .ant-table-cell {

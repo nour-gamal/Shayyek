@@ -11,7 +11,7 @@ import { Alert } from "react-bootstrap";
 import moment from "moment";
 import { DELETERFQ, UPDATEPACKAGE, DELETEPACKAGE } from "../../../../../Redux/RFQ";
 import { useDispatch } from "react-redux";
-import { Table, Spin, Checkbox, DatePicker, Radio } from "antd";
+import { Table, Spin, Checkbox, DatePicker, Radio, Select } from "antd";
 import { useHistory } from "react-router-dom";
 import {
   getDeliverdOptions,
@@ -84,7 +84,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [deleteMode, updateDeleteMode] = useState(null);
   const [errorMessage, updateErrorMessage] = useState(null);
   const [categoriesListArr, updateCategoriesListArr] = useState({})
-
+  const [allSubCategoriesList, updateAllSubCategoriesList] = useState([])
+  const [notContainCategory, updateNotContainCategory] = useState(false)
   const dispatch = useDispatch();
   const hasOldPackages = rfqData.rfqPackages.length > 0;
   let history = useHistory();
@@ -170,6 +171,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       updateDocumentsList(currentPackageData.documentsList)
       setOffersDate(currentPackageData.receivingOffersDeadline);
       updateImportedSheet(currentPackageData.ImportedSheet);
+      updateAllSubCategoriesList(currentPackageData.allSubCategoriesList);
     }
   }, [createdActivePackId, createdActivePackIndex, hasOldPackages, rfqData.rfqPackages])
 
@@ -269,15 +271,14 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   }
 
   const isValidRFQ = () => {
-    const hasNoCat = dataSource.every((data) => {
-      return data.categoryId === undefined;
-    });
+    const hasNoCat = dataSource.every((data) => !data.subCategories || data.subCategories.length === 0);
     const hasAtLeastEmptyDescription = dataSource.some((data) => data.description.length === 0)
-    // if (hasNoCat) {
-    //   updateNotContainCategory(true);
-    // } else {
-    //   updateNotContainCategory(false);
-    // }
+    console.log(hasNoCat)
+    if (hasNoCat) {
+      updateNotContainCategory(true);
+    } else {
+      updateNotContainCategory(false);
+    }
     if (hasAtLeastEmptyDescription) {
       updateErrorMessage(currentLocal.buyerHome.fillDescriptionError)
     } else {
@@ -335,7 +336,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         packageCCColleagues: ccEmails,
         documentsList,
         packageFiles,
-        ImportedSheet
+        ImportedSheet,
+        allSubCategoriesList
       }
       if (rfqData.rfqPackages.length) {
         dispatch(UPDATEPACKAGE(data))
@@ -352,7 +354,15 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   function openCCModal() {
     toggleModal(true);
   }
-
+  const handleChangeAllCategories = (selectedCategories) => {
+    let data = [];
+    let dataSourceVar = [...dataSource]
+    dataSourceVar.forEach((obj) => {
+      data.push({ ...obj, subCategories: [...selectedCategories] })
+    })
+    updateDataSource(data);
+    updateAllSubCategoriesList([...selectedCategories])
+  }
 
   useEffect(() => {
     let data = [];
@@ -402,6 +412,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       }
     );
   };
+  const { Option } = Select;
+
 
   const handleAddProjectFiles = (e) => {
     let files = [...e.target.files];
@@ -430,6 +442,15 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       );
     }
   };
+  const handleSelectCategories = (rowIndex, selectedCategories) => {
+    let data = [];
+    let dataSourceVar = [...dataSource]
+    dataSourceVar.forEach((obj) => {
+      data.push({ ...obj })
+    })
+    data[selectedRow].subCategories = [...selectedCategories]
+    updateDataSource(data);
+  }
 
   const columns = [
     {
@@ -553,11 +574,16 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     },
     {
       title: currentLocal.buyerHome.categories,
-      dataIndex: "categoryId",
-      key: "categoryId",
-      render: (categoryId, record, rowIndex) => {
-        return (
-          <CategoriesList categoriesListArr={categoriesListArr} />
+      dataIndex: "subCategories",
+      key: "subCategories",
+      render: (subCategories, record, rowIndex) => {
+        return (<>
+          <CategoriesList
+            categoriesListArr={categoriesListArr}
+            getSelectedCategories={(selectedCategories) => { handleSelectCategories(rowIndex, selectedCategories) }}
+            selectedCategories={subCategories}
+          />
+        </>
         );
       },
     },
@@ -675,7 +701,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
 
 
-
   const handleSwitchPackage = (rfq, index) => {
     const isValidRFQVar = isValidRFQ();
     if (isValidRFQVar) {
@@ -690,7 +715,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         packageCCColleagues: ccEmails,
         packageFiles,
         documentsList,
-        ImportedSheet: ImportedSheet
+        ImportedSheet: ImportedSheet,
+        allSubCategoriesList
       }
       dispatch(UPDATEPACKAGE({ ...data }))
       updateCreatedActivePackId(rfq.packageTempId)
@@ -923,22 +949,12 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
               <label className="mx-2 primary-color">
                 {currentLocal.buyerHome.category}
               </label>
-              {/* <Select
-                placeholder={currentLocal.buyerHome.selectCategory}
-                onChange={(optionId, record) => {
-                  changeCategoryForAll(optionId, record.children);
-                }}
-                className={notContainCategory ? "alertSign" : ""}
-              >
-                {categoriesOption.map((category, key) => {
-                  return (
-                    <Option value={category.id} key={key}>
-                      {category.name}
-                    </Option>
-                  );
-                })}
-              </Select> */}
-              <CategoriesList categoriesListArr={categoriesListArr} />
+              <CategoriesList
+                categoriesListArr={categoriesListArr}
+                getSelectedCategories={(selectedCategories) => { handleChangeAllCategories(selectedCategories) }}
+                selectedCategories={allSubCategoriesList}
+                dangerClass={notContainCategory ? "alertSign" : ""}
+              />
             </div>
             <div>
               <label className="mx-2 primary-color">
