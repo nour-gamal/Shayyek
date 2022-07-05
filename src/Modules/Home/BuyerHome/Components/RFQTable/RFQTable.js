@@ -104,15 +104,20 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             originalChildren: [],
             children: []
           })
-          category.subCategories.forEach((subCat) => {
+          category.subCategories.forEach((subCat, subIndex) => {
             allCategories[index].originalChildren.push({
               title: subCat.name,
               key: subCat.id
             })
+
             allCategories[index].children.push({
               title: subCat.name,
               key: subCat.id
             })
+            if (subCat.name === category.categoryName) {
+              allCategories[index].originalChildren[subIndex].disabled = true
+              allCategories[index].children[subIndex].disabled = true
+            }
           })
         })
 
@@ -123,7 +128,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             originalChildren: [],
             children: []
           })
-          category.subCategories.forEach((subCat) => {
+          category.subCategories.forEach((subCat, subIndex) => {
             frequentlyUsedCategories[index].originalChildren.push({
               title: subCat.name,
               key: subCat.id
@@ -132,6 +137,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
               title: subCat.name,
               key: subCat.id
             })
+            if (subCat.name === category.categoryName) {
+              allCategories[index].originalChildren[subIndex].disabled = true
+              allCategories[index].children[subIndex].disabled = true
+            }
           })
         })
         updateCategoriesListArr({ allCategories, frequentlyUsedCategories })
