@@ -608,7 +608,8 @@ function SingleRFQModal({
                       {currentLocal.offerTable.vendorNotes}:{vendorNotes}
                     </div>
                   )}
-                  <Link to={`/suppliercontractorprofiles?userId=${vendorId}`}>
+                  <Link to={`/suppliercontractorprofiles?userId=${vendorId}`}
+                    style={{ textDecoration: "underline" }}>
                     {currentLocal.offerTable.vandorName}:{vendorName}
                   </Link>
                   <div>

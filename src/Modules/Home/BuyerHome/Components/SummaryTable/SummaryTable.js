@@ -201,27 +201,34 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
                           {item.paymentTerms}
                         </div>
                       </div>
-                      <div className="d-flex justify-content-end my-2">
-                        <button
-                          className="button-secondary mx-2"
-                          onClick={() => {
-                            updateViewQuotationModal(true);
-                            updateRfqDetailId(item.filledDetailedId);
-                          }}
-                        >
-                          {currentLocal.rfqSummary.viewQuotation}
-                        </button>
-                        <button
-                          className="button-primary mx-2"
-                          onClick={() => {
-                            handleAddItemToSummary(
-                              index,
-                              otherVendorsItems[newItemIndex]
-                            );
-                          }}
-                        >
-                          {currentLocal.rfqSummary.AddToMySummary}
-                        </button>
+                      <div className="d-flex justify-content-between my-2">
+                        <div>
+                          {item.includeVat ?
+                            currentLocal.offerTable.includeVat :
+                            currentLocal.offerTable.notIncludeVat}
+                        </div>
+                        <div>
+                          <button
+                            className="button-secondary mx-2"
+                            onClick={() => {
+                              updateViewQuotationModal(true);
+                              updateRfqDetailId(item.filledDetailedId);
+                            }}
+                          >
+                            {currentLocal.rfqSummary.viewQuotation}
+                          </button>
+                          <button
+                            className="button-primary mx-2"
+                            onClick={() => {
+                              handleAddItemToSummary(
+                                index,
+                                otherVendorsItems[newItemIndex]
+                              );
+                            }}
+                          >
+                            {currentLocal.rfqSummary.AddToMySummary}
+                          </button>
+                        </div>
                       </div>
                     </div>
                   );

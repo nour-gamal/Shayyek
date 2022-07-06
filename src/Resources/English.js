@@ -272,6 +272,8 @@ export const en = {
     vendorNotes: "Vendor Notes",
     vandorName: "Vendor Name",
     package: "Package",
+    includeVat: "Include Vat",
+    notIncludeVat: "Not Include Vat"
   },
   supplierHome: {
     addNewProduct: "Add New Product",

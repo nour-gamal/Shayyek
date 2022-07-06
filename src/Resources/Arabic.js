@@ -271,6 +271,8 @@ export const ar = {
     vendorNotes: "ملاحظات البائع",
     vandorName: "اسم البائع",
     package: "حزمه",
+    includeVat: "شامل الضريبه",
+    notIncludeVat: "غير شامل الضريبه"
   },
   buyerHome: {
     importExcelFile: "اضف من ملف اكسيل",
