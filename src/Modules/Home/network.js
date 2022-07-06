@@ -353,3 +353,12 @@ export function getBuyerDrafts(
 }
 
 
+export function postRFQAsDraft(
+  data,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) {
+  const path = `api/BuyerDraft/Darfts`;
+  PostResource(path, data, onSuccess, onFail, reqAuth);
+}

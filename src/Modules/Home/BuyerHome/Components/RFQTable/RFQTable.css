@@ -149,9 +149,17 @@
   overflow: auto !important;
   background-color: #F5F5F5 !important;
 }
+.RFQTable .backBtn{
+  text-decoration: underline;
+  color: #003B6B;
+  font-size: 17px;
+}
 
 @media (max-width: 768px) {
   .RFQTable .ant-table-cell {
     font-size: 13px !important;
+  }
+  .buttonContainer{
+    flex-direction: column;
   }
 }

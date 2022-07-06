@@ -240,6 +240,11 @@ html[dir="rtl"] .flip-image {
 .secondary-color-light {
 	color: #2699FB !important;
 }
+.button-orange{
+	background-color: #F45C96 !important;
+	color: #fff !important;
+	border: 1px solid #F45C96 !important;
+}
 .button-primary,
 .button-secondary,
 .button-primary:hover,

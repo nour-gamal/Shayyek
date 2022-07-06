@@ -18,6 +18,7 @@ import {
   AddDocumentList,
   GetBuyerRFQForEdit,
   editRFQPackage,
+  postRFQAsDraft,
 } from "../../../network";
 import closeIcon from "../../../../../Resources/Assets/tip-close.svg";
 import PackageEnabled from "../../../../../Resources/Assets/PackageEnabled_Dark.svg";
@@ -820,6 +821,36 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       (fail) => { }
     );
   }
+  const handleSaveAsDraft = () => {
+    let allData = {
+      ...rfqData,
+      rfqPackages: [
+        ...rfqData.rfqPackages,
+        {
+          rfqPackageDetailsRequests: [...dataSource],
+          packageName: rfqData.nextPackageName ? rfqData.nextPackageName : '',
+          notes: notes,
+          receivingOffersDeadline: recievingOffersDate,
+          deliveryDate: deliveryDate,
+          address: address,
+          deliveryToId: deliveredTo,
+          packageCCColleagues: [...ccEmailsIDs],
+          packageFiles,
+          ImportedSheet,
+          packageTempId: new Date().getTime()
+        },
+      ],
+    };
+    postRFQAsDraft(allData, success => {
+      console.log(success)
+      toast.success(success.message, {
+        position: "bottom-right",
+      });
+      // history.push("/")
+    }, fail => {
+      console.log(fail)
+    })
+  }
   return (
     <div className="ppl ppr my-4 RFQTable">
       {addPackageAlert &&
@@ -1164,24 +1195,27 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           </div>
           <div className="text-center">
             {!rfqId ? (
-              <>
-                {rfqData?.rfqPackages?.length < 1 && (
-                  <button
-                    className="button-secondary native"
-                    onClick={() => {
-                      getRFQPageName("addRFQDetails");
-                    }}
-                  >
-                    {currentLocal.buyerHome.back}
-                  </button>
-                )}
+              <div className='d-flex justify-content-center align-items-center flex-1 buttonContainer'>
+                <span
+                  className='backBtn mx-4 cursorPointer'
+                  onClick={() => {
+                    getRFQPageName("addRFQDetails");
+                  }}>
+                  {currentLocal.buyerHome.back}
+                </span>
+                <button
+                  className="button-secondary native button-orange"
+                  onClick={handleSaveAsDraft}
+                >
+                  {currentLocal.offerTable.saveAsDraft}
+                </button>
                 <button
                   className="button-primary native"
                   onClick={handleConfirm}
                 >
                   {currentLocal.buyerHome.postRFQ}
                 </button>
-              </>
+              </div>
             ) : (
               <div className="d-flex justify-content-center align-items-center">
                 <button
