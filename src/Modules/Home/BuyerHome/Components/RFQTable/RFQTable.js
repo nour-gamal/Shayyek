@@ -11,7 +11,7 @@ import { Alert } from "react-bootstrap";
 import moment from "moment";
 import { DELETERFQ, UPDATEPACKAGE, DELETEPACKAGE } from "../../../../../Redux/RFQ";
 import { useDispatch } from "react-redux";
-import { Table, Spin, Checkbox, DatePicker, Radio, Select } from "antd";
+import { Table, Spin, Checkbox, DatePicker, Radio } from "antd";
 import { useHistory } from "react-router-dom";
 import {
   getDeliverdOptions,
@@ -423,7 +423,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       }
     );
   };
-  const { Option } = Select;
 
 
   const handleAddProjectFiles = (e) => {

@@ -241,7 +241,9 @@ html[dir="rtl"] .flip-image {
 	color: #2699FB !important;
 }
 .button-primary,
-.button-secondary {
+.button-secondary,
+.button-primary:hover,
+.button-secondary:hover {
 	background: #003b6b 0% 0% no-repeat padding-box;
 	border-radius: 5px;
 	opacity: 1;

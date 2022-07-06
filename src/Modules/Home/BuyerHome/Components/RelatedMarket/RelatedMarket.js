@@ -9,8 +9,8 @@ import noSign from "../../../../../Resources/Assets/noRFQs.svg";
 import Drafts from "../../../../../Resources/Assets/draft.svg";
 import "./RelatedMarket.css";
 function RelatedMarket() {
-	const { currentLocal } = useSelector((state) => state.currentLocal);
-	const { currentLanguageId } = useSelector((state) => state.currentLocal);
+	const { currentLanguageId, currentLocal } = useSelector((state) => state.currentLocal);
+	// eslint-disable-next-line
 	const [draftsCount, updateDraftsCount] = useState(0)
 	const [companies, updateCompanies] = useState(null);
 	useEffect(() => {
@@ -24,6 +24,8 @@ function RelatedMarket() {
 			}
 		);
 	}, [currentLanguageId]);
+
+
 	return (
 		<div className={currentLocal.language === "English" ? "ppl" : "ppr"}>
 			<div className='d-flex justify-content-between'>
@@ -33,7 +35,7 @@ function RelatedMarket() {
 						<span>{currentLocal.buyerHome.addRfq}</span>
 					</button>
 				</Link>
-				<Link>
+				<Link to='/RFQDrafts'>
 					<div
 						className="mx-2 d-flex align-items-center justify-content-end cursorPointer"
 					>

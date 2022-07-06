@@ -343,3 +343,13 @@ export function getCategoriesWithSubCategories(
   GetResource(path, onSuccess, onFail, reqAuth);
 }
 
+export function getBuyerDrafts(
+  onSuccess,
+  onFail,
+  reqAuth = true
+) {
+  const path = `api/BuyerDraft/Darfts`;
+  GetResource(path, onSuccess, onFail, reqAuth);
+}
+
+

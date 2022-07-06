@@ -1,0 +1,16 @@
+.draftedRFQItem{
+    background-color: #F5F5F5;
+    width: 80%;
+    margin: auto;
+}
+.draftedRFQItem .projectName,
+.draftedRFQItem .label .value{
+    color:#4091FC !important
+}
+.draftedRFQItem .label .title{
+    color:#A0A0A0
+}
+.draftedRFQItem .button-primary,
+.draftedRFQItem .button-primary:hover{
+    color:#C0C8CF !important
+}

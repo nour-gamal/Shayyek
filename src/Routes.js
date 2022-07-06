@@ -214,9 +214,7 @@ function Routes() {
 
 					<Route
 						path="/RFQDrafts"
-						render={(props) =>
-							isAuth && isBuyer ? <RFQDrafts {...props} /> : <Redirect to="/" />
-						}
+						render={(props) => isAuth && isBuyer ? <RFQDrafts {...props} /> : <Redirect to="/" />}
 					/>
 				</Switch>
 			)}
