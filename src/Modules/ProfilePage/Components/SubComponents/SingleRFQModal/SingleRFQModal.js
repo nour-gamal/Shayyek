@@ -44,6 +44,7 @@ import { Alert } from "react-bootstrap";
 import heart from "../../../../../Resources/Assets/heart.svg";
 import { toast } from "react-toastify";
 import "./SingleRFQModal.css";
+import { Link } from "react-router-dom";
 
 function SingleRFQModal({
   isModalVisible,
@@ -72,6 +73,7 @@ function SingleRFQModal({
   const [packageName, updatePackageName] = useState("");
   const [includeVat, updateIncludeVat] = useState("");
   const [vendorId, updateVendorId] = useState(null);
+  const [vendorName, updateVendorName] = useState(null)
   const [deliveryPeriodList, updateDeliveryPeriodList] = useState([])
   const [isAddedToFavVendor, updateIsAddedToFavVendor] = useState(true);
   const { Option } = Select;
@@ -92,6 +94,7 @@ function SingleRFQModal({
           updatePaymentTerms(success.data.paymentTerms);
           updateIncludeVat(success.data.includingVAT ? "Yes" : "No");
           updateVendorId(success.data.vendorId);
+          updateVendorName(success.data.vendorName);
           updateIsAddedToFavVendor(!success.data.isFavourite);
         },
         (fail) => {
@@ -166,7 +169,7 @@ function SingleRFQModal({
           console.log(fail)
         })
     }
-  }, [currentLanguageId,mode])
+  }, [currentLanguageId, mode])
 
 
   const handleDeliveryPeriod = (value) => {
@@ -510,6 +513,13 @@ function SingleRFQModal({
   }
   const handleFillRFQ = (isDrafted) => {
     if (deliveryPeriodId) {
+
+      let rfqDetailsVar = [...rfqDetails]
+      const decodedNum = num => parseInt(num.toString().replace(/(,)/g, ""))
+      rfqDetailsVar.forEach((detail, index) => {
+        rfqDetailsVar[index].unitPrice = decodedNum(rfqDetailsVar[index].unitPrice)
+        rfqDetailsVar[index].totalPrice = decodedNum(rfqDetailsVar[index].totalPrice)
+      })
       updateAlert(false);
       let data = {
         isDraft: isDrafted,
@@ -598,6 +608,9 @@ function SingleRFQModal({
                       {currentLocal.offerTable.vendorNotes}:{vendorNotes}
                     </div>
                   )}
+                  <Link to={`/suppliercontractorprofiles?userId=${vendorId}`}>
+                    {currentLocal.offerTable.vandorName}:{vendorName}
+                  </Link>
                   <div>
                     {currentLocal.offerTable.package}:{packageName}
                   </div>

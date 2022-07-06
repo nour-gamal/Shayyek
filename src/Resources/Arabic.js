@@ -269,6 +269,7 @@ export const ar = {
     Company: "شركه",
     noAvailbleDocument: "لا يوجد مستند متاج",
     vendorNotes: "ملاحظات البائع",
+    vandorName: "اسم البائع",
     package: "حزمه",
   },
   buyerHome: {
@@ -510,5 +511,6 @@ export const ar = {
     viewQuotation: "عرض الطلب",
     AddToMySummary: "اضف الي ملخصي",
     vendorNotes: "ملاحظات البائع",
+
   },
 };

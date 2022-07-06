@@ -270,6 +270,7 @@ export const en = {
     Company: "Company",
     noAvailbleDocument: "No available document",
     vendorNotes: "Vendor Notes",
+    vandorName: "Vendor Name",
     package: "Package",
   },
   supplierHome: {
