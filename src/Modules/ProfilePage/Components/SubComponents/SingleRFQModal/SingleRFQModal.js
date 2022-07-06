@@ -157,10 +157,18 @@ function SingleRFQModal({
 
 
   useEffect(() => {
-    getDeliveryPeriod(currentLanguageId, success => {
-      updateDeliveryPeriodList(success.data)
-    }, fail => { console.log(fail) }, [currentLanguageId])
-  })
+    if (mode !== "ViewRFQDetails") {
+      getDeliveryPeriod(
+        currentLanguageId,
+        success => {
+          updateDeliveryPeriodList(success.data)
+        }, fail => {
+          console.log(fail)
+        })
+    }
+  }, [currentLanguageId,mode])
+
+
   const handleDeliveryPeriod = (value) => {
     updateDeliveryPeriodId(value)
   }
