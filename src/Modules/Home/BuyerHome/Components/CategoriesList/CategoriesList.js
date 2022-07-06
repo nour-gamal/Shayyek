@@ -65,6 +65,7 @@ function CategoriesList({ categoriesListArr, getSelectedCategories, selectedCate
 
 
     const onCheck = (checkedKeys) => {
+        console.log(checkedKeys)
         getSelectedCategories(checkedKeys)
     };
 

@@ -14,7 +14,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) 
 	const mq = window.matchMedia("(min-width: 768px)");
 	const dispatch = useDispatch();
 	const [reset, updateReset] = useState(false)
-	const hasOldPackages = rfqData.rfqPackages.length > 0;
+	const hasOldPackages = rfqData.rfqPackages?.length > 0;
 	window.addEventListener("resize", () => {
 		updateIsMobile(!mq.matches);
 	});
@@ -82,7 +82,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) 
 		>
 			<div className='my-4'>
 				<div className="f-14">
-					{currentLocal.buyerHome.addPack} {rfqData.rfqPackages.length + 1} {currentLocal.buyerHome.name}
+					{currentLocal.buyerHome.addPack} {rfqData.rfqPackages?.length + 1} {currentLocal.buyerHome.name}
 					<span className='text-danger'> *</span>
 				</div>
 				<div className="text-center">
@@ -102,7 +102,7 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) 
 			{!hasOldPackages &&
 				<div className='my-2'>
 					<div className="f-14">
-						{currentLocal.buyerHome.addPack}  {rfqData.rfqPackages.length + 2} {currentLocal.buyerHome.name}
+						{currentLocal.buyerHome.addPack}  {rfqData.rfqPackages?.length + 2} {currentLocal.buyerHome.name}
 						<span className='text-danger'> *</span>
 					</div>
 					<div className="text-center">

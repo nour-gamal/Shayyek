@@ -76,8 +76,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [rfqDetails, updateRFQDetails] = useState(null);
   const [activePackgeId, setActivePackgeId] = useState(null);
   const { rfqData } = useSelector((state) => state.rfq);
-  const [createdActivePackId, updateCreatedActivePackId] = useState(rfqData.rfqPackages.length ? rfqData.rfqPackages[rfqData.rfqPackages.length - 1].packageTempId : null)
-  const [createdActivePackIndex, updateCreatedActivePackIndex] = useState(rfqData.rfqPackages.length ? rfqData.rfqPackages.length - 1 : 0)
+  const [createdActivePackId, updateCreatedActivePackId] = useState(rfqData.rfqPackages?.length ? rfqData.rfqPackages[rfqData.rfqPackages.length - 1].packageTempId : null)
+  const [createdActivePackIndex, updateCreatedActivePackIndex] = useState(rfqData.rfqPackages?.length ? rfqData.rfqPackages.length - 1 : 0)
   const [rfqForEdit, setRfqForEdit] = useState(null);
   const [filledPackagesForEdit, setFilledPackagesForEdit] = useState([]);
   const [addPackageAlert, updateAddPackageAlert] = useState(false);
@@ -87,7 +87,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [allSubCategoriesList, updateAllSubCategoriesList] = useState([])
   const [notContainCategory, updateNotContainCategory] = useState(false)
   const dispatch = useDispatch();
-  const hasOldPackages = rfqData.rfqPackages.length > 0;
+  const hasOldPackages = rfqData.rfqPackages?.length > 0;
   let history = useHistory();
   // edit rfq
 
@@ -101,6 +101,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           allCategories.push({
             title: category.categoryName,
             key: category.categoryId,
+            checkable: false,
             originalChildren: [],
             children: []
           })
@@ -125,6 +126,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           frequentlyUsedCategories.push({
             title: category.categoryName,
             key: category.categoryId,
+            checkable: false,
             originalChildren: [],
             children: []
           })
@@ -862,7 +864,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
                     {currentLocal.buyerHome.importExcelFile}
                   </label>}
                 </div>)}
-              {rfqData.rfqPackages.length === 0 && <div className="mb-3">
+              {rfqData.rfqPackages?.length === 0 && <div className="mb-3">
                 <img
                   src={addIcon}
                   alt="addIcon"
@@ -879,7 +881,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           ) : (
             <>
               <div className="d-flex align-items-center projectPackages">
-                <h5 className="projectPackages-header">project Packages</h5>
+                <h5 className="projectPackages-header">{currentLocal.buyerHome.projectPackages}</h5>
                 <div className="d-flex">
                   {rfqForEdit?.rfqPackageRequests?.map((item, index) => (
                     <button
@@ -918,7 +920,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             </>
           )}
 
-          {rfqData.rfqPackages.length > 0 && <div className="m-3 d-flex align-items-center">
+          {rfqData.rfqPackages?.length > 0 && <div className="m-3 d-flex align-items-center">
             <label className="secondary-color-light fw-600">
               {currentLocal.buyerHome.projectPackages}
             </label>
