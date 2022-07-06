@@ -221,6 +221,7 @@ export const en = {
     whatsapp: "WhatsApp",
     copyLink: "Copy link",
     addToFavVendors: "Add to My Favourite Vendors",
+    favVendors: "My Favourite Vendors",
     deleteFavVendors: "Remove From My Favourite Vendors",
     addToMySummary: "Add to My Summary",
     addedToFavVendors: "Added to My Favourite Vendors",

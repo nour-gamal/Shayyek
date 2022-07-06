@@ -16,7 +16,7 @@ import acceptOfferIcon from "../../../../../Resources/Assets/acceptOffer.svg";
 import viewIcon from "../../../../../Resources/Assets/View.svg";
 import chatIcon from "../../../../../Resources/Assets/chat.svg";
 import deleteIcon from "../../../../../Resources/Assets/deletee.svg";
-
+import CreateOnlineSessionModal from "../../../../Messages/CreateOnlineSessionModal/CreateOnlineSessionModal"
 import { setDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../../../../firebase";
 
@@ -51,6 +51,7 @@ function AllQuotaionsRecievedForRFQ({
 
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const { authorization } = useSelector((state) => state.authorization);
+  const [isSessionModalVisible, toggleIsSessionModalVisible] = useState(false)
   const ref = createRef(null);
 
   const getBlobImg = async (image) => {
@@ -422,7 +423,7 @@ function AllQuotaionsRecievedForRFQ({
           display: `${hideTable ? "none" : "block"}`,
         }}
       >
-        <button className="button-primary flat my-2">
+        <button className="button-primary flat my-2" onClick={() => { toggleIsSessionModalVisible(true) }}>
           {currentLocal.rfqSummary.covertToReverseAuction}
         </button>
       </div>
@@ -436,6 +437,15 @@ function AllQuotaionsRecievedForRFQ({
           filledPackageId={selectedFilledPackageId}
         />
       )}
+      {isSessionModalVisible &&
+        <CreateOnlineSessionModal
+          isModalVisible={isSessionModalVisible}
+          onCancel={() => {
+            toggleIsSessionModalVisible(false);
+          }}
+          rfqId={null}
+          rfqDetails={null}
+        />}
     </div>
   );
 }

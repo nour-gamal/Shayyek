@@ -404,6 +404,7 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
           rfqDetailId={rfqDetailId}
         />
       )}
+
     </div>
   );
 }

@@ -221,6 +221,7 @@ export const ar = {
     copyLink: "نسخ الرابط",
     addToFavVendors: "أضافه لقائمه الباعه المفضلين",
     deleteFavVendors: "مسح من قائمة الباعة المفضلين",
+    favVendors: "قائمه الباعه المفضلين",
     addToMySummary: "أضف إلي التلخيص الخاص بك",
     addedToFavVendors: "مضاف لقائمه الباعه المفضلين",
   },
