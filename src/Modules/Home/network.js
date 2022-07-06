@@ -362,3 +362,15 @@ export function postRFQAsDraft(
   const path = `api/BuyerDraft/Darfts`;
   PostResource(path, data, onSuccess, onFail, reqAuth);
 }
+
+
+export const deleteDraftedRFQ = (
+  data,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) => {
+  const { RfqId } = data
+  const path = `api/BuyerDraft/DraftedRFQ?RfqId=${RfqId}`;
+  deleteResource(path, onSuccess, onFail, reqAuth);
+};

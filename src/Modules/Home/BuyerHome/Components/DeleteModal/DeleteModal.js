@@ -3,13 +3,20 @@ import { Modal } from "antd";
 import { useSelector } from "react-redux";
 import deleteIcon from "../../../../../Resources/Assets/delete_large.png";
 import "./DeleteModal.css";
-function DeleteModal({ isModalVisible, onCancel, onDeleteRow, deleteMode, onDeletePackage }) {
+function DeleteModal({ isModalVisible,
+	onCancel,
+	onDeleteRow,
+	deleteMode,
+	onDeletePackage,
+	onDeleteProject }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { rfqData } = useSelector((state) => state.rfq);
 
 	const handleDelete = () => {
 		if (deleteMode === 'package') {
 			onDeletePackage()
+		} if (deleteMode === 'project') {
+			onDeleteProject()
 		} else {
 			onDeleteRow()
 		}

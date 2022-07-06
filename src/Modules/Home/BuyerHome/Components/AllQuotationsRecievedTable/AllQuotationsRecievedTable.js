@@ -92,11 +92,11 @@ function AllQuotaionsRecievedForRFQ({
               }
               return item;
             });
-            console.log(data);
+
             return data;
           });
         } else {
-          toast.error(success.message, {
+          toast.success(success.message, {
             position: "bottom-right",
             rtl: true,
           });
