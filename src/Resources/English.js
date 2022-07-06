@@ -422,6 +422,7 @@ export const en = {
     confirmDeleteRow: "Are you sure you want to delete the selected row?",
     confirmDeletePackage: "Are you sure you want to delete the selected package?",
     confirmDeleteRFQ: "Are you sure you want to delete the RFQ?",
+    confirmDeleteProject: "Are you sure you want to delete this project?",
     addPackageName: "Add Package Name",
     packageName: "Package Name",
     completeRFQ: "Complete RFQ",

@@ -24,7 +24,12 @@ function DeleteModal({ isModalVisible, onCancel, onDeleteRow, deleteMode, onDele
 		>
 			<img src={deleteIcon} alt="deleteIcon" />
 			<div className="primary-color my-4">
-				{deleteMode === "package" ? rfqData.rfqPackages.length !== 1 ? <>{currentLocal.buyerHome.confirmDeletePackage}</> : <>{currentLocal.buyerHome.confirmDeleteRFQ}</> : <>{currentLocal.buyerHome.confirmDeleteRow}</>}
+				{deleteMode === "package" ? rfqData.rfqPackages.length !== 1 ?
+					<>{currentLocal.buyerHome.confirmDeletePackage}</> :
+					<>{currentLocal.buyerHome.confirmDeleteRFQ}</> :
+					deleteMode === "project" ?
+						<>{currentLocal.buyerHome.confirmDeleteProject}</> :
+						<>{currentLocal.buyerHome.confirmDeleteRow}</>}
 			</div>
 			<div className="d-flex justify-content-center buttonContainer">
 				<button className="button-secondary primary-color" onClick={onCancel}>
