@@ -94,7 +94,6 @@ function SingleRFQModal({
           updatePaymentTerms(success.data.paymentTerms);
           updateIncludeVat(success.data.includingVAT ? "Yes" : "No");
           updateVendorId(success.data.vendorId);
-          updateVendorName(success.data.vendorName);
           updateIsAddedToFavVendor(!success.data.isFavourite);
         },
         (fail) => {
@@ -118,6 +117,7 @@ function SingleRFQModal({
             updatePaymentTerms(data.paymentTerms);
             updateIncludeVat(data.includeVat ? "Yes" : "No");
             updateVendorId(data.vendorId);
+            updateVendorName(success.data.vendorName);
           } else {
             toast.error(success.message, {
               position: "bottom-right",
@@ -608,10 +608,13 @@ function SingleRFQModal({
                       {currentLocal.offerTable.vendorNotes}:{vendorNotes}
                     </div>
                   )}
-                  <Link to={`/suppliercontractorprofiles?userId=${vendorId}`}
-                    style={{ textDecoration: "underline" }}>
-                    {currentLocal.offerTable.vandorName}:{vendorName}
-                  </Link>
+                  <div>
+                    <span>{currentLocal.offerTable.vandorName}:</span>
+                    <Link to={`/suppliercontractorprofiles?userId=${vendorId}`}
+                      style={{ textDecoration: "underline" }}>
+                      {vendorName}
+                    </Link>
+                  </div>
                   <div>
                     {currentLocal.offerTable.package}:{packageName}
                   </div>

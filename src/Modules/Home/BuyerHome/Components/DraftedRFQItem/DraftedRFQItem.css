@@ -11,6 +11,7 @@
     color:#A0A0A0
 }
 .draftedRFQItem .button-primary,
-.draftedRFQItem .button-primary:hover{
-    color:#C0C8CF !important
+.draftedRFQItem .button-primary:hover,.draftedRFQItem .button-primary:focus{
+    color:#C0C8CF !important;
+    background:#265881 !important
 }

@@ -1,3 +1,18 @@
 .relatedMarket .favVendorsTitle{
     color:#0370FF
 }
+@media (max-width:768px){
+    .relatedMarket .headerContainer{
+        flex-direction: column;
+    }
+    .relatedMarket .draftsContainer{
+        flex-direction: column;
+        margin-top: 20px;
+    }
+    .relatedMarket .draftsContainer .justify-content-end{
+        justify-content: flex-start !important;
+    }
+    .relatedMarket .draftsContainer .favVendorsTitle{
+        margin: 10px 0 !important;
+    }
+}

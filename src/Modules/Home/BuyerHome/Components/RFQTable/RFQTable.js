@@ -324,7 +324,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           ...rfqData.rfqPackages,
           {
             rfqPackageDetailsRequests: [...dataSource],
-            packageName: rfqData.nextPackageName ? rfqData.nextPackageName : '',
+            packageName: rfqData.nextPackageName ? rfqData.nextPackageName : 'Package 1',
             notes: notes,
             receivingOffersDeadline: recievingOffersDate,
             deliveryDate: deliveryDate,
@@ -828,7 +828,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         ...rfqData.rfqPackages,
         {
           rfqPackageDetailsRequests: [...dataSource],
-          packageName: rfqData.nextPackageName ? rfqData.nextPackageName : '',
+          packageName: rfqData.nextPackageName ? rfqData.nextPackageName : 'Package 1',
           notes: notes,
           receivingOffersDeadline: recievingOffersDate,
           deliveryDate: deliveryDate,
@@ -842,11 +842,12 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       ],
     };
     postRFQAsDraft(allData, success => {
-      console.log(success)
-      toast.success(success.message, {
-        position: "bottom-right",
-      });
-      // history.push("/")
+      if (success.success) {
+        toast.success(success.message, {
+          position: "bottom-right",
+        });
+        history.push("/")
+      }
     }, fail => {
       console.log(fail)
     })

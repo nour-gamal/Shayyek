@@ -4,16 +4,27 @@ import { useSelector } from "react-redux";
 import Drafts from "../../../../../Resources/Assets/draft.svg";
 import DraftedRFQItem from '../DraftedRFQItem/DraftedRFQItem';
 import { Row, Col } from 'antd'
-import './DraftsGrid.css'
 import { Link } from 'react-router-dom';
+import { getBuyerDrafts } from '../../../network'
+import { useEffect } from 'react';
+import './DraftsGrid.css'
 
 function DraftsGrid() {
     const { currentLocal } = useSelector((state) => state.currentLocal);
-    // eslint-disable-next-line
     const [draftsCount, updateDraftsCount] = useState(0);
-    // eslint-disable-next-line
-    const [draftedRFQsList, updateDraftedRFQsList] = useState([1, 2, 2, 3, 3, 3, 3,])
-
+    const [draftedRFQsList, updateDraftedRFQsList] = useState([]);
+    const [rerenderState, updateRerenderState] = useState(false)
+    useEffect(() => {
+        getBuyerDrafts(success => {
+            updateDraftedRFQsList(success.data);
+            updateDraftsCount(success.data.length)
+        }, fail => {
+            console.log(fail)
+        })
+    }, [rerenderState])
+    const updateRerenderStateFun = () => {
+        updateRerenderState(!rerenderState)
+    }
     return (
         <div className='mt-4 flex-1'>
             <div className='d-flex justify-content-between align-items-center flex-1'>
@@ -31,7 +42,9 @@ function DraftsGrid() {
             </div>
             <div className="draftsItemsContainer">
                 <Row>
-                    {draftedRFQsList.map(rfq => <Col xs={24} md={12} lg={8}><DraftedRFQItem /></Col>)}
+                    {draftedRFQsList.map(rfq => <Col xs={24} md={12} lg={8}><DraftedRFQItem
+                        updateRerenderStateFun={updateRerenderStateFun}
+                        rfq={rfq} /></Col>)}
                 </Row>
             </div>
         </div>

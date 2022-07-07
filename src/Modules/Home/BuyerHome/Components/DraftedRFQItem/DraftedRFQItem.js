@@ -3,51 +3,69 @@ import Garbage from "../../../../../Resources/Assets/GarbageLg.svg";
 import { useSelector } from "react-redux";
 import DeleteModal from "../DeleteModal/DeleteModal"
 import { Button } from 'antd';
-import { deleteDraftedRFQ } from '../../../network';
+import { deleteDraftedRFQ, GetBuyerRFQForEdit } from '../../../network';
 import { toast } from "react-toastify";
 import './DraftedRFQItem.css';
 
-function DraftedRFQItem() {
+function DraftedRFQItem({ rfq, updateRerenderStateFun }) {
     const { currentLocal } = useSelector((state) => state.currentLocal);
     const [isDeleteRowModal, updateDeleteRowModal] = useState(false);
+    const [selectedRFQId, updateselectedRFQId] = useState(null)
     const handleDeleteProject = () => {
         let data = {
-            RfqId: ''
+            RfqId: selectedRFQId
         }
         deleteDraftedRFQ(data, success => {
-            console.log(success)
             toast.success(success.message, {
                 position: "bottom-right",
                 rtl: true,
             });
+            updateRerenderStateFun()
         }, fail => {
-            console.log(fail)
             toast.error(fail.message, {
                 position: "bottom-right",
                 rtl: true,
             });
         })
     }
+    const getRFQData = () => {
+        GetBuyerRFQForEdit(
+            rfq.rfqId,
+            (success) => {
+                console.log(success)
+            },
+            (fail) => { }
+        );
+    }
     return (
         <div className='draftedRFQItem p-2 my-4'>
             <div className='d-flex justify-content-between'>
-                <div className='projectName fw-500'>Project 1</div>
-                <img src={Garbage} alt='Garbage' className='cursorPointer' onClick={() => { updateDeleteRowModal(true) }} />
+                <div className='projectName fw-500'>{rfq.projectName}</div>
+                <img src={Garbage} alt='Garbage' className='cursorPointer' onClick={() => {
+                    updateDeleteRowModal(true)
+                    updateselectedRFQId(rfq.rfqId)
+                }} />
             </div>
             <div className='label my-2 f-14'>
                 <div className='title'>{currentLocal.buyerHome.packageName}</div>
-                <div className='value'>value</div>
+                <div className='value'>
+                    {rfq.packagesNames.map((name, index) => <>
+                        <>{name}</>
+                        <> {index !== rfq.packagesNames.length - 1 && <>,</>}
+                        </>
+                    </>)}
+                </div>
             </div>
             <div className='label my-2 f-14'>
                 <div className='title'>{currentLocal.buyerHome.projectLocation}</div>
-                <div className='value'>value</div>
+                <div className='value'>{rfq.projectLocation}</div>
             </div>
             <div className='label my-2 f-14'>
                 <div className='title'>{currentLocal.buyerHome.projectOwner}</div>
-                <div className='value'>value</div>
+                <div className='value'>{rfq.projectOwner}</div>
             </div>
             <div className="text-center">
-                <Button className='button-primary my-2 flat'>
+                <Button className='button-primary my-2 flat' onClick={getRFQData}>
                     {currentLocal.buyerHome.completeRFQ}
                 </Button>
             </div>
