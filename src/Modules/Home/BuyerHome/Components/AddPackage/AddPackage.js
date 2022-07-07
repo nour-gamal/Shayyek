@@ -3,8 +3,9 @@ import { Input, Modal } from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { ADDNEWPACKAGE } from "../../../../../Redux/RFQ";
-import "./AddPackage.css";
 import { Redirect } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import "./AddPackage.css";
 
 function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -15,6 +16,9 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) 
 	const dispatch = useDispatch();
 	const [reset, updateReset] = useState(false)
 	const hasOldPackages = rfqData.rfqPackages?.length > 0;
+	const search = useLocation().search;
+	const draftedRfqId = new URLSearchParams(search).get('draftedRfqId');
+
 	window.addEventListener("resize", () => {
 		updateIsMobile(!mq.matches);
 	});
@@ -71,7 +75,11 @@ function AddPackage({ isModalVisible, onCancel, rfqDetails, switchToLastPack }) 
 		onCancel()
 	}
 	if (reset) {
-		return <Redirect to='/rerender' />
+		let rerenderText = '/rerender'
+		if (draftedRfqId) {
+			rerenderText += `?draftedRfqId=${draftedRfqId}`
+		}
+		return <Redirect to={rerenderText} />
 	}
 	return (
 		<Modal

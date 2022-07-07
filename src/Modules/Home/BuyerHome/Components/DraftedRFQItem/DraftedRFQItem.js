@@ -5,12 +5,14 @@ import DeleteModal from "../DeleteModal/DeleteModal"
 import { Button } from 'antd';
 import { deleteDraftedRFQ, GetBuyerRFQForEdit } from '../../../network';
 import { toast } from "react-toastify";
+import { Redirect } from 'react-router';
 import './DraftedRFQItem.css';
 
-function DraftedRFQItem({ rfq, updateRerenderStateFun }) {
+function DraftedRFQItem({ rfq, updateRerenderStateFun, history }) {
     const { currentLocal } = useSelector((state) => state.currentLocal);
     const [isDeleteRowModal, updateDeleteRowModal] = useState(false);
-    const [selectedRFQId, updateselectedRFQId] = useState(null)
+    const [selectedRFQId, updateselectedRFQId] = useState(null);
+    const [redirectTo, updateRedirectTo] = useState(null)
     const handleDeleteProject = () => {
         let data = {
             RfqId: selectedRFQId
@@ -33,10 +35,12 @@ function DraftedRFQItem({ rfq, updateRerenderStateFun }) {
             rfq.rfqId,
             (success) => {
                 console.log(success)
+                updateRedirectTo(`/createRFQ?draftedRfqId=${rfq.rfqId}&firstRedirect=true`)
             },
             (fail) => { }
         );
     }
+    if (redirectTo) return <Redirect to={redirectTo} />
     return (
         <div className='draftedRFQItem p-2 my-4'>
             <div className='d-flex justify-content-between'>

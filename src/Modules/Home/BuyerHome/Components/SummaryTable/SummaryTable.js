@@ -203,7 +203,7 @@ function SummaryTable({ dataSourceList, currentPackageId }) {
                       </div>
                       <div className="d-flex justify-content-between my-2">
                         <div>
-                          {item.includeVat ?
+                          {item.vat ?
                             currentLocal.offerTable.includeVat :
                             currentLocal.offerTable.notIncludeVat}
                         </div>
