@@ -337,6 +337,7 @@ function MyRFQSummary({ rfqId }) {
         setQuotationsDataSource={setQuotationsDataSource}
         summaryDataSource={summaryDataSource}
         updateSummaryDataSource={updateSummaryDataSource}
+        rfqId={rfqId}
       />
     </div>
   );

@@ -25,6 +25,7 @@ import { getToken } from "./Services";
 import RFQSummary from "./Modules/Home/BuyerHome/Components/RFQSummary/RFQSummary";
 import Rerender from "./Modules/Common/Rerender/Rerender";
 import RFQDrafts from "./Modules/Home/BuyerHome/Components/RFQDrafts/RFQDrafts";
+import ReverseAuction from "./Modules/Common/ReverseAuction/ReverseAuction";
 // import Login from "./Modules/Login/Login";
 //import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
 function Routes() {
@@ -215,6 +216,11 @@ function Routes() {
 					<Route
 						path="/RFQDrafts"
 						render={(props) => isAuth && isBuyer ? <RFQDrafts {...props} /> : <Redirect to="/" />}
+					/>
+
+					<Route
+						path="/reverseAuction"
+						render={(props) => isAuth && isBuyer ? <ReverseAuction {...props} /> : <Redirect to="/" />}
 					/>
 				</Switch>
 			)}

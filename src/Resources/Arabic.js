@@ -515,6 +515,8 @@ export const ar = {
     viewQuotation: "عرض الطلب",
     AddToMySummary: "اضف الي ملخصي",
     vendorNotes: "ملاحظات البائع",
-
   },
+  reverseAuction: {
+    selectMembers: 'اختر اعضاء المناقصه'
+  }
 };

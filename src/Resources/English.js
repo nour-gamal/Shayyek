@@ -520,4 +520,7 @@ export const en = {
     AddToMySummary: "Add To My Summary",
     vendorNotes: "Vendor notes",
   },
+  reverseAuction: {
+    selectMembers: 'Select Reverse Auction Members'
+  }
 };

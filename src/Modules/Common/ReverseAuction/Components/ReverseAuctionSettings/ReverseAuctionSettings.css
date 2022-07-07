@@ -1,0 +1,46 @@
+.reverseAuctionSettings{
+    width: 100%;
+}
+.reverseAuctionSettings .title{
+    color:#003B6B;
+    font-size: 17px;
+}
+
+.reverseAuctionSettings .avatar{
+    width:45px;
+    height: 45px;
+}
+
+.reverseAuctionSettings .membersBox{
+    height: 300px;
+    color: #005FB1;
+    overflow-y: scroll;
+    width: max-content;
+    max-width: 90%;
+}
+.reverseAuctionSettings .ant-checkbox-wrapper>span{
+    display: flex;
+    justify-content: center;
+}
+
+.reverseAuctionSettings .membersBox::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 5px;
+  }
+  
+  /* Track */
+ .reverseAuctionSettings .membersBox::-webkit-scrollbar-track {
+    background: #E4E4E4;
+    border-radius: 5px;  
+}
+  
+  /* Handle */
+  .reverseAuctionSettings .membersBox::-webkit-scrollbar-thumb {
+    background: #8E8E8E;
+    border-radius: 5px;  
+}
+  
+  /* Handle on hover */
+  .reverseAuctionSettings .membersBox::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
