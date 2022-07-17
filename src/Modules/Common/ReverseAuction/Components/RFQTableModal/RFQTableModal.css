@@ -1,0 +1,8 @@
+.reverseAuctionTable .ant-modal-body{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.reverseAuctionTable .button-primary:hover{
+    color:#fff !important
+}

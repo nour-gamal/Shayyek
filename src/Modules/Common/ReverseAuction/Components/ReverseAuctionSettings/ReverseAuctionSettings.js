@@ -5,19 +5,18 @@ import moment from 'moment';
 import { useLocation } from "react-router-dom";
 import { baseUrl } from '../../../../../Services';
 import defaultAvatar from "../../../../../Resources/Assets/DefaultProfileImage.png"
-import './ReverseAuctionSettings.css'
 import { getVendorsReverseAuction } from '../../../Network';
+import RFQTableModal from '../RFQTableModal/RFQTableModal';
+import './ReverseAuctionSettings.css'
 function ReverseAuctionSettings() {
     const { currentLocal } = useSelector(state => state.currentLocal)
-    const {
-        authorization
-    } = useSelector((state) => state.authorization);
     const [membersList, updateMembersList] = useState([]);
     const [selectedMembersList, updateSelectedMembersList] = useState([]);
     const [reverseAuctionDate, updateReverseAuctionDate] = useState(null);
-    const [reverseAuctionReason, updateReverseAuctionReason] = useState(0);
+    const [reverseAuctionReason, updateReverseAuctionReason] = useState(null);
     const [notes, updateNotes] = useState('');
     const [isDisabled, updateIsDisabled] = useState(true)
+    const [isModalVisible, updateIsModalVisible] = useState(false)
     const search = useLocation().search;
     const rfqId = new URLSearchParams(search).get('rfqId');
     const currentPackageId = new URLSearchParams(search).get('currentPackageId');
@@ -33,7 +32,6 @@ function ReverseAuctionSettings() {
     };
 
     useEffect(() => {
-
         getVendorsReverseAuction(currentPackageId, success => {
             updateMembersList(success.data)
         }, fail => {
@@ -50,22 +48,28 @@ function ReverseAuctionSettings() {
     }
     const onReverseAuctionReasonChange = (e) => {
         updateReverseAuctionReason(e.target.value)
+        if (e.target.value.toString() === "1") {
+            updateIsModalVisible(true)
+        }
     }
     const handleChangeNotes = (e) => {
-        updateNotes(e.target.value)
+        if (e.target.value.length < 70) {
+            updateNotes(e.target.value)
+        }
     }
 
 
     useEffect(() => {
         if (
             selectedMembersList.length > 0
-            && reverseAuctionDate
+            && reverseAuctionDate &&
+            reverseAuctionReason !== null
         ) {
             updateIsDisabled(false)
         } else {
             updateIsDisabled(true)
         }
-    }, [selectedMembersList, reverseAuctionDate])
+    }, [selectedMembersList, reverseAuctionDate, reverseAuctionReason])
     const handleSubmit = () => { }
 
     return (
@@ -122,7 +126,9 @@ function ReverseAuctionSettings() {
                             buttonStyle={{ color: '#005FB1' }}
                         >
                             <Radio value={0}>{currentLocal.reverseAuction.allItems}</Radio>
-                            <Radio value={1}>{currentLocal.reverseAuction.selectSomeItems}</Radio>
+                            <Radio value={1} onClick={() => {
+                                updateIsModalVisible(true)
+                            }}>{currentLocal.reverseAuction.selectSomeItems}</Radio>
                         </Radio.Group>
                     </div>
                     <div className='my-4'>
@@ -146,6 +152,17 @@ function ReverseAuctionSettings() {
                     {currentLocal.reverseAuction.submit}
                 </Button>
             </div>
+            <RFQTableModal
+                isModalVisible={isModalVisible}
+                onCancel={() => {
+                    updateIsModalVisible(false)
+                }}
+                rfqId={rfqId}
+                currentPackageId={currentPackageId}
+                getSelectedRows={(val) => {
+                    console.log(val)
+                }}
+            />
         </div >
     )
 }

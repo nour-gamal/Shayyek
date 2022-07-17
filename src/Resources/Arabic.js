@@ -523,6 +523,8 @@ export const ar = {
     allItems: "كل البنود في طلب عرض السعر",
     selectSomeItems: "بعض البنود في طلب عرض السعر",
     anyNotes: " اي ملاحظات اخري ترغب في توضيحها للمشاركي:",
-    submit: "ارسل"
+    submit: "ارسل",
+    selectSomeItemss: ':اختر بعض البنود',
+    ok: "تم"
   }
 };

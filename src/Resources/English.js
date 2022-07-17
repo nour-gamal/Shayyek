@@ -527,6 +527,8 @@ export const en = {
     allItems: "All Items in RFQ",
     selectSomeItems: "Select Some Items in RFQ",
     anyNotes: "Any other notes you would like to clarify for participants:",
-    submit: "Submit"
+    submit: "Submit",
+    selectSomeItemss: "Select Some Items in RFQ:",
+    ok: "Ok"
   }
 };

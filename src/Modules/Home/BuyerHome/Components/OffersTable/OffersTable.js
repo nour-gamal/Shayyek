@@ -28,9 +28,9 @@ import { useScreenshot } from "use-react-screenshot";
 import { baseUrl } from "../../../../../Services";
 import Navbar from "../../../../Common/Navbar/Navbar";
 import Footer from "../../../../Common/Footer/Footer";
-import "./OffersTable.css";
 import SingleRFQModal from "../../../../ProfilePage/Components/SubComponents/SingleRFQModal/SingleRFQModal";
 import StartOnlineSessionModal from "../../../../Messages/StartOnlineSession/StartOnlineSession";
+import "./OffersTable.css";
 
 function OfferTable(props) {
   const { currentLocal, currentLanguageId } = useSelector(

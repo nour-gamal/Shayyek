@@ -15,7 +15,7 @@
     height: 300px;
     color: #005FB1;
     overflow-y: scroll;
-    width: 60%;
+    width: 50%;
 }
 .reverseAuctionSettings .ant-checkbox-wrapper>span{
     display: flex;

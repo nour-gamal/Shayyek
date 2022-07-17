@@ -269,9 +269,12 @@ html[dir="rtl"] .flip-image {
 	padding-right: 64px;
 }
 .button-primary.ant-btn[disabled],
-.button-primary:hover.ant-btn[disabled]{
+.button-primary.ant-btn[disabled], 
+.button-primary.ant-btn[disabled]:hover,
+.button-primary.ant-btn[disabled]:focus,
+.button-primary.ant-btn[disabled]:active{
 	background: rgba(0, 59, 107, 0.4) !important;
-	color:#fff;
+	color:#fff !important;
 	cursor:not-allowed
 }
 
