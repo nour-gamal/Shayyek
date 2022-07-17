@@ -5,32 +5,48 @@ import moment from 'moment';
 import { useLocation } from "react-router-dom";
 import { baseUrl } from '../../../../../Services';
 import defaultAvatar from "../../../../../Resources/Assets/DefaultProfileImage.png"
-import { getVendorsReverseAuction } from '../../../Network';
+import { getVendorsReverseAuction, postReverseAuction } from '../../../Network';
 import RFQTableModal from '../RFQTableModal/RFQTableModal';
+import { db } from "../../../../../firebase";
+import {
+    doc,
+    setDoc,
+} from "firebase/firestore";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import './ReverseAuctionSettings.css'
 function ReverseAuctionSettings() {
     const { currentLocal } = useSelector(state => state.currentLocal)
     const [membersList, updateMembersList] = useState([]);
+    const [selectedMembersDataList, updateSelectedMembersDataList] = useState([])
     const [selectedMembersList, updateSelectedMembersList] = useState([]);
     const [reverseAuctionDate, updateReverseAuctionDate] = useState(null);
     const [reverseAuctionReason, updateReverseAuctionReason] = useState(null);
     const [notes, updateNotes] = useState('');
+    const [packageItems, updatePackageItems] = useState([])
     const [isDisabled, updateIsDisabled] = useState(true)
     const [isModalVisible, updateIsModalVisible] = useState(false)
     const search = useLocation().search;
     const rfqId = new URLSearchParams(search).get('rfqId');
     const currentPackageId = new URLSearchParams(search).get('currentPackageId');
+    const history = useHistory()
 
-    const onSelectedMembersChanged = (checked, id) => {
+    const onSelectedMembersChanged = (checked, id, memberData) => {
         let selectedMembersListVar = [...selectedMembersList]
+        let selectedMembersDataListVar = [...selectedMembersDataList]
+
         if (checked) {
             selectedMembersListVar.push(id)
+            selectedMembersDataListVar.push(memberData)
         } else {
             selectedMembersListVar = selectedMembersListVar.filter(member => member !== id)
+            selectedMembersDataListVar = selectedMembersDataListVar.filter(member => member !== memberData)
         }
         updateSelectedMembersList(selectedMembersListVar)
+        updateSelectedMembersDataList(selectedMembersDataListVar)
     };
 
+    console.log(selectedMembersDataList)
     useEffect(() => {
         getVendorsReverseAuction(currentPackageId, success => {
             updateMembersList(success.data)
@@ -70,7 +86,31 @@ function ReverseAuctionSettings() {
             updateIsDisabled(true)
         }
     }, [selectedMembersList, reverseAuctionDate, reverseAuctionReason])
-    const handleSubmit = () => { }
+    const handleSubmit = () => {
+        let data = {
+            packageId: currentPackageId,
+            membersIds: selectedMembersList,
+            meetingDate: reverseAuctionDate,
+            packageItems,
+            notes,
+        }
+        postReverseAuction(data, async (success) => {
+            const roomId = success.data.sessionId
+            const roomsDocRef = doc(db, "reverseAuctionRooms", roomId);
+            await setDoc(roomsDocRef, {
+                members: selectedMembersDataList,
+                room: []
+            });
+            toast.success(success.data.message, {
+                position: "bottom-right",
+                rtl: true,
+            });
+
+            history.push('/');
+        }, fail => {
+            console.log(fail)
+        })
+    }
 
     return (
         <div className='py-4 reverseAuctionSettings'>
@@ -85,7 +125,7 @@ function ReverseAuctionSettings() {
                             <div key={index} className='memberBox my-4'>
                                 <Checkbox
                                     onChange={(e) => {
-                                        onSelectedMembersChanged(e.target.checked, member.userId)
+                                        onSelectedMembersChanged(e.target.checked, member.userId, member)
                                     }}
                                     className='d-flex align-items-center'
                                 >
@@ -126,9 +166,12 @@ function ReverseAuctionSettings() {
                             buttonStyle={{ color: '#005FB1' }}
                         >
                             <Radio value={0}>{currentLocal.reverseAuction.allItems}</Radio>
-                            <Radio value={1} onClick={() => {
-                                updateIsModalVisible(true)
-                            }}>{currentLocal.reverseAuction.selectSomeItems}</Radio>
+                            <Radio
+                                value={1}
+                                onClick={() => {
+                                    updateIsModalVisible(true)
+                                }}>{currentLocal.reverseAuction.selectSomeItems}
+                            </Radio>
                         </Radio.Group>
                     </div>
                     <div className='my-4'>
@@ -160,7 +203,7 @@ function ReverseAuctionSettings() {
                 rfqId={rfqId}
                 currentPackageId={currentPackageId}
                 getSelectedRows={(val) => {
-                    console.log(val)
+                    updatePackageItems(val)
                 }}
             />
         </div >

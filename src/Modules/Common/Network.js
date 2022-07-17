@@ -1,4 +1,4 @@
-import { GetResource } from "../../Services";
+import { GetResource, PostResource } from "../../Services";
 export const GetUserTypes = (languageId, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/Account/GetUserTypes?languageId=${languageId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
@@ -23,3 +23,8 @@ export const getVendorsReverseAuction = (packageId, onSuccess, onFail) => {
 	const path = `api/Session/VendorsReverseAuction?packageId=${packageId}`;
 	GetResource(path, onSuccess, onFail, true);
 };
+export const postReverseAuction = (data, onSuccess, onFail, reqAuth = true) => {
+	const path = `api/Session/ReversAuction`;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};
+

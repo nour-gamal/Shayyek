@@ -259,6 +259,11 @@ html[dir="rtl"] .flip-image {
 	border: none;
 	cursor: pointer;
 }
+.button-primary.ant-btn:hover,
+.button-primary.ant-btn:focus,
+.button-primary.ant-btn:active{
+	color:#fff !important
+}
 .button-primary-disabled {
 	background-color: #bce0fd !important;
 	cursor: not-allowed;
@@ -268,7 +273,6 @@ html[dir="rtl"] .flip-image {
 	padding-left: 64px;
 	padding-right: 64px;
 }
-.button-primary.ant-btn[disabled],
 .button-primary.ant-btn[disabled], 
 .button-primary.ant-btn[disabled]:hover,
 .button-primary.ant-btn[disabled]:focus,
