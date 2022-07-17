@@ -63,7 +63,9 @@
     height: 100px;
     resize: none;
   }
-
+.reverseAuctionSettings .ant-spin-dot-item{
+  background-color: #fff;
+}
   @media(max-width:768px){
     .reverseAuctionSettings .membersBox{
         width: 99%;

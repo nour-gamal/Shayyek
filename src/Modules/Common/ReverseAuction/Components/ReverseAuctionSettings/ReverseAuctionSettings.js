@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Col, Row, Checkbox, DatePicker, Radio, Button } from 'antd';
+import { Col, Row, Checkbox, DatePicker, Radio, Button, Spin } from 'antd';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { useLocation } from "react-router-dom";
@@ -12,7 +12,7 @@ import {
     doc,
     setDoc,
 } from "firebase/firestore";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import './ReverseAuctionSettings.css'
 function ReverseAuctionSettings() {
@@ -26,11 +26,11 @@ function ReverseAuctionSettings() {
     const [packageItems, updatePackageItems] = useState([])
     const [isDisabled, updateIsDisabled] = useState(true)
     const [isModalVisible, updateIsModalVisible] = useState(false)
+    const [redirectTo, updateRedirectTo] = useState(null);
+    const [isLoading, updateIsLoading] = useState(false)
     const search = useLocation().search;
     const rfqId = new URLSearchParams(search).get('rfqId');
     const currentPackageId = new URLSearchParams(search).get('currentPackageId');
-    const history = useHistory()
-
     const onSelectedMembersChanged = (checked, id, memberData) => {
         let selectedMembersListVar = [...selectedMembersList]
         let selectedMembersDataListVar = [...selectedMembersDataList]
@@ -66,6 +66,8 @@ function ReverseAuctionSettings() {
         updateReverseAuctionReason(e.target.value)
         if (e.target.value.toString() === "1") {
             updateIsModalVisible(true)
+        } else {
+            updatePackageItems([])
         }
     }
     const handleChangeNotes = (e) => {
@@ -87,6 +89,7 @@ function ReverseAuctionSettings() {
         }
     }, [selectedMembersList, reverseAuctionDate, reverseAuctionReason])
     const handleSubmit = () => {
+        updateIsLoading(true)
         let data = {
             packageId: currentPackageId,
             membersIds: selectedMembersList,
@@ -101,17 +104,17 @@ function ReverseAuctionSettings() {
                 members: selectedMembersDataList,
                 room: []
             });
-            toast.success(success.data.message, {
+            toast.success(success.message, {
                 position: "bottom-right",
                 rtl: true,
             });
 
-            history.push('/');
+            updateRedirectTo('/')
         }, fail => {
             console.log(fail)
         })
     }
-
+    if (redirectTo) return <Redirect to={redirectTo} />
     return (
         <div className='py-4 reverseAuctionSettings'>
             <Row>
@@ -192,7 +195,8 @@ function ReverseAuctionSettings() {
                     disabled={isDisabled}
                     onClick={handleSubmit}
                 >
-                    {currentLocal.reverseAuction.submit}
+                    {isLoading ? <Spin /> : <>{currentLocal.reverseAuction.submit}</>}
+
                 </Button>
             </div>
             <RFQTableModal
