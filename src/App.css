@@ -248,7 +248,8 @@ html[dir="rtl"] .flip-image {
 .button-primary,
 .button-secondary,
 .button-primary:hover,
-.button-secondary:hover {
+.button-secondary:hover,
+.button-primary:focus {
 	background: #003b6b 0% 0% no-repeat padding-box;
 	border-radius: 5px;
 	opacity: 1;
