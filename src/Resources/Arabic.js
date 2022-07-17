@@ -517,6 +517,12 @@ export const ar = {
     vendorNotes: "ملاحظات البائع",
   },
   reverseAuction: {
-    selectMembers: 'اختر اعضاء المناقصه'
+    selectMembers: 'اختر اعضاء الممارسه',
+    meetingTime: "وقت الممارسه",
+    reverseAuctionFor: 'هذه الممارسه ل',
+    allItems: "كل البنود في طلب عرض السعر",
+    selectSomeItems: "بعض البنود في طلب عرض السعر",
+    anyNotes: " اي ملاحظات اخري ترغب في توضيحها للمشاركي:",
+    submit: "ارسل"
   }
 };

@@ -521,6 +521,12 @@ export const en = {
     vendorNotes: "Vendor notes",
   },
   reverseAuction: {
-    selectMembers: 'Select Reverse Auction Members'
+    selectMembers: 'Select Reverse Auction Members',
+    meetingTime: "Meeting Time",
+    reverseAuctionFor: 'This Reverse Auction is for',
+    allItems: "All Items in RFQ",
+    selectSomeItems: "Select Some Items in RFQ",
+    anyNotes: "Any other notes you would like to clarify for participants:",
+    submit: "Submit"
   }
 };

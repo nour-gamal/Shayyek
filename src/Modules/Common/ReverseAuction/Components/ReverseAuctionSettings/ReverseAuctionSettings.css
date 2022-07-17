@@ -2,8 +2,8 @@
     width: 100%;
 }
 .reverseAuctionSettings .title{
-    color:#003B6B;
     font-size: 17px;
+    color:#032440;
 }
 
 .reverseAuctionSettings .avatar{
@@ -15,8 +15,7 @@
     height: 300px;
     color: #005FB1;
     overflow-y: scroll;
-    width: max-content;
-    max-width: 90%;
+    width: 60%;
 }
 .reverseAuctionSettings .ant-checkbox-wrapper>span{
     display: flex;
@@ -43,4 +42,27 @@
   /* Handle on hover */
   .reverseAuctionSettings .membersBox::-webkit-scrollbar-thumb:hover {
     background: #555;
+  }
+
+  .reverseAuctionSettings .dateTimePicker{
+    width: 156px;
+    border-color: #2699FB;
+    border-radius: 5px;
+    color: #2699FB;
+  }
+  .reverseAuctionSettings .radioButton .ant-radio-wrapper{
+    color:#005FB1 !important;
+    margin-bottom: 10px !important;
+  }
+  .reverseAuctionSettings textArea{
+    width: 100%;
+    height: 100px;
+    resize: none;
+  }
+
+  @media(max-width:768px){
+    .reverseAuctionSettings .membersBox{
+        width: 99%;
+        margin-bottom: 20px; 
+    }
   }
