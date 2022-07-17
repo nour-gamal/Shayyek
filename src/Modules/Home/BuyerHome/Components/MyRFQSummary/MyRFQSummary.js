@@ -161,9 +161,8 @@ function MyRFQSummary({ rfqId }) {
                         </div>
                       </div>
                       <div
-                        className={`info addAnswer d-flex justify-content-end ${
-                          openAnswer ? "d-none" : ""
-                        }`}
+                        className={`info addAnswer d-flex justify-content-end ${openAnswer ? "d-none" : ""
+                          }`}
                         onClick={() => setOpenAnswer((state) => !state)}
                       >
                         {currentLocal.buyerHome.addAnswer}
@@ -338,6 +337,7 @@ function MyRFQSummary({ rfqId }) {
         summaryDataSource={summaryDataSource}
         updateSummaryDataSource={updateSummaryDataSource}
         rfqId={rfqId}
+        currentPackageId={currentPackageId}
       />
     </div>
   );

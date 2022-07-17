@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { useLocation } from "react-router-dom";
 import { baseUrl } from '../../../../../Services';
+import defaultAvatar from "../../../../../Resources/Assets/DefaultProfileImage.png"
 import './ReverseAuctionSettings.css'
+import { getVendorsReverseAuction } from '../../../Network';
 function ReverseAuctionSettings() {
     const { currentLocal } = useSelector(state => state.currentLocal)
     const {
@@ -18,6 +20,7 @@ function ReverseAuctionSettings() {
     const [isDisabled, updateIsDisabled] = useState(true)
     const search = useLocation().search;
     const rfqId = new URLSearchParams(search).get('rfqId');
+    const currentPackageId = new URLSearchParams(search).get('currentPackageId');
 
     const onSelectedMembersChanged = (checked, id) => {
         let selectedMembersListVar = [...selectedMembersList]
@@ -30,18 +33,13 @@ function ReverseAuctionSettings() {
     };
 
     useEffect(() => {
-        updateMembersList([
-            { name: 'test test test', image: 'sss', id: 1, },
-            { name: '22', image: 'sss', id: 2 },
-            { name: '33', image: 'sss', id: 3 },
-            { name: '44', image: 'sss', id: 4 },
-            { name: '44', image: 'sss', id: 4 },
-            { name: '44', image: 'sss', id: 4 },
-            { name: '44', image: 'sss', id: 4 },
-            { name: '44', image: 'sss', id: 4 }]
 
-        )
-    }, [rfqId]);
+        getVendorsReverseAuction(currentPackageId, success => {
+            updateMembersList(success.data)
+        }, fail => {
+            console.log(fail)
+        })
+    }, [currentPackageId]);
 
     const disabledDate = (current) => {
         // Can not select days before today and today
@@ -83,13 +81,13 @@ function ReverseAuctionSettings() {
                             <div key={index} className='memberBox my-4'>
                                 <Checkbox
                                     onChange={(e) => {
-                                        onSelectedMembersChanged(e.target.checked, member.id)
+                                        onSelectedMembersChanged(e.target.checked, member.userId)
                                     }}
                                     className='d-flex align-items-center'
                                 >
-                                    <img src={baseUrl + authorization.profileImage} alt='avatar'
+                                    <img src={member.userImage ? baseUrl + member.userImage : defaultAvatar} alt='avatar'
                                         className='avatar rounded-circle mx-4' />
-                                    <span> {member.name}</span>
+                                    <span>{member.userName}</span>
                                 </Checkbox>
                             </div>)}
                     </div>

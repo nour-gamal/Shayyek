@@ -20,11 +20,15 @@
 .reverseAuctionSettings .ant-checkbox-wrapper>span{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .reverseAuctionSettings .membersBox::-webkit-scrollbar {
     width: 8px;
     border-radius: 5px;
+  }
+  .reverseAuctionSettings .form-control{
+    border-color: #005FB1;
   }
   
   /* Track */

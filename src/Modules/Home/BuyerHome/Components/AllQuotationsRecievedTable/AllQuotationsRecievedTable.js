@@ -32,7 +32,8 @@ function AllQuotaionsRecievedForRFQ({
   quotaionsDataSource,
   setQuotationsDataSource,
   updateSummaryDataSource,
-  rfqId
+  rfqId,
+  currentPackageId
 }) {
   // eslint-disable-next-line
   const [loading, updateLoading] = useState(false);
@@ -415,7 +416,7 @@ function AllQuotaionsRecievedForRFQ({
           className="my-4"
         />
       </PDFExport>
-      <Link to={`/reverseAuction?rfqId=${rfqId}`}
+      <Link to={`/reverseAuction?rfqId=${rfqId}&currentPackageId=${currentPackageId}`}
         className="text-center"
         style={{
           display: `${hideTable ? "none" : "block"}`,

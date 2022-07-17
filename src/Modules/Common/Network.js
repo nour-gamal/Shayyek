@@ -18,3 +18,8 @@ export const getNotifications = (languageId, onSuccess, onFail) => {
 	const path = `api/Notification/GetAllNotifications?languageId=${languageId}`;
 	GetResource(path, onSuccess, onFail, true);
 };
+
+export const getVendorsReverseAuction = (packageId, onSuccess, onFail) => {
+	const path = `api/Session/VendorsReverseAuction?packageId=${packageId}`;
+	GetResource(path, onSuccess, onFail, true);
+};
