@@ -525,6 +525,11 @@ export const ar = {
     anyNotes: " اي ملاحظات اخري ترغب في توضيحها للمشاركي:",
     submit: "ارسل",
     selectSomeItemss: ':اختر بعض البنود',
-    ok: "تم"
+    ok: "تم",
+    projectOwner: "صاحب المشروع",
+    targetPrice: "السعر المستهدف",
+    suppliers: "الموردين",
+    endSession: "انهاء الممارسه",
+    endAndGiveBadge: "انهاء و اعطاء البادج"
   }
 };

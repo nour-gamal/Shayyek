@@ -1,0 +1,8 @@
+.roomModal{
+    color:#707070
+}
+
+.roomModal .avatar{
+    width: 40px;
+    border-radius: 50%;
+}

@@ -14,9 +14,11 @@ import {
 } from "firebase/firestore";
 import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
-import './ReverseAuctionSettings.css'
+import './ReverseAuctionSettings.css';
+
 function ReverseAuctionSettings() {
     const { currentLocal } = useSelector(state => state.currentLocal)
+    const { authorization } = useSelector(state => state.authorization)
     const [membersList, updateMembersList] = useState([]);
     const [selectedMembersDataList, updateSelectedMembersDataList] = useState([])
     const [selectedMembersList, updateSelectedMembersList] = useState([]);
@@ -31,13 +33,16 @@ function ReverseAuctionSettings() {
     const search = useLocation().search;
     const rfqId = new URLSearchParams(search).get('rfqId');
     const currentPackageId = new URLSearchParams(search).get('currentPackageId');
+
+
+
     const onSelectedMembersChanged = (checked, id, memberData) => {
         let selectedMembersListVar = [...selectedMembersList]
         let selectedMembersDataListVar = [...selectedMembersDataList]
 
         if (checked) {
             selectedMembersListVar.push(id)
-            selectedMembersDataListVar.push(memberData)
+            selectedMembersDataListVar.push({ ...memberData, hasBadge: false })
         } else {
             selectedMembersListVar = selectedMembersListVar.filter(member => member !== id)
             selectedMembersDataListVar = selectedMembersDataListVar.filter(member => member !== memberData)
@@ -46,7 +51,6 @@ function ReverseAuctionSettings() {
         updateSelectedMembersDataList(selectedMembersDataListVar)
     };
 
-    console.log(selectedMembersDataList)
     useEffect(() => {
         getVendorsReverseAuction(currentPackageId, success => {
             updateMembersList(success.data)
@@ -101,7 +105,12 @@ function ReverseAuctionSettings() {
             const roomId = success.data.sessionId
             const roomsDocRef = doc(db, "reverseAuctionRooms", roomId);
             await setDoc(roomsDocRef, {
-                members: selectedMembersDataList,
+                vendorMembers: selectedMembersDataList,
+                buyerData: {
+                    name: authorization.fullName,
+                    id: authorization.id,
+                    image: authorization.profileImage
+                },
                 room: []
             });
             toast.success(success.message, {

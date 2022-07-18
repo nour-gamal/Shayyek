@@ -529,6 +529,11 @@ export const en = {
     anyNotes: "Any other notes you would like to clarify for participants:",
     submit: "Submit",
     selectSomeItemss: "Select Some Items in RFQ:",
-    ok: "Ok"
+    ok: "Ok",
+    projectOwner: "Project Owner",
+    targetPrice: "Target Price",
+    suppliers: "Suppliers",
+    endSession: "End Session",
+    endAndGiveBadge: "End & Give Badge"
   }
 };

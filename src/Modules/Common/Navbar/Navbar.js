@@ -22,6 +22,7 @@ import userAvatar from "../../../Resources/Assets/people.svg";
 import { getNotifications } from "./../Network";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
+import Room from "../ReverseAuction/Components/Room/Room";
 import "./Navbar.css";
 
 function Navbarr({ navState, verifayState, transparent }) {
@@ -31,6 +32,9 @@ function Navbarr({ navState, verifayState, transparent }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
+	const [isRoomModalVis, updateRoomModalVis] = useState(true)
+	// eslint-disable-next-line
+	const [roomId, updateRoomId] = useState("2db4f838-e5a1-4152-9c3b-69f6fb5b13c9")
 	const loginState = authorization.userTypeId ? true : false;
 
 	const {
@@ -85,7 +89,8 @@ function Navbarr({ navState, verifayState, transparent }) {
 						>
 							<List.Item.Meta
 								avatar={<Avatar src={userAvatar} />}
-								title={<a href="https://ant.design">{item.title}</a>}
+								title={<div>{item.title}</div>}
+								onClick={() => { updateRoomModalVis(true) }}
 								description={
 									<div>
 										<div>{item.message}</div>
@@ -212,6 +217,11 @@ function Navbarr({ navState, verifayState, transparent }) {
 					{!loginState ? <GuestNav /> : <UserNav loginState={loginState} />}
 				</Navbar.Collapse>
 			)}
+			<Room
+				isModalVisible={isRoomModalVis}
+				onCancel={() => { updateRoomModalVis(false) }}
+				roomId={roomId}
+			/>
 		</Navbar>
 	);
 }
