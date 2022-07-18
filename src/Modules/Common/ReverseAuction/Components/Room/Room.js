@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Modal } from 'antd'
-import { doc, onSnapshot, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc, arrayUnion, setDoc } from "firebase/firestore";
 import { db } from "../../../../../firebase";
 import { baseUrl } from '../../../../../Services';
 import GiveBadge from "../../../../../Resources/Assets/GiveBadge.svg";
@@ -20,6 +20,7 @@ function Room({ isModalVisible, onCancel, roomId }) {
     const [room, updateRoom] = useState([]);
     const [msg, updateMsg] = useState('')
     const [vendorMembers, updateVendorMembers] = useState([]);
+    const [targetPrice, updateTargetPrice] = useState(null)
     const msgRef = useRef()
     // function arrayMin(arr) {
     //     return arr.reduce(function (p, v, currentIndex) {
@@ -74,6 +75,13 @@ function Room({ isModalVisible, onCancel, roomId }) {
     useEffect(() => {
         msgRef?.current?.scrollIntoView({ behavior: "smooth" });
     }, [room])
+
+    const handleAddTargetPrice = async () => {
+        const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
+        await setDoc(reverseAuctionRef, {
+            targetPrice
+        })
+    }
     return (
         <Modal
             title="Basic Modal"
@@ -90,7 +98,13 @@ function Room({ isModalVisible, onCancel, roomId }) {
                         </div>
                         <div className="mx-2 d-flex align-items-center">
                             <label className='text-danger'>{currentLocal.reverseAuction.targetPrice}</label>
-                            <div className="targetBox text-danger">12,0000 LE</div>
+                            {authorization.id === buyerData?.id ? <input type='number'
+                                className="targetBox text-danger"
+                                onBlur={handleAddTargetPrice}
+                                onChange={(e) => { updateTargetPrice(e.target.value) }}
+                                value={targetPrice}
+                            /> :
+                                <div className="targetBox text-danger">12,0000 LE</div>}
                         </div>
                     </div>
                     {isBuyer && <div>

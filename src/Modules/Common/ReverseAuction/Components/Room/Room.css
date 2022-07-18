@@ -10,12 +10,13 @@
     width: 40px;
     border-radius: 50%;
 }
-.roomModal .targetBox{
+.roomModal .targetBox,.roomModal .targetBox:focus{
     border:1px solid #2699FB;
     padding:8px 30px;
     height: fit-content;
     border-radius: 5px;
     margin:0 20px;
+    outline: none;
 }
 .roomModal .suppliersTitle{
     color:#2699FB
