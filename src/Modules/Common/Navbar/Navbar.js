@@ -34,7 +34,7 @@ function Navbarr({ navState, verifayState, transparent }) {
 	const { authorization } = useSelector((state) => state.authorization);
 	const [isRoomModalVis, updateRoomModalVis] = useState(false)
 	// eslint-disable-next-line
-	const [roomId, updateRoomId] = useState("2db4f838-e5a1-4152-9c3b-69f6fb5b13c9")
+	const [roomId, updateRoomId] = useState("c80aea17-e425-4259-8df3-ebb291038355")
 	const loginState = authorization.userTypeId ? true : false;
 
 	const {

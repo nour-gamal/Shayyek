@@ -48,3 +48,6 @@
     align-items: center;
     padding: 2px 20px;
 }
+.roomModal .senderName{
+    margin-top: -15px;
+}

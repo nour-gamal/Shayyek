@@ -42,7 +42,7 @@ function ReverseAuctionSettings() {
 
         if (checked) {
             selectedMembersListVar.push(id)
-            selectedMembersDataListVar.push({ ...memberData, hasBadge: false })
+            selectedMembersDataListVar.push({ ...memberData })
         } else {
             selectedMembersListVar = selectedMembersListVar.filter(member => member !== id)
             selectedMembersDataListVar = selectedMembersDataListVar.filter(member => member !== memberData)
