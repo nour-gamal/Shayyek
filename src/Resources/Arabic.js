@@ -530,6 +530,7 @@ export const ar = {
     targetPrice: "السعر المستهدف",
     suppliers: "الموردين",
     endSession: "انهاء الممارسه",
-    endAndGiveBadge: "انهاء و اعطاء البادج"
+    endAndGiveBadge: "انهاء و اعطاء البادج",
+    discountPercent: "ادخل نسبه الخصم"
   }
 };

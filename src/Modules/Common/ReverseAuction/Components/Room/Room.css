@@ -1,8 +1,50 @@
 .roomModal{
-    color:#707070
+    color:#707070;
+}
+.roomModal .ant-modal-body,
+.roomModal .ant-modal-content{
+   padding:10px;
 }
 
 .roomModal .avatar{
     width: 40px;
     border-radius: 50%;
+}
+.roomModal .targetBox{
+    border:1px solid #2699FB;
+    padding:8px 30px;
+    height: fit-content;
+    border-radius: 5px;
+    margin:0 20px;
+}
+.roomModal .suppliersTitle{
+    color:#2699FB
+}
+.roomModal .msgBox{
+    background-color: #F5F5F5;
+    height: 330px;
+    margin: 10px auto;
+    overflow: auto;
+}
+.roomModal .sendMsgInput,
+.roomModal .sendMsgInput:focus{
+    height: 52px;
+    border-radius: 32px;
+    background: #F5F5F5;
+    border:none;
+    outline: none;
+    padding: 2px 10px;
+}
+.roomModal .sendMsgBtn{
+    border:none;
+    background: none;
+}
+.roomModal .msgCapsule{
+    background: #003B6B;
+    border-radius: 23px;
+    color:#fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 20px;
 }

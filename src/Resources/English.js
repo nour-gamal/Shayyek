@@ -534,6 +534,7 @@ export const en = {
     targetPrice: "Target Price",
     suppliers: "Suppliers",
     endSession: "End Session",
-    endAndGiveBadge: "End & Give Badge"
+    endAndGiveBadge: "End & Give Badge",
+    discountPercent:"Enter the discount Percentage"
   }
 };
