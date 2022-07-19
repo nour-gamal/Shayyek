@@ -57,6 +57,18 @@ function Room({ isModalVisible, onCancel, roomId }) {
             }
         });
     }, [roomId, authorization]);
+
+
+    const handleAddBadge = (index) => {
+        const roomList = [...room]
+        roomList.forEach((msg) => {
+            if (msg.hasBadge) {
+                delete msg.hasBadge
+            }
+        })
+        roomList[index].hasBadge = true
+        updateRoom(roomList)
+    }
     const handleSendMsg = async (e) => {
         e.preventDefault();
         if (msg.length > 0) {
@@ -127,7 +139,13 @@ function Room({ isModalVisible, onCancel, roomId }) {
                 <div className="msgBox p-4">
                     <div className="msg">
                         {room.map((msg, index) => {
-                            return <div key={index} className={index % 2 ? "d-flex my-2 justify-content-end align-items-center" : 'align-items-center d-flex my-2'}>
+                            return <div
+                                key={index}
+                                className={index % 2 ?
+                                    "d-flex my-2 justify-content-end align-items-center cursorPointer"
+                                    : 'align-items-center d-flex my-2 cursorPointer'}
+                                onClick={() => { handleAddBadge(index) }}
+                            >
                                 <img src={baseUrl + msg.image} alt='avatar' className='avatar' />
                                 <div className='mx-3'>
                                     <div className='f-12 senderName'>{msg.name}</div>
@@ -150,10 +168,10 @@ function Room({ isModalVisible, onCancel, roomId }) {
                             }} />
                             <div className='f-12 my-2'>{currentLocal.reverseAuction.endSession}</div>
                         </div>
-                        <div className='mx-4 text-center cursorPointer'>
+                        {/* <div className='mx-4 text-center cursorPointer'>
                             <img src={GiveBadge} alt='GiveBadge' />
                             <div className='f-12 my-2' onClick={() => { onCancel() }}>{currentLocal.reverseAuction.endAndGiveBadge}</div>
-                        </div>
+                        </div> */}
                     </>}
                     {!isBuyer && <>
                         <input

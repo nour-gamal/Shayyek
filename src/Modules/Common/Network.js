@@ -1,4 +1,4 @@
-import { GetResource, PostResource } from "../../Services";
+import { GetResource, PostResource, PutResource } from "../../Services";
 export const GetUserTypes = (languageId, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/Account/GetUserTypes?languageId=${languageId}`;
 	GetResource(path, onSuccess, onFail, reqAuth);
@@ -26,5 +26,10 @@ export const getVendorsReverseAuction = (packageId, onSuccess, onFail) => {
 export const postReverseAuction = (data, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/Session/ReversAuction`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
+};
+export const readNotificationsAPI = (data, onSuccess, onFail, reqAuth = true) => {
+	const { notificationId } = data
+	const path = `api/Notification/UpdateNotification${notificationId ? `?notificationId=${notificationId}` : ``}`;
+	PutResource(path, onSuccess, onFail, reqAuth);
 };
 

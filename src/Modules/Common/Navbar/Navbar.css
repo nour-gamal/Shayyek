@@ -115,10 +115,10 @@
 .navbar .centerNav img {
 	margin: 0 5px;
 }
-.navbar .chat-icon {
+.navbar .chat-icon,.navbar .notification-icon {
 	position: relative;
 }
-.navbar .chat-icon .chatNotifications {
+.navbar .chat-icon .chatNotifications ,.navbar .notification-icon .notifications{
 	display: block;
 	width: 10px;
 	height: 10px;
@@ -186,6 +186,9 @@
 }
 .ant-list-item.not-seen {
 	background: rgb(34 34 34 / 4%) !important;
+}
+.ant-list.ant-list-split{
+	overflow-y: auto;
 }
 @media (max-width: 991px) {
 	.navbar {

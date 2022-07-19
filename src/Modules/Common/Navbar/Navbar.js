@@ -19,7 +19,7 @@ import languages from "../../../Resources/Assets/languages.svg";
 import cart from "../../../Resources/Assets/cart.svg";
 import AllSuppliers from "../../../Resources/Assets/All_suppliers.svg";
 import userAvatar from "../../../Resources/Assets/people.svg";
-import { getNotifications } from "./../Network";
+import { getNotifications, readNotificationsAPI } from "./../Network";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
 import Room from "../ReverseAuction/Components/Room/Room";
@@ -32,11 +32,10 @@ function Navbarr({ navState, verifayState, transparent }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { currentLanguageId } = useSelector((state) => state.currentLocal);
 	const { authorization } = useSelector((state) => state.authorization);
-	const [isRoomModalVis, updateRoomModalVis] = useState(false)
-	// eslint-disable-next-line
-	const [roomId, updateRoomId] = useState("f5194c1e-de01-485a-a14e-c4a73cc2e4f9")
+	const [isRoomModalVis, updateRoomModalVis] = useState(false);
+	const [hasNotifications, updateHasNotifications] = useState(false);
+	const [roomId, updateRoomId] = useState("")
 	const loginState = authorization.userTypeId ? true : false;
-
 	const {
 		authorization: { userTypeId, accountTypeId, roleId },
 	} = useSelector((state) => state.authorization);
@@ -57,6 +56,35 @@ function Navbarr({ navState, verifayState, transparent }) {
 		}
 	}, [unreadMsgCount, authorization.id]);
 
+
+	const readNotifications = (notificationId) => {
+		let data = {}
+		if (notificationId) {
+			data.notificationId = notificationId
+		}
+		readNotificationsAPI(data, success => {
+			if (success.success) {
+				updateHasNotifications(false)
+				getNotifications(
+					currentLanguageId,
+					(success) => {
+						if (success.success) {
+							const { notifications } = success.data;
+							setUserNotifications(notifications);
+							const hasNewNotification = notifications.some(notification => !notification.isSeen)
+							if (hasNewNotification) {
+								updateHasNotifications(true)
+							}
+						}
+					},
+					(fail) => { }
+				);
+			}
+		}, fail => {
+			console.log(fail)
+		})
+	}
+
 	useEffect(() => {
 		getNotifications(
 			currentLanguageId,
@@ -64,11 +92,15 @@ function Navbarr({ navState, verifayState, transparent }) {
 				if (success.success) {
 					const { notifications } = success.data;
 					setUserNotifications(notifications);
+					const hasNewNotification = notifications.some(notification => !notification.isSeen)
+					if (hasNewNotification) {
+						updateHasNotifications(true)
+					}
 				}
 			},
 			(fail) => { }
 		);
-	}, [currentLanguageId, setUserNotifications]);
+	}, [currentLanguageId]);
 
 	const notificationMenu = (
 		<div
@@ -84,13 +116,21 @@ function Navbarr({ navState, verifayState, transparent }) {
 					dataSource={userNotifications}
 					renderItem={(item) => (
 						<List.Item
-							className={`mb-2 ${!item.isSeen ? "not-seen" : ""}`}
+							className={`mb-2 ${!item.isDetailsSeen ? "not-seen" : ""}`}
 							key={item.notificationId}
+							onClick={() => {
+								readNotifications(item.notificationId)
+							}}
 						>
 							<List.Item.Meta
 								avatar={<Avatar src={userAvatar} />}
 								title={<div>{item.title}</div>}
-								onClick={() => { updateRoomModalVis(true) }}
+								onClick={() => {
+									if (item.route && !item.route.includes('/')) {
+										updateRoomModalVis(true)
+										updateRoomId(item.route)
+									}
+								}}
 								description={
 									<div>
 										<div>{item.message}</div>
@@ -104,7 +144,7 @@ function Navbarr({ navState, verifayState, transparent }) {
 					)}
 				/>
 			</Scrollbars>
-		</div>
+		</div >
 	);
 	return (
 		<Navbar
@@ -177,52 +217,61 @@ function Navbarr({ navState, verifayState, transparent }) {
 					<Dropdown overlay={notificationMenu} trigger={["click"]}>
 						<Button
 							type="text"
-							className="nav-link"
+							className="nav-link notification-icon"
 							style={{ padding: "0.5rem 1rem" }}
+							onClick={() => { readNotifications() }}
 						>
+							{hasNotifications && <div className="notifications f-12"></div>}
 							<img src={Notification} alt="Notification" />
 						</Button>
 					</Dropdown>
 				</span>
-			)}
-			{verifayState && (
-				<>
-					<div className="lang">
-						<span className="languageWord mx-2">
-							{currentLocal.language === "العربيه" ? "عربي" : "English"}
-						</span>
-						<span>
-							<img
-								src={languages}
-								alt="languages"
-								onClick={() => {
-									dispatch(
-										changeLocal(
-											currentLocal.language === "English" ? "ar" : "en"
-										)
-									);
-								}}
-								className="languages"
-							/>
-						</span>
-					</div>
-				</>
-			)}
+			)
+			}
+			{
+				verifayState && (
+					<>
+						<div className="lang">
+							<span className="languageWord mx-2">
+								{currentLocal.language === "العربيه" ? "عربي" : "English"}
+							</span>
+							<span>
+								<img
+									src={languages}
+									alt="languages"
+									onClick={() => {
+										dispatch(
+											changeLocal(
+												currentLocal.language === "English" ? "ar" : "en"
+											)
+										);
+									}}
+									className="languages"
+								/>
+							</span>
+						</div>
+					</>
+				)
+			}
 			{!navState && <Navbar.Toggle aria-controls="basic-navbar-nav" />}
-			{!navState && (
-				<Navbar.Collapse
-					id="basic-navbar-nav"
-					className={loginState ? "flex-grow-0" : "flex-grow-1"}
-				>
-					{!loginState ? <GuestNav /> : <UserNav loginState={loginState} />}
-				</Navbar.Collapse>
-			)}
-			{isRoomModalVis && <Room
-				isModalVisible={isRoomModalVis}
-				onCancel={() => { updateRoomModalVis(false) }}
-				roomId={roomId}
-			/>}
-		</Navbar>
+			{
+				!navState && (
+					<Navbar.Collapse
+						id="basic-navbar-nav"
+						className={loginState ? "flex-grow-0" : "flex-grow-1"}
+					>
+						{!loginState ? <GuestNav /> : <UserNav loginState={loginState} />}
+					</Navbar.Collapse>
+				)
+			}
+			{
+				isRoomModalVis && <Room
+					isModalVisible={isRoomModalVis}
+					onCancel={() => { updateRoomModalVis(false) }}
+					roomId={roomId}
+				/>
+			}
+		</Navbar >
 	);
 }
 

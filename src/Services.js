@@ -126,3 +126,41 @@ export function PatchResource(
 			// onFailStatus(err.response);
 		});
 }
+
+
+export function PutResource(
+	path,
+	onSuccess,
+	onFail,
+	reqAuth,
+	formData
+) {
+	const requestData = {
+		method: "put",
+		url: baseUrl + path,
+		headers: {},
+	};
+	if (formData) {
+		requestData.headers = {
+			"content-type": "multipart/form-data",
+		};
+	}
+
+	if (reqAuth && token) {
+		requestData.headers = {
+			Authorization: "Bearer " + token,
+		};
+	}
+	axios(requestData)
+		.then((res) => {
+			onSuccess(res.data);
+		})
+		.catch((err) => {
+			onFail(err.response);
+			console.log(err);
+			// onFailStatus(err.response);
+		});
+}
+
+
+
