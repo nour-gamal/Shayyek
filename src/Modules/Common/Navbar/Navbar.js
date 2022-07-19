@@ -126,6 +126,8 @@ function Navbarr({ navState, verifayState, transparent }) {
 								avatar={<Avatar src={userAvatar} />}
 								title={<div>{item.title}</div>}
 								onClick={() => {
+									// let isSessionStarted
+									// console.log()
 									if (item.route && !item.route.includes('/')) {
 										updateRoomModalVis(true)
 										updateRoomId(item.route)

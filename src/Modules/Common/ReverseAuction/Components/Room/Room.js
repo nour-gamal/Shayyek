@@ -74,8 +74,18 @@ function Room({ isModalVisible, onCancel, roomId }) {
         if (msg.length > 0) {
             const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
             const memberData = vendorMembers.filter(member => member.userId === authorization.id)[0]
-            const discountValue = memberData.totalPrice - (msg / 100) *
-                memberData.totalPrice
+            let roomList = [...room];
+            var discountValue;
+            if (roomList.length > 0) {
+                const myMsgs = roomList.filter(msg => msg.id === authorization.id)
+                discountValue =
+                    myMsgs[myMsgs.length - 1].totalPrice - (msg / 100) *
+                    myMsgs[myMsgs.length - 1].totalPrice
+            } else {
+                discountValue =
+                    memberData.totalPrice - (msg / 100) *
+                    memberData.totalPrice
+            }
             await updateDoc(reverseAuctionRef, {
                 room: arrayUnion({
                     msg: Math.round(discountValue),
