@@ -33,6 +33,13 @@ function Room({ isModalVisible, onCancel, roomId }) {
         }
         return minIndex;
     };
+    const handleEndSession = async () => {
+        const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
+        await updateDoc(reverseAuctionRef, {
+            isSessionEnded: true
+        })
+        onCancel()
+    }
 
     useEffect(() => {
         const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
@@ -173,9 +180,7 @@ function Room({ isModalVisible, onCancel, roomId }) {
                 <form className="d-flex align-items-center actionCenter mt-4" onSubmit={handleSendMsg}>
                     {isBuyer && <>
                         <div className='mx-4 text-center cursorPointer'>
-                            <img src={EndSession} alt='EndSession' onClick={() => {
-                                onCancel()
-                            }} />
+                            <img src={EndSession} alt='EndSession' onClick={handleEndSession} />
                             <div className='f-12 my-2'>{currentLocal.reverseAuction.endSession}</div>
                         </div>
                         {/* <div className='mx-4 text-center cursorPointer'>

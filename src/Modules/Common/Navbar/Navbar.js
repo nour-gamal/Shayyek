@@ -47,7 +47,6 @@ function Navbarr({ navState, verifayState, transparent }) {
 	useEffect(() => {
 		if (authorization.id) {
 			const userDocRef = doc(db, "users", authorization.id);
-
 			onSnapshot(userDocRef, (doc) => {
 				if (doc.data()) {
 					updateUnreadMsgCount(doc.data().unreadMsgCount);
@@ -56,7 +55,21 @@ function Navbarr({ navState, verifayState, transparent }) {
 		}
 	}, [unreadMsgCount, authorization.id]);
 
-
+	const handleClickONNotification = (item) => {
+		if (item.route && !item.route.includes('/')) {
+			let isSessionStarted = new Date().getTime() >= new Date(item.sessionDate).getTime()
+			if (isSessionStarted) {
+				const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
+				onSnapshot(reverseAuctionRef, (doc) => {
+					const data = doc.data()
+					if (data && !data.isSessionEnded) {
+						updateRoomModalVis(true)
+						updateRoomId(item.route)
+					}
+				})
+			}
+		}
+	}
 	const readNotifications = (notificationId) => {
 		let data = {}
 		if (notificationId) {
@@ -125,14 +138,7 @@ function Navbarr({ navState, verifayState, transparent }) {
 							<List.Item.Meta
 								avatar={<Avatar src={userAvatar} />}
 								title={<div>{item.title}</div>}
-								onClick={() => {
-									// let isSessionStarted
-									// console.log()
-									if (item.route && !item.route.includes('/')) {
-										updateRoomModalVis(true)
-										updateRoomId(item.route)
-									}
-								}}
+								onClick={() => { handleClickONNotification(item) }}
 								description={
 									<div>
 										<div>{item.message}</div>
