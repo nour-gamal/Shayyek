@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Modal } from 'antd'
-import { doc, onSnapshot, updateDoc, arrayUnion, setDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../../../../firebase";
 import { baseUrl } from '../../../../../Services';
 import GiveBadge from "../../../../../Resources/Assets/GiveBadge.svg";
@@ -22,11 +22,7 @@ function Room({ isModalVisible, onCancel, roomId }) {
     const [vendorMembers, updateVendorMembers] = useState([]);
     const [targetPrice, updateTargetPrice] = useState(null)
     const msgRef = useRef()
-    // function arrayMin(arr) {
-    //     return arr.reduce(function (p, v, currentIndex) {
-    //         return (p.msg < v.msg ? currentIndex - 1 : currentIndex);
-    //     });
-    // }
+
     function arrayMin(arr) {
         var len = arr.length, min = Infinity, minIndex = 0;
         while (len--) {
@@ -43,13 +39,20 @@ function Room({ isModalVisible, onCancel, roomId }) {
         onSnapshot(reverseAuctionRef, (doc) => {
             const data = doc.data()
             if (data) {
-                updateBuyerData(data.buyerData)
+                updateBuyerData(data.buyerData);
                 updateVendorMembers(data.vendorMembers);
-                if (authorization.id === data.buyerData.id) {
+                if (data.targetPrice) {
+                    updateTargetPrice(data.targetPrice)
+                }
+
+                if (authorization?.id === data.buyerData.id) {
                     updateisBuyer(true)
                 }
-                const leastPriceIndex = arrayMin(data.room)
-                data.room[leastPriceIndex].hasBadge = true
+
+                if (data.room.length) {
+                    const leastPriceIndex = arrayMin(data.room)
+                    data.room[leastPriceIndex].hasBadge = true
+                }
                 updateRoom(data.room)
             }
         });
@@ -78,7 +81,7 @@ function Room({ isModalVisible, onCancel, roomId }) {
 
     const handleAddTargetPrice = async () => {
         const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
-        await setDoc(reverseAuctionRef, {
+        await updateDoc(reverseAuctionRef, {
             targetPrice
         })
     }
@@ -97,14 +100,21 @@ function Room({ isModalVisible, onCancel, roomId }) {
                             <div className='f-14'>{currentLocal.reverseAuction.projectOwner}</div>
                         </div>
                         <div className="mx-2 d-flex align-items-center">
-                            <label className='text-danger'>{currentLocal.reverseAuction.targetPrice}</label>
-                            {authorization.id === buyerData?.id ? <input type='number'
-                                className="targetBox text-danger"
-                                onBlur={handleAddTargetPrice}
-                                onChange={(e) => { updateTargetPrice(e.target.value) }}
-                                value={targetPrice}
-                            /> :
-                                <div className="targetBox text-danger">12,0000 LE</div>}
+                            {targetPrice && authorization.id !== buyerData?.id &&
+                                <label className='text-danger'>{currentLocal.reverseAuction.targetPrice}</label>}
+                            {authorization.id === buyerData?.id ?
+                                <>
+                                    <input type='number'
+                                        className="targetBox text-danger"
+                                        onBlur={handleAddTargetPrice}
+                                        onChange={(e) => { updateTargetPrice(e.target.value) }}
+                                        value={targetPrice}
+                                    />
+                                    <span>LE</span>
+                                </>
+                                :
+                                targetPrice &&
+                                <div className="targetBox text-danger">{targetPrice} LE</div>}
                         </div>
                     </div>
                     {isBuyer && <div>

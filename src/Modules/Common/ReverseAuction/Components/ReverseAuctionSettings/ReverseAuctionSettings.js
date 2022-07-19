@@ -94,6 +94,7 @@ function ReverseAuctionSettings() {
     }, [selectedMembersList, reverseAuctionDate, reverseAuctionReason])
     const handleSubmit = () => {
         updateIsLoading(true)
+        updateIsDisabled(true)
         let data = {
             packageId: currentPackageId,
             membersIds: selectedMembersList,
@@ -117,7 +118,7 @@ function ReverseAuctionSettings() {
                 position: "bottom-right",
                 rtl: true,
             });
-
+            updateIsDisabled(false)
             updateRedirectTo('/')
         }, fail => {
             console.log(fail)

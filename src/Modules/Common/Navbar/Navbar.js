@@ -34,7 +34,7 @@ function Navbarr({ navState, verifayState, transparent }) {
 	const { authorization } = useSelector((state) => state.authorization);
 	const [isRoomModalVis, updateRoomModalVis] = useState(false)
 	// eslint-disable-next-line
-	const [roomId, updateRoomId] = useState("c80aea17-e425-4259-8df3-ebb291038355")
+	const [roomId, updateRoomId] = useState("f5194c1e-de01-485a-a14e-c4a73cc2e4f9")
 	const loginState = authorization.userTypeId ? true : false;
 
 	const {
@@ -217,11 +217,11 @@ function Navbarr({ navState, verifayState, transparent }) {
 					{!loginState ? <GuestNav /> : <UserNav loginState={loginState} />}
 				</Navbar.Collapse>
 			)}
-			<Room
+			{isRoomModalVis && <Room
 				isModalVisible={isRoomModalVis}
 				onCancel={() => { updateRoomModalVis(false) }}
 				roomId={roomId}
-			/>
+			/>}
 		</Navbar>
 	);
 }
