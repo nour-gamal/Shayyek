@@ -56,6 +56,9 @@ function Navbarr({ navState, verifayState, transparent }) {
 	}, [unreadMsgCount, authorization.id]);
 
 	const handleClickONNotification = (item) => {
+
+		updateRoomId("9bc24e8c-4088-45b0-ab90-45444e55166d")
+		updateRoomModalVis(true)
 		const isClickableSession = item.route && item.route[0] !== '/'
 		if (isClickableSession) {
 			const [sessionId, sessionDate] = item.route.split(',')

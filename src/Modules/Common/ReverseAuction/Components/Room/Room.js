@@ -9,6 +9,7 @@ import groupSendMsg from "../../../../../Resources/Assets/groupSendMsg.svg";
 import { useSelector } from 'react-redux';
 import defaultAvatar from "../../../../../Resources/Assets/DefaultProfileImage.png"
 import './Room.css'
+import { endSession } from '../../../Network';
 
 function Room({ isModalVisible, onCancel, roomId }) {
     const { currentLocal } = useSelector(state => state.currentLocal);
@@ -34,11 +35,26 @@ function Room({ isModalVisible, onCancel, roomId }) {
         return minIndex;
     };
     const handleEndSession = async () => {
-        const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
-        await updateDoc(reverseAuctionRef, {
-            isSessionEnded: true
+        const roomList = [...room]
+        const endPrice = roomList.filter((msg) => msg.hasBadge)
+        let data = {
+            sessionId: roomId,
+            clientId: endPrice.clientId,
+            message: endPrice.msg
+        }
+
+        endSession(data, async (success) => {
+            if (success.success) {
+                const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
+                await updateDoc(reverseAuctionRef, {
+                    isSessionEnded: true
+                })
+                onCancel()
+            }
+        }, fail => {
+
         })
-        onCancel()
+
     }
 
     useEffect(() => {
@@ -83,11 +99,11 @@ function Room({ isModalVisible, onCancel, roomId }) {
             const memberData = vendorMembers.filter(member => member.userId === authorization.id)[0]
             let roomList = [...room];
             var discountValue;
-            if (roomList.length > 0) {
-                const myMsgs = roomList.filter(msg => msg.id === authorization.id)
+            const myMsgs = roomList.filter(msg => msg.clientId === authorization.id)
+            if (myMsgs.length > 0) {
                 discountValue =
-                    myMsgs[myMsgs.length - 1].totalPrice - (msg / 100) *
-                    myMsgs[myMsgs.length - 1].totalPrice
+                    myMsgs[myMsgs.length - 1].msg -
+                    myMsgs[myMsgs.length - 1].msg * (msg / 100)
             } else {
                 discountValue =
                     memberData.totalPrice - (msg / 100) *
@@ -97,7 +113,7 @@ function Room({ isModalVisible, onCancel, roomId }) {
                 room: arrayUnion({
                     msg: Math.round(discountValue),
                     name: authorization.fullName,
-                    id: authorization.id,
+                    clientId: authorization.id,
                     image: authorization.profileImage
                 })
             });
