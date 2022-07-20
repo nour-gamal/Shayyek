@@ -270,6 +270,11 @@ export function GetBuyerRFQForEdit(rfqId, onSucces, onFail) {
   const path = `api/RFQ/GetBuyerRFQForEdit?rfqId=${rfqId}`;
   GetResource(path, onSucces, onFail, true);
 }
+export function GetDraftedRFQ(rfqId, onSucces, onFail) {
+  const path = `api/BuyerDraft/GetDraftedRFQ?draftedRFQ=${rfqId}`;
+  GetResource(path, onSucces, onFail, true);
+}
+
 
 export function GetRFQSummary(rfqId, onSucces, onFail, reqAuth = true) {
   const path = `api/RFQ/GetRFQSummary?rfqId=${rfqId}`;

@@ -40,7 +40,6 @@ import { getCategoriesWithSubCategories } from '../../../network';
 import { toast } from "react-toastify";
 import CategoriesList from "../CategoriesList/CategoriesList";
 import ChangeCatConfirmationModal from "../ChangeCatConfirmationModal/ChangeCatConfirmationModal";
-
 import "./RFQTable.css";
 
 function CreateRFQ({ getRFQPageName, rfqId }) {
@@ -288,7 +287,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const isValidRFQ = () => {
     const hasNoCat = dataSource.every((data) => !data.subCategories || data.subCategories.length === 0);
     const hasAtLeastEmptyDescription = dataSource.some((data) => data.description.length === 0)
-    console.log(hasNoCat)
     if (hasNoCat) {
       updateNotContainCategory(true);
     } else {
@@ -840,7 +838,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         ...rfqData.rfqPackages,
         {
           rfqPackageDetailsRequests: [...dataSource],
-          packageName: rfqData.nextPackageName ? rfqData.nextPackageName : 'Package 1',
+          packageName: rfqData.nextPackageName ? rfqData.nextPackageName : rfqData.projectName,
           notes: notes,
           receivingOffersDeadline: recievingOffersDate,
           deliveryDate: deliveryDate,

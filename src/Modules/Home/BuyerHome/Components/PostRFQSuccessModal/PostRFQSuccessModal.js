@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addRFQDetails } from "../../../../../Redux/RFQ";
 import { postRFQ } from "../../../network";
+import { useLocation } from "react-router-dom";
 import "./PostRFQSuccessModal.css";
 
 function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, rfqDetails, handleAddAnotherPackage }) {
@@ -13,8 +14,16 @@ function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, rfqD
   const { rfqData } = useSelector((state) => state.rfq);
   const [redirectTo, updateRedirectTo] = useState(null);
   const dispatch = useDispatch();
+  const search = useLocation().search;
+  const firstRedirect = new URLSearchParams(search).get('firstRedirect');
+  const draftedRfqId = new URLSearchParams(search).get('draftedRfqId');
+
   const handleSubmit = () => {
     const data = alreadyHasPackage ? rfqData : rfqDetails
+    if (firstRedirect && draftedRfqId) {
+      data.IsDraft = true;
+      data.RFQId = draftedRfqId;
+    }
     postRFQ(
       data,
       (success) => {

@@ -32,9 +32,12 @@ export const RFQSlice = createSlice({
 		},
 		DELETEPACKAGE: (state, action) => {
 			state.rfqData.rfqPackages.splice(action.payload, 1)
+		},
+		ADDRFQ: (state, action) => {
+			state.rfqData = action.payload
 		}
 	},
 });
-export const { addRFQDetails, UPDATEPACKAGE, DELETEPACKAGE, ADDNEWPACKAGE, DELETERFQ } = RFQSlice.actions;
+export const { addRFQDetails, UPDATEPACKAGE, DELETEPACKAGE, ADDNEWPACKAGE, DELETERFQ, ADDRFQ } = RFQSlice.actions;
 
 export default RFQSlice.reducer;

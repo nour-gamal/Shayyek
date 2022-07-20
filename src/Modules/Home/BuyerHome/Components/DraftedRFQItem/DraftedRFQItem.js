@@ -3,16 +3,20 @@ import Garbage from "../../../../../Resources/Assets/GarbageLg.svg";
 import { useSelector } from "react-redux";
 import DeleteModal from "../DeleteModal/DeleteModal"
 import { Button } from 'antd';
-import { deleteDraftedRFQ, GetBuyerRFQForEdit } from '../../../network';
+import { deleteDraftedRFQ, GetDraftedRFQ } from '../../../network';
 import { toast } from "react-toastify";
 import { Redirect } from 'react-router';
+import { ADDRFQ } from "../../../../../Redux/RFQ";
+import { useDispatch } from 'react-redux';
 import './DraftedRFQItem.css';
 
 function DraftedRFQItem({ rfq, updateRerenderStateFun, history }) {
     const { currentLocal } = useSelector((state) => state.currentLocal);
     const [isDeleteRowModal, updateDeleteRowModal] = useState(false);
     const [selectedRFQId, updateselectedRFQId] = useState(null);
-    const [redirectTo, updateRedirectTo] = useState(null)
+    const [redirectTo, updateRedirectTo] = useState(null);
+    const dispatch = useDispatch();
+
     const handleDeleteProject = () => {
         let data = {
             RfqId: selectedRFQId
@@ -31,10 +35,10 @@ function DraftedRFQItem({ rfq, updateRerenderStateFun, history }) {
         })
     }
     const getRFQData = () => {
-        GetBuyerRFQForEdit(
+        GetDraftedRFQ(
             rfq.rfqId,
             (success) => {
-                console.log(success)
+                dispatch(ADDRFQ(success.data))
                 updateRedirectTo(`/createRFQ?draftedRfqId=${rfq.rfqId}&firstRedirect=true`)
             },
             (fail) => { }
