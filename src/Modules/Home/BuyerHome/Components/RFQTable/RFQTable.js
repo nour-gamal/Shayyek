@@ -38,8 +38,10 @@ import imageIcon from "../../../../../Resources/Assets/images.png";
 import close from "../../../../../Resources/Assets/tip-close.svg";
 import { getCategoriesWithSubCategories } from '../../../network';
 import { toast } from "react-toastify";
-import "./RFQTable.css";
 import CategoriesList from "../CategoriesList/CategoriesList";
+import ChangeCatConfirmationModal from "../ChangeCatConfirmationModal/ChangeCatConfirmationModal";
+
+import "./RFQTable.css";
 
 function CreateRFQ({ getRFQPageName, rfqId }) {
   const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -87,6 +89,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [categoriesListArr, updateCategoriesListArr] = useState({})
   const [allSubCategoriesList, updateAllSubCategoriesList] = useState([])
   const [notContainCategory, updateNotContainCategory] = useState(false)
+  const [isCheckCatModalVis, updateCheckCatModalVis] = useState(false)
   const dispatch = useDispatch();
   const hasOldPackages = rfqData.rfqPackages?.length > 0;
   let history = useHistory();
@@ -368,12 +371,21 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   }
   const handleChangeAllCategories = (selectedCategories) => {
     let data = [];
-    let dataSourceVar = [...dataSource]
+    let dataSourceVar = [...dataSource];
     dataSourceVar.forEach((obj) => {
       data.push({ ...obj, subCategories: [...selectedCategories] })
     })
     updateDataSource(data);
     updateAllSubCategoriesList([...selectedCategories])
+  }
+  const checkIfAnyHasCategory = (selectedCategories) => {
+    let dataSourceVar = [...dataSource];
+    const hasAnyCategory = dataSourceVar.some(item => item.subCategories)
+    if (hasAnyCategory) {
+      updateCheckCatModalVis(true)
+    } else {
+      handleChangeAllCategories(selectedCategories)
+    }
   }
 
   useEffect(() => {
@@ -993,7 +1005,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
               </label>
               <CategoriesList
                 categoriesListArr={categoriesListArr}
-                getSelectedCategories={(selectedCategories) => { handleChangeAllCategories(selectedCategories) }}
+                getSelectedCategories={(selectedCategories) => { checkIfAnyHasCategory(selectedCategories) }}
                 selectedCategories={allSubCategoriesList}
                 dangerClass={notContainCategory ? "alertSign" : ""}
               />
@@ -1295,6 +1307,15 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
             handleAddAnotherPackage={() => {
               updateSuccessModalVis(!isSuccessModalvis);
               updateIsAddPackModalVis(!isAddPackModalVis);
+            }}
+          />
+          <ChangeCatConfirmationModal
+            isModalVisible={isCheckCatModalVis}
+            onCancel={() => {
+              updateCheckCatModalVis(false)
+            }}
+            onSubmit={() => {
+              handleChangeAllCategories();
             }}
           />
         </div>
