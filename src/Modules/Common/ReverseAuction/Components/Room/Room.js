@@ -36,11 +36,11 @@ function Room({ isModalVisible, onCancel, roomId }) {
     };
     const handleEndSession = async () => {
         const roomList = [...room]
-        const endPrice = roomList.filter((msg) => msg.hasBadge)
+        const BadgedData = roomList.filter((msg) => msg.hasBadge)
         let data = {
-            sessionId: roomId,
-            clientId: endPrice.clientId,
-            message: endPrice.msg
+            ReverseAuctionId: roomId,
+            BadgedVendorId: BadgedData[0].clientId,
+            BadgedPrice: BadgedData[0].msg
         }
 
         endSession(data, async (success) => {
@@ -52,9 +52,7 @@ function Room({ isModalVisible, onCancel, roomId }) {
                 onCancel()
             }
         }, fail => {
-
         })
-
     }
 
     useEffect(() => {
