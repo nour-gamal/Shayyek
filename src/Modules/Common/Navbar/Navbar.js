@@ -56,19 +56,17 @@ function Navbarr({ navState, verifayState, transparent }) {
 	}, [unreadMsgCount, authorization.id]);
 
 	const handleClickONNotification = (item) => {
-		const isClickableSession = item.route && !item.route.includes('/')
+		const isClickableSession = item.route && item.route[0] !== '/'
 		if (isClickableSession) {
-			// const sessionId = item.route.split(',')[0]
-			// const sessionDate = item.route.split(',')[1]
 			const [sessionId, sessionDate] = item.route.split(',')
-			let isSessionStarted = new Date().getTime() >= new Date(sessionDate).getTime();
+			let isSessionStarted = moment().valueOf() >= moment(sessionDate).subtract(2, 'hours').valueOf();
 			if (isSessionStarted) {
-				const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
+				const reverseAuctionRef = doc(db, "reverseAuctionRooms", sessionId);
 				onSnapshot(reverseAuctionRef, (doc) => {
 					const data = doc.data()
 					if (data && !data.isSessionEnded) {
-						updateRoomModalVis(true)
 						updateRoomId(sessionId)
+						updateRoomModalVis(true)
 					}
 				})
 			}
