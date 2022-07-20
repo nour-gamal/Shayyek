@@ -173,6 +173,7 @@ export const ar = {
     commercialRegister: "السجل التجاري",
     myRFQs: "طلبات العرض",
     myOrders: "طلباتي",
+    myProjects: "مشاريعي",
     projectName: "اسم المشروع",
     compSuppName: "اسم الشركه/المورد",
     status: "الحاله",

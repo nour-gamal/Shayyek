@@ -4,7 +4,7 @@ import { PDFExport } from "@progress/kendo-react-pdf";
 import { useSelector } from "react-redux";
 import view from "../../../../../Resources/Assets/View.svg";
 import star from "../../../../../Resources/Assets/star (1).svg";
-import chat from "../../../../../Resources/Assets/chat.svg";
+//import chat from "../../../../../Resources/Assets/chat.svg";
 import download from "../../../../../Resources/Assets/direct-download.svg";
 import share from "../../../../../Resources/Assets/share (5).svg";
 import SingleRFQModal from "../SingleRFQModal/SingleRFQModal";
@@ -17,6 +17,7 @@ import ChooseCompaniesToRateModal from "../Ratings/ChooseCompaniesToRateModal/Ch
 import { GetImagePath } from "../../../network";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 import "./MyRFQs.css";
+import { Link } from "react-router-dom";
 
 function MyRFQs({ buyerRFQs }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -60,29 +61,17 @@ function MyRFQs({ buyerRFQs }) {
 		<Menu>
 			<Menu.Item
 				key="0"
-				onClick={() => {
-					updateSingleRFQModal(true);
-				}}
 			>
-				<img src={view} alt="acceptOffer" />
-				<span className="acceptOffer">{currentLocal.profilePage.view}</span>
+				<Link to={`/RFQSummary/${rfqId}`}>
+					<img src={view} alt="acceptOffer" />
+					<span className="acceptOffer">{currentLocal.profilePage.view}</span>
+				</Link>
 			</Menu.Item>
 		</Menu>
 	);
 
 	const endMenu = (
 		<Menu>
-			<Menu.Item
-				key="1"
-				onClick={() => {
-					alert("hi 2");
-				}}
-			>
-				<img src={chat} alt="chat" />
-				<span className="chat">
-					{currentLocal.offerTable.startConversation}
-				</span>
-			</Menu.Item>
 			<Menu.Item
 				key="1"
 				onClick={() => {
@@ -184,7 +173,7 @@ function MyRFQs({ buyerRFQs }) {
 	return (
 		<div className="myRFQs my-4" ref={ref}>
 			<div className="p-4 d-flex justify-content-between ">
-				<h6 className="title">{currentLocal.profilePage.myRFQs}</h6>
+				<h6 className="title">{currentLocal.profilePage.myProjects}</h6>
 				<div className="d-flex">
 					<Dropdown.Button
 						overlay={shareMenu}

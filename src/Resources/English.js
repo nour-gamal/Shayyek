@@ -174,6 +174,7 @@ export const en = {
     commercialRegister: "Commercial register",
     myRFQs: "My RFQs",
     myOrders: "My Orders",
+    myProjects: "My Projects",
     projectName: "Project Name",
     compSuppName: "Company/Supplier Name",
     status: "Status",
@@ -535,6 +536,6 @@ export const en = {
     suppliers: "Suppliers",
     endSession: "End Session",
     endAndGiveBadge: "End & Give Badge",
-    discountPercent:"Enter the discount Percentage"
+    discountPercent: "Enter the discount Percentage"
   }
 };

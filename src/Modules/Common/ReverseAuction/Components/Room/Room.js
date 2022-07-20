@@ -37,22 +37,31 @@ function Room({ isModalVisible, onCancel, roomId }) {
     const handleEndSession = async () => {
         const roomList = [...room]
         const BadgedData = roomList.filter((msg) => msg.hasBadge)
-        let data = {
-            ReverseAuctionId: roomId,
-            BadgedVendorId: BadgedData[0].clientId,
-            BadgedPrice: BadgedData[0].msg
-        }
-
-        endSession(data, async (success) => {
-            if (success.success) {
-                const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
-                await updateDoc(reverseAuctionRef, {
-                    isSessionEnded: true
-                })
-                onCancel()
+        if (BadgedData.length) {
+            let data = {
+                ReverseAuctionId: roomId,
+                BadgedVendorId: BadgedData[0].clientId,
+                BadgedPrice: BadgedData[0].msg
             }
-        }, fail => {
-        })
+
+            endSession(data, async (success) => {
+                if (success.success) {
+                    const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
+                    await updateDoc(reverseAuctionRef, {
+                        isSessionEnded: true
+                    })
+                    onCancel()
+                }
+            }, fail => {
+            })
+        } else {
+            const reverseAuctionRef = doc(db, "reverseAuctionRooms", roomId);
+            await updateDoc(reverseAuctionRef, {
+                isSessionEnded: true
+            })
+            onCancel()
+
+        }
     }
 
     useEffect(() => {

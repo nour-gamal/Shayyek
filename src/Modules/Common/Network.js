@@ -36,7 +36,7 @@ export const readNotificationsAPI = (data, onSuccess, onFail, reqAuth = true) =>
 };
 
 export const endSession = (data, onSuccess, onFail, reqAuth = true) => {
-	const path = ``;
+	const path = `api/Session/EndReversAuction`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
 
