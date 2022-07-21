@@ -65,10 +65,8 @@ function CategoriesList({ categoriesListArr, getSelectedCategories, selectedCate
 
 
     const onCheck = (checkedKeys) => {
-        console.log(checkedKeys)
         getSelectedCategories(checkedKeys)
     };
-
 
     return (
         <span
@@ -94,7 +92,8 @@ function CategoriesList({ categoriesListArr, getSelectedCategories, selectedCate
                             checkable
                             onCheck={onCheck}
                             treeData={frequentlyUsedData}
-                            defaultSelectedKeys={selectedCategories}
+                            defaultCheckedKeys={selectedCategories ? selectedCategories : []}
+                            checkedKeys={selectedCategories ? selectedCategories : []}
                         />
                     </div>}
                     <div className='section p-2'>
@@ -103,7 +102,8 @@ function CategoriesList({ categoriesListArr, getSelectedCategories, selectedCate
                             checkable
                             onCheck={onCheck}
                             treeData={allCategories}
-                            defaultCheckedKeys={!selectedCategories ? [] : selectedCategories}
+                            defaultCheckedKeys={selectedCategories ? selectedCategories : []}
+                            checkedKeys={selectedCategories ? selectedCategories : []}
                         />
                     </div>
                 </div>

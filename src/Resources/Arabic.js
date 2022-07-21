@@ -389,6 +389,7 @@ export const ar = {
     answered: "يجيب",
     me: "انا",
     otherVendor: "بائع اخر",
+    changeCatConfirmation: "هل انت متأكد من تغير فئه كل العناصر؟"
   },
   supplierHome: {
     addNewProduct: "أضف منتج جديد",

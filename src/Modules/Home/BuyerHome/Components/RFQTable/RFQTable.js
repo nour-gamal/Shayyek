@@ -88,7 +88,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [categoriesListArr, updateCategoriesListArr] = useState({})
   const [allSubCategoriesList, updateAllSubCategoriesList] = useState([])
   const [notContainCategory, updateNotContainCategory] = useState(false)
-  const [isCheckCatModalVis, updateCheckCatModalVis] = useState(false)
+  const [isCheckCatModalVis, updateCheckCatModalVis] = useState({ status: false })
   const dispatch = useDispatch();
   const hasOldPackages = rfqData.rfqPackages?.length > 0;
   let history = useHistory();
@@ -380,7 +380,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     let dataSourceVar = [...dataSource];
     const hasAnyCategory = dataSourceVar.some(item => item.subCategories)
     if (hasAnyCategory) {
-      updateCheckCatModalVis(true)
+      updateCheckCatModalVis({ status: true, selectedCategories })
     } else {
       handleChangeAllCategories(selectedCategories)
     }
@@ -1310,10 +1310,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           <ChangeCatConfirmationModal
             isModalVisible={isCheckCatModalVis}
             onCancel={() => {
-              updateCheckCatModalVis(false)
+              updateCheckCatModalVis({ status: false })
             }}
-            onSubmit={() => {
-              handleChangeAllCategories();
+            onSubmit={(selectedCategories) => {
+              handleChangeAllCategories(selectedCategories);
             }}
           />
         </div>
