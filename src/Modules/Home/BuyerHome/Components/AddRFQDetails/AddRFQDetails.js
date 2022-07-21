@@ -111,6 +111,9 @@ function AddRFQDetails({ getRFQPageName }) {
       ...privateTenderData,
       rfqPackages: [],
     };
+    if (rfqData.rfqPackages) {
+      data.rfqPackages = [...rfqData.rfqPackages]
+    }
     if (
       projectName === undefined ||
       !projectName.length ||

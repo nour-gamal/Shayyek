@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import './ChangeCatConfirmationModal.css'
 function ChangeCatConfirmationModal({ isModalVisible, onCancel, onSubmit }) {
     const { currentLocal } = useSelector((state) => state.currentLocal);
-    console.log(isModalVisible.selectedCategories)
     return (
         <Modal
             title="Basic Modal"

@@ -38,7 +38,21 @@ function DraftedRFQItem({ rfq, updateRerenderStateFun, history }) {
         GetDraftedRFQ(
             rfq.rfqId,
             (success) => {
-                dispatch(ADDRFQ(success.data))
+                const postedRFQ = success.data
+                let rfqPackages = [...success.data.packages]
+                let modifiedRFQPackages = []
+                rfqPackages.forEach((packageData) => {
+                    modifiedRFQPackages.push({
+                        ...packageData,
+                        rfqPackageDetailsRequests: packageData.rfqDetails,
+                        receivingOffersDeadline: packageData.deadlineDate,
+                    })
+                })
+                let modifiedRFQ = { ...postedRFQ, rfqPackages: modifiedRFQPackages }
+
+                console.log('postedRFQ', postedRFQ)
+                console.log('modifiedRFQ', modifiedRFQ)
+                dispatch(ADDRFQ(modifiedRFQ))
                 updateRedirectTo(`/createRFQ?draftedRfqId=${rfq.rfqId}&firstRedirect=true`)
             },
             (fail) => { }

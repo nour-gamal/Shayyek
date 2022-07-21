@@ -12,7 +12,7 @@ import moment from "moment";
 import { DELETERFQ, UPDATEPACKAGE, DELETEPACKAGE } from "../../../../../Redux/RFQ";
 import { useDispatch } from "react-redux";
 import { Table, Spin, Checkbox, DatePicker, Radio } from "antd";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import {
   getDeliverdOptions,
   AddDocumentList,
@@ -92,8 +92,8 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const dispatch = useDispatch();
   const hasOldPackages = rfqData.rfqPackages?.length > 0;
   let history = useHistory();
-  // edit rfq
-
+  const search = useLocation().search;
+  const draftedRfqId = new URLSearchParams(search).get('draftedRfqId');
 
   useEffect(() => {
     getCategoriesWithSubCategories(currentLanguageId,
@@ -631,7 +631,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       render: (filePath, item) => {
         return (
           <div>
-            {filePath.length ? (
+            {filePath?.length ? (
               <a href={baseUrl + filePath}>{filePath.split(" ")[1]}</a>
             ) : (
               <div>
@@ -814,6 +814,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       }
     );
   }
+  console.log('rfqData', rfqData)
 
   function discardEditPackage(packageId) {
     GetBuyerRFQForEdit(
@@ -851,6 +852,10 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         },
       ],
     };
+    
+    if (draftedRfqId) {
+      allData.RfqId = draftedRfqId
+    }
     postRFQAsDraft(allData, success => {
       if (success.success) {
         toast.success(success.message, {

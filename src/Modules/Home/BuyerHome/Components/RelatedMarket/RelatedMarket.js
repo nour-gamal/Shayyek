@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Plus from "../../../../../Resources/Assets/plus (2).svg";
 import CompanyCard from "../CompanyCard/CompanyCard";
@@ -8,12 +8,13 @@ import { getBuyerCompany, getBuyerDrafts } from "../../../network";
 import noSign from "../../../../../Resources/Assets/noRFQs.svg";
 import Drafts from "../../../../../Resources/Assets/draft.svg";
 import heartIcon from "../../../../../Resources/Assets/heartBlue.svg";
+import { DELETERFQ } from "../../../../../Redux/RFQ";
 import "./RelatedMarket.css";
 function RelatedMarket() {
 	const { currentLanguageId, currentLocal } = useSelector((state) => state.currentLocal);
 	const [draftsCount, updateDraftsCount] = useState(0)
 	const [companies, updateCompanies] = useState(null);
-
+	const dispatch = useDispatch()
 	useEffect(() => {
 		getBuyerDrafts(success => {
 			updateDraftsCount(success.data.length)
@@ -38,7 +39,9 @@ function RelatedMarket() {
 		<div className={currentLocal.language === "English" ? "ppl relatedMarket" : "ppr relatedMarket"}>
 			<div className='d-flex justify-content-between headerContainer'>
 				<Link to="/createrfq">
-					<button className="orange_btn">
+					<button className="orange_btn" onClick={() => {
+						dispatch(DELETERFQ())
+					}}>
 						<img src={Plus} alt="Plus" className="mx-2" />
 						<span>{currentLocal.buyerHome.addRfq}</span>
 					</button>
