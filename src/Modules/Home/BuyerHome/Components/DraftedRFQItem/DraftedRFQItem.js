@@ -7,6 +7,7 @@ import { deleteDraftedRFQ, GetDraftedRFQ } from '../../../network';
 import { toast } from "react-toastify";
 import { Redirect } from 'react-router';
 import { ADDRFQ } from "../../../../../Redux/RFQ";
+import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import './DraftedRFQItem.css';
 
@@ -40,12 +41,31 @@ function DraftedRFQItem({ rfq, updateRerenderStateFun, history }) {
             (success) => {
                 const postedRFQ = success.data
                 let rfqPackages = [...success.data.packages]
-                let modifiedRFQPackages = []
+                let modifiedRFQPackages = [];
                 rfqPackages.forEach((packageData) => {
+                    let rfqPackageDetailsRequests = []
+                    packageData.rfqDetails.forEach(detail => {
+                        rfqPackageDetailsRequests.push({
+                            ...detail,
+                            subCategories: detail.subCategoriesIds,
+                            isInstallSupplierAndContructor: detail.includeInstallation
+                        })
+                    })
+                    let packageFiles = []
+                    packageData.packageFiles.forEach(file => {
+                        packageFiles.push(file.path)
+                    })
                     modifiedRFQPackages.push({
                         ...packageData,
-                        rfqPackageDetailsRequests: packageData.rfqDetails,
-                        receivingOffersDeadline: packageData.deadlineDate,
+                        rfqPackageDetailsRequests,
+                        receivingOffersDeadline: moment(packageData.deadlineDate).format('YYYY-MM-DD'),
+                        deliveryDate: moment(packageData.deliveryDate).format('YYYY-MM-DD'),
+                        packageFiles: packageFiles,
+                        //isPublishToSuppliersNetwork: false
+                        // isRevealPricesToBidders: true
+                        // isShownProjectConsultant: false
+                        // isShownProjectContractor: false
+                        // isShownProjectOwner: false
                     })
                 })
                 let modifiedRFQ = { ...postedRFQ, rfqPackages: modifiedRFQPackages }

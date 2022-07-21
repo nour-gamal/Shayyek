@@ -6,7 +6,9 @@ import PublicTender from "../PublicTender/PublicTender";
 import PrivateTender from "../PrivateTender/PrivateTender";
 import { useDispatch, useSelector } from "react-redux";
 import { addRFQDetails } from "../../../../../Redux/RFQ";
+import { useLocation } from "react-router-dom";
 import "./AddRFQDetails.css";
+import { postRFQAsDraft } from "../../../network";
 
 function AddRFQDetails({ getRFQPageName }) {
   const [projectName, updateProjectName] = useState("");
@@ -34,6 +36,9 @@ function AddRFQDetails({ getRFQPageName }) {
   const [publicTenderData, updatePublicTenderData] = useState({});
   const [privateTenderData, updatePrivateTenderData] = useState({});
   const { Option } = Select;
+  const search = useLocation().search;
+  const draftedRfqId = new URLSearchParams(search).get('draftedRfqId');
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -111,9 +116,15 @@ function AddRFQDetails({ getRFQPageName }) {
       ...privateTenderData,
       rfqPackages: [],
     };
-    if (rfqData.rfqPackages) {
-      data.rfqPackages = [...rfqData.rfqPackages]
+    if (draftedRfqId) {
+      data.rfqPackages = [...rfqData.rfqPackages];
+      data.rfqId = draftedRfqId
+      postRFQAsDraft(data, success => {
+      }, fail => {
+        console.log(fail)
+      })
     }
+
     if (
       projectName === undefined ||
       !projectName.length ||

@@ -836,7 +836,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     let allData = {
       ...rfqData,
       rfqPackages: [
-        ...rfqData.rfqPackages,
         {
           rfqPackageDetailsRequests: [...dataSource],
           packageName: rfqData.nextPackageName ? rfqData.nextPackageName : rfqData.projectName,
@@ -852,7 +851,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         },
       ],
     };
-    
+
     if (draftedRfqId) {
       allData.RfqId = draftedRfqId
     }
