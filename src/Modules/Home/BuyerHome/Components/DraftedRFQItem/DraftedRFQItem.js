@@ -61,13 +61,21 @@ function DraftedRFQItem({ rfq, updateRerenderStateFun, history }) {
                         receivingOffersDeadline: moment(packageData.deadlineDate).format('YYYY-MM-DD'),
                         deliveryDate: moment(packageData.deliveryDate).format('YYYY-MM-DD'),
                         packageFiles: packageFiles,
-                        //isPublishToSuppliersNetwork: false
-                        // isRevealPricesToBidders: true
-                        // isShownProjectConsultant: false
-                        // isShownProjectContractor: false
-                        // isShownProjectOwner: false
+                        projectOwner: { makeNotVisibleToVendors: !packageData.isShownProjectOwner, name: packageData.projectOwner },
+                        projectConsultant: {
+                            name: packageData.projectConsultant,
+                            makeNotVisibleToVendors: !packageData.isShownProjectConsultant
+                        },
+                        projectContractor: {
+                            name: packageData.projectContractor,
+                            makeNotVisibleToVendors: !packageData.isShownProjectContractor
+                        },
+                        tenderType: packageData.publicTender ? 'public' : 'private',
+                        revealPrices: packageData.isRevealPricesToBidders,
                     })
                 })
+
+
                 let modifiedRFQ = { ...postedRFQ, rfqPackages: modifiedRFQPackages }
 
                 console.log('postedRFQ', postedRFQ)

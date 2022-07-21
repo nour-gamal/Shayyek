@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addRFQDetails } from "../../../../../Redux/RFQ";
-import { postRFQ } from "../../../network";
+import { postRFQ, postRFQAsDraft } from "../../../network";
 import { useLocation } from "react-router-dom";
 import "./PostRFQSuccessModal.css";
 
@@ -19,11 +19,21 @@ function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, rfqD
   const draftedRfqId = new URLSearchParams(search).get('draftedRfqId');
 
   const handleSubmit = () => {
-    const data = alreadyHasPackage ? rfqData : rfqDetails
+    let data = alreadyHasPackage ? { ...rfqData } : { ...rfqDetails }
     if (firstRedirect && draftedRfqId) {
       data.IsDraft = true;
       data.RFQId = draftedRfqId;
+      postRFQAsDraft(data, success => {
+        addRFQ(data)
+      }, fail => {
+        console.log(fail)
+      })
+
+    } else {
+      addRFQ(data)
     }
+  };
+  const addRFQ = (data) => {
     postRFQ(
       data,
       (success) => {
@@ -43,7 +53,7 @@ function PostRFQSuccessModal({ isModalVisible, onCancel, alreadyHasPackage, rfqD
         console.log(fail);
       }
     );
-  };
+  }
   const clearRFQStore = () => {
     dispatch(addRFQDetails({}));
   };
