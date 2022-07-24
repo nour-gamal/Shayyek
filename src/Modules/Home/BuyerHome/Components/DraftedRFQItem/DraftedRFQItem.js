@@ -58,29 +58,55 @@ function DraftedRFQItem({ rfq, updateRerenderStateFun, history }) {
                     modifiedRFQPackages.push({
                         ...packageData,
                         rfqPackageDetailsRequests,
-                        receivingOffersDeadline: moment(packageData.deadlineDate).format('YYYY-MM-DD'),
-                        deliveryDate: moment(packageData.deliveryDate).format('YYYY-MM-DD'),
+                        receivingOffersDeadline: packageData.deadlineDate ? moment(packageData.deadlineDate).format('YYYY-MM-DD') : null,
+                        deliveryDate: packageData.deliveryDate ? moment(packageData.deliveryDate).format('YYYY-MM-DD') : null,
                         packageFiles: packageFiles,
-                        projectOwner: { makeNotVisibleToVendors: !packageData.isShownProjectOwner, name: packageData.projectOwner },
-                        projectConsultant: {
-                            name: packageData.projectConsultant,
-                            makeNotVisibleToVendors: !packageData.isShownProjectConsultant
-                        },
-                        projectContractor: {
-                            name: packageData.projectContractor,
-                            makeNotVisibleToVendors: !packageData.isShownProjectContractor
-                        },
-                        tenderType: packageData.publicTender ? 'public' : 'private',
-                        revealPrices: packageData.isRevealPricesToBidders,
+                        // projectOwner: { makeNotVisibleToVendors: !packageData.isShownProjectOwner, name: packageData.projectOwner },
+                        // projectConsultant: {
+                        //     name: packageData.projectConsultant,
+                        //     makeNotVisibleToVendors: !packageData.isShownProjectConsultant
+                        // },
+                        // projectContractor: {
+                        //     name: packageData.projectContractor,
+                        //     makeNotVisibleToVendors: !packageData.isShownProjectContractor
+                        // },
+                        // tenderType: packageData.publicTender ? 'public' : 'private',
+                        // revealPrices: packageData.isRevealPricesToBidders,
+                        // publishOrFilter: packageData.isPublishToSuppliersNetwork ? 'publish' : 'filter'
                     })
                 })
-
-
-                let modifiedRFQ = { ...postedRFQ, rfqPackages: modifiedRFQPackages }
+                // let projectOwner = {
+                //     makeNotVisibleToVendors: !postedRFQ.isShownProjectOwner,
+                //     name: postedRFQ.projectOwner
+                // }
+                let modifiedRFQ = {
+                    ...postedRFQ,
+                    rfqPackages: modifiedRFQPackages,
+                    isShownProjectConsultant: !postedRFQ.isShownProjectConsultant,
+                    isShownProjectContractor: !postedRFQ.isShownProjectContractor,
+                    isShownProjectOwner: !postedRFQ.isShownProjectOwner,
+                    // projectOwner: {
+                    //     name: postedRFQ.projectOwner,
+                    //     makeNotVisibleToVendors: !postedRFQ.isShownProjectOwner
+                    // },
+                    // projectConsultant: {
+                    //     name: postedRFQ.projectConsultant,
+                    //     makeNotVisibleToVendors: !postedRFQ.isShownProjectConsultant
+                    // },
+                    // projectContractor: {
+                    //     name: postedRFQ.projectContractor,
+                    //     makeNotVisibleToVendors: !postedRFQ.isShownProjectContractor
+                    // },
+                    tenderType: postedRFQ.publicTender ? 'public' : 'private',
+                    revealPrices: postedRFQ.isRevealPricesToBidders,
+                    publishOrFilter: postedRFQ.isPublishToSuppliersNetwork ? 'publish' : 'filter',
+                    isVolOfBussOpened: postedRFQ.volumeOfBusinessFilter ? true : false,
+                    selectedVolumeOfBusiness: postedRFQ.volumeOfBusinessFilter
+                }
 
                 console.log('postedRFQ', postedRFQ)
                 console.log('modifiedRFQ', modifiedRFQ)
-                dispatch(ADDRFQ(modifiedRFQ))
+                dispatch(ADDRFQ({ ...modifiedRFQ }))
                 updateRedirectTo(`/createRFQ?draftedRfqId=${rfq.rfqId}&firstRedirect=true`)
             },
             (fail) => { }
@@ -99,11 +125,11 @@ function DraftedRFQItem({ rfq, updateRerenderStateFun, history }) {
             <div className='label my-2 f-14'>
                 <div className='title'>{currentLocal.buyerHome.packageName}</div>
                 <div className='value'>
-                    {rfq.packagesNames.map((name, index) => <>
+                    {rfq.packagesNames.map((name, index) => <div key={index}>
                         <>{name}</>
                         <> {index !== rfq.packagesNames.length - 1 && <>,</>}
                         </>
-                    </>)}
+                    </div>)}
                 </div>
             </div>
             <div className='label my-2 f-14'>

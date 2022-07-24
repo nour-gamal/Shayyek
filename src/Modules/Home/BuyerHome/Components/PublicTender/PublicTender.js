@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Checkbox, Radio } from "antd";
 import { getPublicTenderFilters } from "../../../network";
-
 import "./PublicTender.css";
 import { getVolumeOfBusiness } from "../../../../Registration/Network";
 function PublicTender({
 	getPublicTenderData,
+	publicTenderData
 }) {
 	const { currentLocal, currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [publishOrFilter, updatePublishOrFilter] = useState("publish");
@@ -15,29 +15,48 @@ function PublicTender({
 	const [volumeOfBusinessList, updateVolumeOfBusinessList] = useState([])
 	const [selectedVolumeOfBusiness, updateSelectedVolumeOfBusiness] = useState(null);
 	const [isVolOfBussOpened, updateIsVolOfBussOpened] = useState(false)
+	const [changingParemeter, updateChangingParemeter] = useState(false)
 	const onSpecificBusinessChange = (e) => {
 		updateSelectedVolumeOfBusiness(e.target.value);
 	};
+
 	useEffect(() => {
 		getPublicTenderFilters(currentLanguageId, success => {
 			updatepreQualificationsFilters(success.data);
 			let selectedFilters = []
-			success.data.forEach(filter => {
-				selectedFilters.push({ filterId: filter.id, isSelected: false })
-			})
-			updatePublicTenderFilterDraft(selectedFilters);
+			if (!publicTenderData.publicTenderFilterDraft ||
+				publicTenderData.publicTenderFilterDraft.length === 0) {
+				success.data.forEach(filter => {
+					selectedFilters.push({ filterId: filter.id, isSelected: false })
+				})
+				updatePublicTenderFilterDraft(selectedFilters);
+			}
 		}, fail => {
 			console.log(fail)
 		})
+
 		getVolumeOfBusiness(currentLanguageId, success => {
 			updateVolumeOfBusinessList(success.data);
-			updateSelectedVolumeOfBusiness(success.data[0].id)
+			if (!publicTenderData.publicTenderFilterDraft ||
+				publicTenderData.publicTenderFilterDraft.length === 0) {
+				updateSelectedVolumeOfBusiness(success.data[0].id)
+			}
 		}, fail => {
 			console.log(fail)
 		})
+		// eslint-disable-next-line
 	}, [currentLanguageId])
-
-
+	useEffect(() => {
+		if (publicTenderData.publishOrFilter) {
+			updatePublishOrFilter(publicTenderData.publishOrFilter)
+			updatePublicTenderFilterDraft([...publicTenderData.publicTenderFilterDraft])
+			updateIsVolOfBussOpened(publicTenderData.isVolOfBussOpened)
+			updateSelectedVolumeOfBusiness(publicTenderData.selectedVolumeOfBusiness)
+			updateIsVolOfBussOpened(publicTenderData.isVolOfBussOpened)
+		}
+		// eslint-disable-next-line
+	}, [])
+	console.log('selectedVolumeOfBusiness', selectedVolumeOfBusiness)
 	useEffect(() => {
 		let data = {
 			isPublishToSuppliersNetwork: publishOrFilter === "publish",
@@ -47,9 +66,9 @@ function PublicTender({
 		getPublicTenderData(data);
 		// eslint-disable-next-line
 	}, [
-		publishOrFilter,
-		publicTenderFilterDraft
+		changingParemeter
 	]);
+
 	return (
 		<div className="publicTender my-4">
 			<Radio.Group
@@ -57,6 +76,7 @@ function PublicTender({
 				defaultValue={publishOrFilter}
 				onChange={(e) => {
 					updatePublishOrFilter(e.target.value);
+					updateChangingParemeter(!changingParemeter)
 				}}
 				key={publishOrFilter}
 				className='d-flex justify-content-between'
@@ -74,16 +94,23 @@ function PublicTender({
 					<div className="my-2 filter-container d-flex flex-wrap">
 						{preQualificationsFilters.map((preQualification, index) => {
 							return <Checkbox
+								key={index}
 								onChange={(e) => {
-									let allSelectedQualifications = [...publicTenderFilterDraft];
-									allSelectedQualifications[index].isSelected = e.target.checked
+									let allSelectedQualifications = [];
+									publicTenderFilterDraft.forEach(filter => {
+										allSelectedQualifications.push({ ...filter })
+									})
+									allSelectedQualifications.filter(filter => filter.filterId === preQualification.id)[0].isSelected = e.target.checked;
 									updatePublicTenderFilterDraft(allSelectedQualifications);
+									updateChangingParemeter(!changingParemeter)
+
 									if (preQualification.id === 'cd736b5f-fd33-42f5-813f-dbafe87ea336') {
 										updateIsVolOfBussOpened(e.target.checked)
 									}
 								}}
 								className="my-2 d-flex preQualItem"
 								disabled={publishOrFilter === "publish"}
+								checked={publicTenderFilterDraft.filter(filter => filter.filterId === preQualification.id)[0]?.isSelected ? true : false}
 							>
 								{preQualification.name}
 							</Checkbox>
@@ -94,13 +121,13 @@ function PublicTender({
 								onChange={onSpecificBusinessChange}
 								value={selectedVolumeOfBusiness}
 								className='d-flex flex-column'>
-								{volumeOfBusinessList.map(volume => <Radio className='my-2' value={volume.id}>{volume.name}</Radio>)}
+								{volumeOfBusinessList.map((volume, index) => <Radio key={index} className='my-2' value={volume.id}>{volume.name}</Radio>)}
 							</Radio.Group>
 						</div>}
 					</div>
 				</span>
 			</Radio.Group>
-		</div>
+		</div >
 	);
 }
 

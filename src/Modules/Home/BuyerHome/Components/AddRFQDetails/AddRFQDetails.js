@@ -79,16 +79,21 @@ function AddRFQDetails({ getRFQPageName }) {
         inviteByWhatsapp: rfqData.inviteByWhatsapp,
         favouriteVendors: rfqData.favouriteVendors,
       };
+      console.log(rfqData)
       let publicTenderDataa = {
         isPublishToSuppliersNetwork: rfqData.isPublishToSuppliersNetwork,
         publicTenderFilter: rfqData.publicTenderFilter,
+        publishOrFilter: rfqData.publishOrFilter,
+        publicTenderFilterDraft: rfqData.publicTenderFilterDraft,
+        isVolOfBussOpened: rfqData.isVolOfBussOpened,
+        selectedVolumeOfBusiness: rfqData.selectedVolumeOfBusiness
       };
+
       updatePrivateTenderData(privateTenderDataa);
       updatePublicTenderData(publicTenderDataa);
     }
     // eslint-disable-next-line
   }, []);
-
   const getPublicTenderData = (data) => {
     updatePublicTenderData(data);
   };
@@ -142,6 +147,7 @@ function AddRFQDetails({ getRFQPageName }) {
       getRFQPageName("rfqTable");
     }
   };
+
 
   return (
     <div className="pps ppe my-4 addRFQDetails">
