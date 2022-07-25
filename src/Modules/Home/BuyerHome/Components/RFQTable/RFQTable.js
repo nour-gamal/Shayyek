@@ -814,7 +814,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       }
     );
   }
-  console.log('rfqData', rfqData)
 
   function discardEditPackage(packageId) {
     GetBuyerRFQForEdit(
@@ -836,21 +835,45 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     let allData = {
       ...rfqData,
       rfqPackages: [
-        {
-          rfqPackageDetailsRequests: [...dataSource],
-          packageName: rfqData.nextPackageName ? rfqData.nextPackageName : rfqData.projectName,
-          notes: notes,
-          receivingOffersDeadline: recievingOffersDate,
-          deliveryDate: deliveryDate,
-          address: address,
-          deliveryToId: deliveredTo,
-          packageCCColleagues: [...ccEmailsIDs],
-          packageFiles,
-          ImportedSheet,
-          packageTempId: new Date().getTime()
-        },
+        ...rfqData.rfqPackages,
       ],
     };
+    const currentPackageName = rfqData.nextPackageName ? rfqData.nextPackageName : rfqData.projectName;
+    var packIndex = null;
+    allData.rfqPackages.forEach((packageData, index) => {
+      if (packageData.packageName === currentPackageName) {
+        packIndex = index
+      }
+    })
+    if (packIndex !== null) {
+      allData.rfqPackages[packIndex] = {
+        rfqPackageDetailsRequests: [...dataSource],
+        packageName: rfqData.nextPackageName ? rfqData.nextPackageName : rfqData.projectName,
+        notes: notes,
+        receivingOffersDeadline: recievingOffersDate,
+        deliveryDate: deliveryDate,
+        address: address,
+        deliveryToId: deliveredTo,
+        packageCCColleagues: [...ccEmailsIDs],
+        packageFiles,
+        ImportedSheet,
+        packageTempId: new Date().getTime()
+      }
+    } else {
+      allData.rfqPackages.push({
+        rfqPackageDetailsRequests: [...dataSource],
+        packageName: rfqData.nextPackageName ? rfqData.nextPackageName : rfqData.projectName,
+        notes: notes,
+        receivingOffersDeadline: recievingOffersDate,
+        deliveryDate: deliveryDate,
+        address: address,
+        deliveryToId: deliveredTo,
+        packageCCColleagues: [...ccEmailsIDs],
+        packageFiles,
+        ImportedSheet,
+        packageTempId: new Date().getTime()
+      })
+    }
 
     if (draftedRfqId) {
       allData.RfqId = draftedRfqId
@@ -860,6 +883,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
         toast.success(success.message, {
           position: "bottom-right",
         });
+        dispatch(DELETERFQ())
         history.push("/")
       }
     }, fail => {

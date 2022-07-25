@@ -46,6 +46,7 @@ function PublicTender({
 		})
 		// eslint-disable-next-line
 	}, [currentLanguageId])
+
 	useEffect(() => {
 		if (publicTenderData.publishOrFilter) {
 			updatePublishOrFilter(publicTenderData.publishOrFilter)
@@ -56,7 +57,6 @@ function PublicTender({
 		}
 		// eslint-disable-next-line
 	}, [])
-	console.log('selectedVolumeOfBusiness', selectedVolumeOfBusiness)
 	useEffect(() => {
 		let data = {
 			isPublishToSuppliersNetwork: publishOrFilter === "publish",
@@ -68,7 +68,7 @@ function PublicTender({
 	}, [
 		changingParemeter
 	]);
-
+	
 	return (
 		<div className="publicTender my-4">
 			<Radio.Group

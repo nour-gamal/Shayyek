@@ -79,7 +79,6 @@ function AddRFQDetails({ getRFQPageName }) {
         inviteByWhatsapp: rfqData.inviteByWhatsapp,
         favouriteVendors: rfqData.favouriteVendors,
       };
-      console.log(rfqData)
       let publicTenderDataa = {
         isPublishToSuppliersNetwork: rfqData.isPublishToSuppliersNetwork,
         publicTenderFilter: rfqData.publicTenderFilter,
