@@ -10,14 +10,16 @@ function PublicTender({
 }) {
 	const { currentLocal, currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [publishOrFilter, updatePublishOrFilter] = useState("publish");
+	const { rfqData } = useSelector((state) => state.rfq);
 	const [preQualificationsFilters, updatepreQualificationsFilters] = useState([]);
 	const [publicTenderFilterDraft, updatePublicTenderFilterDraft] = useState([]);
 	const [volumeOfBusinessList, updateVolumeOfBusinessList] = useState([])
 	const [selectedVolumeOfBusiness, updateSelectedVolumeOfBusiness] = useState(null);
 	const [isVolOfBussOpened, updateIsVolOfBussOpened] = useState(false)
-	const [changingParemeter, updateChangingParemeter] = useState(false)
+	const [changingParemeter, updateChangingParemeter] = useState(0)
 	const onSpecificBusinessChange = (e) => {
 		updateSelectedVolumeOfBusiness(e.target.value);
+		updateChangingParemeter(changingParemeter + 1)
 	};
 
 	useEffect(() => {
@@ -48,27 +50,30 @@ function PublicTender({
 	}, [currentLanguageId])
 
 	useEffect(() => {
-		if (publicTenderData.publishOrFilter) {
-			updatePublishOrFilter(publicTenderData.publishOrFilter)
-			updatePublicTenderFilterDraft([...publicTenderData.publicTenderFilterDraft])
-			updateIsVolOfBussOpened(publicTenderData.isVolOfBussOpened)
-			updateSelectedVolumeOfBusiness(publicTenderData.selectedVolumeOfBusiness)
-			updateIsVolOfBussOpened(publicTenderData.isVolOfBussOpened)
+		if (publicTenderData
+			&& changingParemeter === 0) {
+			updatePublishOrFilter(rfqData.isPublishToSuppliersNetwork ? 'publish' : 'filter')
+			updatePublicTenderFilterDraft(publicTenderData.publicTenderFilterDraft ? publicTenderData.publicTenderFilterDraft : [])
+			updateSelectedVolumeOfBusiness(rfqData.volumeOfBusinessFilter)
+			updateIsVolOfBussOpened(rfqData.volumeOfBusinessFilter ? true : false)
 		}
 		// eslint-disable-next-line
-	}, [])
+	}, [publicTenderData])
 	useEffect(() => {
-		let data = {
-			isPublishToSuppliersNetwork: publishOrFilter === "publish",
-			publicTenderFilterDraft,
-			volumeOfBusinessFilter: isVolOfBussOpened ? selectedVolumeOfBusiness : null
-		};
-		getPublicTenderData(data);
+		if (changingParemeter !== 0) {
+			let data = {
+				isPublishToSuppliersNetwork: publishOrFilter === "publish",
+				publicTenderFilterDraft,
+				volumeOfBusinessFilter: selectedVolumeOfBusiness,
+				isVolOfBussOpened: selectedVolumeOfBusiness ? true : false,
+			};
+			getPublicTenderData(data);
+		}
 		// eslint-disable-next-line
 	}, [
 		changingParemeter
 	]);
-	
+
 	return (
 		<div className="publicTender my-4">
 			<Radio.Group
@@ -76,7 +81,12 @@ function PublicTender({
 				defaultValue={publishOrFilter}
 				onChange={(e) => {
 					updatePublishOrFilter(e.target.value);
-					updateChangingParemeter(!changingParemeter)
+					if (e.target.value === 'publish') {
+						updateIsVolOfBussOpened(false)
+						updateSelectedVolumeOfBusiness(null);
+						updatePublicTenderFilterDraft([]);
+					}
+					updateChangingParemeter(changingParemeter + 1);
 				}}
 				key={publishOrFilter}
 				className='d-flex justify-content-between'
@@ -102,7 +112,7 @@ function PublicTender({
 									})
 									allSelectedQualifications.filter(filter => filter.filterId === preQualification.id)[0].isSelected = e.target.checked;
 									updatePublicTenderFilterDraft(allSelectedQualifications);
-									updateChangingParemeter(!changingParemeter)
+									updateChangingParemeter(changingParemeter + 1)
 
 									if (preQualification.id === 'cd736b5f-fd33-42f5-813f-dbafe87ea336') {
 										updateIsVolOfBussOpened(e.target.checked)
