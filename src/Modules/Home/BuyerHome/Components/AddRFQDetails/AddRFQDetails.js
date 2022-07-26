@@ -116,7 +116,7 @@ function AddRFQDetails({ getRFQPageName }) {
       isRevealPricesToBidders: revealPrices,
       rfqPages: "rfqTable",
     };
-    const publicTenderDataFilter = publicTenderRef.current.handleGetPublicData();
+    const publicTenderDataFilter = publicTenderRef.current?.handleGetPublicData();
     data = {
       ...data,
       ...publicTenderDataFilter,

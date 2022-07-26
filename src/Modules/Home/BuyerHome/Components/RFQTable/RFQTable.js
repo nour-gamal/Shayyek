@@ -91,10 +91,9 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
   const [isCheckCatModalVis, updateCheckCatModalVis] = useState({ status: false })
   const dispatch = useDispatch();
   const hasOldPackages = rfqData.rfqPackages?.length > 0;
-  let history = useHistory();
   const search = useLocation().search;
   const draftedRfqId = new URLSearchParams(search).get('draftedRfqId');
-
+  let history = useHistory();
   useEffect(() => {
     getCategoriesWithSubCategories(currentLanguageId,
       success => {
@@ -182,7 +181,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
       setDeliveryDate(currentPackageData.deliveryDate);
       updateCCEmails(currentPackageData.packageCCColleagues);
       updatePackageFiles(currentPackageData.packageFiles);
-      updateDocumentsList(currentPackageData.documentsList)
+      updateDocumentsList(currentPackageData.documentsList);
       setOffersDate(currentPackageData.receivingOffersDeadline);
       updateImportedSheet(currentPackageData.ImportedSheet);
       updateAllSubCategoriesList(currentPackageData.allSubCategoriesList);
@@ -229,7 +228,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
 
   function handleIncludeInstallation(e, rowIndex) {
     let data = [...dataSource];
-
     if (installAll && !e.target.checked) {
       updateInstallAll(false);
     }
@@ -410,7 +408,6 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
     var isValidExtensions = /xlsx|xlsm|xlsb|xltx|xltm|xls|xlt|xls|xml|xlam|xlw|xlr|xla|png|jpg|jpeg|ms-excel|dwg|DWG|DOC|doc|PDF|pdf/.test(
       e.target.files[0].type || e.target.files[0].name
     );
-
     if (!isValidExtensions) {
       updateFileErrorModalState({ message: ' PDF, Word, Excel , AutoCAD,JPG,JPEG,PNG', state: true });
       return 0;

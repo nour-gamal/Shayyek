@@ -48,19 +48,22 @@ function DraftedRFQItem({ rfq, updateRerenderStateFun, history }) {
                         rfqPackageDetailsRequests.push({
                             ...detail,
                             subCategories: detail.subCategoriesIds,
-                            isInstallSupplierAndContructor: detail.includeInstallation
+                            isInstallSupplierAndContructor: detail.includeInstallation,
+                            filePath: detail.filePath ? detail.filePath : ''
                         })
                     })
-                    let packageFiles = []
-                    packageData.packageFiles.forEach(file => {
-                        packageFiles.push(file.path)
+                    let documentsPath = []
+                    packageData.packageFiles.forEach(fileData => {
+                        documentsPath.push(fileData.path)
                     })
+
                     modifiedRFQPackages.push({
                         ...packageData,
                         rfqPackageDetailsRequests,
                         receivingOffersDeadline: packageData.deadlineDate ? moment(packageData.deadlineDate).format('YYYY-MM-DD') : null,
                         deliveryDate: packageData.deliveryDate ? moment(packageData.deliveryDate).format('YYYY-MM-DD') : null,
-                        packageFiles: packageFiles,
+                        documentsList: packageData.packageFiles,
+                        packageFiles: documentsPath
                     })
                 })
 
@@ -76,7 +79,6 @@ function DraftedRFQItem({ rfq, updateRerenderStateFun, history }) {
                     isVolOfBussOpened: postedRFQ.volumeOfBusinessFilter ? true : false,
                     selectedVolumeOfBusiness: postedRFQ.volumeOfBusinessFilter
                 }
-
                 dispatch(ADDRFQ({ ...modifiedRFQ }))
                 updateRedirectTo(`/createRFQ?draftedRfqId=${rfq.rfqId}&firstRedirect=true`)
             },
