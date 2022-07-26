@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, forwardRef, useImperativeHandle } from "react";
 import { useSelector } from "react-redux";
 import { Checkbox, Radio } from "antd";
 import { getPublicTenderFilters } from "../../../network";
-import "./PublicTender.css";
 import { getVolumeOfBusiness } from "../../../../Registration/Network";
-function PublicTender({
-	getPublicTenderData,
+import "./PublicTender.css";
+const PublicTender = forwardRef(({
+	// getPublicTenderData,
 	publicTenderData
-}) {
+}, ref) => {
 	const { currentLocal, currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [publishOrFilter, updatePublishOrFilter] = useState("publish");
 	const { rfqData } = useSelector((state) => state.rfq);
@@ -59,20 +59,32 @@ function PublicTender({
 		}
 		// eslint-disable-next-line
 	}, [publicTenderData])
-	useEffect(() => {
-		if (changingParemeter !== 0) {
+	// useEffect(() => {
+	// 	if (changingParemeter !== 0) {
+	// 		let data = {
+	// 			isPublishToSuppliersNetwork: publishOrFilter === "publish",
+	// 			publicTenderFilterDraft,
+	// 			volumeOfBusinessFilter: selectedVolumeOfBusiness,
+	// 			isVolOfBussOpened: selectedVolumeOfBusiness ? true : false,
+	// 		};
+	// 		getPublicTenderData(data);
+	// 	}
+	// 	// eslint-disable-next-line
+	// }, [
+	// 	changingParemeter
+	// ]);
+	useImperativeHandle(ref, () => ({
+		handleGetPublicData() {
 			let data = {
 				isPublishToSuppliersNetwork: publishOrFilter === "publish",
 				publicTenderFilterDraft,
 				volumeOfBusinessFilter: selectedVolumeOfBusiness,
 				isVolOfBussOpened: selectedVolumeOfBusiness ? true : false,
 			};
-			getPublicTenderData(data);
+			// getPublicTenderData(data);
+			return data
 		}
-		// eslint-disable-next-line
-	}, [
-		changingParemeter
-	]);
+	}))
 
 	return (
 		<div className="publicTender my-4">
@@ -139,6 +151,6 @@ function PublicTender({
 			</Radio.Group>
 		</div >
 	);
-}
+})
 
 export default PublicTender;

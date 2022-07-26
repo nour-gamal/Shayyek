@@ -1,5 +1,5 @@
 import { Alert } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Input, Checkbox, Select, Radio } from "antd";
 import { governmentList } from "../../../../Registration/Network";
 import PublicTender from "../PublicTender/PublicTender";
@@ -38,8 +38,10 @@ function AddRFQDetails({ getRFQPageName }) {
   const { Option } = Select;
   const search = useLocation().search;
   const draftedRfqId = new URLSearchParams(search).get('draftedRfqId');
-
+  const publicTenderRef = useRef()
   const dispatch = useDispatch();
+
+
 
   useEffect(() => {
     const countryId = "ab534c08-ddc1-4389-8d5c-2e3a88cb5417";
@@ -114,12 +116,14 @@ function AddRFQDetails({ getRFQPageName }) {
       isRevealPricesToBidders: revealPrices,
       rfqPages: "rfqTable",
     };
+    const publicTenderDataFilter = publicTenderRef.current.handleGetPublicData();
     data = {
       ...data,
-      ...publicTenderData,
+      ...publicTenderDataFilter,
       ...privateTenderData,
       rfqPackages: [],
     };
+
     if (draftedRfqId) {
       data.rfqPackages = [...rfqData.rfqPackages];
       data.rfqId = draftedRfqId
@@ -320,6 +324,7 @@ function AddRFQDetails({ getRFQPageName }) {
             getPublicTenderData={getPublicTenderData}
             publicTenderData={publicTenderData}
             isListNotEmpty={Object.keys(publicTenderData).length ? true : false}
+            ref={publicTenderRef}
           />
         ) : (
           <PrivateTender
