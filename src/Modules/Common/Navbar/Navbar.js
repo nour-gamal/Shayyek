@@ -204,7 +204,7 @@ function Navbarr({ navState, verifayState, transparent }) {
 				<span className="controlIcon d-flex justify-content-end">
 					{isBuyer && (
 						<span className="align-content-center d-flex">
-							<Link to="/suppsiers" className="nav-link d-none d-lg-inline">
+							<Link to="/suppliers" className="nav-link d-none d-lg-inline">
 								<img src={AllSuppliers} alt="AllSuppsiers" />
 								<span className="color-white mx-1 ">
 									{currentLocal.navbar.AllSuppliers}

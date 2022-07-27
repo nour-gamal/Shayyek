@@ -1,5 +1,9 @@
 .relatedMarket .favVendorsTitle{
-    color:#0370FF
+    color:#0370FF;
+    cursor:pointer
+}
+.relatedMarket a,.relatedMarket a:hover{
+    color:unset !important
 }
 @media (max-width:768px){
     .relatedMarket .headerContainer{

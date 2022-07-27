@@ -1,0 +1,18 @@
+.favVendorCard{
+   width:217px;
+   border-radius: 5px;
+   box-shadow: 0px 1px 3px #00000029; 
+}
+.favVendorCard .avatarContainer{
+    width:100%;
+    height:100px;
+}
+.favVendorCard .avatarContainer>img{
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.favVendorCard .content{
+    padding:28px
+}

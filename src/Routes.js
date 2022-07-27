@@ -26,6 +26,7 @@ import RFQSummary from "./Modules/Home/BuyerHome/Components/RFQSummary/RFQSummar
 import Rerender from "./Modules/Common/Rerender/Rerender";
 import RFQDrafts from "./Modules/Home/BuyerHome/Components/RFQDrafts/RFQDrafts";
 import ReverseAuction from "./Modules/Common/ReverseAuction/ReverseAuction";
+import MyFavVendors from "./Modules/Home/BuyerHome/Components/MyFavVendors/MyFavVendors";
 // import Login from "./Modules/Login/Login";
 //import LoginByEmail from "./Modules/Login/Components/LoginByEmail/LoginByEmail";
 function Routes() {
@@ -221,6 +222,10 @@ function Routes() {
 					<Route
 						path="/reverseAuction"
 						render={(props) => isAuth && isBuyer ? <ReverseAuction {...props} /> : <Redirect to="/" />}
+					/>
+					<Route
+						path="/myFavVendors"
+						render={(props) => isAuth && isBuyer ? <MyFavVendors {...props} /> : <Redirect to="/" />}
 					/>
 				</Switch>
 			)}

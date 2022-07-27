@@ -569,6 +569,9 @@ thead:hover {
 .ant-avatar{
 	height: 100%;
 }
+a,a:hover{
+	color:unset !important
+}
 @media (min-width: 769px) and (max-width: 1099px) {
 	.ppl {
 		padding-left: 60px !important;

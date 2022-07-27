@@ -448,7 +448,8 @@ export const en = {
     answered: "Answered",
     me: "Me",
     otherVendor: "Other Vendor",
-    changeCatConfirmation: "Are you sure you want to change the categories of all items ?"
+    changeCatConfirmation: "Are you sure you want to change the categories of all items ?",
+    myFavVendors: "My Favorite Vendors"
   },
   home: {
     shayek: "Shayyek",

@@ -389,7 +389,8 @@ export const ar = {
     answered: "يجيب",
     me: "انا",
     otherVendor: "بائع اخر",
-    changeCatConfirmation: "هل انت متأكد من تغير فئه كل العناصر؟"
+    changeCatConfirmation: "هل انت متأكد من تغير فئه كل العناصر؟",
+    myFavVendors: "بائعيني المفضلين"
   },
   supplierHome: {
     addNewProduct: "أضف منتج جديد",

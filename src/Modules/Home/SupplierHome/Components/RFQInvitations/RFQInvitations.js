@@ -42,15 +42,12 @@ function RFQInvitations({
               dispatch(deletePackageId());
             }
           },
-          (fail) => {}
+          (fail) => { }
         );
       } else {
         push("/");
         dispatch(deletePackageId());
       }
-    } else {
-      push("/");
-      dispatch(deletePackageId());
     }
     // eslint-disable-next-line
   }, [dispatch, packageId, push]);

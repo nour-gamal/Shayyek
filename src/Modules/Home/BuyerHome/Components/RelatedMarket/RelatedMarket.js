@@ -34,7 +34,6 @@ function RelatedMarket() {
 		);
 	}, [currentLanguageId]);
 
-
 	return (
 		<div className={currentLocal.language === "English" ? "ppl relatedMarket" : "ppr relatedMarket"}>
 			<div className='d-flex justify-content-between headerContainer'>
@@ -56,10 +55,10 @@ function RelatedMarket() {
 							<div className="invitations_number mx-2">{draftsCount}</div>
 						</div>
 					</Link>
-					<div className="mx-4 favVendorsTitle">
+					<Link to={'/myFavVendors'} className="mx-4 favVendorsTitle">
 						<img src={heartIcon} alt="heart icon" />
 						<span>{currentLocal.profilePage.favVendors}</span>
-					</div>
+					</Link>
 				</div>
 			</div>
 			<div className="relatedMarket my-2">
@@ -69,9 +68,11 @@ function RelatedMarket() {
 				<Row className={companies === null && "justify-content-center"}>
 					{companies !== null || (companies && companies.length > 0) ? (
 						companies.map((company, companyIndex) => (
-							<Col xs={24} md={12} lg={8} className="my-2" key={companyIndex}>
-								<CompanyCard companyData={company} />
-							</Col>
+							<Link to={`/supplier/${company.id}`}>
+								<Col xs={24} md={12} lg={8} className="my-2" key={companyIndex}>
+									<CompanyCard companyData={company} />
+								</Col>
+							</Link>
 						))
 					) : (
 						<div className="text-center">
@@ -81,7 +82,7 @@ function RelatedMarket() {
 					)}
 				</Row>
 			</div>
-		</div>
+		</div >
 	);
 }
 
