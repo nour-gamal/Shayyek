@@ -12,6 +12,7 @@ import Heart from "../../../../../Resources/Assets/heart.svg";
 import defaultImage from "../../../../../Resources/Assets/DefaultProfileImage.png";
 import { authorType } from "../../../../../helpers/authType";
 import DraftsModal from "./../DraftsModal/DraftsModal";
+import InviteToRFQModal from "../InviteToRFQModal/InviteToRFQModal"
 // style
 import "./Personalnfo.css";
 import { Button } from "antd";
@@ -35,6 +36,7 @@ function Personalnfo({
 		profileDetails ? profileDetails.isFavourite : false
 	);
 	const [draftsModalVisible, updateDraftsModalVisible] = useState(false);
+	const [inviteToRFQModal, updateInviteToRFQModal] = useState(false)
 	let authorTypeName = authorType(accountTypeId, userTypeId, roleId);
 	function acceptOrRejectUserAction(isActive) {
 		acceptOrRejectUser(
@@ -147,7 +149,9 @@ function Personalnfo({
 								/>
 								<div className="d-flex">
 									<img src={Plus} alt="Plus" />
-									<div className="mx-2 primary-color f-14 cursorPointer">
+									<div className="mx-2 primary-color f-14 cursorPointer" onClick={() => {
+										updateInviteToRFQModal(true)
+									}}>
 										{currentLocal.profilePage.inviteToRFQ}
 									</div>
 								</div>
@@ -224,8 +228,8 @@ function Personalnfo({
 					</div>
 					<div className="profileHeader__info">
 						{authorTypeName.includes("company_admin") &&
-						!adminView &&
-						company ? (
+							!adminView &&
+							company ? (
 							<>
 								<Link to={`/company/${company?.name}`}>
 									<button className="orange_btn mx-2">
@@ -234,7 +238,7 @@ function Personalnfo({
 								</Link>
 							</>
 						) : authorTypeName.includes("contractor") ||
-						  authorTypeName.includes("supplier") ? (
+							authorTypeName.includes("supplier") ? (
 							<>
 								<div
 									className="d-flex align-items-center cursorPointer"
@@ -281,6 +285,12 @@ function Personalnfo({
 				isVisible={draftsModalVisible}
 				onCancel={() => {
 					updateDraftsModalVisible(false);
+				}}
+			/>
+			<InviteToRFQModal
+				isModalVisible={inviteToRFQModal}
+				onCancel={() => {
+					updateInviteToRFQModal(false)
 				}}
 			/>
 		</div>

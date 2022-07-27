@@ -29,6 +29,7 @@ function RFQInvitation({ revealPrices, rfqDetails, updateRFQsList, parent }) {
     : rfqDetails.rfqPackageInvitationDetails
       ? rfqDetails.rfqPackageInvitationDetails
       : [];
+  const handleInvite = () => { }
 
   function handleMenuClick(e) {
     switch (e.key) {
@@ -77,7 +78,7 @@ function RFQInvitation({ revealPrices, rfqDetails, updateRFQsList, parent }) {
     <div className="rfqInvitation">
       <div className="d-flex flex-wrap justify-content-between">
         <div className="projectName f-14 my-1">{rfqDetails.projectName}</div>
-        {userType.includes("buyer") && (
+        {userType.includes("buyer") && parent !== 'inviteToRFQ' && (
           <div>
             <Dropdown.Button
               overlay={menu}
@@ -220,8 +221,17 @@ function RFQInvitation({ revealPrices, rfqDetails, updateRFQsList, parent }) {
           rfqPackageId={selectedRfqPackageId}
         />
       )}
+      {userType.includes("buyer") &&
+        parent === 'inviteToRFQ' &&
+        <div className='text-center'>
+          <button className='popup-button-primary flat'
+            onClick={handleInvite}>
+            {currentLocal.buyerHome.invite}
+          </button>
+        </div>}
     </div>
   );
 }
+
 
 export default RFQInvitation;

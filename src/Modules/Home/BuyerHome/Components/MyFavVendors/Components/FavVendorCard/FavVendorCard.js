@@ -8,6 +8,7 @@ import './FavVendorCard.css'
 
 function FavVendorCard({ vendorDetails }) {
     const { currentLocal } = useSelector((state) => state.currentLocal);
+    console.log(vendorDetails)
     return (
         <div className='favVendorCard m-2'>
             <Link
@@ -20,13 +21,22 @@ function FavVendorCard({ vendorDetails }) {
                     <ReactStars
                         edit={false}
                         count={5}
-                        value={4}
+                        value={vendorDetails.rate ? vendorDetails.rate : 5}
                         size={24}
                         activeColor="#ffd700"
                         classNames={
                             currentLocal.language === "English" ? "ltrStars" : "rtlStars "
                         }
                     />
+                    <div className="my-2">
+                        {vendorDetails?.vendorName}
+                    </div>
+                    <div className="my-2 f-12">
+                        {vendorDetails.vendorType}
+                    </div>
+                    <div className="my-2 f-12">
+                        {vendorDetails.companyName}
+                    </div>
                 </div>
             </Link>
         </div>

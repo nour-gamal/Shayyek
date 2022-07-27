@@ -1,0 +1,20 @@
+.inviteToRFQModal{
+    overflow-y: auto;
+    -ms-overflow-style: none;  
+    scrollbar-width: none;
+}
+.inviteToRFQModal::-webkit-scrollbar {
+    display: none;
+  }
+  
+
+.inviteToRFQModal .rfqInvitationContainer{
+    height: max-content;
+    width:90%;
+}
+.inviteToRFQModal .rfqInvitation{
+    width:95%;
+    padding:10px;  
+    background-color: #F5F5F5 !important;
+    margin:10px auto;
+}
