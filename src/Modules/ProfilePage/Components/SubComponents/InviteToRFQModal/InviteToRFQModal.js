@@ -3,7 +3,7 @@ import { Col, Modal, Row } from 'antd'
 import RFQInvitation from '../../../../Common/RFQInvitation/RFQInvitation'
 import { BuyerRFQ } from '../../../../Home/network';
 import './InviteToRFQModal.css'
-function InviteToRFQModal({ isModalVisible, onCancel }) {
+function InviteToRFQModal({ isModalVisible, onCancel, vendorId }) {
     const [RFQDetails, updateRFQDetails] = useState([])
     useEffect(() => {
         BuyerRFQ(
@@ -24,10 +24,12 @@ function InviteToRFQModal({ isModalVisible, onCancel }) {
         >
             <Row>
                 {RFQDetails.map(detail => {
-                    return <Col sm={24} md={6} className="rfqInvitationContainer">
+                    return <Col xs={24} sm={12} md={8} lg={6} className="rfqInvitationContainer">
                         <RFQInvitation
                             rfqDetails={detail}
                             parent={'inviteToRFQ'}
+                            vendorId={vendorId}
+                            onCancel={onCancel}
                         />
                     </Col>
                 })}

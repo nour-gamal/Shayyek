@@ -21,7 +21,7 @@ function FavVendorCard({ vendorDetails }) {
                     <ReactStars
                         edit={false}
                         count={5}
-                        value={vendorDetails.rate ? vendorDetails.rate : 5}
+                        value={vendorDetails.rate}
                         size={24}
                         activeColor="#ffd700"
                         classNames={

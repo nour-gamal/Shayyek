@@ -50,6 +50,7 @@ function Personalnfo({
 			}
 		);
 	}
+
 	function openDraftPopup() {
 		if (count) {
 			updateDraftsModalVisible(true);
@@ -292,6 +293,7 @@ function Personalnfo({
 				onCancel={() => {
 					updateInviteToRFQModal(false)
 				}}
+				vendorId={profileDetails?.supplierContractorId}
 			/>
 		</div>
 	);

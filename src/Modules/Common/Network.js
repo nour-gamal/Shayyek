@@ -39,5 +39,9 @@ export const endSession = (data, onSuccess, onFail, reqAuth = true) => {
 	const path = `api/Session/EndReversAuction`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
+export const inviteToSpecificRFQ = (data, onSuccess, onFail, reqAuth = true) => {
+	const path = ``;
+	PostResource(path, data, onSuccess, onFail, reqAuth);
+};
 
 

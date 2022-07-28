@@ -240,23 +240,23 @@ function MyRFQSummary({ rfqId }) {
       </div>
       <div className="pps ppe">
         <div className="d-flex my-2 justify-content-between flex-wrap">
-          {rfqData.projectName && (
+          {rfqData?.projectName && (
             <div className="mx-3">
               {currentLocal.rfqSummary.projectName}:{rfqData.projectName}
             </div>
           )}
-          {rfqData.projectOwner && (
+          {rfqData?.projectOwner && (
             <div className="mx-3">
               {currentLocal.rfqSummary.projectOwner}:{rfqData.projectOwner}
             </div>
           )}
-          {rfqData.projectConsultant && (
+          {rfqData?.projectConsultant && (
             <div className="mx-3">
               {currentLocal.rfqSummary.projectConsultant}:
               {rfqData.projectConsultant}
             </div>
           )}
-          {rfqData.projectContractor && (
+          {rfqData?.projectContractor && (
             <div className="mx-3">
               {currentLocal.rfqSummary.projectContractor}:
               {rfqData.projectContractor}
@@ -272,7 +272,7 @@ function MyRFQSummary({ rfqId }) {
               ).format("DD-MM-YYYY")}
             </div>
           )}
-          {rfqData.projectAddress && (
+          {rfqData?.projectAddress && (
             <div className="mx-3">
               {currentLocal.rfqSummary.deliveryAddress}:{rfqData.projectAddress}
             </div>

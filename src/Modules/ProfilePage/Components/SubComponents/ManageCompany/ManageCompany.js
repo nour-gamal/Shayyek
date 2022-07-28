@@ -52,11 +52,12 @@ const ManageCompany = () => {
       (success) => {
         if (success.success) {
           updateData((prevState) =>
-            prevState.map((item) =>
-              item.userId === employeeId
-                ? { ...item, isActive: success.data }
-                : item
-            )
+            // prevState.map((item) =>
+            //   item.userId === employeeId
+            //     ? { ...item, isActive: success.data }
+            //     : item
+            // )
+            prevState.filter((data) => data.userId !== employeeId)
           );
         }
       },
@@ -131,10 +132,10 @@ const ManageCompany = () => {
               type="text"
               className="dropDown__item d-flex justify-content-start align-items-center"
             >
-              <Link to={`/delete/${employee.profileName}`}>
+              <div onClick={() => acceptOrRejectUserAction(false, employee.userId)}>
                 <img className="icon" src={deleteIcon} alt="view" />
                 <span>{currentLocal.offerTable.delete}</span>
-              </Link>
+              </div>
             </Button>
           </Menu.Item>
         </>

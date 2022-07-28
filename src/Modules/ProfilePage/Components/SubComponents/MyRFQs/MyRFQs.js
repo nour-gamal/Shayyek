@@ -73,6 +73,14 @@ function MyRFQs({ buyerRFQs }) {
 	const endMenu = (
 		<Menu>
 			<Menu.Item
+				key="0"
+			>
+				<Link to={`/RFQSummary/${rfqId}`}>
+					<img src={view} alt="acceptOffer" />
+					<span className="acceptOffer">{currentLocal.profilePage.view}</span>
+				</Link>
+			</Menu.Item>
+			<Menu.Item
 				key="1"
 				onClick={() => {
 					updateRateModal(true);

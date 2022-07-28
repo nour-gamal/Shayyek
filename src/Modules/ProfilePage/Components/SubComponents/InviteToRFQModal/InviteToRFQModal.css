@@ -9,7 +9,6 @@
   
 
 .inviteToRFQModal .rfqInvitationContainer{
-    height: max-content;
     width:90%;
 }
 .inviteToRFQModal .rfqInvitation{
@@ -17,4 +16,8 @@
     padding:10px;  
     background-color: #F5F5F5 !important;
     margin:10px auto;
+    height: 95%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
