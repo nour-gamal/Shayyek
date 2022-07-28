@@ -37,8 +37,13 @@ function RFQInvitation({ revealPrices, rfqDetails, updateRFQsList, parent, vendo
       rfqHeaderId: rfqDetails.rfqHeaderId
     }
     inviteToSpecificRFQ(data, success => {
-      console.log(success)
-      onCancel()
+      if (success.success) {
+        toast.success(success.message, {
+          position: "bottom-right",
+          rtl: true,
+        });
+        onCancel()
+      }
     }, fail => {
       toast.error(fail.data.message, {
         position: "bottom-right",

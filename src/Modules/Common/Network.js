@@ -40,7 +40,7 @@ export const endSession = (data, onSuccess, onFail, reqAuth = true) => {
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
 export const inviteToSpecificRFQ = (data, onSuccess, onFail, reqAuth = true) => {
-	const path = ``;
+	const path = `api/RFQ/InviteVendorToRFQ`;
 	PostResource(path, data, onSuccess, onFail, reqAuth);
 };
 

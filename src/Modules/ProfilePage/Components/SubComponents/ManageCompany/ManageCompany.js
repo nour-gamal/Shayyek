@@ -15,12 +15,14 @@ import {
 
 // style
 import "./ManageCompany.css";
+import DeleteModal from "../../../../Home/BuyerHome/Components/DeleteModal/DeleteModal";
 
 const ManageCompany = () => {
   const { currentLocal, currentLanguageId } = useSelector(
     (state) => state.currentLocal
   );
-
+  const [isDeleteModalVis, updateIsDeleteModalVis] = useState(false)
+  const [employeeIdState, updateEmployeeIdState] = useState(false)
   const {
     authorization: { companyId },
   } = useSelector((state) => state.authorization);
@@ -119,8 +121,7 @@ const ManageCompany = () => {
               className="dropDown__item d-flex justify-content-start align-items-center"
             >
               <Link
-                to={`/reset-password/${employee.profileName}`}
-                params={employee.userId}
+                to={`/reset-password/${employee.profileName}?userId=${employee.userId}`}
               >
                 <img className="icon" src={resetpasswordIcon} alt="view" />
                 <span>{currentLocal.login.ResetPassword}</span>
@@ -132,15 +133,19 @@ const ManageCompany = () => {
               type="text"
               className="dropDown__item d-flex justify-content-start align-items-center"
             >
-              <div onClick={() => acceptOrRejectUserAction(false, employee.userId)}>
+              <div onClick={() => {
+                updateIsDeleteModalVis(true)
+                updateEmployeeIdState(employee.userId)
+              }}>
                 <img className="icon" src={deleteIcon} alt="view" />
                 <span>{currentLocal.offerTable.delete}</span>
               </div>
             </Button>
           </Menu.Item>
         </>
-      )}
-    </Menu>
+      )
+      }
+    </Menu >
   );
 
   const columns = [
@@ -203,6 +208,12 @@ const ManageCompany = () => {
         </div>
       </ConfigProvider>
       <Footer />
+      <DeleteModal
+        isModalVisible={isDeleteModalVis}
+        onCancel={() => { updateIsDeleteModalVis(false) }}
+        onDeleteEmployee={() => { acceptOrRejectUserAction(false, employeeIdState) }}
+        deleteMode={'employee'}
+      />
     </section>
   );
 };

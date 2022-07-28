@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router";
 import { Container } from "react-bootstrap";
-// container
+import { useLocation } from "react-router-dom";
 import Navbar from "../Common/Navbar/Navbar";
 import AuthHeader from "../Common/AuthHeader/AuthHeader";
 import Footer from "../Common/Footer/Footer";
+import { resetPassword } from "../ProfilePage/network";
+import { toast } from "react-toastify";
 import "./ResetPassword.css";
+
 function ResetPassword() {
   const { currentLocal } = useSelector((state) => state.currentLocal);
   const [password, setPassword] = useState("");
@@ -14,21 +17,32 @@ function ResetPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmationState, setConfirmationState] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const search = useLocation().search;
+  const userId = new URLSearchParams(search).get('userId');
 
   const sendData = (e) => {
     e.preventDefault();
-    if (!confirmPassword || !password) {
+    if (!confirmPassword || !password || confirmationState) {
       setAlert(true);
     } else {
       setAlert(false);
-      // send data to the user !!!!!
-      setRedirect(true);
+      let data = { userId, newPassword: password }
+      resetPassword(data, success => {
+        if (success.success) {
+          setRedirect(true);
+          toast.success(success.message, {
+            position: "bottom-right",
+            rtl: true,
+          });
+        }
+      }, fail => {
+        console.log(fail)
+      })
     }
   };
 
   const handleChange = (e) => {
     const id = e.target.id;
-    console.log(id);
     switch (id) {
       case "confirmPassword": {
         setConfirmPassword(e.target.value);
@@ -49,7 +63,7 @@ function ResetPassword() {
   }
 
   return (
-    <div className="ResetPassword">
+    <section className="ResetPassword">
       <Navbar navState={"light"} />
       <Container>
         <AuthHeader title={currentLocal.login.ResetPassword} login="login" />
@@ -67,6 +81,11 @@ function ResetPassword() {
                     ? "error input-field form-control my-1"
                     : "input-field form-control my-1"
                 }
+                onBlur={() => {
+                  password !== confirmPassword
+                    ? setConfirmationState(true)
+                    : setConfirmationState(false);
+                }}
                 placeholder={currentLocal.login.password}
                 type="password"
                 id="password"
@@ -77,10 +96,10 @@ function ResetPassword() {
             <div className="w-50">
               <p className="passerrorMsg">
                 {alert && !confirmPassword && (
-                  <>* {currentLocal.login.passwordIsRequired}</>
+                  <div>* {currentLocal.login.confirmPasswordIsRequired}</div>
                 )}
-                {confirmationState && (
-                  <> * {currentLocal.login.passwordConfirmationDoesnotMatch}</>
+                {confirmationState && confirmPassword && (
+                  <div> * {currentLocal.login.passwordConfirmationDoesnotMatch}</div>
                 )}
               </p>
               <input
@@ -110,7 +129,7 @@ function ResetPassword() {
         </form>
       </Container>
       <Footer />
-    </div>
+    </section>
   );
 }
 

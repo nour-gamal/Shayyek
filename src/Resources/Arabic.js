@@ -366,6 +366,7 @@ export const ar = {
     confirmDeletePackage: "هل انت متاكد من ازاله الباقه المختاره؟",
     confirmDeleteRFQ: "هل انت متاكد من ازاله طلب عرض السعر ؟",
     confirmDeleteProject: "هل انت متاكد من ازاله المشروع؟",
+    confirmDeleteEmployee: "هل انت متاكد من ازاله الموظف؟",
     addPackageName: "اضف اسم العمل",
     addPack: "اضف اسم حزمه رقم",
     packageName: "اسم الحزمه",

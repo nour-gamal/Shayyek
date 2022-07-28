@@ -3,25 +3,34 @@ import { Modal } from "antd";
 import { useSelector } from "react-redux";
 import deleteIcon from "../../../../../Resources/Assets/delete_large.png";
 import "./DeleteModal.css";
-function DeleteModal({ isModalVisible,
+function DeleteModal({
+	isModalVisible,
 	onCancel,
 	onDeleteRow,
 	deleteMode,
 	onDeletePackage,
-	onDeleteProject }) {
+	onDeleteProject,
+	onDeleteEmployee
+}) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const { rfqData } = useSelector((state) => state.rfq);
 
 	const handleDelete = () => {
 		if (deleteMode === 'package') {
 			onDeletePackage()
-		} if (deleteMode === 'project') {
+		} else if (deleteMode === 'project') {
 			onDeleteProject()
-		} else {
+		}
+		else if (deleteMode === 'employee') {
+			onDeleteEmployee()
+		}
+		else {
 			onDeleteRow()
 		}
+
 		onCancel()
 	}
+
 	return (
 		<Modal
 			title="Basic Modal"
@@ -36,7 +45,9 @@ function DeleteModal({ isModalVisible,
 					<>{currentLocal.buyerHome.confirmDeleteRFQ}</> :
 					deleteMode === "project" ?
 						<>{currentLocal.buyerHome.confirmDeleteProject}</> :
-						<>{currentLocal.buyerHome.confirmDeleteRow}</>}
+						deleteMode === 'employee' ?
+							<>{currentLocal.buyerHome.confirmDeleteEmployee} </> :
+							<>{currentLocal.buyerHome.confirmDeleteRow}</>}
 			</div>
 			<div className="d-flex justify-content-center buttonContainer">
 				<button className="button-secondary primary-color" onClick={onCancel}>

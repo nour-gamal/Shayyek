@@ -20,9 +20,8 @@ function CompanyCard({ companyDetails, sidebar, parent }) {
 		<>
 			{userTypeName.includes("company_admin") && companyDetails && (
 				<div
-					className={`companyCard ${
-						userTypeName.includes("company_admin") ? "min-height-100" : ""
-					} ${sidebar ? "sidebar" : ""}`}
+					className={`companyCard ${userTypeName.includes("company_admin") ? "min-height-100" : ""
+						} ${sidebar ? "sidebar" : ""}`}
 				>
 					<div className="d-flex align-items-center justify-content-between companyCard__header">
 						<header className="d-flex align-items-center justify-content-start">
@@ -49,7 +48,7 @@ function CompanyCard({ companyDetails, sidebar, parent }) {
 						</header>
 						{parent !== "buyerSee" && (
 							<Link to={`/company/${companyDetails.name}`}>
-								<button className="btn companyCard__btn">
+								<button className="btn companyCard__btn my-4">
 									{currentLocal.profilePage.manageyourCompany}
 								</button>
 							</Link>
