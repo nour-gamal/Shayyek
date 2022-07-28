@@ -234,7 +234,7 @@ function Personalnfo({
 							<>
 								<Link to={`/company/${company?.name}`}>
 									<button className="orange_btn mx-2">
-										{currentLocal.profilePage.manageCompany}
+										{currentLocal.profilePage.acceptRejectUsers}
 									</button>
 								</Link>
 							</>

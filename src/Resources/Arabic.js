@@ -161,6 +161,7 @@ export const ar = {
     manageCompany: "تحكم في شركتك",
     savingUpTo: "توفيرك يصل الي",
     q: "ملخص الربع",
+    acceptRejectUsers: "اقبل/ارفض المستخدم",
     activeVendors: "الباعه النشطه",
     newVendors: "الباعه الجدد",
     savings: "التوفير",

@@ -162,6 +162,7 @@ export const en = {
     manageCompany: "Manage your company",
     savingUpTo: "Saving up to",
     q: "Q",
+    acceptRejectUsers:"Accept/Reject users",
     activeVendors: "Active vendors",
     newVendors: "New vendors",
     savings: "Savings",
