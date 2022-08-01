@@ -9,9 +9,9 @@ function RatingModal({ onCancel, isModalVisible }) {
 			title="Basic Modal"
 			visible={true}
 			onCancel={onCancel}
-			className="modal-lg ChooseCompaniesToRateModal"
+			className="modal-lg ratingModal"
 		>
-			<h4>{currentLocal.profilePage.didYouWorkWith} </h4>
+			<h4>{currentLocal.profilePage.didYouWorkWith} {currentLocal.profilePage.rateIt}?</h4>
 		</Modal>
 	);
 }

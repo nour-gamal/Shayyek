@@ -151,7 +151,7 @@ export const en = {
     orderDate: "Order Date",
     companiesInOrder: "Companies in this order",
     rateCompany: "Rate Company",
-    selectSuppCont: "Select supplier or contractor to rate",
+    selectSuppCont: "Select Supplier or Contractor to Rate",
     selectSupp: "Select supplier  to rate",
     date: "Date",
     total: "Total",

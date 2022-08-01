@@ -24,6 +24,36 @@ function ChooseCompaniesToRateModal({ isModalVisible, onCancel, parent }) {
 			name: "Samc2",
 			img:
 				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
+		}, {
+			id: "3",
+			name: "Samc2",
+			img:
+				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
+		}, {
+			id: "4",
+			name: "Samc2",
+			img:
+				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
+		}, {
+			id: "5",
+			name: "Samc2",
+			img:
+				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
+		}, {
+			id: "6",
+			name: "Samc2",
+			img:
+				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
+		}, {
+			id: "7",
+			name: "Samc2",
+			img:
+				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
+		}, {
+			id: "9",
+			name: "Samc2",
+			img:
+				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
 		},
 	];
 	return (
@@ -35,27 +65,26 @@ function ChooseCompaniesToRateModal({ isModalVisible, onCancel, parent }) {
 		>
 			<div>
 				<div className="f-21 mb-4">
-					{parent === "myRFQTable"
-						? currentLocal.profilePage.selectSuppCont
-						: currentLocal.profilePage.selectSupp}{" "}
-					?
+					{currentLocal.profilePage.selectSuppCont}?
 				</div>
-				<Radio.Group onChange={onChange} value={value}>
-					{users.map((user, userIndex) => (
-						<div key={userIndex} className="my-2">
-							<Radio value={user.id}>
-								<figure className="userImgContainer mx-2">
-									<img
-										src={user.img}
-										alt="userImg"
-										className="rounded-circle"
-									/>
-								</figure>
-								<span>{user.name}</span>
-							</Radio>
-						</div>
-					))}
-				</Radio.Group>
+				<div className="suppliersContainers">
+					<Radio.Group onChange={onChange} value={value}>
+						{users.map((user, userIndex) => (
+							<div key={userIndex} className="my-2">
+								<Radio value={user.id}>
+									<figure className="userImgContainer mx-2">
+										<img
+											src={user.img}
+											alt="userImg"
+											className="rounded-circle"
+										/>
+									</figure>
+									<span>{user.name}</span>
+								</Radio>
+							</div>
+						))}
+					</Radio.Group>
+				</div>
 			</div>
 			<div className="text-center">
 				<button

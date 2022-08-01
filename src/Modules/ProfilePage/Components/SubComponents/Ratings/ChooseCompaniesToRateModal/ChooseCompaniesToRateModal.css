@@ -11,3 +11,7 @@
 .ChooseCompaniesToRateModal .userImgContainer > img {
 	width: 100%;
 }
+.ChooseCompaniesToRateModal .suppliersContainers{
+	max-height: 55vh;
+	overflow-y:auto;
+}
