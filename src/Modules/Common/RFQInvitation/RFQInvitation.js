@@ -155,7 +155,7 @@ function RFQInvitation({ revealPrices, rfqDetails, updateRFQsList, parent, vendo
                   </div>
                 )}
               </div>
-              {userType.includes("supplier") && (
+              {(userType.includes("supplier") || userType.includes("contractor")) && (
                 <div className="text-center my-2">
                   <button
                     className="popup-button-primary"

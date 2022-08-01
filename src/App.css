@@ -572,6 +572,12 @@ thead:hover {
 a,a:hover{
 	color:unset !important
 }
+.colorIndicator{
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	margin: 0 5px;
+}
 @media (min-width: 769px) and (max-width: 1099px) {
 	.ppl {
 		padding-left: 60px !important;

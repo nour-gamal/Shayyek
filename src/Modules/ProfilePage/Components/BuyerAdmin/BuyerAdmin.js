@@ -17,7 +17,7 @@ function BuyerAdmin() {
 	const [buyerOrders, updateBuyerOrders] = useState([]);
 	const [company, updateCompany] = useState(null);
 	const [allData, updateAllDate] = useState({});
-
+	const [catArr, updateCatArr] = useState([])
 	useEffect(() => {
 		getBuyerProfile(
 			currentLanguageId,
@@ -33,6 +33,15 @@ function BuyerAdmin() {
 			}
 		);
 	}, [currentLanguageId]);
+	useEffect(() => {
+		let categoriesArr = []
+		buyerChartWorks.forEach(work => {
+			work.buyerCategoryChart.forEach(cat => {
+				categoriesArr.push(cat)
+			})
+		})
+		updateCatArr(categoriesArr)
+	}, [buyerChartWorks])
 	return (
 		<div className={currentLocal.language === "English" ? "ppl" : "ppr"}>
 			<Row>
@@ -51,7 +60,16 @@ function BuyerAdmin() {
 							</Col>
 						))}
 					</Row>
+					<Row>{
+						catArr.map(cat => {
+							return <span className='m-2'>
+								<span style={{ backgroundColor: cat.categoryColor }} className='colorIndicator'>
 
+								</span>
+								<>{cat.categoryName}</>
+							</span>
+						})}
+					</Row>
 					<MyRFQs buyerRFQs={buyerRFQs} />
 					<MyOrders buyerOrders={buyerOrders} />
 				</Col>

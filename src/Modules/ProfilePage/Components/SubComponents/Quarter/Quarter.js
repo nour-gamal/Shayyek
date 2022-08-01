@@ -6,21 +6,24 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import "./Quarter.css";
 function Quarter({ chartData }) {
 	ChartJS.register(ArcElement, Tooltip, Legend);
-
 	const { currentLocal } = useSelector((state) => state.currentLocal);
-
+	const backgroundColor = []
+	const occurenceData = []
+	chartData.buyerCategoryChart?.forEach(chart => {
+		backgroundColor.push(chart.categoryColor)
+		occurenceData.push(chart.occuranceCount)
+	})
 	const data = {
 		labels: [],
 		datasets: [
 			{
-				data: [50, 25, 12.5, 12.5],
-				backgroundColor: ["#0370FF", "#B33D32", "#FC6B5E", "#B2B0AC"],
+				data: occurenceData,
+				backgroundColor: backgroundColor,
 				borderColor: ["#fff"],
 				borderWidth: 7,
 			},
 		],
 	};
-
 	return (
 		<div className="quarterCard">
 			<div>
@@ -51,7 +54,7 @@ function Quarter({ chartData }) {
 			</div>
 			<div className="f-12 text-center my-2">
 				<span className="percentage">{currentLocal.profilePage.savings}</span>{" "}
-				&asymp; EGP300K
+				&asymp; EGP {chartData.savings}
 			</div>
 		</div>
 	);
