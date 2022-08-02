@@ -120,7 +120,7 @@ function RegistrationForm() {
 	};
 	const onTreeChange = (currentNode, selectedNodes) => {
 		let categoriesRequest = [];
-		let result = selectedNodes.reduce(function(r, a) {
+		let result = selectedNodes.reduce(function (r, a) {
 			r[a.levelOne] = r[a.levelOne] || [];
 			r[a.levelOne].push(a);
 			return r;
@@ -153,7 +153,7 @@ function RegistrationForm() {
 			});
 		});
 		categoriesRequest.forEach((mainCategory, mainCategoryIndex) => {
-			let subResult = mainCategory.Categories.reduce(function(r, a) {
+			let subResult = mainCategory.Categories.reduce(function (r, a) {
 				r[a.CategoryId] = r[a.CategoryId] || [];
 				r[a.CategoryId].push(a);
 				return r;
@@ -186,7 +186,7 @@ function RegistrationForm() {
 			(success) => {
 				setCompaniesName(success.data);
 			},
-			(fail) => {},
+			(fail) => { },
 			false
 		);
 
@@ -195,7 +195,7 @@ function RegistrationForm() {
 			(success) => {
 				setCountriesName(success.data);
 			},
-			(fail) => {},
+			(fail) => { },
 			false
 		);
 		getRole(
@@ -203,7 +203,7 @@ function RegistrationForm() {
 			(success) => {
 				setRoleList(success.data);
 			},
-			(fail) => {},
+			(fail) => { },
 			false
 		);
 		getAccountType(
@@ -211,7 +211,7 @@ function RegistrationForm() {
 			(success) => {
 				setAccountList(success.data);
 			},
-			(fail) => {},
+			(fail) => { },
 			false
 		);
 
@@ -220,7 +220,7 @@ function RegistrationForm() {
 			(success) => {
 				setCompanyTypes(success.data);
 			},
-			(fail) => {}
+			(fail) => { }
 		);
 		getVolumeOfBusiness(
 			currentLanguageId,
@@ -294,7 +294,7 @@ function RegistrationForm() {
 										//setAdmin(success.data);
 										setAdmin(true);
 									},
-									(fail) => {},
+									(fail) => { },
 									false
 								);
 							}, 2000);
@@ -324,7 +324,7 @@ function RegistrationForm() {
 								(success) => {
 									setGovernmentsName(success.data);
 								},
-								(fail) => {},
+								(fail) => { },
 								false
 							);
 						}}
@@ -805,7 +805,7 @@ function RegistrationForm() {
 									>
 										{roleName ? roleName : currentLocal.registration.role}
 										{!individual &&
-										buyer !== currentLocal.registration.Supplier ? (
+											buyer !== currentLocal.registration.Supplier ? (
 											<img src={disableArrow} alt="disableArrow" />
 										) : (
 											<img
@@ -857,7 +857,7 @@ function RegistrationForm() {
 											? companyName
 											: currentLocal.registration.companyName}
 										{!individual &&
-										buyer !== currentLocal.registration.Supplier ? (
+											buyer !== currentLocal.registration.Supplier ? (
 											<img src={disableArrow} alt="disableArrow" />
 										) : (
 											<img
@@ -913,7 +913,7 @@ function RegistrationForm() {
 										alt="disableArrow"
 										className={
 											currentLanguageId ===
-											"46f4621f-9f96-46c7-a2d4-94b4c3393914"
+												"46f4621f-9f96-46c7-a2d4-94b4c3393914"
 												? "rightIcon "
 												: "dropDownicon"
 										}
@@ -924,7 +924,7 @@ function RegistrationForm() {
 										alt="Arrow"
 										className={
 											currentLanguageId ===
-											"46f4621f-9f96-46c7-a2d4-94b4c3393914"
+												"46f4621f-9f96-46c7-a2d4-94b4c3393914"
 												? "rightIcon "
 												: "dropDownicon"
 										}
@@ -1080,7 +1080,7 @@ function RegistrationForm() {
 											id="organisationLegalStructure"
 											className={
 												!individual &&
-												buyer !== currentLocal.registration.Supplier
+													buyer !== currentLocal.registration.Supplier
 													? "disableInput ant-dropdown-link"
 													: "ant-dropdown-link"
 											}
@@ -1090,14 +1090,14 @@ function RegistrationForm() {
 												? companyTypeName
 												: currentLocal.registration.organisationLegalStructure}
 											{userTypeName &&
-											!userTypeName.includes("individual") &&
-											!userTypeName.includes("supplier") ? (
+												!userTypeName.includes("individual") &&
+												!userTypeName.includes("supplier") ? (
 												<img src={disableArrow} alt="disableArrow" />
 											) : (
 												<img
 													src={
 														focusIcon &&
-														foucesItem === "organisationLegalStructure"
+															foucesItem === "organisationLegalStructure"
 															? foucesArrow
 															: Arrow
 													}
@@ -1124,7 +1124,7 @@ function RegistrationForm() {
 										type="number"
 										className={
 											!individual &&
-											buyer !== currentLocal.registration.Supplier
+												buyer !== currentLocal.registration.Supplier
 												? "disableInput input-field"
 												: "input-field"
 										}
@@ -1147,7 +1147,7 @@ function RegistrationForm() {
 										type="email"
 										className={
 											!individual &&
-											buyer !== currentLocal.registration.Supplier
+												buyer !== currentLocal.registration.Supplier
 												? "disableInput input-field"
 												: "input-field"
 										}
@@ -1222,7 +1222,7 @@ function RegistrationForm() {
 								/>
 								<label htmlFor="files" className="w-100">
 									{!individual &&
-									buyer !== currentLocal.registration.Supplier ? (
+										buyer !== currentLocal.registration.Supplier ? (
 										<>
 											<div className="d-flex justify-content-between ">
 												<div>
@@ -1269,7 +1269,7 @@ function RegistrationForm() {
 										trigger={["click"]}
 										className={
 											!individual &&
-											buyer !== currentLocal.registration.Supplier
+												buyer !== currentLocal.registration.Supplier
 												? "disableInput input-field"
 												: "input-field"
 										}
@@ -1293,7 +1293,7 @@ function RegistrationForm() {
 												? countryName
 												: currentLocal.registration.country}
 											{!individual &&
-											buyer !== currentLocal.registration.Supplier ? (
+												buyer !== currentLocal.registration.Supplier ? (
 												<img src={disableArrow} alt="disableArrow" />
 											) : (
 												<img
@@ -1319,7 +1319,7 @@ function RegistrationForm() {
 										trigger={["click"]}
 										className={
 											!individual &&
-											buyer !== currentLocal.registration.Supplier
+												buyer !== currentLocal.registration.Supplier
 												? "disableInput input-field"
 												: "input-field"
 										}
@@ -1343,7 +1343,7 @@ function RegistrationForm() {
 												? governmentName
 												: currentLocal.registration.governorate}
 											{!individual &&
-											buyer !== currentLocal.registration.Supplier ? (
+												buyer !== currentLocal.registration.Supplier ? (
 												<img src={disableArrow} alt="disableArrow" />
 											) : (
 												// <img src={Arrow} alt="Arrow" />
@@ -1374,7 +1374,7 @@ function RegistrationForm() {
 										type="text"
 										className={
 											!individual &&
-											buyer !== currentLocal.registration.Supplier
+												buyer !== currentLocal.registration.Supplier
 												? "disableInput input-field"
 												: "input-field"
 										}
@@ -1461,15 +1461,15 @@ function RegistrationForm() {
 
 									<label htmlFor="file" className="w-100">
 										{userTypeName &&
-										!userTypeName.includes("supplier") &&
-										userTypeName.includes("individual") ? (
+											!userTypeName.includes("supplier") &&
+											userTypeName.includes("individual") ? (
 											<>
 												<div className="d-flex justify-content-between ">
 													<div>
 														{fileName
 															? fileName
 															: currentLocal.registration
-																	.commercialRecordOptional}
+																.commercialRecordOptional}
 													</div>
 													<div>
 														<img
@@ -1498,8 +1498,8 @@ function RegistrationForm() {
 							</Col>
 						)}
 					{userTypeName &&
-						userTypeName.includes("buyer") &&
-						!userTypeName.includes("employee") && (
+						(userTypeName.includes("supplier") || userTypeName.includes("contractor"))
+						&& (
 							<Col md={12} xs={24}>
 								<div
 									className={
