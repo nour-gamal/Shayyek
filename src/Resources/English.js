@@ -166,6 +166,8 @@ export const en = {
     activeVendors: "Active vendors",
     newVendors: "New vendors",
     savings: "Savings",
+    projectLocation: "Project location",
+    projectOwner: "Project owner",
     address: "Address",
     governorate: "Governorate",
     phoneNumber: "Phone number",

@@ -163,6 +163,8 @@ export const ar = {
     q: "ملخص الربع",
     acceptRejectUsers: "اقبل/ارفض المستخدم",
     activeVendors: "الباعه النشطه",
+    projectLocation: "مكان المشروع",
+    projectOwner: "صاحب المشروع",
     newVendors: "الباعه الجدد",
     savings: "التوفير",
     address: "العنوان",

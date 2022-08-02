@@ -175,18 +175,11 @@ function Filter({ getFilteredCompany }) {
 				(success) => {
 					getFilteredCompany(success.data);
 				},
-				(fail) => {}
+				(fail) => { }
 			);
 		}
-	}, [
-		isRequestFilter,
-		count,
-		currentLanguageId,
-		getFilteredCompany,
-		government,
-		productAvailability,
-		selectedCategories,
-	]);
+		// eslint-disable-next-line
+	}, [currentLanguageId, isRequestFilter, count, productAvailability, selectedCategories]);
 
 	return (
 		<aside className="suppliersFilter">

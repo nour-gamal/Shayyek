@@ -323,7 +323,7 @@ function CreateRFQ({ getRFQPageName, rfqId }) {
           ...rfqData.rfqPackages,
           {
             rfqPackageDetailsRequests: [...dataSource],
-            packageName: rfqData.nextPackageName ? rfqData.nextPackageName : 'Package 1',
+            packageName: rfqData.nextPackageName ? rfqData.nextPackageName : rfqData.projectName,
             notes: notes,
             receivingOffersDeadline: recievingOffersDate,
             deliveryDate: deliveryDate,

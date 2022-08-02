@@ -137,19 +137,19 @@ function MyRFQs({ buyerRFQs }) {
 		},
 
 		{
-			title: currentLocal.profilePage.compSuppName,
-			dataIndex: "companyName",
-			key: "companyName",
+			title: currentLocal.profilePage.projectLocation,
+			dataIndex: "projectLocation",
+			key: "projectLocation",
+		},
+		{
+			title: currentLocal.profilePage.projectOwner,
+			dataIndex: "projectOwner",
+			key: "projectOwner",
 		},
 		{
 			title: currentLocal.profilePage.status,
 			dataIndex: "status",
 			key: "status",
-		},
-		{
-			title: currentLocal.profilePage.note,
-			dataIndex: "notes",
-			key: "notes",
 		},
 		{
 			title: currentLocal.profilePage.actionList,
