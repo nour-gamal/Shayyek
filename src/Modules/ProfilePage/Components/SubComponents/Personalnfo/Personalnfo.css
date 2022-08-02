@@ -25,6 +25,28 @@
 	border-radius: 5px;
 	height: 42px;
 }
+.PersonalInfo .ratingBox{
+	position: relative;
+}
+.PersonalInfo .ratingDetails{
+	position: absolute;
+	bottom: -230%;
+	left: 0;
+	background: rgba(46, 46, 46, 0.8);
+	border-radius: 5px;
+	color:#fff
+}
+.PersonalInfo .ratingDetails::before{
+	content:"";
+	display: block;
+	position: absolute;
+	top:-10px;
+	width: 0; 
+	height: 0; 
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 20px solid rgba(46, 46, 46, 0.8);;
+}
 
 @media (max-width: 767px) {
 	.PersonalInfo .profileHeader {

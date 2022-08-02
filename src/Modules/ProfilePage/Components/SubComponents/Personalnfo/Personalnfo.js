@@ -3,7 +3,6 @@ import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
 import { ProgressBar } from "react-bootstrap";
 import { withRouter, Link } from "react-router-dom";
-// component
 import { baseUrl } from "../../../../../Services";
 import { acceptOrRejectUser, AddToMyFavVendors } from "../../../network";
 import DraftIcon from "../../../../../Resources/Assets/draft.svg";
@@ -13,9 +12,8 @@ import defaultImage from "../../../../../Resources/Assets/DefaultProfileImage.pn
 import { authorType } from "../../../../../helpers/authType";
 import DraftsModal from "./../DraftsModal/DraftsModal";
 import InviteToRFQModal from "../InviteToRFQModal/InviteToRFQModal"
-// style
-import "./Personalnfo.css";
 import { Button } from "antd";
+import "./Personalnfo.css";
 
 function Personalnfo({
 	parent,
@@ -37,6 +35,7 @@ function Personalnfo({
 	);
 	const [draftsModalVisible, updateDraftsModalVisible] = useState(false);
 	const [inviteToRFQModal, updateInviteToRFQModal] = useState(false)
+	const [showRateDetails, updateShowRateDetails] = useState(false)
 	let authorTypeName = authorType(accountTypeId, userTypeId, roleId);
 	function acceptOrRejectUserAction(isActive) {
 		acceptOrRejectUser(
@@ -50,6 +49,7 @@ function Personalnfo({
 			}
 		);
 	}
+
 
 	function openDraftPopup() {
 		if (count) {
@@ -73,6 +73,16 @@ function Personalnfo({
 			}
 		);
 	};
+	const ratingsQuestAnswers = [{
+		quest: 'hello',
+		answer: 'good'
+	}, {
+		quest: 'hello jsjsjssjjj',
+		answer: 'good'
+	}, {
+		quest: 'hello',
+		answer: 'good'
+	}]
 	return (
 		<div className="PersonalInfo">
 			{adminView ? (
@@ -136,18 +146,38 @@ function Personalnfo({
 							/>
 							<div className="info mx-4">
 								<div className="fw-600 f-18">{profileDetails.name}</div>
-								<ReactStars
-									edit={false}
-									count={5}
-									value={profileDetails.company.rate}
-									size={24}
-									activeColor="#ffd700"
-									classNames={
-										currentLocal.language === "English"
-											? "ltrStars"
-											: "rtlStars"
-									}
-								/>
+								<div className="ratingBox">
+									<div onMouseEnter={() => {
+										updateShowRateDetails(true)
+									}}
+										onMouseLeave={() => {
+											updateShowRateDetails(false)
+										}}
+										className={'cursorPointer'}
+									>
+										<ReactStars
+											edit={false}
+											count={5}
+											value={profileDetails.company.rate}
+											size={24}
+											activeColor="#ffd700"
+											classNames={
+												currentLocal.language === "English"
+													? "ltrStars"
+													: "rtlStars"
+											}
+										/>
+									</div>
+									{showRateDetails && <div className="ratingDetails p-2">
+										{ratingsQuestAnswers.map((quest, index) => {
+											return <div key={index} className='d-flex justify-content-between'>
+												<span className="mx-2">{quest.quest}</span>
+												<span lassName="mx-2">{quest.answer}</span>
+											</div>
+										})}
+									</div>}
+								</div>
+
 								<div className="d-flex">
 									<img src={Plus} alt="Plus" />
 									<div className="mx-2 primary-color f-14 cursorPointer" onClick={() => {
