@@ -69,7 +69,7 @@ function RatingModal({ onCancel, isModalVisible }) {
 	return (
 		<Modal
 			title="Basic Modal"
-			visible={true}
+			visible={isModalVisible}
 			onCancel={onCancel}
 			className="modal-lg ratingModal"
 		>
