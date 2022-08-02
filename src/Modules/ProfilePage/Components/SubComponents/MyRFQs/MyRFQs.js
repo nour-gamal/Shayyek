@@ -240,7 +240,7 @@ function MyRFQs({ buyerRFQs }) {
 					companyName={companyName}
 				/>
 			)}
-			{rateModal && (
+			{(rateModal || true) && (
 				<ChooseCompaniesToRateModal
 					onCancel={() => {
 						updateRateModal(false);

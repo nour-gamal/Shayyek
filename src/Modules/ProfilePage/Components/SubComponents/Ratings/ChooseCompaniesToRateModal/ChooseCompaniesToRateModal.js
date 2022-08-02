@@ -101,7 +101,7 @@ function ChooseCompaniesToRateModal({ isModalVisible, onCancel, parent }) {
 					{currentLocal.profilePage.rateCompany}
 				</button>
 			</div>
-			{ratingModalState && (
+			{(ratingModalState||true) && (
 				<RatingModal
 					isModalVisible={ratingModalState}
 					onCancel={() => {

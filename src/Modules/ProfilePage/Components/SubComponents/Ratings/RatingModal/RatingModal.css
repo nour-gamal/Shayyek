@@ -1,3 +1,9 @@
-.ratingModal{
-    
+.ratingModal .questionBox{
+    border: 1px solid;
+    border-color: transparent;
+    box-sizing: border-box;
+    background-color: #FAFAFA;
+}
+.ratingModal .questionBox:hover{
+    border-color:  #0370FF;
 }
