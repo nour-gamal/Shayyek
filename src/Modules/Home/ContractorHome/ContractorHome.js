@@ -55,7 +55,7 @@ function ContractorHome() {
   return (
     <div className={currentLocal.language === "English" ? "ppl" : "ppr"}>
       <Row>
-        <Col md={19} xs={16} className="pr-1">
+        <Col md={16} xs={14} lg={18} className="mt-2 pr-1">
           <div
             className="my-4 d-flex align-items-center justify-content-end cursorPointer"
             onClick={() => setDraftsModalVisibility(true)}
@@ -81,7 +81,7 @@ function ContractorHome() {
             <Projects projects={projects} />
           </div>
         </Col>
-        <Col md={5} xs={8}>
+        <Col md={8} xs={10} lg={6}>
           <div className="profileSideMenu">
             <RFQInvitations
               invitationCount={invitationsCount}

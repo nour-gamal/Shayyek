@@ -472,7 +472,7 @@ export const ar = {
     mobileNumberIsRequired: "رقم الهاتف مطلوب",
     messageIsRequire: "الرسالة مطلوبه",
     yourMessageSentSuccessfully: "رسالتك ارسلت بنجاح",
-    yourMessageSentnotSuccessfully: "رسالتك لم ترسل بنجاح",
+    yourMessageSentnotSuccessfully: "من فضلك املئ كل الخانات المطلوبه",
     sendMessage: "ارسل الرسالة",
     getInTouch: "تواصل معانا",
     dropUsANoteBelow: "اترك لنا ملاحظه",
@@ -491,6 +491,9 @@ export const ar = {
     date: "التاريخ",
     sizeOfWork: "حجم العمل",
     shayyekProjects: "مشاريع شيك",
+    totalRFQ: "مجموع طلبات عرض السعر",
+    projectsWon: "المشاريع المربوحه",
+    conversationRate: "معدل التحويل"
   },
   messages: {
     lastPrice: "أخر سعر",

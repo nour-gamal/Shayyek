@@ -475,7 +475,7 @@ export const en = {
     mobileNumberIsRequired: "MobileNumber is required",
     messageIsRequire: "Message is require",
     yourMessageSentSuccessfully: "Your Message Sent Successfully",
-    yourMessageSentnotSuccessfully: "Your Message not Sent Successfully",
+    yourMessageSentnotSuccessfully: "Please fill all the required fields",
     sendMessage: "Send Message",
     getInTouch: "Get in touch",
     dropUsANoteBelow: "Drop us a note below",
@@ -494,6 +494,9 @@ export const en = {
     date: "Date",
     sizeOfWork: "Size of work",
     shayyekProjects: "Shayeek Projects",
+    totalRFQ: "Total RFQs Submitted",
+    projectsWon: "Projects won",
+    conversationRate: "Conversation Rate"
   },
   messages: {
     lastPrice: "Last Price",

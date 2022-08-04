@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Alert } from "antd";
-import "./GetInTouch.css";
 import { ContactUs } from "../../../network";
+import { toast } from "react-toastify";
+import "./GetInTouch.css";
+
 function GetInTouch() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [email, setEmail] = useState("");
@@ -11,23 +13,16 @@ function GetInTouch() {
 	const [mobile, setMobile] = useState("");
 	const [msg, setMsg] = useState("");
 	const [alert, setAlert] = useState(false);
-	const [succesAlert, setSuccesAlert] = useState(false);
+	// const [succesAlert, setSuccesAlert] = useState(false);
 	const [failAlert, setFailAlert] = useState(false);
 	const sendData = (e) => {
 		e.preventDefault();
 		if (!name || !mobile || !msg) {
 			setAlert(true);
 			setFailAlert(true);
-			// setTimeout(() => {
-			//   setFailAlert(false);
-			// }, 3000);
 		} else {
 			setFailAlert(false);
-			setSuccesAlert(true);
 			setAlert(false);
-			setTimeout(() => {
-				setSuccesAlert(false);
-			}, 5000);
 			const body = {
 				name: name,
 				mobile: mobile,
@@ -42,10 +37,19 @@ function GetInTouch() {
 						setEmail("");
 						setMobile("");
 						setMsg("");
+						toast.success(success.message, {
+							position: "bottom-right",
+							rtl: true,
+						});
+
 					}
 				},
-				(fail) => console.log(fail),
-				false
+				(fail) => {
+					toast.error(fail.message, {
+						position: "bottom-right",
+						rtl: true,
+					})
+				}
 			);
 		}
 	};
@@ -58,16 +62,17 @@ function GetInTouch() {
 			<div className="msgContainer">
 				<Container>
 					<div className="alert mb-5">
-						{succesAlert && (
+						{/* {succesAlert && (
 							<>
 								<Alert
 									message={currentLocal.home.yourMessageSentSuccessfully}
 									type="success"
 								/>{" "}
 							</>
-						)}
+						)} */}
 						{failAlert && (!name || !mobile || !msg) && (
 							<Alert
+								className="text-center"
 								message={currentLocal.home.yourMessageSentnotSuccessfully}
 								type="error"
 							/>

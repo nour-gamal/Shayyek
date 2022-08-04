@@ -19,7 +19,7 @@ function GuestNav() {
 						<img src={AllSuppliers} alt="AllSuppliers" />
 						{currentLocal.navbar.AllSuppliers}
 					</Link>
-					<Nav.Link href="#link">
+					<Nav.Link href="/loginByEmail">
 						<img src={Request_RFQ} alt="Request_RFQ" />
 						{currentLocal.navbar.requestRFQ}
 					</Nav.Link>
