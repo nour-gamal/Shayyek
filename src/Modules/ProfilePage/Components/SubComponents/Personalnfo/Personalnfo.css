@@ -17,11 +17,22 @@
 .PersonalInfo .info__companyName {
 	color: #003b6b;
 }
-.PersonalInfo .add-vendors-Btn {
+.PersonalInfo .add-vendors-Btn,
+.PersonalInfo .add-vendors-Btn:hover {
 	width: fit-content;
 	margin: auto;
-	border-color: #003b6b;
-	color: #003b6b;
+	border-color: #003b6b !important;
+	color: #003b6b !important;
+	border-radius: 5px;
+	height: 42px;
+}
+.PersonalInfo .added-vendors-Btn ,
+.PersonalInfo .added-vendors-Btn:hover{
+	width: fit-content;
+	margin: auto;
+	border-color: #003b6b !important;
+	background: #003b6b !important;
+	color: #fff !important;
 	border-radius: 5px;
 	height: 42px;
 }

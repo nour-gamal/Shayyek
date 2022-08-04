@@ -3,7 +3,8 @@ import { Button, Modal } from "antd";
 import { useSelector } from "react-redux";
 import { Radio } from 'antd';
 import { Alert } from 'react-bootstrap';
-import { getRateQuestionAnswers } from '../../../../network';
+import { toast } from "react-toastify";
+import { getRateQuestionAnswers, postUserRate } from '../../../../network';
 import "./RatingModal.css";
 
 function RatingModal({ onCancel, isModalVisible, rfqId, orderId, selectedVendor }) {
@@ -28,12 +29,11 @@ function RatingModal({ onCancel, isModalVisible, rfqId, orderId, selectedVendor 
 		let answersListVar = [...answersList]
 		const questionIndex = answersListVar.findIndex(answer => answer.questionId === questionId)
 		if (questionIndex >= 0) {
-			answersListVar[questionIndex] = { questionId, answerId }
+			answersListVar[questionIndex] = answerId
 		} else {
-			answersListVar.push({
-				questionId,
+			answersListVar.push(
 				answerId
-			})
+			)
 		}
 		updateAnswersList(answersListVar)
 	}
@@ -43,9 +43,26 @@ function RatingModal({ onCancel, isModalVisible, rfqId, orderId, selectedVendor 
 		if (answersList.length !== questionsAnswers.length) {
 			updateAlertState(true)
 		} else {
+			let data = {
+				vendorId: selectedVendor,
+				answerIds: answersList
+			}
 			updateAlertState(false)
 			updateLoadingState(true)
-			console.log(rfqId, orderId, selectedVendor, answersList)
+			postUserRate(data, success => {
+				if (success.success) {
+					toast.success(success.message, {
+						position: "bottom-right",
+						rtl: true,
+					});
+					onCancel()
+				}
+			}, fail => {
+				toast.error(fail.message, {
+					position: "bottom-right",
+					rtl: true,
+				});
+			})
 		}
 	}
 	return (

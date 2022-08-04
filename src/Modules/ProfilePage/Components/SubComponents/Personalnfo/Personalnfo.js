@@ -8,6 +8,7 @@ import { acceptOrRejectUser, AddToMyFavVendors } from "../../../network";
 import DraftIcon from "../../../../../Resources/Assets/draft.svg";
 import Plus from "../../../../../Resources/Assets/add (3).svg";
 import Heart from "../../../../../Resources/Assets/heart.svg";
+import WhiteHeart from "../../../../../Resources/Assets/heart-white.svg";
 import defaultImage from "../../../../../Resources/Assets/DefaultProfileImage.png";
 import { authorType } from "../../../../../helpers/authType";
 import DraftsModal from "./../DraftsModal/DraftsModal";
@@ -191,10 +192,10 @@ function Personalnfo({
 						<div className="d-flex flex-column mx-2">
 							{parent === "buyerSee" && (
 								<Button
-									className="add-vendors-Btn my-2"
+									className={`${isAddedToVendors ? `added-vendors-Btn` : `add-vendors-Btn`} my-2`}
 									onClick={addToFavVendors}
 								>
-									<img src={Heart} alt="Heart" />{" "}
+									<img src={`${isAddedToVendors ? WhiteHeart : Heart}`} alt="Heart" />{" "}
 									{isAddedToVendors
 										? currentLocal.profilePage.addedToFavVendors
 										: currentLocal.profilePage.addToFavVendors}
@@ -202,7 +203,7 @@ function Personalnfo({
 							)}
 							{profileDetails.company && (
 								<div className="profileHeader__info f-14 secondary-color cursorPointer">
-									<Link to={`supplier/${profileDetails.company.id}`}>
+									<Link to={`supplier /${profileDetails.company.id}`}>
 										{currentLocal.profilePage.see} {profileDetails.company.name}{" "}
 										{currentLocal.profilePage.marketPlace}
 									</Link>
@@ -311,7 +312,8 @@ function Personalnfo({
 						)}
 					</div>
 				</header>
-			)}
+			)
+			}
 			<DraftsModal
 				isVisible={draftsModalVisible}
 				onCancel={() => {
@@ -325,7 +327,7 @@ function Personalnfo({
 				}}
 				vendorId={profileDetails?.supplierContractorId}
 			/>
-		</div>
+		</div >
 	);
 }
 

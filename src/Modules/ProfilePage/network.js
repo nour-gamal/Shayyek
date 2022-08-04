@@ -234,3 +234,14 @@ export const getVendorsForRating = (
 };
 
 
+export const postUserRate = (
+  data,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) => {
+  const path = `api/Rate/UserRate`;
+  PostResource(path, data, onSuccess, onFail, reqAuth);
+};
+
+
