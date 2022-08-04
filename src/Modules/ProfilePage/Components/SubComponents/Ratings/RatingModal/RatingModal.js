@@ -1,48 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal } from "antd";
 import { useSelector } from "react-redux";
 import { Radio } from 'antd';
 import { Alert } from 'react-bootstrap';
+import { getRateQuestionAnswers } from '../../../../network';
 import "./RatingModal.css";
 
-function RatingModal({ onCancel, isModalVisible }) {
-	const { currentLocal } = useSelector((state) => state.currentLocal);
+function RatingModal({ onCancel, isModalVisible, rfqId, orderId, selectedVendor }) {
+	const { currentLocal, currentLanguageId } = useSelector((state) => state.currentLocal);
 	const [answersList, updateAnswersList] = useState([]);
 	const [alertState, updateAlertState] = useState(false);
-	const [loadingState, updateLoadingState] = useState(false)
-	const questionsAnswers = [{
-		question: 'hello',
-		id: 1,
-		answers: [{
-			value: 1,
-			label: 'good'
-		}, {
-			value: 2,
-			label: 'fine'
-		}, {
-			value: 3,
-			label: 'not bad'
-		}, {
-			value: 4,
-			label: 'ugly'
-		}]
-	}, {
-		question: 'hello',
-		id: 2,
-		answers: [{
-			value: 3,
-			label: 'good'
-		}, {
-			value: 4,
-			label: 'fine'
-		}, {
-			value: 5,
-			label: 'not bad'
-		}, {
-			value: 6,
-			label: 'ugly'
-		}]
-	}]
+	const [loadingState, updateLoadingState] = useState(false);
+	const [questionsAnswers, updateQuestionsAnswers] = useState([])
+	useEffect(() => {
+		if (rfqId || orderId) {
+			let data = {
+				currentLanguageId: currentLanguageId
+			}
+			getRateQuestionAnswers(data, success => {
+				updateQuestionsAnswers(success.data)
+			}, fail => {
+				console.log(fail)
+			})
+		}
+	}, [currentLanguageId, rfqId, orderId])
 	const onAnswersChange = (questionId, answerId) => {
 		let answersListVar = [...answersList]
 		const questionIndex = answersListVar.findIndex(answer => answer.questionId === questionId)
@@ -64,6 +45,7 @@ function RatingModal({ onCancel, isModalVisible }) {
 		} else {
 			updateAlertState(false)
 			updateLoadingState(true)
+			console.log(rfqId, orderId, selectedVendor, answersList)
 		}
 	}
 	return (
@@ -82,13 +64,13 @@ function RatingModal({ onCancel, isModalVisible }) {
 					return <div className={`my-4 p-4 questionBox`}
 						key={index}
 					>
-						<div>{quest.question} ?</div>
+						<div>{quest.name} {quest.name.includes('?') ? '' : '?'}</div>
 						<div>
 							<Radio.Group
 								className='d-flex flex-1 justify-content-between my-2'
-								options={quest.answers}
+								options={quest.rateQuestionAnswers}
 								onChange={(e) => {
-									onAnswersChange(quest.id, e.target.value)
+									onAnswersChange(quest.questionId, e.target.value)
 								}}
 							/>
 						</div>

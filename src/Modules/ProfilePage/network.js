@@ -211,4 +211,26 @@ export const getDeliveryPeriod = (
   GetResource(path, onSuccess, onFail, true);
 };
 
+export const getRateQuestionAnswers = (
+  data,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) => {
+  const { currentLanguageId } = data
+  const path = `api/Rate/GetRateQuestionAnswers?languageId=${currentLanguageId}`;
+  GetResource(path, onSuccess, onFail, true);
+};
+
+export const getVendorsForRating = (
+  data,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) => {
+  const { headerIdOrOrderId, isOrder } = data
+  const path = `api/Rate/VendorsForRating?headerIdOrOrderId=${headerIdOrOrderId}&isOrder=${isOrder}`;
+  GetResource(path, onSuccess, onFail, true);
+};
+
 

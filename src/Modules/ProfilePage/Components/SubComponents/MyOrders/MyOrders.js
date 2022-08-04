@@ -9,6 +9,7 @@ function MyOrders({ buyerOrders }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [rateModal, updateRateModal] = useState(false);
+	const [selectedOrderId, updateSelectedOrderId] = useState(null)
 	const location = "bottomRight";
 	const menu = (
 		<Menu>
@@ -67,7 +68,9 @@ function MyOrders({ buyerOrders }) {
 					<Dropdown.Button
 						overlay={menu}
 						trigger={["click"]}
-						onClick={(e) => e.preventDefault()}
+						onClick={(e) => {
+							e.preventDefault()
+						}}
 					></Dropdown.Button>
 				);
 			},
@@ -92,6 +95,13 @@ function MyOrders({ buyerOrders }) {
 						setCurrentPage(page);
 					},
 				}}
+				onRow={(record, rowIndex) => {
+					return {
+						onClick: event => {
+							updateSelectedOrderId(record.orderId)
+						}, // click row
+					};
+				}}
 			/>
 			{rateModal && (
 				<ChooseCompaniesToRateModal
@@ -100,6 +110,7 @@ function MyOrders({ buyerOrders }) {
 					}}
 					isModalVisible={rateModal}
 					parent="myOrdersTable"
+					orderId={selectedOrderId}
 				/>
 			)}
 		</div>

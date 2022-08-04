@@ -1,61 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Radio } from "antd";
 import RatingModal from "../RatingModal/RatingModal";
+import { getVendorsForRating } from "../../../../network";
+import { baseUrl } from "../../../../../../Services";
+import defaultAvatar from "../../../../../../Resources/Assets/DefaultProfileImage.png"
 import "./ChooseCompaniesToRateModal.css";
-function ChooseCompaniesToRateModal({ isModalVisible, onCancel, parent }) {
+
+function ChooseCompaniesToRateModal({ isModalVisible, onCancel, orderId, rfqId }) {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
 	const [ratingModalState, updateRatingModalState] = useState(false);
 	const [value, setValue] = useState(null);
-
+	const [users, updateUsers] = useState([])
 	const onChange = (e) => {
 		setValue(e.target.value);
 	};
+	useEffect(() => {
+		if (orderId || rfqId) {
+			let data = {
+				headerIdOrOrderId: orderId ? orderId : rfqId,
+				isOrder: orderId ? true : false
+			}
+			getVendorsForRating(data, success => {
+				updateUsers(success.data)
+			}, fail => {
+				console.log(fail)
+			})
 
-	const users = [
-		{
-			id: "1",
-			name: "Samc1",
-			img:
-				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
-		},
-		{
-			id: "2",
-			name: "Samc2",
-			img:
-				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
-		}, {
-			id: "3",
-			name: "Samc2",
-			img:
-				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
-		}, {
-			id: "4",
-			name: "Samc2",
-			img:
-				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
-		}, {
-			id: "5",
-			name: "Samc2",
-			img:
-				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
-		}, {
-			id: "6",
-			name: "Samc2",
-			img:
-				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
-		}, {
-			id: "7",
-			name: "Samc2",
-			img:
-				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
-		}, {
-			id: "9",
-			name: "Samc2",
-			img:
-				"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
-		},
-	];
+		}
+	}, [orderId, rfqId])
+
+
 	return (
 		<Modal
 			title="Basic Modal"
@@ -74,7 +49,7 @@ function ChooseCompaniesToRateModal({ isModalVisible, onCancel, parent }) {
 								<Radio value={user.id}>
 									<figure className="userImgContainer mx-2">
 										<img
-											src={user.img}
+											src={user.image ? baseUrl + user.image : defaultAvatar}
 											alt="userImg"
 											className="rounded-circle"
 										/>
@@ -108,6 +83,9 @@ function ChooseCompaniesToRateModal({ isModalVisible, onCancel, parent }) {
 						updateRatingModalState(false);
 						onCancel();
 					}}
+					orderId={orderId}
+					rfqId={rfqId}
+					selectedVendor={value}
 				/>
 			)}
 		</Modal>

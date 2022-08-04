@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getCart, updateCart } from "../../Network";
+import { AddOrder, getCart, GetPaymentMethods, updateCart } from "../../Network";
 import { baseUrl } from "../../../../Services";
 import minusCircle from "../../../../Resources/Assets/minusCircle.png";
 import plusCircle from "../../../../Resources/Assets/plusCircle.png";
 import garbage from "../../../../Resources/Assets/garbage.svg";
 import { Redirect } from "react-router-dom";
 import "./CartContainer.css";
+import SuccessModal from "../SuccessModal/SuccessModal";
 
 function CartContainer() {
 	const { currentLocal } = useSelector((state) => state.currentLocal);
@@ -19,6 +20,7 @@ function CartContainer() {
 	const [products, updateProducts] = useState([]);
 	const [redirectTo, setRedirectTo] = useState(null);
 	const [finalPrice, updateFinalPrice] = useState(0);
+	const [isSuccessModalVisible, updateSuccessModalVisible] = useState(false);
 	var totalPrice = 0;
 	const isAuth = Object.keys(authorization).length > 0;
 	useEffect(() => {
@@ -69,7 +71,7 @@ function CartContainer() {
 
 			updateCart(
 				body,
-				(success) => {},
+				(success) => { },
 				(fail) => {
 					console.log(fail);
 				}
@@ -89,7 +91,7 @@ function CartContainer() {
 
 		updateCart(
 			body,
-			(success) => {},
+			(success) => { },
 			(fail) => {
 				console.log(fail);
 			}
@@ -97,14 +99,37 @@ function CartContainer() {
 		updateProducts(allProducts);
 	};
 
+	const handleAddOrder = () => {
+
+		GetPaymentMethods({ languageId: currentLanguageId },
+			(success) => {
+				let body = {
+					orderDetails: products,
+					PaymentMethodId: success.data[0].id
+				};
+				AddOrder(
+					body,
+					(success) => {
+						if (success.success) {
+							updateSuccessModalVisible(true);
+						}
+					},
+					(fail) => {
+						console.log(fail);
+					}
+				);
+			});
+
+	};
 	const handleCheckout = () => {
 		updateFinalPrice(totalPrice);
 		if (isAuth) {
-			setRedirectTo("checkout");
+			handleAddOrder()
 		} else {
 			setRedirectTo("loginByEmail");
 		}
 	};
+
 	var productsCount = 0;
 	if (products && products.length) {
 		productsCount = products.filter((product) => product.quantity !== 0).length;
@@ -208,6 +233,13 @@ function CartContainer() {
 					<span className="totalPrice"> {totalPrice} LE</span>
 				</div>
 			</div>
+			<SuccessModal
+				isModalVisible={isSuccessModalVisible}
+				onCancel={() => {
+					updateSuccessModalVisible(false);
+					setRedirectTo("/");
+				}}
+			/>
 		</div>
 	);
 }

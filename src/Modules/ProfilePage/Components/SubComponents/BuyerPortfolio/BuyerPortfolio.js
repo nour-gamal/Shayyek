@@ -22,7 +22,7 @@ function BuyerPortfolio() {
 		<aside className="buyerPortfolio">
 			<div className="d-flex align-items-center profileContainer">
 				<img
-					src=defaultImage
+					src={defaultImage}
 					alt="profile"
 					className="rounded-circle"
 				/>

@@ -246,7 +246,7 @@ function MyRFQs({ buyerRFQs }) {
 						updateRateModal(false);
 					}}
 					isModalVisible={rateModal}
-					parent="myRFQTable"
+					rfqId={rfqId}
 				/>
 			)}
 		</div>
