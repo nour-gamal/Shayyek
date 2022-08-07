@@ -245,3 +245,13 @@ export const postUserRate = (
 };
 
 
+export const getVendorRates = (
+  data,
+  onSuccess,
+  onFail,
+  reqAuth = true
+) => {
+  const { vendorId, languageId } = data
+  const path = `api/Rate/VendorRateSummary?vendorId=${vendorId}&languageId=${languageId}`;
+  GetResource(path, onSuccess, onFail, reqAuth);
+};

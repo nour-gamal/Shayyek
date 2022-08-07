@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
 import { ProgressBar } from "react-bootstrap";
 import { withRouter, Link } from "react-router-dom";
 import { baseUrl } from "../../../../../Services";
-import { acceptOrRejectUser, AddToMyFavVendors } from "../../../network";
+import { acceptOrRejectUser, AddToMyFavVendors, getVendorRates } from "../../../network";
 import DraftIcon from "../../../../../Resources/Assets/draft.svg";
 import Plus from "../../../../../Resources/Assets/add (3).svg";
 import Heart from "../../../../../Resources/Assets/heart.svg";
@@ -25,7 +25,7 @@ function Personalnfo({
 	history,
 	company,
 }) {
-	const { currentLocal } = useSelector((state) => state.currentLocal);
+	const { currentLocal, currentLanguageId } = useSelector((state) => state.currentLocal);
 	const {
 		authorization,
 		authorization: { accountTypeId, userTypeId, roleId },
@@ -35,9 +35,24 @@ function Personalnfo({
 		profileDetails ? profileDetails.isFavourite : false
 	);
 	const [draftsModalVisible, updateDraftsModalVisible] = useState(false);
-	const [inviteToRFQModal, updateInviteToRFQModal] = useState(false)
-	const [showRateDetails, updateShowRateDetails] = useState(false)
+	const [inviteToRFQModal, updateInviteToRFQModal] = useState(false);
+	const [showRateDetails, updateShowRateDetails] = useState(false);
+	const [ratingsQuestAnswers, updateRatingsQuestAnswers] = useState([])
 	let authorTypeName = authorType(accountTypeId, userTypeId, roleId);
+
+	useEffect(() => {
+		if (profileDetails?.supplierContractorId) {
+			let data = {
+				vendorId: profileDetails.supplierContractorId,
+				languageId: currentLanguageId
+			}
+			getVendorRates(data, success => {
+				updateRatingsQuestAnswers(success.data)
+			}, fail => {
+				console.log(fail)
+			})
+		}
+	}, [profileDetails?.supplierContractorId, currentLanguageId])
 	function acceptOrRejectUserAction(isActive) {
 		acceptOrRejectUser(
 			{ isActive, rejectedUserId: profileDetails.userId },
@@ -74,16 +89,6 @@ function Personalnfo({
 			}
 		);
 	};
-	const ratingsQuestAnswers = [{
-		quest: 'hello',
-		answer: 'good'
-	}, {
-		quest: 'hello jsjsjssjjj',
-		answer: 'good'
-	}, {
-		quest: 'hello',
-		answer: 'good'
-	}]
 	return (
 		<div className="PersonalInfo">
 			{adminView ? (
@@ -169,14 +174,15 @@ function Personalnfo({
 											}
 										/>
 									</div>
-									{showRateDetails && <div className="ratingDetails p-2">
-										{ratingsQuestAnswers.map((quest, index) => {
-											return <div key={index} className='d-flex justify-content-between'>
-												<span className="mx-2">{quest.quest}</span>
-												<span lassName="mx-2">{quest.answer}</span>
-											</div>
-										})}
-									</div>}
+									{showRateDetails && ratingsQuestAnswers.length > 0 &&
+										<div className="ratingDetails p-2">
+											{ratingsQuestAnswers.map((quest, index) => {
+												return <div key={index} className='d-flex justify-content-between'>
+													<span className="mx-2">{quest.quest}</span>
+													<span lassName="mx-2">{quest.answer}</span>
+												</div>
+											})}
+										</div>}
 								</div>
 
 								<div className="d-flex">
